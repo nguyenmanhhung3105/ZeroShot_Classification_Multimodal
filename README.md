@@ -251,6 +251,6 @@ Loại bỏ: `image_damage`, `image_damage_conf` (Task 3, không dùng trong d�
 | Config | Giá trị mặc định | Ghi chú |
 |---|---|---|
 | `TASK` | `"humanitarian"` | Đổi thành `"informative"` nếu cần Task 1 |
-| `CONF_THRESHOLD` | `0.7` | Ngưỡng lọc confidence, có thể tăng để lấy dữ liệu "sạch" hơn nhưng ít mẫu hơn |
+| `CONF_THRESHOLD` | `0.6` | Ngưỡng lọc confidence, có thể tăng để lấy dữ liệu "sạch" hơn nhưng ít mẫu hơn |
 | `CHECK_IMAGE_EXISTS` | `True` | Tắt nếu chưa tải đủ ảnh về máy |
 | `STRIP_NON_ASCII` | `True` | Tắt nếu cần giữ lại ký tự có dấu hợp lệ (chấp nhận rủi ro còn sót rác) |
