@@ -1,0 +1,22 @@
+# Virtual environment
+venv/
+.venv/
+
+# Raw dataset
+data/raw/
+
+# Large / unnecessary processed dataset
+data/processed/pro_fakeddit/fakeddit_clean.tsv
+
+# Archives
+*.tar.gz
+
+# Python
+__pycache__/
+*.pyc
+
+# Jupyter
+.ipynb_checkpoints/
+
+# macOS
+.DS_Store

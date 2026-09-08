@@ -1,0 +1,33 @@
+# ============================================================
+# CONFIG TRUNG TÂM CHO TOÀN BỘ THÍ NGHIỆM
+# Đổi ở đây, không cần sửa code trong src/
+# ============================================================
+
+models:
+  - clip_vitb32
+  - clip_vitl14
+  - siglip_vitb16
+
+datasets:
+  fakeddit:
+    enabled: true
+    task: "2way"                 # "2way" hoặc "6way"
+    data_path: "data/processed/pro_fakeddit/fakeddit_sample.tsv"
+    task_type: "single_label"
+
+  crisismmd:
+    enabled: true
+    task: "humanitarian"      # "informativeness" hoặc "humanitarian"
+    data_path: "data/processed/pro_CrisisMMD/crisismmd_multimodal.tsv"
+    task_type: "single_label"
+
+  # mmimdb:
+  #   enabled: false                # bật lên khi đã xử lý xong dataset này
+  #   data_path: "data/processed/mmimdb_sample.parquet"
+  #   task_type: "multi_label"
+  #   threshold: 0.22
+
+output:
+  results_dir: "results/"
+  raw_predictions_dir: "results/raw_predictions/"
+  summary_table: "results/summary_table.csv"
