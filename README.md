@@ -51,12 +51,6 @@ Chạy trên file `multimodal_train.tsv` (564,000 dòng), kiểm tra:
 
 Kết quả: 562,466 / 564,000 dòng đạt chuẩn (99.73%) sau khi loại các trường hợp mismatch.
 
-### 1.5. Sự cố phát hiện: lỗi lệch cột khi lưu/đọc CSV
-
-Khi lưu bản đã làm sạch bằng `to_csv()` rồi đọc lại, một số dòng có ký tự đặc biệt trong `clean_title` (dấu phẩy, dấu ngoặc kép) làm CSV bị lệch cột, gây ra null giả ở các cột phía sau (`id`, `image_url`, `2_way_label`, `6_way_label`).
-
-**Cách xử lý:** chuyển toàn bộ pipeline lưu/đọc từ CSV sang **Parquet** — định dạng binary theo cột, không dùng delimiter nên không gặp lỗi này. Áp dụng cho cả bản `_clean` và bản `_sample`.
-
 ### 1.6. Sampling — subset cân bằng cho zero-shot
 
 Vì zero-shot không cần dataset lớn để đánh giá có ý nghĩa, giảm từ 562,466 dòng xuống subset nhỏ hơn:
