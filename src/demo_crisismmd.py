@@ -28,10 +28,11 @@ from prompts import crisismmd_prompts
 DATA_PATH = "data/processed/pro_CrisisMMD/crisismmd_multimodal.tsv"       # đổi path/tên file cho khớp máy bạn
 CRISISMMD_IMAGE_ROOT = "data/raw/CrisisMMD_v2.0"             # thư mục gốc chứa data_image/
 N_SAMPLES = 10
-# LABEL_COL = "label_informative"                          # đang test task Informativeness
-LABEL_COL = "label_humanitarian"                         # đang test task Humanitarian
-# TASK = "informativeness"
-TASK = "humanitarian"
+LABEL_COL = "label_informative"                          # đang test task Informativeness
+TASK = "informativeness"
+
+# LABEL_COL = "label_humanitarian"                         # đang test task Humanitarian
+# TASK = "humanitarian"
 
 
 # ============================================================
@@ -59,7 +60,7 @@ df_demo["full_image_path"] = df_demo["image_path"].apply(
 # BƯỚC 2: LOAD MODEL + PROMPT SET
 # ============================================================
 print("\nĐang load model CLIP (ViT-B/32) ...")
-vlm = load_model("clip_vitb32")
+vlm = load_model("clip_vitl14")             #clip_vitb32   clip_vitl14   siglip_vitb16
 
 prompt_set = crisismmd_prompts.get_prompt_set(TASK)
 class_embeds, label_order = build_class_embeddings(vlm, prompt_set)
@@ -116,7 +117,7 @@ for ax, (i, row), img in zip(axes, df_demo.iterrows(), images):
     )
 
 plt.tight_layout()
-output_path = "demo_crisismmd_result.png"
+output_path = f"demo_crisismmd_result_{vlm.model_name}.{LABEL_COL}.png"
 plt.savefig(output_path, dpi=120)
 print(f"\n✅ Đã lưu ảnh minh hoạ tại: {output_path}")
 plt.show()

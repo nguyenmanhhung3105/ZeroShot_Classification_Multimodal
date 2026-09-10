@@ -114,7 +114,7 @@ def list_available_models() -> list:
 if __name__ == "__main__":
     # Test nhanh: load thử 1 model, encode 1 câu text, in shape ra kiểm tra
     print("Các model khả dụng:", list_available_models())
-    vlm = load_model("clip_vitb32")
+    vlm = load_model("siglip_vitb16")
     text_embeds = vlm.encode_texts(["a photo of a cat", "a photo of a dog"])
     print("Shape text embedding:", text_embeds.shape)
     vlm.unload()
