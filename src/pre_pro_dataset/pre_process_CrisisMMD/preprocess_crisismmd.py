@@ -88,6 +88,7 @@ FILES = [
     "california_wildfires_final_data.tsv",
     "hurricane_harvey_final_data.tsv",
     "hurricane_irma_final_data.tsv",
+    "hurricane_maria_final_data.tsv",
     "iraq_iran_earthquake_final_data.tsv",
     "mexico_earthquake_final_data.tsv",
     "srilanka_floods_final_data.tsv",
@@ -95,7 +96,7 @@ FILES = [
 
 # Minimum confidence required on BOTH text and image annotation to keep a row
 # (checked separately per task -- see load_and_clean).
-CONF_THRESHOLD = 0.7
+CONF_THRESHOLD = 0.6
 
 # Verify image_path actually exists on disk. Set to None to skip the check.
 CHECK_IMAGE_EXISTS = True
