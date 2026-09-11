@@ -3,7 +3,7 @@ Preprocess CrisisMMD v2.0 annotation files into a single, clean TSV ready
 for zero-shot multimodal classification.
 
 Input : data/raw/CrisisMMD_v2.0/annotations/*.tsv   (6 event files)
-Output: data/processed/pro_CrisisMMD/crisismmd_multimodal.tsv
+Output: data/processed/pro_CrisisMMD/pre_crisismmd.tsv
 
 -----------------------------------------------------------------------------
 LABELING STRATEGY (why there are TWO label columns)
@@ -82,7 +82,7 @@ except ImportError:
 RAW_DIR = "data/raw/CrisisMMD_v2.0/annotations"
 IMAGE_ROOT = "data/raw/CrisisMMD_v2.0"  # folder containing "data_image/..."
 OUT_DIR = "data/processed/pro_CrisisMMD"
-OUT_FILE = os.path.join(OUT_DIR, "crisismmd_multimodal.tsv")
+OUT_FILE = os.path.join(OUT_DIR, "pre_crisismmd.tsv")
 
 FILES = [
     "california_wildfires_final_data.tsv",

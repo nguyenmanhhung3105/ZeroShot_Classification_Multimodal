@@ -1,7 +1,7 @@
 """
 Sanity-check script for the output of preprocess_crisismmd.py.
 
-Loads data/processed/pro_CrisisMMD/crisismmd_multimodal.tsv and re-verifies
+Loads data/processed/pro_CrisisMMD/pre_crisismmd.tsv and re-verifies
 every guarantee the preprocessing pipeline is supposed to have enforced:
 
   1. Expected columns are present, in a sane order.
@@ -33,7 +33,7 @@ import pandas as pd
 # CONFIG - keep in sync with preprocess_crisismmd.py
 # =============================================================================
 
-IN_FILE = "data/processed/pro_CrisisMMD/crisismmd_multimodal.tsv"
+IN_FILE = "data/processed/pro_CrisisMMD/pre_crisismmd.tsv"
 IMAGE_ROOT = "data/raw/CrisisMMD_v2.0"  # folder containing "data_image/..."
 CHECK_IMAGE_EXISTS = True
 
