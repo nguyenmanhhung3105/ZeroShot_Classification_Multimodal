@@ -4,9 +4,9 @@
 # ============================================================
 
 models:
-  - clip_vitb32
-  - clip_vitl14
-  - siglip_vitb16
+  - metaclip2_vith14
+  - openclip_vith14_laion2b
+  - siglip2_so400m
 
 datasets:
   fakeddit:
@@ -18,7 +18,7 @@ datasets:
   crisismmd:
     enabled: true
     task: "humanitarian"      # "informativeness" hoặc "humanitarian"
-    data_path: "data/processed/pro_CrisisMMD/crisismmd_multimodal.tsv"
+    data_path: "data/processed/pro_crisismmd/pre_crisismmd.tsv"
     task_type: "single_label"
 
   # mmimdb:

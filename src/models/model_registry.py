@@ -14,19 +14,26 @@ import open_clip
 # ============================================================
 # CẤU HÌNH CÁC MODEL SẼ DÙNG TRONG DỰ ÁN
 # ============================================================
+# Yêu cầu: pip install -U open_clip_torch  (>= 2.31.0 để có SigLIP2 / MetaCLIP2)
 MODEL_CONFIGS = {
-    "clip_vitb32": {
-        "arch": "ViT-B-32",
-        "pretrained": "openai",
+    # Dùng cho Fakeddit / CrisisMMD (single-label, cần khái quát hoá tốt trên
+    # domain ít gặp — data curation kỹ hơn là điểm mạnh của MetaCLIP 2)
+    "metaclip2_vith14": {
+        "arch": "ViT-H-14-worldwide",
+        "pretrained": "metaclip2_worldwide",
         "image_size": 224,
     },
-    "clip_vitl14": {
-        "arch": "ViT-L-14",
-        "pretrained": "openai",
+    # Dùng song song với MetaCLIP2 cho Fakeddit / CrisisMMD — ổn định hơn
+    # trước việc diễn đạt lại câu prompt (paraphrase-robust) so với SigLIP/SigLIP2
+    "openclip_vith14_laion2b": {
+        "arch": "ViT-H-14",
+        "pretrained": "laion2b_s32b_b79k",
         "image_size": 224,
     },
-    "siglip_vitb16": {
-        "arch": "ViT-B-16-SigLIP",
+    # Dùng riêng cho mmimdb (multi-label) — sigmoid loss độc lập từng nhãn
+    # khớp tự nhiên với bài toán multi-label, không dùng cho Fakeddit/CrisisMMD
+    "siglip2_so400m": {
+        "arch": "ViT-SO400M-14-SigLIP2",
         "pretrained": "webli",
         "image_size": 224,
     },
@@ -39,7 +46,6 @@ class VLMWrapper:
     - encode_images(list[PIL.Image]) -> tensor embedding đã normalize
     - encode_texts(list[str]) -> tensor embedding đã normalize
     - similarity(image_embeds, text_embeds) -> ma trận cosine similarity
-
     Dùng chung interface này để run_experiment.py không cần biết
     bên trong là CLIP hay SigLIP, tránh việc phải viết code riêng cho từng model.
     """
@@ -50,28 +56,22 @@ class VLMWrapper:
                 f"Model '{model_name}' chưa được khai báo trong MODEL_CONFIGS. "
                 f"Các model hợp lệ: {list(MODEL_CONFIGS.keys())}"
             )
-
         config = MODEL_CONFIGS[model_name]
         self.model_name = model_name
         self.device = device or ("cuda" if torch.cuda.is_available() else "cpu")
-
         print(f"[model_registry] Đang load model '{model_name}' ({config['arch']}, "
               f"pretrained={config['pretrained']}) lên {self.device} ...")
 
-        # force_quick_gelu=True: khớp đúng kiến trúc gốc mà OpenAI dùng khi train CLIP,
-        # tránh cảnh báo "QuickGELU mismatch" và tránh lệch nhẹ kết quả zero-shot.
-        # Chỉ cần cho các checkpoint pretrained="openai"; SigLIP không dùng QuickGELU nên bỏ qua.
-        extra_kwargs = {"force_quick_gelu": True} if config["pretrained"] == "openai" else {}
-
+        # Các tag mới (MetaCLIP2, LAION-2B, SigLIP2) đã tự khai báo đúng
+        # activation (QuickGELU hay không) bên trong open_clip, nên không cần
+        # truyền force_quick_gelu thủ công như trước với checkpoint "openai".
         self.model, _, self.preprocess = open_clip.create_model_and_transforms(
-            config["arch"], pretrained=config["pretrained"], **extra_kwargs
+            config["arch"], pretrained=config["pretrained"]
         )
         self.tokenizer = open_clip.get_tokenizer(config["arch"])
-
         self.model.to(self.device)
         self.model.eval()  # QUAN TRỌNG: chế độ eval, tắt dropout/batchnorm update
-
-        print(f"[model_registry] - Load xong '{model_name}'")
+        print(f"[model_registry] -> Load xong '{model_name}'")
 
     @torch.no_grad()
     def encode_images(self, images: list) -> torch.Tensor:
@@ -114,7 +114,7 @@ def list_available_models() -> list:
 if __name__ == "__main__":
     # Test nhanh: load thử 1 model, encode 1 câu text, in shape ra kiểm tra
     print("Các model khả dụng:", list_available_models())
-    vlm = load_model("siglip_vitb16")
+    vlm = load_model("siglip2_so400m")
     text_embeds = vlm.encode_texts(["a photo of a cat", "a photo of a dog"])
     print("Shape text embedding:", text_embeds.shape)
     vlm.unload()

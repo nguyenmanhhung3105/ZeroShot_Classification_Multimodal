@@ -1,114 +1,480 @@
-"""
-Vòng lặp thí nghiệm chính: model x dataset.
+# """
+# Vòng lặp thí nghiệm chính: model x dataset.
 
-QUAN TRỌNG (đúng nguyên tắc đã thống nhất):
-- Mỗi model chỉ load 1 LẦN DUY NHẤT (vòng ngoài cùng).
-- Với mỗi model, chạy hết tất cả dataset rồi mới unload, load model tiếp theo.
-- Không có bước train/fine-tune nào -> không có "xung đột" giữa các lần gọi.
+# QUAN TRỌNG (đúng nguyên tắc đã thống nhất):
+# - Mỗi model chỉ load 1 LẦN DUY NHẤT (vòng ngoài cùng).
+# - Với mỗi model, chạy hết tất cả dataset rồi mới unload, load model tiếp theo.
+# - Không có bước train/fine-tune nào -> không có "xung đột" giữa các lần gọi.
+# """
+
+# import os
+# import yaml
+# import pandas as pd
+# from PIL import Image
+
+# from models.model_registry import load_model
+# from inference import build_class_embeddings, predict_single_label, predict_multi_label
+# from evaluate import evaluate_single_label, evaluate_multi_label
+
+# from prompts import fakeddit_prompts, crisismmd_prompts, mmimdb_prompts
+
+
+# def load_config(path="configs/experiment_config.yaml") -> dict:
+#     with open(path, "r") as f:
+#         return yaml.safe_load(f)
+
+
+# def load_images_safe(image_paths: list) -> tuple:
+#     """
+#     Load ảnh, bỏ qua ảnh lỗi/không tồn tại thay vì crash toàn bộ pipeline.
+#     Trả về (list ảnh hợp lệ, list index tương ứng trong dataframe gốc).
+#     """
+#     images, valid_indices = [], []
+#     for i, path in enumerate(image_paths):
+#         try:
+#             img = Image.open(path).convert("RGB")
+#             images.append(img)
+#             valid_indices.append(i)
+#         except Exception as e:
+#             print(f" Bỏ qua ảnh lỗi tại {path}: {e}")
+#     return images, valid_indices
+
+
+# def run_fakeddit(vlm, task_config: dict) -> dict:
+#     print(f"\n{'='*60}\nDATASET: Fakeddit (task={task_config['task']})\n{'='*60}")
+
+#     if not os.path.exists(task_config["data_path"]):
+#         print(f" Không tìm thấy file {task_config['data_path']}, bỏ qua dataset này")
+#         return {}
+
+#     df = pd.read_parquet(task_config["data_path"])
+#     label_col = "6_way_label" if task_config["task"] == "6way" else "2_way_label"
+
+#     prompt_set = fakeddit_prompts.get_prompt_set(task_config["task"])
+#     label_names = fakeddit_prompts.get_label_names(task_config["task"])
+#     class_embeds, label_order = build_class_embeddings(vlm, prompt_set)
+
+#     images, valid_idx = load_images_safe(df["image_path"].tolist() if "image_path" in df.columns
+#                                           else [f"data/raw/fakeddit/images/{i}.jpg" for i in df["id"]])
+#     df_valid = df.iloc[valid_idx].reset_index(drop=True)
+
+#     predictions, sims = predict_single_label(vlm, images, class_embeds, label_order)
+#     y_true = df_valid[label_col].tolist()
+
+#     result = evaluate_single_label(y_true, predictions, label_order)
+#     return result
+
+
+# def run_crisismmd(vlm, task_config: dict) -> dict:
+#     print(f"\n{'='*60}\nDATASET: CrisisMMD (task={task_config['task']})\n{'='*60}")
+
+#     if not os.path.exists(task_config["data_path"]):
+#         print(f" Không tìm thấy file {task_config['data_path']}, bỏ qua dataset này")
+#         return {}
+
+#     df = pd.read_parquet(task_config["data_path"])
+
+#     prompt_set = crisismmd_prompts.get_prompt_set(task_config["task"])
+#     label_names = crisismmd_prompts.get_label_names(task_config["task"])
+#     class_embeds, label_order = build_class_embeddings(vlm, prompt_set)
+
+#     images, valid_idx = load_images_safe(df["image_path"].tolist())
+#     df_valid = df.iloc[valid_idx].reset_index(drop=True)
+
+#     predictions, sims = predict_single_label(vlm, images, class_embeds, label_order)
+#     y_true = df_valid["label"].tolist()
+
+#     low_sample = crisismmd_prompts.LOW_SAMPLE_WARNING_CLASSES if task_config["task"] == "humanitarian" else None
+#     result = evaluate_single_label(y_true, predictions, label_order, low_sample_classes=low_sample)
+#     return result
+
+
+# def run_mmimdb(vlm, task_config: dict) -> dict:
+#     print(f"\n{'='*60}\nDATASET: MM-IMDb (multi-label)\n{'='*60}")
+
+#     if not os.path.exists(task_config["data_path"]):
+#         print(f" Không tìm thấy file {task_config['data_path']}, bỏ qua dataset này")
+#         return {}
+
+#     df = pd.read_parquet(task_config["data_path"])
+
+#     prompt_set = mmimdb_prompts.get_prompt_set()
+#     class_embeds, label_order = build_class_embeddings(vlm, prompt_set)
+
+#     images, valid_idx = load_images_safe(df["poster_path"].tolist())
+#     df_valid = df.iloc[valid_idx].reset_index(drop=True)
+
+#     predictions, sims = predict_multi_label(vlm, images, class_embeds, label_order,
+#                                              threshold=task_config.get("threshold", 0.22))
+#     y_true = df_valid["genres"].tolist()  # kỳ vọng mỗi phần tử là list, ví dụ ["Comedy","Family"]
+
+#     result = evaluate_multi_label(y_true, predictions, label_order)
+#     return result
+
+
+# DATASET_RUNNERS = {
+#     "fakeddit": run_fakeddit,
+#     "crisismmd": run_crisismmd,
+#     "mmimdb": run_mmimdb,
+# }
+
+
+# def main():
+#     config = load_config()
+#     all_results = []
+
+#     os.makedirs(config["output"]["results_dir"], exist_ok=True)
+
+#     # ============================================================
+#     # VÒNG NGOÀI CÙNG: MODEL — chỉ load 1 lần, chạy hết dataset rồi mới đổi model
+#     # ============================================================
+#     for model_name in config["models"]:
+#         vlm = load_model(model_name)
+
+#         for dataset_name, dataset_config in config["datasets"].items():
+#             if not dataset_config.get("enabled", False):
+#                 print(f"⏭  Bỏ qua dataset '{dataset_name}' (enabled=false trong config)")
+#                 continue
+
+#             runner = DATASET_RUNNERS.get(dataset_name)
+#             if runner is None:
+#                 print(f" Chưa có runner cho dataset '{dataset_name}', bỏ qua")
+#                 continue
+
+#             try:
+#                 metrics = runner(vlm, dataset_config)
+#             except Exception as e:
+#                 print(f" Lỗi khi chạy {model_name} x {dataset_name}: {e}")
+#                 metrics = {"error": str(e)}
+
+#             row = {"model": model_name, "dataset": dataset_name,
+#                    "task": dataset_config.get("task", "-")}
+#             row.update(metrics)
+#             all_results.append(row)
+
+#         vlm.unload()  # giải phóng GPU trước khi load model tiếp theo
+
+#     # ============================================================
+#     # LƯU BẢNG TỔNG HỢP CUỐI CÙNG
+#     # ============================================================
+#     summary_df = pd.DataFrame(all_results)
+#     summary_df.to_csv(config["output"]["summary_table"], index=False)
+#     print(f"\n Đã lưu bảng tổng hợp tại: {config['output']['summary_table']}")
+#     print(summary_df)
+
+
+# if __name__ == "__main__":
+#     main()
+
+
+"""
+Main experiment loop: model x dataset.
+
+Nguyên tắc:
+- Mỗi model chỉ load 1 lần.
+- Chạy toàn bộ dataset được enable.
+- Sau đó unload trước khi chuyển sang model tiếp theo.
+- Dataset, đường dẫn, batch size và output đều điều khiển từ experiment_config.yaml.
 """
 
+import ast
+import json
 import os
-import yaml
+
 import pandas as pd
+import yaml
 from PIL import Image
 
 from models.model_registry import load_model
 from inference import build_class_embeddings, predict_single_label, predict_multi_label
-from evaluate import evaluate_single_label, evaluate_multi_label
-
+from evaluate import evaluate_single_label, evaluate_binary, evaluate_multi_label
+from logging_utils import save_single_label_log, save_multi_label_log
 from prompts import fakeddit_prompts, crisismmd_prompts, mmimdb_prompts
 
 
 def load_config(path="configs/experiment_config.yaml") -> dict:
-    with open(path, "r") as f:
-        return yaml.safe_load(f)
+    with open(path, "r", encoding="utf-8") as f: return yaml.safe_load(f)
+
+
+def load_dataframe(path: str) -> pd.DataFrame:
+    """Tự nhận diện TSV / CSV / Parquet."""
+    if not os.path.exists(path): raise FileNotFoundError(f"Không tìm thấy dataset: {path}")
+
+    if path.endswith(".tsv"): return pd.read_csv(path, sep="\t")
+    if path.endswith(".csv"): return pd.read_csv(path)
+    if path.endswith(".parquet"): return pd.read_parquet(path)
+
+    raise ValueError(f"Định dạng dataset chưa hỗ trợ: {path}")
+
+
+def resolve_image_paths(df: pd.DataFrame, task_config: dict) -> list:
+    """
+    Xác định path ảnh.
+
+    Ưu tiên:
+    1. image_col trong dataframe nếu tồn tại và path đó chạy được.
+    2. image_dir + basename(image_col).
+    3. image_dir + id + image_ext.
+    """
+    image_dir = task_config.get("image_dir", "")
+    image_col = task_config.get("image_col", "image_path")
+    id_col = task_config.get("id_col", "id")
+    image_ext = task_config.get("image_ext", ".jpg")
+
+    paths = []
+
+    for _, row in df.iterrows():
+        candidates = []
+
+        if image_col in df.columns and pd.notna(row[image_col]):
+            raw_path = str(row[image_col])
+            candidates.append(raw_path)
+
+            if image_dir:
+                candidates.append(os.path.join(image_dir, raw_path))
+                candidates.append(os.path.join(image_dir, os.path.basename(raw_path)))
+
+        if id_col in df.columns and image_dir:
+            sample_id = str(row[id_col])
+            candidates.append(os.path.join(image_dir, sample_id))
+            candidates.append(os.path.join(image_dir, f"{sample_id}{image_ext}"))
+
+        resolved = next((path for path in candidates if os.path.exists(path)), candidates[0] if candidates else "")
+        paths.append(resolved)
+
+    return paths
 
 
 def load_images_safe(image_paths: list) -> tuple:
-    """
-    Load ảnh, bỏ qua ảnh lỗi/không tồn tại thay vì crash toàn bộ pipeline.
-    Trả về (list ảnh hợp lệ, list index tương ứng trong dataframe gốc).
-    """
+    """Load ảnh và bỏ qua ảnh lỗi thay vì crash toàn bộ experiment."""
     images, valid_indices = [], []
+
     for i, path in enumerate(image_paths):
         try:
-            img = Image.open(path).convert("RGB")
-            images.append(img)
+            with Image.open(path) as img: images.append(img.convert("RGB"))
             valid_indices.append(i)
         except Exception as e:
-            print(f" Bỏ qua ảnh lỗi tại {path}: {e}")
+            print(f"[image] Bỏ qua ảnh lỗi: {path} -> {e}")
+
     return images, valid_indices
 
 
-def run_fakeddit(vlm, task_config: dict) -> dict:
-    print(f"\n{'='*60}\nDATASET: Fakeddit (task={task_config['task']})\n{'='*60}")
+def validate_columns(df: pd.DataFrame, required_columns: list, dataset_name: str) -> None:
+    missing = [column for column in required_columns if column not in df.columns]
 
-    if not os.path.exists(task_config["data_path"]):
-        print(f" Không tìm thấy file {task_config['data_path']}, bỏ qua dataset này")
-        return {}
+    if missing:
+        raise ValueError(
+            f"{dataset_name}: thiếu các cột {missing}. "
+            f"Các cột hiện có: {df.columns.tolist()}"
+        )
 
-    df = pd.read_parquet(task_config["data_path"])
-    label_col = "6_way_label" if task_config["task"] == "6way" else "2_way_label"
 
-    prompt_set = fakeddit_prompts.get_prompt_set(task_config["task"])
-    label_names = fakeddit_prompts.get_label_names(task_config["task"])
+def parse_multilabel(value) -> list:
+    """Chuyển genres từ TSV thành list label."""
+    if isinstance(value, (list, tuple, set)): return list(value)
+    if value is None or (isinstance(value, float) and pd.isna(value)): return []
+
+    text = str(value).strip()
+    if not text: return []
+
+    for parser in (json.loads, ast.literal_eval):
+        try:
+            parsed = parser(text)
+            if isinstance(parsed, (list, tuple, set)): return [str(x).strip() for x in parsed]
+        except Exception:
+            pass
+
+    if "|" in text: return [x.strip() for x in text.split("|") if x.strip()]
+    return [x.strip() for x in text.split(",") if x.strip()]
+
+
+def normalize_single_labels(values: list, label_names, label_order: list) -> list:
+    """
+    Map label số trong dataset sang tên class trong prompt.
+
+    Hỗ trợ:
+    - label đã là string giống prompt
+    - label_names dạng dict
+    - label_names dạng list
+    """
+    if label_names is None: return values
+
+    mapping = {}
+
+    if isinstance(label_names, dict):
+        mapping.update(label_names)
+        mapping.update({str(k): v for k, v in label_names.items()})
+
+    elif isinstance(label_names, (list, tuple)):
+        mapping.update({i: label for i, label in enumerate(label_names)})
+        mapping.update({str(i): label for i, label in enumerate(label_names)})
+
+    normalized = []
+
+    for value in values:
+        if isinstance(value, float) and value.is_integer(): value = int(value)
+        normalized.append(mapping.get(value, mapping.get(str(value), value)))
+
+    return normalized
+
+
+def run_fakeddit(vlm, task_config: dict, config: dict) -> dict:
+    task = task_config["task"]
+    print(f"\n{'=' * 70}\nDATASET: Fakeddit | TASK: {task}\n{'=' * 70}")
+
+    df = load_dataframe(task_config["data_path"])
+
+    id_col = task_config.get("id_col", "id")
+    text_col = task_config.get("text_col", "clean_title")
+    label_col = task_config.get("label_col_6way", "6_way_label") if task == "6way" else task_config.get("label_col_2way", "2_way_label")
+
+    validate_columns(df, [id_col, text_col, label_col], "Fakeddit")
+
+    prompt_set = fakeddit_prompts.get_prompt_set(task)
+    label_names = fakeddit_prompts.get_label_names(task)
     class_embeds, label_order = build_class_embeddings(vlm, prompt_set)
 
-    images, valid_idx = load_images_safe(df["image_path"].tolist() if "image_path" in df.columns
-                                          else [f"data/raw/fakeddit/images/{i}.jpg" for i in df["id"]])
+    image_paths = resolve_image_paths(df, task_config)
+    images, valid_idx = load_images_safe(image_paths)
+
+    if not images: raise RuntimeError("Fakeddit: không load được ảnh hợp lệ nào.")
+
     df_valid = df.iloc[valid_idx].reset_index(drop=True)
+    df_valid["_resolved_image_path"] = [image_paths[i] for i in valid_idx]
 
-    predictions, sims = predict_single_label(vlm, images, class_embeds, label_order)
-    y_true = df_valid[label_col].tolist()
+    batch_size = config.get("inference", {}).get("batch_size", 16)
+    predictions, sims = predict_single_label(vlm, images, class_embeds, label_order, batch_size=batch_size)
 
-    result = evaluate_single_label(y_true, predictions, label_order)
+    y_true = normalize_single_labels(df_valid[label_col].tolist(), label_names, label_order)
+
+    if task == "2way" and task_config.get("positive_label"):
+        positive_label = task_config["positive_label"]
+        positive_idx = label_order.index(positive_label)
+        result = evaluate_binary(y_true, predictions, sims[:, positive_idx], positive_label)
+    else:
+        result = evaluate_single_label(y_true, predictions, label_order)
+
+    save_single_label_log(
+        df_valid, y_true, predictions, sims, label_order,
+        id_col=id_col,
+        text_col=text_col,
+        model_name=vlm.model_name,
+        dataset_name="fakeddit",
+        task_name=task,
+        output_dir=config["output"]["raw_predictions_dir"],
+        prompt_version=task_config.get("prompt_version", "v1"),
+        extra_manifest={"batch_size": batch_size}
+    )
+
     return result
 
 
-def run_crisismmd(vlm, task_config: dict) -> dict:
-    print(f"\n{'='*60}\nDATASET: CrisisMMD (task={task_config['task']})\n{'='*60}")
+def run_crisismmd(vlm, task_config: dict, config: dict) -> dict:
+    task = task_config["task"]
+    print(f"\n{'=' * 70}\nDATASET: CrisisMMD | TASK: {task}\n{'=' * 70}")
 
-    if not os.path.exists(task_config["data_path"]):
-        print(f" Không tìm thấy file {task_config['data_path']}, bỏ qua dataset này")
-        return {}
+    df = load_dataframe(task_config["data_path"])
 
-    df = pd.read_parquet(task_config["data_path"])
+    id_col = task_config.get("id_col", "id")
+    text_col = task_config.get("text_col", "tweet_text")
+    label_col = task_config.get("label_col", "label")
 
-    prompt_set = crisismmd_prompts.get_prompt_set(task_config["task"])
-    label_names = crisismmd_prompts.get_label_names(task_config["task"])
+    validate_columns(df, [id_col, text_col, label_col], "CrisisMMD")
+
+    prompt_set = crisismmd_prompts.get_prompt_set(task)
+    label_names = crisismmd_prompts.get_label_names(task)
     class_embeds, label_order = build_class_embeddings(vlm, prompt_set)
 
-    images, valid_idx = load_images_safe(df["image_path"].tolist())
+    image_paths = resolve_image_paths(df, task_config)
+    images, valid_idx = load_images_safe(image_paths)
+
+    if not images: raise RuntimeError("CrisisMMD: không load được ảnh hợp lệ nào.")
+
     df_valid = df.iloc[valid_idx].reset_index(drop=True)
+    df_valid["_resolved_image_path"] = [image_paths[i] for i in valid_idx]
 
-    predictions, sims = predict_single_label(vlm, images, class_embeds, label_order)
-    y_true = df_valid["label"].tolist()
+    batch_size = config.get("inference", {}).get("batch_size", 16)
+    predictions, sims = predict_single_label(vlm, images, class_embeds, label_order, batch_size=batch_size)
 
-    low_sample = crisismmd_prompts.LOW_SAMPLE_WARNING_CLASSES if task_config["task"] == "humanitarian" else None
-    result = evaluate_single_label(y_true, predictions, label_order, low_sample_classes=low_sample)
+    y_true = normalize_single_labels(df_valid[label_col].tolist(), label_names, label_order)
+    low_sample = crisismmd_prompts.LOW_SAMPLE_WARNING_CLASSES if task == "humanitarian" else None
+
+    if task == "informativeness" and task_config.get("positive_label"):
+        positive_label = task_config["positive_label"]
+        positive_idx = label_order.index(positive_label)
+        result = evaluate_binary(y_true, predictions, sims[:, positive_idx], positive_label)
+    else:
+        result = evaluate_single_label(y_true, predictions, label_order, low_sample_classes=low_sample)
+
+    save_single_label_log(
+        df_valid, y_true, predictions, sims, label_order,
+        id_col=id_col,
+        text_col=text_col,
+        model_name=vlm.model_name,
+        dataset_name="crisismmd",
+        task_name=task,
+        output_dir=config["output"]["raw_predictions_dir"],
+        prompt_version=task_config.get("prompt_version", "v1"),
+        extra_manifest={"batch_size": batch_size}
+    )
+
     return result
 
 
-def run_mmimdb(vlm, task_config: dict) -> dict:
-    print(f"\n{'='*60}\nDATASET: MM-IMDb (multi-label)\n{'='*60}")
+def run_mmimdb(vlm, task_config: dict, config: dict) -> dict:
+    print(f"\n{'=' * 70}\nDATASET: MM-IMDb | TASK: multi-label\n{'=' * 70}")
 
-    if not os.path.exists(task_config["data_path"]):
-        print(f" Không tìm thấy file {task_config['data_path']}, bỏ qua dataset này")
-        return {}
+    df = load_dataframe(task_config["data_path"])
 
-    df = pd.read_parquet(task_config["data_path"])
+    id_col = task_config.get("id_col", "id")
+    text_col = task_config.get("text_col", "plot")
+    label_col = task_config.get("label_col", "genres")
+
+    validate_columns(df, [id_col, text_col, label_col], "MM-IMDb")
 
     prompt_set = mmimdb_prompts.get_prompt_set()
     class_embeds, label_order = build_class_embeddings(vlm, prompt_set)
 
-    images, valid_idx = load_images_safe(df["poster_path"].tolist())
+    image_paths = resolve_image_paths(df, task_config)
+    images, valid_idx = load_images_safe(image_paths)
+
+    if not images: raise RuntimeError("MM-IMDb: không load được ảnh hợp lệ nào.")
+
     df_valid = df.iloc[valid_idx].reset_index(drop=True)
+    df_valid["_resolved_image_path"] = [image_paths[i] for i in valid_idx]
 
-    predictions, sims = predict_multi_label(vlm, images, class_embeds, label_order,
-                                             threshold=task_config.get("threshold", 0.22))
-    y_true = df_valid["genres"].tolist()  # kỳ vọng mỗi phần tử là list, ví dụ ["Comedy","Family"]
+    threshold = task_config.get("threshold", 0.22)
+    fallback_top1 = task_config.get("fallback_top1", True)
+    batch_size = config.get("inference", {}).get("batch_size", 16)
 
+    predictions, probs = predict_multi_label(
+        vlm, images, class_embeds, label_order,
+        threshold=threshold,
+        fallback_top1=fallback_top1,
+        batch_size=batch_size
+    )
+
+    y_true = [parse_multilabel(value) for value in df_valid[label_col].tolist()]
     result = evaluate_multi_label(y_true, predictions, label_order)
+
+    save_multi_label_log(
+        df_valid, y_true, predictions, probs, label_order,
+        id_col=id_col,
+        text_col=text_col,
+        model_name=vlm.model_name,
+        dataset_name="mmimdb",
+        task_name="multi_label",
+        output_dir=config["output"]["raw_predictions_dir"],
+        prompt_version=task_config.get("prompt_version", "v1"),
+        extra_manifest={
+            "threshold": threshold,
+            "fallback_top1": fallback_top1,
+            "batch_size": batch_size,
+            "logit_scale": vlm.logit_scale,
+            "logit_bias": vlm.logit_bias,
+        }
+    )
+
     return result
 
 
@@ -124,42 +490,52 @@ def main():
     all_results = []
 
     os.makedirs(config["output"]["results_dir"], exist_ok=True)
+    os.makedirs(config["output"]["raw_predictions_dir"], exist_ok=True)
 
-    # ============================================================
-    # VÒNG NGOÀI CÙNG: MODEL — chỉ load 1 lần, chạy hết dataset rồi mới đổi model
-    # ============================================================
     for model_name in config["models"]:
-        vlm = load_model(model_name)
+        print(f"\n{'#' * 70}\nMODEL: {model_name}\n{'#' * 70}")
 
-        for dataset_name, dataset_config in config["datasets"].items():
-            if not dataset_config.get("enabled", False):
-                print(f"⏭  Bỏ qua dataset '{dataset_name}' (enabled=false trong config)")
-                continue
+        vlm = None
 
-            runner = DATASET_RUNNERS.get(dataset_name)
-            if runner is None:
-                print(f" Chưa có runner cho dataset '{dataset_name}', bỏ qua")
-                continue
+        try:
+            vlm = load_model(model_name, device=config.get("device"))
 
-            try:
-                metrics = runner(vlm, dataset_config)
-            except Exception as e:
-                print(f" Lỗi khi chạy {model_name} x {dataset_name}: {e}")
-                metrics = {"error": str(e)}
+            for dataset_name, dataset_config in config["datasets"].items():
+                if not dataset_config.get("enabled", False):
+                    print(f"Bỏ qua '{dataset_name}' vì enabled=false")
+                    continue
 
-            row = {"model": model_name, "dataset": dataset_name,
-                   "task": dataset_config.get("task", "-")}
-            row.update(metrics)
-            all_results.append(row)
+                runner = DATASET_RUNNERS.get(dataset_name)
 
-        vlm.unload()  # giải phóng GPU trước khi load model tiếp theo
+                if runner is None:
+                    print(f"Chưa có runner cho dataset '{dataset_name}'")
+                    continue
 
-    # ============================================================
-    # LƯU BẢNG TỔNG HỢP CUỐI CÙNG
-    # ============================================================
+                try:
+                    metrics = runner(vlm, dataset_config, config)
+                except Exception as e:
+                    print(f"Lỗi {model_name} x {dataset_name}: {e}")
+                    metrics = {"error": str(e)}
+
+                row = {
+                    "model": model_name,
+                    "dataset": dataset_name,
+                    "task": dataset_config.get("task", "-"),
+                    "task_type": dataset_config.get("task_type", "-"),
+                }
+
+                row.update(metrics)
+                all_results.append(row)
+
+        finally:
+            if vlm is not None: vlm.unload()
+
     summary_df = pd.DataFrame(all_results)
     summary_df.to_csv(config["output"]["summary_table"], index=False)
-    print(f"\n Đã lưu bảng tổng hợp tại: {config['output']['summary_table']}")
+
+    print(f"\n{'=' * 70}")
+    print(f"Đã lưu summary tại: {config['output']['summary_table']}")
+    print(f"{'=' * 70}")
     print(summary_df)
 
 

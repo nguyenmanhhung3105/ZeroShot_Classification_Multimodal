@@ -1,72 +1,102 @@
 """
-Core zero-shot inference — đúng cơ chế thật của CLIP đã giải thích:
-KHÔNG có "hỏi - đáp", chỉ có encode ảnh + encode text -> so cosine similarity -> chọn nhãn.
+Core zero-shot inference.
+
+Cơ chế:
+    Image -> image embedding
+    Prompt -> text embedding
+    Cosine similarity giữa image và class embeddings
+
+Single-label:
+    Fakeddit, CrisisMMD -> ARGMAX
+
+Multi-label:
+    MM-IMDb -> SIGMOID + THRESHOLD
 """
 
-import torch
-from models.model_registry import VLMWrapper
+import numpy as np
 
 
-def build_class_embeddings(vlm: VLMWrapper, prompt_set: dict) -> tuple:
+def _sigmoid(x: np.ndarray) -> np.ndarray:
+    return 1.0 / (1.0 + np.exp(-np.clip(x, -50, 50)))
+
+
+def build_class_embeddings(vlm, prompt_set: dict) -> tuple:
     """
-    prompt_set: dict {label: [câu prompt 1, câu prompt 2, ...]}
+    Tạo embedding đại diện cho từng class bằng prompt ensembling.
 
-    Với mỗi lớp có nhiều câu prompt (ensembling), encode hết rồi lấy TRUNG BÌNH
-    embedding của các câu đó làm đại diện cho lớp -> giúp kết quả ổn định hơn
-    so với chỉ dùng 1 câu prompt duy nhất.
+    prompt_set:
+        {
+            "class_a": ["prompt 1", "prompt 2"],
+            "class_b": ["prompt 1", "prompt 2"]
+        }
 
-    Trả về:
-        - class_embeds: tensor [n_classes, dim]
-        - label_order: list label theo đúng thứ tự hàng trong class_embeds
+    Mỗi prompt được encode -> lấy mean embedding -> normalize lại.
+
+    Returns:
+        class_embeds: np.ndarray (n_classes, D)
+        label_order : list[str]
     """
     label_order = list(prompt_set.keys())
-    class_embeds_list = []
+    class_embeds = []
 
     for label in label_order:
         prompts = prompt_set[label]
-        text_embeds = vlm.encode_texts(prompts)          # [n_prompts, dim]
-        mean_embed = text_embeds.mean(dim=0)              # trung bình các prompt
-        mean_embed = mean_embed / mean_embed.norm()        # normalize lại sau khi mean
-        class_embeds_list.append(mean_embed)
+        if isinstance(prompts, str): prompts = [prompts]
 
-    class_embeds = torch.stack(class_embeds_list)          # [n_classes, dim]
-    return class_embeds, label_order
+        text_embeds = vlm.encode_text(prompts)
+        mean_embed = text_embeds.mean(axis=0)
+        mean_embed = mean_embed / (np.linalg.norm(mean_embed) + 1e-12)
+        class_embeds.append(mean_embed)
+
+    return np.stack(class_embeds, axis=0), label_order
 
 
-@torch.no_grad()
-def predict_single_label(vlm: VLMWrapper, images: list, class_embeds: torch.Tensor,
-                          label_order: list) -> list:
+def predict_single_label(vlm, images: list, class_embeds: np.ndarray, label_order: list) -> tuple:
     """
-    Dùng cho bài toán single-label (Fakeddit, CrisisMMD): argmax similarity.
-    images: list PIL.Image
-    Trả về: list label dự đoán (theo đúng thứ tự images đưa vào)
+    Single-label inference cho Fakeddit / CrisisMMD.
+
+    Mỗi ảnh nhận đúng 1 class có cosine similarity cao nhất.
+
+    Returns:
+        predictions: list[str]
+        sims       : np.ndarray (N, n_classes)
     """
-    image_embeds = vlm.encode_images(images)                    # [n_images, dim]
-    sims = vlm.similarity(image_embeds, class_embeds)            # [n_images, n_classes]
-    pred_indices = sims.argmax(dim=1).cpu().tolist()
+    image_embeds = vlm.encode_image(images)
+    sims = image_embeds @ class_embeds.T
+    pred_indices = np.argmax(sims, axis=1)
     predictions = [label_order[i] for i in pred_indices]
-    return predictions, sims.cpu().numpy()
+
+    return predictions, sims
 
 
-@torch.no_grad()
-def predict_multi_label(vlm: VLMWrapper, images: list, class_embeds: torch.Tensor,
-                         label_order: list, threshold: float = 0.22) -> list:
+def predict_multi_label(vlm, images: list, class_embeds: np.ndarray, label_order: list, threshold: float = 0.22, fallback_top1: bool = True) -> tuple:
     """
-    Dùng cho bài toán multi-label (MM-IMDb): chọn TẤT CẢ lớp có similarity vượt threshold,
-    KHÔNG dùng argmax vì 1 ảnh có thể thuộc nhiều lớp cùng lúc.
+    Multi-label inference cho MM-IMDb.
 
-    threshold: ngưỡng similarity để coi là "thuộc lớp này". Giá trị 0.22 là điểm khởi đầu
-    hợp lý cho CLIP cosine similarity (thường nằm trong khoảng 0.15-0.35), CẦN tinh chỉnh
-    lại dựa trên phân tích thực tế trên tập validation.
+    Mỗi class được đánh giá độc lập bằng sigmoid.
+    Class có probability > threshold sẽ được chọn.
+
+    Args:
+        threshold    : ngưỡng multi-label, cần tune trên validation set.
+        fallback_top1: nếu không class nào vượt threshold thì lấy class có điểm cao nhất.
+
+    Returns:
+        predictions: list[list[str]]
+        probs      : np.ndarray (N, n_classes)
     """
-    image_embeds = vlm.encode_images(images)
-    sims = vlm.similarity(image_embeds, class_embeds)            # [n_images, n_classes]
+    image_embeds = vlm.encode_image(images)
+    sims = image_embeds @ class_embeds.T
+
+    logit_scale = getattr(vlm, "logit_scale", 1.0)
+    logit_bias = getattr(vlm, "logit_bias", None)
+    if logit_bias is None: logit_bias = 0.0
+
+    probs = _sigmoid(logit_scale * sims + logit_bias)
 
     predictions = []
-    for row in sims.cpu().numpy():
-        pred_labels = [label_order[i] for i, score in enumerate(row) if score >= threshold]
-        if not pred_labels:  # fallback: nếu không lớp nào vượt threshold, lấy lớp cao nhất
-            pred_labels = [label_order[row.argmax()]]
-        predictions.append(pred_labels)
+    for row in probs:
+        labels = [label_order[i] for i, prob in enumerate(row) if prob >= threshold]
+        if not labels and fallback_top1: labels = [label_order[int(np.argmax(row))]]
+        predictions.append(labels)
 
-    return predictions, sims.cpu().numpy()
+    return predictions, probs
