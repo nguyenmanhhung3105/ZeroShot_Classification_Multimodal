@@ -39,7 +39,7 @@ def evaluate_single_label(y_true: list, y_pred: list, label_order: list,
     print(classification_report(y_true, y_pred, labels=label_order, zero_division=0))
 
     if low_sample_classes:
-        print(f"\n⚠️  CẢNH BÁO: các lớp sau có cỡ mẫu quá nhỏ, kết quả không đủ tin cậy "
+        print(f"\n  CẢNH BÁO: các lớp sau có cỡ mẫu quá nhỏ, kết quả không đủ tin cậy "
               f"thống kê để kết luận chắc chắn: {low_sample_classes}")
 
     return result
@@ -59,7 +59,7 @@ def evaluate_binary(y_true: list, y_pred: list, y_scores: np.ndarray,
     try:
         auroc = roc_auc_score(y_true_binary, y_scores)
     except ValueError as e:
-        print(f"⚠️ Không tính được AUROC: {e}")
+        print(f"  CẢNH BÁO: Không tính được AUROC: {e}")
         auroc = None
 
     print(f"Accuracy : {acc:.4f}")

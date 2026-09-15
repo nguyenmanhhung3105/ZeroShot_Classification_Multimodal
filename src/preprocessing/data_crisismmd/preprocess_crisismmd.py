@@ -1,352 +1,263 @@
 """
-Preprocess CrisisMMD v2.0 annotation files into a single, clean TSV ready
-for zero-shot multimodal classification.
+Sanity-check script for the output of preprocess_crisismmd.py.
 
-Input : data/raw/CrisisMMD_v2.0/annotations/*.tsv   (6 event files)
-Output: data/processed/pro_CrisisMMD/pre_crisismmd.tsv
+Loads data/processed/pro_CrisisMMD/pre_crisismmd.tsv and re-verifies
+every guarantee the preprocessing pipeline is supposed to have enforced:
 
------------------------------------------------------------------------------
-LABELING STRATEGY (why there are TWO label columns)
------------------------------------------------------------------------------
-CrisisMMD annotates text and image SEPARATELY (text_human vs image_human,
-text_info vs image_info), and they don't always agree. For a *multimodal*
-task we need one ground truth per sample per task. Following the standard
-practice used in the CrisisMMD paper for multimodal experiments, for BOTH
-tasks we:
+  1. Expected columns are present, in a sane order.
+  2. No missing values in either label column (label_informative,
+     label_humanitarian) or in clean_text / image_path.
+  3. label_informative only contains the 2 expected classes.
+  4. label_humanitarian only contains the 8 expected classes.
+  5. clean_text is fully ASCII (no leftover mojibake / non-ASCII junk).
+  6. clean_text has no leftover "RT @user:", "@mentions", URLs, or "#"
+     symbols (hashtag word should remain, symbol should not).
+  7. No duplicate (tweet_id, image_id) pairs.
+  8. Every image_path actually exists on disk (relative to IMAGE_ROOT).
+  9. tweet_id / image_id look like non-empty identifiers.
 
-  1. Keep only rows where the text label and the image label AGREE
-     (text_human == image_human for Task 2, or text_info == image_info for
-     Task 1). This becomes that task's label -> a much more reliable ground
-     truth than picking either side alone.
-  2. Additionally filter by confidence score (both text and image
-     confidence must be >= CONF_THRESHOLD) to drop noisy/uncertain
-     annotations.
+Any failed check prints the offending rows (first few) and the script exits
+with a non-zero status code, so it can also be used as a CI gate.
 
-Both tasks are computed independently and kept as two separate columns:
-
-  - label_informative  -> Task 1, 2 classes (informative / not_informative)
-  - label_humanitarian -> Task 2, 8 classes (humanitarian categories)
-
-A row is kept ONLY IF it has a usable (non-NaN) label for BOTH tasks --
-i.e. label_informative AND label_humanitarian must both be present. Rows
-that pass one task's filter but not the other's are dropped entirely, so
-neither column will ever contain NaN in the final output.
-
-This naturally produces a smaller, high-quality evaluation set -- which is
-exactly what a zero-shot project needs (no training data required, just a
-trustworthy test set).
-
------------------------------------------------------------------------------
-TEXT CLEANING
------------------------------------------------------------------------------
-  - Removes "RT @user:" retweet prefix
-  - Removes @mentions
-  - Removes URLs (t.co links / any http(s) link)
-  - Removes the "#" symbol but keeps the hashtag word
-  - Fixes mojibake (encoding corruption), including double-corrupted text,
-    using a known-pattern map + the `ftfy` library (if installed)
-  - Strips any leftover non-ASCII garbage characters that neither of the
-    above could fix (general catch-all, since these tweets are English and
-    should end up fully ASCII after cleaning)
-  - Collapses whitespace
-
------------------------------------------------------------------------------
-OUTPUT COLUMNS
------------------------------------------------------------------------------
-tweet_id | image_id | clean_text | image_path | image_url | label_informative | label_humanitarian | event
+Additionally (new step 10):
+  10. Copy every image referenced by image_path from IMAGE_ROOT into
+      OUT_IMAGE_DIR (data/processed/pro_crisismmd/images), preserving the
+      relative sub-folder structure of image_path.
 
 Usage:
-    pip install pandas ftfy   # ftfy is optional but recommended
-    python preprocess_crisismmd.py
+    pip install pandas
+    python check_crisismmd_processed.py
 """
 
 import os
 import re
-import glob
+import sys
+import shutil
 import pandas as pd
 
-try:
-    import ftfy  # pip install ftfy
-    HAS_FTFY = True
-except ImportError:
-    HAS_FTFY = False
-    print(
-        "Note: 'ftfy' not installed (pip install ftfy). "
-        "Mojibake fixing will rely only on the manual map + ASCII stripping."
-    )
-
 # =============================================================================
-# CONFIG
+# CONFIG - keep in sync with preprocess_crisismmd.py
 # =============================================================================
 
-RAW_DIR = "data/raw/CrisisMMD_v2.0/annotations"
+IN_FILE = "data/processed/pro_CrisisMMD/pre_crisismmd.tsv"
 IMAGE_ROOT = "data/raw/CrisisMMD_v2.0"  # folder containing "data_image/..."
-OUT_DIR = "data/processed/pro_CrisisMMD"
-OUT_FILE = os.path.join(OUT_DIR, "pre_crisismmd.tsv")
-
-FILES = [
-    "california_wildfires_final_data.tsv",
-    "hurricane_harvey_final_data.tsv",
-    "hurricane_irma_final_data.tsv",
-    "hurricane_maria_final_data.tsv",
-    "iraq_iran_earthquake_final_data.tsv",
-    "mexico_earthquake_final_data.tsv",
-    "srilanka_floods_final_data.tsv",
-]
-
-# Minimum confidence required on BOTH text and image annotation to keep a row
-# (checked separately per task -- see load_and_clean).
-CONF_THRESHOLD = 0.6
-
-# Verify image_path actually exists on disk. Set to None to skip the check.
 CHECK_IMAGE_EXISTS = True
 
-# Strip any remaining non-ASCII character after mojibake fixing.
-# Safe for this dataset (English tweets); disable if you need to preserve
-# genuine accented characters (e.g. names) at the cost of some leftover junk.
-STRIP_NON_ASCII = True
+# cấu hình cho bước trích xuất/copy ảnh
+COPY_IMAGES = True
+OUT_IMAGE_DIR = "data/processed/pro_crisismmd/images"
 
-# Which task columns to keep from the raw files (both are always computed).
-TASK_COLUMNS = {
-    "informative": {
-        "text_label": "text_info",
-        "image_label": "image_info",
-        "text_conf": "text_info_conf",
-        "image_conf": "image_info_conf",
-    },
-    "humanitarian": {
-        "text_label": "text_human",
-        "image_label": "image_human",
-        "text_conf": "text_human_conf",
-        "image_conf": "image_human_conf",
-    },
+EXPECTED_COLUMNS = [
+    "tweet_id", "image_id", "clean_text", "image_path", "image_url",
+    "label_informative", "label_humanitarian", "event",
+]
+
+INFORMATIVE_CLASSES = {"informative", "not_informative"}
+
+HUMANITARIAN_CLASSES = {
+    "infrastructure_and_utility_damage",
+    "not_humanitarian",
+    "other_relevant_information",
+    "rescue_volunteering_or_donation_effort",
+    "vehicle_damage",
+    "affected_individuals",
+    "injured_or_dead_people",
+    "missing_or_found_people",
 }
 
-# =============================================================================
-# TEXT CLEANING
-# =============================================================================
-
-# Known exact mojibake sequences seen in this dataset (including double-
-# corrupted ones, e.g. an apostrophe corrupted twice in a row). Always
-# applied first, regardless of whether ftfy is installed, since these are
-# confirmed-correct fixes.
-MOJIBAKE_MAP = {
-    "\u221a\u00a2\u201a\u00c7\u00a8\u201a\u00d1\u00a2": "'",  # "√¢‚Ç¨‚Ñ¢" -> '
-    "\u221a\u00a2\u201a\u00c7\u00ac": '"',                     # right double quote variant
-    "\u221a\u00a2\u201a\u00c7\u00f4": '"',                     # left double quote variant
-    "\u221a\u00a2\u201a\u00c7\u201d": "-",                     # dash variant
-    "\u221a\u00a2\u201a\u00c7\u00a6": "...",                   # ellipsis variant
-}
-
+NON_ASCII_RE = re.compile(r"[^\x00-\x7F]+")
 URL_RE = re.compile(r"https?://\S+")
 MENTION_RE = re.compile(r"@\w+")
-RT_PREFIX_RE = re.compile(r"^\s*RT\s*(@\w+)?:?\s*", flags=re.IGNORECASE)
+RT_PREFIX_RE = re.compile(r"^\s*RT\b", flags=re.IGNORECASE)
 HASHTAG_SYMBOL_RE = re.compile(r"#")
-MULTI_SPACE_RE = re.compile(r"\s+")
-NON_ASCII_RE = re.compile(r"[^\x00-\x7F]+")
+
+FAILURES = []  # collect (check_name, DataFrame_of_bad_rows) for the summary
 
 
-def fix_mojibake(text: str, max_passes: int = 4) -> str:
-    """Iteratively fix mojibake. Some entries in this dataset are corrupted
-    TWICE in a row, so a single fix pass is often not enough."""
-    if not text:
-        return text
-
-    for _ in range(max_passes):
-        new_text = text
-
-        # 1. Known exact fixes (always applied)
-        for bad, good in MOJIBAKE_MAP.items():
-            new_text = new_text.replace(bad, good)
-
-        # 2. General-purpose fixer, if available
-        if HAS_FTFY:
-            new_text = ftfy.fix_text(new_text)
-
-        if new_text == text:
-            break
-        text = new_text
-
-    # 3. Last resort: manual encode/decode round-trip for anything still
-    #    containing non-ASCII junk (common when text was UTF-8 misread as
-    #    Latin-1/CP1252/Mac-Roman more than once).
-    if NON_ASCII_RE.search(text):
-        for enc in ("cp1252", "latin1", "mac_roman"):
-            try:
-                candidate = text.encode(enc, errors="ignore").decode(
-                    "utf-8", errors="ignore"
-                )
-            except (UnicodeEncodeError, UnicodeDecodeError, LookupError):
-                continue
-            if candidate and len(NON_ASCII_RE.findall(candidate)) < len(
-                NON_ASCII_RE.findall(text)
-            ):
-                text = candidate
-                break
-
-    # 4. General catch-all: strip whatever non-ASCII junk is still left
-    if STRIP_NON_ASCII:
-        text = NON_ASCII_RE.sub("", text)
-
-    return text
-
-
-def clean_tweet_text(text: str) -> str:
-    if not isinstance(text, str):
-        return ""
-
-    text = fix_mojibake(text)
-    text = RT_PREFIX_RE.sub("", text)
-    text = URL_RE.sub("", text)
-    text = MENTION_RE.sub("", text)
-    text = HASHTAG_SYMBOL_RE.sub("", text)
-    text = MULTI_SPACE_RE.sub(" ", text).strip()
-    return text
+def report(check_name: str, bad_df: pd.DataFrame, max_show: int = 5, cols=None):
+    """Record + print a check's result."""
+    n_bad = len(bad_df)
+    if n_bad == 0:
+        print(f"[PASS] {check_name}")
+        return
+    print(f"[FAIL] {check_name} -- {n_bad} offending row(s)")
+    show_cols = cols if cols else bad_df.columns.tolist()
+    with pd.option_context("display.max_colwidth", 60):
+        print(bad_df[show_cols].head(max_show).to_string(index=False))
+    FAILURES.append((check_name, bad_df))
 
 
 # =============================================================================
-# LOAD + CLEAN + LABEL ONE EVENT FILE
+# Bước trích xuất / copy ảnh sang thư mục processed
 # =============================================================================
 
-def load_and_clean(filepath: str, event_name: str) -> pd.DataFrame:
-    info_cols = TASK_COLUMNS["informative"]
-    human_cols = TASK_COLUMNS["humanitarian"]
+def copy_images_to_processed(df: pd.DataFrame,
+                              image_root: str = IMAGE_ROOT,
+                              out_dir: str = OUT_IMAGE_DIR):
+    """
+    Copy toàn bộ ảnh được tham chiếu bởi cột image_path (nằm trong image_root,
+    ví dụ .../data_image/...) sang out_dir, giữ nguyên cấu trúc thư mục con
+    tương đối của image_path.
 
-    needed_raw_cols = [
-        "tweet_id",
-        "image_id",
-        "tweet_text",
-        "image_path",
-        "image_url",
-        info_cols["text_label"], info_cols["image_label"],
-        info_cols["text_conf"], info_cols["image_conf"],
-        human_cols["text_label"], human_cols["image_label"],
-        human_cols["text_conf"], human_cols["image_conf"],
-    ]
+    Ví dụ:
+        image_root = "data/raw/CrisisMMD_v2.0"
+        image_path = "data_image/hurricane_irma/917791.jpg"
+        -> copy sang: "data/processed/pro_crisismmd/images/data_image/hurricane_irma/917791.jpg"
 
-    df = pd.read_csv(filepath, sep="\t", dtype=str)
+    Trả về (n_copied, n_skipped_existing, n_missing_source, missing_list).
+    """
+    os.makedirs(out_dir, exist_ok=True)
 
-    missing = [c for c in needed_raw_cols if c not in df.columns]
-    if missing:
-        print(f"[{event_name}] Warning: missing columns {missing}, skipping file")
-        return pd.DataFrame()
-
-    df = df[needed_raw_cols].copy()
-    df["event"] = event_name
-
-    # Normalize literal "nan"/empty strings to real NaN
-    df.replace({"nan": pd.NA, "NaN": pd.NA, "": pd.NA}, inplace=True)
-
-    n0 = len(df)
-
-    # --- Compute label_informative (Task 1, 2 classes) independently:
-    #     confidence threshold on both sides + text/image agreement.
-    df[info_cols["text_conf"]] = pd.to_numeric(df[info_cols["text_conf"]], errors="coerce")
-    df[info_cols["image_conf"]] = pd.to_numeric(df[info_cols["image_conf"]], errors="coerce")
-    info_conf_ok = (
-        (df[info_cols["text_conf"]] >= CONF_THRESHOLD)
-        & (df[info_cols["image_conf"]] >= CONF_THRESHOLD)
-    )
-    info_agree = df[info_cols["text_label"]] == df[info_cols["image_label"]]
-    df["label_informative"] = df[info_cols["text_label"]].where(info_conf_ok & info_agree)
-
-    # --- Compute label_humanitarian (Task 2, 8 classes) independently, same way.
-    df[human_cols["text_conf"]] = pd.to_numeric(df[human_cols["text_conf"]], errors="coerce")
-    df[human_cols["image_conf"]] = pd.to_numeric(df[human_cols["image_conf"]], errors="coerce")
-    human_conf_ok = (
-        (df[human_cols["text_conf"]] >= CONF_THRESHOLD)
-        & (df[human_cols["image_conf"]] >= CONF_THRESHOLD)
-    )
-    human_agree = df[human_cols["text_label"]] == df[human_cols["image_label"]]
-    df["label_humanitarian"] = df[human_cols["text_label"]].where(human_conf_ok & human_agree)
-
-    n1_info = df["label_informative"].notna().sum()
-    n1_human = df["label_humanitarian"].notna().sum()
-
-    # --- Keep a row ONLY if it has a usable label for BOTH tasks
-    df = df[df["label_informative"].notna() & df["label_humanitarian"].notna()]
-    n1 = len(df)
-
-    # --- Clean text
-    df["clean_text"] = df["tweet_text"].apply(clean_tweet_text)
-    df = df[df["clean_text"].str.len() > 0]
-    n2 = len(df)
-
-    # --- Drop duplicates
-    df = df.drop_duplicates(subset=["tweet_id", "image_id"])
-    n3 = len(df)
-
-    # --- Verify image exists on disk
-    if CHECK_IMAGE_EXISTS and IMAGE_ROOT:
-        def image_exists(rel_path):
-            if pd.isna(rel_path):
-                return False
-            return os.path.isfile(os.path.join(IMAGE_ROOT, rel_path))
-
-        df = df[df["image_path"].apply(image_exists)]
-    n4 = len(df)
-
-    print(
-        f"[{event_name}] raw={n0} "
-        f"| usable_informative_label={n1_info} usable_humanitarian_label={n1_human} "
-        f"-> after_keep_both_labels_present={n1} -> after_text_clean={n2} "
-        f"-> after_dedupe={n3} -> after_image_check={n4}"
+    # Lấy danh sách image_path duy nhất, bỏ NaN
+    unique_paths = (
+        df["image_path"]
+        .dropna()
+        .astype(str)
+        .map(str.strip)
+        .loc[lambda s: s != ""]
+        .unique()
     )
 
-    return df[[
-        "tweet_id", "image_id", "clean_text", "image_path", "image_url",
-        "label_informative", "label_humanitarian", "event",
-    ]]
+    n_copied = 0
+    n_skipped_existing = 0
+    n_missing_source = 0
+    missing_list = []
 
+    for rel_path in unique_paths:
+        src = os.path.join(image_root, rel_path)
+        dst = os.path.join(out_dir, rel_path)
 
-# =============================================================================
-# MAIN
-# =============================================================================
-
-def main():
-    os.makedirs(OUT_DIR, exist_ok=True)
-
-    all_dfs = []
-    for filename in FILES:
-        filepath = os.path.join(RAW_DIR, filename)
-        if not glob.glob(filepath):
-            print(f"Warning: file not found, skipping -> {filepath}")
+        if not os.path.isfile(src):
+            n_missing_source += 1
+            missing_list.append(rel_path)
             continue
 
-        event_name = filename.replace("_final_data.tsv", "")
-        df = load_and_clean(filepath, event_name)
-        if not df.empty:
-            all_dfs.append(df)
+        os.makedirs(os.path.dirname(dst), exist_ok=True)
 
-    if not all_dfs:
-        print("No data processed. Check RAW_DIR / FILES / CONF_THRESHOLD config.")
-        return
+        if os.path.isfile(dst):
+            n_skipped_existing += 1
+            continue
 
-    combined = pd.concat(all_dfs, ignore_index=True)
-    combined.to_csv(OUT_FILE, sep="\t", index=False)
+        shutil.copy2(src, dst)
+        n_copied += 1
 
-    print(f"\nSaved -> {OUT_FILE}")
-    print(f"Total rows: {len(combined)}")
+    return n_copied, n_skipped_existing, n_missing_source, missing_list
 
-    print(f"\nRows with usable label_informative: {combined['label_informative'].notna().sum()}")
-    print(combined["label_informative"].value_counts(dropna=False))
 
-    print(f"\nRows with usable label_humanitarian: {combined['label_humanitarian'].notna().sum()}")
-    print(combined["label_humanitarian"].value_counts(dropna=False))
+def main():
+    if not os.path.isfile(IN_FILE):
+        print(f"ERROR: input file not found -> {IN_FILE}")
+        sys.exit(1)
 
-    print("\nRows per event:")
-    print(combined["event"].value_counts())
+    df = pd.read_csv(IN_FILE, sep="\t", dtype=str)
+    n = len(df)
+    print(f"Loaded {n} rows from {IN_FILE}\n")
 
-    # --- Final guarantee check: make sure no garbage characters survived.
-    # This should always print 0 rows given STRIP_NON_ASCII=True; if it
-    # doesn't, something in the cleaning pipeline was skipped/broken.
-    leftover_mask = combined["clean_text"].apply(lambda t: bool(NON_ASCII_RE.search(t)))
-    n_leftover = leftover_mask.sum()
-    if n_leftover > 0:
-        print(f"\nWARNING: {n_leftover} rows still contain non-ASCII characters:")
-        print(combined.loc[leftover_mask, ["tweet_id", "clean_text"]].head(10))
+    # 1. Column presence / order -------------------------------------------------
+    missing_cols = [c for c in EXPECTED_COLUMNS if c not in df.columns]
+    extra_cols = [c for c in df.columns if c not in EXPECTED_COLUMNS]
+    if missing_cols or extra_cols:
+        print(f"[FAIL] expected columns -- missing={missing_cols} extra={extra_cols}")
+        FAILURES.append(("expected columns", pd.DataFrame()))
     else:
-        print("\nCheck passed: clean_text is fully ASCII in all rows.")
+        print("[PASS] expected columns")
+    print()
+
+    if missing_cols:
+        print("Cannot continue further checks without required columns. Exiting.")
+        sys.exit(1)
+
+    # 2. No missing values in key columns ----------------------------------------
+    for col in ["clean_text", "image_path", "label_informative", "label_humanitarian",
+                "tweet_id", "image_id"]:
+        bad = df[df[col].isna() | (df[col].astype(str).str.strip() == "")]
+        report(f"no missing values in '{col}'", bad, cols=["tweet_id", "image_id", col])
+
+    # 3. label_informative only has expected classes ------------------------------
+    bad = df[~df["label_informative"].isin(INFORMATIVE_CLASSES)]
+    report("label_informative in expected 2 classes", bad,
+           cols=["tweet_id", "label_informative"])
+
+    # 4. label_humanitarian only has expected classes -----------------------------
+    bad = df[~df["label_humanitarian"].isin(HUMANITARIAN_CLASSES)]
+    report("label_humanitarian in expected 8 classes", bad,
+           cols=["tweet_id", "label_humanitarian"])
+
+    # 5. clean_text is fully ASCII -------------------------------------------------
+    bad_mask = df["clean_text"].apply(lambda t: bool(NON_ASCII_RE.search(str(t))))
+    report("clean_text is fully ASCII", df[bad_mask], cols=["tweet_id", "clean_text"])
+
+    # 6. clean_text has no leftover RT-prefix / mentions / URLs / '#' symbol -------
+    bad_mask = df["clean_text"].apply(lambda t: bool(RT_PREFIX_RE.match(str(t))))
+    report("no leftover 'RT' prefix in clean_text", df[bad_mask], cols=["tweet_id", "clean_text"])
+
+    bad_mask = df["clean_text"].apply(lambda t: bool(MENTION_RE.search(str(t))))
+    report("no leftover '@mentions' in clean_text", df[bad_mask], cols=["tweet_id", "clean_text"])
+
+    bad_mask = df["clean_text"].apply(lambda t: bool(URL_RE.search(str(t))))
+    report("no leftover URLs in clean_text", df[bad_mask], cols=["tweet_id", "clean_text"])
+
+    bad_mask = df["clean_text"].apply(lambda t: bool(HASHTAG_SYMBOL_RE.search(str(t))))
+    report("no leftover '#' symbol in clean_text", df[bad_mask], cols=["tweet_id", "clean_text"])
+
+    # 7. No duplicate (tweet_id, image_id) pairs ------------------------------------
+    dup_mask = df.duplicated(subset=["tweet_id", "image_id"], keep=False)
+    report("no duplicate (tweet_id, image_id) pairs", df[dup_mask],
+           cols=["tweet_id", "image_id"])
+
+    # 8. image_path exists on disk ---------------------------------------------------
+    if CHECK_IMAGE_EXISTS:
+        def missing_image(rel_path):
+            if pd.isna(rel_path):
+                return True
+            return not os.path.isfile(os.path.join(IMAGE_ROOT, rel_path))
+
+        bad_mask = df["image_path"].apply(missing_image)
+        report("image_path exists on disk", df[bad_mask],
+               cols=["tweet_id", "image_path"])
+    else:
+        print("[SKIP] image_path exists on disk (CHECK_IMAGE_EXISTS=False)")
+
+    # 9. tweet_id / image_id look like real identifiers -------------------------------
+    id_re = re.compile(r"^\S+$")
+    for col in ["tweet_id", "image_id"]:
+        bad_mask = ~df[col].astype(str).apply(lambda v: bool(id_re.match(v)))
+        report(f"'{col}' looks like a valid identifier", df[bad_mask], cols=["tweet_id", "image_id"])
+
+    # --- Summary ---------------------------------------------------------------------
+    print("\n" + "=" * 70)
+    if FAILURES:
+        print(f"SUMMARY: {len(FAILURES)} check(s) FAILED out of the run above.")
+        for name, bad_df in FAILURES:
+            print(f"  - {name} ({len(bad_df)} bad rows)")
+        checks_passed = False
+    else:
+        print(f"SUMMARY: all checks PASSED on {n} rows.")
+        print("\nLabel distributions:")
+        print("\nlabel_informative:")
+        print(df["label_informative"].value_counts())
+        print("\nlabel_humanitarian:")
+        print(df["label_humanitarian"].value_counts())
+        print("\nRows per event:")
+        print(df["event"].value_counts())
+        checks_passed = True
+
+    # --- 10. NEW: copy ảnh sang data/processed/pro_crisismmd/images ------------------
+    if COPY_IMAGES:
+        print("\n" + "=" * 70)
+        print(f"Copying images -> {OUT_IMAGE_DIR}")
+        n_copied, n_skipped, n_missing, missing_list = copy_images_to_processed(df)
+        print(f"  copied      : {n_copied}")
+        print(f"  already had : {n_skipped}")
+        print(f"  missing src : {n_missing}")
+        if missing_list:
+            print("  -- first missing paths --")
+            for p in missing_list[:5]:
+                print(f"     {p}")
+    else:
+        print("\n[SKIP] copy images (COPY_IMAGES=False)")
+
+    sys.exit(0 if checks_passed else 1)
 
 
 if __name__ == "__main__":
