@@ -1,0 +1,100 @@
+# ============================================================
+# CONFIG TRUNG TÂM CHO TOÀN BỘ THÍ NGHIỆM
+# - Muốn chạy model nào: giữ model đó, comment model không cần
+# - Muốn chạy dataset nào: enabled: true
+# ============================================================
+
+# ============================================================
+# MODELS
+# ============================================================
+models:
+  - metaclip2_vith14
+  # - dfn5b_vith14
+  # - siglip2_so400m
+
+# ============================================================
+# DATASETS
+# ============================================================
+datasets:
+
+  # ----------------------------------------------------------
+  # FAKEDDIT
+  # task: "2way" hoặc "6way"
+  # cột thật: id, clean_title, image_path, hasImage, 2_way_label, 6_way_label
+  # ----------------------------------------------------------
+  fakeddit:
+    enabled: false
+    task: "2way"
+    data_path: "data/processed/pro_fakeddit/fakeddit_sample.tsv"
+    image_dir: "data/processed/pro_fakeddit/images"
+    task_type: "single_label"
+    id_col: id
+    text_col: clean_title
+    label_col_2way: 2_way_label
+    label_col_6way: 6_way_label
+
+  # ----------------------------------------------------------
+  # CRISISMMD
+  # task: "informativeness" hoặc "humanitarian"
+  # cột thật: tweet_id, image_id, clean_text, image_path, image_url,
+  #           label_informative, label_humanitarian, event
+  # ----------------------------------------------------------
+  crisismmd:
+    enabled: true
+    task: "informativeness"
+    data_path: "data/processed/pro_crisismmd/pre_crisismmd.tsv"
+    image_dir: "data/processed/pro_crisismmd/images"
+    task_type: "single_label"
+    id_col: tweet_id
+    text_col: clean_text
+    label_col: label_informative
+
+  # ----------------------------------------------------------
+  # MMIMDB
+  # cột thật: id, plot, genres, n_genres, image_path
+  # ----------------------------------------------------------
+  mmimdb:
+    enabled: false
+    task: "genres"
+    data_path: "data/processed/pro_mmimdb/mmimdb_sample.tsv"
+    image_dir: "data/processed/pro_mmimdb/images"
+    task_type: "multi_label"
+    threshold: 0.22
+    id_col: id
+    text_col: plot
+    label_col: genres
+    # thresholds:
+    #   metaclip2_vith14: 0.22
+    #   dfn5b_vith14: 0.22
+    #   siglip2_so400m: 0.22
+
+# ============================================================
+# INFERENCE
+# ============================================================
+inference:
+  batch_size: 16
+  image_weight: 0.5   # mặc định toàn cục. 1.0 = image-only | 0.0 = text-only
+  # Override riêng theo dataset — ví dụ: Fakeddit có thể cần nghiêng về text
+  # (xem thảo luận: "fake" thường không phải thuộc tính thị giác rõ rệt).
+  # image_weight_overrides:
+  #   fakeddit: 0.3
+  #   crisismmd: 0.5
+  #   mmimdb: 0.6
+
+# ============================================================
+# DEMO
+# ============================================================
+demo:
+  n_samples: 10
+  batch_size: 4
+  prompt_version: "v1"
+  log_dir: "results/demo_logs"
+  visualization_dir: "results/demo"
+
+# ============================================================
+# OUTPUT TOÀN BỘ EXPERIMENT
+# ============================================================
+output:
+  results_dir: "results/"
+  raw_predictions_dir: "results/raw_predictions/"
+  summary_table: "results/summary_table.csv"

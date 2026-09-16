@@ -1,0 +1,10 @@
+{
+  "model": "metaclip2_vith14",
+  "dataset": "crisismmd",
+  "task": "informativeness",
+  "prompt_version": "v1",
+  "n_total_samples": 20,
+  "n_errors": 4,
+  "error_rate": 0.2,
+  "timestamp": "2026-09-17T02:30:33.177062"
+}

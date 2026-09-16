@@ -14,14 +14,75 @@ LƯU Ý QUAN TRỌNG (đã phân tích trước đó):
 # ============================================================
 # TASK 1: INFORMATIVENESS (binary)
 # ============================================================
+# PROMPTS_INFORMATIVENESS = {
+#     "informative": [
+#         "a tweet with useful, informative content about a disaster",
+#         "a photo showing relevant information about a crisis event",
+#     ],
+#     "not_informative": [
+#         "a tweet with no useful information about the disaster",
+#         "an irrelevant photo not related to disaster response",
+#     ],
+# }
+
 PROMPTS_INFORMATIVENESS = {
     "informative": [
         "a tweet with useful, informative content about a disaster",
+        "a tweet reporting destruction or damage caused by a disaster",
+        "a tweet describing a dangerous or devastating crisis situation",
+        "a tweet describing fear, panic, suffering, or distress during a disaster",
+        "a tweet reporting collapsed buildings, damaged homes, or destroyed infrastructure",
+        "a tweet reporting casualties, injuries, missing people, or people in danger",
+        "a tweet describing severe damage caused by fire, flood, earthquake, tsunami, or landslide",
+        "a tweet reporting emergency conditions during a natural disaster",
+        "a tweet providing information about evacuation, rescue, or emergency response",
+        "a tweet describing the aftermath and destruction caused by a disaster",
+        "a tweet containing important updates about an ongoing crisis",
+        "a tweet providing useful humanitarian information about a disaster",
+
         "a photo showing relevant information about a crisis event",
+        "a photo showing useful visual information about a disaster",
+        "a photo showing destruction caused by a natural disaster",
+        "a photo showing buildings or houses damaged or destroyed by a disaster",
+        "a photo showing collapsed buildings and damaged infrastructure",
+        "a photo showing fire, wildfire, or severe burning during a disaster",
+        "a photo showing flooding, tsunami, or dangerous flood water",
+        "a photo showing a landslide, earthquake damage, or collapsed terrain",
+        "a photo showing a devastated city or severely damaged neighborhood",
+        "a photo showing ruins, debris, destruction, or disaster aftermath",
+        "a photo showing people affected by a dangerous disaster situation",
+        "a photo showing rescue workers, emergency response, or disaster relief",
+        "a photo containing visible information about an ongoing natural disaster",
+        "a photo showing dangerous conditions during a crisis",
+        "a photo documenting the aftermath of a major disaster",
     ],
+
     "not_informative": [
         "a tweet with no useful information about the disaster",
+        "a tweet unrelated to disasters, emergencies, or dangerous events",
+        "a casual tweet about everyday life with no crisis information",
+        "a tweet expressing happiness, love, joy, or positive emotions unrelated to a disaster",
+        "a tweet describing peaceful or pleasant situations with no danger",
+        "a tweet containing ordinary conversation unrelated to a crisis",
+        "a tweet about entertainment, hobbies, or personal activities unrelated to a disaster",
+        "a tweet containing positive and cheerful content with no emergency information",
+        "a tweet discussing unrelated news with no information about a disaster",
+        "a tweet with no information about destruction, danger, rescue, or emergency response",
+        "an irrelevant tweet that provides no useful crisis-related information",
+
         "an irrelevant photo not related to disaster response",
+        "a photo unrelated to disasters, emergencies, or crisis events",
+        "a normal everyday photo with no disaster-related information",
+        "a peaceful and beautiful outdoor scene with no signs of danger",
+        "a photo showing a clear blue sky and pleasant weather",
+        "a photo showing healthy trees, nature, or a calm landscape",
+        "a bright and pleasant scene with no destruction or emergency",
+        "a photo showing normal buildings and streets with no visible disaster damage",
+        "a photo showing ordinary daily life unrelated to a crisis",
+        "a happy or cheerful photo unrelated to a disaster",
+        "a photo containing news or text unrelated to a disaster",
+        "an irrelevant image that provides no useful information about a crisis",
+        "a photo with no visible destruction, danger, emergency, or disaster response",
     ],
 }
 

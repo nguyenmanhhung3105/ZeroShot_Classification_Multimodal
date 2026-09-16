@@ -1,172 +1,3 @@
-# """
-# Vòng lặp thí nghiệm chính: model x dataset.
-
-# QUAN TRỌNG (đúng nguyên tắc đã thống nhất):
-# - Mỗi model chỉ load 1 LẦN DUY NHẤT (vòng ngoài cùng).
-# - Với mỗi model, chạy hết tất cả dataset rồi mới unload, load model tiếp theo.
-# - Không có bước train/fine-tune nào -> không có "xung đột" giữa các lần gọi.
-# """
-
-# import os
-# import yaml
-# import pandas as pd
-# from PIL import Image
-
-# from models.model_registry import load_model
-# from inference import build_class_embeddings, predict_single_label, predict_multi_label
-# from evaluate import evaluate_single_label, evaluate_multi_label
-
-# from prompts import fakeddit_prompts, crisismmd_prompts, mmimdb_prompts
-
-
-# def load_config(path="configs/experiment_config.yaml") -> dict:
-#     with open(path, "r") as f:
-#         return yaml.safe_load(f)
-
-
-# def load_images_safe(image_paths: list) -> tuple:
-#     """
-#     Load ảnh, bỏ qua ảnh lỗi/không tồn tại thay vì crash toàn bộ pipeline.
-#     Trả về (list ảnh hợp lệ, list index tương ứng trong dataframe gốc).
-#     """
-#     images, valid_indices = [], []
-#     for i, path in enumerate(image_paths):
-#         try:
-#             img = Image.open(path).convert("RGB")
-#             images.append(img)
-#             valid_indices.append(i)
-#         except Exception as e:
-#             print(f" Bỏ qua ảnh lỗi tại {path}: {e}")
-#     return images, valid_indices
-
-
-# def run_fakeddit(vlm, task_config: dict) -> dict:
-#     print(f"\n{'='*60}\nDATASET: Fakeddit (task={task_config['task']})\n{'='*60}")
-
-#     if not os.path.exists(task_config["data_path"]):
-#         print(f" Không tìm thấy file {task_config['data_path']}, bỏ qua dataset này")
-#         return {}
-
-#     df = pd.read_parquet(task_config["data_path"])
-#     label_col = "6_way_label" if task_config["task"] == "6way" else "2_way_label"
-
-#     prompt_set = fakeddit_prompts.get_prompt_set(task_config["task"])
-#     label_names = fakeddit_prompts.get_label_names(task_config["task"])
-#     class_embeds, label_order = build_class_embeddings(vlm, prompt_set)
-
-#     images, valid_idx = load_images_safe(df["image_path"].tolist() if "image_path" in df.columns
-#                                           else [f"data/raw/fakeddit/images/{i}.jpg" for i in df["id"]])
-#     df_valid = df.iloc[valid_idx].reset_index(drop=True)
-
-#     predictions, sims = predict_single_label(vlm, images, class_embeds, label_order)
-#     y_true = df_valid[label_col].tolist()
-
-#     result = evaluate_single_label(y_true, predictions, label_order)
-#     return result
-
-
-# def run_crisismmd(vlm, task_config: dict) -> dict:
-#     print(f"\n{'='*60}\nDATASET: CrisisMMD (task={task_config['task']})\n{'='*60}")
-
-#     if not os.path.exists(task_config["data_path"]):
-#         print(f" Không tìm thấy file {task_config['data_path']}, bỏ qua dataset này")
-#         return {}
-
-#     df = pd.read_parquet(task_config["data_path"])
-
-#     prompt_set = crisismmd_prompts.get_prompt_set(task_config["task"])
-#     label_names = crisismmd_prompts.get_label_names(task_config["task"])
-#     class_embeds, label_order = build_class_embeddings(vlm, prompt_set)
-
-#     images, valid_idx = load_images_safe(df["image_path"].tolist())
-#     df_valid = df.iloc[valid_idx].reset_index(drop=True)
-
-#     predictions, sims = predict_single_label(vlm, images, class_embeds, label_order)
-#     y_true = df_valid["label"].tolist()
-
-#     low_sample = crisismmd_prompts.LOW_SAMPLE_WARNING_CLASSES if task_config["task"] == "humanitarian" else None
-#     result = evaluate_single_label(y_true, predictions, label_order, low_sample_classes=low_sample)
-#     return result
-
-
-# def run_mmimdb(vlm, task_config: dict) -> dict:
-#     print(f"\n{'='*60}\nDATASET: MM-IMDb (multi-label)\n{'='*60}")
-
-#     if not os.path.exists(task_config["data_path"]):
-#         print(f" Không tìm thấy file {task_config['data_path']}, bỏ qua dataset này")
-#         return {}
-
-#     df = pd.read_parquet(task_config["data_path"])
-
-#     prompt_set = mmimdb_prompts.get_prompt_set()
-#     class_embeds, label_order = build_class_embeddings(vlm, prompt_set)
-
-#     images, valid_idx = load_images_safe(df["poster_path"].tolist())
-#     df_valid = df.iloc[valid_idx].reset_index(drop=True)
-
-#     predictions, sims = predict_multi_label(vlm, images, class_embeds, label_order,
-#                                              threshold=task_config.get("threshold", 0.22))
-#     y_true = df_valid["genres"].tolist()  # kỳ vọng mỗi phần tử là list, ví dụ ["Comedy","Family"]
-
-#     result = evaluate_multi_label(y_true, predictions, label_order)
-#     return result
-
-
-# DATASET_RUNNERS = {
-#     "fakeddit": run_fakeddit,
-#     "crisismmd": run_crisismmd,
-#     "mmimdb": run_mmimdb,
-# }
-
-
-# def main():
-#     config = load_config()
-#     all_results = []
-
-#     os.makedirs(config["output"]["results_dir"], exist_ok=True)
-
-#     # ============================================================
-#     # VÒNG NGOÀI CÙNG: MODEL — chỉ load 1 lần, chạy hết dataset rồi mới đổi model
-#     # ============================================================
-#     for model_name in config["models"]:
-#         vlm = load_model(model_name)
-
-#         for dataset_name, dataset_config in config["datasets"].items():
-#             if not dataset_config.get("enabled", False):
-#                 print(f"⏭  Bỏ qua dataset '{dataset_name}' (enabled=false trong config)")
-#                 continue
-
-#             runner = DATASET_RUNNERS.get(dataset_name)
-#             if runner is None:
-#                 print(f" Chưa có runner cho dataset '{dataset_name}', bỏ qua")
-#                 continue
-
-#             try:
-#                 metrics = runner(vlm, dataset_config)
-#             except Exception as e:
-#                 print(f" Lỗi khi chạy {model_name} x {dataset_name}: {e}")
-#                 metrics = {"error": str(e)}
-
-#             row = {"model": model_name, "dataset": dataset_name,
-#                    "task": dataset_config.get("task", "-")}
-#             row.update(metrics)
-#             all_results.append(row)
-
-#         vlm.unload()  # giải phóng GPU trước khi load model tiếp theo
-
-#     # ============================================================
-#     # LƯU BẢNG TỔNG HỢP CUỐI CÙNG
-#     # ============================================================
-#     summary_df = pd.DataFrame(all_results)
-#     summary_df.to_csv(config["output"]["summary_table"], index=False)
-#     print(f"\n Đã lưu bảng tổng hợp tại: {config['output']['summary_table']}")
-#     print(summary_df)
-
-
-# if __name__ == "__main__":
-#     main()
-
-
 """
 Main experiment loop: model x dataset.
 
@@ -205,6 +36,15 @@ def load_dataframe(path: str) -> pd.DataFrame:
     if path.endswith(".parquet"): return pd.read_parquet(path)
 
     raise ValueError(f"Định dạng dataset chưa hỗ trợ: {path}")
+
+
+def resolve_override(default_value, overrides: dict, key: str):
+    """Tra cứu giá trị override theo key (model_name hoặc dataset_name).
+    Dùng chung cho image_weight (theo dataset) và threshold (theo model),
+    cùng một pattern nên gộp lại 1 hàm thay vì lặp code."""
+    if not overrides:
+        return default_value
+    return overrides.get(key, default_value)
 
 
 def resolve_image_paths(df: pd.DataFrame, task_config: dict) -> list:
@@ -291,11 +131,6 @@ def parse_multilabel(value) -> list:
 def normalize_single_labels(values: list, label_names, label_order: list) -> list:
     """
     Map label số trong dataset sang tên class trong prompt.
-
-    Hỗ trợ:
-    - label đã là string giống prompt
-    - label_names dạng dict
-    - label_names dạng list
     """
     if label_names is None: return values
 
@@ -316,6 +151,15 @@ def normalize_single_labels(values: list, label_names, label_order: list) -> lis
         normalized.append(mapping.get(value, mapping.get(str(value), value)))
 
     return normalized
+
+
+def get_image_weight(config: dict, dataset_name: str) -> float:
+    inference_cfg = config.get("inference", {})
+    return resolve_override(
+        inference_cfg.get("image_weight", 0.5),
+        inference_cfg.get("image_weight_overrides"),
+        dataset_name,
+    )
 
 
 def run_fakeddit(vlm, task_config: dict, config: dict) -> dict:
@@ -342,20 +186,29 @@ def run_fakeddit(vlm, task_config: dict, config: dict) -> dict:
     df_valid = df.iloc[valid_idx].reset_index(drop=True)
     df_valid["_resolved_image_path"] = [image_paths[i] for i in valid_idx]
 
+    texts = df_valid[text_col].fillna("").astype(str).tolist()
+
     batch_size = config.get("inference", {}).get("batch_size", 16)
-    predictions, sims = predict_single_label(vlm, images, class_embeds, label_order, batch_size=batch_size)
+    image_weight = get_image_weight(config, "fakeddit")
+
+    predictions, p, p_img, p_text, text_empty_mask = predict_single_label(
+        vlm, images, texts, class_embeds, label_order,
+        batch_size=batch_size, image_weight=image_weight
+    )
+    # Gắn thẳng vào df_valid để lọt vào log mà không cần sửa logging_utils.py
+    df_valid["_text_was_empty"] = text_empty_mask
 
     y_true = normalize_single_labels(df_valid[label_col].tolist(), label_names, label_order)
 
     if task == "2way" and task_config.get("positive_label"):
         positive_label = task_config["positive_label"]
         positive_idx = label_order.index(positive_label)
-        result = evaluate_binary(y_true, predictions, sims[:, positive_idx], positive_label)
+        result = evaluate_binary(y_true, predictions, p[:, positive_idx], positive_label)
     else:
         result = evaluate_single_label(y_true, predictions, label_order)
 
     save_single_label_log(
-        df_valid, y_true, predictions, sims, label_order,
+        df_valid, y_true, predictions, p, label_order,
         id_col=id_col,
         text_col=text_col,
         model_name=vlm.model_name,
@@ -363,7 +216,17 @@ def run_fakeddit(vlm, task_config: dict, config: dict) -> dict:
         task_name=task,
         output_dir=config["output"]["raw_predictions_dir"],
         prompt_version=task_config.get("prompt_version", "v1"),
-        extra_manifest={"batch_size": batch_size}
+        # THÊM: sim_image/sim_text riêng để chẩn đoán prompt sau này.
+        # CẦN cập nhật save_single_label_log để nhận và ghi 2 tham số này —
+        # file logging_utils.py không nằm trong review nên chưa sửa được trực tiếp.
+        sim_image=p_img,
+        sim_text=p_text,
+        extra_manifest={
+            "batch_size": batch_size,
+            "image_weight": image_weight,
+            "logit_scale": getattr(vlm, "logit_scale", 100.0),
+            "logit_bias": getattr(vlm, "logit_bias", 0.0),
+        }
     )
 
     return result
@@ -393,8 +256,16 @@ def run_crisismmd(vlm, task_config: dict, config: dict) -> dict:
     df_valid = df.iloc[valid_idx].reset_index(drop=True)
     df_valid["_resolved_image_path"] = [image_paths[i] for i in valid_idx]
 
+    texts = df_valid[text_col].fillna("").astype(str).tolist()
+
     batch_size = config.get("inference", {}).get("batch_size", 16)
-    predictions, sims = predict_single_label(vlm, images, class_embeds, label_order, batch_size=batch_size)
+    image_weight = get_image_weight(config, "crisismmd")
+
+    predictions, p, p_img, p_text, text_empty_mask = predict_single_label(
+        vlm, images, texts, class_embeds, label_order,
+        batch_size=batch_size, image_weight=image_weight
+    )
+    df_valid["_text_was_empty"] = text_empty_mask
 
     y_true = normalize_single_labels(df_valid[label_col].tolist(), label_names, label_order)
     low_sample = crisismmd_prompts.LOW_SAMPLE_WARNING_CLASSES if task == "humanitarian" else None
@@ -402,12 +273,12 @@ def run_crisismmd(vlm, task_config: dict, config: dict) -> dict:
     if task == "informativeness" and task_config.get("positive_label"):
         positive_label = task_config["positive_label"]
         positive_idx = label_order.index(positive_label)
-        result = evaluate_binary(y_true, predictions, sims[:, positive_idx], positive_label)
+        result = evaluate_binary(y_true, predictions, p[:, positive_idx], positive_label)
     else:
         result = evaluate_single_label(y_true, predictions, label_order, low_sample_classes=low_sample)
 
     save_single_label_log(
-        df_valid, y_true, predictions, sims, label_order,
+        df_valid, y_true, predictions, p, label_order,
         id_col=id_col,
         text_col=text_col,
         model_name=vlm.model_name,
@@ -415,7 +286,14 @@ def run_crisismmd(vlm, task_config: dict, config: dict) -> dict:
         task_name=task,
         output_dir=config["output"]["raw_predictions_dir"],
         prompt_version=task_config.get("prompt_version", "v1"),
-        extra_manifest={"batch_size": batch_size}
+        sim_image=p_img,
+        sim_text=p_text,
+        extra_manifest={
+            "batch_size": batch_size,
+            "image_weight": image_weight,
+            "logit_scale": getattr(vlm, "logit_scale", 100.0),
+            "logit_bias": getattr(vlm, "logit_bias", 0.0),
+        }
     )
 
     return result
@@ -443,16 +321,26 @@ def run_mmimdb(vlm, task_config: dict, config: dict) -> dict:
     df_valid = df.iloc[valid_idx].reset_index(drop=True)
     df_valid["_resolved_image_path"] = [image_paths[i] for i in valid_idx]
 
-    threshold = task_config.get("threshold", 0.22)
+    texts = df_valid[text_col].fillna("").astype(str).tolist()
+
+    threshold = resolve_override(
+        task_config.get("threshold", 0.22),
+        task_config.get("thresholds"),
+        vlm.model_name,
+    )
     fallback_top1 = task_config.get("fallback_top1", True)
     batch_size = config.get("inference", {}).get("batch_size", 16)
+    image_weight = get_image_weight(config, "mmimdb")
 
-    predictions, probs = predict_multi_label(
-        vlm, images, class_embeds, label_order,
+    predictions, probs, p_img, p_text, used_fallback, text_empty_mask = predict_multi_label(
+        vlm, images, texts, class_embeds, label_order,
         threshold=threshold,
         fallback_top1=fallback_top1,
-        batch_size=batch_size
+        batch_size=batch_size,
+        image_weight=image_weight,
     )
+    df_valid["_text_was_empty"] = text_empty_mask
+    df_valid["_used_top1_fallback"] = used_fallback
 
     y_true = [parse_multilabel(value) for value in df_valid[label_col].tolist()]
     result = evaluate_multi_label(y_true, predictions, label_order)
@@ -466,12 +354,15 @@ def run_mmimdb(vlm, task_config: dict, config: dict) -> dict:
         task_name="multi_label",
         output_dir=config["output"]["raw_predictions_dir"],
         prompt_version=task_config.get("prompt_version", "v1"),
+        sim_image=p_img,
+        sim_text=p_text,
         extra_manifest={
             "threshold": threshold,
             "fallback_top1": fallback_top1,
             "batch_size": batch_size,
-            "logit_scale": vlm.logit_scale,
-            "logit_bias": vlm.logit_bias,
+            "image_weight": image_weight,
+            "logit_scale": getattr(vlm, "logit_scale", 100.0),
+            "logit_bias": getattr(vlm, "logit_bias", 0.0),
         }
     )
 

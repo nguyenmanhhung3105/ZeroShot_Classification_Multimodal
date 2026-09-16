@@ -1,0 +1,3 @@
+id	text	image_path	y_true	y_pred	correct	confidence	margin	score_informative	score_not_informative
+9,17803E+17	I think Event: Wildfire has occurred in California Tue Oct 10 12:25:03 2017 CDT	data_image/california_wildfires/10_10_2017/917803185317859329_0.jpg	informative	not_informative	False	0.8659300208091736	0.7318600527942181	0.13406996801495552	0.8659300208091736
+9,17794E+17	Henry Cejudo suffers burns, loses gold medal in California wildfire	data_image/california_wildfires/10_10_2017/917794024173563904_0.jpg	informative	not_informative	False	0.5999862104654312	0.19997242093086243	0.4000137895345688	0.5999862104654312
