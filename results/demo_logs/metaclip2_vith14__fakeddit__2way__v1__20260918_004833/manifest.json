@@ -1,0 +1,10 @@
+{
+  "model": "metaclip2_vith14",
+  "dataset": "fakeddit",
+  "task": "2way",
+  "prompt_version": "v1",
+  "n_total_samples": 20,
+  "n_errors": 7,
+  "error_rate": 0.35,
+  "timestamp": "2026-09-18T00:48:33.796007"
+}

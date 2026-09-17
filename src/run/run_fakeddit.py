@@ -49,6 +49,9 @@ def run_fakeddit(vlm, task_config: dict, config: dict) -> dict:
     )
 
     validate_columns(df, [id_col, text_col, label_col], "Fakeddit")
+    
+    # df = df[df[text_col].fillna("").astype(str).str.replace(" ", "", regex=False).str.len() > 10].reset_index(drop=True)     #sử dụng để dùng những mẫu có text lớn hơn
+    df = df[df[text_col].fillna("").astype(str).str.replace(" ", "", regex=False).str.len() > 20].reset_index(drop=True)     #sử dụng để dùng những mẫu có text lớn hơn
 
     prompt_set = fakeddit_prompts.get_prompt_set(task)
     label_names = fakeddit_prompts.get_label_names(task)
@@ -72,14 +75,30 @@ def run_fakeddit(vlm, task_config: dict, config: dict) -> dict:
         vlm, images, texts, class_embeds, label_order,
         batch_size=batch_size, image_weight=image_weight,
     )
+    
+    # df_valid["_text_was_empty"] = text_empty_mask
+
+    # y_true = normalize_single_labels(df_valid[label_col].tolist(), label_names, label_order)
+    # # Fallback case/khoảng-trắng-insensitive, phòng khi nhãn thật khác định
+    # # dạng với khoá prompt (đã gặp ở CrisisMMD) — vô hại nếu Fakeddit đã khớp sẵn.
+    # y_true = coerce_labels_to_prompt_format(y_true, label_order)
+
+    # positive_label = task_config.get("positive_label")
+    
     df_valid["_text_was_empty"] = text_empty_mask
 
-    y_true = normalize_single_labels(df_valid[label_col].tolist(), label_names, label_order)
-    # Fallback case/khoảng-trắng-insensitive, phòng khi nhãn thật khác định
-    # dạng với khoá prompt (đã gặp ở CrisisMMD) — vô hại nếu Fakeddit đã khớp sẵn.
-    y_true = coerce_labels_to_prompt_format(y_true, label_order)
+    if task == "2way":
+        y_true = [int(x) for x in df_valid[label_col].tolist()]
+    else:
+        y_true = normalize_single_labels(df_valid[label_col].tolist(), label_names, label_order)
+        y_true = coerce_labels_to_prompt_format(y_true, label_order)
+
+    print(f"[DEBUG] label_order : {label_order}")
+    print(f"[DEBUG] y_true       : {sorted(set(y_true))}")
+    print(f"[DEBUG] predictions  : {sorted(set(predictions))}")
 
     positive_label = task_config.get("positive_label")
+    
     if task == "2way" and positive_label and positive_label in label_order:
         positive_idx = label_order.index(positive_label)
         result = evaluate_binary(y_true, predictions, p[:, positive_idx], positive_label)

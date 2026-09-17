@@ -1,0 +1,13 @@
+id	text	image_path	y_true	y_pred	correct	confidence	margin	score_0	score_1
+7yas5i	this stapler that looks excited to staple	data/processed/pro_fakeddit/images/7yas5i.jpg	0	1	False	0.9834949374198914	0.9669898641295731	0.01650507329031825	0.9834949374198914
+56dvty	caught this guy staring at me in my wood shop	data/processed/pro_fakeddit/images/56dvty.jpg	0	1	False	0.9630839228630066	0.926167877856642	0.036916045006364584	0.9630839228630066
+ctj8vuo	gravity	data/processed/pro_fakeddit/images/ctj8vuo.jpg	0	1	False	0.9323702156543732	0.8647404639050364	0.06762975174933672	0.9323702156543732
+cur2q86	gaahhhh please stop yelling at me	data/processed/pro_fakeddit/images/cur2q86.jpg	0	1	False	0.9292225539684296	0.8584451274364255	0.07077742653200403	0.9292225539684296
+cv9kwi	my fathers first trip to school	data/processed/pro_fakeddit/images/cv9kwi.jpg	0	1	False	0.9221004545688629	0.844200883526355	0.07789957104250789	0.9221004545688629
+c9kvirm	might not catch on	data/processed/pro_fakeddit/images/c9kvirm.jpg	0	1	False	0.902190238237381	0.8043804883491248	0.09780974988825619	0.902190238237381
+d8d7jkr	ive been here before	data/processed/pro_fakeddit/images/d8d7jkr.jpg	0	1	False	0.8944117426872253	0.7888235035934485	0.10558823909377679	0.8944117426872253
+cbvl2qf	other discussions	data/processed/pro_fakeddit/images/cbvl2qf.jpg	0	1	False	0.8592267632484436	0.7184535451233387	0.1407732181251049	0.8592267632484436
+c6edq0q	subtle but never fails to amuse me	data/processed/pro_fakeddit/images/c6edq0q.jpg	0	1	False	0.8478453755378723	0.6956907387502724	0.15215463678759988	0.8478453755378723
+cyqn33a	head swap	data/processed/pro_fakeddit/images/cyqn33a.jpg	0	1	False	0.8358760476112366	0.6717520589008927	0.16412398871034384	0.8358760476112366
+ckuxl2y	putin riding his dog	data/processed/pro_fakeddit/images/ckuxl2y.jpg	0	1	False	0.818411648273468	0.6368232853710651	0.18158836290240288	0.818411648273468
+6muyes	family comforted by thought that mans death will prevent others from climbing war memorial to pretend to fuck horse	data/processed/pro_fakeddit/images/6muyes.jpg	0	1	False	0.7624847292900085	0.5249694772064686	0.23751525208353996	0.7624847292900085

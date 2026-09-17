@@ -1,0 +1,21 @@
+id	text	image_path	y_true	y_pred	correct	confidence	margin	score_0	score_1
+cv9kwi	my fathers first trip to school	data/processed/pro_fakeddit/images/cv9kwi.jpg	0	0	True	0.5	0.0	0.5	0.5
+46j162	snake head found in farmington womans can of green beans	data/processed/pro_fakeddit/images/46j162.jpg	1	0	False	0.5	0.0	0.5	0.5
+bjkefw	do not vaccinate antivaccination cartoon from united states	data/processed/pro_fakeddit/images/bjkefw.jpg	0	0	True	0.5	0.0	0.5	0.5
+c6edq0q	subtle but never fails to amuse me	data/processed/pro_fakeddit/images/c6edq0q.jpg	0	0	True	0.5	0.0	0.5	0.5
+7yas5i	this stapler that looks excited to staple	data/processed/pro_fakeddit/images/7yas5i.jpg	0	0	True	0.5	0.0	0.5	0.5
+56dvty	caught this guy staring at me in my wood shop	data/processed/pro_fakeddit/images/56dvty.jpg	0	0	True	0.5	0.0	0.5	0.5
+ckuxl2y	putin riding his dog	data/processed/pro_fakeddit/images/ckuxl2y.jpg	0	0	True	0.5	0.0	0.5	0.5
+3mbnug	man steals lottery ticket dispenser is arrested trying to cash in at same store	data/processed/pro_fakeddit/images/3mbnug.jpg	1	0	False	0.5	0.0	0.5	0.5
+cur2q86	gaahhhh please stop yelling at me	data/processed/pro_fakeddit/images/cur2q86.jpg	0	0	True	0.5	0.0	0.5	0.5
+4lpidn	large fish jumping for a bait fish held by a girl	data/processed/pro_fakeddit/images/4lpidn.jpg	1	0	False	0.5	0.0	0.5	0.5
+77cavp	protesters arrested at nuns chapel in pipeline construction zone	data/processed/pro_fakeddit/images/77cavp.jpg	1	0	False	0.5	0.0	0.5	0.5
+c9kvirm	might not catch on	data/processed/pro_fakeddit/images/c9kvirm.jpg	0	0	True	0.5	0.0	0.5	0.5
+3lxkdg	years old world records	data/processed/pro_fakeddit/images/3lxkdg.jpg	1	0	False	0.5	0.0	0.5	0.5
+cyqn33a	head swap	data/processed/pro_fakeddit/images/cyqn33a.jpg	0	0	True	0.5	0.0	0.5	0.5
+6muyes	family comforted by thought that mans death will prevent others from climbing war memorial to pretend to fuck horse	data/processed/pro_fakeddit/images/6muyes.jpg	0	0	True	0.5	0.0	0.5	0.5
+14s6ft	norwegian pilot draws penis with flightpath over sweden	data/processed/pro_fakeddit/images/14s6ft.jpg	1	0	False	0.5	0.0	0.5	0.5
+19izgm	moms strip to finance school bus for children	data/processed/pro_fakeddit/images/19izgm.jpg	1	0	False	0.5	0.0	0.5	0.5
+cbvl2qf	other discussions	data/processed/pro_fakeddit/images/cbvl2qf.jpg	0	0	True	0.5	0.0	0.5	0.5
+d8d7jkr	ive been here before	data/processed/pro_fakeddit/images/d8d7jkr.jpg	0	0	True	0.5	0.0	0.5	0.5
+ctj8vuo	gravity	data/processed/pro_fakeddit/images/ctj8vuo.jpg	0	0	True	0.5	0.0	0.5	0.5

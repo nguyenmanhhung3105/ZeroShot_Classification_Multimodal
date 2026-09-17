@@ -10,16 +10,96 @@ dùng 1 câu template cứng.
 # ============================================================
 # BỘ PROMPT CHO 2_WAY_LABEL (binary: real vs fake)
 # ============================================================
+# PROMPTS_2WAY = {
+#     0: [  # fake
+#         "a fake or misleading Reddit post",
+#         "a social media post spreading misinformation",
+#     ],
+#     1: [  # real
+#         "a real and accurate Reddit post",
+#         "a genuine, truthful social media post",
+#     ],
+# }
+
+#------------------------------------------------------------------------------------------
+
 PROMPTS_2WAY = {
+
     0: [  # fake
-        "a fake or misleading Reddit post",
-        "a social media post spreading misinformation",
+
+        # =========================
+        # TEXT-FOCUSED PROMPTS
+        # =========================
+
+        "a Reddit post containing false or misleading information",
+        "a Reddit title presenting fabricated or deceptive information",
+        "a social media post spreading false or misleading claims",
+        "a Reddit post that distorts or misrepresents a real event",
+        "a Reddit title designed to create a misleading impression",
+        "a satirical or parody Reddit post that should not be interpreted as factual",
+        "a Reddit post containing exaggerated, deceptive, or manipulated information",
+        "a Reddit post misrepresenting the original source or meaning of the content",
+        "a Reddit title that does not accurately describe the associated content",
+        "a social media caption creating a false connection with the associated image",
+        "a misleading caption that gives the image a false or incorrect meaning",
+        "a Reddit post presenting content in a false or deceptive context",
+
+        # =========================
+        # IMAGE-FOCUSED PROMPTS
+        # =========================
+
+        "a photo containing manipulated, altered, or fabricated visual content",
+        "a photo digitally edited to create a false or misleading impression",
+        "an image containing visually manipulated or deceptive content",
+        "a manipulated image presented as if it were authentic",
+        "a photo used in a false or misleading context",
+        "an image used to support a misleading social media post",
+        "a photo that does not accurately support the accompanying Reddit title",
+        "an image whose meaning is misrepresented by the accompanying caption",
+        "a meme, parody, or altered image presented as factual content",
+        "a fabricated or edited image intended to mislead the viewer",
+        "an image creating a false impression about an event, object, or person",
+        "a misleading social media image associated with false or deceptive information",
     ],
+
     1: [  # real
-        "a real and accurate Reddit post",
-        "a genuine, truthful social media post",
+
+        # =========================
+        # TEXT-FOCUSED PROMPTS
+        # =========================
+
+        "a Reddit post containing accurate and truthful information",
+        "a Reddit title accurately describing a real event, object, or scene",
+        "a factual social media post reporting genuine information",
+        "a Reddit post presenting information without misleading manipulation",
+        "a truthful Reddit title that accurately represents the original content",
+        "a social media post describing a real event or situation accurately",
+        "a Reddit post presenting authentic and correctly contextualized information",
+        "a factual post whose title accurately reflects the meaning of the content",
+        "a Reddit title that correctly describes the associated image",
+        "a social media caption that accurately matches the associated image",
+        "a truthful caption providing the correct context for an image",
+        "an unusual or surprising but genuine and factual Reddit post",
+
+        # =========================
+        # IMAGE-FOCUSED PROMPTS
+        # =========================
+
+        "a real and authentic photo showing an actual event, object, or scene",
+        "a genuine photo accurately representing what really happened",
+        "an authentic image that has not been misleadingly manipulated",
+        "a real photo presented in its correct context",
+        "a photo that accurately supports the accompanying Reddit title",
+        "an image whose content correctly matches the accompanying caption",
+        "a genuine image used to support accurate social media information",
+        "an authentic photo without deceptive visual manipulation",
+        "a real image accurately documenting an event, object, or situation",
+        "a factual social media image presented with the correct meaning",
+        "an unusual or surprising but genuine photograph",
+        "an authentic image associated with truthful and correctly contextualized information",
     ],
 }
+
 
 LABEL_NAMES_2WAY = {0: "fake", 1: "real"}
 

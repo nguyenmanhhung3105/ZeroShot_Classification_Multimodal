@@ -1,0 +1,13 @@
+id	text	image_path	y_true	y_pred	correct	confidence	margin	score_0	score_1
+7yas5i	this stapler that looks excited to staple	data/processed/pro_fakeddit/images/7yas5i.jpg	0	1	False	0.9372510015964508	0.8745019473135471	0.06274905428290367	0.9372510015964508
+cv9kwi	my fathers first trip to school	data/processed/pro_fakeddit/images/cv9kwi.jpg	0	1	False	0.899399608373642	0.7987992465496063	0.10060036182403564	0.899399608373642
+cbvl2qf	other discussions	data/processed/pro_fakeddit/images/cbvl2qf.jpg	0	1	False	0.8157978653907776	0.6315957494080067	0.18420211598277092	0.8157978653907776
+c9kvirm	might not catch on	data/processed/pro_fakeddit/images/c9kvirm.jpg	0	1	False	0.7558981776237488	0.5117963645607233	0.24410181306302547	0.7558981776237488
+56dvty	caught this guy staring at me in my wood shop	data/processed/pro_fakeddit/images/56dvty.jpg	0	1	False	0.7181090414524078	0.4362180754542351	0.28189096599817276	0.7181090414524078
+c6edq0q	subtle but never fails to amuse me	data/processed/pro_fakeddit/images/c6edq0q.jpg	0	1	False	0.7029927670955658	0.4059855230152607	0.2970072440803051	0.7029927670955658
+cur2q86	gaahhhh please stop yelling at me	data/processed/pro_fakeddit/images/cur2q86.jpg	0	1	False	0.6096262335777283	0.21925246343016624	0.390373770147562	0.6096262335777283
+ctj8vuo	gravity	data/processed/pro_fakeddit/images/ctj8vuo.jpg	0	1	False	0.5715466737747192	0.14309337735176086	0.4284532964229584	0.5715466737747192
+d8d7jkr	ive been here before	data/processed/pro_fakeddit/images/d8d7jkr.jpg	0	1	False	0.5569702908396721	0.11394059844315052	0.44302969239652157	0.5569702908396721
+6muyes	family comforted by thought that mans death will prevent others from climbing war memorial to pretend to fuck horse	data/processed/pro_fakeddit/images/6muyes.jpg	0	1	False	0.5498795360326767	0.09975908696651459	0.4501204490661621	0.5498795360326767
+cyqn33a	head swap	data/processed/pro_fakeddit/images/cyqn33a.jpg	0	1	False	0.5215128362178802	0.04302568733692169	0.47848714888095856	0.5215128362178802
+46j162	snake head found in farmington womans can of green beans	data/processed/pro_fakeddit/images/46j162.jpg	1	0	False	0.5174836367368698	0.03496722877025604	0.5174836367368698	0.48251640796661377

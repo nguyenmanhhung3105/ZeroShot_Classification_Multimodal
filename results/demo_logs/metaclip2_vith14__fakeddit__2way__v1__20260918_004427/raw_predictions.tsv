@@ -1,0 +1,21 @@
+id	text	image_path	y_true	y_pred	correct	confidence	margin	score_0	score_1
+cv9kwi	my fathers first trip to school	data/processed/pro_fakeddit/images/cv9kwi.jpg	0	1	False	0.8570285141468048	0.7140570804476738	0.142971433699131	0.8570285141468048
+46j162	snake head found in farmington womans can of green beans	data/processed/pro_fakeddit/images/46j162.jpg	1	1	True	0.5489681363105774	0.09793625771999359	0.4510318785905838	0.5489681363105774
+bjkefw	do not vaccinate antivaccination cartoon from united states	data/processed/pro_fakeddit/images/bjkefw.jpg	0	0	True	0.7806153297424316	0.5612306669354439	0.7806153297424316	0.21938466280698776
+c6edq0q	subtle but never fails to amuse me	data/processed/pro_fakeddit/images/c6edq0q.jpg	0	1	False	0.6602850556373596	0.3205701485276222	0.3397149071097374	0.6602850556373596
+7yas5i	this stapler that looks excited to staple	data/processed/pro_fakeddit/images/7yas5i.jpg	0	1	False	0.8971545696258545	0.7943091411143541	0.10284542851150036	0.8971545696258545
+56dvty	caught this guy staring at me in my wood shop	data/processed/pro_fakeddit/images/56dvty.jpg	0	1	False	0.7592434287071228	0.5184868648648262	0.2407565638422966	0.7592434287071228
+ckuxl2y	putin riding his dog	data/processed/pro_fakeddit/images/ckuxl2y.jpg	0	0	True	0.5264100432395935	0.05282008647918701	0.5264100432395935	0.4735899567604065
+3mbnug	man steals lottery ticket dispenser is arrested trying to cash in at same store	data/processed/pro_fakeddit/images/3mbnug.jpg	1	0	False	0.5080356150865555	0.016071200370788574	0.5080356150865555	0.4919644147157669
+cur2q86	gaahhhh please stop yelling at me	data/processed/pro_fakeddit/images/cur2q86.jpg	0	1	False	0.7682096064090729	0.536419227719307	0.23179037868976593	0.7682096064090729
+4lpidn	large fish jumping for a bait fish held by a girl	data/processed/pro_fakeddit/images/4lpidn.jpg	1	1	True	0.5615265369415283	0.12305307388305664	0.4384734630584717	0.5615265369415283
+77cavp	protesters arrested at nuns chapel in pipeline construction zone	data/processed/pro_fakeddit/images/77cavp.jpg	1	1	True	0.5556837469339371	0.11136747896671295	0.4443162679672241	0.5556837469339371
+c9kvirm	might not catch on	data/processed/pro_fakeddit/images/c9kvirm.jpg	0	1	False	0.7743501365184784	0.5487002544105053	0.2256498821079731	0.7743501365184784
+3lxkdg	years old world records	data/processed/pro_fakeddit/images/3lxkdg.jpg	1	1	True	0.8409077525138855	0.6818155124783516	0.1590922400355339	0.8409077525138855
+cyqn33a	head swap	data/processed/pro_fakeddit/images/cyqn33a.jpg	0	1	False	0.5830756723880768	0.16615136712789536	0.4169243052601814	0.5830756723880768
+6muyes	family comforted by thought that mans death will prevent others from climbing war memorial to pretend to fuck horse	data/processed/pro_fakeddit/images/6muyes.jpg	0	1	False	0.6061013042926788	0.21220259368419647	0.39389871060848236	0.6061013042926788
+14s6ft	norwegian pilot draws penis with flightpath over sweden	data/processed/pro_fakeddit/images/14s6ft.jpg	1	1	True	0.587178498506546	0.17435695230960846	0.41282154619693756	0.587178498506546
+19izgm	moms strip to finance school bus for children	data/processed/pro_fakeddit/images/19izgm.jpg	1	1	True	0.6776311993598938	0.35526242852211	0.3223687708377838	0.6776311993598938
+cbvl2qf	other discussions	data/processed/pro_fakeddit/images/cbvl2qf.jpg	0	1	False	0.7459407150745392	0.491881400346756	0.2540593147277832	0.7459407150745392
+d8d7jkr	ive been here before	data/processed/pro_fakeddit/images/d8d7jkr.jpg	0	1	False	0.6463602781295776	0.2927205488085747	0.35363972932100296	0.6463602781295776
+ctj8vuo	gravity	data/processed/pro_fakeddit/images/ctj8vuo.jpg	0	1	False	0.7165814340114594	0.4331628531217575	0.28341858088970184	0.7165814340114594

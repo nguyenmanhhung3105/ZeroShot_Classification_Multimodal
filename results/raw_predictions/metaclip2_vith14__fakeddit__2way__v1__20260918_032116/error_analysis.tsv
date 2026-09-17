@@ -1,0 +1,837 @@
+id	text	image_path	y_true	y_pred	correct	confidence	margin	score_0	score_1
+2icy8w	but the big cars laugh and say i have a small engine	data/processed/pro_fakeddit/images/2icy8w.jpg	0	1	False	0.9257476627826691	0.8514952939003706	0.07425236888229847	0.9257476627826691
+178o7r	my drawer is so happy to see me	data/processed/pro_fakeddit/images/178o7r.jpg	0	1	False	0.9057188928127289	0.8114377837628126	0.09428110904991627	0.9057188928127289
+c71uoiv	making tennis even better	data/processed/pro_fakeddit/images/c71uoiv.jpg	0	1	False	0.8974223136901855	0.7948446236550808	0.10257769003510475	0.8974223136901855
+7yas5i	this stapler that looks excited to staple	data/processed/pro_fakeddit/images/7yas5i.jpg	0	1	False	0.897153913974762	0.7943078447133303	0.1028460692614317	0.897153913974762
+8q1h3c	this goofy fella loves his job	data/processed/pro_fakeddit/images/8q1h3c.jpg	0	1	False	0.8956767916679382	0.7913536000996828	0.10432319156825542	0.8956767916679382
+5x9cdo	my new apartment still needs furnishing	data/processed/pro_fakeddit/images/5x9cdo.jpg	0	1	False	0.8885434865951538	0.7770869601517916	0.11145652644336224	0.8885434865951538
+cpthoen	just sitting around waiting for some action	data/processed/pro_fakeddit/images/cpthoen.jpg	0	1	False	0.8839007019996643	0.7678013984113932	0.11609930358827114	0.8839007019996643
+chd4k9k	were not getting any younger so lets do the damn thang	data/processed/pro_fakeddit/images/chd4k9k.jpg	0	1	False	0.8833302855491638	0.7666605282574892	0.11666975729167461	0.8833302855491638
+10tba7	we are the happiest hooks	data/processed/pro_fakeddit/images/10tba7.jpg	0	1	False	0.8811486959457397	0.762297410517931	0.11885128542780876	0.8811486959457397
+6ultpf	camera bag looks eager to go on an adventure	data/processed/pro_fakeddit/images/6ultpf.jpg	0	1	False	0.8809930980205536	0.7619862109422684	0.11900688707828522	0.8809930980205536
+cayrghv	what it should have been i suppose	data/processed/pro_fakeddit/images/cayrghv.jpg	0	1	False	0.8783556222915649	0.756711270660162	0.12164435163140297	0.8783556222915649
+bashhb	that telescope has seen some shit	data/processed/pro_fakeddit/images/bashhb.jpg	0	1	False	0.8779707252979279	0.7559414356946945	0.12202928960323334	0.8779707252979279
+cmx97fb	great shot man hey whats going on with that van in the back	data/processed/pro_fakeddit/images/cmx97fb.jpg	0	1	False	0.8778370022773743	0.755673972889781	0.12216302938759327	0.8778370022773743
+ewr14oo	hang on friend ill save you	data/processed/pro_fakeddit/images/ewr14oo.jpg	0	1	False	0.877222090959549	0.7544442117214203	0.12277787923812866	0.877222090959549
+11f95k	this bear is in constant fear	data/processed/pro_fakeddit/images/11f95k.jpg	0	1	False	0.8763511776924133	0.752702359110117	0.12364881858229637	0.8763511776924133
+cascqtq	our love they must not know	data/processed/pro_fakeddit/images/cascqtq.jpg	0	1	False	0.8756291568279266	0.7512583434581757	0.12437081336975098	0.8756291568279266
+c86n5pw	i like them better than the camels	data/processed/pro_fakeddit/images/c86n5pw.jpg	0	1	False	0.8755508065223694	0.7511015888303518	0.12444921769201756	0.8755508065223694
+cq85ah6	dont even mention it bruh bruh	data/processed/pro_fakeddit/images/cq85ah6.jpg	0	1	False	0.8740653991699219	0.7481307983398438	0.12593460083007812	0.8740653991699219
+15g6h1	i got a gleeful thermos for christmas	data/processed/pro_fakeddit/images/15g6h1.jpg	0	1	False	0.8739380538463593	0.7478761151432991	0.12606193870306015	0.8739380538463593
+bz26fm	dae remember the glory days of the s fuck that	data/processed/pro_fakeddit/images/bz26fm.jpg	0	1	False	0.8703219592571259	0.7406439334154129	0.12967802584171295	0.8703219592571259
+4v0kcy	nice making of this cute cat is obsessed with the background	data/processed/pro_fakeddit/images/4v0kcy.jpg	0	1	False	0.8700409531593323	0.7400818970054388	0.12995905615389347	0.8700409531593323
+c8fku4k	just playing a song for the crowd	data/processed/pro_fakeddit/images/c8fku4k.jpg	0	1	False	0.8689324855804443	0.7378649562597275	0.13106752932071686	0.8689324855804443
+c6wpb5i	yes im showing myself out	data/processed/pro_fakeddit/images/c6wpb5i.jpg	0	1	False	0.8627859354019165	0.7255718931555748	0.1372140422463417	0.8627859354019165
+5653s3	the pool has sweet dreams	data/processed/pro_fakeddit/images/5653s3.jpg	0	1	False	0.8622846901416779	0.724569384008646	0.13771530613303185	0.8622846901416779
+cl3ykzw	i call this look brown steel	data/processed/pro_fakeddit/images/cl3ykzw.jpg	0	1	False	0.8618766665458679	0.7237533405423164	0.13812332600355148	0.8618766665458679
+cho98ol	i now pronounce you husband and husband	data/processed/pro_fakeddit/images/cho98ol.jpg	0	1	False	0.8602719604969025	0.7205439507961273	0.13972800970077515	0.8602719604969025
+cjoncr3	top of her class actually	data/processed/pro_fakeddit/images/cjoncr3.jpg	0	1	False	0.8574957549571991	0.7149914987385273	0.1425042562186718	0.8574957549571991
+cv9kwi	my fathers first trip to school	data/processed/pro_fakeddit/images/cv9kwi.jpg	0	1	False	0.8570273518562317	0.7140546962618828	0.1429726555943489	0.8570273518562317
+1fu7gd	every time i reach for him when coming up from the basement i hear him go noooo not the pulling on my dose again	data/processed/pro_fakeddit/images/1fu7gd.jpg	0	1	False	0.8562530279159546	0.7125060334801674	0.1437469944357872	0.8562530279159546
+cqkxo9z	sometimes you need that evil look to save the world	data/processed/pro_fakeddit/images/cqkxo9z.jpg	0	1	False	0.8562398552894592	0.712479691952467	0.14376016333699226	0.8562398552894592
+csyeaxh	i must go save the world and shit	data/processed/pro_fakeddit/images/csyeaxh.jpg	0	1	False	0.8561450242996216	0.7122899927198887	0.1438550315797329	0.8561450242996216
+68laeg	deep in a song for wedding	data/processed/pro_fakeddit/images/68laeg.jpg	0	1	False	0.8553536832332611	0.7107073813676834	0.1446463018655777	0.8553536832332611
+8nys22	four fine ladies pink affinity	data/processed/pro_fakeddit/images/8nys22.jpg	0	1	False	0.8541800677776337	0.7083601262420416	0.14581994153559208	0.8541800677776337
+cfd1o4u	your sure the rock is helping	data/processed/pro_fakeddit/images/cfd1o4u.jpg	0	1	False	0.8539755642414093	0.7079511769115925	0.14602438732981682	0.8539755642414093
+c7g0niq	what i was expecting to see	data/processed/pro_fakeddit/images/c7g0niq.jpg	0	1	False	0.8534684181213379	0.7069368362426758	0.1465315818786621	0.8534684181213379
+cnn933v	not the shower she needed	data/processed/pro_fakeddit/images/cnn933v.jpg	0	1	False	0.8531096577644348	0.7062193341553211	0.1468903236091137	0.8531096577644348
+cdcf3et	get outta the way of my chitty warr shot you goddamn mogorian	data/processed/pro_fakeddit/images/cdcf3et.jpg	0	1	False	0.8523760735988617	0.7047521360218525	0.1476239375770092	0.8523760735988617
+cgy2ybx	aone atwo a skiddlydiddlydo	data/processed/pro_fakeddit/images/cgy2ybx.jpg	0	1	False	0.8508094251155853	0.7016188427805901	0.14919058233499527	0.8508094251155853
+1tszn0	sleepy scooter speakers	data/processed/pro_fakeddit/images/1tszn0.jpg	0	1	False	0.8507555723190308	0.7015111893415451	0.14924438297748566	0.8507555723190308
+cs7uqv	it started out with a kiss how did it up end up like this	data/processed/pro_fakeddit/images/cs7uqv.jpg	0	1	False	0.8504236340522766	0.7008472457528114	0.14957638829946518	0.8504236340522766
+1v4ww2	almost dropped the furniture i was moving to take a picture of this little guy	data/processed/pro_fakeddit/images/1v4ww2.jpg	0	1	False	0.8481787741184235	0.6963574960827827	0.15182127803564072	0.8481787741184235
+1cvawd	birds beak looks like another birds face	data/processed/pro_fakeddit/images/1cvawd.jpg	0	1	False	0.847504049539566	0.6950080916285515	0.15249595791101456	0.847504049539566
+q9lci	clockwise heh from top sad angry and unsure	data/processed/pro_fakeddit/images/q9lci.jpg	0	1	False	0.8471096158027649	0.6942192204296589	0.152890395373106	0.8471096158027649
+7tk3n3	my puppy mimi at my sweet boy resting in the morning	data/processed/pro_fakeddit/images/7tk3n3.jpg	0	1	False	0.846665233373642	0.6933304741978645	0.15333475917577744	0.846665233373642
+4xfi6d	s my grandparents who passed away close to a child	data/processed/pro_fakeddit/images/4xfi6d.jpg	0	1	False	0.8462206125259399	0.6924412101507187	0.15377940237522125	0.8462206125259399
+dx22a6l	how is that even possible	data/processed/pro_fakeddit/images/dx22a6l.jpg	0	1	False	0.8452108204364777	0.6904216650873423	0.1547891553491354	0.8452108204364777
+ccvujvv	i dont really know what ive done here	data/processed/pro_fakeddit/images/ccvujvv.jpg	0	1	False	0.8452079594135284	0.6904159598052502	0.15479199960827827	0.8452079594135284
+8hufy1	hmb while i put the team on my scooter	data/processed/pro_fakeddit/images/8hufy1.jpg	0	1	False	0.8446228802204132	0.689245767891407	0.1553771123290062	0.8446228802204132
+bl9olk	i thought there was a person buried to the neck	data/processed/pro_fakeddit/images/bl9olk.jpg	0	1	False	0.8440015614032745	0.6880031526088715	0.15599840879440308	0.8440015614032745
+42rr6a	republican candidates standing on stage	data/processed/pro_fakeddit/images/42rr6a.jpg	1	0	False	0.8407723903656006	0.6815447881817818	0.8407723903656006	0.15922760218381882
+3xych9	new high resolution photos of earths moon	data/processed/pro_fakeddit/images/3xych9.jpg	0	1	False	0.8405483067035675	0.6810966543853283	0.1594516523182392	0.8405483067035675
+c7nrbvy	i ran out of ideas halfway through	data/processed/pro_fakeddit/images/c7nrbvy.jpg	0	1	False	0.8402123153209686	0.6804246418178082	0.15978767350316048	0.8402123153209686
+c5pjrrs	bale hey bale your shoot was hours ago go home	data/processed/pro_fakeddit/images/c5pjrrs.jpg	0	1	False	0.8397326469421387	0.6794652752578259	0.16026737168431282	0.8397326469421387
+c5pje2w	the beach is probably not the best place for these	data/processed/pro_fakeddit/images/c5pje2w.jpg	0	1	False	0.8394359052181244	0.6788717955350876	0.1605641096830368	0.8394359052181244
+5r5ggc	this new air selfie thing is quadrupleshocked	data/processed/pro_fakeddit/images/5r5ggc.jpg	0	1	False	0.8380109369754791	0.6760218739509583	0.16198906302452087	0.8380109369754791
+c5lsy3o	someone took his cake away	data/processed/pro_fakeddit/images/c5lsy3o.jpg	0	1	False	0.8376088440418243	0.6752176955342293	0.16239114850759506	0.8376088440418243
+cs1lwcv	ill wipe that smirk off your face	data/processed/pro_fakeddit/images/cs1lwcv.jpg	0	1	False	0.8370686173439026	0.6741372831165791	0.16293133422732353	0.8370686173439026
+ax7ekw	how to love the grind of the eclipse have on the sweat mechanic	data/processed/pro_fakeddit/images/ax7ekw.jpg	0	1	False	0.8368268311023712	0.6736536361277103	0.16317319497466087	0.8368268311023712
+ca0g7pm	stunning simply stunning	data/processed/pro_fakeddit/images/ca0g7pm.jpg	0	1	False	0.8357369303703308	0.671473914757371	0.16426301561295986	0.8357369303703308
+b01trk	always walked by this in my house seemed to fit here	data/processed/pro_fakeddit/images/b01trk.jpg	0	1	False	0.8356303572654724	0.6712607312947512	0.16436962597072124	0.8356303572654724
+3po6jx	barbecue round at the folks took a turn for the worst	data/processed/pro_fakeddit/images/3po6jx.jpg	0	1	False	0.8316839635372162	0.6633679158985615	0.1683160476386547	0.8316839635372162
+cts54rg	my references are out of control everyone knows that	data/processed/pro_fakeddit/images/cts54rg.jpg	0	1	False	0.830361396074295	0.6607227846980095	0.16963861137628555	0.830361396074295
+cslo60	deleted when the universe hits you	data/processed/pro_fakeddit/images/cslo60.jpg	0	1	False	0.8301906883716583	0.660381380468607	0.16980930790305138	0.8301906883716583
+53ov88	new weapon added to battlefield	data/processed/pro_fakeddit/images/53ov88.jpg	0	1	False	0.8298052847385406	0.6596105694770813	0.17019471526145935	0.8298052847385406
+7ytt37	british pilot smiles before going off on his final flight	data/processed/pro_fakeddit/images/7ytt37.jpg	0	1	False	0.8281572461128235	0.6563145220279694	0.17184272408485413	0.8281572461128235
+cjty96n	this is what the monkey thinks about this battle	data/processed/pro_fakeddit/images/cjty96n.jpg	0	1	False	0.8276654481887817	0.6553309112787247	0.17233453691005707	0.8276654481887817
+831jiu	the cats alone in the tower	data/processed/pro_fakeddit/images/831jiu.jpg	0	1	False	0.8269838392734528	0.6539676412940025	0.17301619797945023	0.8269838392734528
+5q0lzv	i didnt realize until now that my water bottle is a transformer	data/processed/pro_fakeddit/images/5q0lzv.jpg	0	1	False	0.8269006609916687	0.6538013443350792	0.1730993166565895	0.8269006609916687
+dpl00dr	turned his life upside down	data/processed/pro_fakeddit/images/dpl00dr.jpg	0	1	False	0.8268215954303741	0.6536431759595871	0.17317841947078705	0.8268215954303741
+cs02kgw	still working together after all these years	data/processed/pro_fakeddit/images/cs02kgw.jpg	0	1	False	0.8264663517475128	0.652932669967413	0.17353368178009987	0.8264663517475128
+8zht53	thomas the tank engine is that you	data/processed/pro_fakeddit/images/8zht53.jpg	0	1	False	0.826132595539093	0.6522652395069599	0.1738673560321331	0.826132595539093
+8zg6y9	this snake is all wrapped up	data/processed/pro_fakeddit/images/8zg6y9.jpg	0	1	False	0.8257565498352051	0.6515131033957005	0.17424344643950462	0.8257565498352051
+cmkn4kq	highway to the dangerzone	data/processed/pro_fakeddit/images/cmkn4kq.jpg	0	1	False	0.8256314396858215	0.6512628681957722	0.17436857149004936	0.8256314396858215
+ccrs4e2	you betrayed me you son of a bitch	data/processed/pro_fakeddit/images/ccrs4e2.jpg	0	1	False	0.8250316083431244	0.6500631794333458	0.1749684289097786	0.8250316083431244
+cmnc781	she touches herself everyday	data/processed/pro_fakeddit/images/cmnc781.jpg	0	1	False	0.8244369924068451	0.6488739438354969	0.1755630485713482	0.8244369924068451
+41fl0n	sure let me give you some hot water	data/processed/pro_fakeddit/images/41fl0n.jpg	0	1	False	0.8226167261600494	0.6452334616333246	0.17738326452672482	0.8226167261600494
+1whcta	trudeau saves a dozen lives labelled opportunist	data/processed/pro_fakeddit/images/1whcta.jpg	0	1	False	0.822295218706131	0.6445904262363911	0.17770479246973991	0.822295218706131
+cmvegcz	tis the season they said itll be fun they said	data/processed/pro_fakeddit/images/cmvegcz.jpg	0	1	False	0.8219208717346191	0.6438417285680771	0.17807914316654205	0.8219208717346191
+7miqbk	everyone was asking me when my album was coming out following this snap from our trip to snowdonia so	data/processed/pro_fakeddit/images/7miqbk.jpg	0	1	False	0.8212060928344727	0.6424122005701065	0.17879389226436615	0.8212060928344727
+c794gby	opening the door to narnia	data/processed/pro_fakeddit/images/c794gby.jpg	0	1	False	0.8205827474594116	0.6411655023694038	0.17941724509000778	0.8205827474594116
+33x6n2	ive been saving up some good ones for my cake day mostly from my mediocre job where i set up dentures	data/processed/pro_fakeddit/images/33x6n2.jpg	0	1	False	0.8199962079524994	0.6399924159049988	0.1800037920475006	0.8199962079524994
+28r9gw	too friendly looking to consume	data/processed/pro_fakeddit/images/28r9gw.jpg	0	1	False	0.81963711977005	0.6392742283642292	0.18036289140582085	0.81963711977005
+5qlqu8	i consider myself one of the sides	data/processed/pro_fakeddit/images/5qlqu8.jpg	0	1	False	0.8195529282093048	0.6391057930886745	0.18044713512063026	0.8195529282093048
+2bm3pr	these metal plates have seen some shit	data/processed/pro_fakeddit/images/2bm3pr.jpg	0	1	False	0.8195485472679138	0.6390970908105373	0.18045145645737648	0.8195485472679138
+bzux5b	the way this cone is cut looks like its going through the ground	data/processed/pro_fakeddit/images/bzux5b.jpg	0	1	False	0.8186815977096558	0.6373632028698921	0.18131839483976364	0.8186815977096558
+5yu83o	my dads siblings and parents before they got married theyre here and still king of cool	data/processed/pro_fakeddit/images/5yu83o.jpg	0	1	False	0.818117618560791	0.6362352631986141	0.1818823553621769	0.818117618560791
+dgx0ckd	proudly sponsored by rangers fc	data/processed/pro_fakeddit/images/dgx0ckd.jpg	0	1	False	0.8172517120838165	0.6345034167170525	0.18274829536676407	0.8172517120838165
+c7oq4rs	roll up one more big d o double g	data/processed/pro_fakeddit/images/c7oq4rs.jpg	0	1	False	0.8164791166782379	0.6329582370817661	0.1835208795964718	0.8164791166782379
+5atqir	manor park ive got a screwdriver and a few minutes	data/processed/pro_fakeddit/images/5atqir.jpg	0	1	False	0.8156369924545288	0.6312739942222834	0.18436299823224545	0.8156369924545288
+9emad7	this chip looks like a shoe	data/processed/pro_fakeddit/images/9emad7.jpg	0	1	False	0.814420074224472	0.6288401298224926	0.18557994440197945	0.814420074224472
+cbq9dhg	looks like there is player too much	data/processed/pro_fakeddit/images/cbq9dhg.jpg	0	1	False	0.8143368363380432	0.6286736465990543	0.18566318973898888	0.8143368363380432
+h8kim	this face stared at me while i worked out	data/processed/pro_fakeddit/images/h8kim.jpg	0	1	False	0.8142428696155548	0.6284857466816902	0.1857571229338646	0.8142428696155548
+9demok	i feel awkward changing in front of it	data/processed/pro_fakeddit/images/9demok.jpg	0	1	False	0.8129560947418213	0.6259121708571911	0.1870439238846302	0.8129560947418213
+16cz2a	saw him at the bottom of my final cup of eggnog for the year i know the feeling bro	data/processed/pro_fakeddit/images/16cz2a.jpg	0	1	False	0.8115934431552887	0.6231868676841259	0.1884065754711628	0.8115934431552887
+cw23s66	if only bradleys arm was longer	data/processed/pro_fakeddit/images/cw23s66.jpg	0	1	False	0.8113812804222107	0.6227625645697117	0.188618715852499	0.8113812804222107
+1bw3lm	in the cafeteriahes seen some terrible things	data/processed/pro_fakeddit/images/1bw3lm.jpg	0	1	False	0.8100587427616119	0.6201174221932888	0.18994132056832314	0.8100587427616119
+57rrpg	scrumptious chocolate torte	data/processed/pro_fakeddit/images/57rrpg.jpg	0	1	False	0.8096255958080292	0.6192511543631554	0.1903744414448738	0.8096255958080292
+eufto5a	in the reflection of the mirror	data/processed/pro_fakeddit/images/eufto5a.jpg	0	1	False	0.8095241785049438	0.6190483774989843	0.1904758010059595	0.8095241785049438
+7cnfe9	this little guy loves watching the boats come in	data/processed/pro_fakeddit/images/7cnfe9.jpg	0	1	False	0.8090848326683044	0.6181696951389313	0.19091513752937317	0.8090848326683044
+c9bo81a	i have no plans to die today	data/processed/pro_fakeddit/images/c9bo81a.jpg	0	1	False	0.8088407218456268	0.6176814138889313	0.19115930795669556	0.8088407218456268
+8i09zs	th jun at colonel snoots of the st k unit overshoots his drop zone and lands behind enemy lines	data/processed/pro_fakeddit/images/8i09zs.jpg	0	1	False	0.8087693154811859	0.6175386607646942	0.1912306547164917	0.8087693154811859
+cyvdeit	i dont pick up any life readings	data/processed/pro_fakeddit/images/cyvdeit.jpg	0	1	False	0.8085546791553497	0.6171093359589577	0.19144534319639206	0.8085546791553497
+d2rk9ge	this is no laughing matter	data/processed/pro_fakeddit/images/d2rk9ge.jpg	0	1	False	0.8083343505859375	0.6166687086224556	0.1916656419634819	0.8083343505859375
+cmawyw	aroma burner is frustrated	data/processed/pro_fakeddit/images/cmawyw.jpg	0	1	False	0.8079237043857574	0.6158473938703537	0.19207631051540375	0.8079237043857574
+5lv632	just messing around on minecraft	data/processed/pro_fakeddit/images/5lv632.jpg	0	1	False	0.8075211942195892	0.6150423958897591	0.19247879832983017	0.8075211942195892
+dlsdrsu	we never left the shoneys	data/processed/pro_fakeddit/images/dlsdrsu.jpg	0	1	False	0.8073214590549469	0.6146429292857647	0.1926785297691822	0.8073214590549469
+cjlpl28	who could stay mad at that face	data/processed/pro_fakeddit/images/cjlpl28.jpg	0	1	False	0.8065632283687592	0.6131264232099056	0.19343680515885353	0.8065632283687592
+cbz814a	hey check this out i found the ass end	data/processed/pro_fakeddit/images/cbz814a.jpg	0	1	False	0.8063428997993469	0.6126858405768871	0.1936570592224598	0.8063428997993469
+ci3zxha	everything the light touches is our kingdom	data/processed/pro_fakeddit/images/ci3zxha.jpg	0	1	False	0.8041218519210815	0.6082436796277761	0.1958781722933054	0.8041218519210815
+7zi9cl	must be a rough neighborhood	data/processed/pro_fakeddit/images/7zi9cl.jpg	0	1	False	0.8041166663169861	0.6082333475351334	0.19588331878185272	0.8041166663169861
+blr9u7	first pov pornographer in the s	data/processed/pro_fakeddit/images/blr9u7.jpg	0	1	False	0.8035070598125458	0.6070141047239304	0.19649295508861542	0.8035070598125458
+6l5u4r	us soldier resting after landing on omaha beach th	data/processed/pro_fakeddit/images/6l5u4r.jpg	0	1	False	0.8016962707042694	0.6033925339579582	0.1983037367463112	0.8016962707042694
+3dsbtt	lying in bed and she knows i love clouds	data/processed/pro_fakeddit/images/3dsbtt.jpg	0	1	False	0.8012200593948364	0.6024401187896729	0.19877994060516357	0.8012200593948364
+c6qvn80	just a few hours before ya	data/processed/pro_fakeddit/images/c6qvn80.jpg	0	1	False	0.8003537058830261	0.6007073950022459	0.19964631088078022	0.8003537058830261
+3andu5	new surfboard day firewire sweet potato wood laminate deck	data/processed/pro_fakeddit/images/3andu5.jpg	0	1	False	0.8001258969306946	0.600251778960228	0.1998741179704666	0.8001258969306946
+4k5id9	to see the similarities between the federal reserve into existence	data/processed/pro_fakeddit/images/4k5id9.jpg	0	1	False	0.7996177077293396	0.5992353931069374	0.2003823146224022	0.7996177077293396
+cwwnu4z	a truly clever and original shop	data/processed/pro_fakeddit/images/cwwnu4z.jpg	0	1	False	0.7992511689662933	0.5985023695975542	0.20074879936873913	0.7992511689662933
+cfwtgda	mary how do you control this fucking thing	data/processed/pro_fakeddit/images/cfwtgda.jpg	0	1	False	0.7991510331630707	0.5983020626008511	0.20084897056221962	0.7991510331630707
+32e5s9	unenthused tree couldnt care less	data/processed/pro_fakeddit/images/32e5s9.jpg	0	1	False	0.7973177134990692	0.5946354530751705	0.2026822604238987	0.7973177134990692
+7vh6p7	this mop just tried to sell me some weed	data/processed/pro_fakeddit/images/7vh6p7.jpg	0	1	False	0.796911895275116	0.5938238203525543	0.20308807492256165	0.796911895275116
+c2y4n9	you can do the can can dance easy now as un deux trois everybody ooh la la do the can can	data/processed/pro_fakeddit/images/c2y4n9.jpg	0	1	False	0.7966500222682953	0.5933000706136227	0.20334995165467262	0.7966500222682953
+3fx6rj	oh god i cant do this again	data/processed/pro_fakeddit/images/3fx6rj.jpg	0	1	False	0.7963247895240784	0.5926495417952538	0.20367524772882462	0.7963247895240784
+c9ilg6u	he can spike a ball almost as well as he can ride a bull	data/processed/pro_fakeddit/images/c9ilg6u.jpg	0	1	False	0.7959364056587219	0.5918727796524763	0.2040636260062456	0.7959364056587219
+20zukp	my eggs looked like a monkey	data/processed/pro_fakeddit/images/20zukp.jpg	0	1	False	0.7954569160938263	0.5909138768911362	0.20454303920269012	0.7954569160938263
+avwzjq	float switch weight happy to do the job	data/processed/pro_fakeddit/images/avwzjq.jpg	0	1	False	0.7952442467212677	0.5904884599149227	0.20475578680634499	0.7952442467212677
+98g8wx	this cat in the back of a cave	data/processed/pro_fakeddit/images/98g8wx.jpg	0	1	False	0.7948866188526154	0.5897731706500053	0.20511344820261002	0.7948866188526154
+1ycw55	theres an alien living in svens nose in frozen	data/processed/pro_fakeddit/images/1ycw55.jpg	0	1	False	0.794737696647644	0.5894754156470299	0.20526228100061417	0.794737696647644
+doyvgk9	help me obi wan kenobi youre my only hope	data/processed/pro_fakeddit/images/doyvgk9.jpg	0	1	False	0.7946508526802063	0.5893016941845417	0.2053491584956646	0.7946508526802063
+c5db8ss	because it just looks silly	data/processed/pro_fakeddit/images/c5db8ss.jpg	0	1	False	0.7935300469398499	0.5870601087808609	0.20646993815898895	0.7935300469398499
+cdw4g43	his dream was to become a professional ballet dancer and today it came true	data/processed/pro_fakeddit/images/cdw4g43.jpg	0	1	False	0.7931304574012756	0.5862609427422285	0.20686951465904713	0.7931304574012756
+c8hr414	ive been in a pretty dark place lately	data/processed/pro_fakeddit/images/c8hr414.jpg	0	1	False	0.792844831943512	0.5856897011399269	0.20715513080358505	0.792844831943512
+6bwue9	omg this wire tastes good	data/processed/pro_fakeddit/images/6bwue9.jpg	0	1	False	0.7916803061962128	0.5833605714142323	0.20831973478198051	0.7916803061962128
+cjcjb6m	trying out for the olympic diving team	data/processed/pro_fakeddit/images/cjcjb6m.jpg	0	1	False	0.7915801405906677	0.5831602606922388	0.20841987989842892	0.7915801405906677
+cd80q4n	amazing who you see when going for a walk in the hills	data/processed/pro_fakeddit/images/cd80q4n.jpg	0	1	False	0.7911323308944702	0.5822646645829082	0.20886766631156206	0.7911323308944702
+ccjev19	i have no idea what im doing	data/processed/pro_fakeddit/images/ccjev19.jpg	0	1	False	0.7907952666282654	0.5815905295312405	0.20920473709702492	0.7907952666282654
+9gy0g9	chewbacca over the moon after receiving his gold disk certification for over sales of his smash hit looking for love in alderaan places circa a long time ago in a galaxy far far away	data/processed/pro_fakeddit/images/9gy0g9.jpg	0	1	False	0.7891926765441895	0.5783853381872177	0.21080733835697174	0.7891926765441895
+7csl9q	hey im stuck in this box are you gonna help me out or what	data/processed/pro_fakeddit/images/7csl9q.jpg	0	1	False	0.7886929214000702	0.5773858428001404	0.2113070785999298	0.7886929214000702
+c4v1iyt	no one thought of this okay	data/processed/pro_fakeddit/images/c4v1iyt.jpg	0	1	False	0.7879610359668732	0.5759220980107784	0.21203893795609474	0.7879610359668732
+884fbe	local man glad hes not a local woman	data/processed/pro_fakeddit/images/884fbe.jpg	0	1	False	0.7866356670856476	0.5732713267207146	0.21336434036493301	0.7866356670856476
+1s8sqp	all their boxes are horrified	data/processed/pro_fakeddit/images/1s8sqp.jpg	0	1	False	0.785594254732132	0.5711885392665863	0.21440571546554565	0.785594254732132
+czfg0w9	its pointing upwards alright	data/processed/pro_fakeddit/images/czfg0w9.jpg	0	1	False	0.7855142056941986	0.5710284262895584	0.2144857794046402	0.7855142056941986
+c5lwad9	shes not in first but at least shes having fun	data/processed/pro_fakeddit/images/c5lwad9.jpg	0	1	False	0.7852124273777008	0.5704248789697886	0.21478754840791225	0.7852124273777008
+7qupop	these satellite dish mounts are happy	data/processed/pro_fakeddit/images/7qupop.jpg	0	1	False	0.784421443939209	0.5688429027795792	0.21557854115962982	0.784421443939209
+ceofcbv	supermut and batdog or err superdog and batmut	data/processed/pro_fakeddit/images/ceofcbv.jpg	0	1	False	0.7835200428962708	0.5670401155948639	0.21647992730140686	0.7835200428962708
+crh43n0	either you take care of her or i take care of her	data/processed/pro_fakeddit/images/crh43n0.jpg	0	1	False	0.7830013632774353	0.5660027079284191	0.2169986553490162	0.7830013632774353
+1kn9ah	my friend found a sad pickle	data/processed/pro_fakeddit/images/1kn9ah.jpg	0	1	False	0.7822598218917847	0.564519640058279	0.21774018183350563	0.7822598218917847
+c4b4ha6	when you see it youll shit bricks	data/processed/pro_fakeddit/images/c4b4ha6.jpg	0	1	False	0.7814332246780396	0.5628664493560791	0.21856677532196045	0.7814332246780396
+3nggvv	this vx module but apparently i cant tell if the writers for the unimorph disk scanner	data/processed/pro_fakeddit/images/3nggvv.jpg	0	1	False	0.7813067734241486	0.562613558024168	0.21869321539998055	0.7813067734241486
+coyldt7	heres a link for res users	data/processed/pro_fakeddit/images/coyldt7.jpg	0	1	False	0.7807499766349792	0.5614999812096357	0.2192499954253435	0.7807499766349792
+c5z6ols	i have one of thes on my coffee table	data/processed/pro_fakeddit/images/c5z6ols.jpg	0	1	False	0.7800914943218231	0.560182997956872	0.21990849636495113	0.7800914943218231
+8a0c7x	woman who choked to death alone in apartment kicked out of book club for missing last meetings	data/processed/pro_fakeddit/images/8a0c7x.jpg	0	1	False	0.7800746858119965	0.5601493492722511	0.21992533653974533	0.7800746858119965
+9cyuin	this wall adapter looks pleasantly surprised	data/processed/pro_fakeddit/images/9cyuin.jpg	0	1	False	0.7800511121749878	0.5601022355258465	0.2199488766491413	0.7800511121749878
+7vi7mq	portal to a different dimension	data/processed/pro_fakeddit/images/7vi7mq.jpg	0	1	False	0.7796133756637573	0.5592267736792564	0.22038660198450089	0.7796133756637573
+67zku1	further evidence that i could eat a dick	data/processed/pro_fakeddit/images/67zku1.jpg	0	1	False	0.7785823345184326	0.5571646615862846	0.22141767293214798	0.7785823345184326
+2857zc	awww the poor things terrified	data/processed/pro_fakeddit/images/2857zc.jpg	0	1	False	0.778141438961029	0.5562828816473484	0.22185855731368065	0.778141438961029
+dv4vywb	everything the light touches will one day be yours	data/processed/pro_fakeddit/images/dv4vywb.jpg	0	1	False	0.7777937650680542	0.5555874742567539	0.22220629081130028	0.7777937650680542
+d2cvns	this air hockey table is quite surprised that its sideways	data/processed/pro_fakeddit/images/d2cvns.jpg	0	1	False	0.7775678932666779	0.5551357716321945	0.22243212163448334	0.7775678932666779
+cdzomtw	technically low quality images	data/processed/pro_fakeddit/images/cdzomtw.jpg	0	1	False	0.7772311866283417	0.5544624030590057	0.22276878356933594	0.7772311866283417
+buj9c5	backwardsforwards i dont get it myself	data/processed/pro_fakeddit/images/buj9c5.jpg	0	1	False	0.7769953608512878	0.5539906993508339	0.22300466150045395	0.7769953608512878
+bu6t5o	ive been working with an elephant this whole time	data/processed/pro_fakeddit/images/bu6t5o.jpg	0	1	False	0.7766309082508087	0.5532618388533592	0.2233690693974495	0.7766309082508087
+7uhm86	my toothbrush holder looks like its having a ball of a time brushing its teeth	data/processed/pro_fakeddit/images/7uhm86.jpg	0	1	False	0.7763280272483826	0.5526560619473457	0.22367196530103683	0.7763280272483826
+28xm90	my sawhorse was really happy and excited this morning	data/processed/pro_fakeddit/images/28xm90.jpg	0	1	False	0.776183009147644	0.5523660443723202	0.22381696477532387	0.776183009147644
+db8kccm	aztec cat toy or the vengeful kitten god	data/processed/pro_fakeddit/images/db8kccm.jpg	0	1	False	0.7756966352462769	0.5513932630419731	0.22430337220430374	0.7756966352462769
+67qwvt	the garbage is delighted to see me	data/processed/pro_fakeddit/images/67qwvt.jpg	0	1	False	0.7755692601203918	0.5511385053396225	0.22443075478076935	0.7755692601203918
+clvxfw0	why cant i hold all these shoelaces	data/processed/pro_fakeddit/images/clvxfw0.jpg	0	1	False	0.7754610180854797	0.5509220436215401	0.22453897446393967	0.7754610180854797
+cyoqzdh	something something oscar pistorius	data/processed/pro_fakeddit/images/cyoqzdh.jpg	0	1	False	0.7749363481998444	0.5498726889491081	0.22506365925073624	0.7749363481998444
+5563wh	oxera ive been very good to broadway	data/processed/pro_fakeddit/images/5563wh.jpg	0	1	False	0.7745655477046967	0.5491311438381672	0.22543440386652946	0.7745655477046967
+72cs09	the balcony homecoming king	data/processed/pro_fakeddit/images/72cs09.jpg	0	1	False	0.7737321555614471	0.5474642813205719	0.22626787424087524	0.7737321555614471
+c8ofa3e	wow im getting good at this photoshop stuff	data/processed/pro_fakeddit/images/c8ofa3e.jpg	0	1	False	0.7736299932003021	0.5472599789500237	0.22637001425027847	0.7736299932003021
+c46mfc7	i know this isnt radviceanimals but when i saw this i just had to	data/processed/pro_fakeddit/images/c46mfc7.jpg	0	1	False	0.7735651731491089	0.5471303164958954	0.2264348566532135	0.7735651731491089
+8llfkz	little white ridinghood	data/processed/pro_fakeddit/images/8llfkz.jpg	0	1	False	0.7726368308067322	0.545273669064045	0.22736316174268723	0.7726368308067322
+5guxyv	check out these creative ways to give money as a gift	data/processed/pro_fakeddit/images/5guxyv.jpg	0	1	False	0.7725792825222015	0.5451585277915001	0.22742075473070145	0.7725792825222015
+cfzeck6	catching the first pitch	data/processed/pro_fakeddit/images/cfzeck6.jpg	0	1	False	0.772480696439743	0.5449614003300667	0.22751929610967636	0.772480696439743
+3pdird	caramel swirl vanilla ice cream	data/processed/pro_fakeddit/images/3pdird.jpg	0	1	False	0.7721549570560455	0.5443099290132523	0.22784502804279327	0.7721549570560455
+c4kussy	in the swamps they call him mr pain	data/processed/pro_fakeddit/images/c4kussy.jpg	0	1	False	0.7715843915939331	0.543168768286705	0.2284156233072281	0.7715843915939331
+4s6qqj	guess what i made in pottery class	data/processed/pro_fakeddit/images/4s6qqj.jpg	0	1	False	0.7715470790863037	0.543094165623188	0.2284529134631157	0.7715470790863037
+7y7qn9	this skeptical styrofoam container	data/processed/pro_fakeddit/images/7y7qn9.jpg	0	1	False	0.7713897228240967	0.5427794009447098	0.2286103218793869	0.7713897228240967
+cgvw3og	draw me like one of your french gorillas	data/processed/pro_fakeddit/images/cgvw3og.jpg	0	1	False	0.7708925902843475	0.5417851991951466	0.22910739108920097	0.7708925902843475
+c7zpw06	they say curiosity killed the cat and it did	data/processed/pro_fakeddit/images/c7zpw06.jpg	0	1	False	0.770436018705368	0.5408720187842846	0.22956399992108345	0.770436018705368
+cln3bg1	didnt have the time to finish this hope you like the concept	data/processed/pro_fakeddit/images/cln3bg1.jpg	0	1	False	0.769788533449173	0.5395771227777004	0.23021141067147255	0.769788533449173
+6tyj89	this dude and i surprised each other the other day when i reached in the cooler at work	data/processed/pro_fakeddit/images/6tyj89.jpg	0	1	False	0.7692407071590424	0.5384813919663429	0.23075931519269943	0.7692407071590424
+8aqr5q	martin luther king jr right visiting a pool hall in chicago chicago il	data/processed/pro_fakeddit/images/8aqr5q.jpg	0	1	False	0.7691144645214081	0.5382289364933968	0.23088552802801132	0.7691144645214081
+b69mw5	rare footage of a jewish man crying for mercy right before his execution by the german ss officer otto dietrich	data/processed/pro_fakeddit/images/b69mw5.jpg	0	1	False	0.7684574127197266	0.5369148626923561	0.23154255002737045	0.7684574127197266
+d1s0m8e	the lord of the rings trilogy had a lot of fx	data/processed/pro_fakeddit/images/d1s0m8e.jpg	0	1	False	0.7684049606323242	0.5368099063634872	0.23159505426883698	0.7684049606323242
+cur2q86	gaahhhh please stop yelling at me	data/processed/pro_fakeddit/images/cur2q86.jpg	0	1	False	0.7682094275951385	0.536418866366148	0.23179056122899055	0.7682094275951385
+36v50s	saw these two guys having very different days at work this morning	data/processed/pro_fakeddit/images/36v50s.jpg	0	1	False	0.7680587470531464	0.5361174643039703	0.23194128274917603	0.7680587470531464
+bckdhz	great krusty the klown cosplay	data/processed/pro_fakeddit/images/bckdhz.jpg	0	1	False	0.7674122154712677	0.5348243713378906	0.23258784413337708	0.7674122154712677
+c8p9u8s	not racist just really thirsty	data/processed/pro_fakeddit/images/c8p9u8s.jpg	0	1	False	0.7673169076442719	0.5346338413655758	0.23268306627869606	0.7673169076442719
+caaukt1	imaaaaginaaaaationnnnnnnnn imaaaginaaaaaationnn	data/processed/pro_fakeddit/images/caaukt1.jpg	0	1	False	0.7667824923992157	0.533564992249012	0.2332175001502037	0.7667824923992157
+cvnp1dx	you have no power over here	data/processed/pro_fakeddit/images/cvnp1dx.jpg	0	1	False	0.7665493786334991	0.5330988131463528	0.23345056548714638	0.7665493786334991
+cg9s187	shot heard round the world	data/processed/pro_fakeddit/images/cg9s187.jpg	0	1	False	0.7665005326271057	0.5330010782927275	0.23349945433437824	0.7665005326271057
+eglrkp5	a year later their footage was found	data/processed/pro_fakeddit/images/eglrkp5.jpg	0	1	False	0.7664347589015961	0.5328695401549339	0.23356521874666214	0.7664347589015961
+8yszef	this camera being tired of being a camera	data/processed/pro_fakeddit/images/8yszef.jpg	0	1	False	0.7663190364837646	0.5326380804181099	0.23368095606565475	0.7663190364837646
+cgmzo8a	burning out his fuse up here alone	data/processed/pro_fakeddit/images/cgmzo8a.jpg	0	1	False	0.765578031539917	0.5311560481786728	0.2344219833612442	0.765578031539917
+de5j9du	she does this all the time	data/processed/pro_fakeddit/images/de5j9du.jpg	0	1	False	0.7653229534626007	0.5306459031999111	0.2346770502626896	0.7653229534626007
+bdt67f	my razor could use a shave egyptian goatees went out like years ago	data/processed/pro_fakeddit/images/bdt67f.jpg	0	1	False	0.7652703821659088	0.53054079413414	0.2347295880317688	0.7652703821659088
+bi4jii	los angeles th the photo was taken at approximately pm	data/processed/pro_fakeddit/images/bi4jii.jpg	0	1	False	0.7646269500255585	0.5292538702487946	0.23537307977676392	0.7646269500255585
+6sy3f1	cutting a guitar string in the plastic in a very satisfying way	data/processed/pro_fakeddit/images/6sy3f1.jpg	0	1	False	0.7645055055618286	0.5290110111236572	0.2354944944381714	0.7645055055618286
+ccfau9p	the true avatar the last bearbender	data/processed/pro_fakeddit/images/ccfau9p.jpg	0	1	False	0.7644333243370056	0.5288666561245918	0.2355666682124138	0.7644333243370056
+ca9yze	corner shop caviar austerity blues	data/processed/pro_fakeddit/images/ca9yze.jpg	0	1	False	0.7640346884727478	0.5280693769454956	0.2359653115272522	0.7640346884727478
+d04t5lt	have you ever wondered if there was more to life other than being really really ridiculously good looking	data/processed/pro_fakeddit/images/d04t5lt.jpg	0	1	False	0.7631984949111938	0.5263970345258713	0.23680146038532257	0.7631984949111938
+bl6u32	julius ceasar asking brutus what he has in his hand th bc	data/processed/pro_fakeddit/images/bl6u32.jpg	0	1	False	0.7630839347839355	0.5261678546667099	0.23691608011722565	0.7630839347839355
+cmfof4f	this isnt the franchise i was looking for	data/processed/pro_fakeddit/images/cmfof4f.jpg	0	1	False	0.7623024582862854	0.5246049091219902	0.2376975491642952	0.7623024582862854
+3jlh0u	my display cable has seen me doing stuff	data/processed/pro_fakeddit/images/3jlh0u.jpg	0	1	False	0.7619098424911499	0.5238196551799774	0.23809018731117249	0.7619098424911499
+88bcnh	theresa and the british parliament executing brexit circa	data/processed/pro_fakeddit/images/88bcnh.jpg	0	1	False	0.7611651420593262	0.5223302692174911	0.23883487284183502	0.7611651420593262
+7uvs8q	this speedminton speeder	data/processed/pro_fakeddit/images/7uvs8q.jpg	0	1	False	0.7604449987411499	0.5208899714052677	0.2395550273358822	0.7604449987411499
+1itsse	the playground equipment is making me uncomfortable	data/processed/pro_fakeddit/images/1itsse.jpg	0	1	False	0.7603172361850739	0.5206344723701477	0.23968276381492615	0.7603172361850739
+c8on39n	i felt he deserves it more than the ice does	data/processed/pro_fakeddit/images/c8on39n.jpg	0	1	False	0.7602011263370514	0.5204022601246834	0.239798866212368	0.7602011263370514
+d0pz6zo	finally a hollywood sequel worth seeing	data/processed/pro_fakeddit/images/d0pz6zo.jpg	0	1	False	0.760107159614563	0.5202143304049969	0.23989282920956612	0.760107159614563
+56dvty	caught this guy staring at me in my wood shop	data/processed/pro_fakeddit/images/56dvty.jpg	0	1	False	0.75924351811409	0.5184870287775993	0.24075648933649063	0.75924351811409
+coygman	they see me rollin they hatin	data/processed/pro_fakeddit/images/coygman.jpg	0	1	False	0.7588607370853424	0.5177214853465557	0.2411392517387867	0.7588607370853424
+2u3pmn	it took me the better part of two weeks but i finally finished my macrame purse	data/processed/pro_fakeddit/images/2u3pmn.jpg	0	1	False	0.7587921917438507	0.5175843983888626	0.2412077933549881	0.7587921917438507
+7g63fl	buick introduces new selfbuying car	data/processed/pro_fakeddit/images/7g63fl.jpg	0	1	False	0.7587132155895233	0.5174264535307884	0.2412867620587349	0.7587132155895233
+d7a3wfc	an old picture has been retrieved	data/processed/pro_fakeddit/images/d7a3wfc.jpg	0	1	False	0.7579614520072937	0.5159229300916195	0.2420385219156742	0.7579614520072937
+dinuvni	girl and guy with unusually long arms	data/processed/pro_fakeddit/images/dinuvni.jpg	0	1	False	0.7578416466712952	0.5156832784414291	0.24215836822986603	0.7578416466712952
+chvncke	i just did this just for you	data/processed/pro_fakeddit/images/chvncke.jpg	0	1	False	0.7575288116931915	0.5150576829910278	0.2424711287021637	0.7575288116931915
+902jj5	this guy behind courtney barnett is loving it	data/processed/pro_fakeddit/images/902jj5.jpg	0	1	False	0.7568086981773376	0.5136174038052559	0.24319129437208176	0.7568086981773376
+chh25u1	so long and thanks for the kitties	data/processed/pro_fakeddit/images/chh25u1.jpg	0	1	False	0.7566133141517639	0.5132266134023666	0.24338670074939728	0.7566133141517639
+9e76oq	germans peeking out the hatch of their paenzr restored in color	data/processed/pro_fakeddit/images/9e76oq.jpg	0	1	False	0.7565789222717285	0.5131578296422958	0.24342109262943268	0.7565789222717285
+7s47f1	saw this in twitter had to share	data/processed/pro_fakeddit/images/7s47f1.jpg	0	1	False	0.7564800679683685	0.5129601508378983	0.24351991713047028	0.7564800679683685
+4h620v	cathedral hears whats gone down inside	data/processed/pro_fakeddit/images/4h620v.jpg	0	1	False	0.7563397884368896	0.512679573148489	0.24366021528840065	0.7563397884368896
+7733lq	was mixing sauces in a bowl and found this smiley buddy looking up at me	data/processed/pro_fakeddit/images/7733lq.jpg	0	1	False	0.7559889256954193	0.5119778737425804	0.2440110519528389	0.7559889256954193
+5hn8i1	whats the point of revolving doors	data/processed/pro_fakeddit/images/5hn8i1.jpg	0	1	False	0.7555240094661713	0.5110480338335037	0.24447597563266754	0.7555240094661713
+91z58w	actual photo of albert einstein lecturing on the theory of relativity	data/processed/pro_fakeddit/images/91z58w.jpg	0	1	False	0.7548836767673492	0.5097673684358597	0.24511630833148956	0.7548836767673492
+944mpp	i have ever seen best tommy wiseau the boys	data/processed/pro_fakeddit/images/944mpp.jpg	0	1	False	0.7547427713871002	0.509485512971878	0.24525725841522217	0.7547427713871002
+7v0lpf	zigg with his alien face marking	data/processed/pro_fakeddit/images/7v0lpf.jpg	0	1	False	0.7546628713607788	0.5093257054686546	0.24533716589212418	0.7546628713607788
+926yx3	amazing how davinci captured that subtle smile circa	data/processed/pro_fakeddit/images/926yx3.jpg	0	1	False	0.7545641362667084	0.5091282390058041	0.2454358972609043	0.7545641362667084
+6vfz6l	somewhere over the valley this is our stop	data/processed/pro_fakeddit/images/6vfz6l.jpg	0	1	False	0.754287987947464	0.5085759833455086	0.2457120046019554	0.754287987947464
+f16p4th	httpsiimgurcomvlqoowwjpg	data/processed/pro_fakeddit/images/f16p4th.jpg	0	1	False	0.7533246576786041	0.5066493079066277	0.24667534977197647	0.7533246576786041
+5u25qy	circa otto franks biological son reaction to news of his fathers capture at auschwitz	data/processed/pro_fakeddit/images/5u25qy.jpg	0	1	False	0.7532595694065094	0.50651915371418	0.2467404156923294	0.7532595694065094
+dcepntk	question about the bench press but completely fine to bounce the bar on your core	data/processed/pro_fakeddit/images/dcepntk.jpg	0	1	False	0.7530066072940826	0.5060132369399071	0.24699337035417557	0.7530066072940826
+4dkyi3	today tuesday is the life you have to do so today	data/processed/pro_fakeddit/images/4dkyi3.jpg	0	1	False	0.7527993321418762	0.5055986549705267	0.24720067717134953	0.7527993321418762
+5nrcx9	this guy was staring at me my entire commute	data/processed/pro_fakeddit/images/5nrcx9.jpg	0	1	False	0.7527117133140564	0.5054234191775322	0.2472882941365242	0.7527117133140564
+9hbfz9	the president changing the legal drinking age to	data/processed/pro_fakeddit/images/9hbfz9.jpg	0	1	False	0.7516762614250183	0.5033525079488754	0.24832375347614288	0.7516762614250183
+6w70a2	jessica finally found the source of the noisy bitches on the job and gets right to the yard	data/processed/pro_fakeddit/images/6w70a2.jpg	0	1	False	0.7515431642532349	0.5030863210558891	0.24845684319734573	0.7515431642532349
+dchfeco	beware that which lurks in the dark	data/processed/pro_fakeddit/images/dchfeco.jpg	0	1	False	0.7512755692005157	0.5025511309504509	0.24872443825006485	0.7512755692005157
+ay9ra3	my bum is on my afternoon commute	data/processed/pro_fakeddit/images/ay9ra3.jpg	0	1	False	0.7501537203788757	0.5003074444830418	0.24984627589583397	0.7501537203788757
+9ex9cc	world war summarized europe	data/processed/pro_fakeddit/images/9ex9cc.jpg	0	1	False	0.7498195469379425	0.4996390827000141	0.2501804642379284	0.7498195469379425
+3jp1od	obese man dies attempting to put on his socks	data/processed/pro_fakeddit/images/3jp1od.jpg	0	1	False	0.7495670914649963	0.4991341680288315	0.25043292343616486	0.7495670914649963
+8oc2ak	anybody know what it be some sort of salt maybe in my apartment complex	data/processed/pro_fakeddit/images/8oc2ak.jpg	0	1	False	0.7490920722484589	0.4981841593980789	0.25090791285037994	0.7490920722484589
+d0ioqh	using a banana for archery practice	data/processed/pro_fakeddit/images/d0ioqh.jpg	0	1	False	0.7490819096565247	0.4981638118624687	0.25091809779405594	0.7490819096565247
+7fwus7	man found minutes after hanging himself	data/processed/pro_fakeddit/images/7fwus7.jpg	0	1	False	0.7490511536598206	0.4981022849678993	0.25094886869192123	0.7490511536598206
+bqbcqn	hes keenly interested in everyone he sees	data/processed/pro_fakeddit/images/bqbcqn.jpg	0	1	False	0.7486143410205841	0.4972286634147167	0.2513856776058674	0.7486143410205841
+dhnsulp	i took my masters degree in cowbell	data/processed/pro_fakeddit/images/dhnsulp.jpg	0	1	False	0.74859419465065	0.49718841910362244	0.2514057755470276	0.74859419465065
+cva78z9	the most interesting gecko in the world	data/processed/pro_fakeddit/images/cva78z9.jpg	0	1	False	0.748247504234314	0.4964949954301119	0.2517525088042021	0.748247504234314
+7ksxx4	last known video of the kauai oo filmed by david boynton	data/processed/pro_fakeddit/images/7ksxx4.jpg	0	1	False	0.7479070127010345	0.4958139806985855	0.25209303200244904	0.7479070127010345
+8625ic	this guy is staring at me every day at work	data/processed/pro_fakeddit/images/8625ic.jpg	0	1	False	0.7473929524421692	0.4947858974337578	0.2526070550084114	0.7473929524421692
+1rs5ss	i had an overlyexcited jalapeno on my pizza today	data/processed/pro_fakeddit/images/1rs5ss.jpg	0	1	False	0.7473510503768921	0.49470212310552597	0.2526489272713661	0.7473510503768921
+cd1vud	weebs trying to enter area	data/processed/pro_fakeddit/images/cd1vud.jpg	0	1	False	0.7472746968269348	0.4945494309067726	0.2527252659201622	0.7472746968269348
+4ft77t	this guy watches me while i poo	data/processed/pro_fakeddit/images/4ft77t.jpg	0	1	False	0.7471187710762024	0.494237519800663	0.2528812512755394	0.7471187710762024
+1wosm2	the inside of a breaking wave	data/processed/pro_fakeddit/images/1wosm2.jpg	0	1	False	0.7470664978027344	0.49413303285837173	0.25293346494436264	0.7470664978027344
+cldkl8h	i should very much liketo hold them again	data/processed/pro_fakeddit/images/cldkl8h.jpg	0	1	False	0.7462846040725708	0.49256918020546436	0.25371542386710644	0.7462846040725708
+139f8a	uuuuuuggghh srsly srsly guise	data/processed/pro_fakeddit/images/139f8a.jpg	0	1	False	0.7462177574634552	0.4924355112016201	0.2537822462618351	0.7462177574634552
+81opte	my dad in vietnam hes pictured centre with a yellow dog he rescued right before a napalm attack he almost cried when he told me how much he loved that dog hope this is the right place	data/processed/pro_fakeddit/images/81opte.jpg	0	1	False	0.7457872033119202	0.49157439172267914	0.25421281158924103	0.7457872033119202
+8z61g2	dang i spilled my pork rinds all over the grass	data/processed/pro_fakeddit/images/8z61g2.jpg	0	1	False	0.7449321746826172	0.48986435681581497	0.2550678178668022	0.7449321746826172
+2bzyjg	what did i do tell me what i did	data/processed/pro_fakeddit/images/2bzyjg.jpg	0	1	False	0.7446110248565674	0.489222027361393	0.2553889974951744	0.7446110248565674
+dpmuhrc	chrimbus time is almost here	data/processed/pro_fakeddit/images/dpmuhrc.jpg	0	1	False	0.7444362640380859	0.488872516900301	0.25556374713778496	0.7444362640380859
+d59wze	my sons lady bug pillow pal is quite terrifying	data/processed/pro_fakeddit/images/d59wze.jpg	0	1	False	0.7441081702709198	0.4882163405418396	0.2558918297290802	0.7441081702709198
+5tcifi	nothing says quality engineering more than just a victim of crappydesign	data/processed/pro_fakeddit/images/5tcifi.jpg	0	1	False	0.7440666556358337	0.4881333112716675	0.25593334436416626	0.7440666556358337
+chw10yk	i have no idea what im doing	data/processed/pro_fakeddit/images/chw10yk.jpg	0	1	False	0.7437778115272522	0.4875556640326977	0.2562221474945545	0.7437778115272522
+5gkhwh	first shot from tim burtons thomas the tank engine	data/processed/pro_fakeddit/images/5gkhwh.jpg	0	1	False	0.7434209287166595	0.4868418127298355	0.25657911598682404	0.7434209287166595
+crewcqr	capture me like one of your orlesian qunari	data/processed/pro_fakeddit/images/crewcqr.jpg	0	1	False	0.7427234947681427	0.48544701375067234	0.25727648101747036	0.7427234947681427
+cbutsuf	i promised gandalf i would keep you safe and safe is where ill keep you	data/processed/pro_fakeddit/images/cbutsuf.jpg	0	1	False	0.7422793209552765	0.4845586568117142	0.2577206641435623	0.7422793209552765
+c65lq0a	youre tearing me apart guy hanging from my roof	data/processed/pro_fakeddit/images/c65lq0a.jpg	0	1	False	0.7411421239376068	0.48228422552347183	0.258857898414135	0.7411421239376068
+b3jbbl	the outgrown left behind	data/processed/pro_fakeddit/images/b3jbbl.jpg	0	1	False	0.7408891022205353	0.48177821934223175	0.25911088287830353	0.7408891022205353
+arqhox	my wifes arm after getting bitten by our cat	data/processed/pro_fakeddit/images/arqhox.jpg	0	1	False	0.7407366335391998	0.48147328197956085	0.259263351559639	0.7407366335391998
+do6cv2s	mint in the boxbasically	data/processed/pro_fakeddit/images/do6cv2s.jpg	0	1	False	0.7407160401344299	0.4814320579171181	0.25928398221731186	0.7407160401344299
+ddqmivi	i dont want no fop gahdammit	data/processed/pro_fakeddit/images/ddqmivi.jpg	0	1	False	0.7406875491142273	0.4813750684261322	0.2593124806880951	0.7406875491142273
+cli4bx8	left keys in left side pocket	data/processed/pro_fakeddit/images/cli4bx8.jpg	0	1	False	0.7403991222381592	0.48079821839928627	0.2596009038388729	0.7403991222381592
+c59yl6	a crab that got hit by an explosion	data/processed/pro_fakeddit/images/c59yl6.jpg	0	1	False	0.7398936450481415	0.47978728264570236	0.2601063624024391	0.7398936450481415
+8n48do	hidden footage of roseanne barr receiving the call that her show was canceled th	data/processed/pro_fakeddit/images/8n48do.jpg	0	1	False	0.7397357523441315	0.4794715344905853	0.26026421785354614	0.7397357523441315
+49h3vi	til of the poppy in george r r tolkien described his first big break in the netherlands injured nearly people and injuring more	data/processed/pro_fakeddit/images/49h3vi.jpg	0	1	False	0.7393861413002014	0.47877227514982224	0.2606138661503792	0.7393861413002014
+c3kn1k	humanities last straight survivor is infected with gay	data/processed/pro_fakeddit/images/c3kn1k.jpg	0	1	False	0.7380068600177765	0.4760137051343918	0.2619931548833847	0.7380068600177765
+8mwfk4	runaway slave hides from his master c	data/processed/pro_fakeddit/images/8mwfk4.jpg	0	1	False	0.7379936277866364	0.4759872406721115	0.26200638711452484	0.7379936277866364
+8b71mj	assassins creed ii this is all i want to kill dot net	data/processed/pro_fakeddit/images/8b71mj.jpg	0	1	False	0.7376043200492859	0.47520861774683	0.2623957023024559	0.7376043200492859
+5l0itu	donauturm things which are alike x	data/processed/pro_fakeddit/images/5l0itu.jpg	0	1	False	0.7369837164878845	0.47396742552518845	0.2630162909626961	0.7369837164878845
+c6lgof3	always on hand just in case	data/processed/pro_fakeddit/images/c6lgof3.jpg	0	1	False	0.7367437779903412	0.4734875289723277	0.2632562490180135	0.7367437779903412
+c5jce9i	hes also great at hulahooping	data/processed/pro_fakeddit/images/c5jce9i.jpg	0	1	False	0.7364488244056702	0.47289765253663063	0.26355117186903954	0.7364488244056702
+c7to9oa	that old weather guy from moonrise kingdom	data/processed/pro_fakeddit/images/c7to9oa.jpg	0	1	False	0.7362647354602814	0.47252947092056274	0.26373526453971863	0.7362647354602814
+73wq77	the atomic bomb little boy just above the town of hiroshima	data/processed/pro_fakeddit/images/73wq77.jpg	0	1	False	0.736001044511795	0.47200213372707367	0.2639989107847214	0.736001044511795
+c6kotht	yeah i dont think hes cut out the the olympics	data/processed/pro_fakeddit/images/c6kotht.jpg	0	1	False	0.7358430922031403	0.4716861993074417	0.26415689289569855	0.7358430922031403
+86fr25	these bathroom tiles dont like what they are seeing	data/processed/pro_fakeddit/images/86fr25.jpg	0	1	False	0.7358098030090332	0.4716195613145828	0.2641902416944504	0.7358098030090332
+e2vz7xl	nothing gonna stop us now	data/processed/pro_fakeddit/images/e2vz7xl.jpg	0	1	False	0.7350203692913055	0.4700407423079014	0.26497962698340416	0.7350203692913055
+cjv9xpd	anything that gets hit by it	data/processed/pro_fakeddit/images/cjv9xpd.jpg	0	1	False	0.7345523834228516	0.46910477988421917	0.2654476035386324	0.7345523834228516
+d3jig8v	a place left by civilisation	data/processed/pro_fakeddit/images/d3jig8v.jpg	0	1	False	0.7333986759185791	0.4667973481118679	0.2666013278067112	0.7333986759185791
+cqa2ix	what do you guys think happened to jacob wetterling case no	data/processed/pro_fakeddit/images/cqa2ix.jpg	0	1	False	0.7331771850585938	0.4663544148206711	0.26682277023792267	0.7331771850585938
+4luh8z	heavenly ecstasy the porcellain of human kind	data/processed/pro_fakeddit/images/4luh8z.jpg	0	1	False	0.7326191365718842	0.4652382656931877	0.26738087087869644	0.7326191365718842
+cm2b4k5	betty white queen of comedy	data/processed/pro_fakeddit/images/cm2b4k5.jpg	0	1	False	0.7322429716587067	0.46448594331741333	0.26775702834129333	0.7322429716587067
+8bkxxd	the sovereigns body guard iggy pop reveals his loyalty to the phantom limb	data/processed/pro_fakeddit/images/8bkxxd.jpg	0	1	False	0.7315956056118011	0.4631911814212799	0.26840442419052124	0.7315956056118011
+dij6elx	sirsiri swearsirnot a single drop	data/processed/pro_fakeddit/images/dij6elx.jpg	0	1	False	0.7312955558300018	0.46259112656116486	0.268704429268837	0.7312955558300018
+c5mhybw	using the ball was boring	data/processed/pro_fakeddit/images/c5mhybw.jpg	0	1	False	0.7310011982917786	0.4620024003088474	0.26899879798293114	0.7310011982917786
+cpeaqz	olga guillot house of the blue light	data/processed/pro_fakeddit/images/cpeaqz.jpg	0	1	False	0.730226069688797	0.4604521468281746	0.2697739228606224	0.730226069688797
+61k1z0	a defining moment in musical history	data/processed/pro_fakeddit/images/61k1z0.jpg	0	1	False	0.7300887107849121	0.460177481174469	0.2699112296104431	0.7300887107849121
+7x9lxl	carrot bout to drop the healthiest verse of all time	data/processed/pro_fakeddit/images/7x9lxl.jpg	0	1	False	0.7293389439582825	0.45867786183953285	0.2706610821187496	0.7293389439582825
+ccltzws	the night janitor aspires to be something else	data/processed/pro_fakeddit/images/ccltzws.jpg	0	1	False	0.7292821705341339	0.4585643410682678	0.2707178294658661	0.7292821705341339
+3y5t9r	what working on the fridge at a silver mine	data/processed/pro_fakeddit/images/3y5t9r.jpg	0	1	False	0.7288664877414703	0.45773300528526306	0.2711334824562073	0.7288664877414703
+2tcwef	lorenzo de medici schoolwhat i know	data/processed/pro_fakeddit/images/2tcwef.jpg	0	1	False	0.7280636429786682	0.456127293407917	0.2719363495707512	0.7280636429786682
+2mtdre	my workplace is the happiest guy in town sometimes he barfs out a submarine	data/processed/pro_fakeddit/images/2mtdre.jpg	0	1	False	0.7276537418365479	0.455307487398386	0.27234625443816185	0.7276537418365479
+c8nws8k	you scared thehmout of me	data/processed/pro_fakeddit/images/c8nws8k.jpg	0	1	False	0.7272102236747742	0.45442045107483864	0.27278977259993553	0.7272102236747742
+ces56a8	i felt like watching the hobbit again	data/processed/pro_fakeddit/images/ces56a8.jpg	0	1	False	0.7270057797431946	0.45401157066226006	0.2729942090809345	0.7270057797431946
+2sn6jw	esbjorn svensson an urge to change the world x	data/processed/pro_fakeddit/images/2sn6jw.jpg	0	1	False	0.7268434166908264	0.45368681102991104	0.2731566056609154	0.7268434166908264
+3if33g	freshly shucked malpeque bay oysters	data/processed/pro_fakeddit/images/3if33g.jpg	0	1	False	0.7265934348106384	0.45318687707185745	0.273406557738781	0.7265934348106384
+1s5yad	the tea wanted to say hello this morning	data/processed/pro_fakeddit/images/1s5yad.jpg	0	1	False	0.726129561662674	0.4522591270506382	0.27387043461203575	0.726129561662674
+8h6h77	black ice cream cone with sprinkles	data/processed/pro_fakeddit/images/8h6h77.jpg	0	1	False	0.725347489118576	0.4506949633359909	0.27465252578258514	0.725347489118576
+21i5ic	discarded and depressed	data/processed/pro_fakeddit/images/21i5ic.jpg	0	1	False	0.7248125374317169	0.44962502270936966	0.27518751472234726	0.7248125374317169
+8embki	plantation owner destitute after the seizure of his holdings	data/processed/pro_fakeddit/images/8embki.jpg	0	1	False	0.7232254445552826	0.44645092636346817	0.2767745181918144	0.7232254445552826
+cp3fdbi	lock sfoils into attack position and begin your run good luck gentleman	data/processed/pro_fakeddit/images/cp3fdbi.jpg	0	1	False	0.7231208086013794	0.4462416097521782	0.2768791988492012	0.7231208086013794
+3saqns	a really dirty computer desk	data/processed/pro_fakeddit/images/3saqns.jpg	0	1	False	0.7225450575351715	0.4450901001691818	0.2774549573659897	0.7225450575351715
+6mpjr0	budapest symphony orchestra turkey jerky	data/processed/pro_fakeddit/images/6mpjr0.jpg	0	1	False	0.7223564088344574	0.444712832570076	0.2776435762643814	0.7223564088344574
+9in752	president trump arrives in puerto rico	data/processed/pro_fakeddit/images/9in752.jpg	0	1	False	0.7220826745033264	0.44416532665491104	0.2779173478484154	0.7220826745033264
+ck6eap8	because i dont know how to do better	data/processed/pro_fakeddit/images/ck6eap8.jpg	0	1	False	0.7220461964607239	0.44409242644906044	0.27795377001166344	0.7220461964607239
+cypbc00	goddammit you beat me to it	data/processed/pro_fakeddit/images/cypbc00.jpg	0	1	False	0.7218569219112396	0.44371388480067253	0.2781430371105671	0.7218569219112396
+8musu1	michael jackson rescues child granted french citizenship circa	data/processed/pro_fakeddit/images/8musu1.jpg	0	1	False	0.7217259407043457	0.4434518590569496	0.2782740816473961	0.7217259407043457
+divnav	adolf hitler discovers that steiners offensive did not even start berlin	data/processed/pro_fakeddit/images/divnav.jpg	0	1	False	0.721650093793869	0.44330018758773804	0.278349906206131	0.721650093793869
+90knl1	this suspicious charging cable	data/processed/pro_fakeddit/images/90knl1.jpg	0	1	False	0.7209730744361877	0.4419461339712143	0.27902694046497345	0.7209730744361877
+9iyuxd	pointless flying in the wind	data/processed/pro_fakeddit/images/9iyuxd.jpg	0	1	False	0.7209619581699371	0.44192393124103546	0.2790380269289017	0.7209619581699371
+59po64	defense secretary ash carter has ordered a stop to reclaiming reenlistment bonuses	data/processed/pro_fakeddit/images/59po64.jpg	1	0	False	0.720783919095993	0.4415678530931473	0.720783919095993	0.27921606600284576
+8uvk8q	last photo taken of kurt cobain	data/processed/pro_fakeddit/images/8uvk8q.jpg	0	1	False	0.7203682661056519	0.4407365396618843	0.27963172644376755	0.7203682661056519
+ck2r6t0	the physical impossibility of death in the mind of someone living	data/processed/pro_fakeddit/images/ck2r6t0.jpg	0	1	False	0.7203354835510254	0.44067098945379257	0.2796644940972328	0.7203354835510254
+clsfppc	danny the homeless dwarf had a wild night last night	data/processed/pro_fakeddit/images/clsfppc.jpg	0	1	False	0.7199066579341888	0.439813282340765	0.28009337559342384	0.7199066579341888
+cmo5dnd	that one weird guy at the gym	data/processed/pro_fakeddit/images/cmo5dnd.jpg	0	1	False	0.7196250855922699	0.4392501786351204	0.2803749069571495	0.7196250855922699
+10qdhi	found this guy agape at ikea	data/processed/pro_fakeddit/images/10qdhi.jpg	0	1	False	0.7189771831035614	0.4379543289542198	0.2810228541493416	0.7189771831035614
+5k2a9z	theres a massive metal dragon hiding inside earths outer core	data/processed/pro_fakeddit/images/5k2a9z.jpg	0	1	False	0.7185122668743134	0.4370245337486267	0.28148773312568665	0.7185122668743134
+cydwdpu	more dangerous than an xwing	data/processed/pro_fakeddit/images/cydwdpu.jpg	0	1	False	0.7185066044330597	0.4370132014155388	0.2814934030175209	0.7185066044330597
+7l6x1c	i cheated on my phone a few years ago before it was meant to be present when the guilty one is punished	data/processed/pro_fakeddit/images/7l6x1c.jpg	0	1	False	0.7183861136436462	0.4367721974849701	0.28161391615867615	0.7183861136436462
+96crs3	new mother with her newborn babies	data/processed/pro_fakeddit/images/96crs3.jpg	0	1	False	0.7177065014839172	0.4354130029678345	0.28229349851608276	0.7177065014839172
+5q3o12	leonardo da vinci shows of his latest invention circa	data/processed/pro_fakeddit/images/5q3o12.jpg	0	1	False	0.7176046371459961	0.4352092742919922	0.2823953628540039	0.7176046371459961
+ck2hcc	vodka a dangerous love beware ussr	data/processed/pro_fakeddit/images/ck2hcc.jpg	0	1	False	0.7173468768596649	0.43469372391700745	0.28265315294265747	0.7173468768596649
+cltrhlc	not every customer is happy	data/processed/pro_fakeddit/images/cltrhlc.jpg	0	1	False	0.7167417109012604	0.43348338082432747	0.2832583300769329	0.7167417109012604
+8duuwd	alter another life for another day dont tell mama	data/processed/pro_fakeddit/images/8duuwd.jpg	0	1	False	0.7155550420284271	0.43111005052924156	0.28444499149918556	0.7155550420284271
+emtorz6	sumba u have forgetten mee	data/processed/pro_fakeddit/images/emtorz6.jpg	0	1	False	0.7153343707323074	0.43066873401403427	0.28466563671827316	0.7153343707323074
+d02c0fr	this robot doing the girl	data/processed/pro_fakeddit/images/d02c0fr.jpg	0	1	False	0.7152253687381744	0.4304507113993168	0.28477465733885765	0.7152253687381744
+cezs0zg	fennecs world tour will melt your face off	data/processed/pro_fakeddit/images/cezs0zg.jpg	0	1	False	0.7151234745979309	0.43024692684412	0.2848765477538109	0.7151234745979309
+9ibl9s	hitler discussing the potential for invading poland colorised	data/processed/pro_fakeddit/images/9ibl9s.jpg	0	1	False	0.7148488163948059	0.429697647690773	0.2851511687040329	0.7148488163948059
+51u4bm	different colors chance and change	data/processed/pro_fakeddit/images/51u4bm.jpg	0	1	False	0.7130200564861298	0.4260401055216789	0.28697995096445084	0.7130200564861298
+6t1xiy	life the doctors told her that her husband would never walk again then the conversation lightened up a bit and they told her about a great new bagel place	data/processed/pro_fakeddit/images/6t1xiy.jpg	0	1	False	0.7128794193267822	0.42575882375240326	0.28712059557437897	0.7128794193267822
+dlj52e2	so thats what happened to those documents	data/processed/pro_fakeddit/images/dlj52e2.jpg	0	1	False	0.712817370891571	0.42563472129404545	0.2871826495975256	0.712817370891571
+868ro2	padtampon dispenser looks like a metallic groot	data/processed/pro_fakeddit/images/868ro2.jpg	0	1	False	0.7121182680130005	0.42423655092716217	0.2878817170858383	0.7121182680130005
+2k44et	this pretty little thing sure gets around town potato quality	data/processed/pro_fakeddit/images/2k44et.jpg	0	1	False	0.7117438316345215	0.423487676307559	0.28825615532696247	0.7117438316345215
+3n55ab	native americans celebrate as trump vows to kick out immigrants	data/processed/pro_fakeddit/images/3n55ab.jpg	0	1	False	0.7114512920379639	0.42290256917476654	0.2885487228631973	0.7114512920379639
+34jhet	this agate seemed uncomfortable with being sliced and polished	data/processed/pro_fakeddit/images/34jhet.jpg	0	1	False	0.7111377418041229	0.42227545380592346	0.28886228799819946	0.7111377418041229
+c2n0ih	doesnt even use a cane to get around	data/processed/pro_fakeddit/images/c2n0ih.jpg	0	1	False	0.7105285674333572	0.42105714976787567	0.28947141766548157	0.7105285674333572
+6e6xk8	huge modern day pirate ship sails in to beach to plunder us	data/processed/pro_fakeddit/images/6e6xk8.jpg	0	1	False	0.7103867530822754	0.4207734689116478	0.2896132841706276	0.7103867530822754
+7syh68	i think my new work test phone is cute	data/processed/pro_fakeddit/images/7syh68.jpg	0	1	False	0.7099497616291046	0.4198995139449835	0.29005024768412113	0.7099497616291046
+aswntg	defy media paying loans circa	data/processed/pro_fakeddit/images/aswntg.jpg	0	1	False	0.7095408141613007	0.4190816059708595	0.29045920819044113	0.7095408141613007
+dcpkm6d	how drunk are you right now	data/processed/pro_fakeddit/images/dcpkm6d.jpg	0	1	False	0.7094551920890808	0.4189104177057743	0.2905447743833065	0.7094551920890808
+6l8ivu	lifes a beach by jesus christie	data/processed/pro_fakeddit/images/6l8ivu.jpg	0	1	False	0.7091788649559021	0.4183577112853527	0.2908211536705494	0.7091788649559021
+c49mbj9	the force is strong with this one	data/processed/pro_fakeddit/images/c49mbj9.jpg	0	1	False	0.7090340554714203	0.4180681109428406	0.2909659445285797	0.7090340554714203
+ch96p3e	no one started the battle im disappointed	data/processed/pro_fakeddit/images/ch96p3e.jpg	0	1	False	0.7078697681427002	0.4157395251095295	0.2921302430331707	0.7078697681427002
+cd6v9ta	a cliff dont make me laugh	data/processed/pro_fakeddit/images/cd6v9ta.jpg	0	1	False	0.7077987790107727	0.4155975691974163	0.2922012098133564	0.7077987790107727
+2dk8fv	deformed skull served with butter	data/processed/pro_fakeddit/images/2dk8fv.jpg	0	1	False	0.7077014148235321	0.4154028594493866	0.2922985553741455	0.7077014148235321
+arbhjr	the egyptian building the pyramids bce	data/processed/pro_fakeddit/images/arbhjr.jpg	0	1	False	0.7072141170501709	0.4144282527267933	0.2927858643233776	0.7072141170501709
+c8le97d	naw you guys go on ahead without us	data/processed/pro_fakeddit/images/c8le97d.jpg	0	1	False	0.7071839720010757	0.4143679477274418	0.29281602427363396	0.7071839720010757
+2fn7bw	my human left me here and wandered off	data/processed/pro_fakeddit/images/2fn7bw.jpg	0	1	False	0.7067646384239197	0.41352929919958115	0.29323533922433853	0.7067646384239197
+25ahrg	too bugged out to thug out	data/processed/pro_fakeddit/images/25ahrg.jpg	0	1	False	0.7067246437072754	0.4134492762386799	0.2932753674685955	0.7067246437072754
+co16w5f	now i wanna buy a dress like that	data/processed/pro_fakeddit/images/co16w5f.jpg	0	1	False	0.7065804898738861	0.4131609611213207	0.2934195287525654	0.7065804898738861
+85m658	family playing with the first generation of ipads	data/processed/pro_fakeddit/images/85m658.jpg	0	1	False	0.7065396904945374	0.4130794256925583	0.29346026480197906	0.7065396904945374
+4v31wi	judge releases reagan shooter john hinckley jr from mental institution citing too many shitty actors	data/processed/pro_fakeddit/images/4v31wi.jpg	0	1	False	0.7063359022140503	0.4126718193292618	0.2936640828847885	0.7063359022140503
+8xp1ss	watching all girls garage when suddenly	data/processed/pro_fakeddit/images/8xp1ss.jpg	0	1	False	0.7063114941120148	0.4126230254769325	0.29368846863508224	0.7063114941120148
+8wjko7	the british government during negotiations for a better brexit deal	data/processed/pro_fakeddit/images/8wjko7.jpg	0	1	False	0.705251008272171	0.41050204634666443	0.2947489619255066	0.705251008272171
+c3zeak	high school dorks unhappy accident	data/processed/pro_fakeddit/images/c3zeak.jpg	0	1	False	0.7038731276988983	0.4077462702989578	0.2961268573999405	0.7038731276988983
+1mg5hg	there is a fat witch watching over my bed	data/processed/pro_fakeddit/images/1mg5hg.jpg	0	1	False	0.7036371529102325	0.4072743356227875	0.29636281728744507	0.7036371529102325
+4jtm8d	apodytes from the beginning	data/processed/pro_fakeddit/images/4jtm8d.jpg	0	1	False	0.7036051899194717	0.4072103798389435	0.29639481008052826	0.7036051899194717
+c8igjtd	in times of stress mccain likes to imagine himself back in a more pleasant period of his life back when he held a job that gave him a sense of dignity	data/processed/pro_fakeddit/images/c8igjtd.jpg	0	1	False	0.7032030522823334	0.40640609711408615	0.2967969551682472	0.7032030522823334
+6fc4h2	just zeros high school riot	data/processed/pro_fakeddit/images/6fc4h2.jpg	0	1	False	0.703146368265152	0.40629275888204575	0.29685360938310623	0.703146368265152
+3vxzsm	man already knows everything he needs to know about muslims	data/processed/pro_fakeddit/images/3vxzsm.jpg	0	1	False	0.703105241060257	0.4062104895710945	0.29689475148916245	0.703105241060257
+7psst0	these banana boxes just learned what the bailer is used for	data/processed/pro_fakeddit/images/7psst0.jpg	0	1	False	0.7025420963764191	0.40508418530225754	0.29745791107416153	0.7025420963764191
+cy8ao4	caesar and cleopatra agree to reclaim her throne circa bc	data/processed/pro_fakeddit/images/cy8ao4.jpg	0	1	False	0.7015717923641205	0.40314362198114395	0.29842817038297653	0.7015717923641205
+6ro11r	a bunch of delicious donuts	data/processed/pro_fakeddit/images/6ro11r.jpg	0	1	False	0.7015648186206818	0.4031296446919441	0.29843517392873764	0.7015648186206818
+73uic4	picture of german soldiers hearing the news of the fuhrers death	data/processed/pro_fakeddit/images/73uic4.jpg	0	1	False	0.7015102803707123	0.40302054584026337	0.2984897345304489	0.7015102803707123
+cgev1ew	emergency mustache team go	data/processed/pro_fakeddit/images/cgev1ew.jpg	0	1	False	0.7013395130634308	0.40267904102802277	0.298660472035408	0.7013395130634308
+6w11x2	planet fitness offering new lightsoff hour so no one can watch you work out	data/processed/pro_fakeddit/images/6w11x2.jpg	0	1	False	0.7009224891662598	0.40184497833251953	0.29907751083374023	0.7009224891662598
+74fyax	corpsepaint condom machine is kvlt af	data/processed/pro_fakeddit/images/74fyax.jpg	0	1	False	0.7002432942390442	0.400486558675766	0.2997567355632782	0.7002432942390442
+7ezont	this truck looks like an angry gooseduck	data/processed/pro_fakeddit/images/7ezont.jpg	0	1	False	0.6996590197086334	0.39931801706552505	0.30034100264310837	0.6996590197086334
+c5mwdkv	woah thats like a really good point	data/processed/pro_fakeddit/images/c5mwdkv.jpg	0	1	False	0.6989759355783463	0.3979518972337246	0.30102403834462166	0.6989759355783463
+ci3jb34	what direction to take this	data/processed/pro_fakeddit/images/ci3jb34.jpg	0	1	False	0.698235422372818	0.39647082798182964	0.30176459439098835	0.698235422372818
+c5sbnx9	nope just obama running around like a madman	data/processed/pro_fakeddit/images/c5sbnx9.jpg	0	1	False	0.6979756057262421	0.3959512561559677	0.30202434957027435	0.6979756057262421
+ccazmav	now with a little more skin soon we can make a theme park we cant wait it will be good	data/processed/pro_fakeddit/images/ccazmav.jpg	0	1	False	0.6978885978460312	0.3957771956920624	0.3021114021539688	0.6978885978460312
+cit924m	well its not unidentified	data/processed/pro_fakeddit/images/cit924m.jpg	0	1	False	0.6974717974662781	0.394943593069911	0.3025282043963671	0.6974717974662781
+8ocve8	how much do you like about this girl tomorrow and im gonna be a sign	data/processed/pro_fakeddit/images/8ocve8.jpg	0	1	False	0.6973652243614197	0.39473044127225876	0.3026347830891609	0.6973652243614197
+b085qm	trump promotes jexodus the names for a movement encouraging jewish voters to leave the democratic party	data/processed/pro_fakeddit/images/b085qm.jpg	1	0	False	0.6972804665565491	0.39456096291542053	0.6972804665565491	0.30271950364112854
+d9losd	looks like a thoothy monster but its actually a smiling purple taxi	data/processed/pro_fakeddit/images/d9losd.jpg	0	1	False	0.696577176451683	0.3931543491780758	0.30342282727360725	0.696577176451683
+clcb59f	thats not where thermometers go	data/processed/pro_fakeddit/images/clcb59f.jpg	0	1	False	0.6964342892169952	0.39286861196160316	0.3035656772553921	0.6964342892169952
+cedwfb	upside down sign dundee michigan	data/processed/pro_fakeddit/images/cedwfb.jpg	1	0	False	0.6964200735092163	0.3928401917219162	0.6964200735092163	0.3035798817873001
+4lvi8i	broken door knob is happy to see you	data/processed/pro_fakeddit/images/4lvi8i.jpg	0	1	False	0.6963992863893509	0.3927985653281212	0.3036007210612297	0.6963992863893509
+6uaro5	a police dog finds a stash of weed	data/processed/pro_fakeddit/images/6uaro5.jpg	0	1	False	0.6962048709392548	0.3924097791314125	0.30379509180784225	0.6962048709392548
+5c3x09	vessel for male sexual gratification very sad today	data/processed/pro_fakeddit/images/5c3x09.jpg	0	1	False	0.6959510892629623	0.3919022008776665	0.30404888838529587	0.6959510892629623
+cww4la	rice fields that look like stained glass	data/processed/pro_fakeddit/images/cww4la.jpg	0	1	False	0.6954612731933594	0.39092253893613815	0.3045387342572212	0.6954612731933594
+2jxazs	saw this spooky guy in my ice cream cone	data/processed/pro_fakeddit/images/2jxazs.jpg	0	1	False	0.6954386830329895	0.3908773809671402	0.3045613020658493	0.6954386830329895
+8t13i8	proctologists have the worst view	data/processed/pro_fakeddit/images/8t13i8.jpg	0	1	False	0.6950011551380157	0.3900022804737091	0.30499887466430664	0.6950011551380157
+c7q397q	did you say banana proof vest	data/processed/pro_fakeddit/images/c7q397q.jpg	0	1	False	0.6941733956336975	0.3883467875421047	0.3058266080915928	0.6941733956336975
+8wy0uu	the subways is flooded with water after the storm	data/processed/pro_fakeddit/images/8wy0uu.jpg	0	1	False	0.693795919418335	0.3875918611884117	0.30620405822992325	0.693795919418335
+4de49a	ive been thinking of buying shoes sizes online	data/processed/pro_fakeddit/images/4de49a.jpg	0	1	False	0.6917044222354889	0.3834088109433651	0.3082956112921238	0.6917044222354889
+at42ti	unseen footage of erwin rommel a few days before the first battle of elalamein	data/processed/pro_fakeddit/images/at42ti.jpg	0	1	False	0.6913493126630783	0.3826986327767372	0.3086506798863411	0.6913493126630783
+1x5i8i	the dashboard of doc browns delorean	data/processed/pro_fakeddit/images/1x5i8i.jpg	0	1	False	0.6904483437538147	0.38089669495821	0.3095516487956047	0.6904483437538147
+23gsf0	me and some people over at mildly interesting arent sure if this looks like an excited dog gorilla or what	data/processed/pro_fakeddit/images/23gsf0.jpg	0	1	False	0.6904436349868774	0.3808872625231743	0.30955637246370316	0.6904436349868774
+cwiyjoj	ford showing his true form	data/processed/pro_fakeddit/images/cwiyjoj.jpg	0	1	False	0.690441831946373	0.38088366761803627	0.3095581643283367	0.690441831946373
+cqxx6bo	every lotr fan thoughs right now	data/processed/pro_fakeddit/images/cqxx6bo.jpg	0	1	False	0.6903537213802338	0.3807074576616287	0.30964626371860504	0.6903537213802338
+d2frgm3	i cant think of a good title	data/processed/pro_fakeddit/images/d2frgm3.jpg	0	1	False	0.6902049481868744	0.38040991500020027	0.3097950331866741	0.6902049481868744
+d15m67f	if theres any doubt i do a leavebehind with the hat i go back to her place to pick it update number three	data/processed/pro_fakeddit/images/d15m67f.jpg	0	1	False	0.6901295483112335	0.38025912269949913	0.3098704256117344	0.6901295483112335
+cbas4qz	another quiet day at home	data/processed/pro_fakeddit/images/cbas4qz.jpg	0	1	False	0.6891835182905197	0.37836704403162	0.3108164742588997	0.6891835182905197
+disf1ze	this cofveve is great its the best	data/processed/pro_fakeddit/images/disf1ze.jpg	0	1	False	0.6888179332017899	0.37763586919754744	0.3111820640042424	0.6888179332017899
+cd2diyo	shut down the garbage compactors on the detention level	data/processed/pro_fakeddit/images/cd2diyo.jpg	0	1	False	0.6887866854667664	0.3775733858346939	0.31121329963207245	0.6887866854667664
+85kt3h	extras on set of mosfilm production babushkas in toyland	data/processed/pro_fakeddit/images/85kt3h.jpg	0	1	False	0.6881105899810791	0.3762211501598358	0.3118894398212433	0.6881105899810791
+dmv20uc	that image explains alot	data/processed/pro_fakeddit/images/dmv20uc.jpg	0	1	False	0.6873639971017838	0.3747279793024063	0.31263601779937744	0.6873639971017838
+8rgq8z	this door is going to the ball	data/processed/pro_fakeddit/images/8rgq8z.jpg	0	1	False	0.6871072947978973	0.3742145374417305	0.31289275735616684	0.6871072947978973
+clo6v43	she hath cometh to slay the beast	data/processed/pro_fakeddit/images/clo6v43.jpg	0	1	False	0.6870276629924774	0.37405529618263245	0.31297236680984497	0.6870276629924774
+cofcfcm	and on that day america was born	data/processed/pro_fakeddit/images/cofcfcm.jpg	0	1	False	0.6866520047187805	0.3733039852231741	0.3133480194956064	0.6866520047187805
+cd5x6mx	looks like blanket had a friend with him under that blanket	data/processed/pro_fakeddit/images/cd5x6mx.jpg	0	1	False	0.6866476237773895	0.37329523637890816	0.31335238739848137	0.6866476237773895
+4hownt	closeup footage of a newly discovered deep sea fish	data/processed/pro_fakeddit/images/4hownt.jpg	0	1	False	0.6859921216964722	0.3719842731952667	0.31400784850120544	0.6859921216964722
+14sfo2	spanish civil war era i will leave translation to the natives	data/processed/pro_fakeddit/images/14sfo2.jpg	0	1	False	0.6858143508434296	0.3716287165880203	0.31418563425540924	0.6858143508434296
+db1z1f7	kanye repping the supreme helmet	data/processed/pro_fakeddit/images/db1z1f7.jpg	0	1	False	0.6856063008308411	0.37121258676052094	0.31439371407032013	0.6856063008308411
+d8p8k27	planet of the cats coming this fall	data/processed/pro_fakeddit/images/d8p8k27.jpg	0	1	False	0.6854388117790222	0.37087760865688324	0.314561203122139	0.6854388117790222
+9hsw3n	write george rr martin gives fans a sneak peek of his progress on his longawaited novel the winds of winter	data/processed/pro_fakeddit/images/9hsw3n.jpg	0	1	False	0.6851468980312347	0.3702937960624695	0.31485310196876526	0.6851468980312347
+3ivb0r	on the floor in the corner of the white room	data/processed/pro_fakeddit/images/3ivb0r.jpg	0	1	False	0.6849323809146881	0.3698647264391184	0.3150676544755697	0.6849323809146881
+2ytho9	kayak for a cause brocade in dishonour	data/processed/pro_fakeddit/images/2ytho9.jpg	0	1	False	0.6843376606702805	0.3686753138899803	0.31566234678030014	0.6843376606702805
+c870ztg	i wish it would just play dead for me	data/processed/pro_fakeddit/images/c870ztg.jpg	0	1	False	0.6843365132808685	0.36867305636405945	0.3156634569168091	0.6843365132808685
+6164g6	president donald trump sits in the drivers seat of a semitruck	data/processed/pro_fakeddit/images/6164g6.jpg	1	0	False	0.6840918064117432	0.3681836575269699	0.6840918064117432	0.31590814888477325
+c81o0z7	toby immediately regretted eating the bright red mushroom	data/processed/pro_fakeddit/images/c81o0z7.jpg	0	1	False	0.6831378638744354	0.3662757948040962	0.3168620690703392	0.6831378638744354
+dn4cn4f	the four disaster girls of the apocalypse	data/processed/pro_fakeddit/images/dn4cn4f.jpg	0	1	False	0.68259596824646	0.3651919364929199	0.31740403175354004	0.68259596824646
+ejadkx2	guess who immediately appeared in the picture	data/processed/pro_fakeddit/images/ejadkx2.jpg	0	1	False	0.6825548261404037	0.36510966531932354	0.3174451608210802	0.6825548261404037
+6vjvj8	the eclipse looking like a one eyed raccoon	data/processed/pro_fakeddit/images/6vjvj8.jpg	0	1	False	0.6824138760566711	0.3648277223110199	0.31758615374565125	0.6824138760566711
+c8iq93v	kim jongun finds an unmissable offer	data/processed/pro_fakeddit/images/c8iq93v.jpg	0	1	False	0.6823648810386658	0.36472974717617035	0.3176351338624954	0.6823648810386658
+8aytej	rubber plantation workers during the rule of king leopold ii belgian congo	data/processed/pro_fakeddit/images/8aytej.jpg	0	1	False	0.6812914907932281	0.3625829517841339	0.31870853900909424	0.6812914907932281
+c7dnu5e	braaaaaaaiiiiiiinssssss	data/processed/pro_fakeddit/images/c7dnu5e.jpg	0	1	False	0.6811950653791428	0.3623901139944792	0.3188049513846636	0.6811950653791428
+d0rv6i	us general contemplating dropping the second nuclear bomb in japan	data/processed/pro_fakeddit/images/d0rv6i.jpg	0	1	False	0.6808620393276215	0.3617240935564041	0.31913794577121735	0.6808620393276215
+10j5ee	cnn and msnbc pundit arrested for vandalizing antimuslim ad in ny subway system	data/processed/pro_fakeddit/images/10j5ee.jpg	1	0	False	0.6807861626148224	0.3615723252296448	0.6807861626148224	0.3192138373851776
+cvy7a2a	it was funny the first time but	data/processed/pro_fakeddit/images/cvy7a2a.jpg	0	1	False	0.6806079298257828	0.36121590435504913	0.31939202547073364	0.6806079298257828
+blgl7r	jewish peasant pleads to hitler to supply more food to his synagogue	data/processed/pro_fakeddit/images/blgl7r.jpg	0	1	False	0.6801272928714752	0.36025457084178925	0.319872722029686	0.6801272928714752
+75srzq	rare picture of adolf hitler without his mustache	data/processed/pro_fakeddit/images/75srzq.jpg	0	1	False	0.6797803342342377	0.35956063121557236	0.3202197030186653	0.6797803342342377
+1hw02a	a disgruntledlooking cigarette butt disposal	data/processed/pro_fakeddit/images/1hw02a.jpg	0	1	False	0.6797716319561005	0.3595432788133621	0.32022835314273834	0.6797716319561005
+8khc6z	larry martin what is pain	data/processed/pro_fakeddit/images/8khc6z.jpg	0	1	False	0.6796203553676605	0.35924071073532104	0.3203796446323395	0.6796203553676605
+cqnp9h	euuk begin brexit negotiations	data/processed/pro_fakeddit/images/cqnp9h.jpg	0	1	False	0.6795801818370819	0.3591603636741638	0.3204198181629181	0.6795801818370819
+6b0n3p	newmanberg trials aushwitz	data/processed/pro_fakeddit/images/6b0n3p.jpg	0	1	False	0.6789365112781525	0.35787300020456314	0.3210635110735893	0.6789365112781525
+8et034	the music has gotten worse dire consequences	data/processed/pro_fakeddit/images/8et034.jpg	0	1	False	0.6787204891443253	0.3574409633874893	0.32127952575683594	0.6787204891443253
+2d8cef	steven seagal looks menacingly at an unsually smiley vladimir putin	data/processed/pro_fakeddit/images/2d8cef.jpg	1	0	False	0.6785055994987488	0.35701121389865875	0.6785055994987488	0.32149438560009
+7t252d	this fallen post looks like a discarded cigarette	data/processed/pro_fakeddit/images/7t252d.jpg	0	1	False	0.6784321963787079	0.3568643778562546	0.3215678185224533	0.6784321963787079
+cu0c1ug	this dog is pretty bad ass	data/processed/pro_fakeddit/images/cu0c1ug.jpg	0	1	False	0.677806168794632	0.3556123822927475	0.32219378650188446	0.677806168794632
+cartreb	only one among us keeps his spartan reserve only he only our king	data/processed/pro_fakeddit/images/cartreb.jpg	0	1	False	0.6777350604534149	0.35547010228037834	0.3222649581730366	0.6777350604534149
+44e6r9	newspaper dropped by the raf on the channel islands during the german occupation uk	data/processed/pro_fakeddit/images/44e6r9.jpg	0	1	False	0.6773534715175629	0.35470692813396454	0.3226465433835983	0.6773534715175629
+d56isvq	synchronized swimming among tigers	data/processed/pro_fakeddit/images/d56isvq.jpg	0	1	False	0.6771360039710999	0.3542720228433609	0.32286398112773895	0.6771360039710999
+9ab3m5	tyson v holyfield the bite fight	data/processed/pro_fakeddit/images/9ab3m5.jpg	0	1	False	0.6771247386932373	0.3542494922876358	0.3228752464056015	0.6771247386932373
+cmup1tu	started with earmuffs ended with nsfw	data/processed/pro_fakeddit/images/cmup1tu.jpg	0	1	False	0.6769396662712097	0.3538793660700321	0.3230603002011776	0.6769396662712097
+8q4yfd	bethesda shows off a mages wand at e before announcing a new elder scrolls game	data/processed/pro_fakeddit/images/8q4yfd.jpg	0	1	False	0.6766662895679474	0.3533325642347336	0.3233337253332138	0.6766662895679474
+1zz6jw	hurray for peron primary school book	data/processed/pro_fakeddit/images/1zz6jw.jpg	0	1	False	0.6763290613889694	0.35265813767910004	0.3236709237098694	0.6763290613889694
+4tv5u8	angrily charging into battle	data/processed/pro_fakeddit/images/4tv5u8.jpg	0	1	False	0.6759999692440033	0.3519999608397484	0.3240000084042549	0.6759999692440033
+6mtwfr	hugh hefner surrounded by bunnies late s	data/processed/pro_fakeddit/images/6mtwfr.jpg	0	1	False	0.6756513714790344	0.35130271315574646	0.32434865832328796	0.6756513714790344
+c6r3ba	rick mensa mendez i cant bring my penguin anywhere because hes too fat for carryon	data/processed/pro_fakeddit/images/c6r3ba.jpg	0	1	False	0.675355464220047	0.3507109358906746	0.3246445283293724	0.675355464220047
+1m71or	a glitched sims character	data/processed/pro_fakeddit/images/1m71or.jpg	1	0	False	0.6752339452505112	0.35046786814928055	0.6752339452505112	0.3247660771012306
+7756px	the fatal seatbelt mistake passengers are making	data/processed/pro_fakeddit/images/7756px.jpg	0	1	False	0.6744242012500763	0.3488483875989914	0.3255758136510849	0.6744242012500763
+c9ulsbs	thats not a pussycarthis is a pussycar	data/processed/pro_fakeddit/images/c9ulsbs.jpg	0	1	False	0.6743435859680176	0.34868717938661575	0.3256564065814018	0.6743435859680176
+dfro2l3	chicken nuggets im hating it	data/processed/pro_fakeddit/images/dfro2l3.jpg	0	1	False	0.6732898652553558	0.3465797156095505	0.32671014964580536	0.6732898652553558
+d7qrel	unmalnaebe books how does one make those letters stand out	data/processed/pro_fakeddit/images/d7qrel.jpg	0	1	False	0.672833114862442	0.34566622972488403	0.327166885137558	0.672833114862442
+6czegl	german store owner refuses to serve jew	data/processed/pro_fakeddit/images/6czegl.jpg	0	1	False	0.672830194234848	0.3456604331731796	0.3271697610616684	0.672830194234848
+bbyani	first ever image of a singularity	data/processed/pro_fakeddit/images/bbyani.jpg	0	1	False	0.6722481548786163	0.34449630975723267	0.32775184512138367	0.6722481548786163
+cmcyj0	isabella of france invading englandcolorized	data/processed/pro_fakeddit/images/cmcyj0.jpg	0	1	False	0.6717987060546875	0.3435974419116974	0.3282012641429901	0.6717987060546875
+8kl3jh	royal wedding watch prince harry and meghan markle just drove away from windsor castle with a dozen festive commoners tied to the back of their car	data/processed/pro_fakeddit/images/8kl3jh.jpg	0	1	False	0.6716084778308868	0.3432169556617737	0.32839152216911316	0.6716084778308868
+71o825	us monitored manafort after he left trump campaign	data/processed/pro_fakeddit/images/71o825.jpg	1	0	False	0.6711778789758682	0.34235575795173645	0.6711778789758682	0.3288221210241318
+c6nrlnd	does no one remember what happened to baxter	data/processed/pro_fakeddit/images/c6nrlnd.jpg	0	1	False	0.6709989905357361	0.34199799597263336	0.3290009945631027	0.6709989905357361
+22frw2	this toilet has seen so much shit it has a yard stare	data/processed/pro_fakeddit/images/22frw2.jpg	0	1	False	0.6709893941879272	0.3419787883758545	0.32901060581207275	0.6709893941879272
+cmhqtne	the right background was way too hard to find for some reason	data/processed/pro_fakeddit/images/cmhqtne.jpg	0	1	False	0.6694769412279129	0.3389539010822773	0.3305230401456356	0.6694769412279129
+ckt908	chris pratt invites a riot while jimi hendrix and nick kroll look on circa	data/processed/pro_fakeddit/images/ckt908.jpg	0	1	False	0.6692124605178833	0.3384249359369278	0.3307875245809555	0.6692124605178833
+cejkv1i	mouse leaping over grass	data/processed/pro_fakeddit/images/cejkv1i.jpg	0	1	False	0.6688627898693085	0.33772558718919754	0.33113720268011093	0.6688627898693085
+bqb33c	president kennedy moments before attempting to sneeze with his eyes open nd	data/processed/pro_fakeddit/images/bqb33c.jpg	0	1	False	0.6688141822814941	0.3376283571124077	0.33118582516908646	0.6688141822814941
+cme3gyg	guardians of the galaxy is still cool right	data/processed/pro_fakeddit/images/cme3gyg.jpg	0	1	False	0.6684230417013168	0.33684607595205307	0.33157696574926376	0.6684230417013168
+cligoba	finally my shitty photoshop skills and stereotypical french knowledge come in handy	data/processed/pro_fakeddit/images/cligoba.jpg	0	1	False	0.6682130992412567	0.33642616868019104	0.3317869305610657	0.6682130992412567
+dowkfmw	the unknown superweapons used in the pacific theatre of wwii	data/processed/pro_fakeddit/images/dowkfmw.jpg	0	1	False	0.6679989695549011	0.33599797636270523	0.3320009931921959	0.6679989695549011
+5bf8p5	british raf air commander salutes his pilots as they depart to defend their homeland against the germans	data/processed/pro_fakeddit/images/5bf8p5.jpg	0	1	False	0.6677941977977753	0.33558840304613113	0.33220579475164413	0.6677941977977753
+2smca9	blood covered turban from recent shootings	data/processed/pro_fakeddit/images/2smca9.jpg	0	1	False	0.6675474345684052	0.3350948840379715	0.33245255053043365	0.6675474345684052
+66b2zi	an athletes meteoric fall from grace very nsfl	data/processed/pro_fakeddit/images/66b2zi.jpg	0	1	False	0.6670866310596466	0.3341732770204544	0.3329133540391922	0.6670866310596466
+7c2uqn	legendary runner usain bolt about to set his m world record on th in berlin germany	data/processed/pro_fakeddit/images/7c2uqn.jpg	0	1	False	0.666855663061142	0.33371133357286453	0.33314432948827744	0.666855663061142
+95mvmx	new york congressman arrested on insider trading charges	data/processed/pro_fakeddit/images/95mvmx.jpg	1	0	False	0.6667236685752869	0.3334473520517349	0.6667236685752869	0.33327631652355194
+3nxb06	wait gg are the people the behind the latest study claiming gg are the video author as an embittered rival when that is slightly better than google blackjack and hookers optional	data/processed/pro_fakeddit/images/3nxb06.jpg	0	1	False	0.666568249464035	0.33313651382923126	0.33343173563480377	0.666568249464035
+e1g2kg8	my first attempt at psbattling	data/processed/pro_fakeddit/images/e1g2kg8.jpg	0	1	False	0.6664825230836868	0.33296503126621246	0.33351749181747437	0.6664825230836868
+93omyp	pablo escobar eightyeight keys	data/processed/pro_fakeddit/images/93omyp.jpg	0	1	False	0.6663130819797516	0.3326261341571808	0.3336869478225708	0.6663130819797516
+1juur9	naked guy missing his left hand	data/processed/pro_fakeddit/images/1juur9.jpg	0	1	False	0.6659634709358215	0.33192695677280426	0.3340365141630173	0.6659634709358215
+db1wpoi	bitch how you not et again	data/processed/pro_fakeddit/images/db1wpoi.jpg	0	1	False	0.665962427854538	0.33192481100559235	0.3340376168489456	0.665962427854538
+97ejql	slightly concerned pavement	data/processed/pro_fakeddit/images/97ejql.jpg	0	1	False	0.6659547388553619	0.33190950751304626	0.3340452313423157	0.6659547388553619
+7lixhc	us ambassador to netherlands describes own words as fake news	data/processed/pro_fakeddit/images/7lixhc.jpg	1	0	False	0.6656357944011688	0.33127157390117645	0.6656357944011688	0.33436422049999237
+dy5lj7i	the fall of legenwaitforitdary dogs	data/processed/pro_fakeddit/images/dy5lj7i.jpg	0	1	False	0.6656183302402496	0.33123668283224106	0.3343816474080086	0.6656183302402496
+d97xeju	i keep having the same dream doc	data/processed/pro_fakeddit/images/d97xeju.jpg	0	1	False	0.6645457595586777	0.32909152656793594	0.33545423299074173	0.6645457595586777
+7jq2w9	bound eastern european woman to be sold off as servant in underground trades s	data/processed/pro_fakeddit/images/7jq2w9.jpg	0	1	False	0.6644384264945984	0.32887689024209976	0.3355615362524986	0.6644384264945984
+atk5s6	one of the iphones best features just leaked and its something you wont even see	data/processed/pro_fakeddit/images/atk5s6.jpg	0	1	False	0.6644084453582764	0.32881688326597214	0.33559156209230423	0.6644084453582764
+ckbppkc	young taylor swift with a kitten	data/processed/pro_fakeddit/images/ckbppkc.jpg	0	1	False	0.6642884016036987	0.3285767734050751	0.33571162819862366	0.6642884016036987
+cd74xi3	the most terrifying edition of battletoads to date	data/processed/pro_fakeddit/images/cd74xi3.jpg	0	1	False	0.6642483919858932	0.3284967988729477	0.33575159311294556	0.6642483919858932
+9ioc9t	a poorly disguised german spy attempts to gather information from an english national ca	data/processed/pro_fakeddit/images/9ioc9t.jpg	0	1	False	0.6639149188995361	0.32782983779907227	0.33608508110046387	0.6639149188995361
+58jwjm	why some starbucks baristas are intentionally covering the logo on your cup	data/processed/pro_fakeddit/images/58jwjm.jpg	0	1	False	0.6637562811374664	0.3275125175714493	0.33624376356601715	0.6637562811374664
+df2iiir	cat observing the planet	data/processed/pro_fakeddit/images/df2iiir.jpg	0	1	False	0.6632660031318665	0.3265319988131523	0.33673400431871414	0.6632660031318665
+6cbddp	jeremy corbyn staring at a dog	data/processed/pro_fakeddit/images/6cbddp.jpg	1	0	False	0.663196861743927	0.326393723487854	0.663196861743927	0.336803138256073
+al4fly	jesus going after pontius pilate after he came back from the dead ad	data/processed/pro_fakeddit/images/al4fly.jpg	0	1	False	0.6628543138504028	0.3257085829973221	0.33714573085308075	0.6628543138504028
+d3bqtvb	the reason there wasnt any room for jack	data/processed/pro_fakeddit/images/d3bqtvb.jpg	0	1	False	0.6628216058015823	0.32564321532845497	0.33717839047312737	0.6628216058015823
+7nty7n	im a baby boomer im banning rick morty enthusiasts that he needs the be on the man who oversaw the distribution of iqs	data/processed/pro_fakeddit/images/7nty7n.jpg	0	1	False	0.6615532338619232	0.32310643792152405	0.33844679594039917	0.6615532338619232
+awoypq	racist time traveler attempts to murder future us president barack obama by sniping him with a shitty boomerang	data/processed/pro_fakeddit/images/awoypq.jpg	0	1	False	0.6608549952507019	0.321710005402565	0.3391449898481369	0.6608549952507019
+5xoxt3	fumiko kaneko unveils plans for assassination of imperial family to society of malcontents	data/processed/pro_fakeddit/images/5xoxt3.jpg	0	1	False	0.6607491970062256	0.32149840891361237	0.3392507880926132	0.6607491970062256
+ccewep5	is it time for oktoberfest already	data/processed/pro_fakeddit/images/ccewep5.jpg	0	1	False	0.6606144160032272	0.3212288208305836	0.33938559517264366	0.6606144160032272
+c6edq0q	subtle but never fails to amuse me	data/processed/pro_fakeddit/images/c6edq0q.jpg	0	1	False	0.6602859944105148	0.32057198137044907	0.33971401304006577	0.6602859944105148
+8bs9no	heartbreaking woman in parking garage doesnt remember which car she hid her calzone under	data/processed/pro_fakeddit/images/8bs9no.jpg	0	1	False	0.6600885689258575	0.3201771527528763	0.33991141617298126	0.6600885689258575
+cj44ep	i dont even know where else to post this sort of sentiment	data/processed/pro_fakeddit/images/cj44ep.jpg	0	1	False	0.6596987545490265	0.3193974755704403	0.3403012789785862	0.6596987545490265
+68k859	apparently disneys giant turkey legs arent actually turkey	data/processed/pro_fakeddit/images/68k859.jpg	0	1	False	0.6587398946285248	0.31747976690530777	0.341260127723217	0.6587398946285248
+78xol9	its simply bursting with creative wonder says reviewer of new game where mario sometimes dresses as chef	data/processed/pro_fakeddit/images/78xol9.jpg	0	1	False	0.6582360565662384	0.3164721578359604	0.341763898730278	0.6582360565662384
+crx48al	in which our hubris provides the path to ascension	data/processed/pro_fakeddit/images/crx48al.jpg	0	1	False	0.6580401659011841	0.31608032435178757	0.3419598415493965	0.6580401659011841
+91my0w	jewish prisoner are thrown a party in the showers unaware of the nasty surprise to come circa	data/processed/pro_fakeddit/images/91my0w.jpg	0	1	False	0.6573535799980164	0.3147071823477745	0.34264639765024185	0.6573535799980164
+cd2mjg	winston churchill reenters the government	data/processed/pro_fakeddit/images/cd2mjg.jpg	0	1	False	0.6572402715682983	0.3144805505871773	0.34275972098112106	0.6572402715682983
+57sdcb	rockstar just got everyone talking with one simple image	data/processed/pro_fakeddit/images/57sdcb.jpg	0	1	False	0.6544879525899887	0.3089758902788162	0.3455120623111725	0.6544879525899887
+cywpksg	the online community mourns	data/processed/pro_fakeddit/images/cywpksg.jpg	0	1	False	0.654465988278389	0.30893198400735855	0.3455340042710304	0.654465988278389
+28hjus	study more men opting to be in room when wife conceives baby	data/processed/pro_fakeddit/images/28hjus.jpg	0	1	False	0.6542222648859024	0.3084445595741272	0.3457777053117752	0.6542222648859024
+5hmabh	it resembles the texture of a dog waiting at the counter	data/processed/pro_fakeddit/images/5hmabh.jpg	0	1	False	0.6541879177093506	0.3083758372813463	0.34581208042800426	0.6541879177093506
+8rrfjs	rare footage of a million patriot interceptor used to shoot down a drone	data/processed/pro_fakeddit/images/8rrfjs.jpg	0	1	False	0.6540147960186005	0.3080295920372009	0.34598520398139954	0.6540147960186005
+b35gev	picture of a american soldier before being blown up by a vietcong land mine vietnam	data/processed/pro_fakeddit/images/b35gev.jpg	0	1	False	0.6539720892906189	0.307944193482399	0.3460278958082199	0.6539720892906189
+b1nlad	scary or scared fireplace	data/processed/pro_fakeddit/images/b1nlad.jpg	0	1	False	0.6535124480724335	0.30702489614486694	0.34648755192756653	0.6535124480724335
+79o36s	independence day israeli army guidancetraining and explanationpropaganda branch	data/processed/pro_fakeddit/images/79o36s.jpg	0	1	False	0.6533973217010498	0.3067946806550026	0.3466026410460472	0.6533973217010498
+64ajuk	rare nonredacted photograph of charles k after receiving word from the hostage negotiator that his ultimatum would be accepted	data/processed/pro_fakeddit/images/64ajuk.jpg	0	1	False	0.6533772945404053	0.30675458163022995	0.3466227129101753	0.6533772945404053
+arud4u	mueller wins roger stone gag order moves to sentence manafort	data/processed/pro_fakeddit/images/arud4u.jpg	1	0	False	0.653177410364151	0.3063548132777214	0.653177410364151	0.3468225970864296
+8il5wb	fcc fines robocall spammer million for illegal spoofing	data/processed/pro_fakeddit/images/8il5wb.jpg	1	0	False	0.6530757546424866	0.30615150928497314	0.6530757546424866	0.3469242453575134
+3lwihh	the truth about student loans	data/processed/pro_fakeddit/images/3lwihh.jpg	0	1	False	0.6522631347179413	0.30452626198530197	0.3477368727326393	0.6522631347179413
+b0t1vl	commodore perry arriving in japan	data/processed/pro_fakeddit/images/b0t1vl.jpg	0	1	False	0.6522095799446106	0.3044191747903824	0.3477904051542282	0.6522095799446106
+7kpe6m	henry ford constructs the first ford model t	data/processed/pro_fakeddit/images/7kpe6m.jpg	0	1	False	0.6521814465522766	0.3043629080057144	0.3478185385465622	0.6521814465522766
+c4ekdz	look at yourselves in this mirror the true intervention women from recife take on guns to protect their homes from the cangaco	data/processed/pro_fakeddit/images/c4ekdz.jpg	0	1	False	0.6516186892986298	0.3032373636960983	0.34838132560253143	0.6516186892986298
+374fjw	three pipes form a face yelling out for joy	data/processed/pro_fakeddit/images/374fjw.jpg	0	1	False	0.651591569185257	0.3031831383705139	0.34840843081474304	0.651591569185257
+6i9o8z	this bombshell was dropped on ellen and fans were shocked	data/processed/pro_fakeddit/images/6i9o8z.jpg	0	1	False	0.6512698382139206	0.3025396689772606	0.34873016923666	0.6512698382139206
+8kjscn	tesla workers deal with a production bottleneck	data/processed/pro_fakeddit/images/8kjscn.jpg	0	1	False	0.6510651111602783	0.30213025212287903	0.3489348590373993	0.6510651111602783
+6zhdos	patriothole gun rights ftw when a patriot sensed this demon was about to rape him he stood his ground and killed it with a shotgun	data/processed/pro_fakeddit/images/6zhdos.jpg	0	1	False	0.6510441303253174	0.3020882308483124	0.348955899477005	0.6510441303253174
+e6z8t0y	reservation for mccallister	data/processed/pro_fakeddit/images/e6z8t0y.jpg	0	1	False	0.6506044566631317	0.3012089543044567	0.349395502358675	0.6506044566631317
+4uf8ey	debbie wasserman schultz to resign dnc post	data/processed/pro_fakeddit/images/4uf8ey.jpg	1	0	False	0.6502591073513031	0.3005182296037674	0.6502591073513031	0.3497408777475357
+c5nmjrg	time magazine called it the show of a lifetime	data/processed/pro_fakeddit/images/c5nmjrg.jpg	0	1	False	0.6502311080694199	0.3004622384905815	0.34976886957883835	0.6502311080694199
+cd6hdy	da vinci the creation of adam circa	data/processed/pro_fakeddit/images/cd6hdy.jpg	0	1	False	0.6501968801021576	0.3003937602043152	0.3498031198978424	0.6501968801021576
+4d09e6	ecaterina oancia parenthood	data/processed/pro_fakeddit/images/4d09e6.jpg	0	1	False	0.6498811542987823	0.2997622936964035	0.35011886060237885	0.6498811542987823
+d28m3z	im not scared youre scared	data/processed/pro_fakeddit/images/d28m3z.jpg	0	1	False	0.6498487740755081	0.29969752579927444	0.3501512482762337	0.6498487740755081
+6ud08l	the inside of a nintendo cartridge	data/processed/pro_fakeddit/images/6ud08l.jpg	0	1	False	0.6498012542724609	0.2996025085449219	0.35019874572753906	0.6498012542724609
+cmsyfuv	die hard because obesity	data/processed/pro_fakeddit/images/cmsyfuv.jpg	0	1	False	0.6495415568351746	0.2990831360220909	0.35045842081308365	0.6495415568351746
+3na63y	the labor force participation rate reached its lowest point in years with percent of the us population either holding a job or actively seeking one	data/processed/pro_fakeddit/images/3na63y.jpg	1	0	False	0.649266391992569	0.29853278398513794	0.649266391992569	0.35073360800743103
+5oiuav	rogue one becomes fastest film to reach over mentions of hope	data/processed/pro_fakeddit/images/5oiuav.jpg	0	1	False	0.6489535868167877	0.29790714383125305	0.35104644298553467	0.6489535868167877
+6pox4n	save waste fats for explosives take them to your meat dealer	data/processed/pro_fakeddit/images/6pox4n.jpg	0	1	False	0.648279070854187	0.2965581715106964	0.3517208993434906	0.648279070854187
+2xoxj0	is always bad here are some examples of a different kind original source and date unknown	data/processed/pro_fakeddit/images/2xoxj0.jpg	0	1	False	0.6479089260101318	0.29581785202026367	0.35209107398986816	0.6479089260101318
+bg6wyx	blind willie johnson nobodys fault but mine	data/processed/pro_fakeddit/images/bg6wyx.jpg	0	1	False	0.6477792412042618	0.29555851966142654	0.35222072154283524	0.6477792412042618
+cc7mheh	pimp cat wants his money or theres going to be scratches	data/processed/pro_fakeddit/images/cc7mheh.jpg	0	1	False	0.6475537419319153	0.2951074689626694	0.3524462729692459	0.6475537419319153
+c26rhw	a former ohio teacher is facing sex charges involving more than female firstgraders john austin hopkins was indicted monday	data/processed/pro_fakeddit/images/c26rhw.jpg	1	0	False	0.6473836302757263	0.29476727545261383	0.6473836302757263	0.3526163548231125
+1zjlwi	years in environment of constant fear somehow fails to rehabilitate prisoner	data/processed/pro_fakeddit/images/1zjlwi.jpg	0	1	False	0.647011011838913	0.2940220534801483	0.35298895835876465	0.647011011838913
+3whav4	artistic humanoid female nude paintings	data/processed/pro_fakeddit/images/3whav4.jpg	0	1	False	0.6464987695217133	0.2929975241422653	0.35350124537944794	0.6464987695217133
+59xjcl	senator ted cruz feeding ice cream to his wife heidi with a tiny spoon	data/processed/pro_fakeddit/images/59xjcl.jpg	1	0	False	0.6463252007961273	0.29265041649341583	0.6463252007961273	0.3536747843027115
+cq8vihk	the fabulous dolphin feeder	data/processed/pro_fakeddit/images/cq8vihk.jpg	0	1	False	0.6458383053541183	0.2916766256093979	0.35416167974472046	0.6458383053541183
+925w0x	first ever atk crashes in to loot lake during a test drive colourized	data/processed/pro_fakeddit/images/925w0x.jpg	0	1	False	0.6446735262870789	0.2893470674753189	0.35532645881175995	0.6446735262870789
+53ve7m	rules dont allow her teammates to help a calf who collapsed in the shower	data/processed/pro_fakeddit/images/53ve7m.jpg	0	1	False	0.6442185044288635	0.28843697905540466	0.35578152537345886	0.6442185044288635
+cnijpmt	hes really changed for the better recently everything irie now	data/processed/pro_fakeddit/images/cnijpmt.jpg	0	1	False	0.6440969258546829	0.28819382935762405	0.35590309649705887	0.6440969258546829
+cl0zlt7	where the wild things are	data/processed/pro_fakeddit/images/cl0zlt7.jpg	0	1	False	0.6421035826206207	0.28420721367001534	0.3578963689506054	0.6421035826206207
+c7222j	former south africa president nelson mandela in a meeting with his cabinet secretaries cnn news	data/processed/pro_fakeddit/images/c7222j.jpg	0	1	False	0.6416715383529663	0.28334304690361023	0.3583284914493561	0.6416715383529663
+8egtar	fourth of listen im hearing voices	data/processed/pro_fakeddit/images/8egtar.jpg	0	1	False	0.6416588425636292	0.2833177000284195	0.35834114253520966	0.6416588425636292
+8q8vbh	giles corey after being crushed by boulders during the salem witch trials circa	data/processed/pro_fakeddit/images/8q8vbh.jpg	0	1	False	0.6415329575538635	0.28306593000888824	0.3584670275449753	0.6415329575538635
+c6ey7ve	houston commencing descent	data/processed/pro_fakeddit/images/c6ey7ve.jpg	0	1	False	0.6414665579795837	0.2829331010580063	0.35853345692157745	0.6414665579795837
+6i736j	republican datamining firm exposed personal information for virtually every american voter	data/processed/pro_fakeddit/images/6i736j.jpg	1	0	False	0.6411999762058258	0.282399982213974	0.6411999762058258	0.3587999939918518
+b6utdi	bipartisan nuclear bill extends federal ppas to years to push advanced reactors the bill seeks to establish a pathway to enable privatepublic partnerships to construct advanced nuclear demonstration reactors over the next two decades sen joe manchin dwva	data/processed/pro_fakeddit/images/b6utdi.jpg	1	0	False	0.6409344673156738	0.28186893463134766	0.6409344673156738	0.35906553268432617
+bc09jd	katie bouman the moment when the first black hole image was processed	data/processed/pro_fakeddit/images/bc09jd.jpg	0	1	False	0.6407393515110016	0.28147871792316437	0.3592606335878372	0.6407393515110016
+cuasoqo	for fucks sake mom rick identifies as a trex and you dont hear his mother bitching about it	data/processed/pro_fakeddit/images/cuasoqo.jpg	0	1	False	0.6404101848602295	0.2808203846216202	0.3595898002386093	0.6404101848602295
+5hwqp9	evel knievels most daring jump	data/processed/pro_fakeddit/images/5hwqp9.jpg	0	1	False	0.6398555934429169	0.27971118688583374	0.36014440655708313	0.6398555934429169
+d74w2wf	i mean we spend a lot of time together maybe drink some wine and uh talk about women	data/processed/pro_fakeddit/images/d74w2wf.jpg	0	1	False	0.6392811387777328	0.27856228314340115	0.3607188556343317	0.6392811387777328
+2l6dl0	my dogs butt looks like some kind of bird	data/processed/pro_fakeddit/images/2l6dl0.jpg	0	1	False	0.6382338553667068	0.2764676883816719	0.36176616698503494	0.6382338553667068
+b77ykn	cbs employees credit union manager charged with embezzling million	data/processed/pro_fakeddit/images/b77ykn.jpg	1	0	False	0.6380248069763184	0.2760496586561203	0.6380248069763184	0.36197514832019806
+8fyqjl	unindentified looter caught on camera during the la riots	data/processed/pro_fakeddit/images/8fyqjl.jpg	0	1	False	0.6377156674861908	0.275431364774704	0.3622843027114868	0.6377156674861908
+cm0uo7q	what if they threw a kim kardashian and nobody came	data/processed/pro_fakeddit/images/cm0uo7q.jpg	0	1	False	0.6372839063405991	0.2745678424835205	0.36271606385707855	0.6372839063405991
+9ji786	the assassination of james a garfield th	data/processed/pro_fakeddit/images/9ji786.jpg	0	1	False	0.63663050532341	0.27326101064682007	0.36336949467658997	0.63663050532341
+c9zinw8	bowie is not amused by this offering	data/processed/pro_fakeddit/images/c9zinw8.jpg	0	1	False	0.6363887041807175	0.2727774307131767	0.36361127346754074	0.6363887041807175
+8dhqmm	report puerto rico situation remains dire despite months of no help whatsoever	data/processed/pro_fakeddit/images/8dhqmm.jpg	0	1	False	0.6359719634056091	0.27194395661354065	0.3640280067920685	0.6359719634056091
+5655rg	bringing harambe back to life	data/processed/pro_fakeddit/images/5655rg.jpg	0	1	False	0.6350540220737457	0.27010807394981384	0.3649459481239319	0.6350540220737457
+ezi5tfc	httpsiimgurcomfrhdvvjpg	data/processed/pro_fakeddit/images/ezi5tfc.jpg	0	1	False	0.6345356851816177	0.26907137781381607	0.36546430736780167	0.6345356851816177
+cjss1qv	titanic minus another kind of katensfb	data/processed/pro_fakeddit/images/cjss1qv.jpg	0	1	False	0.6326652616262436	0.2653304785490036	0.36733478307724	0.6326652616262436
+5zq097	was an awful time for many people	data/processed/pro_fakeddit/images/5zq097.jpg	0	1	False	0.63128761947155	0.2625752482563257	0.36871237121522427	0.63128761947155
+cwiwlam	supercalifragilisticexpialidocious	data/processed/pro_fakeddit/images/cwiwlam.jpg	0	1	False	0.6311543583869934	0.2623087391257286	0.3688456192612648	0.6311543583869934
+ci4ynxb	murder loves killers too	data/processed/pro_fakeddit/images/ci4ynxb.jpg	0	1	False	0.6307952255010605	0.26159045845270157	0.3692047670483589	0.6307952255010605
+9coit3	picture of the holocaust ca recolorized	data/processed/pro_fakeddit/images/9coit3.jpg	0	1	False	0.6307834684848785	0.2615669518709183	0.36921651661396027	0.6307834684848785
+bfjupy	this sign on a ukraine elevator pointing overweight folks toward the nearby stairs	data/processed/pro_fakeddit/images/bfjupy.jpg	1	0	False	0.6306751370429993	0.26135027408599854	0.6306751370429993	0.36932486295700073
+ei0cdiv	httpsiimgurcomdprlsajpg	data/processed/pro_fakeddit/images/ei0cdiv.jpg	0	1	False	0.6304259151220322	0.26085180044174194	0.3695741146802902	0.6304259151220322
+62t3ez	gordon ramsay has strong feelings about pineapple pizza	data/processed/pro_fakeddit/images/62t3ez.jpg	0	1	False	0.6300860792398453	0.26017216593027115	0.3699139133095741	0.6300860792398453
+32vt8y	michelle bachmann obamas poor relationship with israel will bring the return of jesus	data/processed/pro_fakeddit/images/32vt8y.jpg	1	0	False	0.6299881339073181	0.2599762827157974	0.6299881339073181	0.3700118511915207
+2wvyxn	campaign leading white house contenders already violating finance laws report	data/processed/pro_fakeddit/images/2wvyxn.jpg	1	0	False	0.6296192705631256	0.2592385709285736	0.6296192705631256	0.370380699634552
+656fq1	house democrats want kushners security clearance suspended	data/processed/pro_fakeddit/images/656fq1.jpg	1	0	False	0.6293361485004425	0.2586723119020462	0.6293361485004425	0.3706638365983963
+dhjipgi	ladies and gentlemen of the jury hes a liar	data/processed/pro_fakeddit/images/dhjipgi.jpg	0	1	False	0.6292704045772552	0.2585408091545105	0.37072959542274475	0.6292704045772552
+8a2b8p	united states of america circa	data/processed/pro_fakeddit/images/8a2b8p.jpg	0	1	False	0.6291652619838715	0.2583305090665817	0.37083475291728973	0.6291652619838715
+6c74as	former fbi director james comey has agreed to testify before the senate intelligence committee npr	data/processed/pro_fakeddit/images/6c74as.jpg	1	0	False	0.627863883972168	0.25572776794433594	0.627863883972168	0.37213611602783203
+8wpm9o	african slave disguises self as local wildlife in attempts of escaping plantation	data/processed/pro_fakeddit/images/8wpm9o.jpg	0	1	False	0.6276694536209106	0.2553389370441437	0.37233051657676697	0.6276694536209106
+bvm2pz	nevada governor signs bill to restore voting rights to convicted felons	data/processed/pro_fakeddit/images/bvm2pz.jpg	1	0	False	0.6271861493587494	0.2543722838163376	0.6271861493587494	0.3728138655424118
+6eb5tf	minnie she my trap queen watch her hit the bando	data/processed/pro_fakeddit/images/6eb5tf.jpg	0	1	False	0.627079650759697	0.2541593238711357	0.37292032688856125	0.627079650759697
+26zjoq	researchers find association between porn viewing and less grey matter in the brain	data/processed/pro_fakeddit/images/26zjoq.jpg	1	0	False	0.6270699501037598	0.25413987040519714	0.6270699501037598	0.3729300796985626
+6gndy1	scientists have discovered sharks that live in a volcano	data/processed/pro_fakeddit/images/6gndy1.jpg	0	1	False	0.6259962916374207	0.2519925832748413	0.37400370836257935	0.6259962916374207
+9eq12n	unholy cosmos love yesterday	data/processed/pro_fakeddit/images/9eq12n.jpg	0	1	False	0.6259589344263077	0.25191784650087357	0.3740410879254341	0.6259589344263077
+8qtcd5	redemption this senior class really came together to plan the senior prank after dropping the ball on the fundraiser for a classmates surgery	data/processed/pro_fakeddit/images/8qtcd5.jpg	0	1	False	0.6255117356777191	0.25102347135543823	0.3744882643222809	0.6255117356777191
+c6xua9h	its actually camouflage	data/processed/pro_fakeddit/images/c6xua9h.jpg	0	1	False	0.6254082918167114	0.25081659108400345	0.374591700732708	0.6254082918167114
+d7thzmj	china face read all about it	data/processed/pro_fakeddit/images/d7thzmj.jpg	0	1	False	0.625112920999527	0.2502257972955704	0.3748871237039566	0.625112920999527
+969ngv	old big mac covered in mold	data/processed/pro_fakeddit/images/969ngv.jpg	0	1	False	0.624760776758194	0.24952153861522675	0.3752392381429672	0.624760776758194
+6jifyl	hugo weaving on set of the matrix	data/processed/pro_fakeddit/images/6jifyl.jpg	0	1	False	0.6247417330741882	0.24948345124721527	0.37525828182697296	0.6247417330741882
+5zeeyi	hitler attempting suicide	data/processed/pro_fakeddit/images/5zeeyi.jpg	0	1	False	0.6247245669364929	0.24944908916950226	0.37527547776699066	0.6247245669364929
+c56m2lu	its hard to bluff when youre playing against yourself	data/processed/pro_fakeddit/images/c56m2lu.jpg	0	1	False	0.6243676096200943	0.248735249042511	0.3756323605775833	0.6243676096200943
+5s1ipk	trump blasts socalled federal judges block of travel ban	data/processed/pro_fakeddit/images/5s1ipk.jpg	1	0	False	0.624364972114563	0.24872995167970657	0.624364972114563	0.3756350204348564
+56sgee	sky island one of my whims	data/processed/pro_fakeddit/images/56sgee.jpg	0	1	False	0.6238315403461456	0.24766309559345245	0.3761684447526932	0.6238315403461456
+3luh1z	came into work to see the real life scoobydoo	data/processed/pro_fakeddit/images/3luh1z.jpg	0	1	False	0.6237620413303375	0.2475241106003523	0.37623793072998524	0.6237620413303375
+2wxjhy	living in the past some countries are still using the metric system	data/processed/pro_fakeddit/images/2wxjhy.jpg	0	1	False	0.6236420273780823	0.24728406965732574	0.37635795772075653	0.6236420273780823
+9jqafh	a distraught man surrounded by worried people	data/processed/pro_fakeddit/images/9jqafh.jpg	1	0	False	0.6229248046875	0.2458495944738388	0.6229248046875	0.3770752102136612
+8dhwhx	photo of an alleged satanic ritual circa	data/processed/pro_fakeddit/images/8dhwhx.jpg	0	1	False	0.6220703721046448	0.24414077401161194	0.37792959809303284	0.6220703721046448
+80zy5s	rare photo of president truman ordering the bombing of hiroshima	data/processed/pro_fakeddit/images/80zy5s.jpg	0	1	False	0.6218166053295135	0.2436331808567047	0.37818342447280884	0.6218166053295135
+c90psbi	and a touch of indian father	data/processed/pro_fakeddit/images/c90psbi.jpg	0	1	False	0.6211712807416916	0.24234258010983467	0.3788287006318569	0.6211712807416916
+896ml6	welfare state to be renamed what a state	data/processed/pro_fakeddit/images/896ml6.jpg	0	1	False	0.6200886815786362	0.24017741531133652	0.37991126626729965	0.6200886815786362
+632p7g	trump calls for cuts on medical research and infrastructure to pay for the wall	data/processed/pro_fakeddit/images/632p7g.jpg	1	0	False	0.6199308186769485	0.2398616373538971	0.6199308186769485	0.38006918132305145
+b599zd	china looking over their imports	data/processed/pro_fakeddit/images/b599zd.jpg	0	1	False	0.6195178925991058	0.23903580754995346	0.3804820850491524	0.6195178925991058
+6z7s9f	death the kid summer days ep	data/processed/pro_fakeddit/images/6z7s9f.jpg	0	1	False	0.6192954033613205	0.238590769469738	0.3807046338915825	0.6192954033613205
+6m1pj9	spiderman homecoming who is the postcredit character	data/processed/pro_fakeddit/images/6m1pj9.jpg	0	1	False	0.6183449029922485	0.2366897612810135	0.38165514171123505	0.6183449029922485
+8parze	sean hannity tells mueller investigation witnesses to destroy evidence	data/processed/pro_fakeddit/images/8parze.jpg	1	0	False	0.6178123950958252	0.23562483489513397	0.6178123950958252	0.3821875602006912
+5kdy6v	heres how much the death star would have cost	data/processed/pro_fakeddit/images/5kdy6v.jpg	0	1	False	0.6172942072153091	0.2345883920788765	0.38270581513643265	0.6172942072153091
+cp8m7g	dragon in my garage selftitled debut album	data/processed/pro_fakeddit/images/cp8m7g.jpg	0	1	False	0.6172398924827576	0.23447978496551514	0.38276010751724243	0.6172398924827576
+3zcpl2	poster for the upcoming trey parkermatt stone short film on canada	data/processed/pro_fakeddit/images/3zcpl2.jpg	0	1	False	0.6169143915176392	0.23382879793643951	0.38308559358119965	0.6169143915176392
+bnh63i	trunk grew through parked car	data/processed/pro_fakeddit/images/bnh63i.jpg	0	1	False	0.6158802509307861	0.23176047205924988	0.38411977887153625	0.6158802509307861
+69fjf0	when you realize everyone is going to make the most of the democrat party is that a girl in a microwave	data/processed/pro_fakeddit/images/69fjf0.jpg	0	1	False	0.6148746311664581	0.22974923253059387	0.38512539863586426	0.6148746311664581
+bnkv8a	taylor swifts next music video have her singing upside down in central park	data/processed/pro_fakeddit/images/bnkv8a.jpg	0	1	False	0.6142030656337738	0.2284061461687088	0.385796919465065	0.6142030656337738
+ax9lqn	shrek takes down hitler at the battle of the swamp circa	data/processed/pro_fakeddit/images/ax9lqn.jpg	0	1	False	0.6139593720436096	0.22791878879070282	0.3860405832529068	0.6139593720436096
+5fszlk	police set up night cameras to find a mountain lion and discovered something truly bizarre	data/processed/pro_fakeddit/images/5fszlk.jpg	0	1	False	0.6128700077533722	0.2257400006055832	0.387130007147789	0.6128700077533722
+5hznyi	if you worked as hard and fast as a jap wed smash tokio a lot quicker usa	data/processed/pro_fakeddit/images/5hznyi.jpg	0	1	False	0.612661674618721	0.22532335482537746	0.38733831979334354	0.612661674618721
+7x2vx2	study finds cats only meow when they want to alert owner of neighbors murder they witnessed through window	data/processed/pro_fakeddit/images/7x2vx2.jpg	0	1	False	0.6123853325843811	0.2247706651687622	0.3876146674156189	0.6123853325843811
+bbcxt3	italian ww showing their territorial pretensions promised by allies as a price to enter a war on their side	data/processed/pro_fakeddit/images/bbcxt3.jpg	0	1	False	0.6112066060304642	0.22241321206092834	0.3887933939695358	0.6112066060304642
+4ppqd3	are you still think you have any grandkids	data/processed/pro_fakeddit/images/4ppqd3.jpg	0	1	False	0.6108048409223557	0.2216096632182598	0.38919517770409584	0.6108048409223557
+cx55pg	kobe bryant claims he wouldve won rings if shaqs deadbeat father was around to instill stronger work ethic	data/processed/pro_fakeddit/images/cx55pg.jpg	0	1	False	0.6101641654968262	0.22032827138900757	0.3898358941078186	0.6101641654968262
+cfg835	when you search for anagram in google google suggestscorrects you with an actual example of an anagram	data/processed/pro_fakeddit/images/cfg835.jpg	1	0	False	0.6100795865058899	0.22015918791294098	0.6100795865058899	0.3899203985929489
+c5tns73	the musical of the fellowship of the baseball player and bigfoot	data/processed/pro_fakeddit/images/c5tns73.jpg	0	1	False	0.6099569648504257	0.21991398185491562	0.3900429829955101	0.6099569648504257
+d55x80q	nearfarwheeeeeeever you arrrrreee	data/processed/pro_fakeddit/images/d55x80q.jpg	0	1	False	0.6099564582109451	0.21991296485066414	0.390043493360281	0.6099564582109451
+6hut9e	while it is seen below with canada poking up over the black sand beaches heres some black sand beach lies on the river einion ceredigion wales oc x	data/processed/pro_fakeddit/images/6hut9e.jpg	0	1	False	0.6094829738140106	0.21896594762802124	0.3905170261859894	0.6094829738140106
+bitkxc	this alzheimers mouse brain from my reading looks like a poorly drawn cartoon face	data/processed/pro_fakeddit/images/bitkxc.jpg	0	1	False	0.6081919372081757	0.21638387441635132	0.39180806279182434	0.6081919372081757
+asel25	old windows pipeline screensaver	data/processed/pro_fakeddit/images/asel25.jpg	0	1	False	0.6079771816730499	0.21595436334609985	0.3920228183269501	0.6079771816730499
+5p4eaw	grandma thinks newborns gender is the surprise only to find daughter lied during pregnancy	data/processed/pro_fakeddit/images/5p4eaw.jpg	0	1	False	0.6073983907699585	0.21479679644107819	0.3926015943288803	0.6073983907699585
+cwsxhes	ever since pedro heard the mean comments about mexicans he has hated trump	data/processed/pro_fakeddit/images/cwsxhes.jpg	0	1	False	0.6066315174102783	0.21326306462287903	0.3933684527873993	0.6066315174102783
+6muyes	family comforted by thought that mans death will prevent others from climbing war memorial to pretend to fuck horse	data/processed/pro_fakeddit/images/6muyes.jpg	0	1	False	0.606100857257843	0.21220166981220245	0.39389918744564056	0.606100857257843
+7oae4s	pat smear of the germspreforming live on stage with the washington grunge group nirvana	data/processed/pro_fakeddit/images/7oae4s.jpg	0	1	False	0.6059520244598389	0.21190404891967773	0.39404797554016113	0.6059520244598389
+avj4mc	martin scorsese visits the set of return of the jedi	data/processed/pro_fakeddit/images/avj4mc.jpg	0	1	False	0.6052926182746887	0.21058523654937744	0.3947073817253113	0.6052926182746887
+d0an5c6	hes more of a republican guy	data/processed/pro_fakeddit/images/d0an5c6.jpg	0	1	False	0.6051053255796432	0.2102106586098671	0.39489466696977615	0.6051053255796432
+d5jv7n	unite the right rally is held	data/processed/pro_fakeddit/images/d5jv7n.jpg	0	1	False	0.604994535446167	0.2099890559911728	0.3950054794549942	0.604994535446167
+dd5ngrz	they put chemicals in the water that turn the freakin frogs gay	data/processed/pro_fakeddit/images/dd5ngrz.jpg	0	1	False	0.6046709716320038	0.20934192836284637	0.3953290432691574	0.6046709716320038
+6v7v36	silverstrand beach were all going to die	data/processed/pro_fakeddit/images/6v7v36.jpg	0	1	False	0.6039594560861588	0.2079189196228981	0.39604053646326065	0.6039594560861588
+5eake2	when you forget the emails benghazi and rigging the election yesterday under budget ahead of schedule	data/processed/pro_fakeddit/images/5eake2.jpg	0	1	False	0.6039457619190216	0.2078915238380432	0.3960542380809784	0.6039457619190216
+bvh06x	the john candy joke that still makes steve martin cry	data/processed/pro_fakeddit/images/bvh06x.jpg	0	1	False	0.6038643717765808	0.20772875100374222	0.3961356207728386	0.6038643717765808
+b5b9u0	russia withdraws from wwi after the russian revolution	data/processed/pro_fakeddit/images/b5b9u0.jpg	0	1	False	0.6036366522312164	0.20727333426475525	0.3963633179664612	0.6036366522312164
+c4agsx	the usa and uk authorise drone strikes on libya to topple colonel gaddafi circa	data/processed/pro_fakeddit/images/c4agsx.jpg	0	1	False	0.6029429137706757	0.20588581264019012	0.39705710113048553	0.6029429137706757
+84i5lo	upeeps makes the lowest tier shitpost on rfakehistoryporn circa	data/processed/pro_fakeddit/images/84i5lo.jpg	0	1	False	0.602697879076004	0.20539575815200806	0.39730212092399597	0.602697879076004
+cle0jw	hitler explaining his strategy to take over france to his military advisers	data/processed/pro_fakeddit/images/cle0jw.jpg	0	1	False	0.6025422513484955	0.20508450269699097	0.3974577486515045	0.6025422513484955
+cuu4g1b	mspaint makeover but im not sure why	data/processed/pro_fakeddit/images/cuu4g1b.jpg	0	1	False	0.6021652221679688	0.2043304592370987	0.39783476293087006	0.6021652221679688
+aublxw	facebook taking over world food supply circa	data/processed/pro_fakeddit/images/aublxw.jpg	0	1	False	0.6020901948213577	0.20418042689561844	0.3979097679257393	0.6020901948213577
+7y6d4g	frustrated freight drivers queue in calais after the united kingdom leaves the eu customs union	data/processed/pro_fakeddit/images/7y6d4g.jpg	0	1	False	0.6020702123641968	0.20414045453071594	0.39792975783348083	0.6020702123641968
+atkaru	morning valley lost in words	data/processed/pro_fakeddit/images/atkaru.jpg	0	1	False	0.6018045395612717	0.20360907167196274	0.39819546788930893	0.6018045395612717
+5qhwaf	lab mouse nervous for first day of new job getting cancer	data/processed/pro_fakeddit/images/5qhwaf.jpg	0	1	False	0.5998413413763046	0.19968269020318985	0.4001586511731148	0.5998413413763046
+9dy5gr	nixon and brezhnev sign the prevention of nuclear war agreement	data/processed/pro_fakeddit/images/9dy5gr.jpg	0	1	False	0.5990769863128662	0.19815391302108765	0.40092307329177856	0.5990769863128662
+764tzy	homeless man describes horrors of sleeping during community theater production of the tempest	data/processed/pro_fakeddit/images/764tzy.jpg	0	1	False	0.5987313687801361	0.1974627524614334	0.4012686163187027	0.5987313687801361
+c9w82t9	north korean camouflage	data/processed/pro_fakeddit/images/c9w82t9.jpg	0	1	False	0.5982087552547455	0.19641751050949097	0.4017912447452545	0.5982087552547455
+cmd44av	guess who is going to have a float at pride this year	data/processed/pro_fakeddit/images/cmd44av.jpg	0	1	False	0.5981455296278	0.19629106670618057	0.4018544629216194	0.5981455296278
+ch4xge	compete for preshedule completion of fiveyear plan compete in order not to let years of revolution down by astarchevsky ukranian ssr	data/processed/pro_fakeddit/images/ch4xge.jpg	0	1	False	0.5969522893428802	0.1939045935869217	0.40304769575595856	0.5969522893428802
+8e372q	the population modern day hysteria	data/processed/pro_fakeddit/images/8e372q.jpg	0	1	False	0.5964047610759735	0.19280948489904404	0.4035952761769295	0.5964047610759735
+80fib5	the washington redskins reveal new logo	data/processed/pro_fakeddit/images/80fib5.jpg	0	1	False	0.5963391661643982	0.192678302526474	0.4036608636379242	0.5963391661643982
+4on2of	after orlando are social media sites encroaching on users free speech	data/processed/pro_fakeddit/images/4on2of.jpg	1	0	False	0.5962824821472168	0.1925649344921112	0.5962824821472168	0.4037175476551056
+ruhuh	tough guide to baghdad iraqi artist satirizes the occupation	data/processed/pro_fakeddit/images/ruhuh.jpg	0	1	False	0.5958010852336884	0.1916021704673767	0.40419891476631165	0.5958010852336884
+avwvlt	senator bernie sanders tries to use the internet for the first time	data/processed/pro_fakeddit/images/avwvlt.jpg	0	1	False	0.5954025685787201	0.190805122256279	0.4045974463224411	0.5954025685787201
+d76a6v	denver public schools union reach tentative agreement to restrict guatemala asylum seekers sue trump over california emissions deal with mexico thrive	data/processed/pro_fakeddit/images/d76a6v.jpg	0	1	False	0.5951071679592133	0.1902143359184265	0.40489283204078674	0.5951071679592133
+5wimzz	blake griffin claims basketball seems much rounder lately	data/processed/pro_fakeddit/images/5wimzz.jpg	0	1	False	0.5948182046413422	0.18963642418384552	0.40518178045749664	0.5948182046413422
+60pyul	trump warns republican lawmakers to get behind healthcare bill	data/processed/pro_fakeddit/images/60pyul.jpg	1	0	False	0.5938577055931091	0.18771544098854065	0.5938577055931091	0.4061422646045685
+cqphcqf	politically incorrect baby	data/processed/pro_fakeddit/images/cqphcqf.jpg	0	1	False	0.5918969660997391	0.18379396200180054	0.40810300409793854	0.5918969660997391
+56fzp6	danny devito to quit its always sunny in philadelphia after two more seasons	data/processed/pro_fakeddit/images/56fzp6.jpg	0	1	False	0.5914423763751984	0.18288473784923553	0.40855763852596283	0.5914423763751984
+8n11d8	origins of an epidemic purdue pharma knew its opioids were widely abused	data/processed/pro_fakeddit/images/8n11d8.jpg	1	0	False	0.5914264172315598	0.1828528344631195	0.5914264172315598	0.40857358276844025
+cdp01aq	httpiimgurcomxtlmhsjpg	data/processed/pro_fakeddit/images/cdp01aq.jpg	0	1	False	0.5902636498212814	0.18052726238965988	0.40973638743162155	0.5902636498212814
+dkv6888	so natural youd swear its real hair	data/processed/pro_fakeddit/images/dkv6888.jpg	0	1	False	0.5902318730950356	0.1804637871682644	0.40976808592677116	0.5902318730950356
+4s8hgg	researchers have found the worlds ugliest colour	data/processed/pro_fakeddit/images/4s8hgg.jpg	0	1	False	0.5891978740692139	0.17839574068784714	0.41080213338136673	0.5891978740692139
+8qewpb	herd of brachiosauruses on a large field	data/processed/pro_fakeddit/images/8qewpb.jpg	0	1	False	0.5875272750854492	0.17505452036857605	0.41247275471687317	0.5875272750854492
+4jdt1t	are we heading for another housing crisis	data/processed/pro_fakeddit/images/4jdt1t.jpg	0	1	False	0.5871374309062958	0.17427483946084976	0.412862591445446	0.5871374309062958
+3frf2f	two in custody after meth lab found inside cedar rapids taco bell	data/processed/pro_fakeddit/images/3frf2f.jpg	1	0	False	0.5861811935901642	0.17236238718032837	0.5861811935901642	0.4138188064098358
+cotzaj	the underside of this water cooler spout looks like an angry monkey	data/processed/pro_fakeddit/images/cotzaj.jpg	0	1	False	0.5860999226570129	0.17219986021518707	0.41390006244182587	0.5860999226570129
+cojrqwt	snakes on a muthafuckin international space station	data/processed/pro_fakeddit/images/cojrqwt.jpg	0	1	False	0.585415244102478	0.17083048820495605	0.414584755897522	0.585415244102478
+6afgbb	is conflict syrian opposition take town of tabqa and dam	data/processed/pro_fakeddit/images/6afgbb.jpg	1	0	False	0.5852527916431427	0.170505590736866	0.5852527916431427	0.4147472009062767
+b57j2l	american b bomber dropping fat man over nagasaki	data/processed/pro_fakeddit/images/b57j2l.jpg	0	1	False	0.58501797914505	0.1700359433889389	0.41498203575611115	0.58501797914505
+5ol7h4	donald trump was asked to name one of his heroes his answer was very very strange	data/processed/pro_fakeddit/images/5ol7h4.jpg	0	1	False	0.5836994349956512	0.16739888489246368	0.41630055010318756	0.5836994349956512
+drhov0g	a dog or two spirits looking at each other	data/processed/pro_fakeddit/images/drhov0g.jpg	0	1	False	0.5833682268857956	0.1667364463210106	0.416631780564785	0.5833682268857956
+b5ilmr	antman penetrating thanos	data/processed/pro_fakeddit/images/b5ilmr.jpg	0	1	False	0.5821702629327774	0.16434048116207123	0.4178297817707062	0.5821702629327774
+76utmd	so this was an ad on youtube	data/processed/pro_fakeddit/images/76utmd.jpg	0	1	False	0.5821631997823715	0.16432635486125946	0.41783684492111206	0.5821631997823715
+4005l4	donald trump get them up against the wall	data/processed/pro_fakeddit/images/4005l4.jpg	0	1	False	0.5821006894111633	0.16420134902000427	0.41789934039115906	0.5821006894111633
+d0gwn0	triangle shirtwaist factory	data/processed/pro_fakeddit/images/d0gwn0.jpg	0	1	False	0.5809230804443359	0.16184616088867188	0.41907691955566406	0.5809230804443359
+48v1nb	union of white students forms at cornell aims to advance their race	data/processed/pro_fakeddit/images/48v1nb.jpg	1	0	False	0.5800451040267944	0.16009019315242767	0.5800451040267944	0.41995491087436676
+60kjje	new orleans residents aimlessly float across the floodwaters brought on by hurricane katrina c	data/processed/pro_fakeddit/images/60kjje.jpg	0	1	False	0.5799235105514526	0.15984703600406647	0.42007647454738617	0.5799235105514526
+4spbh3	trump seeks damages from former campaign consultant alleges nondisclosure violation	data/processed/pro_fakeddit/images/4spbh3.jpg	1	0	False	0.5795421004295349	0.15908421576023102	0.5795421004295349	0.4204578846693039
+5wk2ef	moonlight named best picture after mishap	data/processed/pro_fakeddit/images/5wk2ef.jpg	0	1	False	0.5793467611074448	0.15869354456663132	0.42065321654081345	0.5793467611074448
+c8iz044	who let wario get the smash ball	data/processed/pro_fakeddit/images/c8iz044.jpg	0	1	False	0.5786653161048889	0.15733066201210022	0.4213346540927887	0.5786653161048889
+5c36pd	treasury agents attempt to arrest al scarface capone for tax evasion as he flees in his zeppelin st valentine	data/processed/pro_fakeddit/images/5c36pd.jpg	0	1	False	0.5778813064098358	0.15576261281967163	0.4221186935901642	0.5778813064098358
+6dapr6	gop on edge over montana election	data/processed/pro_fakeddit/images/6dapr6.jpg	1	0	False	0.5777341723442078	0.15546835958957672	0.5777341723442078	0.42226581275463104
+6z1fdb	long live the dictatorship of the proletariat china	data/processed/pro_fakeddit/images/6z1fdb.jpg	0	1	False	0.5772892832756042	0.1545785740017891	0.42271070927381516	0.5772892832756042
+bbkbuq	jussie smolette is attacked by white supremacists of african descent	data/processed/pro_fakeddit/images/bbkbuq.jpg	0	1	False	0.5758596360683441	0.15171927213668823	0.4241403639316559	0.5758596360683441
+d1fh80	isometric joe band childproof	data/processed/pro_fakeddit/images/d1fh80.jpg	0	1	False	0.5757448375225067	0.15148966759443283	0.4242551699280739	0.5757448375225067
+8tlyya	daft punk without helmets at the fifa world cup in russia	data/processed/pro_fakeddit/images/8tlyya.jpg	0	1	False	0.5756041705608368	0.15120838582515717	0.4243957847356796	0.5756041705608368
+ch0kd7	millenial mystics the world burns request	data/processed/pro_fakeddit/images/ch0kd7.jpg	0	1	False	0.5739722698926926	0.14794451743364334	0.4260277524590492	0.5739722698926926
+6t1zrk	all flights grounded after faa officials suddenly realize that man was not meant to fly	data/processed/pro_fakeddit/images/6t1zrk.jpg	0	1	False	0.5734330117702484	0.14686603844165802	0.4265669733285904	0.5734330117702484
+bmso4s	carl and russell from up placed on a house that was lifted from its foundation to be moved down the street	data/processed/pro_fakeddit/images/bmso4s.jpg	1	0	False	0.5733964145183563	0.14679285883903503	0.5733964145183563	0.4266035556793213
+9grnxw	rosa parks refusing to give up her seat on the bus	data/processed/pro_fakeddit/images/9grnxw.jpg	0	1	False	0.5731789916753769	0.14635799825191498	0.4268209934234619	0.5731789916753769
+9k6vd4	germanys farright afd party now polls second	data/processed/pro_fakeddit/images/9k6vd4.jpg	1	0	False	0.5727471262216568	0.1454942673444748	0.5727471262216568	0.427252858877182
+5f53ar	english premier league captains wear rainbow armbands in support of lgbt community	data/processed/pro_fakeddit/images/5f53ar.jpg	1	0	False	0.5720617473125458	0.14412349462509155	0.5720617473125458	0.4279382526874542
+719yso	factory farm chicken rounds out miserable existence by going bad in mans refrigerator	data/processed/pro_fakeddit/images/719yso.jpg	0	1	False	0.5720426440238953	0.14408525824546814	0.4279573857784271	0.5720426440238953
+bdt9wz	us legalizes samesex marriage th	data/processed/pro_fakeddit/images/bdt9wz.jpg	0	1	False	0.5716679692268372	0.14333593845367432	0.42833203077316284	0.5716679692268372
+6bxtn5	life here are pics of the nasty prez obumper dipping his bunglers fingers in peoples soup and milk in order to destroy lunch for all america	data/processed/pro_fakeddit/images/6bxtn5.jpg	0	1	False	0.5713633596897125	0.14272671937942505	0.4286366403102875	0.5713633596897125
+9daecn	people walking down a mountain	data/processed/pro_fakeddit/images/9daecn.jpg	0	1	False	0.5702457129955292	0.14049142599105835	0.4297542870044708	0.5702457129955292
+148sgj	conservapedia emc is a liberal conspiracy	data/processed/pro_fakeddit/images/148sgj.jpg	1	0	False	0.5695322006940842	0.13906441628932953	0.5695322006940842	0.43046778440475464
+ix2yc	vegetable box raises eyebrow with concerned expression	data/processed/pro_fakeddit/images/ix2yc.jpg	0	1	False	0.568818211555481	0.1376364380121231	0.43118177354335785	0.568818211555481
+58f7ht	they said what find out what donald glover joe biden and alice walton have to say	data/processed/pro_fakeddit/images/58f7ht.jpg	0	1	False	0.5681699514389038	0.13633988797664642	0.4318300634622574	0.5681699514389038
+cnv7px	maximilien robespierre once the french citizens started to feel safe in their own country circa	data/processed/pro_fakeddit/images/cnv7px.jpg	0	1	False	0.5681132674217224	0.1362265646457672	0.4318867027759552	0.5681132674217224
+2oq3d8	woman walks her dog while dressed as the abominable snowman makes winter less awful	data/processed/pro_fakeddit/images/2oq3d8.jpg	1	0	False	0.5675084292888641	0.13501685857772827	0.5675084292888641	0.43249157071113586
+2uleeb	australian figure skating championships shadowy lie x	data/processed/pro_fakeddit/images/2uleeb.jpg	0	1	False	0.5664635598659515	0.13292713463306427	0.43353642523288727	0.5664635598659515
+6dapmw	ryan gop house candidate should apologize for altercation with reporter	data/processed/pro_fakeddit/images/6dapmw.jpg	1	0	False	0.5658122301101685	0.1316244751214981	0.5658122301101685	0.43418775498867035
+5xjvtu	the finnish trump sketch engsub	data/processed/pro_fakeddit/images/5xjvtu.jpg	0	1	False	0.565349206328392	0.13069846481084824	0.4346507415175438	0.565349206328392
+6g52mq	woman says pricey vitamin bottle from shoppers drug mart was filled with dried pasta	data/processed/pro_fakeddit/images/6g52mq.jpg	1	0	False	0.5648555755615234	0.12971113622188568	0.5648555755615234	0.43514443933963776
+6s9p5s	authorities florida man lawyers pants catch on fire to bed while husband was sleeping in strangers garage	data/processed/pro_fakeddit/images/6s9p5s.jpg	0	1	False	0.5640707015991211	0.1281413733959198	0.4359293282032013	0.5640707015991211
+sch2x	an antipornography film was banned due to pornographic content	data/processed/pro_fakeddit/images/sch2x.jpg	1	0	False	0.5635091066360474	0.12701818346977234	0.5635091066360474	0.436490923166275
+16inpd	wyoming lawmakers consider declaring jackalope states official mythical creature	data/processed/pro_fakeddit/images/16inpd.jpg	1	0	False	0.563239187002182	0.12647835910320282	0.563239187002182	0.4367608278989792
+2h9e55	fox news contributor stephen hayes is on the terrorist watch list	data/processed/pro_fakeddit/images/2h9e55.jpg	1	0	False	0.5631223618984222	0.12624472379684448	0.5631223618984222	0.43687763810157776
+2f2o0v	a woman cutting her wrist	data/processed/pro_fakeddit/images/2f2o0v.jpg	0	1	False	0.5614021867513657	0.12280438840389252	0.43859779834747314	0.5614021867513657
+5rq3ur	shouting match over russia erupts at house hearing	data/processed/pro_fakeddit/images/5rq3ur.jpg	1	0	False	0.5607300847768784	0.12146013975143433	0.5607300847768784	0.43926994502544403
+4tla9d	trump campaign defends melania on plagiarism accusations	data/processed/pro_fakeddit/images/4tla9d.jpg	1	0	False	0.5601111352443695	0.12022228538990021	0.5601111352443695	0.4398888498544693
+9dzjyi	this wood fire heated hot tub being pulled by an rv	data/processed/pro_fakeddit/images/9dzjyi.jpg	1	0	False	0.5601023435592651	0.12020468711853027	0.5601023435592651	0.43989765644073486
+btd5fr	faces decorating an underpass in tucson	data/processed/pro_fakeddit/images/btd5fr.jpg	1	0	False	0.5600844770669937	0.12016895413398743	0.5600844770669937	0.4399155229330063
+4ckph7	jack dempseys endorsement of fdrs reelection	data/processed/pro_fakeddit/images/4ckph7.jpg	0	1	False	0.559588223695755	0.11917649209499359	0.4404117316007614	0.559588223695755
+b83r73	us measles cases at second highest since disease was eliminated in cnn	data/processed/pro_fakeddit/images/b83r73.jpg	1	0	False	0.5587131679058075	0.11742635071277618	0.5587131679058075	0.4412868171930313
+8gqzbs	when this high schooler asked emma stone to be his date to prom she said yes but then got so trashed in the limo on the way there that she didnt even make it into the dance	data/processed/pro_fakeddit/images/8gqzbs.jpg	0	1	False	0.5582869797945023	0.11657394468784332	0.44171303510665894	0.5582869797945023
+3u3ey4	party to celebrate end of probation in n ft myers ends in arrest	data/processed/pro_fakeddit/images/3u3ey4.jpg	1	0	False	0.5579002350568771	0.11580045521259308	0.5579002350568771	0.44209977984428406
+dgx54w	donnie and jeff thick as thieves	data/processed/pro_fakeddit/images/dgx54w.jpg	0	1	False	0.5578768849372864	0.11575376987457275	0.4421231150627136	0.5578768849372864
+36923q	faedrelandssangen song of the fatherland in honor of the th anniversary of the constitution and recent emancipation norway	data/processed/pro_fakeddit/images/36923q.jpg	0	1	False	0.5565164685249329	0.11303292214870453	0.44348354637622833	0.5565164685249329
+4zcrcf	clintons inescapable cloud of corruption	data/processed/pro_fakeddit/images/4zcrcf.jpg	1	0	False	0.5555576682090759	0.11111533641815186	0.5555576682090759	0.4444423317909241
+cnthyze	annoying vacation selfie	data/processed/pro_fakeddit/images/cnthyze.jpg	0	1	False	0.5529109537601471	0.105821892619133	0.4470890611410141	0.5529109537601471
+wvx40	a child plays between two cartoon military statues	data/processed/pro_fakeddit/images/wvx40.jpg	1	0	False	0.5527220368385315	0.10544408857822418	0.5527220368385315	0.4472779482603073
+6oppz4	joe biden kissing a little girls head	data/processed/pro_fakeddit/images/6oppz4.jpg	1	0	False	0.5521273910999298	0.104254812002182	0.5521273910999298	0.4478725790977478
+caj7c3	preventing labor discrimination in world war s	data/processed/pro_fakeddit/images/caj7c3.jpg	0	1	False	0.5519867241382599	0.10397344827651978	0.4480132758617401	0.5519867241382599
+cpfggs	two new ebola treatments prove highly effective in congo epidemic	data/processed/pro_fakeddit/images/cpfggs.jpg	1	0	False	0.5508802533149719	0.10176052153110504	0.5508802533149719	0.4491197317838669
+5qfzgn	ireland votes to be worlds first country to fully divest from fossil fuels	data/processed/pro_fakeddit/images/5qfzgn.jpg	1	0	False	0.5504947900772095	0.10098958015441895	0.5504947900772095	0.4495052099227905
+1f4lyn	this fella doesnt like the idea hes being watched by the gigapixel camera in dubai	data/processed/pro_fakeddit/images/1f4lyn.jpg	0	1	False	0.5493549704551697	0.09870995581150055	0.45064501464366913	0.5493549704551697
+3p540s	guys ponder getting a blowjob girl gets fucked up by fat shamers in front of school and you wont believe what happens to the doctors asap tbh	data/processed/pro_fakeddit/images/3p540s.jpg	0	1	False	0.5492734611034393	0.09854690730571747	0.45072655379772186	0.5492734611034393
+csqfb5t	donald trumpalumpadingdong	data/processed/pro_fakeddit/images/csqfb5t.jpg	0	1	False	0.5489503592252731	0.09790074825286865	0.4510496109724045	0.5489503592252731
+bcpsum	dogs cant eat chocolate revealed to be some shit cats made up	data/processed/pro_fakeddit/images/bcpsum.jpg	0	1	False	0.5486954301595688	0.09739084541797638	0.4513045847415924	0.5486954301595688
+6b9aof	drugs you dont agree with alex jones	data/processed/pro_fakeddit/images/6b9aof.jpg	0	1	False	0.5483884513378143	0.09677690267562866	0.45161154866218567	0.5483884513378143
+b1x50n	american airlines has suspended flights to venezuela after the state department warned us citizens should stay out of the country	data/processed/pro_fakeddit/images/b1x50n.jpg	1	0	False	0.5483717024326324	0.09674341976642609	0.5483717024326324	0.45162828266620636
+37bch9	chinese officials sent on prison tours as a warning against corruption	data/processed/pro_fakeddit/images/37bch9.jpg	1	0	False	0.5483216047286987	0.09664317965507507	0.5483216047286987	0.45167842507362366
+9h82yb	accusers schoolmate i recall hearing of alleged kavanaugh incident	data/processed/pro_fakeddit/images/9h82yb.jpg	1	0	False	0.547882005572319	0.09576402604579926	0.547882005572319	0.4521179795265198
+7kb0wt	george washington with his wig on	data/processed/pro_fakeddit/images/7kb0wt.jpg	0	1	False	0.5475628972053528	0.09512577950954437	0.4524371176958084	0.5475628972053528
+94daxj	your place on the battering ram is still free the netherlands s	data/processed/pro_fakeddit/images/94daxj.jpg	0	1	False	0.5475336015224457	0.09506722539663315	0.45246637612581253	0.5475336015224457
+6zkf0j	blinks mark hoppus releases solo track to raise money for dogs impacted by hurricane harvey	data/processed/pro_fakeddit/images/6zkf0j.jpg	1	0	False	0.5472477972507477	0.09449557960033417	0.5472477972507477	0.4527522176504135
+440srp	kasich reuniting pink floyd a goal if elected president	data/processed/pro_fakeddit/images/440srp.jpg	1	0	False	0.5471727848052979	0.0943455696105957	0.5471727848052979	0.45282721519470215
+5wjqrj	as a former liberal democrat i just float through the day waiting until it is suddenly underrated	data/processed/pro_fakeddit/images/5wjqrj.jpg	0	1	False	0.5463325455784798	0.09266509860754013	0.45366744697093964	0.5463325455784798
+6kcche	yearold boy invents a genius device to stop children dying in hot cars	data/processed/pro_fakeddit/images/6kcche.jpg	0	1	False	0.5462293475866318	0.09245870262384415	0.45377064496278763	0.5462293475866318
+5va5sk	income equality why american fell in love with his popularity on youtube ethan klein is on trial in dakar	data/processed/pro_fakeddit/images/5va5sk.jpg	0	1	False	0.5461404323577881	0.09228086471557617	0.4538595676422119	0.5461404323577881
+cd1oqu5	dancer doing a beard splash in the pool	data/processed/pro_fakeddit/images/cd1oqu5.jpg	0	1	False	0.5458173602819443	0.09163472056388855	0.4541826397180557	0.5458173602819443
+5z53s8	nonsexual cuddle parties catching on in utah votes to reinstate browser the library cat	data/processed/pro_fakeddit/images/5z53s8.jpg	0	1	False	0.5457158982753754	0.09143184125423431	0.45428405702114105	0.5457158982753754
+660swy	trump to overhaul visa program for highskilled workers	data/processed/pro_fakeddit/images/660swy.jpg	1	0	False	0.5456944555044174	0.09138892590999603	0.5456944555044174	0.4543055295944214
+276266	this sheep wearing roller skates being pushed by a woman	data/processed/pro_fakeddit/images/276266.jpg	1	0	False	0.5456497967243195	0.09129959344863892	0.5456497967243195	0.45435020327568054
+cjd3ky	virginia governor announces plan to make early childhood education accessible to atrisk preschoolers crosspost rvirginia	data/processed/pro_fakeddit/images/cjd3ky.jpg	1	0	False	0.5451523661613464	0.09030471742153168	0.5451523661613464	0.45484764873981476
+6td0i1	nazis ecstatic trump refused to condemn white supremacist violence	data/processed/pro_fakeddit/images/6td0i1.jpg	1	0	False	0.54361891746521	0.08723784983158112	0.54361891746521	0.45638106763362885
+czvskhs	this is the stuff of reddit nightmares	data/processed/pro_fakeddit/images/czvskhs.jpg	0	1	False	0.543361559510231	0.08672310411930084	0.4566384553909302	0.543361559510231
+bybgi1	my dads old neighbors years ago the guy on the left expanded his driveway into the guy on the rights property to get back at him the guy on the right painted that one side of his house neon orange the paint is still there to this day	data/processed/pro_fakeddit/images/bybgi1.jpg	1	0	False	0.5413630902767181	0.08272621035575867	0.5413630902767181	0.4586368799209595
+6tq6e8	til that knowing he was the media is the democrats replacement for the actions in charlottesville as repulsive traitors to their cronies	data/processed/pro_fakeddit/images/6tq6e8.jpg	0	1	False	0.5407317280769348	0.08146339654922485	0.45926833152770996	0.5407317280769348
+czo64h8	when the memes are too dank	data/processed/pro_fakeddit/images/czo64h8.jpg	0	1	False	0.5390513986349106	0.07810282707214355	0.46094857156276703	0.5390513986349106
+6zzjml	trump to host schumer and pelosi for dinner to discuss daca health care after flurry of meetings	data/processed/pro_fakeddit/images/6zzjml.jpg	1	0	False	0.5379899889230728	0.07597997784614563	0.5379899889230728	0.4620100110769272
+8wjmz6	sarah jessica parker and matthew broderick leaked honeymoon video still	data/processed/pro_fakeddit/images/8wjmz6.jpg	0	1	False	0.5377177447080612	0.07543548941612244	0.4622822552919388	0.5377177447080612
+2wzfnw	college student accused of rape claims he was reenacting shades of grey	data/processed/pro_fakeddit/images/2wzfnw.jpg	1	0	False	0.5376564860343933	0.07531292736530304	0.5376564860343933	0.46234355866909027
+b6aatz	shadow of a shirt on staircase bannister looks like a dog hiding behind the curtain	data/processed/pro_fakeddit/images/b6aatz.jpg	1	0	False	0.5376420319080353	0.07528401911258698	0.5376420319080353	0.4623580127954483
+d32ujqi	meanwhile in a parallel universe	data/processed/pro_fakeddit/images/d32ujqi.jpg	0	1	False	0.5369930863380432	0.07398617267608643	0.4630069136619568	0.5369930863380432
+bn1f4u	did that ted bundy hacksaw moment really happen	data/processed/pro_fakeddit/images/bn1f4u.jpg	0	1	False	0.5367829352617264	0.07356589287519455	0.46321704238653183	0.5367829352617264
+61iz9z	trump administration grants pipeline permits without all his promised conditions	data/processed/pro_fakeddit/images/61iz9z.jpg	1	0	False	0.5364077538251877	0.07281550765037537	0.5364077538251877	0.4635922461748123
+2spyks	pope doing sign language	data/processed/pro_fakeddit/images/2spyks.jpg	1	0	False	0.5360184609889984	0.07203692197799683	0.5360184609889984	0.4639815390110016
+cffi8p	a picture from the broadway premiere of cats	data/processed/pro_fakeddit/images/cffi8p.jpg	0	1	False	0.5349211692810059	0.0698423832654953	0.46507878601551056	0.5349211692810059
+98f0eg	hillary clinton talking about her deleted emails	data/processed/pro_fakeddit/images/98f0eg.jpg	0	1	False	0.5341736972332001	0.06834740936756134	0.46582628786563873	0.5341736972332001
+8f4p0z	bill cosby guilty of sexual assault	data/processed/pro_fakeddit/images/8f4p0z.jpg	1	0	False	0.5338425934314728	0.06768521666526794	0.5338425934314728	0.46615737676620483
+3ti5at	indonesia apologizes for posters saying sneezing can transmit hiv	data/processed/pro_fakeddit/images/3ti5at.jpg	1	0	False	0.5326556265354156	0.0653112530708313	0.5326556265354156	0.46734437346458435
+5tzj1e	devos says trumps fortypercent approval rating means more than half of country supports him	data/processed/pro_fakeddit/images/5tzj1e.jpg	0	1	False	0.5325674563646317	0.06513489782810211	0.46743255853652954	0.5325674563646317
+7pm4v0	ice raids eleven stores nationwide in crackdown officials call a harbinger of whatas to come	data/processed/pro_fakeddit/images/7pm4v0.jpg	1	0	False	0.531874880194664	0.063749760389328	0.531874880194664	0.468125119805336
+3qg1ba	arkansas rejects marijuana legalisation due to spelling and grammar errors in proposal	data/processed/pro_fakeddit/images/3qg1ba.jpg	1	0	False	0.531474694609642	0.06294938921928406	0.531474694609642	0.46852530539035797
+bixyea	russia sacrificed to the international russian whites	data/processed/pro_fakeddit/images/bixyea.jpg	0	1	False	0.531454011797905	0.06290804594755173	0.46854596585035324	0.531454011797905
+dbh1qa	the christmas genocide of swaize land	data/processed/pro_fakeddit/images/dbh1qa.jpg	0	1	False	0.5313855707645416	0.06277117133140564	0.468614399433136	0.5313855707645416
+3nypgp	rupert murdoch longs for real black president	data/processed/pro_fakeddit/images/3nypgp.jpg	1	0	False	0.531363308429718	0.06272661685943604	0.531363308429718	0.468636691570282
+2wc9cm	russian search engine yandex sics antitrust agency on google for being too integrated with android	data/processed/pro_fakeddit/images/2wc9cm.jpg	1	0	False	0.5307909101247787	0.061581820249557495	0.5307909101247787	0.46920908987522125
+8k2z16	putin holding the cat that beat him across the bridge in crimea	data/processed/pro_fakeddit/images/8k2z16.jpg	1	0	False	0.5307533442974091	0.06150665879249573	0.5307533442974091	0.46924668550491333
+1q79eq	george w bush to help group that converts jews in effort to bring about second coming of jesus christ	data/processed/pro_fakeddit/images/1q79eq.jpg	1	0	False	0.5300624072551727	0.06012482941150665	0.5300624072551727	0.4699375778436661
+1i5d59	arnold schwarzenegger grimacing	data/processed/pro_fakeddit/images/1i5d59.jpg	1	0	False	0.5300315916538239	0.06006316840648651	0.5300315916538239	0.46996842324733734
+16g0hs	men armed with ar rifles walk through portland to educate citizens	data/processed/pro_fakeddit/images/16g0hs.jpg	1	0	False	0.5293482542037964	0.05869652330875397	0.5293482542037964	0.4706517308950424
+5adc41	chicago school cancels christian haunted house that depicted pulse nightclub massacre for halloween	data/processed/pro_fakeddit/images/5adc41.jpg	1	0	False	0.5286342650651932	0.05726853013038635	0.5286342650651932	0.4713657349348068
+5cz555	trump and putin will try to mend ties kremlin says	data/processed/pro_fakeddit/images/5cz555.jpg	1	0	False	0.5286178737878799	0.05723574757575989	0.5286178737878799	0.47138212621212006
+aralfg	the tin man in this wizard of oz poster at my mothers house has no makeup on his face	data/processed/pro_fakeddit/images/aralfg.jpg	1	0	False	0.5271608531475067	0.05432167649269104	0.5271608531475067	0.4728391766548157
+9cchb3	in south korea froot loops are named froot rings its from the actual kelloggs company not a fake brand	data/processed/pro_fakeddit/images/9cchb3.jpg	1	0	False	0.5265419632196426	0.053083911538124084	0.5265419632196426	0.47345805168151855
+1m41sc	indianapolis public safety center declared unsafe	data/processed/pro_fakeddit/images/1m41sc.jpg	1	0	False	0.5250626653432846	0.05012531578540802	0.5250626653432846	0.4749373495578766
+b5w9is	atom bomb red self titled	data/processed/pro_fakeddit/images/b5w9is.jpg	0	1	False	0.5250525921583176	0.05010516941547394	0.47494742274284363	0.5250525921583176
+as6i1w	join french volunteers legion against bolshevism one of many for the lvf date unknown	data/processed/pro_fakeddit/images/as6i1w.jpg	0	1	False	0.5247555673122406	0.049511149525642395	0.4752444177865982	0.5247555673122406
+dgmfdo	funny sign at a marriot hotel describing their alarms wtf is a whoop whoop	data/processed/pro_fakeddit/images/dgmfdo.jpg	1	0	False	0.524525836110115	0.04905165731906891	0.524525836110115	0.47547417879104614
+4o0xkf	scientific link found between aviation disasters and cellphones	data/processed/pro_fakeddit/images/4o0xkf.jpg	0	1	False	0.5243469774723053	0.048693910241127014	0.4756530672311783	0.5243469774723053
+317523	a program that encourages lowincome people to buy more fruit and vegetables at farmers markets will expand across california thanks to a million grant	data/processed/pro_fakeddit/images/317523.jpg	1	0	False	0.5237796902656555	0.047559380531311035	0.5237796902656555	0.4762203097343445
+4rozpv	north korean space program to land rover on earth	data/processed/pro_fakeddit/images/4rozpv.jpg	0	1	False	0.522570788860321	0.04514160752296448	0.47742918133735657	0.522570788860321
+5qnoey	white child touching the shield of a black state trooper at kkk rally	data/processed/pro_fakeddit/images/5qnoey.jpg	1	0	False	0.5222228169441223	0.04444563388824463	0.5222228169441223	0.4777771830558777
+dh9zmf	a trash can at a burger king	data/processed/pro_fakeddit/images/dh9zmf.jpg	1	0	False	0.521726980805397	0.04345397651195526	0.521726980805397	0.4782730042934418
+5ug84s	michael moore cease all congressional business until trumps potentially traitorous actions probed	data/processed/pro_fakeddit/images/5ug84s.jpg	1	0	False	0.5211209356784821	0.04224187135696411	0.5211209356784821	0.47887906432151794
+6w9u84	trump asked sessions about closing case against arpaio an ally since birtherism	data/processed/pro_fakeddit/images/6w9u84.jpg	1	0	False	0.5208119004964828	0.0416238009929657	0.5208119004964828	0.47918809950351715
+d4oavf	frank stella attica defense fund	data/processed/pro_fakeddit/images/d4oavf.jpg	0	1	False	0.5207971632480621	0.04159434139728546	0.4792028218507767	0.5207971632480621
+64358r	man accidentally shoots himself at nra headquarters police	data/processed/pro_fakeddit/images/64358r.jpg	1	0	False	0.5204751044511795	0.04095020890235901	0.5204751044511795	0.4795248955488205
+56ki11	man posing as delivery person in san francisco hides resume in box of donuts	data/processed/pro_fakeddit/images/56ki11.jpg	1	0	False	0.5195376724004745	0.0390753448009491	0.5195376724004745	0.48046232759952545
+1vlp1m	smoghit beijing shows sunsets on a giant tv to remind people what the sun looks like	data/processed/pro_fakeddit/images/1vlp1m.jpg	1	0	False	0.5194287896156311	0.03885756433010101	0.5194287896156311	0.4805712252855301
+d69zr7k	who cares about chris christie you see what he did to amy schumer	data/processed/pro_fakeddit/images/d69zr7k.jpg	0	1	False	0.5192069411277771	0.038413867354393005	0.4807930737733841	0.5192069411277771
+90h4uh	vladimir putin releases album pronouncing russias innocence in meddling with the election	data/processed/pro_fakeddit/images/90h4uh.jpg	0	1	False	0.5176829397678375	0.03536589443683624	0.4823170453310013	0.5176829397678375
+buovyn	paint splashes on bathroom stall that look like sperm	data/processed/pro_fakeddit/images/buovyn.jpg	1	0	False	0.5170306116342545	0.03406119346618652	0.5170306116342545	0.48296941816806793
+blw60y	ezra millers makeup at the meta	data/processed/pro_fakeddit/images/blw60y.jpg	0	1	False	0.5166272222995758	0.03325442969799042	0.4833727926015854	0.5166272222995758
+ce6npko	kim jongun crossing the delaware	data/processed/pro_fakeddit/images/ce6npko.jpg	0	1	False	0.5166030079126358	0.033205971121788025	0.4833970367908478	0.5166030079126358
+7oz3ve	exhibition deal with the devil	data/processed/pro_fakeddit/images/7oz3ve.jpg	0	1	False	0.5161909386515617	0.03238189220428467	0.48380904644727707	0.5161909386515617
+2mp2b9	religious extremism main cause of terrorism according to report	data/processed/pro_fakeddit/images/2mp2b9.jpg	1	0	False	0.5159680396318436	0.03193610906600952	0.5159680396318436	0.48403193056583405
+9hkiey	new prescription drug warning labels in canada	data/processed/pro_fakeddit/images/9hkiey.jpg	1	0	False	0.5158973038196564	0.03179456293582916	0.5158973038196564	0.4841027408838272
+7kizk0	xwing fighter crash lands on the uss long island during flight testing	data/processed/pro_fakeddit/images/7kizk0.jpg	0	1	False	0.5156858265399933	0.031371667981147766	0.4843141585588455	0.5156858265399933
+4pj0v7	us militarys satellitelaunching xs space plane will eventually be able to take close pictures of something moving	data/processed/pro_fakeddit/images/4pj0v7.jpg	0	1	False	0.5153008997440338	0.030601784586906433	0.4846991151571274	0.5153008997440338
+bg70qm	bugs bunny takes elmer fudd to task	data/processed/pro_fakeddit/images/bg70qm.jpg	0	1	False	0.5152321010828018	0.03046421706676483	0.484767884016037	0.5152321010828018
+axcshj	eng and chang bunkers head stone the original siamese twins mt airy nc	data/processed/pro_fakeddit/images/axcshj.jpg	1	0	False	0.5144283622503281	0.028856724500656128	0.5144283622503281	0.48557163774967194
+cqur6l	collierville priest would not allow black woman to clean church blames his dog	data/processed/pro_fakeddit/images/cqur6l.jpg	1	0	False	0.5131095945835114	0.026219189167022705	0.5131095945835114	0.48689040541648865
+6vrx8m	rough illustration of leonardo da vinci unveiling his famous mona lisa to a crowd just offframe unknown day	data/processed/pro_fakeddit/images/6vrx8m.jpg	0	1	False	0.5123467743396759	0.024693563580513	0.4876532107591629	0.5123467743396759
+4lapgr	international week of solidarity with latin america cuba	data/processed/pro_fakeddit/images/4lapgr.jpg	0	1	False	0.5116244405508041	0.023248881101608276	0.48837555944919586	0.5116244405508041
+71gvvy	after nurses arrest utah lawmakers will draft a bill that clarifies when police can draw someones blood	data/processed/pro_fakeddit/images/71gvvy.jpg	1	0	False	0.5114656835794449	0.022931352257728577	0.5114656835794449	0.4885343313217163
+bck098	west virginia poverty gets worse under trump economy not better	data/processed/pro_fakeddit/images/bck098.jpg	1	0	False	0.5113356411457062	0.02267131209373474	0.5113356411457062	0.48866432905197144
+bg83tp	my orange juice has a hebrew on the label for passover	data/processed/pro_fakeddit/images/bg83tp.jpg	1	0	False	0.5106526911258698	0.021305367350578308	0.5106526911258698	0.48934732377529144
+2w44im	david axelrod obama thought yes we can was corny	data/processed/pro_fakeddit/images/2w44im.jpg	1	0	False	0.5103211402893066	0.020642250776290894	0.5103211402893066	0.48967888951301575
+39iq79	police use twitter to locate parents of wandering yearold boy	data/processed/pro_fakeddit/images/39iq79.jpg	1	0	False	0.5103144943714142	0.02062898874282837	0.5103144943714142	0.4896855056285858
+2l6q0z	student suspended for slicing apple during healthy snacks presentation	data/processed/pro_fakeddit/images/2l6q0z.jpg	1	0	False	0.5093812942504883	0.01876257359981537	0.5093812942504883	0.4906187206506729
+b229fh	this warning on my face mask package	data/processed/pro_fakeddit/images/b229fh.jpg	1	0	False	0.5086671710014343	0.01733437180519104	0.5086671710014343	0.4913327991962433
+3eywnc	katie hopkins proposes euthanasia vans as uk has far too many old people	data/processed/pro_fakeddit/images/3eywnc.jpg	1	0	False	0.5084220916032791	0.016844183206558228	0.5084220916032791	0.4915779083967209
+2a8bbs	nsa and fbi have been spying on americanmuslims	data/processed/pro_fakeddit/images/2a8bbs.jpg	1	0	False	0.5081098079681396	0.016219645738601685	0.5081098079681396	0.49189016222953796
+3mbnug	man steals lottery ticket dispenser is arrested trying to cash in at same store	data/processed/pro_fakeddit/images/3mbnug.jpg	1	0	False	0.5080371201038361	0.016074255108833313	0.5080371201038361	0.49196286499500275
+8pal2g	frustratedluvrs hatred and jealousy	data/processed/pro_fakeddit/images/8pal2g.jpg	0	1	False	0.5077773034572601	0.015554621815681458	0.4922226816415787	0.5077773034572601
+9fmnx5	social distortion selftitled	data/processed/pro_fakeddit/images/9fmnx5.jpg	0	1	False	0.5076531320810318	0.015306264162063599	0.4923468679189682	0.5076531320810318
+8g4hjp	mark zuckerberg testifies on capitol hill	data/processed/pro_fakeddit/images/8g4hjp.jpg	0	1	False	0.5072876363992691	0.014575272798538208	0.4927123636007309	0.5072876363992691
+bc3zca	irans introduction of new and repressive sex laws following the islamic revolution	data/processed/pro_fakeddit/images/bc3zca.jpg	0	1	False	0.5072367191314697	0.014473438262939453	0.4927632808685303	0.5072367191314697
+6yzg4z	donald trump campaign rally	data/processed/pro_fakeddit/images/6yzg4z.jpg	0	1	False	0.5071183145046234	0.014236599206924438	0.492881715297699	0.5071183145046234
+8tlelb	assad pledges to regain control of northern syria by force if needed	data/processed/pro_fakeddit/images/8tlelb.jpg	1	0	False	0.5068933665752411	0.013786718249320984	0.5068933665752411	0.4931066483259201
+cjmsqac	gman sitting on a creepy chair at the bottom of a body of water	data/processed/pro_fakeddit/images/cjmsqac.jpg	0	1	False	0.5067996680736542	0.01359933614730835	0.4932003319263458	0.5067996680736542
+cd34h5	these signs for the bathroom in a mall in tel aviv	data/processed/pro_fakeddit/images/cd34h5.jpg	1	0	False	0.5061822980642319	0.012364581227302551	0.5061822980642319	0.4938177168369293
+d1x4ww	temperature gradients in an upright empty water bottle that was against the wall at work evaporation on one side condensation on the other	data/processed/pro_fakeddit/images/d1x4ww.jpg	1	0	False	0.5051217377185822	0.010243475437164307	0.5051217377185822	0.49487826228141785
+cllapo	this cloud looks like a buff rooster with a mace	data/processed/pro_fakeddit/images/cllapo.jpg	1	0	False	0.5043558403849602	0.008711673319339752	0.5043558403849602	0.4956441670656204
+3ducw6	jeb bush hails uber in san francisco doesnt win drivers vote	data/processed/pro_fakeddit/images/3ducw6.jpg	1	0	False	0.5040540844202042	0.008108139038085938	0.5040540844202042	0.4959459453821182
+bgq8is	india to observe us sanctions on iranian oil	data/processed/pro_fakeddit/images/bgq8is.jpg	1	0	False	0.5036835819482803	0.007367134094238281	0.5036835819482803	0.49631644785404205
+54qcz9	want to punch martin shkreli in the face you could get a chance	data/processed/pro_fakeddit/images/54qcz9.jpg	1	0	False	0.5025704950094223	0.005141004920005798	0.5025704950094223	0.4974294900894165
+bqnljs	presidential candidate rep seth moulton unveils national service proposal	data/processed/pro_fakeddit/images/bqnljs.jpg	1	0	False	0.5021130293607712	0.004226058721542358	0.5021130293607712	0.4978869706392288
+82pky0	probe into generic drug price fixing set to widen	data/processed/pro_fakeddit/images/82pky0.jpg	1	0	False	0.5003387629985809	0.0006775557994842529	0.5003387629985809	0.4996612071990967
+66p9kr	tesla recalls k cars over parking brake gear	data/processed/pro_fakeddit/images/66p9kr.jpg	1	0	False	0.5002923458814621	0.0005846768617630005	0.5002923458814621	0.4997076690196991

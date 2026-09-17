@@ -1,0 +1,2 @@
+model,dataset,task,task_type,accuracy,macro_f1,micro_f1
+metaclip2_vith14,fakeddit,2way,single_label,0.5762797769893563,0.4270193283032501,0.5762797769893563

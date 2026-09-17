@@ -1,0 +1,8 @@
+id	text	image_path	y_true	y_pred	correct	confidence	margin	score_0	score_1
+46j162	snake head found in farmington womans can of green beans	data/processed/pro_fakeddit/images/46j162.jpg	1	0	False	0.5	0.0	0.5	0.5
+3mbnug	man steals lottery ticket dispenser is arrested trying to cash in at same store	data/processed/pro_fakeddit/images/3mbnug.jpg	1	0	False	0.5	0.0	0.5	0.5
+4lpidn	large fish jumping for a bait fish held by a girl	data/processed/pro_fakeddit/images/4lpidn.jpg	1	0	False	0.5	0.0	0.5	0.5
+77cavp	protesters arrested at nuns chapel in pipeline construction zone	data/processed/pro_fakeddit/images/77cavp.jpg	1	0	False	0.5	0.0	0.5	0.5
+3lxkdg	years old world records	data/processed/pro_fakeddit/images/3lxkdg.jpg	1	0	False	0.5	0.0	0.5	0.5
+14s6ft	norwegian pilot draws penis with flightpath over sweden	data/processed/pro_fakeddit/images/14s6ft.jpg	1	0	False	0.5	0.0	0.5	0.5
+19izgm	moms strip to finance school bus for children	data/processed/pro_fakeddit/images/19izgm.jpg	1	0	False	0.5	0.0	0.5	0.5
