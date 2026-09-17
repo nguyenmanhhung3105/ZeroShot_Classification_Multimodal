@@ -16,9 +16,42 @@ LƯU Ý: nhánh text dùng logit_scale của model dù model đó được calib
 cặp (ảnh, text) chứ chưa từng được calibrate cho (text sample, text prompt).
 Đây là giả định hợp lý nhất hiện có, nhưng nên coi là điểm cần validate/tune
 riêng (xem tham số text_logit_scale) chứ không mặc định đúng.
+
+PROGRESS BAR: encode_multimodal_embeddings (và do đó predict_single_label /
+predict_multi_label) hiện % tiến trình qua các batch bằng tqdm, nếu có cài
+đặt. Tắt bằng show_progress=False khi chạy trong pipeline không muốn in ra
+console (vd: ghi log file, job chấm điểm tự động).
 """
 
 import numpy as np
+
+try:
+    from tqdm.auto import tqdm as _tqdm
+    _HAS_TQDM = True
+except ImportError:  # tqdm không bắt buộc — vẫn chạy được, chỉ mất progress bar
+    _HAS_TQDM = False
+
+_warned_missing_tqdm = False
+
+
+def _warn_missing_tqdm() -> None:
+    global _warned_missing_tqdm
+    if not _warned_missing_tqdm:
+        print("[inference] Không tìm thấy 'tqdm' — bỏ qua progress bar. "
+              "Cài bằng: pip install tqdm")
+        _warned_missing_tqdm = True
+
+
+def _progress_iter(iterable, enabled: bool = True, desc: str = "", unit: str = "batch"):
+    """Bọc iterable bằng tqdm để hiện % tiến trình (nếu có tqdm và enabled=True).
+    Không có tqdm hoặc enabled=False -> trả về iterable gốc, không crash.
+    """
+    if not enabled:
+        return iterable
+    if not _HAS_TQDM:
+        _warn_missing_tqdm()
+        return iterable
+    return _tqdm(iterable, desc=desc, unit=unit)
 
 
 def _sigmoid(x: np.ndarray) -> np.ndarray:
@@ -113,11 +146,15 @@ def _clean_texts(texts: list) -> list:
     return cleaned
 
 
-def encode_multimodal_embeddings(vlm, images: list, texts: list, batch_size: int = 16) -> tuple:
+def encode_multimodal_embeddings(vlm, images: list, texts: list, batch_size: int = 16,
+                                  show_progress: bool = True, desc: str = "Encoding") -> tuple:
     """
     Encode ảnh và text của TỪNG SAMPLE thành 2 ma trận RIÊNG BIỆT — KHÔNG fuse
     ở đây. Đây là điểm khác biệt cốt lõi so với encode_fused_embeddings cũ
     (đã bỏ hoàn toàn, xem giải thích ở đầu file).
+
+    show_progress: hiện thanh tiến trình (%) qua các batch trong lúc encode.
+    desc         : nhãn hiển thị trên thanh tiến trình.
 
     Returns:
         image_embeds   : np.ndarray (N, D), đã L2-normalize
@@ -132,7 +169,10 @@ def encode_multimodal_embeddings(vlm, images: list, texts: list, batch_size: int
 
     image_chunks, text_chunks = [], []
 
-    for start in range(0, len(images), batch_size):
+    batch_starts = range(0, len(images), batch_size)
+    iterator = _progress_iter(batch_starts, enabled=show_progress, desc=desc, unit="batch")
+
+    for start in iterator:
         end = start + batch_size
         img_batch = images[start:end]
         txt_batch = texts[start:end]
@@ -147,12 +187,13 @@ def encode_multimodal_embeddings(vlm, images: list, texts: list, batch_size: int
 
 def predict_single_label(vlm, images: list, texts: list, class_embeds: np.ndarray, label_order: list,
                           batch_size: int = 16, image_weight: float = 0.5,
-                          text_logit_scale: float = None) -> tuple:
+                          text_logit_scale: float = None, show_progress: bool = True) -> tuple:
     """
     Single-label multimodal inference cho Fakeddit / CrisisMMD.
 
     text_logit_scale: cho phép override scale riêng cho nhánh text (mặc định
     dùng chung logit_scale của model — xem lưu ý ở docstring đầu file).
+    show_progress   : hiện % tiến trình trong lúc encode ảnh/text.
 
     Returns:
         predictions    : list[str]
@@ -162,7 +203,8 @@ def predict_single_label(vlm, images: list, texts: list, class_embeds: np.ndarra
         text_empty_mask: np.ndarray[bool] (N,)
     """
     image_embeds, text_embeds, text_empty_mask = encode_multimodal_embeddings(
-        vlm, images, texts, batch_size=batch_size
+        vlm, images, texts, batch_size=batch_size,
+        show_progress=show_progress, desc="Single-label inference"
     )
 
     sim_image = image_embeds @ class_embeds.T
@@ -186,12 +228,14 @@ def predict_single_label(vlm, images: list, texts: list, class_embeds: np.ndarra
 def predict_multi_label(vlm, images: list, texts: list, class_embeds: np.ndarray, label_order: list,
                          threshold: float = 0.22, fallback_top1: bool = True,
                          batch_size: int = 16, image_weight: float = 0.5,
-                         text_logit_scale: float = None) -> tuple:
+                         text_logit_scale: float = None, show_progress: bool = True) -> tuple:
     """
     Multi-label multimodal inference cho MM-IMDb.
 
     Mỗi lớp được đánh giá ĐỘC LẬP qua sigmoid ở TỪNG NHÁNH riêng, rồi mới fuse —
     không sigmoid trên cosine đã bị trộn 2 modality (khác biệt cốt lõi so với bản cũ).
+
+    show_progress: hiện % tiến trình trong lúc encode ảnh/text.
 
     Returns:
         predictions    : list[list[str]]
@@ -203,7 +247,8 @@ def predict_multi_label(vlm, images: list, texts: list, class_embeds: np.ndarray
         text_empty_mask: np.ndarray[bool] (N,)
     """
     image_embeds, text_embeds, text_empty_mask = encode_multimodal_embeddings(
-        vlm, images, texts, batch_size=batch_size
+        vlm, images, texts, batch_size=batch_size,
+        show_progress=show_progress, desc="Multi-label inference"
     )
 
     sim_image = image_embeds @ class_embeds.T

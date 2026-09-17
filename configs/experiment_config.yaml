@@ -32,6 +32,7 @@ datasets:
     text_col: clean_title
     label_col_2way: 2_way_label
     label_col_6way: 6_way_label
+    max_samples: 1000
 
   # ----------------------------------------------------------
   # CRISISMMD
@@ -48,6 +49,7 @@ datasets:
     id_col: tweet_id
     text_col: clean_text
     label_col: label_informative
+    max_samples: 1000
 
   # ----------------------------------------------------------
   # MMIMDB
@@ -63,6 +65,7 @@ datasets:
     id_col: id
     text_col: plot
     label_col: genres
+    max_samples: 1000
     # thresholds:
     #   metaclip2_vith14: 0.22
     #   dfn5b_vith14: 0.22

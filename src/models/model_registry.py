@@ -92,7 +92,18 @@ class VLMWrapper:
         config = MODEL_CONFIGS[model_name]
         self.model_name = model_name
         self.family = config.get("family", "clip_softmax")
-        self.device = device or ("cuda" if torch.cuda.is_available() else "cpu")
+        
+        # self.device = device or ("cuda" if torch.cuda.is_available() else "cpu")
+        
+        if device is not None:
+            self.device = device
+        elif torch.cuda.is_available():
+            self.device = "cuda"
+        elif torch.backends.mps.is_available():
+            self.device = "mps"
+        else:
+            self.device = "cpu"
+        
         print(f"[model_registry] Đang load model '{model_name}' ({config['arch']}, "
               f"pretrained={config['pretrained']}) lên {self.device} ...")
 
@@ -163,8 +174,15 @@ class VLMWrapper:
     def unload(self):
         """Giải phóng GPU memory trước khi load model tiếp theo."""
         del self.model
+        
+        # if torch.cuda.is_available():
+        #     torch.cuda.empty_cache()
+        
         if torch.cuda.is_available():
             torch.cuda.empty_cache()
+        elif torch.backends.mps.is_available():
+            torch.mps.empty_cache()
+        
         print(f"[model_registry] Đã giải phóng '{self.model_name}' khỏi bộ nhớ")
 
 
