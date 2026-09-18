@@ -43,21 +43,14 @@ MODEL_CONFIGS = {
         "pretrained": "metaclip2_worldwide",
         "family": "clip_softmax",
     },
-    # Thay cho openclip_vith14_laion2b: cùng kiến trúc ViT-H/14, cùng embed_dim,
-    # cùng context length — chỉ khác dữ liệu train (DFN-5B đã lọc kỹ hơn LAION-2B).
-    # Chưa xác nhận tag ngắn trong registry -> load qua hf-hub cho chắc.
+    
+    
     "dfn5b_vith14": {
         "arch": "hf-hub:apple/DFN5B-CLIP-ViT-H-14",
         "pretrained": None,          # bắt buộc None khi arch là hf-hub:...
         "tokenizer": "ViT-H-14",     # Apple dùng tokenizer CLIP chuẩn, không phải hf-hub id
         "family": "clip_softmax",
     },
-    # Giữ lại để làm ablation baseline nếu cần so sánh với DFN5B:
-    # "openclip_vith14_laion2b": {
-    #     "arch": "ViT-H-14",
-    #     "pretrained": "laion2b_s32b_b79k",
-    #     "family": "clip_softmax",
-    # },
 
     # Dùng cho cả 3 dataset. Với mmimdb (multi-label): dùng sigmoid độc lập
     # từng lớp qua calibrated_logits(). Với Fakeddit/CrisisMMD (single-label):

@@ -1,0 +1,10 @@
+{
+  "model": "siglip2_so400m",
+  "dataset": "crisismmd",
+  "task": "informativeness",
+  "prompt_version": "v1",
+  "n_total_samples": 7472,
+  "n_errors": 1976,
+  "error_rate": 0.2644539614561028,
+  "timestamp": "2026-09-18T13:11:40.068324"
+}

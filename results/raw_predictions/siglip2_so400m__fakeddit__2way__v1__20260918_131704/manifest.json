@@ -1,0 +1,10 @@
+{
+  "model": "siglip2_so400m",
+  "dataset": "fakeddit",
+  "task": "2way",
+  "prompt_version": "v1",
+  "n_total_samples": 1973,
+  "n_errors": 833,
+  "error_rate": 0.4221996958945768,
+  "timestamp": "2026-09-18T13:17:04.395031"
+}

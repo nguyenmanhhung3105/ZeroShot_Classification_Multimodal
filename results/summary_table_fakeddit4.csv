@@ -1,0 +1,2 @@
+model,dataset,task,task_type,accuracy,macro_f1,micro_f1
+siglip2_so400m,fakeddit,2way,single_label,0.5778003041054233,0.3981242526948761,0.5778003041054233

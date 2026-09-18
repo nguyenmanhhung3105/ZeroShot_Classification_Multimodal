@@ -1,0 +1,10 @@
+{
+  "model": "dfn5b_vith14",
+  "dataset": "crisismmd",
+  "task": "informativeness",
+  "prompt_version": "v1",
+  "n_total_samples": 7472,
+  "n_errors": 2370,
+  "error_rate": 0.3171841541755889,
+  "timestamp": "2026-09-18T12:50:41.586942"
+}

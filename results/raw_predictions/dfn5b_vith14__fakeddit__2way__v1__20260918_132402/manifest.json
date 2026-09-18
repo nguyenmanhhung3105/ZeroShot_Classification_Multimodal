@@ -1,0 +1,10 @@
+{
+  "model": "dfn5b_vith14",
+  "dataset": "fakeddit",
+  "task": "2way",
+  "prompt_version": "v1",
+  "n_total_samples": 1973,
+  "n_errors": 804,
+  "error_rate": 0.40750126710593004,
+  "timestamp": "2026-09-18T13:24:03.027856"
+}
