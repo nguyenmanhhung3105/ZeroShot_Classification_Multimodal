@@ -62,7 +62,7 @@ from prompts import fakeddit_prompts, crisismmd_prompts, mmimdb_prompts
 # ============================================================
 
 CONFIG_PATH = "configs/experiment_config.yaml"  # SỬA: khớp với main.py (trước là "config/..." — sai tên thư mục)
-N_SAMPLES = 100
+N_SAMPLES =20
 BATCH_SIZE = 4
 LOG_DIR = "results/demo_logs"
 OUTPUT_DIR = "results/demo"

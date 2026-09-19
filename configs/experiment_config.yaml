@@ -8,8 +8,8 @@
 # MODELS
 # ============================================================
 models:
-  # - metaclip2_vith14
-  - dfn5b_vith14
+  - metaclip2_vith14
+  # - dfn5b_vith14
   # - siglip2_so400m
 
 # ============================================================
@@ -23,7 +23,7 @@ datasets:
   # cột thật: id, clean_title, image_path, hasImage, 2_way_label, 6_way_label
   # ----------------------------------------------------------
   fakeddit:
-    enabled: true
+    enabled: false
     task: "2way"
     data_path: "data/processed/pro_fakeddit/fakeddit_sample.tsv"
     image_dir: "data/processed/pro_fakeddit/images"
@@ -41,7 +41,7 @@ datasets:
   #           label_informative, label_humanitarian, event
   # ----------------------------------------------------------
   crisismmd:
-    enabled: false
+    enabled: true
     task: "informativeness"
     data_path: "data/processed/pro_crisismmd/pre_crisismmd.tsv"
     image_dir: "data/processed/pro_crisismmd/images"
