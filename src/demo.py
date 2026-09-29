@@ -50,6 +50,7 @@ from PIL import Image
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
+from run import common as shared
 from models.model_registry import load_model
 from inference import build_class_embeddings, predict_single_label, predict_multi_label
 from evaluate import evaluate_single_label, evaluate_binary, evaluate_multi_label
@@ -85,21 +86,8 @@ def load_config(path: str = CONFIG_PATH) -> dict:
         return yaml.safe_load(f)
 
 
-def load_dataframe(path: str) -> pd.DataFrame:
-    """Tự nhận diện TSV/CSV/Parquet, giữ dtype=str để không bị pandas tự ép
-    kiểu id/label như trước (main.py không giữ dtype=str, demo giữ để an toàn
-    hơn khi chỉ chạy N_SAMPLES dòng)."""
-    if not os.path.exists(path):
-        raise FileNotFoundError(f"Không tìm thấy dataset: {path}")
-
-    if path.endswith(".tsv"):
-        return pd.read_csv(path, sep="\t", dtype=str, keep_default_na=False)
-    if path.endswith(".csv"):
-        return pd.read_csv(path, dtype=str, keep_default_na=False)
-    if path.endswith(".parquet"):
-        return pd.read_parquet(path)
-
-    raise ValueError(f"Định dạng dataset chưa hỗ trợ: {path}")
+def load_dataframe(path: str, max_samples=None, text_col=None, min_text_length=0) -> pd.DataFrame:
+    return shared.load_dataframe(path, max_samples, text_col, min_text_length)
 
 
 def resolve_override(default_value, overrides: dict, key: str):
@@ -152,56 +140,11 @@ def parse_multilabel(value) -> list:
 
 
 def normalize_single_labels(values: list, label_names, label_order: list) -> list:
-    """Map label số trong dataset sang tên class trong prompt.
-    (Bản demo cũ thiếu bước này -> so "0"/"1" với tên class chữ nên accuracy sai.)
-    """
-    if label_names is None:
-        return values
-
-    mapping = {}
-    if isinstance(label_names, dict):
-        mapping.update(label_names)
-        mapping.update({str(k): v for k, v in label_names.items()})
-    elif isinstance(label_names, (list, tuple)):
-        mapping.update({i: label for i, label in enumerate(label_names)})
-        mapping.update({str(i): label for i, label in enumerate(label_names)})
-
-    normalized = []
-    for value in values:
-        if isinstance(value, float) and value.is_integer():
-            value = int(value)
-        normalized.append(mapping.get(value, mapping.get(str(value), value)))
-    return normalized
+    return shared.normalize_single_labels(values, label_names, label_order)
 
 
 def resolve_image_paths(df: pd.DataFrame, task_config: dict) -> list:
-    """Xác định path ảnh, thử nhiều candidate thay vì chỉ 1-2 path như bản cũ."""
-    image_dir = task_config.get("image_dir", "")
-    image_col = task_config.get("image_col", "image_path")
-    id_col = task_config.get("id_col", "id")
-    image_ext = task_config.get("image_ext", ".jpg")
-
-    paths = []
-    for _, row in df.iterrows():
-        candidates = []
-
-        raw_value = row[image_col] if image_col in df.columns else None
-        if raw_value is not None and str(raw_value).strip():
-            raw_path = str(raw_value)
-            candidates.append(raw_path)
-            if image_dir:
-                candidates.append(os.path.join(image_dir, raw_path))
-                candidates.append(os.path.join(image_dir, os.path.basename(raw_path)))
-
-        if id_col in df.columns and image_dir:
-            sample_id = str(row[id_col])
-            candidates.append(os.path.join(image_dir, sample_id))
-            candidates.append(os.path.join(image_dir, f"{sample_id}{image_ext}"))
-
-        resolved = next((path for path in candidates if os.path.exists(path)), candidates[0] if candidates else "")
-        paths.append(resolved)
-
-    return paths
+    return shared.resolve_image_paths(df, task_config)
 
 
 def _canonical_label_lookup(label_order: list) -> dict:
@@ -251,21 +194,8 @@ def call_with_supported_kwargs(func, *args, **kwargs):
 
 
 def load_images_safe(image_paths: list) -> tuple:
-    """Load ảnh, bỏ qua ảnh lỗi thay vì crash toàn bộ demo."""
-    images, valid_indices = [], []
-    for i, path in enumerate(image_paths):
-        try:
-            with Image.open(path) as img:
-                images.append(img.convert("RGB"))
-            valid_indices.append(i)
-        except Exception as e:
-            print(f"[image] Bỏ qua ảnh lỗi: {path} -> {e}")
-    return images, valid_indices
+    return shared.load_images_safe(image_paths)
 
-
-# ============================================================
-# VISUALIZE (giữ nguyên, đặc thù cho demo)
-# ============================================================
 
 def visualize(df, images, text_col, true_col, dataset_name, task, model_name):
     os.makedirs(OUTPUT_DIR, exist_ok=True)
@@ -282,6 +212,8 @@ def visualize(df, images, text_col, true_col, dataset_name, task, model_name):
             text = text[:60] + "..."
 
         ax.imshow(img)
+        if hasattr(images, "paths"):
+            img.close()
         ax.axis("off")
         ax.set_title(f"{text}\nTrue: {row[true_col]}\nPred: {row['predicted']}", fontsize=9)
 
@@ -336,7 +268,10 @@ def run_dataset(vlm, model_name: str, dataset_name: str, task_config: dict, imag
 
     # validate_columns(df, [id_col, text_col, label_col], dataset_name)
     
-    df = load_dataframe(task_config["data_path"])
+    limit = min(N_SAMPLES, task_config.get("max_samples") or N_SAMPLES)
+    df = load_dataframe(task_config["data_path"], max_samples=limit,
+                        text_col=task_config.get("text_col", "clean_title"),
+                        min_text_length=task_config.get("min_text_length", 20) if dataset_name == "fakeddit" else 0)
 
     id_col = task_config.get("id_col", "id")
 
@@ -350,7 +285,7 @@ def run_dataset(vlm, model_name: str, dataset_name: str, task_config: dict, imag
 
     elif dataset_name == "crisismmd":
         text_col = task_config.get("text_col", "tweet_text")
-        label_col = task_config.get("label_col", "label")
+        label_col = shared.crisismmd_label_column(task_config)
         label_names = prompt_module.get_label_names(task)
 
     else:  # mmimdb
@@ -360,12 +295,7 @@ def run_dataset(vlm, model_name: str, dataset_name: str, task_config: dict, imag
 
     validate_columns(df, [id_col, text_col, label_col], dataset_name)
 
-    # Chỉ giữ mẫu có text dài hơn 10 ký tự
-    
-    if dataset_name == "fakeddit":
-        df = df[df[text_col].fillna("").astype(str).str.replace(" ", "", regex=False).str.len() > 20].reset_index(drop=True)
-
-    df = df.head(N_SAMPLES).copy()
+    # Lọc text và giới hạn mẫu được áp dụng ngay trong lúc đọc.
 
 #-------------------------------------------------------------------------
 
@@ -411,25 +341,21 @@ def run_dataset(vlm, model_name: str, dataset_name: str, task_config: dict, imag
         df_valid["_text_was_empty"] = text_empty_mask
         df_valid["predicted"] = predictions
 
-        y_true = normalize_single_labels(df_valid[label_col].tolist(), label_names, label_order)
-        # Fallback case/space-insensitive: xác nhận qua debug là dataset ghi
-        # "Informative" / "Not Informative" trong khi prompt dùng
-        # "informative" / "not_informative" -> normalize_single_labels (map
-        # theo get_label_names) không phủ được biến thể này, cần thêm bước này.
-        y_true = coerce_labels_to_prompt_format(y_true, label_order)
-        
-        if dataset_name == "fakeddit":                                      # Debug: map nhãn số -> tên class để in ra debug, tránh so sánh "0"/"1" với tên class chữ
-            label_map = {"fake": 0, "real": 1}
-            y_true = [label_map[str(x).lower()] for x in y_true]
+        if dataset_name == "fakeddit":
+            y_true = fakeddit_prompts.normalize_labels(df_valid[label_col].tolist(), task)
+        else:
+            y_true = normalize_single_labels(df_valid[label_col].tolist(), label_names, label_order)
+            y_true = coerce_labels_to_prompt_format(y_true, label_order)
 
         print(f"[DEBUG] label_order (từ prompt) : {label_order}")
         print(f"[DEBUG] y_true thật (sau map)   : {sorted(set(map(str, y_true)))}")
         print(f"[DEBUG] predictions              : {sorted(set(map(str, predictions)))}")
 
         positive_label = task_config.get("positive_label")
-        if positive_label and positive_label in label_order:
+        if positive_label is not None:
+            positive_label = normalize_single_labels([positive_label], label_names, label_order)[0]
             positive_idx = label_order.index(positive_label)
-            result = evaluate_binary(y_true, predictions, p[:, positive_idx], positive_label)
+            result = evaluate_binary(y_true, predictions, p[:, positive_idx], positive_label, label_order=label_order)
         else:
             low_sample = (
                 crisismmd_prompts.LOW_SAMPLE_WARNING_CLASSES
@@ -451,6 +377,8 @@ def run_dataset(vlm, model_name: str, dataset_name: str, task_config: dict, imag
             sim_image=p_img,
             sim_text=p_text,
             extra_manifest={
+                "max_samples": limit,
+                "min_text_length": task_config.get("min_text_length", 20) if dataset_name == "fakeddit" else 0,
                 "batch_size": BATCH_SIZE,
                 "image_weight": image_weight,
                 "logit_scale": getattr(vlm, "logit_scale", 100.0),
@@ -507,6 +435,7 @@ def run_dataset(vlm, model_name: str, dataset_name: str, task_config: dict, imag
         sim_image=p_img,
         sim_text=p_text,
         extra_manifest={
+            "max_samples": limit,
             "threshold": threshold,
             "fallback_top1": fallback_top1,
             "batch_size": BATCH_SIZE,
@@ -534,7 +463,14 @@ def run_dataset(vlm, model_name: str, dataset_name: str, task_config: dict, imag
 # ============================================================
 
 def main():
+    global N_SAMPLES, BATCH_SIZE, LOG_DIR, OUTPUT_DIR, PROMPT_VERSION
     config = load_config()
+    demo_config = config.get("demo", {})
+    N_SAMPLES = demo_config.get("n_samples", 20)
+    BATCH_SIZE = demo_config.get("batch_size", 4)
+    LOG_DIR = demo_config.get("log_dir", "results/demo_logs")
+    OUTPUT_DIR = demo_config.get("visualization_dir", "results/demo")
+    PROMPT_VERSION = demo_config.get("prompt_version", "v1")
 
     models = config["models"]
     datasets = {name: cfg for name, cfg in config["datasets"].items() if cfg.get("enabled", False)}

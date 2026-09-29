@@ -23,10 +23,10 @@ from prompts import crisismmd_prompts
 
 from common import (
     load_config,
+    crisismmd_label_column,
     load_dataframe,
     validate_columns,
     normalize_single_labels,
-    coerce_labels_to_prompt_format,
     resolve_image_paths,
     load_images_safe,
     get_image_weight,
@@ -39,16 +39,11 @@ def run_crisismmd(vlm, task_config: dict, config: dict) -> dict:
     task = task_config["task"]
     print(f"\n{'=' * 70}\nDATASET: CrisisMMD | TASK: {task}\n{'=' * 70}")
 
-    df = load_dataframe(task_config["data_path"])
+    df = load_dataframe(task_config["data_path"], max_samples=task_config.get("max_samples"))
 
     id_col = task_config.get("id_col", "id")
     text_col = task_config.get("text_col", "tweet_text")
-    # SỬA: tự chọn cột nhãn theo task nếu yaml không set "label_col" tường
-    # minh. Bản gốc default cứng "label" cho mọi task -> đổi task phải nhớ
-    # sửa label_col bằng tay trong yaml, dễ quên và sai âm thầm (không lỗi,
-    # chỉ đọc nhầm cột).
-    default_label_col = "label_informative" if task == "informativeness" else "label_humanitarian"
-    label_col = task_config.get("label_col", default_label_col)
+    label_col = crisismmd_label_column(task_config)
 
     validate_columns(df, [id_col, text_col, label_col], "CrisisMMD")
 
@@ -77,21 +72,13 @@ def run_crisismmd(vlm, task_config: dict, config: dict) -> dict:
     df_valid["_text_was_empty"] = text_empty_mask
 
     y_true = normalize_single_labels(df_valid[label_col].tolist(), label_names, label_order)
-    # Fallback case/khoảng-trắng-insensitive: dataset thật ghi "Informative" /
-    # "Not Informative" trong khi prompt dùng "informative" / "not_informative",
-    # và LABEL_NAMES_INFORMATIVENESS trong crisismmd_prompts.py map sai chiều
-    # nên normalize_single_labels không tự xử lý được -> cần lớp fallback này.
-    # LƯU Ý: với task "humanitarian", nếu LABEL_NAMES_HUMANITARIAN cũng map
-    # sai chiều VÀ nhãn thật khác cả từ ngữ (không chỉ hoa/thường) so với khoá
-    # prompt, fallback này sẽ KHÔNG cứu được — phải sửa đúng chiều dict đó.
-    y_true = coerce_labels_to_prompt_format(y_true, label_order)
-
     low_sample = crisismmd_prompts.LOW_SAMPLE_WARNING_CLASSES if task == "humanitarian" else None
 
     positive_label = task_config.get("positive_label")
-    if task == "informativeness" and positive_label and positive_label in label_order:
+    if task == "informativeness" and positive_label is not None:
+        positive_label = normalize_single_labels([positive_label], label_names, label_order)[0]
         positive_idx = label_order.index(positive_label)
-        result = evaluate_binary(y_true, predictions, p[:, positive_idx], positive_label)
+        result = evaluate_binary(y_true, predictions, p[:, positive_idx], positive_label, label_order=label_order)
     else:
         result = evaluate_single_label(y_true, predictions, label_order, low_sample_classes=low_sample)
 
@@ -108,6 +95,8 @@ def run_crisismmd(vlm, task_config: dict, config: dict) -> dict:
         sim_image=p_img,
         sim_text=p_text,
         extra_manifest={
+            "max_samples": task_config.get("max_samples"),
+            "min_text_length": 0,
             "batch_size": batch_size,
             "image_weight": image_weight,
             "logit_scale": getattr(vlm, "logit_scale", 100.0),

@@ -9,7 +9,7 @@ Gộp lại từ check_fakeddit_sample.py cũ, gồm:
   - Kiểm tra phân bố nhãn (2-way & 6-way) có cân bằng không
   - Kiểm tra độ dài text
   - Xem vài mẫu thực tế từng lớp
-  - Kiểm tra thử ảnh có tải được không (link Reddit cũ hay chết)
+  - Kiểm tra ảnh local; ảnh thiếu/hỏng được bỏ qua khi inference
 
 Input: data/processed/pro_fakeddit/fakeddit_sample.tsv
 ========================================================================
@@ -17,8 +17,7 @@ Input: data/processed/pro_fakeddit/fakeddit_sample.tsv
 
 import os
 import pandas as pd
-import requests
-from io import BytesIO
+import sys
 from PIL import Image
 
 try:
@@ -30,7 +29,7 @@ except ImportError:
 # ============================================================
 # CONFIG (đồng bộ với preprocess_fakeddit.py)
 # ============================================================
-CONFIG_PATH = "configs/config.yaml"
+CONFIG_PATH = "configs/experiment_config.yaml"
 
 DEFAULT_CONFIG = {
     "task": "2way",
@@ -54,11 +53,10 @@ TASK = CFG["task"]
 LABEL_COL = "2_way_label" if TASK == "2way" else "6_way_label"
 FILE_PATH = CFG["data_path"]
 
-REQUIRED_COLS = ["id", "clean_title", "image_url", "hasImage", "2_way_label", "6_way_label"]
+REQUIRED_COLS = ["id", "clean_title", "image_path", "hasImage", "2_way_label", "6_way_label"]
 
 MIN_TOTAL_SAMPLES = 500      # số mẫu tối thiểu để coi là "đủ" cho zero-shot eval
-N_URL_CHECK = 10             # số url ảnh sẽ thử tải để kiểm tra sống/chết
-MAX_FAILED_URL_RATIO = 0.3   # tỷ lệ url chết tối đa chấp nhận được
+N_IMAGE_CHECK = 10           # số ảnh local mở thử
 
 ready = True  # cờ tổng, sẽ bật False nếu có bước nào fail
 
@@ -72,7 +70,7 @@ print("=" * 60)
 if not os.path.exists(FILE_PATH):
     raise FileNotFoundError(f"Không tìm thấy file tại {FILE_PATH} — chạy preprocess_fakeddit.py trước")
 
-df = pd.read_csv(FILE_PATH, sep="\t")
+df = pd.read_csv(FILE_PATH, sep="\t", dtype=str, keep_default_na=False)
 print(f"Tổng số dòng: {len(df)}")
 print(f"Tổng số cột: {len(df.columns)}")
 
@@ -80,6 +78,7 @@ missing_cols = [c for c in REQUIRED_COLS if c not in df.columns]
 if missing_cols:
     ready = False
     print(f"❌ THIẾU CỘT: {missing_cols}")
+    sys.exit(1)
 else:
     print("✅ Đầy đủ tất cả cột cần thiết")
 
@@ -95,7 +94,7 @@ else:
 print("\n" + "=" * 60)
 print("BƯỚC 2: KIỂM TRA NULL")
 print("=" * 60)
-null_counts = df[REQUIRED_COLS].isnull().sum()
+null_counts = df[REQUIRED_COLS].replace("", pd.NA).isnull().sum()
 print(null_counts)
 if null_counts.sum() != 0:
     ready = False
@@ -118,13 +117,13 @@ else:
     print("✅ Không có trùng lặp id")
 
 # ============================================================
-# BƯỚC 4: KIỂM TRA hasImage vs image_url
+# BƯỚC 4: KIỂM TRA hasImage vs image_path
 # ============================================================
 print("\n" + "=" * 60)
-print("BƯỚC 4: KIỂM TRA MISMATCH hasImage vs image_url")
+print("BƯỚC 4: KIỂM TRA MISMATCH hasImage vs image_path")
 print("=" * 60)
-mismatch = df[(df["hasImage"] != True) | (df["image_url"].isna())]
-print(f"Số dòng hasImage != True hoặc image_url rỗng: {len(mismatch)}")
+mismatch = df[(df["hasImage"].str.lower() != "true") | (df["image_path"].str.strip() == "")]
+print(f"Số dòng hasImage != True hoặc image_path rỗng: {len(mismatch)}")
 if len(mismatch) > 0:
     ready = False
     print("❌ VẪN CÒN DÒNG KHÔNG CÓ ẢNH HỢP LỆ")
@@ -184,43 +183,37 @@ label_names_6way = {
     4: "Manipulated Content",
     5: "Misleading Content",
 }
-label_names_2way = {0: "True (thật)", 1: "Fake (giả)"}
+label_names_2way = {0: "Fake (giả)", 1: "True (thật)"}
 label_names = label_names_2way if TASK == "2way" else label_names_6way
 
 for label, name in label_names.items():
-    subset = df[df[LABEL_COL] == label]
+    subset = df[df[LABEL_COL] == str(label)]
     if len(subset) > 0:
         print(f"\n--- Lớp {label} ({name}) — {len(subset)} mẫu ---")
         print(subset[["clean_title"]].sample(min(2, len(subset)), random_state=1).to_string(index=False))
 
 # ============================================================
-# BƯỚC 8: KIỂM TRA THỬ ẢNH CÓ TẢI ĐƯỢC KHÔNG
+# BƯỚC 8: KIỂM TRA ẢNH LOCAL
 # ============================================================
 print("\n" + "=" * 60)
-print(f"BƯỚC 8: KIỂM TRA THỬ ẢNH (sample {N_URL_CHECK} url)")
+print(f"BƯỚC 8: KIỂM TRA ẢNH LOCAL (tối đa {N_IMAGE_CHECK} ảnh)")
 print("=" * 60)
 
-n_check = min(N_URL_CHECK, len(df))
-sample_urls = df["image_url"].sample(n_check, random_state=1).tolist()
+n_check = min(N_IMAGE_CHECK, len(df))
 success, failed = 0, 0
-
-for url in sample_urls:
+for raw_path in df["image_path"].head(n_check):
+    candidates = [raw_path,
+                  os.path.join(os.path.dirname(FILE_PATH), raw_path),
+                  os.path.join(os.path.dirname(FILE_PATH), "images", os.path.basename(raw_path))]
+    path = next((p for p in candidates if os.path.isfile(p)), raw_path)
     try:
-        resp = requests.get(url, timeout=5)
-        img = Image.open(BytesIO(resp.content))
-        img.verify()
+        with Image.open(path) as img:
+            img.load()
         success += 1
     except Exception as e:
         failed += 1
-        print(f"  Lỗi với url: {url[:60]}... -> {type(e).__name__}")
-
-print(f"\nKết quả: {success}/{n_check} ảnh tải được, {failed}/{n_check} lỗi")
-failed_ratio = failed / n_check if n_check else 0
-if failed_ratio > MAX_FAILED_URL_RATIO:
-    ready = False
-    print(f"❌ Tỷ lệ lỗi ({failed_ratio:.0%}) vượt ngưỡng {MAX_FAILED_URL_RATIO:.0%} — cần lọc thêm ảnh chết")
-else:
-    print("✅ Tỷ lệ ảnh sống chấp nhận được")
+        print(f"  Bỏ qua ảnh lỗi/thiếu: {path} -> {type(e).__name__}")
+print(f"Ảnh local: {success}/{n_check} mở được; {failed} ảnh sẽ được bỏ qua khi inference.")
 
 # ============================================================
 # KẾT LUẬN

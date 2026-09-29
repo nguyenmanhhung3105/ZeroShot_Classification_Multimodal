@@ -21,6 +21,11 @@ def evaluate_single_label(y_true: list, y_pred: list, label_order: list,
     low_sample_classes: tập các lớp có cỡ mẫu quá nhỏ (đã phát hiện ở CrisisMMD
     Humanitarian) — nếu có, sẽ in cảnh báo riêng, không loại khỏi kết quả.
     """
+    if not y_true or len(y_true) != len(y_pred):
+        raise ValueError("Cần nhãn thật/dự đoán không rỗng và cùng số mẫu")
+    unknown = (set(y_true) | set(y_pred)) - set(label_order)
+    if unknown:
+        raise ValueError(f"Nhãn ngoài label_order: {sorted(unknown, key=str)}")
     acc = accuracy_score(y_true, y_pred)
     macro_f1 = f1_score(y_true, y_pred, average="macro", labels=label_order, zero_division=0)
     micro_f1 = f1_score(y_true, y_pred, average="micro", labels=label_order, zero_division=0)
@@ -46,18 +51,22 @@ def evaluate_single_label(y_true: list, y_pred: list, label_order: list,
 
 
 def evaluate_binary(y_true: list, y_pred: list, y_scores: np.ndarray,
-                     positive_label) -> dict:
+                     positive_label, label_order=None) -> dict:
     """
     Dùng riêng cho bài toán binary (CrisisMMD Informativeness, Fakeddit 2-way).
     y_scores: similarity score thô của lớp positive_label (chưa qua argmax),
     dùng để tính AUROC không phụ thuộc ngưỡng.
     """
-    acc = accuracy_score(y_true, y_pred)
+    labels = label_order if label_order is not None else list(dict.fromkeys(list(y_true) + list(y_pred)))
+    if positive_label not in labels or len(labels) > 2:
+        raise ValueError("positive_label phải thuộc bài toán binary")
+    result = evaluate_single_label(y_true, y_pred, labels)
+    acc = result["accuracy"]
     f1 = f1_score(y_true, y_pred, pos_label=positive_label, zero_division=0)
 
     y_true_binary = [1 if y == positive_label else 0 for y in y_true]
     try:
-        auroc = roc_auc_score(y_true_binary, y_scores)
+        auroc = roc_auc_score(y_true_binary, y_scores) if len(set(y_true_binary)) == 2 else None
     except ValueError as e:
         print(f"  CẢNH BÁO: Không tính được AUROC: {e}")
         auroc = None
@@ -66,7 +75,8 @@ def evaluate_binary(y_true: list, y_pred: list, y_scores: np.ndarray,
     print(f"F1       : {f1:.4f}")
     print(f"AUROC    : {auroc:.4f}" if auroc is not None else "AUROC    : N/A")
 
-    return {"accuracy": acc, "f1": f1, "auroc": auroc}
+    result.update({"f1": f1, "auroc": auroc if auroc is not None and np.isfinite(auroc) else None})
+    return result
 
 
 def evaluate_multi_label(y_true: list, y_pred: list, label_order: list) -> dict:
@@ -75,6 +85,9 @@ def evaluate_multi_label(y_true: list, y_pred: list, label_order: list) -> dict:
     y_true, y_pred: list các list label, ví dụ y_true[0] = ["Comedy", "Family"]
     """
     def to_binary_matrix(label_lists):
+        unknown = {label for labels in label_lists for label in labels} - set(label_order)
+        if unknown:
+            raise ValueError(f"Multi-label: nhãn ngoài label_order: {sorted(unknown)}")
         matrix = np.zeros((len(label_lists), len(label_order)))
         for i, labels in enumerate(label_lists):
             for label in labels:

@@ -65,7 +65,12 @@ print("=" * 60)
 
 all_files = os.listdir(RAW_DIR)
 json_ids = {os.path.splitext(f)[0] for f in all_files if f.endswith(".json")}
-jpeg_ids = {os.path.splitext(f)[0] for f in all_files if f.lower().endswith((".jpeg", ".jpg"))}
+# Giữ tên nguồn thật (.jpg/.jpeg, kể cả chữ hoa); ưu tiên .jpeg nếu có cả hai.
+image_files = {}
+for filename in sorted(all_files, key=lambda name: (not name.lower().endswith(".jpeg"), name)):
+    if filename.lower().endswith((".jpeg", ".jpg")):
+        image_files.setdefault(os.path.splitext(filename)[0], filename)
+jpeg_ids = set(image_files)
 
 paired_ids = sorted(json_ids & jpeg_ids)
 only_json = json_ids - jpeg_ids
@@ -94,7 +99,7 @@ skipped_bad_image = 0
 
 for sample_id in paired_ids:
     json_path = os.path.join(RAW_DIR, f"{sample_id}.json")
-    jpeg_path = os.path.join(RAW_DIR, f"{sample_id}.jpeg")
+    jpeg_path = os.path.join(RAW_DIR, image_files[sample_id])
 
     try:
         with open(json_path, "r", encoding="utf-8") as f:

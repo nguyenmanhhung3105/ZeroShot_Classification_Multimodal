@@ -6,10 +6,11 @@ Mỗi genre có prompt riêng, khi encode xong sẽ dùng THRESHOLD (không ph�
 để quyết định 1 phim thuộc những genre nào — 1 phim có thể có 0, 1, hoặc nhiều genre.
 """
 
+# Cùng 23 nhãn với VALID_GENRES trong preprocessing: giữ Short, không có News.
 GENRES = [
     "Action", "Adventure", "Animation", "Biography", "Comedy", "Crime",
     "Documentary", "Drama", "Family", "Fantasy", "Film-Noir", "History",
-    "Horror", "Music", "Musical", "Mystery", "News", "Romance",
+    "Horror", "Music", "Musical", "Mystery", "Short", "Romance",
     "Sci-Fi", "Sport", "Thriller", "War", "Western",
 ]
 

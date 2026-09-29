@@ -33,9 +33,9 @@ import pandas as pd
 # CONFIG - keep in sync with preprocess_crisismmd.py
 # =============================================================================
 
-IN_FILE = "data/processed/pro_CrisisMMD/pre_crisismmd.tsv"
+IN_FILE = "data/processed/pro_crisismmd/pre_crisismmd.tsv"
 IMAGE_ROOT = "data/raw/CrisisMMD_v2.0"  # folder containing "data_image/..."
-CHECK_IMAGE_EXISTS = True
+CHECK_IMAGE_EXISTS = False  # Inference tự bỏ qua ảnh thiếu/hỏng.
 
 EXPECTED_COLUMNS = [
     "tweet_id", "image_id", "clean_text", "image_path", "image_url",

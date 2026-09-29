@@ -39,12 +39,12 @@ import pandas as pd
 # CONFIG - keep in sync with preprocess_crisismmd.py
 # =============================================================================
 
-IN_FILE = "data/processed/pro_CrisisMMD/pre_crisismmd.tsv"
+IN_FILE = "data/processed/pro_crisismmd/pre_crisismmd.tsv"
 IMAGE_ROOT = "data/raw/CrisisMMD_v2.0"  # folder containing "data_image/..."
-CHECK_IMAGE_EXISTS = True
+CHECK_IMAGE_EXISTS = False  # Ảnh thiếu/hỏng được bỏ qua tại inference.
 
 # cấu hình cho bước trích xuất/copy ảnh
-COPY_IMAGES = True
+COPY_IMAGES = False  # Ảnh processed đã được chuẩn bị; chỉ copy khi chủ động bật.
 OUT_IMAGE_DIR = "data/processed/pro_crisismmd/images"
 
 EXPECTED_COLUMNS = [
@@ -146,7 +146,8 @@ def copy_images_to_processed(df: pd.DataFrame,
 
 def main():
     if not os.path.isfile(IN_FILE):
-        print(f"ERROR: input file not found -> {IN_FILE}")
+        print(f"ERROR: cần TSV processed đã chuẩn bị -> {IN_FILE}. "
+              "Script này kiểm tra/copy ảnh, không tạo TSV từ annotation thô.")
         sys.exit(1)
 
     df = pd.read_csv(IN_FILE, sep="\t", dtype=str)
@@ -243,7 +244,7 @@ def main():
         checks_passed = True
 
     # --- 10. NEW: copy ảnh sang data/processed/pro_crisismmd/images ------------------
-    if COPY_IMAGES:
+    if COPY_IMAGES and checks_passed:
         print("\n" + "=" * 70)
         print(f"Copying images -> {OUT_IMAGE_DIR}")
         n_copied, n_skipped, n_missing, missing_list = copy_images_to_processed(df)

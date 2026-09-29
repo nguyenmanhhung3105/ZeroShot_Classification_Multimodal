@@ -147,42 +147,47 @@ def _clean_texts(texts: list) -> list:
 
 
 def encode_multimodal_embeddings(vlm, images: list, texts: list, batch_size: int = 16,
-                                  show_progress: bool = True, desc: str = "Encoding") -> tuple:
-    """
-    Encode ảnh và text của TỪNG SAMPLE thành 2 ma trận RIÊNG BIỆT — KHÔNG fuse
-    ở đây. Đây là điểm khác biệt cốt lõi so với encode_fused_embeddings cũ
-    (đã bỏ hoàn toàn, xem giải thích ở đầu file).
-
-    show_progress: hiện thanh tiến trình (%) qua các batch trong lúc encode.
-    desc         : nhãn hiển thị trên thanh tiến trình.
-
-    Returns:
-        image_embeds   : np.ndarray (N, D), đã L2-normalize
-        text_embeds    : np.ndarray (N, D), đã L2-normalize
-        text_empty_mask: np.ndarray[bool] (N,) — True nếu text gốc rỗng/NaN
-    """
-    if len(images) != len(texts):
-        raise ValueError(f"Số ảnh ({len(images)}) và số text ({len(texts)}) không khớp nhau.")
-
+                                  show_progress: bool = True, desc: str = "Encoding",
+                                  image_weight: float = None) -> tuple:
+    """Encode theo batch, bỏ nhánh có trọng số 0; giữ fallback ảnh khi text rỗng."""
+    if len(images) != len(texts) or not texts:
+        raise ValueError("Ảnh và text phải cùng số mẫu và không rỗng")
+    if not isinstance(batch_size, int) or batch_size < 1:
+        raise ValueError("batch_size phải là số nguyên dương")
+    if image_weight is not None and not 0 <= image_weight <= 1:
+        raise ValueError("image_weight phải nằm trong [0, 1]")
     texts = _clean_texts(texts)
     text_empty_mask = np.array([t == "" for t in texts])
-
-    image_chunks, text_chunks = [], []
-
-    batch_starts = range(0, len(images), batch_size)
-    iterator = _progress_iter(batch_starts, enabled=show_progress, desc=desc, unit="batch")
-
+    image_embeds = text_embeds = None
+    iterator = _progress_iter(range(0, len(images), batch_size), enabled=show_progress,
+                              desc=desc, unit="batch")
     for start in iterator:
-        end = start + batch_size
-        img_batch = images[start:end]
-        txt_batch = texts[start:end]
-
-        image_chunks.append(_l2_normalize(_to_numpy(vlm.encode_images(img_batch))))
-        text_chunks.append(_l2_normalize(_to_numpy(vlm.encode_texts(txt_batch))))
-
-    return (np.concatenate(image_chunks, axis=0),
-            np.concatenate(text_chunks, axis=0),
-            text_empty_mask)
+        end = min(start + batch_size, len(images))
+        image_indices = [i for i in range(start, end)
+                         if image_weight is None or image_weight > 0 or text_empty_mask[i]]
+        text_indices = [i for i in range(start, end)
+                        if (image_weight is None or image_weight < 1) and not text_empty_mask[i]]
+        encoded_image = encoded_text = None
+        if image_indices:
+            batch = [images[i] for i in image_indices]
+            try:
+                encoded_image = _to_numpy(vlm.encode_images(batch))
+            finally:
+                # Ảnh do sequence mở thuộc batch này, không đóng ảnh PIL do caller sở hữu.
+                if hasattr(images, "paths"):
+                    for img in batch:
+                        img.close()
+        if text_indices:
+            encoded_text = _to_numpy(vlm.encode_texts([texts[i] for i in text_indices]))
+        if image_embeds is None:
+            prototype = encoded_image if encoded_image is not None else encoded_text
+            image_embeds = np.zeros((len(images), prototype.shape[1]), dtype=prototype.dtype)
+            text_embeds = np.zeros_like(image_embeds)
+        if encoded_image is not None:
+            image_embeds[image_indices] = _l2_normalize(encoded_image)
+        if encoded_text is not None:
+            text_embeds[text_indices] = _l2_normalize(encoded_text)
+    return image_embeds, text_embeds, text_empty_mask
 
 
 def predict_single_label(vlm, images: list, texts: list, class_embeds: np.ndarray, label_order: list,
@@ -204,7 +209,7 @@ def predict_single_label(vlm, images: list, texts: list, class_embeds: np.ndarra
     """
     image_embeds, text_embeds, text_empty_mask = encode_multimodal_embeddings(
         vlm, images, texts, batch_size=batch_size,
-        show_progress=show_progress, desc="Single-label inference"
+        show_progress=show_progress, desc="Single-label inference", image_weight=image_weight
     )
 
     sim_image = image_embeds @ class_embeds.T
@@ -246,9 +251,11 @@ def predict_multi_label(vlm, images: list, texts: list, class_embeds: np.ndarray
                           lớp nào vượt threshold, phải fallback về top-1
         text_empty_mask: np.ndarray[bool] (N,)
     """
+    if not 0 <= threshold <= 1:
+        raise ValueError("threshold phải nằm trong [0, 1]")
     image_embeds, text_embeds, text_empty_mask = encode_multimodal_embeddings(
         vlm, images, texts, batch_size=batch_size,
-        show_progress=show_progress, desc="Multi-label inference"
+        show_progress=show_progress, desc="Multi-label inference", image_weight=image_weight
     )
 
     sim_image = image_embeds @ class_embeds.T

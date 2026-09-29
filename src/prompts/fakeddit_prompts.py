@@ -157,6 +157,22 @@ def get_prompt_set(task: str = "6way") -> dict:
         raise ValueError(f"task phải là '2way' hoặc '6way', nhận được: {task}")
 
 
+def normalize_labels(values: list, task: str) -> list:
+    """Giữ ID số của nhãn thật cùng hệ với khóa prompt, không dùng tên hiển thị."""
+    labels = get_prompt_set(task)
+    mapping = {str(label): label for label in labels}
+    normalized = []
+    for value in values:
+        if isinstance(value, str):
+            label = mapping.get(value.strip())
+        else:
+            label = next((key for key in labels if value == key), None)
+        if label is None:
+            raise ValueError(f"Fakeddit {task}: nhãn không hợp lệ {value!r}; cần {list(labels)}")
+        normalized.append(label)
+    return normalized
+
+
 def get_label_names(task: str = "6way") -> dict:
     if task == "2way":
         return LABEL_NAMES_2WAY

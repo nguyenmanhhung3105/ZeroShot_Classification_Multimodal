@@ -29,7 +29,8 @@ def _make_run_id(model_name: str, dataset_name: str, task_name: str, prompt_vers
 def save_single_label_log(df_valid: pd.DataFrame, y_true: list, y_pred: list, sims: np.ndarray,
                            label_order: list, id_col: str, text_col: str,
                            model_name: str, dataset_name: str, task_name: str,
-                           output_dir: str, prompt_version: str = "v1") -> str:
+                           output_dir: str, prompt_version: str = "v1",
+                           sim_image=None, sim_text=None, extra_manifest=None) -> str:
     """Dùng cho Fakeddit / CrisisMMD (single-label)."""
     run_id = _make_run_id(model_name, dataset_name, task_name, prompt_version)
     run_dir = os.path.join(output_dir, run_id)
@@ -40,7 +41,7 @@ def save_single_label_log(df_valid: pd.DataFrame, y_true: list, y_pred: list, si
         row = {
             "id": df_valid.iloc[i][id_col],
             "text": df_valid.iloc[i][text_col],
-            "image_path": df_valid.iloc[i].get("image_path", ""),
+            "image_path": df_valid.iloc[i].get("_resolved_image_path", df_valid.iloc[i].get("image_path", "")),
             "y_true": y_true[i],
             "y_pred": y_pred[i],
             "correct": y_true[i] == y_pred[i],
@@ -50,6 +51,7 @@ def save_single_label_log(df_valid: pd.DataFrame, y_true: list, y_pred: list, si
         # lưu thêm điểm thô từng lớp để tiện tra cứu / vẽ biểu đồ sau này
         for j, label in enumerate(label_order):
             row[f"score_{label}"] = float(sims[i, j])
+        _add_diagnostics(row, df_valid.iloc[i], i, label_order, sim_image, sim_text, extra_manifest)
         rows.append(row)
 
     df_log = pd.DataFrame(rows)
@@ -63,7 +65,7 @@ def save_single_label_log(df_valid: pd.DataFrame, y_true: list, y_pred: list, si
     df_error.to_csv(error_path, sep="\t", index=False)
 
     _save_run_manifest(run_dir, model_name, dataset_name, task_name, prompt_version,
-                        n_total=len(df_log), n_errors=len(df_error))
+                        n_total=len(df_log), n_errors=len(df_error), extra_manifest=extra_manifest)
 
     print(f"Đã lưu log tại: {run_dir}  ({len(df_error)}/{len(df_log)} mẫu sai)")
     return run_dir
@@ -72,7 +74,8 @@ def save_single_label_log(df_valid: pd.DataFrame, y_true: list, y_pred: list, si
 def save_multi_label_log(df_valid: pd.DataFrame, y_true: list, y_pred: list, probs: np.ndarray,
                           label_order: list, id_col: str, text_col: str,
                           model_name: str, dataset_name: str, task_name: str,
-                          output_dir: str, prompt_version: str = "v1") -> str:
+                          output_dir: str, prompt_version: str = "v1",
+                          sim_image=None, sim_text=None, extra_manifest=None) -> str:
     """Dùng cho MM-IMDb (multi-label) — 'sai' được tách thành thiếu nhãn / thừa nhãn."""
     run_id = _make_run_id(model_name, dataset_name, task_name, prompt_version)
     run_dir = os.path.join(output_dir, run_id)
@@ -88,7 +91,7 @@ def save_multi_label_log(df_valid: pd.DataFrame, y_true: list, y_pred: list, pro
         row = {
             "id": df_valid.iloc[i][id_col],
             "text": df_valid.iloc[i][text_col],
-            "image_path": df_valid.iloc[i].get("image_path", ""),
+            "image_path": df_valid.iloc[i].get("_resolved_image_path", df_valid.iloc[i].get("image_path", "")),
             "y_true": "|".join(sorted(true_set)),
             "y_pred": "|".join(sorted(pred_set)),
             "missing_genres": "|".join(sorted(missing)),   # thiếu gì
@@ -99,6 +102,7 @@ def save_multi_label_log(df_valid: pd.DataFrame, y_true: list, y_pred: list, pro
         }
         for j, label in enumerate(label_order):
             row[f"prob_{label}"] = float(probs[i, j])
+        _add_diagnostics(row, df_valid.iloc[i], i, label_order, sim_image, sim_text, extra_manifest)
         rows.append(row)
 
     df_log = pd.DataFrame(rows)
@@ -113,20 +117,37 @@ def save_multi_label_log(df_valid: pd.DataFrame, y_true: list, y_pred: list, pro
     df_error.to_csv(error_path, sep="\t", index=False)
 
     _save_run_manifest(run_dir, model_name, dataset_name, task_name, prompt_version,
-                        n_total=len(df_log), n_errors=len(df_error))
+                        n_total=len(df_log), n_errors=len(df_error), extra_manifest=extra_manifest)
 
     print(f"Đã lưu log tại: {run_dir}  ({len(df_error)}/{len(df_log)} mẫu không khớp hoàn toàn)")
     return run_dir
 
 
+def _add_diagnostics(row, source, index, label_order, sim_image, sim_text, metadata=None):
+    for flag in ("_text_was_empty", "_used_top1_fallback"):
+        if flag in source:
+            row[flag] = bool(source[flag])
+    for name, scores in (("image", sim_image), ("text", sim_text)):
+        if scores is not None:
+            computed = True
+            if metadata is not None and "image_weight" in metadata:
+                weight = metadata["image_weight"]
+                empty = bool(source.get("_text_was_empty", False))
+                computed = (weight > 0 or empty) if name == "image" else (weight < 1 and not empty)
+                row[f"_{name}_encoded"] = computed
+            for j, label in enumerate(label_order):
+                row[f"score_{name}_{label}"] = float(scores[index, j]) if computed else None
+
+
 def _save_run_manifest(run_dir: str, model_name: str, dataset_name: str, task_name: str,
-                        prompt_version: str, n_total: int, n_errors: int) -> None:
+                        prompt_version: str, n_total: int, n_errors: int, extra_manifest=None) -> None:
     """
     Ghi lại 'bối cảnh' của lần chạy này — để sau này nhìn vào thư mục log
     biết ngay đây là chạy với model/prompt/threshold nào, không cần đoán
     qua tên file. Đây là phần quan trọng để SO SÁNH GIỮA CÁC LẦN chỉnh prompt.
     """
     manifest = {
+        **(extra_manifest or {}),
         "model": model_name,
         "dataset": dataset_name,
         "task": task_name,

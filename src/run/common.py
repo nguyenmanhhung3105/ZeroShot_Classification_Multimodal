@@ -1,29 +1,4 @@
-"""
-Hàm dùng chung cho run_fakeddit.py / run_crisismmd.py / run_mmimdb.py.
-
-Đây là bản tách ra từ run_experiment.py (file main gộp cả 3 dataset), kèm
-một vài fix bug đã phát hiện khi chạy thật với demo.py (cùng dùng chung logic
-với run_experiment.py nên bị lỗi giống hệt):
-
-1. `save_single_label_log`/`save_multi_label_log` thật (trong logging_utils.py)
-   KHÔNG nhận `sim_image`, `sim_text`, `extra_manifest` như run_experiment.py
-   giả định -> crash "unexpected keyword argument". Thêm
-   `call_with_supported_kwargs()` để chỉ truyền đúng kwargs hàm thật hỗ trợ,
-   dư ra thì bỏ qua kèm cảnh báo, không phải sửa lại mỗi lần phát hiện thêm
-   1 tham số bị thiếu.
-2. CrisisMMD lưu nhãn dạng "Informative" / "Not Informative" (viết hoa, có
-   khoảng trắng) trong khi prompt set dùng "informative" / "not_informative"
-   -> `normalize_single_labels` (map theo get_label_names) không phủ được vì
-   dict LABEL_NAMES_INFORMATIVENESS trong crisismmd_prompts.py map SAI CHIỀU.
-   Thêm `coerce_labels_to_prompt_format()` làm lớp fallback case/khoảng-trắng
-   -insensitive, không cần sửa file prompts.
-   LƯU Ý: fallback này chỉ xử lý được khác biệt hoa/thường + khoảng trắng/gạch
-   ngang. Với task "humanitarian", nếu nhãn thật là dạng câu khác hẳn từ ngữ
-   so với khoá prompt (vd. "Rescue/Volunteering/Donation" vs
-   "rescue_volunteering_or_donation_effort") thì fallback này KHÔNG cứu được
-   — phải sửa đúng chiều dict LABEL_NAMES_HUMANITARIAN trong
-   crisismmd_prompts.py.
-"""
+"""Tiện ích dùng chung cho các entry point: dữ liệu, nhãn và chạy model."""
 
 import os
 import sys
@@ -58,21 +33,55 @@ def load_config(path: str = "configs/experiment_config.yaml") -> dict:
 # ĐỌC DATASET
 # ============================================================
 
-def load_dataframe(path: str) -> pd.DataFrame:
-    """Tự nhận diện TSV/CSV/Parquet. Giữ dtype=str + keep_default_na=False cho
-    TSV/CSV để pandas không tự ép kiểu id/label (số hoá id, hoặc ô trống ->
-    NaN thay vì chuỗi rỗng) — an toàn hơn bản gốc trong run_experiment.py."""
+def load_dataframe(path: str, max_samples=None, text_col=None, min_text_length=0) -> pd.DataFrame:
+    """Đọc có giới hạn; nếu lọc text, lấy tối đa max_samples dòng sau lọc."""
+    if max_samples is not None and (not isinstance(max_samples, int) or max_samples < 1):
+        raise ValueError("max_samples phải là số nguyên dương hoặc None")
     if not os.path.exists(path):
         raise FileNotFoundError(f"Không tìm thấy dataset: {path}")
 
-    if path.endswith(".tsv"):
-        return pd.read_csv(path, sep="\t", dtype=str, keep_default_na=False)
-    if path.endswith(".csv"):
-        return pd.read_csv(path, dtype=str, keep_default_na=False)
-    if path.endswith(".parquet"):
-        return pd.read_parquet(path)
+    def select(frame):
+        if min_text_length:
+            validate_columns(frame, [text_col], "dataset")
+            length = frame[text_col].fillna("").astype(str).str.replace(" ", "", regex=False).str.len()
+            frame = frame[length > min_text_length]
+        return frame
 
-    raise ValueError(f"Định dạng dataset chưa hỗ trợ: {path}")
+    if path.endswith((".tsv", ".csv")):
+        kwargs = dict(sep="\t" if path.endswith(".tsv") else ",",
+                      dtype=str, keep_default_na=False)
+        if not min_text_length:
+            return pd.read_csv(path, nrows=max_samples, **kwargs)
+        chunks = pd.read_csv(path, chunksize=min(max_samples or 1024, 1024), **kwargs)
+    elif path.endswith(".parquet"):
+        # iter_batches tránh nạp toàn bộ Parquet rồi mới head().
+        import pyarrow.parquet as pq
+        chunks = (batch.to_pandas() for batch in pq.ParquetFile(path).iter_batches(
+            batch_size=min(max_samples or 1024, 1024)))
+    else:
+        raise ValueError(f"Định dạng dataset chưa hỗ trợ: {path}")
+
+    parts, total = [], 0
+    try:
+        for chunk in chunks:
+            selected = select(chunk)
+            if max_samples is not None:
+                selected = selected.iloc[:max_samples - total]
+            parts.append(selected)
+            total += len(selected)
+            if max_samples is not None and total >= max_samples:
+                break
+    finally:
+        if hasattr(chunks, "close"):
+            chunks.close()
+    return pd.concat(parts, ignore_index=True) if parts else pd.DataFrame()
+
+
+def crisismmd_label_column(task_config: dict) -> str:
+    default = "label_informative" if task_config["task"] == "informativeness" else "label_humanitarian"
+    configured = task_config.get("label_col")
+    # Hai cột chuẩn đi theo task; vẫn cho phép tên cột tùy chỉnh.
+    return default if configured in (None, "label", "label_informative", "label_humanitarian") else configured
 
 
 def validate_columns(df: pd.DataFrame, required_columns: list, dataset_name: str) -> None:
@@ -134,25 +143,29 @@ def parse_multilabel(value) -> list:
 
 
 def normalize_single_labels(values: list, label_names, label_order: list) -> list:
-    """Map label số/tên trong dataset sang tên class trong prompt, theo
-    mapping do từng file prompts khai báo (get_label_names)."""
-    if label_names is None:
-        return values
-
-    mapping = {}
+    """Ánh xạ ID hoặc tên hiển thị về đúng khóa prompt; từ chối nhãn lạ."""
+    def canon(value):
+        return str(value).strip().lower().replace(" ", "_").replace("-", "_")
+    mapping = {canon(label): label for label in label_order}
     if isinstance(label_names, dict):
-        mapping.update(label_names)
-        mapping.update({str(k): v for k, v in label_names.items()})
+        for key, display in label_names.items():
+            if key in label_order:
+                mapping[canon(display)] = key
+            elif display in label_order:
+                mapping[canon(key)] = display
     elif isinstance(label_names, (list, tuple)):
-        mapping.update({i: label for i, label in enumerate(label_names)})
-        mapping.update({str(i): label for i, label in enumerate(label_names)})
-
-    normalized = []
+        for index, label in enumerate(label_names):
+            if label in label_order:
+                mapping[canon(index)] = label
+    result = []
     for value in values:
         if isinstance(value, float) and value.is_integer():
             value = int(value)
-        normalized.append(mapping.get(value, mapping.get(str(value), value)))
-    return normalized
+        key = canon(value)
+        if key not in mapping:
+            raise ValueError(f"Nhãn không thuộc prompt: {value!r}; cần {label_order}")
+        result.append(mapping[key])
+    return result
 
 
 def _canonical_label_lookup(label_order: list) -> dict:
@@ -209,6 +222,8 @@ def resolve_image_paths(df: pd.DataFrame, task_config: dict) -> list:
             sample_id = str(row[id_col])
             candidates.append(os.path.join(image_dir, sample_id))
             candidates.append(os.path.join(image_dir, f"{sample_id}{image_ext}"))
+            for ext in (".jpeg", ".jpg", ".JPEG", ".JPG"):
+                candidates.append(os.path.join(image_dir, f"{sample_id}{ext}"))
 
         resolved = next((path for path in candidates if os.path.exists(path)), candidates[0] if candidates else "")
         paths.append(resolved)
@@ -216,22 +231,34 @@ def resolve_image_paths(df: pd.DataFrame, task_config: dict) -> list:
     return paths
 
 
+class ImagePathSequence:
+    """Chỉ giữ đường dẫn; giải mã ảnh khi inference lấy từng batch."""
+    def __init__(self, paths):
+        self.paths = paths
+
+    def __len__(self):
+        return len(self.paths)
+
+    def __getitem__(self, index):
+        if isinstance(index, slice):
+            return [self[i] for i in range(*index.indices(len(self)))]
+        with Image.open(self.paths[index]) as image:
+            return image.convert("RGB")
+
+
 def load_images_safe(image_paths: list) -> tuple:
-    """Load ảnh và bỏ qua ảnh lỗi thay vì crash toàn bộ experiment."""
-    images, valid_indices = [], []
+    """Kiểm tra từng ảnh, bỏ ảnh lỗi, chỉ giữ đường dẫn của ảnh hợp lệ."""
+    paths, valid_indices = [], []
     for i, path in enumerate(image_paths):
         try:
             with Image.open(path) as img:
-                images.append(img.convert("RGB"))
+                img.load()
+            paths.append(path)
             valid_indices.append(i)
         except Exception as e:
             print(f"[image] Bỏ qua ảnh lỗi: {path} -> {e}")
-    return images, valid_indices
+    return ImagePathSequence(paths), valid_indices
 
-
-# ============================================================
-# LOGGING AN TOÀN VỚI SIGNATURE THẬT
-# ============================================================
 
 def call_with_supported_kwargs(func, *args, **kwargs):
     """Chỉ truyền các kwargs mà `func` THẬT SỰ khai báo — tránh crash kiểu

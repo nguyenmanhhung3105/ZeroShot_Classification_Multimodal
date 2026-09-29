@@ -25,8 +25,6 @@ from common import (
     load_config,
     load_dataframe,
     validate_columns,
-    normalize_single_labels,
-    coerce_labels_to_prompt_format,
     resolve_image_paths,
     load_images_safe,
     get_image_weight,
@@ -39,7 +37,9 @@ def run_fakeddit(vlm, task_config: dict, config: dict) -> dict:
     task = task_config["task"]
     print(f"\n{'=' * 70}\nDATASET: Fakeddit | TASK: {task}\n{'=' * 70}")
 
-    df = load_dataframe(task_config["data_path"])
+    df = load_dataframe(task_config["data_path"], max_samples=task_config.get("max_samples"),
+                        text_col=task_config.get("text_col", "clean_title"),
+                        min_text_length=task_config.get("min_text_length", 20))
 
     id_col = task_config.get("id_col", "id")
     text_col = task_config.get("text_col", "clean_title")
@@ -50,11 +50,7 @@ def run_fakeddit(vlm, task_config: dict, config: dict) -> dict:
 
     validate_columns(df, [id_col, text_col, label_col], "Fakeddit")
     
-    # df = df[df[text_col].fillna("").astype(str).str.replace(" ", "", regex=False).str.len() > 10].reset_index(drop=True)     #sử dụng để dùng những mẫu có text lớn hơn
-    df = df[df[text_col].fillna("").astype(str).str.replace(" ", "", regex=False).str.len() > 20].reset_index(drop=True)     #sử dụng để dùng những mẫu có text lớn hơn
-
     prompt_set = fakeddit_prompts.get_prompt_set(task)
-    label_names = fakeddit_prompts.get_label_names(task)
     class_embeds, label_order = build_class_embeddings(vlm, prompt_set)
 
     image_paths = resolve_image_paths(df, task_config)
@@ -76,22 +72,9 @@ def run_fakeddit(vlm, task_config: dict, config: dict) -> dict:
         batch_size=batch_size, image_weight=image_weight,
     )
     
-    # df_valid["_text_was_empty"] = text_empty_mask
-
-    # y_true = normalize_single_labels(df_valid[label_col].tolist(), label_names, label_order)
-    # # Fallback case/khoảng-trắng-insensitive, phòng khi nhãn thật khác định
-    # # dạng với khoá prompt (đã gặp ở CrisisMMD) — vô hại nếu Fakeddit đã khớp sẵn.
-    # y_true = coerce_labels_to_prompt_format(y_true, label_order)
-
-    # positive_label = task_config.get("positive_label")
-    
     df_valid["_text_was_empty"] = text_empty_mask
 
-    if task == "2way":
-        y_true = [int(x) for x in df_valid[label_col].tolist()]
-    else:
-        y_true = normalize_single_labels(df_valid[label_col].tolist(), label_names, label_order)
-        y_true = coerce_labels_to_prompt_format(y_true, label_order)
+    y_true = fakeddit_prompts.normalize_labels(df_valid[label_col].tolist(), task)
 
     print(f"[DEBUG] label_order : {label_order}")
     print(f"[DEBUG] y_true       : {sorted(set(y_true))}")
@@ -99,9 +82,10 @@ def run_fakeddit(vlm, task_config: dict, config: dict) -> dict:
 
     positive_label = task_config.get("positive_label")
     
-    if task == "2way" and positive_label and positive_label in label_order:
+    if task == "2way" and positive_label is not None:
+        positive_label = fakeddit_prompts.normalize_labels([positive_label], task)[0]
         positive_idx = label_order.index(positive_label)
-        result = evaluate_binary(y_true, predictions, p[:, positive_idx], positive_label)
+        result = evaluate_binary(y_true, predictions, p[:, positive_idx], positive_label, label_order=label_order)
     else:
         result = evaluate_single_label(y_true, predictions, label_order)
 
@@ -118,6 +102,8 @@ def run_fakeddit(vlm, task_config: dict, config: dict) -> dict:
         sim_image=p_img,
         sim_text=p_text,
         extra_manifest={
+            "max_samples": task_config.get("max_samples"),
+            "min_text_length": task_config.get("min_text_length", 20),
             "batch_size": batch_size,
             "image_weight": image_weight,
             "logit_scale": getattr(vlm, "logit_scale", 100.0),

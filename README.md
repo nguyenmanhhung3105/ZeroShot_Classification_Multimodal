@@ -1,5 +1,36 @@
 # ZeroShot_Classification_Multimodal
 
+## Chạy với dữ liệu processed hiện tại
+
+Chạy từ thư mục gốc, dùng `configs/experiment_config.yaml`:
+
+- `python3 src/run_experiment.py`: các model × dataset được bật.
+- `python3 src/run/run_crisismmd.py` (hoặc `run_fakeddit.py`, `run_mmimdb.py`): một dataset.
+- `python3 src/demo.py`: lấy số mẫu, batch size và thư mục output từ mục `demo`.
+
+`max_samples` giới hạn số dòng sau lọc text, trước kiểm tra ảnh. Ảnh thiếu/hỏng
+được bỏ qua; số mẫu đánh giá có thể nhỏ hơn giới hạn. Các chế độ ảnh/text/kết hợp
+dùng chung tập mẫu ghép cặp hợp lệ. Ảnh được mở theo batch, không giữ toàn bộ ảnh
+RGB trong RAM. Chế độ một modality bỏ qua encoder không đóng góp; text rỗng vẫn
+dùng nhánh ảnh làm fallback.
+
+Fakeddit dùng cùng bộ lọc text ở mọi entry point: mặc định hơn 20 ký tự sau khi
+bỏ dấu cách; có thể đặt `min_text_length` trong cấu hình dataset. Nhãn được đánh
+giá bằng khóa prompt, còn tên hiển thị chỉ dùng để ánh xạ. Binary giữ Macro/Micro-F1
+và bổ sung F1 lớp dương/AUROC, kể cả khi `positive_label: 0`.
+
+Giữ các phần mở rộng đã có: Fakeddit/CrisisMMD thường là `.jpg`, MM-IMDb là
+`.jpeg`. Không cần đổi tên hoặc tải lại ảnh. Logging giữ các cột cũ, bổ sung
+điểm từng nhánh, cờ fallback và cấu hình lần chạy khi caller cung cấp.
+
+Lưu ý về phần kế hoạch bên dưới: `preprocess_crisismmd.py` hiện chỉ kiểm tra
+TSV processed và tùy chọn copy ảnh, không tạo TSV từ annotation thô. Mặc định
+không kiểm tra/copy ảnh nguồn vì inference dùng ảnh processed đã chuẩn bị.
+Quy trình tạo lại CrisisMMD từ raw chưa được xác minh trong lần sửa này.
+
+Kiểm thử nhỏ không tải model hoặc đọc dataset:
+`python3 -B -m unittest discover -s tests -v -b`.
+
 # Data Processing Plan
 
 Kế hoạch và quy trình xử lý dữ liệu cho dự án Zero-Shot Multi-Modal Content Classification. Mỗi dataset có một mục riêng, ghi lại các bước đã làm, các lỗi phát hiện được, và cách xử lý.

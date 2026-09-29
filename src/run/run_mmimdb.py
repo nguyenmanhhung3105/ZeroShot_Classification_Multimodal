@@ -36,7 +36,7 @@ from common import (
 def run_mmimdb(vlm, task_config: dict, config: dict) -> dict:
     print(f"\n{'=' * 70}\nDATASET: MM-IMDb | TASK: multi-label\n{'=' * 70}")
 
-    df = load_dataframe(task_config["data_path"])
+    df = load_dataframe(task_config["data_path"], max_samples=task_config.get("max_samples"))
 
     id_col = task_config.get("id_col", "id")
     text_col = task_config.get("text_col", "plot")
@@ -95,6 +95,8 @@ def run_mmimdb(vlm, task_config: dict, config: dict) -> dict:
         extra_manifest={
             "threshold": threshold,
             "fallback_top1": fallback_top1,
+            "max_samples": task_config.get("max_samples"),
+            "min_text_length": 0,
             "batch_size": batch_size,
             "image_weight": image_weight,
             "logit_scale": getattr(vlm, "logit_scale", 100.0),
