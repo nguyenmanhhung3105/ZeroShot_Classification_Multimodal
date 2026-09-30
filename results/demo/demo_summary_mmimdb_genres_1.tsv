@@ -1,0 +1,2 @@
+model	dataset	task	macro_f1	micro_f1	hamming_accuracy	decision_mode	score_type	threshold	relative_z_threshold	model_scale_applied	apply_bias_to_text
+siglip2_so400m	mmimdb	genres	0.16086956521739132	0.34615384615384615	0.8521739130434782	relative_z	relative_z		1.0	False	False

@@ -16,6 +16,7 @@ import sys
 # PHẢI đứng trước các import bên dưới — xem giải thích trong run_crisismmd.py
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
+from evaluation_audit import prepare_audit, finish_audit
 from inference import build_class_embeddings, predict_single_label
 from evaluate import evaluate_single_label, evaluate_binary
 from logging_utils import save_single_label_log
@@ -62,6 +63,9 @@ def run_fakeddit(vlm, task_config: dict, config: dict) -> dict:
     df_valid = df.iloc[valid_idx].reset_index(drop=True)
     df_valid["_resolved_image_path"] = [image_paths[i] for i in valid_idx]
 
+    audit = prepare_audit(df_valid, task_config, config, "fakeddit", task_config.get("task", "genres"),
+                          id_col, text_col, label_col, prompt_set)
+
     texts = df_valid[text_col].fillna("").astype(str).tolist()
 
     batch_size = config.get("inference", {}).get("batch_size", 16)
@@ -69,7 +73,7 @@ def run_fakeddit(vlm, task_config: dict, config: dict) -> dict:
 
     predictions, p, p_img, p_text, text_empty_mask = predict_single_label(
         vlm, images, texts, class_embeds, label_order,
-        batch_size=batch_size, image_weight=image_weight,
+        batch_size=batch_size, image_weight=image_weight, diagnostics=audit,
     )
     
     df_valid["_text_was_empty"] = text_empty_mask
@@ -88,6 +92,9 @@ def run_fakeddit(vlm, task_config: dict, config: dict) -> dict:
         result = evaluate_binary(y_true, predictions, p[:, positive_idx], positive_label, label_order=label_order)
     else:
         result = evaluate_single_label(y_true, predictions, label_order)
+
+    result.update(finish_audit(audit, vlm, df_valid, texts, y_true, label_order,
+                               p, p_img, p_text, text_empty_mask, image_weight))
 
     log_dir = call_with_supported_kwargs(
         save_single_label_log,

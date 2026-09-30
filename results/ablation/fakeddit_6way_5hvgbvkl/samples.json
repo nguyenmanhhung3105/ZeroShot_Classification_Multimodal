@@ -1,0 +1,37 @@
+[
+  {
+    "sample_index": 0,
+    "id": "cv9kwi",
+    "image_path": "data/processed/pro_fakeddit/images/cv9kwi.jpg",
+    "text_sha256": "49108d40c4b7b919350585cef3b6c54e9c263bcc5bdbed4d76e9ee104df8f9c6",
+    "y_true": 2
+  },
+  {
+    "sample_index": 1,
+    "id": "46j162",
+    "image_path": "data/processed/pro_fakeddit/images/46j162.jpg",
+    "text_sha256": "ead2351703e317912bcf0c6373a58e239e830b22f1ebd876afc3af9fe3b42292",
+    "y_true": 0
+  },
+  {
+    "sample_index": 2,
+    "id": "bjkefw",
+    "image_path": "data/processed/pro_fakeddit/images/bjkefw.jpg",
+    "text_sha256": "cdb9a5dbecd3917288018bf703a80b7a0bd363c3c6f4262a2c6240d9e3dd701d",
+    "y_true": 5
+  },
+  {
+    "sample_index": 3,
+    "id": "c6edq0q",
+    "image_path": "data/processed/pro_fakeddit/images/c6edq0q.jpg",
+    "text_sha256": "fc7b1f8212a625058b9c6691c8bd2be9b037457ef5b2aedc5856d5968eea88e4",
+    "y_true": 4
+  },
+  {
+    "sample_index": 4,
+    "id": "7yas5i",
+    "image_path": "data/processed/pro_fakeddit/images/7yas5i.jpg",
+    "text_sha256": "9c623cd65322a05e4a7c7967e00cc42c069478f37b43075b7d1edf530541c85d",
+    "y_true": 2
+  }
+]

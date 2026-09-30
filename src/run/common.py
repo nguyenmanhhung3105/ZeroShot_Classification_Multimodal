@@ -5,6 +5,7 @@ import sys
 import ast
 import json
 import inspect
+import re
 
 import numpy as np
 import pandas as pd
@@ -287,18 +288,53 @@ def call_with_supported_kwargs(func, *args, **kwargs):
 # VÒNG LẶP MODEL DÙNG CHUNG (thay cho main() lặp lại 3 lần)
 # ============================================================
 
+def save_numbered_summary(rows, base_path: str, dataset_name: str, task_name: str) -> str:
+    """Lưu TSV có số thứ tự; chấp nhận cả base_path .csv của config cũ."""
+    root, _ = os.path.splitext(os.fspath(base_path))
+    dataset = re.sub(r"[^a-zA-Z0-9_-]", "_", str(dataset_name))
+    task = re.sub(r"[^a-zA-Z0-9_-]", "_", str(task_name))
+    prefix = f"{root}_{dataset}_{task}_"
+    ext = ".tsv"
+    directory = os.path.dirname(prefix) or "."
+    os.makedirs(directory, exist_ok=True)
+    pattern = re.compile(re.escape(os.path.basename(prefix)) + r"(\d+)" + re.escape(ext))
+    last_number = 0
+    with os.scandir(directory) as entries:
+        for entry in entries:
+            match = pattern.fullmatch(entry.name)
+            if match:
+                last_number = max(last_number, int(match.group(1)))
+    number = last_number + 1
+    frame = rows if isinstance(rows, pd.DataFrame) else pd.DataFrame(rows)
+    while True:
+        summary_path = f"{prefix}{number}{ext}"
+        try:
+            # Exclusive create bảo vệ cả trường hợp hai tiến trình chạy đồng thời.
+            stream = open(summary_path, "x", encoding="utf-8", newline="")
+        except FileExistsError:
+            number += 1
+            continue
+        with stream:
+            frame.to_csv(stream, sep="\t", index=False)
+        return summary_path
+
+
+def save_summary_tables(all_results: list, base_path: str) -> list:
+    """Một file cho mỗi dataset/task; giữ các model của cùng lần chạy chung file."""
+    if not all_results:
+        return []
+    frame = pd.DataFrame(all_results)
+    return [
+        save_numbered_summary(group, base_path, dataset, task)
+        for (dataset, task), group in frame.groupby(["dataset", "task"], sort=False)
+    ]
+
+
 def save_dataset_summary(all_results: list, config: dict, dataset_name: str) -> str:
-    """Mỗi script run_*.py giờ chỉ chạy 1 dataset -> summary tách riêng theo
-    tên dataset thay vì gộp 1 file summary_table.csv duy nhất như bản gốc."""
-    results_dir = config["output"]["results_dir"]
-    os.makedirs(results_dir, exist_ok=True)
-
-    base_path = config["output"].get("summary_table", os.path.join(results_dir, "summary_table.csv"))
-    root, ext = os.path.splitext(base_path)
-    summary_path = f"{root}_{dataset_name}{ext or '.csv'}"
-
-    pd.DataFrame(all_results).to_csv(summary_path, index=False)
-    return summary_path
+    base_path = config["output"].get(
+        "summary_table", os.path.join(config["output"]["results_dir"], "summary_table.tsv"))
+    task_name = config["datasets"][dataset_name].get("task", "-")
+    return save_numbered_summary(all_results, base_path, dataset_name, task_name)
 
 
 def run_all_models_for_dataset(dataset_name: str, runner_fn, config: dict) -> pd.DataFrame:

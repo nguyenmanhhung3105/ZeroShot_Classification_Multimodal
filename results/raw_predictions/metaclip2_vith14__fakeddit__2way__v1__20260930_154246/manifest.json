@@ -1,0 +1,16 @@
+{
+  "max_samples": 10000,
+  "min_text_length": 20,
+  "batch_size": 16,
+  "image_weight": 0.5,
+  "logit_scale": 100.00000762939453,
+  "logit_bias": 0.0,
+  "model": "metaclip2_vith14",
+  "dataset": "fakeddit",
+  "task": "2way",
+  "prompt_version": "v1",
+  "n_total_samples": 2780,
+  "n_errors": 1444,
+  "error_rate": 0.5194244604316547,
+  "timestamp": "2026-09-30T15:42:47.177046"
+}

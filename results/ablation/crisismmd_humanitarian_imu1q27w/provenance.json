@@ -1,0 +1,31 @@
+{
+  "git_hash": "853b82a56662c44e310555d318acf86a5bac3078",
+  "source_sha256": {
+    "branch_ablation.py": "d177bb030eff55d5346cf9ffb8e0d8296552d168df3b361f99798b0ed4bdc500",
+    "inference.py": "ed99f7035933267b468855f48987bde0c685b7241ea28455eeb8237797edb82b",
+    "evaluate.py": "13e369b8fa8898a751afc0cd0b7d5360229b1a574cd00522dabf6b0137dc3d1f",
+    "run_experiment.py": "82c89b43214e4befa6d4a09bb31066f30c6163179f20139352f75d10a7cd7af2",
+    "demo.py": "181a5ad6cdd37fa7474df2d58d685382a0b0a5edc7708dad0a2db7c88b1585b9",
+    "logging_utils.py": "7e2cd2a5908704e39c274396e2d90ac260bb3f45b55292fcd9ebd8b7153317c3",
+    "models/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "models/model_registry.py": "745327060753bc6950987e2718dbbdefbcb341b2b2de895098a59110d05df99f",
+    "prompts/crisismmd_prompts.py": "d9a650eded493ed30224606d96159fe1df02c090c17093fc230548984fa741f2",
+    "prompts/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "prompts/mmimdb_prompts.py": "1fb94954049555d75d89c70182de29baf494625bedeaa1901059e94baaeb4ddc",
+    "prompts/fakeddit_prompts.py": "192c68eaf7f7d4e2dc34a25c82b91621aa021f4cf685d73c1fe7e9dd46849501",
+    "run/run_fakeddit.py": "365fc5c96ce84326067b98dc0258e08261719be613588365c05df9f8f53e7eb3",
+    "run/common.py": "079ab29059e48b93af5fb6908807d11f5418631c5e5fd1a11e8ae0cf1b9ab835",
+    "run/run_mmimdb.py": "bc2858e4dc93cd5b2219f2905136b1cc5a81b0af3f2521e3d412ca5167c9dd94",
+    "run/run_crisismmd.py": "5ac74f13dc5217cc22d025ac06b5de7280f0694296df4da7600684f19b73c691",
+    "preprocessing/data_fakeddit/check_fakeddit_ready.py": "1da592331ef420f98763b2b4456bcb1d8a36129158deb6e6604500163a43bf9b",
+    "preprocessing/data_fakeddit/image_downloader.py": "bccd48b677317cec19fba92b1209b25e178ce6a9f918b75e3fbcaf800bb10117",
+    "preprocessing/data_fakeddit/preprocess_fakeddit.py": "bf797f6faa908b85c9e4189891b62a1526f3312960b614e8eaa15f4806c33c9a",
+    "preprocessing/data_mmimdb/check_mmimdb_ready.py": "9e10ca957f26932143f6d934881929a7b6d564b9b568da0616839496bb7e2743",
+    "preprocessing/data_mmimdb/preprocess_mmimdb.py": "06f5995be41ebdcd19282632f7783b8d038a11b61917d76dc6a743acb5f8a799",
+    "preprocessing/data_crisismmd/check_crisismmd_processed.py": "5cef0603206197ab8c94fa950a76b90554d9d484dfae023e360a4b83ee77ddef",
+    "preprocessing/data_crisismmd/preprocess_crisismmd.py": "6b4c3da9fe2f14f7424c230254bb8742d59a4263e1fa8c64fe741b656ff60e7a"
+  },
+  "config_id": "163b89e7efcb5f54",
+  "n_skipped_images": 0,
+  "split_verified_by_runner": false
+}

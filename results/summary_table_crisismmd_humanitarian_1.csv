@@ -1,0 +1,2 @@
+model,dataset,task,task_type,accuracy,macro_f1,micro_f1
+metaclip2_vith14,crisismmd,humanitarian,single_label,0.6986666666666667,0.4356975016750642,0.6986666666666667

@@ -1,0 +1,16 @@
+{
+  "max_samples": 3000,
+  "min_text_length": 0,
+  "batch_size": 16,
+  "image_weight": 0.5,
+  "logit_scale": 100.00000762939453,
+  "logit_bias": 0.0,
+  "model": "metaclip2_vith14",
+  "dataset": "crisismmd",
+  "task": "informativeness",
+  "prompt_version": "v1",
+  "n_total_samples": 3000,
+  "n_errors": 549,
+  "error_rate": 0.183,
+  "timestamp": "2026-09-30T19:39:58.201169"
+}

@@ -1,0 +1,263 @@
+{
+  "ablation": {
+    "base_config": "configs/experiment_config.yaml",
+    "dataset": "fakeddit",
+    "task": "6way",
+    "models": [
+      "metaclip2_vith14"
+    ],
+    "max_samples": 1000,
+    "min_text_length": 20,
+    "image_weight": 0.5,
+    "batch_size": 4,
+    "split_prompts": true,
+    "prompt_routes": "configs/branch_prompt_routes.json",
+    "output_dir": "results/ablation",
+    "split": "exploratory"
+  },
+  "base": {
+    "models": [
+      "siglip2_so400m"
+    ],
+    "datasets": {
+      "fakeddit": {
+        "enabled": false,
+        "task": "6way",
+        "data_path": "data/processed/pro_fakeddit/fakeddit_sample.tsv",
+        "image_dir": "data/processed/pro_fakeddit/images",
+        "task_type": "single_label",
+        "id_col": "id",
+        "text_col": "clean_title",
+        "label_col_2way": "2_way_label",
+        "label_col_6way": "6_way_label",
+        "max_samples": 3000
+      },
+      "crisismmd": {
+        "enabled": true,
+        "task": "humanitarian",
+        "data_path": "data/processed/pro_crisismmd/pre_crisismmd.tsv",
+        "image_dir": "data/processed/pro_crisismmd/images",
+        "task_type": "single_label",
+        "id_col": "tweet_id",
+        "text_col": "clean_text",
+        "label_col": "label_humanitarian",
+        "max_samples": 3000
+      },
+      "mmimdb": {
+        "enabled": true,
+        "task": "genres",
+        "data_path": "data/processed/pro_mmimdb/mmimdb_sample.tsv",
+        "image_dir": "data/processed/pro_mmimdb/images",
+        "task_type": "multi_label",
+        "threshold": 0.22,
+        "id_col": "id",
+        "text_col": "plot",
+        "label_col": "genres",
+        "max_samples": 3000
+      }
+    },
+    "inference": {
+      "batch_size": 16,
+      "image_weight": 0.5
+    },
+    "demo": {
+      "n_samples": 10,
+      "batch_size": 4,
+      "prompt_version": "v1",
+      "log_dir": "results/demo_logs",
+      "visualization_dir": "results/demo"
+    },
+    "output": {
+      "results_dir": "results/",
+      "raw_predictions_dir": "results/raw_predictions/",
+      "summary_table": "results/summary_table.tsv"
+    }
+  },
+  "effective_dataset": {
+    "enabled": false,
+    "task": "6way",
+    "data_path": "data/processed/pro_fakeddit/fakeddit_sample.tsv",
+    "image_dir": "data/processed/pro_fakeddit/images",
+    "task_type": "single_label",
+    "id_col": "id",
+    "text_col": "clean_title",
+    "label_col_2way": "2_way_label",
+    "label_col_6way": "6_way_label",
+    "max_samples": 1000
+  },
+  "min_text_length": 20,
+  "legacy_prompts": {
+    "0": [
+      "a factual Reddit post accurately describing a real person, object, or event",
+      "an authentic photograph of a real scene with an accurate description",
+      "a truthful social media caption presenting an event in its original context",
+      "a genuine photograph documenting an ordinary or unusual real-life situation"
+    ],
+    "1": [
+      "a satirical Reddit post using fictional events to mock real news or social issues",
+      "a parody headline exaggerating a situation for humor rather than factual reporting",
+      "a satirical illustration or parody image making fun of a public figure or event",
+      "a humorous imitation of a news story intended as satire"
+    ],
+    "2": [
+      "a Reddit caption claiming something that the attached photograph does not show",
+      "a social media title describing a different person, object, or event from the image",
+      "a photograph paired with an unrelated headline or an invented personal story",
+      "a real image given a caption that assigns it a different meaning"
+    ],
+    "3": [
+      "a social media post pretending to be an official statement from a trusted organization",
+      "a fabricated quotation or announcement falsely attributed to a real person",
+      "an image imitating a news outlet, official account, or organization to appear authentic",
+      "a forged screenshot presenting an impersonated source as a genuine author"
+    ],
+    "4": [
+      "a digitally edited photograph with objects or people added, removed, or altered",
+      "a photo montage combining parts of different images into an artificial scene",
+      "a Reddit post presenting a photoshopped scene or a visually altered object",
+      "a manipulated image changing the appearance of a person, animal, or place"
+    ],
+    "5": [
+      "a Reddit post using selective facts or distorted claims to support a misleading conclusion",
+      "a social media caption presenting real information in a deceptive context",
+      "an image or graphic framing a real topic through selective or misleading information",
+      "a misleading explanation that exaggerates or misrepresents the meaning of an event"
+    ]
+  },
+  "branch_prompts": {
+    "image": {
+      "0": [
+        "an authentic photograph of a real scene with an accurate description",
+        "a genuine photograph documenting an ordinary or unusual real-life situation"
+      ],
+      "1": [
+        "a satirical illustration or parody image making fun of a public figure or event"
+      ],
+      "2": [
+        "a photograph paired with an unrelated headline or an invented personal story",
+        "a real image given a caption that assigns it a different meaning"
+      ],
+      "3": [
+        "an image imitating a news outlet, official account, or organization to appear authentic",
+        "a forged screenshot presenting an impersonated source as a genuine author"
+      ],
+      "4": [
+        "a digitally edited photograph with objects or people added, removed, or altered",
+        "a photo montage combining parts of different images into an artificial scene",
+        "a manipulated image changing the appearance of a person, animal, or place"
+      ],
+      "5": [
+        "an image or graphic framing a real topic through selective or misleading information"
+      ]
+    },
+    "text": {
+      "0": [
+        "a factual Reddit post accurately describing a real person, object, or event",
+        "a truthful social media caption presenting an event in its original context"
+      ],
+      "1": [
+        "a satirical Reddit post using fictional events to mock real news or social issues",
+        "a parody headline exaggerating a situation for humor rather than factual reporting",
+        "a humorous imitation of a news story intended as satire"
+      ],
+      "2": [
+        "a Reddit caption claiming something that the attached photograph does not show",
+        "a social media title describing a different person, object, or event from the image"
+      ],
+      "3": [
+        "a social media post pretending to be an official statement from a trusted organization",
+        "a fabricated quotation or announcement falsely attributed to a real person"
+      ],
+      "4": [
+        "a Reddit post presenting a photoshopped scene or a visually altered object"
+      ],
+      "5": [
+        "a Reddit post using selective facts or distorted claims to support a misleading conclusion",
+        "a social media caption presenting real information in a deceptive context",
+        "a misleading explanation that exaggerates or misrepresents the meaning of an event"
+      ]
+    }
+  },
+  "routes": {
+    "fakeddit": {
+      "6way": {
+        "image": {
+          "0": [
+            1,
+            3
+          ],
+          "1": [
+            2
+          ],
+          "2": [
+            2,
+            3
+          ],
+          "3": [
+            2,
+            3
+          ],
+          "4": [
+            0,
+            1,
+            3
+          ],
+          "5": [
+            2
+          ]
+        },
+        "text": {
+          "0": [
+            0,
+            2
+          ],
+          "1": [
+            0,
+            1,
+            3
+          ],
+          "2": [
+            0,
+            1
+          ],
+          "3": [
+            0,
+            1
+          ],
+          "4": [
+            2
+          ],
+          "5": [
+            0,
+            1,
+            3
+          ]
+        }
+      }
+    },
+    "crisismmd": {
+      "humanitarian": {
+        "image": [
+          2,
+          3
+        ],
+        "text": [
+          0,
+          1
+        ]
+      }
+    },
+    "mmimdb": {
+      "genres": {
+        "image": [
+          0
+        ],
+        "text": [
+          1,
+          2,
+          3
+        ]
+      }
+    }
+  }
+}

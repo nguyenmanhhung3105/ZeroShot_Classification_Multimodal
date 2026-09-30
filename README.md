@@ -14,9 +14,10 @@ dùng chung tập mẫu ghép cặp hợp lệ. Ảnh được mở theo batch, 
 RGB trong RAM. Chế độ một modality bỏ qua encoder không đóng góp; text rỗng vẫn
 dùng nhánh ảnh làm fallback.
 
-Fakeddit dùng cùng bộ lọc text ở mọi entry point: mặc định hơn 20 ký tự sau khi
-bỏ dấu cách; có thể đặt `min_text_length` trong cấu hình dataset. Nhãn được đánh
-giá bằng khóa prompt, còn tên hiển thị chỉ dùng để ánh xạ. Binary giữ Macro/Micro-F1
+Fakeddit: cả runner riêng, runner tổng và demo đều mặc định hơn 20 ký tự
+sau khi bỏ dấu cách. `min_text_length: 20` được ghi rõ trong cấu hình.
+Kết quả runner riêng cũ dùng ngưỡng 5 không còn cùng bộ mẫu để so trực tiếp.
+Nhãn được đánh giá bằng khóa prompt, còn tên hiển thị chỉ dùng để ánh xạ. Binary giữ Macro/Micro-F1
 và bổ sung F1 lớp dương/AUROC, kể cả khi `positive_label: 0`.
 
 Giữ các phần mở rộng đã có: Fakeddit/CrisisMMD thường là `.jpg`, MM-IMDb là
@@ -30,6 +31,73 @@ Quy trình tạo lại CrisisMMD từ raw chưa được xác minh trong lần s
 
 Kiểm thử nhỏ không tải model hoặc đọc dataset:
 `python3 -B -m unittest discover -s tests -v -b`.
+
+Summary được lưu riêng theo dataset/task và tự tăng số lần chạy, ví dụ
+`results/summary_table_fakeddit_2way_1.tsv`, `summary_table_fakeddit_2way_2.tsv`.
+Chạy nhiều model thì các dòng model vẫn nằm chung file của dataset/task đó.
+Demo dùng `demo_summary_<dataset>_<task>_<số>.tsv` trong thư mục demo.
+Số tiếp theo bằng số lớn nhất đang có cộng 1; các summary cũ không bị ghi đè.
+Các bảng đầu ra dùng tab (TSV), kể cả khi config cũ còn đường dẫn `.csv`.
+File CSV đã xuất trước đây được giữ nguyên; số thứ tự mới tính theo file TSV.
+
+## Khóa bộ mẫu và đo lường baseline
+
+`evaluation.enabled: true` bật báo cáo bổ sung, không đổi cách dự đoán.
+`split: val` là tên split do người dùng khai báo, không được runner tự xác minh.
+Không chọn tham số hoặc sửa prompt bằng nhãn khi tạo báo cáo.
+
+`sample_lock_mode: create_or_verify` tạo khóa lần đầu và so khớp ở các lần sau;
+`verify` yêu cầu khóa đã có, `off` tắt kiểm tra. Khóa nằm dưới
+`evaluation.sample_lock_dir`, dùng chung giữa model và runner chính/runner riêng.
+Demo có khóa riêng vì lấy số mẫu khác. Khóa so thứ tự mẫu, ID, hash text, nhãn,
+path ảnh, size/mtime ảnh, limit và bộ lọc. Ảnh chỉ kiểm tra metadata, chưa hash
+nội dung byte. Nếu ảnh thiếu/hỏng làm đổi tập hợp, lần chạy sẽ báo mismatch.
+Muốn thử limit hoặc bộ mẫu mới, đặt **sample_lock_dir mới**, không ghi đè khóa cũ.
+Đây là khóa cohort; model/prompt/weight được phép thay nhưng có config/prompt ID
+và snapshot riêng. Không tự chọn hoặc trộn train/val/test.
+
+Summary thêm metric `image_*`, `text_*`, `fusion_*`, số mẫu và mã cấu hình.
+Trong từng thư mục log có:
+
+- `diagnostics.tsv`: metric mỗi nhánh, entropy/margin, cosine mean/std;
+  MM-IMDb thêm số nhãn dự đoán trung bình và tỷ lệ fallback.
+- `text_lengths.tsv`: số token trước truncate, cờ bị cắt theo mẫu.
+- `evaluation_snapshot.json`: config, prompt thực tế, cohort, thống kê truncate,
+  thông số inference, git hash và hash các file source (kể cả chưa commit).
+
+Truncate đo riêng input text, không tính prompt; loại text rỗng khỏi mẫu số.
+Hỗ trợ OpenCLIP SimpleTokenizer và HFTokenizer thông thường. Backend chưa nhận
+diện ghi `unknown`, không giả định tỷ lệ bằng 0. Chỉ tokenize thêm, không encode
+model lần hai. Logic đếm dựa trên [tokenizer OpenCLIP chính thức](https://github.com/mlfoundations/open_clip/blob/main/src/open_clip/tokenizer.py).
+Chưa kiểm chứng tokenizer checkpoint thật trong bộ test nhỏ.
+
+Nhánh không encode (weight 0/1) không được báo như một dự đoán hợp lệ; text-only
+loại text rỗng, fusion vẫn fallback ảnh. Balanced accuracy tính trên lớp hiện có,
+macro-F1 single-label dùng đủ bộ nhãn. Điểm relative_z không có entropy xác suất.
+
+Chạy nhỏ: tự đặt `max_samples: 5` cho dataset cần thử và dùng một thư mục khóa
+riêng (ví dụ `results/sample_locks_smoke5`) trước khi chạy runner tương ứng.
+Không dùng 5 mẫu để kết luận cải thiện. Để tắt toàn bộ audit: `evaluation.enabled: false`.
+
+## MM-IMDb: quyết định nhãn bằng relative_z
+
+Runner riêng, runner tổng và demo dùng cấu hình `datasets.mmimdb`:
+`decision_mode: relative_z`, `relative_z_threshold: 1.0`.
+Ảnh và text vẫn so với cùng bộ prompt lớp. Không thay model hoặc prompt.
+
+Với mỗi phim và từng nhánh, tính `z = (cosine - mean) / std` qua 23 nhãn
+(population std, ddof=0), rồi `score = w*z_image + (1-w)*z_text`.
+Chọn nhãn có score > 1.0. Text rỗng dùng nhánh ảnh; std <= 1e-8 cho điểm 0.
+Nếu không nhãn nào vượt ngưỡng, dùng top-1 khi fallback được bật.
+Không dùng nhãn thật hoặc thống kê giữa các mẫu để tính z.
+
+Điểm z không phải xác suất; không áp sigmoid, model scale/bias hay ngưỡng 0.22.
+Log dùng `zscore_<nhãn>`; summary/manifest ghi mode, score_type và ngưỡng.
+Ngưỡng 1.0 chưa được tối ưu; chưa đảm bảo F1 hoặc số nhãn dự đoán phù hợp.
+Muốn tái lập sigmoid cũ, chủ động chọn `decision_mode: fixed_threshold`;
+chỉ khi đó threshold 0.22 có tác dụng. API inference giữ mặc định cũ để tương thích.
+
+Toàn bộ kết quả thí nghiệm trước đây trong `results/` được giữ nguyên.
 
 # Data Processing Plan
 

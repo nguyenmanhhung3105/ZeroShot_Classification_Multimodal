@@ -259,7 +259,7 @@ class RuntimeFixTests(unittest.TestCase):
                  patch.object(module, "resolve_image_paths", return_value=["unused"]), \
                  patch.object(module, "load_images_safe", return_value=([object()], [0])), \
                  patch.object(module, "predict_multi_label", return_value=([["Drama"]], scores, scores, scores,
-                                                                          np.array([False]), np.array([False]))):
+                                                                          np.array([False]), np.array([False]))) as predictor:
                 if module is self.demo:
                     with patch.object(module, "LOG_DIR", out), patch.object(module, "OUTPUT_DIR", out), patch.object(module, "visualize"):
                         result = module.run_dataset(FakeVLM(), "stub", "mmimdb", cfg, 0.5)
@@ -268,11 +268,61 @@ class RuntimeFixTests(unittest.TestCase):
                 self.assertAlmostEqual(result["micro_f1"], 2 / 3)
                 self.assertAlmostEqual(result["macro_f1"], 1 / 23)
                 manifest_path = next(Path(out).glob("*/manifest.json"))
-                self.assertEqual(json.loads(manifest_path.read_text())["threshold"], 0.22)
+                metadata = json.loads(manifest_path.read_text())
+                self.assertIsNone(metadata["threshold"])
+                self.assertEqual(metadata["score_type"], "relative_z")
+                self.assertEqual(predictor.call_args.kwargs["decision_mode"], "relative_z")
+                self.assertEqual(predictor.call_args.kwargs["relative_z_threshold"], 1.0)
+                log = pd.read_csv(manifest_path.parent / "raw_predictions.tsv", sep="\t")
+                self.assertIn("zscore_Drama", log.columns)
+                self.assertNotIn("prob_Drama", log.columns)
+
+    def test_main_relative_predictor_matches_relative_scores(self):
+        from inference import relative_multilabel_scores, multilabel_settings
+        image = np.array([[0.1, 0.2, 0.4], [0.3, 0.3, 0.3]])
+        text = np.array([[0.6, 0.7, 0.9], [0., 0., 0.]])
+        empty = np.array([False, True])
+        expected = relative_multilabel_scores(image, text, 0.5, empty)
+        with patch("inference.encode_multimodal_embeddings", return_value=(image, text, empty)):
+            output = predict_multi_label(FakeVLM(), [0, 1], ["text", ""], np.eye(3), ["a", "b", "c"],
+                                         decision_mode="relative_z", threshold=None,
+                                         relative_z_threshold=1.0, show_progress=False)
+        for result, scores in zip(output[1:4], expected):
+            np.testing.assert_array_equal(result, scores)
+        self.assertEqual(output[0], [["c"], ["a"]])
+        self.assertEqual(output[4].tolist(), [False, True])
+        options, meta = multilabel_settings({"decision_mode": "fixed_threshold"}, 0.22)
+        self.assertEqual(options["decision_mode"], "fixed_threshold")
+        self.assertEqual(meta["threshold"], 0.22)
+        self.assertEqual(meta["score_type"], "probability")
 
     def test_all_source_files_parse(self):
         for path in (ROOT / "src").rglob("*.py"):
             ast.parse(path.read_text(), filename=str(path))
+
+    def test_relative_scores_are_per_sample_and_constant_safe(self):
+        from inference import relative_multilabel_scores
+        image = np.array([[0.1, 0.2, 0.4], [0.3, 0.3, 0.3]])
+        text = np.array([[0.6, 0.7, 0.9], [0.7, 0.7, 0.7]])
+        together = relative_multilabel_scores(image, text)
+        alone = relative_multilabel_scores(image[:1], text[:1])
+        shifted = relative_multilabel_scores(image * 2 + 3, text * 4 + 1)
+        for whole, one, other in zip(together, alone, shifted):
+            np.testing.assert_array_equal(whole[:1], one)
+            np.testing.assert_array_equal(whole[1], np.zeros(3))
+            np.testing.assert_allclose(whole, other, atol=1e-12)
+
+    def test_relative_mode_avoids_all_labels_when_sigmoid_saturates(self):
+        cosine = np.linspace(0.1, 0.3, 23)[None, :]
+        model = FakeVLM()
+        model.logit_scale, model.logit_bias = 100., 0.
+        with patch("inference.encode_multimodal_embeddings", return_value=(cosine, cosine, np.array([False]))):
+            old = predict_multi_label(model, [0], ["text"], np.eye(23), list(range(23)), show_progress=False)
+            new = predict_multi_label(model, [0], ["text"], np.eye(23), list(range(23)),
+                                      decision_mode="relative_z", show_progress=False)
+        self.assertEqual(len(old[0][0]), 23)
+        self.assertGreater(len(new[0][0]), 0)
+        self.assertLess(len(new[0][0]), 23)
 
 
 if __name__ == "__main__":

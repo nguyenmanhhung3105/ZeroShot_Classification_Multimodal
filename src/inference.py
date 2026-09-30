@@ -192,7 +192,8 @@ def encode_multimodal_embeddings(vlm, images: list, texts: list, batch_size: int
 
 def predict_single_label(vlm, images: list, texts: list, class_embeds: np.ndarray, label_order: list,
                           batch_size: int = 16, image_weight: float = 0.5,
-                          text_logit_scale: float = None, show_progress: bool = True) -> tuple:
+                          text_logit_scale: float = None, show_progress: bool = True,
+                          diagnostics=None) -> tuple:
     """
     Single-label multimodal inference cho Fakeddit / CrisisMMD.
 
@@ -209,11 +210,13 @@ def predict_single_label(vlm, images: list, texts: list, class_embeds: np.ndarra
     """
     image_embeds, text_embeds, text_empty_mask = encode_multimodal_embeddings(
         vlm, images, texts, batch_size=batch_size,
-        show_progress=show_progress, desc="Single-label inference", image_weight=image_weight
+        show_progress=show_progress, desc="Single-label inference", image_weight=image_weight,
     )
 
     sim_image = image_embeds @ class_embeds.T
     sim_text = text_embeds @ class_embeds.T
+
+    _record_cosine(diagnostics, sim_image, sim_text, image_weight, text_empty_mask)
 
     logits_image = _calibrated_logits(vlm, sim_image)
     scale_text = text_logit_scale if text_logit_scale is not None else getattr(vlm, "logit_scale", 100.0)
@@ -233,7 +236,9 @@ def predict_single_label(vlm, images: list, texts: list, class_embeds: np.ndarra
 def predict_multi_label(vlm, images: list, texts: list, class_embeds: np.ndarray, label_order: list,
                          threshold: float = 0.22, fallback_top1: bool = True,
                          batch_size: int = 16, image_weight: float = 0.5,
-                         text_logit_scale: float = None, show_progress: bool = True) -> tuple:
+                         text_logit_scale: float = None, show_progress: bool = True,
+                         decision_mode="fixed_threshold",
+                         relative_z_threshold=1.0, diagnostics=None) -> tuple:
     """
     Multi-label multimodal inference cho MM-IMDb.
 
@@ -241,6 +246,11 @@ def predict_multi_label(vlm, images: list, texts: list, class_embeds: np.ndarray
     không sigmoid trên cosine đã bị trộn 2 modality (khác biệt cốt lõi so với bản cũ).
 
     show_progress: hiện % tiến trình trong lúc encode ảnh/text.
+
+    decision_mode="relative_z": bypass sigmoid/model calibration and threshold;
+    return relative scores in the existing probs/p_img/p_text tuple positions.
+    Select scores > relative_z_threshold. These outputs are NOT probabilities.
+    Main MM-IMDb runners explicitly select this mode through their config.
 
     Returns:
         predictions    : list[list[str]]
@@ -251,29 +261,37 @@ def predict_multi_label(vlm, images: list, texts: list, class_embeds: np.ndarray
                           lớp nào vượt threshold, phải fallback về top-1
         text_empty_mask: np.ndarray[bool] (N,)
     """
-    if not 0 <= threshold <= 1:
+    if decision_mode not in ("fixed_threshold", "relative_z"):
+        raise ValueError("Unknown decision_mode")
+    relative = decision_mode == "relative_z"
+    if relative and (not np.isfinite(relative_z_threshold) or relative_z_threshold < 0):
+        raise ValueError("relative_z_threshold must be finite and nonnegative")
+    if not relative and not 0 <= threshold <= 1:
         raise ValueError("threshold phải nằm trong [0, 1]")
     image_embeds, text_embeds, text_empty_mask = encode_multimodal_embeddings(
         vlm, images, texts, batch_size=batch_size,
-        show_progress=show_progress, desc="Multi-label inference", image_weight=image_weight
+        show_progress=show_progress, desc="Multi-label inference", image_weight=image_weight,
     )
 
     sim_image = image_embeds @ class_embeds.T
     sim_text = text_embeds @ class_embeds.T
 
-    logits_image = _calibrated_logits(vlm, sim_image)
-    scale_text = text_logit_scale if text_logit_scale is not None else getattr(vlm, "logit_scale", 100.0)
-    logits_text = sim_text * scale_text + getattr(vlm, "logit_bias", 0.0)
+    if relative:
+        probs, p_img, p_text = relative_multilabel_scores(sim_image, sim_text, image_weight, text_empty_mask)
+    else:
+        logits_image = _calibrated_logits(vlm, sim_image)
+        scale_text = text_logit_scale if text_logit_scale is not None else getattr(vlm, "logit_scale", 100.0)
+        logits_text = sim_text * scale_text + getattr(vlm, "logit_bias", 0.0)
+        p_img = _sigmoid(logits_image)
+        p_text = _sigmoid(logits_text)
+        probs = _weighted_fuse(p_img, p_text, image_weight, text_empty_mask)
 
-    p_img = _sigmoid(logits_image)
-    p_text = _sigmoid(logits_text)
-
-    probs = _weighted_fuse(p_img, p_text, image_weight, text_empty_mask)
-
+    _record_cosine(diagnostics, sim_image, sim_text, image_weight, text_empty_mask)
     predictions = []
     used_fallback = []
     for row in probs:
-        labels = [label_order[i] for i, prob in enumerate(row) if prob >= threshold]
+        labels = [label_order[i] for i, prob in enumerate(row)
+                  if (prob > relative_z_threshold if relative else prob >= threshold)]
         if not labels and fallback_top1:
             labels = [label_order[int(np.argmax(row))]]
             used_fallback.append(True)
@@ -282,3 +300,52 @@ def predict_multi_label(vlm, images: list, texts: list, class_embeds: np.ndarray
         predictions.append(labels)
 
     return predictions, probs, p_img, p_text, np.array(used_fallback), text_empty_mask
+
+
+def relative_multilabel_scores(sim_image, sim_text, image_weight=0.5, text_empty_mask=None):
+    """Per-sample, across-label z scores; no labels or cross-sample statistics.
+
+    Standardize each modality separately, then linearly fuse. These are scores,
+    NOT probabilities; learned model scale/bias and sigmoid are not applied.
+    Constant rows map to zeros, leaving the caller's explicit top-1 fallback.
+    """
+    image = np.asarray(sim_image, dtype=np.float64)
+    text = np.asarray(sim_text, dtype=np.float64)
+    if (image.ndim != 2 or image.shape != text.shape or image.shape[1] < 2
+            or not np.isfinite(image).all() or not np.isfinite(text).all()
+            or not 0 <= image_weight <= 1):
+        raise ValueError("Invalid cosine matrices or fusion weight")
+    if text_empty_mask is not None:
+        text_empty_mask = np.asarray(text_empty_mask)
+        if text_empty_mask.shape != (len(image),) or text_empty_mask.dtype != np.bool_:
+            raise ValueError("Invalid text empty mask")
+    def standardize(scores):
+        centered = scores - scores.mean(axis=1, keepdims=True)
+        std = scores.std(axis=1, keepdims=True)
+        return np.divide(centered, std, out=np.zeros_like(scores), where=std > 1e-8)
+    zi, zt = standardize(image), standardize(text)
+    return _weighted_fuse(zi, zt, image_weight, text_empty_mask), zi, zt
+
+
+def multilabel_settings(task_config, threshold):
+    """Main MM-IMDb runners default to relative_z; legacy API remains opt-in compatible."""
+    mode = task_config.get("decision_mode", "relative_z")
+    cutoff = task_config.get("relative_z_threshold", 1.0)
+    options = {"decision_mode": mode, "relative_z_threshold": cutoff}
+    relative = mode == "relative_z"
+    metadata = {"decision_mode": mode, "score_type": "relative_z" if relative else "probability",
+                "threshold": None if relative else threshold,
+                "relative_z_threshold": cutoff if relative else None,
+                "model_scale_applied": not relative, "apply_bias_to_text": not relative}
+    return options, metadata
+
+
+def _record_cosine(diagnostics, image, text, weight, empty):
+    if diagnostics is None:
+        return
+    diagnostics["cosine"] = {}
+    for name, scores, mask in (("image", image, np.ones(len(image), bool) if weight > 0 else empty),
+                               ("text", text, ~empty & (weight < 1))):
+        if np.any(mask):
+            diagnostics["cosine"][name] = {"cosine_mean": float(scores[mask].mean()),
+                                           "cosine_std": float(scores[mask].std())}

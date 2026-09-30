@@ -22,7 +22,7 @@ import pandas as pd
 
 
 def _make_run_id(model_name: str, dataset_name: str, task_name: str, prompt_version: str) -> str:
-    ts = datetime.now().strftime("%Y%m%d_%H%M%S")
+    ts = datetime.now().strftime("%Y%m%d_%H%M%S_%f")
     return f"{model_name}__{dataset_name}__{task_name}__{prompt_version}__{ts}"
 
 
@@ -67,6 +67,8 @@ def save_single_label_log(df_valid: pd.DataFrame, y_true: list, y_pred: list, si
     _save_run_manifest(run_dir, model_name, dataset_name, task_name, prompt_version,
                         n_total=len(df_log), n_errors=len(df_error), extra_manifest=extra_manifest)
 
+    from evaluation_audit import save_audit
+    save_audit(df_valid, run_dir)
     print(f"Đã lưu log tại: {run_dir}  ({len(df_error)}/{len(df_log)} mẫu sai)")
     return run_dir
 
@@ -101,7 +103,8 @@ def save_multi_label_log(df_valid: pd.DataFrame, y_true: list, y_pred: list, pro
             "exact_match": true_set == pred_set,
         }
         for j, label in enumerate(label_order):
-            row[f"prob_{label}"] = float(probs[i, j])
+            prefix = "zscore" if (extra_manifest or {}).get("score_type") == "relative_z" else "prob"
+            row[f"{prefix}_{label}"] = float(probs[i, j])
         _add_diagnostics(row, df_valid.iloc[i], i, label_order, sim_image, sim_text, extra_manifest)
         rows.append(row)
 
@@ -119,6 +122,8 @@ def save_multi_label_log(df_valid: pd.DataFrame, y_true: list, y_pred: list, pro
     _save_run_manifest(run_dir, model_name, dataset_name, task_name, prompt_version,
                         n_total=len(df_log), n_errors=len(df_error), extra_manifest=extra_manifest)
 
+    from evaluation_audit import save_audit
+    save_audit(df_valid, run_dir)
     print(f"Đã lưu log tại: {run_dir}  ({len(df_error)}/{len(df_log)} mẫu không khớp hoàn toàn)")
     return run_dir
 

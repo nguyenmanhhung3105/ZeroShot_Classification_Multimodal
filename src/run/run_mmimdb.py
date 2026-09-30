@@ -14,7 +14,8 @@ import sys
 # PHẢI đứng trước các import bên dưới — xem giải thích trong run_crisismmd.py
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from inference import build_class_embeddings, predict_multi_label
+from evaluation_audit import prepare_audit, finish_audit
+from inference import build_class_embeddings, predict_multi_label, multilabel_settings
 from evaluate import evaluate_multi_label
 from logging_utils import save_multi_label_log
 from prompts import mmimdb_prompts
@@ -56,6 +57,9 @@ def run_mmimdb(vlm, task_config: dict, config: dict) -> dict:
     df_valid = df.iloc[valid_idx].reset_index(drop=True)
     df_valid["_resolved_image_path"] = [image_paths[i] for i in valid_idx]
 
+    audit = prepare_audit(df_valid, task_config, config, "mmimdb", task_config.get("task", "genres"),
+                          id_col, text_col, label_col, prompt_set)
+
     texts = df_valid[text_col].fillna("").astype(str).tolist()
 
     threshold = resolve_override(
@@ -64,6 +68,7 @@ def run_mmimdb(vlm, task_config: dict, config: dict) -> dict:
         vlm.model_name,
     )
     fallback_top1 = task_config.get("fallback_top1", True)
+    decision_options, decision_meta = multilabel_settings(task_config, threshold)
     batch_size = config.get("inference", {}).get("batch_size", 16)
     image_weight = get_image_weight(config, "mmimdb")
 
@@ -73,12 +78,18 @@ def run_mmimdb(vlm, task_config: dict, config: dict) -> dict:
         fallback_top1=fallback_top1,
         batch_size=batch_size,
         image_weight=image_weight,
+        **decision_options, diagnostics=audit,
     )
     df_valid["_text_was_empty"] = text_empty_mask
     df_valid["_used_top1_fallback"] = used_fallback
 
     y_true = [parse_multilabel(value) for value in df_valid[label_col].tolist()]
     result = evaluate_multi_label(y_true, predictions, label_order)
+    result.update(decision_meta)
+
+    result.update(finish_audit(audit, vlm, df_valid, texts, y_true, label_order,
+                               probs, p_img, p_text, text_empty_mask, image_weight,
+                               multilabel=True, decision_meta=decision_meta, fallback=fallback_top1))
 
     log_dir = call_with_supported_kwargs(
         save_multi_label_log,
@@ -93,7 +104,7 @@ def run_mmimdb(vlm, task_config: dict, config: dict) -> dict:
         sim_image=p_img,
         sim_text=p_text,
         extra_manifest={
-            "threshold": threshold,
+            **decision_meta,
             "fallback_top1": fallback_top1,
             "max_samples": task_config.get("max_samples"),
             "min_text_length": 0,

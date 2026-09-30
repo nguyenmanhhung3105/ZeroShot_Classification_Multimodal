@@ -1,14 +1,10 @@
 """
 Prompt templates cho CrisisMMD.
 
-LƯU Ý QUAN TRỌNG (đã phân tích trước đó):
-- Task Humanitarian có phân bố CỰC LỆCH sau khi lọc mismatch + confidence threshold.
-- Lớp "missing_or_found_people" có 0 mẫu sau lọc -> KHÔNG đưa vào prompt set,
-  vì đưa vào cũng không có ground-truth để đánh giá, chỉ gây nhiễu (model có thể
-  dự đoán ra lớp này cho các mẫu thuộc lớp khác, không đo được recall của nó).
-- Các lớp affected_individuals (8), vehicle_damage (7), injured_or_dead_people (6)
-  có cỡ mẫu quá nhỏ -> vẫn giữ trong prompt set để model có thể dự đoán,
-  nhưng khi báo cáo kết quả cần ghi rõ cỡ mẫu quá nhỏ để kết luận đáng tin cậy.
+Humanitarian dùng đủ 8 nhãn của schema processed, kể cả missing_or_found_people.
+Prompt thử nghiệm dựa vào định nghĩa lớp và tối đa 5 dòng đầu, không suy ra
+phân bố toàn dataset hoặc loại lớp chỉ vì không xuất hiện trong mẫu đọc.
+Mỗi lớp có cùng số prompt ngắn, được gộp thành một vector đại diện lớp.
 """
 
 # ============================================================
@@ -86,6 +82,76 @@ PROMPTS_INFORMATIVENESS = {
     ],
 }
 
+# PROMPTS_INFORMATIVENESS = {
+#     "informative": [
+#         "a disaster-related post with text providing useful crisis information and an image showing relevant disaster conditions",
+
+#         "a disaster-related post with text reporting destruction and an image showing damaged buildings or infrastructure",
+
+#         "a disaster-related post with text describing dangerous conditions and an image showing visible disaster threats",
+
+#         "a disaster-related post with text reporting damage to homes and an image showing damaged or destroyed houses",
+
+#         "a disaster-related post with text reporting casualties or injuries and an image showing injured people or emergency medical care",
+
+#         "a disaster-related post with text reporting missing people and an image showing a missing-person notice or a search operation",
+
+#         "a disaster-related post with text reporting people in danger and an image showing people affected by the disaster",
+
+#         "a disaster-related post with text reporting a wildfire and an image showing flames, smoke, or burned areas",
+
+#         "a disaster-related post with text reporting flooding and an image showing submerged streets, buildings, or vehicles",
+
+#         "a disaster-related post with text reporting earthquake damage and an image showing collapsed structures or debris",
+
+#         "a disaster-related post with text reporting a landslide and an image showing displaced earth or blocked roads",
+
+#         "a disaster-related post with text providing evacuation information and an image showing evacuation routes, notices, or people leaving affected areas",
+
+#         "a disaster-related post with text describing rescue operations and an image showing rescuers helping affected people",
+
+#         "a disaster-related post with text providing humanitarian aid information and an image showing shelters, relief supplies, or aid distribution",
+
+#         "a disaster-related post with text describing the aftermath and an image showing debris, damaged neighborhoods, or displaced people",
+
+#         "a disaster-related post with text giving specific crisis updates and an image showing a disaster map, warning bulletin, or impact statistics",
+#     ],
+
+#     "not_informative": [
+#         "a post with text providing no useful crisis information and an image showing no relevant disaster information",
+
+#         "a post with text discussing everyday life and an image showing ordinary activities unrelated to a disaster",
+
+#         "a post with text discussing entertainment or hobbies and an image showing unrelated leisure activities",
+
+#         "a post with text containing casual conversation and an image unrelated to disaster impacts or response",
+
+#         "a post with text sharing personal updates unrelated to a disaster and an image showing an unrelated personal scene",
+
+#         "a post with text expressing general emotions without specific crisis details and an image providing no disaster evidence",
+
+#         "a post with text offering general sympathy without actionable details and an image showing only a decorative symbol or greeting",
+
+#         "a post with text mentioning a disaster without specific information and an image unrelated to the event",
+
+#         "a post with text discussing unrelated news and an image illustrating a different topic",
+
+#         "a post with text advertising products or services unrelated to disaster relief and an image showing promotional material",
+
+#         "a post with text sharing a joke unrelated to a disaster and an image showing an unrelated meme or cartoon",
+
+#         "a post with text describing a pleasant day unrelated to a crisis and an image showing an ordinary landscape",
+
+#         "a post with text discussing routine city life and an image showing normal streets without crisis-related context",
+
+#         "a post with text about celebrations unrelated to a disaster and an image showing a social gathering",
+
+#         "a post with text sharing a generic slogan without crisis details and an image showing decorative text",
+
+#         "a post with text providing no specific disaster update and an image showing unrelated scenery or objects",
+#     ],
+# }
+
 LABEL_NAMES_INFORMATIVENESS = {
     "informative": "Informative",
     "not_informative": "Not Informative",
@@ -93,38 +159,100 @@ LABEL_NAMES_INFORMATIVENESS = {
 
 
 # ============================================================
-# TASK 2: HUMANITARIAN (7 lớp — đã loại missing_or_found_people vì 0 mẫu)
+# TASK 2: HUMANITARIAN (8 lớp)
 # ============================================================
 PROMPTS_HUMANITARIAN = {
     "not_humanitarian": [
-        "a tweet not related to humanitarian aid or disaster relief",
-        "content irrelevant to disaster response efforts",
+        "a casual tweet or conversation without information about disaster impacts, needs, or response",
+        "a vague mention of a disaster without details about its impact or response",
+        "an everyday photograph unrelated to disaster impacts or humanitarian assistance",
+        "a social media image with no identifiable information about disaster needs or relief",
     ],
     "other_relevant_information": [
-        "general information related to the disaster event",
-        "a tweet providing context or updates about the crisis",
+        "a tweet giving a general update on the location, spread, or severity of a disaster",
+        "a report about an ongoing wildfire, flood, storm, or earthquake and its conditions",
+        "an overview photograph showing a disaster scene or an approaching natural hazard",
+        "a weather map, hazard warning, or situation update providing context about a disaster",
     ],
     "rescue_volunteering_or_donation_effort": [
-        "a photo of rescue teams helping disaster victims",
-        "a tweet about volunteering or donation efforts for disaster relief",
+        "a tweet reporting rescue operations or volunteers helping people during a disaster",
+        "an appeal for donations, relief supplies, shelter, or volunteers for disaster survivors",
+        "a photograph of emergency teams rescuing people from a disaster",
+        "a photograph of volunteers distributing food, water, clothing, or other relief supplies",
     ],
     "infrastructure_and_utility_damage": [
-        "a photo showing damaged buildings, roads, or public infrastructure",
-        "a tweet reporting damage to utilities or infrastructure from a disaster",
+        "a tweet reporting buildings, homes, roads, or bridges damaged by a disaster",
+        "a report of disaster damage disrupting electricity, water, communications, or transport infrastructure",
+        "a photograph of collapsed buildings, burned houses, or destroyed structures",
+        "a photograph of damaged roads, broken bridges, fallen power lines, or flooded infrastructure",
     ],
     "affected_individuals": [
-        "a photo of people directly affected by the disaster, such as evacuees",
-        "a tweet describing individuals impacted by the crisis",
+        "a tweet describing people displaced, evacuated, or left homeless by a disaster",
+        "a report of families stranded, sheltering, or struggling with the loss of homes and belongings",
+        "a photograph of disaster survivors leaving their homes or staying in temporary shelter",
+        "a photograph of people affected by flooding, fire, or an earthquake and needing assistance",
     ],
     "vehicle_damage": [
-        "a photo of a car or vehicle damaged by the disaster",
-        "a tweet reporting vehicle damage from the crisis event",
+        "a tweet reporting cars, trucks, buses, or boats damaged by a disaster",
+        "a report of vehicles submerged, burned, overturned, or crushed during a disaster",
+        "a photograph of flood-damaged cars or vehicles submerged in water",
+        "a photograph of burned, crushed, or overturned vehicles after a natural disaster",
     ],
     "injured_or_dead_people": [
-        "a photo or report of people injured or killed by the disaster",
-        "a tweet reporting casualties from the crisis event",
+        "a tweet reporting people injured or killed in a disaster",
+        "a report of disaster casualties, deaths, injuries, or medical treatment for victims",
+        "a photograph of injured disaster victims receiving medical attention",
+        "a photograph documenting human casualties or the recovery of bodies after a disaster",
+    ],
+    "missing_or_found_people": [
+        "a tweet asking for information about a person missing after a disaster",
+        "an update confirming that a missing person has been found or reunited with family",
+        "a missing-person notice with a photograph and identifying details during a disaster",
+        "a social media notice about locating or finding people separated during a disaster",
     ],
 }
+
+# PROMPTS_HUMANITARIAN = {
+#     "not_humanitarian": [
+#         "a post with casual conversation and an everyday image unrelated to disaster impacts, needs, or response",
+#         "a post with a vague disaster mention and an image providing no identifiable information about disaster impacts or relief",
+#     ],
+
+#     "other_relevant_information": [
+#         "a post with text updating the location, spread, or severity of a disaster and an image showing an overview of the event",
+#         "a post with text reporting disaster conditions and an image showing a weather map, hazard warning, or situation update",
+#     ],
+
+#     "rescue_volunteering_or_donation_effort": [
+#         "a post with text reporting rescue operations and an image showing emergency teams rescuing people during a disaster",
+#         "a post with text requesting donations or volunteers and an image showing volunteers distributing relief supplies to disaster survivors",
+#     ],
+
+#     "infrastructure_and_utility_damage": [
+#         "a post with text reporting disaster damage to buildings or homes and an image showing collapsed buildings, burned houses, or destroyed structures",
+#         "a post with text reporting disruption to utilities or transport infrastructure and an image showing damaged roads, broken bridges, or fallen power lines",
+#     ],
+
+#     "affected_individuals": [
+#         "a post with text describing displaced or evacuated people and an image showing disaster survivors leaving their homes or staying in temporary shelter",
+#         "a post with text describing families stranded or losing their homes and an image showing disaster-affected people needing assistance",
+#     ],
+
+#     "vehicle_damage": [
+#         "a post with text reporting disaster damage to cars, trucks, buses, or boats and an image showing damaged vehicles",
+#         "a post with text describing vehicles submerged, burned, overturned, or crushed during a disaster and an image showing the affected vehicles",
+#     ],
+
+#     "injured_or_dead_people": [
+#         "a post with text reporting disaster injuries and an image showing injured victims receiving medical attention",
+#         "a post with text reporting disaster deaths and an image documenting human casualties or the recovery of bodies",
+#     ],
+
+#     "missing_or_found_people": [
+#         "a post with text seeking a person missing after a disaster and an image showing a missing-person notice with identifying details",
+#         "a post with text confirming a missing person has been found or reunited with family and an image showing a corresponding found-person or reunification notice",
+#     ],
+# }
 
 LABEL_NAMES_HUMANITARIAN = {
     "not_humanitarian": "Not Humanitarian",
@@ -134,10 +262,11 @@ LABEL_NAMES_HUMANITARIAN = {
     "affected_individuals": "Affected Individuals",
     "vehicle_damage": "Vehicle Damage",
     "injured_or_dead_people": "Injured or Dead People",
+    "missing_or_found_people": "Missing or Found People",
 }
 
-# Các lớp có cỡ mẫu quá nhỏ (<30 mẫu theo phân tích trước) — dùng để cảnh báo
-# khi in kết quả đánh giá, KHÔNG dùng để loại khỏi prompt set
+# Cảnh báo kế thừa từ phân tích trước; chưa kiểm đếm lại dữ liệu hiện tại.
+# Không dùng danh sách này để loại nhãn khỏi bộ 8 lớp.
 LOW_SAMPLE_WARNING_CLASSES = {
     "affected_individuals",
     "vehicle_damage",

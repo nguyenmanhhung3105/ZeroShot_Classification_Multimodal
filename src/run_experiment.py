@@ -18,7 +18,8 @@ from PIL import Image
 
 from run import common as shared
 from models.model_registry import load_model
-from inference import build_class_embeddings, predict_single_label, predict_multi_label
+from evaluation_audit import prepare_audit, finish_audit
+from inference import build_class_embeddings, predict_single_label, predict_multi_label, multilabel_settings
 from evaluate import evaluate_single_label, evaluate_binary, evaluate_multi_label
 from logging_utils import save_single_label_log, save_multi_label_log
 from prompts import fakeddit_prompts, crisismmd_prompts, mmimdb_prompts
@@ -116,6 +117,9 @@ def run_fakeddit(vlm, task_config: dict, config: dict) -> dict:
     df_valid = df.iloc[valid_idx].reset_index(drop=True)
     df_valid["_resolved_image_path"] = [image_paths[i] for i in valid_idx]
 
+    audit = prepare_audit(df_valid, task_config, config, "fakeddit", task_config.get("task", "genres"),
+                          id_col, text_col, label_col, prompt_set)
+
     texts = df_valid[text_col].fillna("").astype(str).tolist()
 
     batch_size = config.get("inference", {}).get("batch_size", 16)
@@ -123,7 +127,7 @@ def run_fakeddit(vlm, task_config: dict, config: dict) -> dict:
 
     predictions, p, p_img, p_text, text_empty_mask = predict_single_label(
         vlm, images, texts, class_embeds, label_order,
-        batch_size=batch_size, image_weight=image_weight
+        batch_size=batch_size, image_weight=image_weight, diagnostics=audit
     )
     # Gắn thẳng vào df_valid để lọt vào log mà không cần sửa logging_utils.py
     df_valid["_text_was_empty"] = text_empty_mask
@@ -136,6 +140,9 @@ def run_fakeddit(vlm, task_config: dict, config: dict) -> dict:
         result = evaluate_binary(y_true, predictions, p[:, positive_idx], positive_label, label_order=label_order)
     else:
         result = evaluate_single_label(y_true, predictions, label_order)
+
+    result.update(finish_audit(audit, vlm, df_valid, texts, y_true, label_order,
+                               p, p_img, p_text, text_empty_mask, image_weight))
 
     save_single_label_log(
         df_valid, y_true, predictions, p, label_order,
@@ -183,6 +190,9 @@ def run_crisismmd(vlm, task_config: dict, config: dict) -> dict:
     df_valid = df.iloc[valid_idx].reset_index(drop=True)
     df_valid["_resolved_image_path"] = [image_paths[i] for i in valid_idx]
 
+    audit = prepare_audit(df_valid, task_config, config, "crisismmd", task_config.get("task", "genres"),
+                          id_col, text_col, label_col, prompt_set)
+
     texts = df_valid[text_col].fillna("").astype(str).tolist()
 
     batch_size = config.get("inference", {}).get("batch_size", 16)
@@ -190,7 +200,7 @@ def run_crisismmd(vlm, task_config: dict, config: dict) -> dict:
 
     predictions, p, p_img, p_text, text_empty_mask = predict_single_label(
         vlm, images, texts, class_embeds, label_order,
-        batch_size=batch_size, image_weight=image_weight
+        batch_size=batch_size, image_weight=image_weight, diagnostics=audit
     )
     df_valid["_text_was_empty"] = text_empty_mask
 
@@ -203,6 +213,9 @@ def run_crisismmd(vlm, task_config: dict, config: dict) -> dict:
         result = evaluate_binary(y_true, predictions, p[:, positive_idx], positive_label, label_order=label_order)
     else:
         result = evaluate_single_label(y_true, predictions, label_order, low_sample_classes=low_sample)
+
+    result.update(finish_audit(audit, vlm, df_valid, texts, y_true, label_order,
+                               p, p_img, p_text, text_empty_mask, image_weight))
 
     save_single_label_log(
         df_valid, y_true, predictions, p, label_order,
@@ -248,6 +261,9 @@ def run_mmimdb(vlm, task_config: dict, config: dict) -> dict:
     df_valid = df.iloc[valid_idx].reset_index(drop=True)
     df_valid["_resolved_image_path"] = [image_paths[i] for i in valid_idx]
 
+    audit = prepare_audit(df_valid, task_config, config, "mmimdb", task_config.get("task", "genres"),
+                          id_col, text_col, label_col, prompt_set)
+
     texts = df_valid[text_col].fillna("").astype(str).tolist()
 
     threshold = resolve_override(
@@ -256,6 +272,7 @@ def run_mmimdb(vlm, task_config: dict, config: dict) -> dict:
         vlm.model_name,
     )
     fallback_top1 = task_config.get("fallback_top1", True)
+    decision_options, decision_meta = multilabel_settings(task_config, threshold)
     batch_size = config.get("inference", {}).get("batch_size", 16)
     image_weight = get_image_weight(config, "mmimdb")
 
@@ -263,6 +280,7 @@ def run_mmimdb(vlm, task_config: dict, config: dict) -> dict:
         vlm, images, texts, class_embeds, label_order,
         threshold=threshold,
         fallback_top1=fallback_top1,
+        **decision_options, diagnostics=audit,
         batch_size=batch_size,
         image_weight=image_weight,
     )
@@ -271,6 +289,11 @@ def run_mmimdb(vlm, task_config: dict, config: dict) -> dict:
 
     y_true = [parse_multilabel(value) for value in df_valid[label_col].tolist()]
     result = evaluate_multi_label(y_true, predictions, label_order)
+    result.update(decision_meta)
+
+    result.update(finish_audit(audit, vlm, df_valid, texts, y_true, label_order,
+                               probs, p_img, p_text, text_empty_mask, image_weight,
+                               multilabel=True, decision_meta=decision_meta, fallback=fallback_top1))
 
     save_multi_label_log(
         df_valid, y_true, predictions, probs, label_order,
@@ -288,7 +311,7 @@ def run_mmimdb(vlm, task_config: dict, config: dict) -> dict:
             "min_text_length": 0,
             "logit_scale": getattr(vlm, "logit_scale", 100.0),
             "logit_bias": getattr(vlm, "logit_bias", 0.0),
-            "threshold": threshold, "fallback_top1": fallback_top1,
+            **decision_meta, "fallback_top1": fallback_top1,
         },
     )
 
@@ -348,10 +371,11 @@ def main():
             if vlm is not None: vlm.unload()
 
     summary_df = pd.DataFrame(all_results)
-    summary_df.to_csv(config["output"]["summary_table"], index=False)
+    summary_paths = shared.save_summary_tables(all_results, config["output"]["summary_table"])
 
     print(f"\n{'=' * 70}")
-    print(f"Đã lưu summary tại: {config['output']['summary_table']}")
+    for summary_path in summary_paths:
+        print(f"Đã lưu summary tại: {summary_path}")
     print(f"{'=' * 70}")
     print(summary_df)
 

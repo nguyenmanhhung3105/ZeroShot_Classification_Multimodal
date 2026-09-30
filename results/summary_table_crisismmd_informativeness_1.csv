@@ -1,0 +1,2 @@
+model,dataset,task,task_type,accuracy,macro_f1,micro_f1
+metaclip2_vith14,crisismmd,informativeness,single_label,0.817,0.8169975396335885,0.817

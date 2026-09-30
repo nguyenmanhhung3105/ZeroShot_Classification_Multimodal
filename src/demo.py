@@ -52,7 +52,8 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from run import common as shared
 from models.model_registry import load_model
-from inference import build_class_embeddings, predict_single_label, predict_multi_label
+from inference import build_class_embeddings, predict_single_label, predict_multi_label, multilabel_settings
+from evaluation_audit import prepare_audit, finish_audit
 from evaluate import evaluate_single_label, evaluate_binary, evaluate_multi_label
 from logging_utils import save_single_label_log, save_multi_label_log
 from prompts import fakeddit_prompts, crisismmd_prompts, mmimdb_prompts
@@ -63,7 +64,7 @@ from prompts import fakeddit_prompts, crisismmd_prompts, mmimdb_prompts
 # ============================================================
 
 CONFIG_PATH = "configs/experiment_config.yaml"  # SỬA: khớp với main.py (trước là "config/..." — sai tên thư mục)
-N_SAMPLES =20
+N_SAMPLES = 20
 BATCH_SIZE = 4
 LOG_DIR = "results/demo_logs"
 OUTPUT_DIR = "results/demo"
@@ -234,7 +235,7 @@ def visualize(df, images, text_col, true_col, dataset_name, task, model_name):
 # RUN DATASET
 # ============================================================
 
-def run_dataset(vlm, model_name: str, dataset_name: str, task_config: dict, image_weight: float) -> dict:
+def run_dataset(vlm, model_name: str, dataset_name: str, task_config: dict, image_weight: float, config=None) -> dict:
     prompt_module = PROMPT_MODULES[dataset_name]
     task_type = task_config["task_type"]
     task = task_config.get("task", "genres")
@@ -323,6 +324,8 @@ def run_dataset(vlm, model_name: str, dataset_name: str, task_config: dict, imag
     df_valid["_resolved_image_path"] = [image_paths[i] for i in valid_idx]
 
     texts = df_valid[text_col].fillna("").astype(str).tolist()
+    audit = prepare_audit(df_valid, task_config, config or {}, dataset_name, task,
+                          id_col, text_col, label_col, prompt_set, scope="demo", limit=limit)
 
     print(f"[DATA] Samples : {len(df_valid)}")
     print(f"[MODEL] Classes: {label_order}")
@@ -336,7 +339,7 @@ def run_dataset(vlm, model_name: str, dataset_name: str, task_config: dict, imag
     if task_type == "single_label":
         predictions, p, p_img, p_text, text_empty_mask = predict_single_label(
             vlm, images, texts, class_embeds, label_order,
-            batch_size=BATCH_SIZE, image_weight=image_weight,
+            batch_size=BATCH_SIZE, image_weight=image_weight, diagnostics=audit,
         )
         df_valid["_text_was_empty"] = text_empty_mask
         df_valid["predicted"] = predictions
@@ -364,6 +367,8 @@ def run_dataset(vlm, model_name: str, dataset_name: str, task_config: dict, imag
             )
             result = evaluate_single_label(y_true, predictions, label_order, low_sample_classes=low_sample)
 
+        result.update(finish_audit(audit, vlm, df_valid, texts, y_true, label_order,
+                                   p, p_img, p_text, text_empty_mask, image_weight))
         log_dir = call_with_supported_kwargs(
             save_single_label_log,
             df_valid, y_true, predictions, p, label_order,
@@ -407,11 +412,13 @@ def run_dataset(vlm, model_name: str, dataset_name: str, task_config: dict, imag
         model_name,
     )
     fallback_top1 = task_config.get("fallback_top1", True)
+    decision_options, decision_meta = multilabel_settings(task_config, threshold)
 
     predictions, probs, p_img, p_text, used_fallback, text_empty_mask = predict_multi_label(
         vlm, images, texts, class_embeds, label_order,
         threshold=threshold,
         fallback_top1=fallback_top1,
+        **decision_options, diagnostics=audit,
         batch_size=BATCH_SIZE,
         image_weight=image_weight,
     )
@@ -421,6 +428,10 @@ def run_dataset(vlm, model_name: str, dataset_name: str, task_config: dict, imag
 
     y_true = [parse_multilabel(value) for value in df_valid[label_col].tolist()]
     result = evaluate_multi_label(y_true, predictions, label_order)
+    result.update(decision_meta)
+    result.update(finish_audit(audit, vlm, df_valid, texts, y_true, label_order,
+                               probs, p_img, p_text, text_empty_mask, image_weight,
+                               multilabel=True, decision_meta=decision_meta, fallback=fallback_top1))
 
     log_dir = call_with_supported_kwargs(
         save_multi_label_log,
@@ -436,7 +447,7 @@ def run_dataset(vlm, model_name: str, dataset_name: str, task_config: dict, imag
         sim_text=p_text,
         extra_manifest={
             "max_samples": limit,
-            "threshold": threshold,
+            **decision_meta,
             "fallback_top1": fallback_top1,
             "batch_size": BATCH_SIZE,
             "image_weight": image_weight,
@@ -495,7 +506,7 @@ def main():
                 image_weight = get_image_weight(config, dataset_name)
 
                 try:
-                    result = run_dataset(vlm, model_name, dataset_name, task_config, image_weight)
+                    result = run_dataset(vlm, model_name, dataset_name, task_config, image_weight, config=config)
                 except Exception as e:
                     print(f"[ERROR] {model_name} x {dataset_name}: {e}")
                     result = {"error": str(e)}
@@ -513,11 +524,12 @@ def main():
     if all_results:
         os.makedirs(OUTPUT_DIR, exist_ok=True)
         summary_df = pd.DataFrame(all_results)
-        summary_path = os.path.join(OUTPUT_DIR, "demo_summary.csv")
-        summary_df.to_csv(summary_path, index=False)
+        summary_paths = shared.save_summary_tables(
+            all_results, os.path.join(OUTPUT_DIR, "demo_summary.tsv"))
 
         print("\n" + "=" * 80)
-        print(f"[OUTPUT] Summary: {summary_path}")
+        for summary_path in summary_paths:
+            print(f"[OUTPUT] Summary: {summary_path}")
         print(summary_df)
 
 

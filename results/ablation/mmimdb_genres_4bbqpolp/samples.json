@@ -1,0 +1,106 @@
+[
+  {
+    "sample_index": 0,
+    "id": "0142248",
+    "image_path": "data/processed/pro_mmimdb/images/0142248.jpeg",
+    "text_sha256": "b54a6661f1ada4148f20e765d45c55c25d7982af05aa40aeb7daca1397e4970c",
+    "y_true": [
+      "Animation",
+      "Action",
+      "Adventure",
+      "Family",
+      "Mystery"
+    ]
+  },
+  {
+    "sample_index": 1,
+    "id": "0042179",
+    "image_path": "data/processed/pro_mmimdb/images/0042179.jpeg",
+    "text_sha256": "5c599fbd1dcd52b516dae25ab04340f88cc902c323e9aee50fde0a06826d1dad",
+    "y_true": [
+      "Adventure",
+      "Comedy"
+    ]
+  },
+  {
+    "sample_index": 2,
+    "id": "0109424",
+    "image_path": "data/processed/pro_mmimdb/images/0109424.jpeg",
+    "text_sha256": "15bdb2e37cd57e57defc4298b07abc9f02feefb60730b69942ced3af3bc9739d",
+    "y_true": [
+      "Comedy",
+      "Drama",
+      "Romance"
+    ]
+  },
+  {
+    "sample_index": 3,
+    "id": "0058430",
+    "image_path": "data/processed/pro_mmimdb/images/0058430.jpeg",
+    "text_sha256": "0074d13513f479f1bc5eb83131c01ae385a3f7bfcbcf1dab867e6fc729907bf0",
+    "y_true": [
+      "Horror"
+    ]
+  },
+  {
+    "sample_index": 4,
+    "id": "1059969",
+    "image_path": "data/processed/pro_mmimdb/images/1059969.jpeg",
+    "text_sha256": "0eb2f189f1471b85e4532b19e225ee5662309e245669d2d39154d8f9cccadf15",
+    "y_true": [
+      "Comedy",
+      "Drama"
+    ]
+  },
+  {
+    "sample_index": 5,
+    "id": "0095107",
+    "image_path": "data/processed/pro_mmimdb/images/0095107.jpeg",
+    "text_sha256": "8b56c7e8755941395df103e74d9bd7b61d54c00d8907649e731868b37b07a765",
+    "y_true": [
+      "Comedy",
+      "Family",
+      "Fantasy"
+    ]
+  },
+  {
+    "sample_index": 6,
+    "id": "0258827",
+    "image_path": "data/processed/pro_mmimdb/images/0258827.jpeg",
+    "text_sha256": "9781a226a90a4d7597271a75c00ea94442a153b69db8da8c1c437fad548e490e",
+    "y_true": [
+      "Comedy"
+    ]
+  },
+  {
+    "sample_index": 7,
+    "id": "0197213",
+    "image_path": "data/processed/pro_mmimdb/images/0197213.jpeg",
+    "text_sha256": "cd6abca0a81825648816e99a56c18acac28d1ac4f176eb01a8081bfb6a4b7177",
+    "y_true": [
+      "Comedy"
+    ]
+  },
+  {
+    "sample_index": 8,
+    "id": "0292501",
+    "image_path": "data/processed/pro_mmimdb/images/0292501.jpeg",
+    "text_sha256": "0700620c6c7114f394b45d9d3f19cf78ae73699f9bd0bf7c6fdd65a67602c2f5",
+    "y_true": [
+      "Comedy",
+      "Drama",
+      "Romance"
+    ]
+  },
+  {
+    "sample_index": 9,
+    "id": "0097576",
+    "image_path": "data/processed/pro_mmimdb/images/0097576.jpeg",
+    "text_sha256": "b18c6093f52292fc3230ca4f5d110cfa2745bfa103365c2545b23503d0f48279",
+    "y_true": [
+      "Action",
+      "Adventure",
+      "Fantasy"
+    ]
+  }
+]

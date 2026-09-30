@@ -1,2 +1,2 @@
 model,dataset,task,task_type,accuracy,macro_f1,micro_f1
-dfn5b_vith14,fakeddit,2way,single_label,0.59249873289407,0.4636629204365643,0.59249873289407
+metaclip2_vith14,fakeddit,6way,single_label,0.23237410071942446,0.17740068734878114,0.23237410071942446

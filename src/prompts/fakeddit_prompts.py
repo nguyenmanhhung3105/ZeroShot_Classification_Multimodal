@@ -107,30 +107,45 @@ LABEL_NAMES_2WAY = {0: "fake", 1: "real"}
 # ============================================================
 # BỘ PROMPT CHO 6_WAY_LABEL (chi tiết loại giả mạo)
 # ============================================================
+# Bản thử nghiệm: tiêu đề Reddit có thể là chuyện đời thường, hài hước hoặc tin tức.
+# Các câu cùng lớp được lấy trung bình bởi build_class_embeddings; chưa có
+# nhánh prompt riêng cho ảnh/text hay bộ kiểm tra quan hệ ảnh-caption.
 PROMPTS_6WAY = {
     0: [  # True
-        "a real news post that is completely true and accurate",
-        "an authentic photo with an accurate, truthful caption",
+        "a factual Reddit post accurately describing a real person, object, or event",
+        "an authentic photograph of a real scene with an accurate description",
+        "a truthful social media caption presenting an event in its original context",
+        "a genuine photograph documenting an ordinary or unusual real-life situation",
     ],
     1: [  # Satire/Parody
-        "a satirical or parody post meant to be humorous, not taken seriously",
-        "a joke post that mimics real news for comedic effect",
+        "a satirical Reddit post using fictional events to mock real news or social issues",
+        "a parody headline exaggerating a situation for humor rather than factual reporting",
+        "a satirical illustration or parody image making fun of a public figure or event",
+        "a humorous imitation of a news story intended as satire",
     ],
     2: [  # False Connection
-        "a post where the image and caption are unrelated to each other",
-        "a real photo paired with a caption that describes something different",
+        "a Reddit caption claiming something that the attached photograph does not show",
+        "a social media title describing a different person, object, or event from the image",
+        "a photograph paired with an unrelated headline or an invented personal story",
+        "a real image given a caption that assigns it a different meaning",
     ],
     3: [  # Imposter Content
-        "a post impersonating a legitimate news source or organization",
-        "fake content pretending to come from a trustworthy source",
+        "a social media post pretending to be an official statement from a trusted organization",
+        "a fabricated quotation or announcement falsely attributed to a real person",
+        "an image imitating a news outlet, official account, or organization to appear authentic",
+        "a forged screenshot presenting an impersonated source as a genuine author",
     ],
     4: [  # Manipulated Content
-        "a photo that has been digitally edited or manipulated",
-        "an image altered with photo editing to deceive viewers",
+        "a digitally edited photograph with objects or people added, removed, or altered",
+        "a photo montage combining parts of different images into an artificial scene",
+        "a Reddit post presenting a photoshopped scene or a visually altered object",
+        "a manipulated image changing the appearance of a person, animal, or place",
     ],
     5: [  # Misleading Content
-        "a post that misrepresents facts in a misleading way",
-        "genuine information presented out of context to mislead readers",
+        "a Reddit post using selective facts or distorted claims to support a misleading conclusion",
+        "a social media caption presenting real information in a deceptive context",
+        "an image or graphic framing a real topic through selective or misleading information",
+        "a misleading explanation that exaggerates or misrepresents the meaning of an event",
     ],
 }
 

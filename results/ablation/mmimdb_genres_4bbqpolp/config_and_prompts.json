@@ -1,0 +1,598 @@
+{
+  "ablation": {
+    "base_config": "configs/experiment_config.yaml",
+    "dataset": "mmimdb",
+    "task": "genres",
+    "models": [
+      "metaclip2_vith14"
+    ],
+    "max_samples": 10,
+    "min_text_length": 20,
+    "image_weight": 0.5,
+    "batch_size": 4,
+    "split_prompts": true,
+    "decision_mode": "relative_z",
+    "relative_z_threshold": 1.0,
+    "prompt_routes": "configs/branch_prompt_routes.json",
+    "output_dir": "results/ablation",
+    "split": "exploratory"
+  },
+  "base": {
+    "models": [
+      "siglip2_so400m"
+    ],
+    "datasets": {
+      "fakeddit": {
+        "enabled": false,
+        "task": "6way",
+        "data_path": "data/processed/pro_fakeddit/fakeddit_sample.tsv",
+        "image_dir": "data/processed/pro_fakeddit/images",
+        "task_type": "single_label",
+        "id_col": "id",
+        "text_col": "clean_title",
+        "label_col_2way": "2_way_label",
+        "label_col_6way": "6_way_label",
+        "max_samples": 3000
+      },
+      "crisismmd": {
+        "enabled": true,
+        "task": "humanitarian",
+        "data_path": "data/processed/pro_crisismmd/pre_crisismmd.tsv",
+        "image_dir": "data/processed/pro_crisismmd/images",
+        "task_type": "single_label",
+        "id_col": "tweet_id",
+        "text_col": "clean_text",
+        "label_col": "label_humanitarian",
+        "max_samples": 3000
+      },
+      "mmimdb": {
+        "enabled": true,
+        "task": "genres",
+        "data_path": "data/processed/pro_mmimdb/mmimdb_sample.tsv",
+        "image_dir": "data/processed/pro_mmimdb/images",
+        "task_type": "multi_label",
+        "threshold": 0.22,
+        "id_col": "id",
+        "text_col": "plot",
+        "label_col": "genres",
+        "max_samples": 3000
+      }
+    },
+    "inference": {
+      "batch_size": 16,
+      "image_weight": 0.5
+    },
+    "demo": {
+      "n_samples": 10,
+      "batch_size": 4,
+      "prompt_version": "v1",
+      "log_dir": "results/demo_logs",
+      "visualization_dir": "results/demo"
+    },
+    "output": {
+      "results_dir": "results/",
+      "raw_predictions_dir": "results/raw_predictions/",
+      "summary_table": "results/summary_table.tsv"
+    }
+  },
+  "effective_dataset": {
+    "enabled": true,
+    "task": "genres",
+    "data_path": "data/processed/pro_mmimdb/mmimdb_sample.tsv",
+    "image_dir": "data/processed/pro_mmimdb/images",
+    "task_type": "multi_label",
+    "threshold": 0.22,
+    "id_col": "id",
+    "text_col": "plot",
+    "label_col": "genres",
+    "max_samples": 10
+  },
+  "min_text_length": 0,
+  "legacy_prompts": {
+    "Action": [
+      "a movie poster for an action film",
+      "an action movie featuring physical conflict, chases, or daring confrontations",
+      "a film about characters fighting opponents and surviving dangerous encounters",
+      "an action film with combat, martial arts, stunts, or high-speed pursuits"
+    ],
+    "Adventure": [
+      "a movie poster for an adventure film",
+      "an adventure movie about a journey, quest, or exploration of unfamiliar places",
+      "a film about characters overcoming obstacles while pursuing a difficult goal",
+      "an adventure story involving travel, discovery, danger, and unexpected encounters"
+    ],
+    "Animation": [
+      "a movie poster for an animated film",
+      "an animated movie told through drawn, computer-generated, or stop-motion characters",
+      "a film presenting its story through animation rather than live-action performances",
+      "an animated feature or short film with stylized characters and settings"
+    ],
+    "Biography": [
+      "a movie poster for a biographical film",
+      "a biographical movie portraying the life of a real person",
+      "a film about a real individual's personal struggles, relationships, and achievements",
+      "a biopic dramatizing important episodes in an actual person's life"
+    ],
+    "Comedy": [
+      "a movie poster for a comedy film",
+      "a comedy movie built around humorous situations and amusing characters",
+      "a film about misunderstandings, awkward encounters, or absurd situations played for laughs",
+      "a comic story using witty dialogue, satire, slapstick, or everyday humor"
+    ],
+    "Crime": [
+      "a movie poster for a crime film",
+      "a crime movie about criminals, detectives, or people drawn into illegal activities",
+      "a film about a robbery, murder, criminal organization, or police investigation",
+      "a story centered on committing crimes, pursuing offenders, or facing criminal consequences"
+    ],
+    "Documentary": [
+      "a movie poster for a documentary film",
+      "a documentary examining real people, events, or issues",
+      "a nonfiction film presenting interviews, observations, or archival evidence",
+      "a documentary recording real experiences or investigating a factual subject"
+    ],
+    "Drama": [
+      "a movie poster for a drama film",
+      "a drama exploring personal conflicts, difficult choices, and human relationships",
+      "a film about characters facing emotional struggles and significant changes in their lives",
+      "a character-driven dramatic story about family, society, loss, or personal growth"
+    ],
+    "Family": [
+      "a movie poster for a family film",
+      "a family movie intended to be enjoyed by children and adults together",
+      "a family-oriented story about friendship, belonging, courage, or growing up",
+      "a film for a broad family audience with accessible characters and themes"
+    ],
+    "Fantasy": [
+      "a movie poster for a fantasy film",
+      "a fantasy movie involving magic, mythical beings, or supernatural powers",
+      "a film about characters entering an enchanted world or encountering magical forces",
+      "a fantasy story where spells, legends, or impossible creatures shape events"
+    ],
+    "Film-Noir": [
+      "a movie poster for a film-noir crime drama",
+      "a film-noir story involving deception, moral ambiguity, and a doomed protagonist",
+      "a dark crime film about betrayal, corruption, or a dangerous entanglement",
+      "a noir film with shadowy imagery, cynical characters, and a fatalistic atmosphere"
+    ],
+    "History": [
+      "a movie poster for a historical film",
+      "a historical movie portraying significant events or social conditions of an earlier era",
+      "a film dramatizing actual historical events and the people involved",
+      "a story grounded in documented political, cultural, or social history"
+    ],
+    "Horror": [
+      "a movie poster for a horror film",
+      "a horror movie intended to evoke fear, dread, or terror",
+      "a film about characters facing a haunting, monstrous threat, or terrifying violence",
+      "a horror story with an ominous atmosphere and frightening encounters"
+    ],
+    "Music": [
+      "a movie poster for a film about music or musicians",
+      "a music-centered movie about performers, bands, composers, or musical careers",
+      "a film about creating music, rehearsing, recording, or performing in concerts",
+      "a story in which musical performance and the lives of musicians are central"
+    ],
+    "Musical": [
+      "a movie poster for a musical film",
+      "a musical in which characters sing or dance as part of telling the story",
+      "a film whose songs express characters' feelings and advance the narrative",
+      "a musical movie combining dramatic scenes with staged song-and-dance numbers"
+    ],
+    "Mystery": [
+      "a movie poster for a mystery film",
+      "a mystery movie about uncovering a hidden truth or explaining puzzling events",
+      "a film in which characters follow clues to solve a disappearance, secret, or unexplained incident",
+      "a mystery story built around unanswered questions and gradual revelations"
+    ],
+    "Short": [
+      "a movie poster for a short film",
+      "a short film with a brief running time",
+      "a short-format movie presenting a compact story or a focused cinematic idea",
+      "a brief cinematic work released as a short rather than a full-length feature"
+    ],
+    "Romance": [
+      "a movie poster for a romance film",
+      "a romantic movie centered on love, attraction, and intimate relationships",
+      "a film about people falling in love, separating, or trying to sustain a relationship",
+      "a romance story exploring courtship, heartbreak, longing, or reconciliation"
+    ],
+    "Sci-Fi": [
+      "a movie poster for a science fiction film",
+      "a science fiction movie exploring imagined science, technology, or future societies",
+      "a film involving space travel, alien life, time travel, robots, or advanced technology",
+      "a science fiction story about the consequences of a scientific discovery or technological change"
+    ],
+    "Sport": [
+      "a movie poster for a sports film",
+      "a sports movie about athletes, teams, training, or competition",
+      "a film about preparing for a sporting event and facing rivals or personal setbacks",
+      "a story centered on athletic performance, teamwork, and the pursuit of sporting success"
+    ],
+    "Thriller": [
+      "a movie poster for a thriller film",
+      "a thriller driven by suspense, escalating danger, and uncertainty",
+      "a film about characters caught in a pursuit, conspiracy, threat, or dangerous deception",
+      "a tense story in which characters struggle to escape danger or prevent a looming disaster"
+    ],
+    "War": [
+      "a movie poster for a war film",
+      "a war movie about armed conflict and its effects on soldiers or civilians",
+      "a film portraying military operations, battlefield survival, or life during wartime",
+      "a story centered on the human experiences and consequences of war"
+    ],
+    "Western": [
+      "a movie poster for a western film",
+      "a western set on the American frontier with cowboys, settlers, or outlaws",
+      "a film about frontier life, lawmen, ranchers, or conflicts in the Old West",
+      "a western story featuring frontier towns, horseback travel, and struggles over land or justice"
+    ]
+  },
+  "branch_prompts": {
+    "image": {
+      "Action": [
+        "a movie poster for an action film"
+      ],
+      "Adventure": [
+        "a movie poster for an adventure film"
+      ],
+      "Animation": [
+        "a movie poster for an animated film"
+      ],
+      "Biography": [
+        "a movie poster for a biographical film"
+      ],
+      "Comedy": [
+        "a movie poster for a comedy film"
+      ],
+      "Crime": [
+        "a movie poster for a crime film"
+      ],
+      "Documentary": [
+        "a movie poster for a documentary film"
+      ],
+      "Drama": [
+        "a movie poster for a drama film"
+      ],
+      "Family": [
+        "a movie poster for a family film"
+      ],
+      "Fantasy": [
+        "a movie poster for a fantasy film"
+      ],
+      "Film-Noir": [
+        "a movie poster for a film-noir crime drama"
+      ],
+      "History": [
+        "a movie poster for a historical film"
+      ],
+      "Horror": [
+        "a movie poster for a horror film"
+      ],
+      "Music": [
+        "a movie poster for a film about music or musicians"
+      ],
+      "Musical": [
+        "a movie poster for a musical film"
+      ],
+      "Mystery": [
+        "a movie poster for a mystery film"
+      ],
+      "Short": [
+        "a movie poster for a short film"
+      ],
+      "Romance": [
+        "a movie poster for a romance film"
+      ],
+      "Sci-Fi": [
+        "a movie poster for a science fiction film"
+      ],
+      "Sport": [
+        "a movie poster for a sports film"
+      ],
+      "Thriller": [
+        "a movie poster for a thriller film"
+      ],
+      "War": [
+        "a movie poster for a war film"
+      ],
+      "Western": [
+        "a movie poster for a western film"
+      ]
+    },
+    "text": {
+      "Action": [
+        "an action movie featuring physical conflict, chases, or daring confrontations",
+        "a film about characters fighting opponents and surviving dangerous encounters",
+        "an action film with combat, martial arts, stunts, or high-speed pursuits"
+      ],
+      "Adventure": [
+        "an adventure movie about a journey, quest, or exploration of unfamiliar places",
+        "a film about characters overcoming obstacles while pursuing a difficult goal",
+        "an adventure story involving travel, discovery, danger, and unexpected encounters"
+      ],
+      "Animation": [
+        "an animated movie told through drawn, computer-generated, or stop-motion characters",
+        "a film presenting its story through animation rather than live-action performances",
+        "an animated feature or short film with stylized characters and settings"
+      ],
+      "Biography": [
+        "a biographical movie portraying the life of a real person",
+        "a film about a real individual's personal struggles, relationships, and achievements",
+        "a biopic dramatizing important episodes in an actual person's life"
+      ],
+      "Comedy": [
+        "a comedy movie built around humorous situations and amusing characters",
+        "a film about misunderstandings, awkward encounters, or absurd situations played for laughs",
+        "a comic story using witty dialogue, satire, slapstick, or everyday humor"
+      ],
+      "Crime": [
+        "a crime movie about criminals, detectives, or people drawn into illegal activities",
+        "a film about a robbery, murder, criminal organization, or police investigation",
+        "a story centered on committing crimes, pursuing offenders, or facing criminal consequences"
+      ],
+      "Documentary": [
+        "a documentary examining real people, events, or issues",
+        "a nonfiction film presenting interviews, observations, or archival evidence",
+        "a documentary recording real experiences or investigating a factual subject"
+      ],
+      "Drama": [
+        "a drama exploring personal conflicts, difficult choices, and human relationships",
+        "a film about characters facing emotional struggles and significant changes in their lives",
+        "a character-driven dramatic story about family, society, loss, or personal growth"
+      ],
+      "Family": [
+        "a family movie intended to be enjoyed by children and adults together",
+        "a family-oriented story about friendship, belonging, courage, or growing up",
+        "a film for a broad family audience with accessible characters and themes"
+      ],
+      "Fantasy": [
+        "a fantasy movie involving magic, mythical beings, or supernatural powers",
+        "a film about characters entering an enchanted world or encountering magical forces",
+        "a fantasy story where spells, legends, or impossible creatures shape events"
+      ],
+      "Film-Noir": [
+        "a film-noir story involving deception, moral ambiguity, and a doomed protagonist",
+        "a dark crime film about betrayal, corruption, or a dangerous entanglement",
+        "a noir film with shadowy imagery, cynical characters, and a fatalistic atmosphere"
+      ],
+      "History": [
+        "a historical movie portraying significant events or social conditions of an earlier era",
+        "a film dramatizing actual historical events and the people involved",
+        "a story grounded in documented political, cultural, or social history"
+      ],
+      "Horror": [
+        "a horror movie intended to evoke fear, dread, or terror",
+        "a film about characters facing a haunting, monstrous threat, or terrifying violence",
+        "a horror story with an ominous atmosphere and frightening encounters"
+      ],
+      "Music": [
+        "a music-centered movie about performers, bands, composers, or musical careers",
+        "a film about creating music, rehearsing, recording, or performing in concerts",
+        "a story in which musical performance and the lives of musicians are central"
+      ],
+      "Musical": [
+        "a musical in which characters sing or dance as part of telling the story",
+        "a film whose songs express characters' feelings and advance the narrative",
+        "a musical movie combining dramatic scenes with staged song-and-dance numbers"
+      ],
+      "Mystery": [
+        "a mystery movie about uncovering a hidden truth or explaining puzzling events",
+        "a film in which characters follow clues to solve a disappearance, secret, or unexplained incident",
+        "a mystery story built around unanswered questions and gradual revelations"
+      ],
+      "Short": [
+        "a short film with a brief running time",
+        "a short-format movie presenting a compact story or a focused cinematic idea",
+        "a brief cinematic work released as a short rather than a full-length feature"
+      ],
+      "Romance": [
+        "a romantic movie centered on love, attraction, and intimate relationships",
+        "a film about people falling in love, separating, or trying to sustain a relationship",
+        "a romance story exploring courtship, heartbreak, longing, or reconciliation"
+      ],
+      "Sci-Fi": [
+        "a science fiction movie exploring imagined science, technology, or future societies",
+        "a film involving space travel, alien life, time travel, robots, or advanced technology",
+        "a science fiction story about the consequences of a scientific discovery or technological change"
+      ],
+      "Sport": [
+        "a sports movie about athletes, teams, training, or competition",
+        "a film about preparing for a sporting event and facing rivals or personal setbacks",
+        "a story centered on athletic performance, teamwork, and the pursuit of sporting success"
+      ],
+      "Thriller": [
+        "a thriller driven by suspense, escalating danger, and uncertainty",
+        "a film about characters caught in a pursuit, conspiracy, threat, or dangerous deception",
+        "a tense story in which characters struggle to escape danger or prevent a looming disaster"
+      ],
+      "War": [
+        "a war movie about armed conflict and its effects on soldiers or civilians",
+        "a film portraying military operations, battlefield survival, or life during wartime",
+        "a story centered on the human experiences and consequences of war"
+      ],
+      "Western": [
+        "a western set on the American frontier with cowboys, settlers, or outlaws",
+        "a film about frontier life, lawmen, ranchers, or conflicts in the Old West",
+        "a western story featuring frontier towns, horseback travel, and struggles over land or justice"
+      ]
+    }
+  },
+  "routes": {
+    "fakeddit": {
+      "2way": {
+        "image": [
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23
+        ],
+        "text": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ]
+      },
+      "6way": {
+        "image": {
+          "0": [
+            1,
+            3
+          ],
+          "1": [
+            2
+          ],
+          "2": [
+            2,
+            3
+          ],
+          "3": [
+            2,
+            3
+          ],
+          "4": [
+            0,
+            1,
+            3
+          ],
+          "5": [
+            2
+          ]
+        },
+        "text": {
+          "0": [
+            0,
+            2
+          ],
+          "1": [
+            0,
+            1,
+            3
+          ],
+          "2": [
+            0,
+            1
+          ],
+          "3": [
+            0,
+            1
+          ],
+          "4": [
+            2
+          ],
+          "5": [
+            0,
+            1,
+            3
+          ]
+        }
+      }
+    },
+    "crisismmd": {
+      "informativeness": {
+        "image": {
+          "informative": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24,
+            25,
+            26
+          ],
+          "not_informative": [
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23
+          ]
+        },
+        "text": {
+          "informative": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "not_informative": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+          ]
+        }
+      },
+      "humanitarian": {
+        "image": [
+          2,
+          3
+        ],
+        "text": [
+          0,
+          1
+        ]
+      }
+    },
+    "mmimdb": {
+      "genres": {
+        "image": [
+          0
+        ],
+        "text": [
+          1,
+          2,
+          3
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,20 @@
+# Independent runner; existing experiment config / entry points stay unchanged.
+base_config: configs/experiment_config.yaml
+dataset: mmimdb
+task: genres
+models: [metaclip2_vith14]
+max_samples: 10
+min_text_length: 20
+image_weight: 0.5
+batch_size: 4
+# false: legacy only. true: legacy AND branch-specific prompts on identical samples.
+split_prompts: true
+# MM-IMDb only: add relative-cosine decisions alongside the legacy baseline.
+decision_mode: relative_z
+relative_z_threshold: 1.0  # fixed exploratory value, NOT selected using val labels
+prompt_routes: configs/branch_prompt_routes.json
+output_dir: results/ablation
+# No claim of a held-out split: do not tune against test labels.
+split: exploratory
+# For a verified validation file, set split: val AND provide data_path explicitly.
+# data_path: path/to/verified_validation.tsv

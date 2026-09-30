@@ -1,0 +1,22 @@
+{
+  "max_samples": 10,
+  "decision_mode": "relative_z",
+  "score_type": "relative_z",
+  "threshold": null,
+  "relative_z_threshold": 1.0,
+  "model_scale_applied": false,
+  "apply_bias_to_text": false,
+  "fallback_top1": true,
+  "batch_size": 4,
+  "image_weight": 0.5,
+  "logit_scale": 109.88121795654297,
+  "logit_bias": -15.932409286499023,
+  "model": "siglip2_so400m",
+  "dataset": "mmimdb",
+  "task": "multi_label",
+  "prompt_version": "v1",
+  "n_total_samples": 10,
+  "n_errors": 10,
+  "error_rate": 1.0,
+  "timestamp": "2026-09-30T23:43:44.220493"
+}
