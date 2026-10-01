@@ -149,6 +149,9 @@ PROMPTS_6WAY = {
     ],
 }
 
+# Verified against Fakeddit collaborator Sharon Levy's label mapping:
+# https://github.com/entitize/Fakeddit/issues/14#issuecomment-815355653
+# Unlike 2-way (1=true), 6-way uses 0=true. Do not reorder IDs by score.
 LABEL_NAMES_6WAY = {
     0: "True",
     1: "Satire/Parody",

@@ -1,9 +1,11 @@
 """Read-only scoring diagnostics and explicit cohort locks; no fitting or tuning."""
 import hashlib
 import json
+import os
 from pathlib import Path
 import re
 import subprocess
+import tempfile
 import warnings
 
 import numpy as np
@@ -15,11 +17,32 @@ def digest(value):
     return hashlib.sha256(json.dumps(value, sort_keys=True, ensure_ascii=False, default=str).encode()).hexdigest()
 
 
+def _create_lock(path, cohort):
+    """Publish a complete JSON atomically, without replacing an existing lock."""
+    temporary = None
+    try:
+        with tempfile.NamedTemporaryFile(mode="w", encoding="utf-8", dir=path.parent,
+                                         prefix=".cohort-", suffix=".tmp", delete=False) as stream:
+            temporary = Path(stream.name)
+            json.dump(cohort, stream, ensure_ascii=False, indent=2)
+            stream.flush()
+            os.fsync(stream.fileno())
+        try:
+            os.link(temporary, path)
+        except FileExistsError:
+            pass
+    finally:
+        if temporary is not None:
+            temporary.unlink(missing_ok=True)
+
+
 def prepare_audit(frame, task_config, config, dataset, task, id_col, text_col, label_col,
                   prompts, *, scope="main", limit=None):
     settings = config.get("evaluation", {})
     if not settings.get("enabled", False):
         return None
+    if frame.empty:
+        raise ValueError("Cannot lock an empty evaluation cohort")
     rows = []
     for _, row in frame.iterrows():
         path = str(row.get("_resolved_image_path", row.get("image_path", "")))
@@ -46,11 +69,7 @@ def prepare_audit(frame, task_config, config, dataset, task, id_col, text_col, l
         lock_path = root / f"{name}.json"
         if mode == "create_or_verify":
             root.mkdir(parents=True, exist_ok=True)
-            try:
-                with lock_path.open("x", encoding="utf-8") as stream:
-                    json.dump(cohort, stream, ensure_ascii=False, indent=2)
-            except FileExistsError:
-                pass
+            _create_lock(lock_path, cohort)
         if not lock_path.exists():
             raise ValueError(f"Sample lock missing: {lock_path}")
         with lock_path.open(encoding="utf-8") as stream:
@@ -62,7 +81,6 @@ def prepare_audit(frame, task_config, config, dataset, task, id_col, text_col, l
              "config": config, "effective_dataset": task_config, "prompts": prompts,
              "prompt_id": digest(prompts), "split": settings.get("split", "unverified"),
              "split_verified": False, "truncate_enabled": settings.get("measure_truncation", True)}
-    frame.attrs["evaluation_audit"] = audit
     return audit
 
 
@@ -103,8 +121,13 @@ def finish_audit(audit, vlm, frame, texts, truth, labels, fused, image, text, em
     relative = meta.get("score_type") == "relative_z"
     cutoff = meta.get("relative_z_threshold", 1.0) if relative else meta.get("threshold", 0.22)
     empty = np.asarray(empty, dtype=bool)
-    if len(truth) != len(texts) or empty.shape != (len(texts),):
+    if (len(truth) != len(texts) or len(frame) != len(texts)
+            or len(audit["cohort"]["samples"]) != len(texts) or empty.shape != (len(texts),)):
         raise ValueError("Audit sample alignment mismatch")
+    for scores in (fused, image, text):
+        values = np.asarray(scores)
+        if values.shape != (len(texts), len(labels)) or not np.isfinite(values).all():
+            raise ValueError("Audit scores must be finite and match samples/labels")
     report, summary = [], {"sample_set_id": audit["sample_set_id"], "prompt_id": audit["prompt_id"],
                            "split": audit["split"]}
     for branch, scores in (("image", image), ("text", text), ("fusion", fused)):
@@ -155,10 +178,21 @@ def finish_audit(audit, vlm, frame, texts, truth, labels, fused, image, text, em
     audit["truncation"] = {"status": status, "context_length": context, "n_nonempty": int((~empty).sum()),
                            "n_measured": len(measured), "n_truncated": truncated if measured else None,
                            "truncated_rate": truncated / len(measured) if measured else None}
+    # Keep the rate visible next to the text-branch diagnostics. It measures all
+    # nonempty inputs, including when the text encoder is disabled by weight=1.
+    report[1].update({f"input_{key}": value for key, value in audit["truncation"].items()})
     if truncated:
-        print(f"[TRUNCATE] {truncated}/{len(measured)} texts exceed context_length={context}")
-    audit["text_lengths"] = [{"sample_index": i, "token_count": n,
+        print(f"[INPUT LENGTH] {truncated}/{len(measured)} original texts exceed context_length={context}")
+    audit["text_lengths"] = [{"sample_index": i, "id": audit["cohort"]["samples"][i]["id"], "token_count": n,
                              "truncated": n > context if n is not None else None} for i, n in enumerate(lengths)]
+    chunking = audit.get("chunking")
+    if chunking:
+        report[1].update(chunking_enabled=True, total_chunks=chunking["total_chunks"],
+                         n_chunked_texts=chunking["n_chunked_texts"])
+        for row, count in zip(audit["text_lengths"], chunking["counts"]):
+            row["n_chunks"] = count
+            row["encoded_chunk_truncated"] = False if count else None
+        print(f"[CHUNKING] {chunking['n_chunked_texts']} texts split; {chunking['total_chunks']} chunks encoded")
     audit["diagnostics"] = report
     audit["summary"] = summary
     audit["model"] = vlm.model_name
@@ -166,21 +200,26 @@ def finish_audit(audit, vlm, frame, texts, truth, labels, fused, image, text, em
                                  "prompts": audit["prompts"], "inference": audit["effective_inference"],
                                  "model": vlm.model_name})
     summary["config_id"] = audit["config_id"]
-    frame.attrs["evaluation_audit"] = audit
-    print(pd.DataFrame(report).to_string(index=False))
+    display = pd.DataFrame(report)
+    columns = [c for c in ("branch", "n_samples", "micro_f1", "macro_f1", "samples_f1",
+                           "balanced_accuracy", "mean_predicted_labels", "fallback_rate") if c in display]
+    print(display[columns].to_string(index=False))
     return summary
 
 
-def save_audit(frame, run_dir):
-    audit = frame.attrs.get("evaluation_audit")
+def save_audit(audit, run_dir):
     if not audit:
         return
     root = Path(run_dir)
     source = Path(__file__).resolve().parent
     audit["source_sha256"] = {str(p.relative_to(source)): hashlib.sha256(p.read_bytes()).hexdigest()
                               for p in source.rglob("*.py") if "__pycache__" not in p.parts}
-    git = subprocess.run(["git", "rev-parse", "HEAD"], cwd=source.parent, capture_output=True, text=True)
-    audit["git_hash"] = git.stdout.strip() if git.returncode == 0 else None
+    try:
+        git = subprocess.run(["git", "rev-parse", "HEAD"], cwd=source.parent,
+                             capture_output=True, text=True, timeout=5)
+        audit["git_hash"] = git.stdout.strip() if git.returncode == 0 else None
+    except (OSError, subprocess.TimeoutExpired):
+        audit["git_hash"] = None
     pd.DataFrame(audit["diagnostics"]).to_csv(root / "diagnostics.tsv", sep="\t", index=False)
     pd.DataFrame(audit["text_lengths"]).to_csv(root / "text_lengths.tsv", sep="\t", index=False)
     with (root / "evaluation_snapshot.json").open("w", encoding="utf-8") as stream:

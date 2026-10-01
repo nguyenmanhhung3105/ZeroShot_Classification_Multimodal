@@ -24,6 +24,7 @@ console (vd: ghi log file, job chấm điểm tự động).
 """
 
 import numpy as np
+from text_scale import validate_text_scale
 
 try:
     from tqdm.auto import tqdm as _tqdm
@@ -148,7 +149,8 @@ def _clean_texts(texts: list) -> list:
 
 def encode_multimodal_embeddings(vlm, images: list, texts: list, batch_size: int = 16,
                                   show_progress: bool = True, desc: str = "Encoding",
-                                  image_weight: float = None) -> tuple:
+                                  image_weight: float = None, chunk_long_text=False,
+                                  diagnostics=None, max_sim_classes=None, chunk_scores=None) -> tuple:
     """Encode theo batch, bỏ nhánh có trọng số 0; giữ fallback ảnh khi text rỗng."""
     if len(images) != len(texts) or not texts:
         raise ValueError("Ảnh và text phải cùng số mẫu và không rỗng")
@@ -158,6 +160,11 @@ def encode_multimodal_embeddings(vlm, images: list, texts: list, batch_size: int
         raise ValueError("image_weight phải nằm trong [0, 1]")
     texts = _clean_texts(texts)
     text_empty_mask = np.array([t == "" for t in texts])
+    chunk_counts = [0] * len(texts)
+    if max_sim_classes is not None:
+        if not chunk_long_text or chunk_scores is None:
+            raise ValueError("max_sim requires chunking and a score output buffer")
+        chunk_scores["text"] = np.zeros((len(texts), len(max_sim_classes)))
     image_embeds = text_embeds = None
     iterator = _progress_iter(range(0, len(images), batch_size), enabled=show_progress,
                               desc=desc, unit="batch")
@@ -178,7 +185,23 @@ def encode_multimodal_embeddings(vlm, images: list, texts: list, batch_size: int
                     for img in batch:
                         img.close()
         if text_indices:
-            encoded_text = _to_numpy(vlm.encode_texts([texts[i] for i in text_indices]))
+            if max_sim_classes is not None:
+                from text_chunking import encode_chunked_max_sim
+                scores, counts = encode_chunked_max_sim(
+                    vlm, [texts[i] for i in text_indices], batch_size, max_sim_classes)
+                chunk_scores["text"][text_indices] = scores
+                # No single text vector represents per-class maximum scores.
+                encoded_text = np.zeros((len(text_indices), max_sim_classes.shape[1]), dtype=scores.dtype)
+                for i, count in zip(text_indices, counts):
+                    chunk_counts[i] = count
+            elif chunk_long_text:
+                from text_chunking import encode_chunked_texts
+                encoded_text, counts = encode_chunked_texts(
+                    vlm, [texts[i] for i in text_indices], batch_size)
+                for i, count in zip(text_indices, counts):
+                    chunk_counts[i] = count
+            else:
+                encoded_text = _to_numpy(vlm.encode_texts([texts[i] for i in text_indices]))
         if image_embeds is None:
             prototype = encoded_image if encoded_image is not None else encoded_text
             image_embeds = np.zeros((len(images), prototype.shape[1]), dtype=prototype.dtype)
@@ -187,6 +210,10 @@ def encode_multimodal_embeddings(vlm, images: list, texts: list, batch_size: int
             image_embeds[image_indices] = _l2_normalize(encoded_image)
         if encoded_text is not None:
             text_embeds[text_indices] = _l2_normalize(encoded_text)
+    if chunk_long_text and diagnostics is not None:
+        diagnostics["chunking"] = {"enabled": True, "aggregation": "max_sim" if max_sim_classes is not None else "mean_embed",
+                                  "counts": chunk_counts, "total_chunks": sum(chunk_counts),
+                                  "n_chunked_texts": sum(n > 1 for n in chunk_counts)}
     return image_embeds, text_embeds, text_empty_mask
 
 
@@ -208,6 +235,9 @@ def predict_single_label(vlm, images: list, texts: list, class_embeds: np.ndarra
         p_text         : np.ndarray (N, n_classes) — probability riêng nhánh text, DÙNG ĐỂ LOG/DEBUG
         text_empty_mask: np.ndarray[bool] (N,)
     """
+    validate_text_scale(text_logit_scale)
+    if not 0 <= image_weight <= 1:
+        raise ValueError('image_weight must be in [0, 1]')
     image_embeds, text_embeds, text_empty_mask = encode_multimodal_embeddings(
         vlm, images, texts, batch_size=batch_size,
         show_progress=show_progress, desc="Single-label inference", image_weight=image_weight,
@@ -238,7 +268,8 @@ def predict_multi_label(vlm, images: list, texts: list, class_embeds: np.ndarray
                          batch_size: int = 16, image_weight: float = 0.5,
                          text_logit_scale: float = None, show_progress: bool = True,
                          decision_mode="fixed_threshold",
-                         relative_z_threshold=1.0, diagnostics=None) -> tuple:
+                         relative_z_threshold=1.0, diagnostics=None,
+                         chunk_long_text=False, chunk_aggregation="mean_embed") -> tuple:
     """
     Multi-label multimodal inference cho MM-IMDb.
 
@@ -263,18 +294,27 @@ def predict_multi_label(vlm, images: list, texts: list, class_embeds: np.ndarray
     """
     if decision_mode not in ("fixed_threshold", "relative_z"):
         raise ValueError("Unknown decision_mode")
+    validate_text_scale(text_logit_scale)
+    if chunk_aggregation not in ("mean_embed", "max_sim"):
+        raise ValueError("chunk_aggregation must be mean_embed or max_sim")
     relative = decision_mode == "relative_z"
     if relative and (not np.isfinite(relative_z_threshold) or relative_z_threshold < 0):
         raise ValueError("relative_z_threshold must be finite and nonnegative")
     if not relative and not 0 <= threshold <= 1:
         raise ValueError("threshold phải nằm trong [0, 1]")
+    use_max = chunk_long_text and chunk_aggregation == "max_sim"
+    if not 0 <= image_weight <= 1:
+        raise ValueError('image_weight must be in [0, 1]')
+    chunk_scores = {}
     image_embeds, text_embeds, text_empty_mask = encode_multimodal_embeddings(
         vlm, images, texts, batch_size=batch_size,
         show_progress=show_progress, desc="Multi-label inference", image_weight=image_weight,
+        chunk_long_text=chunk_long_text, diagnostics=diagnostics,
+        max_sim_classes=class_embeds if use_max else None, chunk_scores=chunk_scores,
     )
 
     sim_image = image_embeds @ class_embeds.T
-    sim_text = text_embeds @ class_embeds.T
+    sim_text = chunk_scores["text"] if use_max else text_embeds @ class_embeds.T
 
     if relative:
         probs, p_img, p_text = relative_multilabel_scores(sim_image, sim_text, image_weight, text_empty_mask)
@@ -331,12 +371,20 @@ def multilabel_settings(task_config, threshold):
     """Main MM-IMDb runners default to relative_z; legacy API remains opt-in compatible."""
     mode = task_config.get("decision_mode", "relative_z")
     cutoff = task_config.get("relative_z_threshold", 1.0)
-    options = {"decision_mode": mode, "relative_z_threshold": cutoff}
+    chunking = task_config.get("chunk_long_text", False)
+    if not isinstance(chunking, bool):
+        raise ValueError("chunk_long_text must be a YAML boolean")
+    aggregation = task_config.get("chunk_aggregation", "mean_embed")
+    if aggregation not in ("mean_embed", "max_sim"):
+        raise ValueError("chunk_aggregation must be mean_embed or max_sim")
+    options = {"decision_mode": mode, "relative_z_threshold": cutoff,
+               "chunk_long_text": chunking, "chunk_aggregation": aggregation}
     relative = mode == "relative_z"
     metadata = {"decision_mode": mode, "score_type": "relative_z" if relative else "probability",
                 "threshold": None if relative else threshold,
                 "relative_z_threshold": cutoff if relative else None,
-                "model_scale_applied": not relative, "apply_bias_to_text": not relative}
+                "model_scale_applied": not relative, "apply_bias_to_text": not relative,
+                "chunk_long_text": chunking, "chunk_aggregation": aggregation if chunking else None}
     return options, metadata
 
 

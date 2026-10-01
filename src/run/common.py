@@ -288,6 +288,43 @@ def call_with_supported_kwargs(func, *args, **kwargs):
 # VÒNG LẶP MODEL DÙNG CHUNG (thay cho main() lặp lại 3 lần)
 # ============================================================
 
+def compact_summary(rows):
+    """Presentation only: detailed branch metrics/config stay in per-run logs."""
+    frame = (rows.copy() if isinstance(rows, pd.DataFrame) else pd.DataFrame(rows))
+    comparison = {"image_macro_f1", "text_macro_f1", "fusion_macro_f1",
+                  "image_n_samples", "text_n_samples", "fusion_n_samples"}
+    if comparison.issubset(frame.columns):
+        comparable = ((frame["fusion_n_samples"] > 0) &
+                      frame["image_n_samples"].eq(frame["fusion_n_samples"]) &
+                      frame["text_n_samples"].eq(frame["fusion_n_samples"]) &
+                      frame[["image_macro_f1", "text_macro_f1", "fusion_macro_f1"]].notna().all(axis=1))
+        best = frame[["image_macro_f1", "text_macro_f1"]].max(axis=1)
+        frame["fusion_macro_f1_gain"] = (frame["fusion_macro_f1"] - best).where(comparable)
+        frame["fusion_improves_macro_f1"] = frame["fusion_macro_f1_gain"].gt(1e-12).astype("boolean").where(comparable)
+    if "fusion_n_samples" in frame:
+        frame["n_samples"] = frame["fusion_n_samples"]
+    for metric in ("micro_f1", "macro_f1", "samples_f1", "balanced_accuracy"):
+        source = f"fusion_{metric}"
+        if source in frame:
+            frame[metric] = frame[source].combine_first(frame[metric]) if metric in frame else frame[source]
+    details = {"task_type", "score_type", "model_scale_applied", "apply_bias_to_text",
+               "sample_set_id", "prompt_id", "config_id", "hamming_accuracy"}
+    # Drop only known audit fields, not arbitrary caller-defined result columns.
+    scale_columns = {"text_logit_scale_effective", "text_logit_scale_status",
+                     "image_label_enabled", "text_label_enabled",
+                     "text_logit_scale_requested", "text_scale_override_applied",
+                     "fusion_enabled", "image_weight", "text_weight",
+                     "image_macro_f1", "text_macro_f1",
+                     "fusion_macro_f1_gain", "fusion_improves_macro_f1"}
+    drop = [c for c in frame if c not in scale_columns and
+            (c in details or c.startswith(("image_", "text_", "fusion_")))]
+    frame = frame.drop(columns=drop)
+    for column in ("threshold", "relative_z_threshold"):
+        if column in frame and frame[column].isna().all():
+            frame = frame.drop(columns=[column])
+    return frame
+
+
 def save_numbered_summary(rows, base_path: str, dataset_name: str, task_name: str) -> str:
     """Lưu TSV có số thứ tự; chấp nhận cả base_path .csv của config cũ."""
     root, _ = os.path.splitext(os.fspath(base_path))
@@ -305,7 +342,7 @@ def save_numbered_summary(rows, base_path: str, dataset_name: str, task_name: st
             if match:
                 last_number = max(last_number, int(match.group(1)))
     number = last_number + 1
-    frame = rows if isinstance(rows, pd.DataFrame) else pd.DataFrame(rows)
+    frame = compact_summary(rows)
     while True:
         summary_path = f"{prefix}{number}{ext}"
         try:
@@ -386,6 +423,6 @@ def run_all_models_for_dataset(dataset_name: str, runner_fn, config: dict) -> pd
     print(f"\n{'=' * 70}")
     print(f"Đã lưu summary tại: {summary_path}")
     print(f"{'=' * 70}")
-    print(summary_df)
+    print(compact_summary(summary_df).to_string(index=False))
 
     return summary_df

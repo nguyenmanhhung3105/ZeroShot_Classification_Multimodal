@@ -54,6 +54,8 @@ from run import common as shared
 from models.model_registry import load_model
 from inference import build_class_embeddings, predict_single_label, predict_multi_label, multilabel_settings
 from evaluation_audit import prepare_audit, finish_audit
+from text_scale import text_scale_settings
+from modality_branches import modality_settings
 from evaluate import evaluate_single_label, evaluate_binary, evaluate_multi_label
 from logging_utils import save_single_label_log, save_multi_label_log
 from prompts import fakeddit_prompts, crisismmd_prompts, mmimdb_prompts
@@ -329,6 +331,9 @@ def run_dataset(vlm, model_name: str, dataset_name: str, task_config: dict, imag
 
     print(f"[DATA] Samples : {len(df_valid)}")
     print(f"[MODEL] Classes: {label_order}")
+    image_weight, branch_meta = modality_settings(task_config, image_weight)
+    text_scale, scale_meta = text_scale_settings(config, dataset_name, vlm, task_config, image_weight)
+    scale_meta.update(branch_meta)
 
     os.makedirs(LOG_DIR, exist_ok=True)
     os.makedirs(OUTPUT_DIR, exist_ok=True)
@@ -339,7 +344,7 @@ def run_dataset(vlm, model_name: str, dataset_name: str, task_config: dict, imag
     if task_type == "single_label":
         predictions, p, p_img, p_text, text_empty_mask = predict_single_label(
             vlm, images, texts, class_embeds, label_order,
-            batch_size=BATCH_SIZE, image_weight=image_weight, diagnostics=audit,
+            batch_size=BATCH_SIZE, image_weight=image_weight, diagnostics=audit, text_logit_scale=text_scale,
         )
         df_valid["_text_was_empty"] = text_empty_mask
         df_valid["predicted"] = predictions
@@ -367,6 +372,7 @@ def run_dataset(vlm, model_name: str, dataset_name: str, task_config: dict, imag
             )
             result = evaluate_single_label(y_true, predictions, label_order, low_sample_classes=low_sample)
 
+        result.update(scale_meta)
         result.update(finish_audit(audit, vlm, df_valid, texts, y_true, label_order,
                                    p, p_img, p_text, text_empty_mask, image_weight))
         log_dir = call_with_supported_kwargs(
@@ -381,7 +387,9 @@ def run_dataset(vlm, model_name: str, dataset_name: str, task_config: dict, imag
             prompt_version=PROMPT_VERSION,
             sim_image=p_img,
             sim_text=p_text,
+            evaluation_audit=audit,
             extra_manifest={
+                **scale_meta,
                 "max_samples": limit,
                 "min_text_length": task_config.get("min_text_length", 20) if dataset_name == "fakeddit" else 0,
                 "batch_size": BATCH_SIZE,
@@ -418,7 +426,7 @@ def run_dataset(vlm, model_name: str, dataset_name: str, task_config: dict, imag
         vlm, images, texts, class_embeds, label_order,
         threshold=threshold,
         fallback_top1=fallback_top1,
-        **decision_options, diagnostics=audit,
+        **decision_options, diagnostics=audit, text_logit_scale=text_scale,
         batch_size=BATCH_SIZE,
         image_weight=image_weight,
     )
@@ -429,6 +437,7 @@ def run_dataset(vlm, model_name: str, dataset_name: str, task_config: dict, imag
     y_true = [parse_multilabel(value) for value in df_valid[label_col].tolist()]
     result = evaluate_multi_label(y_true, predictions, label_order)
     result.update(decision_meta)
+    result.update(scale_meta)
     result.update(finish_audit(audit, vlm, df_valid, texts, y_true, label_order,
                                probs, p_img, p_text, text_empty_mask, image_weight,
                                multilabel=True, decision_meta=decision_meta, fallback=fallback_top1))
@@ -445,7 +454,9 @@ def run_dataset(vlm, model_name: str, dataset_name: str, task_config: dict, imag
         prompt_version=PROMPT_VERSION,
         sim_image=p_img,
         sim_text=p_text,
+        evaluation_audit=audit,
         extra_manifest={
+            **scale_meta,
             "max_samples": limit,
             **decision_meta,
             "fallback_top1": fallback_top1,
@@ -530,7 +541,7 @@ def main():
         print("\n" + "=" * 80)
         for summary_path in summary_paths:
             print(f"[OUTPUT] Summary: {summary_path}")
-        print(summary_df)
+        print(shared.compact_summary(summary_df).to_string(index=False))
 
 
 if __name__ == "__main__":

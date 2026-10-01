@@ -70,6 +70,47 @@ class SummaryOutputTests(unittest.TestCase):
             self.assertEqual(len(set(paths)), 4)
             self.assertEqual(sorted(pd.read_csv(p, sep="\t").iloc[0]["run"] for p in paths), list(range(4)))
 
+    def test_compact_summary_preserves_metrics_errors_and_input(self):
+        rows = [{"model": "m", "macro_f1": .4, "fusion_macro_f1": .4,
+                 "fusion_samples_f1": .5, "fusion_n_samples": 1000,
+                 "image_macro_f1": .3, "text_macro_f1": .2,
+                 "config_id": "full-hash", "chunk_long_text": True,
+                 "threshold": None, "relative_z_threshold": 1., "hamming_accuracy": .9},
+                {"model": "failed", "error": "Sample lock mismatch"}]
+        original = pd.DataFrame(rows)
+        compact = self.common.compact_summary(original)
+        self.assertEqual(compact.iloc[0]['samples_f1'], .5)
+        self.assertEqual(compact.iloc[0]['n_samples'], 1000)
+        self.assertEqual(compact.iloc[1]['error'], 'Sample lock mismatch')
+        self.assertTrue(compact.iloc[0]['chunk_long_text'])
+        self.assertNotIn('config_id', compact)
+        self.assertNotIn('threshold', compact)
+        self.assertNotIn('fusion_macro_f1', compact)
+        self.assertEqual(compact.iloc[0]['image_macro_f1'], .3)
+        # Missing branch sample counts: no unsupported improvement claim.
+        self.assertNotIn('fusion_macro_f1_gain', compact)
+        pd.testing.assert_frame_equal(original, pd.DataFrame(rows))
+        with tempfile.TemporaryDirectory() as directory:
+            path = self.common.save_numbered_summary(rows, str(Path(directory) / 'summary.tsv'), 'mmimdb', 'genres')
+            saved = pd.read_csv(path, sep='\t')
+            self.assertEqual(saved.columns.tolist(), compact.columns.tolist())
+
+    def test_summary_fusion_gain_requires_same_cohort(self):
+        row = {'image_macro_f1': .4, 'text_macro_f1': .3, 'fusion_macro_f1': .45,
+               'image_n_samples': 10, 'text_n_samples': 10, 'fusion_n_samples': 10,
+               'image_weight': .75, 'text_weight': .25, 'fusion_enabled': True,
+               'text_logit_scale_requested': 25, 'text_logit_scale_effective': 25,
+               'text_scale_override_applied': True, 'text_logit_scale_status': 'manual'}
+        frame = self.common.compact_summary([row, {**row, 'fusion_macro_f1': .35},
+                                            {**row, 'text_n_samples': 9}])
+        self.assertAlmostEqual(frame.iloc[0]['fusion_macro_f1_gain'], .05)
+        self.assertTrue(frame.iloc[0]['fusion_improves_macro_f1'])
+        self.assertAlmostEqual(frame.iloc[1]['fusion_macro_f1_gain'], -.05)
+        self.assertFalse(frame.iloc[1]['fusion_improves_macro_f1'])
+        self.assertTrue(pd.isna(frame.iloc[2]['fusion_improves_macro_f1']))
+        self.assertEqual(frame.iloc[0]['image_weight'], .75)
+        self.assertTrue(frame.iloc[0]['text_scale_override_applied'])
+
     def test_main_and_demo_use_numbered_summaries(self):
         for module in (self.main, self.demo):
             with self.subTest(entry=module.__name__), tempfile.TemporaryDirectory() as directory:

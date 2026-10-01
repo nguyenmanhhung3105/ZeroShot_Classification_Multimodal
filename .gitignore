@@ -5,6 +5,12 @@ venv/
 # Raw dataset
 data/raw/
 
+# backup files
+backup/
+
+# results
+results/
+
 # Large / unnecessary processed dataset
 data/processed/pro_fakeddit/fakeddit_clean.tsv
 

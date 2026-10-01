@@ -15,6 +15,8 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from evaluation_audit import prepare_audit, finish_audit
+from text_scale import text_scale_settings
+from modality_branches import modality_settings
 from inference import build_class_embeddings, predict_multi_label, multilabel_settings
 from evaluate import evaluate_multi_label
 from logging_utils import save_multi_label_log
@@ -71,6 +73,9 @@ def run_mmimdb(vlm, task_config: dict, config: dict) -> dict:
     decision_options, decision_meta = multilabel_settings(task_config, threshold)
     batch_size = config.get("inference", {}).get("batch_size", 16)
     image_weight = get_image_weight(config, "mmimdb")
+    image_weight, branch_meta = modality_settings(task_config, image_weight)
+    text_scale, scale_meta = text_scale_settings(config, "mmimdb", vlm, task_config, image_weight)
+    scale_meta.update(branch_meta)
 
     predictions, probs, p_img, p_text, used_fallback, text_empty_mask = predict_multi_label(
         vlm, images, texts, class_embeds, label_order,
@@ -78,7 +83,7 @@ def run_mmimdb(vlm, task_config: dict, config: dict) -> dict:
         fallback_top1=fallback_top1,
         batch_size=batch_size,
         image_weight=image_weight,
-        **decision_options, diagnostics=audit,
+        **decision_options, diagnostics=audit, text_logit_scale=text_scale,
     )
     df_valid["_text_was_empty"] = text_empty_mask
     df_valid["_used_top1_fallback"] = used_fallback
@@ -86,6 +91,7 @@ def run_mmimdb(vlm, task_config: dict, config: dict) -> dict:
     y_true = [parse_multilabel(value) for value in df_valid[label_col].tolist()]
     result = evaluate_multi_label(y_true, predictions, label_order)
     result.update(decision_meta)
+    result.update(scale_meta)
 
     result.update(finish_audit(audit, vlm, df_valid, texts, y_true, label_order,
                                probs, p_img, p_text, text_empty_mask, image_weight,
@@ -103,7 +109,9 @@ def run_mmimdb(vlm, task_config: dict, config: dict) -> dict:
         prompt_version=task_config.get("prompt_version", "v1"),
         sim_image=p_img,
         sim_text=p_text,
+        evaluation_audit=audit,
         extra_manifest={
+            **scale_meta,
             **decision_meta,
             "fallback_top1": fallback_top1,
             "max_samples": task_config.get("max_samples"),

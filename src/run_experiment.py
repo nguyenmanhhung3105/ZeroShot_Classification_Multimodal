@@ -19,6 +19,8 @@ from PIL import Image
 from run import common as shared
 from models.model_registry import load_model
 from evaluation_audit import prepare_audit, finish_audit
+from text_scale import text_scale_settings
+from modality_branches import modality_settings
 from inference import build_class_embeddings, predict_single_label, predict_multi_label, multilabel_settings
 from evaluate import evaluate_single_label, evaluate_binary, evaluate_multi_label
 from logging_utils import save_single_label_log, save_multi_label_log
@@ -124,10 +126,13 @@ def run_fakeddit(vlm, task_config: dict, config: dict) -> dict:
 
     batch_size = config.get("inference", {}).get("batch_size", 16)
     image_weight = get_image_weight(config, "fakeddit")
+    image_weight, branch_meta = modality_settings(task_config, image_weight)
+    text_scale, scale_meta = text_scale_settings(config, "fakeddit", vlm, task_config, image_weight)
+    scale_meta.update(branch_meta)
 
     predictions, p, p_img, p_text, text_empty_mask = predict_single_label(
         vlm, images, texts, class_embeds, label_order,
-        batch_size=batch_size, image_weight=image_weight, diagnostics=audit
+        batch_size=batch_size, image_weight=image_weight, diagnostics=audit, text_logit_scale=text_scale,
     )
     # Gắn thẳng vào df_valid để lọt vào log mà không cần sửa logging_utils.py
     df_valid["_text_was_empty"] = text_empty_mask
@@ -141,6 +146,7 @@ def run_fakeddit(vlm, task_config: dict, config: dict) -> dict:
     else:
         result = evaluate_single_label(y_true, predictions, label_order)
 
+    result.update(scale_meta)
     result.update(finish_audit(audit, vlm, df_valid, texts, y_true, label_order,
                                p, p_img, p_text, text_empty_mask, image_weight))
 
@@ -154,7 +160,9 @@ def run_fakeddit(vlm, task_config: dict, config: dict) -> dict:
         output_dir=config["output"]["raw_predictions_dir"],
         prompt_version=task_config.get("prompt_version", "v1"),
         sim_image=p_img, sim_text=p_text,
+        evaluation_audit=audit,
         extra_manifest={
+            **scale_meta,
             "batch_size": batch_size, "image_weight": image_weight,
             "max_samples": task_config.get("max_samples"),
             "min_text_length": task_config.get("min_text_length", 20),
@@ -197,10 +205,13 @@ def run_crisismmd(vlm, task_config: dict, config: dict) -> dict:
 
     batch_size = config.get("inference", {}).get("batch_size", 16)
     image_weight = get_image_weight(config, "crisismmd")
+    image_weight, branch_meta = modality_settings(task_config, image_weight)
+    text_scale, scale_meta = text_scale_settings(config, "crisismmd", vlm, task_config, image_weight)
+    scale_meta.update(branch_meta)
 
     predictions, p, p_img, p_text, text_empty_mask = predict_single_label(
         vlm, images, texts, class_embeds, label_order,
-        batch_size=batch_size, image_weight=image_weight, diagnostics=audit
+        batch_size=batch_size, image_weight=image_weight, diagnostics=audit, text_logit_scale=text_scale,
     )
     df_valid["_text_was_empty"] = text_empty_mask
 
@@ -214,6 +225,7 @@ def run_crisismmd(vlm, task_config: dict, config: dict) -> dict:
     else:
         result = evaluate_single_label(y_true, predictions, label_order, low_sample_classes=low_sample)
 
+    result.update(scale_meta)
     result.update(finish_audit(audit, vlm, df_valid, texts, y_true, label_order,
                                p, p_img, p_text, text_empty_mask, image_weight))
 
@@ -227,8 +239,10 @@ def run_crisismmd(vlm, task_config: dict, config: dict) -> dict:
         output_dir=config["output"]["raw_predictions_dir"],
         prompt_version=task_config.get("prompt_version", "v1"),
         sim_image=p_img, sim_text=p_text,
+        evaluation_audit=audit,
         extra_manifest={
             "batch_size": batch_size, "image_weight": image_weight,
+            **scale_meta,
             "max_samples": task_config.get("max_samples"),
             "min_text_length": 0,
             "logit_scale": getattr(vlm, "logit_scale", 100.0),
@@ -275,12 +289,15 @@ def run_mmimdb(vlm, task_config: dict, config: dict) -> dict:
     decision_options, decision_meta = multilabel_settings(task_config, threshold)
     batch_size = config.get("inference", {}).get("batch_size", 16)
     image_weight = get_image_weight(config, "mmimdb")
+    image_weight, branch_meta = modality_settings(task_config, image_weight)
+    text_scale, scale_meta = text_scale_settings(config, "mmimdb", vlm, task_config, image_weight)
+    scale_meta.update(branch_meta)
 
     predictions, probs, p_img, p_text, used_fallback, text_empty_mask = predict_multi_label(
         vlm, images, texts, class_embeds, label_order,
         threshold=threshold,
         fallback_top1=fallback_top1,
-        **decision_options, diagnostics=audit,
+        **decision_options, diagnostics=audit, text_logit_scale=text_scale,
         batch_size=batch_size,
         image_weight=image_weight,
     )
@@ -290,6 +307,7 @@ def run_mmimdb(vlm, task_config: dict, config: dict) -> dict:
     y_true = [parse_multilabel(value) for value in df_valid[label_col].tolist()]
     result = evaluate_multi_label(y_true, predictions, label_order)
     result.update(decision_meta)
+    result.update(scale_meta)
 
     result.update(finish_audit(audit, vlm, df_valid, texts, y_true, label_order,
                                probs, p_img, p_text, text_empty_mask, image_weight,
@@ -305,6 +323,7 @@ def run_mmimdb(vlm, task_config: dict, config: dict) -> dict:
         output_dir=config["output"]["raw_predictions_dir"],
         prompt_version=task_config.get("prompt_version", "v1"),
         sim_image=p_img, sim_text=p_text,
+        evaluation_audit=audit,
         extra_manifest={
             "batch_size": batch_size, "image_weight": image_weight,
             "max_samples": task_config.get("max_samples"),
@@ -312,6 +331,7 @@ def run_mmimdb(vlm, task_config: dict, config: dict) -> dict:
             "logit_scale": getattr(vlm, "logit_scale", 100.0),
             "logit_bias": getattr(vlm, "logit_bias", 0.0),
             **decision_meta, "fallback_top1": fallback_top1,
+            **scale_meta,
         },
     )
 
@@ -377,7 +397,7 @@ def main():
     for summary_path in summary_paths:
         print(f"Đã lưu summary tại: {summary_path}")
     print(f"{'=' * 70}")
-    print(summary_df)
+    print(shared.compact_summary(summary_df).to_string(index=False))
 
 
 if __name__ == "__main__":
