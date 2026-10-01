@@ -1,0 +1,63 @@
+{
+  "version": "fakeddit_6way_definitions_v1",
+  "provenance": "Definition-based descriptions fixed before the comparison run; exploratory validation comparison, not a DCLIP reproduction.",
+  "label_mapping_source": "https://github.com/entitize/Fakeddit/issues/14#issuecomment-815355653",
+  "class_name_template": "a Reddit post classified as {label}",
+  "descriptor_template": "a Reddit post classified as {label}: {descriptor}",
+  "labels": {
+    "0": {
+      "name": "true content",
+      "descriptors": [
+        "a factual account representing a real person, object, or event accurately",
+        "authentic content presented with its original meaning and context",
+        "an accurate caption supported by the accompanying visual content",
+        "a genuine scene presented without fabrication or deceptive alteration"
+      ]
+    },
+    "1": {
+      "name": "satire or parody",
+      "descriptors": [
+        "a humorous fictional account that imitates factual reporting",
+        "exaggeration used to ridicule an idea, event, or public figure",
+        "an intentionally absurd claim presented for comic effect",
+        "an imitation of a familiar source or situation intended as a joke"
+      ]
+    },
+    "2": {
+      "name": "false connection",
+      "descriptors": [
+        "a headline making a claim that the attached content does not support",
+        "a caption and photograph referring to different events or situations",
+        "an unrelated visual attached to a story as if it were supporting evidence",
+        "a mismatch between what the title promises and what the content shows"
+      ]
+    },
+    "3": {
+      "name": "imposter content",
+      "descriptors": [
+        "a message falsely presented as coming from a trusted organization",
+        "an announcement attributed to a person or institution that did not issue it",
+        "a fabricated account or document impersonating an authentic source",
+        "a false claim of authorship or affiliation used to appear credible"
+      ]
+    },
+    "4": {
+      "name": "manipulated content",
+      "descriptors": [
+        "an existing photograph altered to change what it depicts",
+        "objects or people digitally inserted into or removed from a scene",
+        "separate visual elements combined into a fabricated composite",
+        "authentic visual material edited to create a deceptive impression"
+      ]
+    },
+    "5": {
+      "name": "misleading content",
+      "descriptors": [
+        "selective information used to frame a person or issue deceptively",
+        "relevant facts presented with an interpretation that distorts their meaning",
+        "important context omitted to steer the audience toward a false conclusion",
+        "a claim exaggerating what the available evidence actually supports"
+      ]
+    }
+  }
+}

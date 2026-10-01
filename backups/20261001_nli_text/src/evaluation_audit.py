@@ -118,8 +118,6 @@ def finish_audit(audit, vlm, frame, texts, truth, labels, fused, image, text, em
     audit["effective_inference"] = {**meta, "image_weight": weight, "fallback_top1": fallback,
                                     "logit_scale": getattr(vlm, "logit_scale", None),
                                     "logit_bias": getattr(vlm, "logit_bias", None)}
-    if "text_backend" in audit:
-        audit["effective_inference"]["text_backend"] = audit["text_backend"]
     relative = meta.get("score_type") == "relative_z"
     cutoff = meta.get("relative_z_threshold", 1.0) if relative else meta.get("threshold", 0.22)
     empty = np.asarray(empty, dtype=bool)
@@ -171,10 +169,7 @@ def finish_audit(audit, vlm, frame, texts, truth, labels, fused, image, text, em
                 row["entropy"] = float(entropy.mean())
             row.update(audit.get("cosine", {}).get(branch, {}))
         report.append(row)
-    backend_lengths = audit.get("backend_token_lengths")
-    if audit["truncate_enabled"] and backend_lengths is not None:
-        lengths, context, status = (backend_lengths[k] for k in ("lengths", "context", "status"))
-    elif audit["truncate_enabled"]:
+    if audit["truncate_enabled"]:
         lengths, context, status = token_lengths(vlm, texts)
     else:
         lengths, context, status = [None] * len(texts), None, "disabled"
@@ -183,14 +178,11 @@ def finish_audit(audit, vlm, frame, texts, truth, labels, fused, image, text, em
     audit["truncation"] = {"status": status, "context_length": context, "n_nonempty": int((~empty).sum()),
                            "n_measured": len(measured), "n_truncated": truncated if measured else None,
                            "truncated_rate": truncated / len(measured) if measured else None}
-    if backend_lengths is not None:
-        audit["truncation"]["token_count_unit"] = backend_lengths["unit"]
     # Keep the rate visible next to the text-branch diagnostics. It measures all
     # nonempty inputs, including when the text encoder is disabled by weight=1.
     report[1].update({f"input_{key}": value for key, value in audit["truncation"].items()})
     if truncated:
-        unit = "premise/hypothesis pairs (max per text)" if backend_lengths else "original texts"
-        print(f"[INPUT LENGTH] {truncated}/{len(measured)} {unit} exceed context_length={context}")
+        print(f"[INPUT LENGTH] {truncated}/{len(measured)} original texts exceed context_length={context}")
     audit["text_lengths"] = [{"sample_index": i, "id": audit["cohort"]["samples"][i]["id"], "token_count": n,
                              "truncated": n > context if n is not None else None} for i, n in enumerate(lengths)]
     chunking = audit.get("chunking")

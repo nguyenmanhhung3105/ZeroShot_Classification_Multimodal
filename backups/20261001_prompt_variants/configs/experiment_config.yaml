@@ -8,9 +8,9 @@
 # MODELS
 # ============================================================
 models:
-  # - metaclip2_vith14
+  - metaclip2_vith14
   # - dfn5b_vith14
-  - siglip2_so400m
+  # - siglip2_so400m
 
 # ============================================================
 # DATASETS
@@ -27,19 +27,6 @@ datasets:
     text_label_enabled: true         # text ↔ prompt nhãn
     enabled: true
     task: "6way"
-    text_backend: clip_text  # baseline; nli: BART-MNLI (hiện chỉ Fakeddit 6way)
-    # Đối chứng NLI: đặt prompt_variants: [current] và bỏ comment dòng dưới.
-    text_backends: [clip_text, nli]  # ưu tiên hơn text_backend; 2 dòng/model
-    nli:
-      model: facebook/bart-large-mnli
-      revision: d7645e127eaf1aefc7862fd59a17a5aa8558b8ce
-      device: cpu  # có thể chọn mps/cuda nếu đủ bộ nhớ; độc lập nhánh ảnh
-      batch_size: 4  # số cặp text/giả thuyết, không phải số mẫu
-      max_length: 1024  # gồm premise + hypothesis + special tokens; chỉ cắt premise
-      hypotheses_path: configs/prompts/fakeddit_6way_nli.json
-    prompt_variants: [current]  # current | class_name | descriptors
-    # Bỏ comment để chạy cả ba trong cùng một summary (ưu tiên hơn prompt_variant):
-    # prompt_variants: [current, class_name, descriptors]
     data_path: "data/processed/pro_fakeddit/fakeddit_sample.tsv"
     image_dir: "data/processed/pro_fakeddit/images"
     task_type: "single_label"
@@ -49,7 +36,6 @@ datasets:
     label_col_6way: 6_way_label
     min_text_length: 20
     max_samples: 1000
-    
 
   # ----------------------------------------------------------
   # CRISISMMD

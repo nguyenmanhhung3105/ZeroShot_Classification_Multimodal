@@ -311,7 +311,6 @@ def compact_summary(rows):
                "sample_set_id", "prompt_id", "config_id", "hamming_accuracy"}
     # Drop only known audit fields, not arbitrary caller-defined result columns.
     scale_columns = {"text_logit_scale_effective", "text_logit_scale_status",
-                     "text_backend",
                      "image_label_enabled", "text_label_enabled",
                      "text_logit_scale_requested", "text_scale_override_applied",
                      "fusion_enabled", "image_weight", "text_weight",
@@ -418,7 +417,7 @@ def run_all_models_for_dataset(dataset_name: str, runner_fn, config: dict) -> pd
 
 
 def prompt_trial_configs(dataset_name, task_config):
-    """Expand explicit prompt/backend choices; keep data, image model and fusion."""
+    """Expand prompt choices only; never change data, model, fusion or scale."""
     variants = task_config.get("prompt_variants")
     if variants is None:
         variants = [task_config.get("prompt_variant", "current")]
@@ -432,16 +431,7 @@ def prompt_trial_configs(dataset_name, task_config):
             raise ValueError(f"Unknown prompt variant: {variant}")
         if variant != "current" and (dataset_name != "fakeddit" or task_config.get("task") != "6way"):
             raise ValueError("Alternative prompt variants support only Fakeddit 6way")
-    backends = task_config.get("text_backends", [task_config.get("text_backend", "clip_text")])
-    if (not isinstance(backends, list) or not backends
-            or any(not isinstance(b, str) for b in backends) or len(set(backends)) != len(backends)):
-        raise ValueError("text_backends must be a nonempty list of unique backend names")
-    from nli_text import validate_backend
-    trials = [{**task_config, "prompt_variant": variant, "text_backend": backend}
-              for variant in variants for backend in backends]
-    for trial in trials:
-        validate_backend(trial, dataset_name)
-    return trials
+    return [{**task_config, "prompt_variant": variant} for variant in variants]
 
 
 def run_prompt_trials(run_one, model_name, dataset_name, task_config):
@@ -449,18 +439,16 @@ def run_prompt_trials(run_one, model_name, dataset_name, task_config):
     rows = []
     for active in prompt_trial_configs(dataset_name, task_config):
         variant = active["prompt_variant"]
-        backend = active["text_backend"]
-        print(f"[PROMPT] {dataset_name}/{active.get('task')}: {variant}; text_backend={backend}")
+        print(f"[PROMPT] {dataset_name}/{active.get('task')}: {variant}")
         try:
             metrics = run_one(active)
         except Exception as exc:
-            print(f"Lỗi {model_name} x {dataset_name} x {variant} x {backend}: {exc}")
+            print(f"Lỗi {model_name} x {dataset_name} x {variant}: {exc}")
             metrics = {"error": str(exc)}
         row = {"model": model_name, "dataset": dataset_name,
                "task": active.get("task", "-"), "task_type": active.get("task_type", "-")}
         if dataset_name == "fakeddit":
             row["prompt_variant"] = variant
-            row["text_backend"] = backend
         row.update(metrics or {})
         rows.append(row)
     return rows

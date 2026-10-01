@@ -56,7 +56,6 @@ from inference import build_class_embeddings, predict_single_label, predict_mult
 from evaluation_audit import prepare_audit, finish_audit
 from text_scale import text_scale_settings
 from modality_branches import modality_settings
-from nli_text import make_text_scorer, backend_summary, backend_manifest
 from evaluate import evaluate_single_label, evaluate_binary, evaluate_multi_label
 from logging_utils import save_single_label_log, save_multi_label_log
 from prompts import fakeddit_prompts, crisismmd_prompts, mmimdb_prompts
@@ -303,15 +302,10 @@ def run_dataset(vlm, model_name: str, dataset_name: str, task_config: dict, imag
 
 #-------------------------------------------------------------------------
 
-    prompt_meta = {}
-    if dataset_name == "fakeddit":
-        prompt_set = prompt_module.get_prompt_set(task, task_config.get("prompt_variant", "current"))
-        prompt_meta = prompt_module.prompt_metadata(task_config, prompt_set)
-    else:
-        try:
-            prompt_set = prompt_module.get_prompt_set(task)
-        except TypeError:
-            prompt_set = prompt_module.get_prompt_set()
+    try:
+        prompt_set = prompt_module.get_prompt_set(task)
+    except TypeError:
+        prompt_set = prompt_module.get_prompt_set()
 
     class_embeds, label_order = build_class_embeddings(vlm, prompt_set)
 
@@ -348,11 +342,9 @@ def run_dataset(vlm, model_name: str, dataset_name: str, task_config: dict, imag
     # SINGLE LABEL — Fakeddit / CrisisMMD
     # ========================================================
     if task_type == "single_label":
-        text_scorer = make_text_scorer(task_config, dataset_name, label_order)
         predictions, p, p_img, p_text, text_empty_mask = predict_single_label(
             vlm, images, texts, class_embeds, label_order,
             batch_size=BATCH_SIZE, image_weight=image_weight, diagnostics=audit, text_logit_scale=text_scale,
-            **({"text_scorer": text_scorer} if text_scorer is not None else {}),
         )
         df_valid["_text_was_empty"] = text_empty_mask
         df_valid["predicted"] = predictions
@@ -381,8 +373,6 @@ def run_dataset(vlm, model_name: str, dataset_name: str, task_config: dict, imag
             result = evaluate_single_label(y_true, predictions, label_order, low_sample_classes=low_sample)
 
         result.update(scale_meta)
-        result.update(prompt_meta)
-        result.update(backend_summary(text_scorer))
         result.update(finish_audit(audit, vlm, df_valid, texts, y_true, label_order,
                                    p, p_img, p_text, text_empty_mask, image_weight))
         log_dir = call_with_supported_kwargs(
@@ -400,9 +390,6 @@ def run_dataset(vlm, model_name: str, dataset_name: str, task_config: dict, imag
             evaluation_audit=audit,
             extra_manifest={
                 **scale_meta,
-                **prompt_meta,
-                **backend_manifest(text_scorer),
-                **({"rendered_prompts": prompt_set} if dataset_name == "fakeddit" else {}),
                 "max_samples": limit,
                 "min_text_length": task_config.get("min_text_length", 20) if dataset_name == "fakeddit" else 0,
                 "batch_size": BATCH_SIZE,
@@ -412,8 +399,6 @@ def run_dataset(vlm, model_name: str, dataset_name: str, task_config: dict, imag
             },
         )
 
-        if dataset_name == "fakeddit":
-            result["prediction_log_dir"] = log_dir
         for i, row in df_valid.iterrows():
             print(f"\n--- Mẫu {i + 1} | {row[id_col]} ---")
             print(f"Text : {row[text_col]}")
@@ -531,9 +516,18 @@ def main():
 
                 image_weight = get_image_weight(config, dataset_name)
 
-                all_results.extend(shared.run_prompt_trials(
-                    lambda active: run_dataset(vlm, model_name, dataset_name, active, image_weight, config=config),
-                    model_name, dataset_name, task_config))
+                try:
+                    result = run_dataset(vlm, model_name, dataset_name, task_config, image_weight, config=config)
+                except Exception as e:
+                    print(f"[ERROR] {model_name} x {dataset_name}: {e}")
+                    result = {"error": str(e)}
+
+                all_results.append({
+                    "model": model_name,
+                    "dataset": dataset_name,
+                    "task": task_config.get("task", "-"),
+                    **(result or {}),
+                })
         finally:
             if vlm is not None:
                 vlm.unload()

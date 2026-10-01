@@ -21,7 +21,6 @@ from models.model_registry import load_model
 from evaluation_audit import prepare_audit, finish_audit
 from text_scale import text_scale_settings
 from modality_branches import modality_settings
-from nli_text import make_text_scorer, backend_summary, backend_manifest
 from inference import build_class_embeddings, predict_single_label, predict_multi_label, multilabel_settings
 from evaluate import evaluate_single_label, evaluate_binary, evaluate_multi_label
 from logging_utils import save_single_label_log, save_multi_label_log
@@ -109,10 +108,8 @@ def run_fakeddit(vlm, task_config: dict, config: dict) -> dict:
 
     validate_columns(df, [id_col, text_col, label_col], "Fakeddit")
 
-    prompt_set = fakeddit_prompts.get_prompt_set(task, task_config.get("prompt_variant", "current"))
-    prompt_meta = fakeddit_prompts.prompt_metadata(task_config, prompt_set)
+    prompt_set = fakeddit_prompts.get_prompt_set(task)
     class_embeds, label_order = build_class_embeddings(vlm, prompt_set)
-    text_scorer = make_text_scorer(task_config, "fakeddit", label_order)
 
     image_paths = resolve_image_paths(df, task_config)
     images, valid_idx = load_images_safe(image_paths)
@@ -136,7 +133,6 @@ def run_fakeddit(vlm, task_config: dict, config: dict) -> dict:
     predictions, p, p_img, p_text, text_empty_mask = predict_single_label(
         vlm, images, texts, class_embeds, label_order,
         batch_size=batch_size, image_weight=image_weight, diagnostics=audit, text_logit_scale=text_scale,
-        **({"text_scorer": text_scorer} if text_scorer is not None else {}),
     )
     # Gắn thẳng vào df_valid để lọt vào log mà không cần sửa logging_utils.py
     df_valid["_text_was_empty"] = text_empty_mask
@@ -151,12 +147,10 @@ def run_fakeddit(vlm, task_config: dict, config: dict) -> dict:
         result = evaluate_single_label(y_true, predictions, label_order)
 
     result.update(scale_meta)
-    result.update(prompt_meta)
-    result.update(backend_summary(text_scorer))
     result.update(finish_audit(audit, vlm, df_valid, texts, y_true, label_order,
                                p, p_img, p_text, text_empty_mask, image_weight))
 
-    log_dir = save_single_label_log(
+    save_single_label_log(
         df_valid, y_true, predictions, p, label_order,
         id_col=id_col,
         text_col=text_col,
@@ -169,8 +163,6 @@ def run_fakeddit(vlm, task_config: dict, config: dict) -> dict:
         evaluation_audit=audit,
         extra_manifest={
             **scale_meta,
-            **prompt_meta, "rendered_prompts": prompt_set,
-            **backend_manifest(text_scorer),
             "batch_size": batch_size, "image_weight": image_weight,
             "max_samples": task_config.get("max_samples"),
             "min_text_length": task_config.get("min_text_length", 20),
@@ -179,7 +171,6 @@ def run_fakeddit(vlm, task_config: dict, config: dict) -> dict:
         },
     )
 
-    result["prediction_log_dir"] = log_dir
     return result
 
 
@@ -380,8 +371,21 @@ def main():
                     print(f"Chưa có runner cho dataset '{dataset_name}'")
                     continue
 
-                all_results.extend(shared.run_prompt_trials(
-                    lambda active: runner(vlm, active, config), model_name, dataset_name, dataset_config))
+                try:
+                    metrics = runner(vlm, dataset_config, config)
+                except Exception as e:
+                    print(f"Lỗi {model_name} x {dataset_name}: {e}")
+                    metrics = {"error": str(e)}
+
+                row = {
+                    "model": model_name,
+                    "dataset": dataset_name,
+                    "task": dataset_config.get("task", "-"),
+                    "task_type": dataset_config.get("task_type", "-"),
+                }
+
+                row.update(metrics)
+                all_results.append(row)
 
         finally:
             if vlm is not None: vlm.unload()

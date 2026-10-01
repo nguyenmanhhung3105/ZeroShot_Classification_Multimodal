@@ -7,12 +7,6 @@ nhiều câu prompt cho cùng 1 lớp, giúp kết quả ổn định hơn so v�
 dùng 1 câu template cứng.
 """
 
-import json
-from pathlib import Path
-
-PROMPT_VARIANTS = ("current", "class_name", "descriptors")
-VARIANT_FILE = Path(__file__).resolve().parents[2] / "configs/prompts/fakeddit_6way_variants.json"
-
 # ============================================================
 # BỘ PROMPT CHO 2_WAY_LABEL (binary: real vs fake)
 # ============================================================
@@ -168,53 +162,17 @@ LABEL_NAMES_6WAY = {
 }
 
 
-def get_prompt_set(task: str = "6way", variant: str = "current") -> dict:
+def get_prompt_set(task: str = "6way") -> dict:
     """
     task: "2way" hoặc "6way"
     Trả về dict {label_id: [danh sách câu prompt]}
     """
-    if variant not in PROMPT_VARIANTS:
-        raise ValueError(f"Unknown Fakeddit prompt variant: {variant!r}; choose {PROMPT_VARIANTS}")
-    if task != "6way" and variant != "current":
-        raise ValueError("Alternative prompts are supported only for Fakeddit 6way")
     if task == "2way":
         return PROMPTS_2WAY
     elif task == "6way":
-        if variant == "current":
-            return PROMPTS_6WAY
-        with VARIANT_FILE.open(encoding="utf-8") as stream:
-            spec = json.load(stream)
-        if set(spec["labels"]) != {str(i) for i in LABEL_NAMES_6WAY}:
-            raise ValueError("Prompt variant file must contain exactly label IDs 0..5")
-        prompts = {}
-        for label in LABEL_NAMES_6WAY:
-            entry = spec["labels"][str(label)]
-            if not isinstance(entry["name"], str) or not entry["name"].strip():
-                raise ValueError(f"Empty/invalid label name for {label}")
-            if variant == "class_name":
-                texts = [spec["class_name_template"].format(label=entry["name"])]
-            else:
-                descriptors = entry["descriptors"]
-                if not isinstance(descriptors, list) or len(descriptors) != 4 or any(
-                        not isinstance(d, str) or not d.strip() for d in descriptors):
-                    raise ValueError(f"Expected four nonempty descriptors for label {label}")
-                texts = [spec["descriptor_template"].format(label=entry["name"], descriptor=d)
-                         for d in descriptors]
-            if any(not t.strip() for t in texts):
-                raise ValueError(f"Empty rendered prompts for label {label}")
-            prompts[label] = texts
-        return prompts
+        return PROMPTS_6WAY
     else:
         raise ValueError(f"task phải là '2way' hoặc '6way', nhận được: {task}")
-
-
-def prompt_metadata(task_config, prompts):
-    """Small run identifiers; full rendered prompts are recorded in the manifest."""
-    variant = task_config.get("prompt_variant", "current")
-    counts = {len(values) for values in prompts.values()}
-    return {"prompt_variant": variant,
-            "prompts_per_label": next(iter(counts)) if len(counts) == 1 else None,
-            "prompt_definition_version": "legacy_current" if variant == "current" else "fakeddit_6way_definitions_v1"}
 
 
 def normalize_labels(values: list, task: str) -> list:

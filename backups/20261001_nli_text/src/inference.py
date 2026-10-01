@@ -150,8 +150,7 @@ def _clean_texts(texts: list) -> list:
 def encode_multimodal_embeddings(vlm, images: list, texts: list, batch_size: int = 16,
                                   show_progress: bool = True, desc: str = "Encoding",
                                   image_weight: float = None, chunk_long_text=False,
-                                  diagnostics=None, max_sim_classes=None, chunk_scores=None,
-                                  encode_text=True, embedding_dim=None) -> tuple:
+                                  diagnostics=None, max_sim_classes=None, chunk_scores=None) -> tuple:
     """Encode theo batch, bỏ nhánh có trọng số 0; giữ fallback ảnh khi text rỗng."""
     if len(images) != len(texts) or not texts:
         raise ValueError("Ảnh và text phải cùng số mẫu và không rỗng")
@@ -174,7 +173,7 @@ def encode_multimodal_embeddings(vlm, images: list, texts: list, batch_size: int
         image_indices = [i for i in range(start, end)
                          if image_weight is None or image_weight > 0 or text_empty_mask[i]]
         text_indices = [i for i in range(start, end)
-                        if encode_text and (image_weight is None or image_weight < 1) and not text_empty_mask[i]]
+                        if (image_weight is None or image_weight < 1) and not text_empty_mask[i]]
         encoded_image = encoded_text = None
         if image_indices:
             batch = [images[i] for i in image_indices]
@@ -205,12 +204,7 @@ def encode_multimodal_embeddings(vlm, images: list, texts: list, batch_size: int
                 encoded_text = _to_numpy(vlm.encode_texts([texts[i] for i in text_indices]))
         if image_embeds is None:
             prototype = encoded_image if encoded_image is not None else encoded_text
-            if prototype is None:
-                if not isinstance(embedding_dim, int) or embedding_dim < 1:
-                    raise ValueError("embedding_dim required when both encoders skip a batch")
-                image_embeds = np.zeros((len(images), embedding_dim), dtype=np.float32)
-            else:
-                image_embeds = np.zeros((len(images), prototype.shape[1]), dtype=prototype.dtype)
+            image_embeds = np.zeros((len(images), prototype.shape[1]), dtype=prototype.dtype)
             text_embeds = np.zeros_like(image_embeds)
         if encoded_image is not None:
             image_embeds[image_indices] = _l2_normalize(encoded_image)
@@ -226,15 +220,13 @@ def encode_multimodal_embeddings(vlm, images: list, texts: list, batch_size: int
 def predict_single_label(vlm, images: list, texts: list, class_embeds: np.ndarray, label_order: list,
                           batch_size: int = 16, image_weight: float = 0.5,
                           text_logit_scale: float = None, show_progress: bool = True,
-                          diagnostics=None, text_scorer=None) -> tuple:
+                          diagnostics=None) -> tuple:
     """
     Single-label multimodal inference cho Fakeddit / CrisisMMD.
 
     text_logit_scale: cho phép override scale riêng cho nhánh text (mặc định
     dùng chung logit_scale của model — xem lưu ý ở docstring đầu file).
     show_progress   : hiện % tiến trình trong lúc encode ảnh/text.
-    text_scorer     : optional frozen NLI scorer; bypasses VLM text encoding,
-                      text_logit_scale and logit_bias, preserves image/fusion.
 
     Returns:
         predictions    : list[str]
@@ -246,9 +238,6 @@ def predict_single_label(vlm, images: list, texts: list, class_embeds: np.ndarra
     validate_text_scale(text_logit_scale)
     if not 0 <= image_weight <= 1:
         raise ValueError('image_weight must be in [0, 1]')
-    if text_scorer is not None:
-        return _predict_with_nli(vlm, images, texts, class_embeds, label_order,
-                                 batch_size, image_weight, show_progress, diagnostics, text_scorer)
     image_embeds, text_embeds, text_empty_mask = encode_multimodal_embeddings(
         vlm, images, texts, batch_size=batch_size,
         show_progress=show_progress, desc="Single-label inference", image_weight=image_weight,
@@ -272,35 +261,6 @@ def predict_single_label(vlm, images: list, texts: list, class_embeds: np.ndarra
     predictions = [label_order[i] for i in pred_indices]
 
     return predictions, p, p_img, p_text, text_empty_mask
-
-
-def _predict_with_nli(vlm, images, texts, classes, labels, batch_size, weight,
-                      show_progress, diagnostics, scorer):
-    if list(scorer.labels) != list(labels):
-        raise ValueError("NLI and image class order mismatch")
-    image, _, empty = encode_multimodal_embeddings(
-        vlm, images, texts, batch_size=batch_size, image_weight=weight,
-        show_progress=show_progress, desc="NLI experiment: image inference",
-        encode_text=False, embedding_dim=classes.shape[1])
-    sim_image = image @ classes.T
-    p_img = _softmax(_calibrated_logits(vlm, sim_image), axis=-1)
-    if weight < 1:
-        p_text = np.asarray(scorer.predict(texts, show_progress=show_progress))
-    else:
-        p_text = np.full(p_img.shape, 1.0 / len(labels))
-        scorer.runtime["status"] = "unused_image_only"
-    if (p_text.shape != p_img.shape or not np.isfinite(p_text).all()
-            or np.any(p_text < 0) or not np.allclose(p_text.sum(axis=1), 1)):
-        raise ValueError("NLI scores must be finite normalized class probabilities")
-    if diagnostics is not None:
-        _record_cosine(diagnostics, sim_image, np.zeros_like(sim_image), weight, empty)
-        diagnostics["cosine"].pop("text", None)  # NLI does not produce cosine scores.
-        diagnostics["text_backend"] = scorer.manifest()
-        diagnostics["backend_token_lengths"] = scorer.length_info or {
-            "lengths": [None] * len(texts), "context": scorer.settings["max_length"],
-            "status": scorer.runtime["status"], "unit": "max_premise_hypothesis_pair_tokens"}
-    p = _weighted_fuse(p_img, p_text, weight, empty)
-    return [labels[i] for i in p.argmax(axis=1)], p, p_img, p_text, empty
 
 
 def predict_multi_label(vlm, images: list, texts: list, class_embeds: np.ndarray, label_order: list,

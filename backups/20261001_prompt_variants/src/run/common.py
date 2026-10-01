@@ -311,7 +311,6 @@ def compact_summary(rows):
                "sample_set_id", "prompt_id", "config_id", "hamming_accuracy"}
     # Drop only known audit fields, not arbitrary caller-defined result columns.
     scale_columns = {"text_logit_scale_effective", "text_logit_scale_status",
-                     "text_backend",
                      "image_label_enabled", "text_label_enabled",
                      "text_logit_scale_requested", "text_scale_override_applied",
                      "fusion_enabled", "image_weight", "text_weight",
@@ -400,8 +399,20 @@ def run_all_models_for_dataset(dataset_name: str, runner_fn, config: dict) -> pd
         try:
             vlm = load_model(model_name, device=config.get("device"))
 
-            all_results.extend(run_prompt_trials(
-                lambda active: runner_fn(vlm, active, config), model_name, dataset_name, task_config))
+            try:
+                metrics = runner_fn(vlm, task_config, config)
+            except Exception as e:
+                print(f"Lỗi {model_name} x {dataset_name}: {e}")
+                metrics = {"error": str(e)}
+
+            row = {
+                "model": model_name,
+                "dataset": dataset_name,
+                "task": task_config.get("task", "-"),
+                "task_type": task_config.get("task_type", "-"),
+            }
+            row.update(metrics or {})
+            all_results.append(row)
         finally:
             if vlm is not None:
                 vlm.unload()
@@ -415,52 +426,3 @@ def run_all_models_for_dataset(dataset_name: str, runner_fn, config: dict) -> pd
     print(compact_summary(summary_df).to_string(index=False))
 
     return summary_df
-
-
-def prompt_trial_configs(dataset_name, task_config):
-    """Expand explicit prompt/backend choices; keep data, image model and fusion."""
-    variants = task_config.get("prompt_variants")
-    if variants is None:
-        variants = [task_config.get("prompt_variant", "current")]
-    if not isinstance(variants, list) or not variants or any(not isinstance(v, str) for v in variants):
-        raise ValueError("prompt_variants must be a nonempty list of variant names")
-    if len(variants) != len(set(variants)):
-        raise ValueError("Duplicate prompt variants")
-    from prompts.fakeddit_prompts import PROMPT_VARIANTS
-    for variant in variants:
-        if variant not in PROMPT_VARIANTS:
-            raise ValueError(f"Unknown prompt variant: {variant}")
-        if variant != "current" and (dataset_name != "fakeddit" or task_config.get("task") != "6way"):
-            raise ValueError("Alternative prompt variants support only Fakeddit 6way")
-    backends = task_config.get("text_backends", [task_config.get("text_backend", "clip_text")])
-    if (not isinstance(backends, list) or not backends
-            or any(not isinstance(b, str) for b in backends) or len(set(backends)) != len(backends)):
-        raise ValueError("text_backends must be a nonempty list of unique backend names")
-    from nli_text import validate_backend
-    trials = [{**task_config, "prompt_variant": variant, "text_backend": backend}
-              for variant in variants for backend in backends]
-    for trial in trials:
-        validate_backend(trial, dataset_name)
-    return trials
-
-
-def run_prompt_trials(run_one, model_name, dataset_name, task_config):
-    """One model already loaded; each variant gets an independent result/log."""
-    rows = []
-    for active in prompt_trial_configs(dataset_name, task_config):
-        variant = active["prompt_variant"]
-        backend = active["text_backend"]
-        print(f"[PROMPT] {dataset_name}/{active.get('task')}: {variant}; text_backend={backend}")
-        try:
-            metrics = run_one(active)
-        except Exception as exc:
-            print(f"Lỗi {model_name} x {dataset_name} x {variant} x {backend}: {exc}")
-            metrics = {"error": str(exc)}
-        row = {"model": model_name, "dataset": dataset_name,
-               "task": active.get("task", "-"), "task_type": active.get("task_type", "-")}
-        if dataset_name == "fakeddit":
-            row["prompt_variant"] = variant
-            row["text_backend"] = backend
-        row.update(metrics or {})
-        rows.append(row)
-    return rows

@@ -1,0 +1,13 @@
+{
+  "version": "fakeddit_6way_nli_v1",
+  "provenance": "Fixed label-name hypotheses for an exploratory validation comparison; not mined from sample text or errors. These are project hypotheses, not hypotheses supplied by the paper.",
+  "paper": "https://aclanthology.org/D19-1404/",
+  "hypotheses": {
+    "0": "This post contains true content.",
+    "1": "This post contains satire or parody.",
+    "2": "This post contains a false connection between its caption and image.",
+    "3": "This post contains imposter content.",
+    "4": "This post contains manipulated content.",
+    "5": "This post contains misleading content."
+  }
+}
