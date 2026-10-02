@@ -1,0 +1,2 @@
+model	dataset	task	accuracy	macro_f1	micro_f1	split	n_samples	balanced_accuracy
+siglip2_so400m	fakeddit	6way	0.446	0.2603513761340596	0.446	val	1000	0.26960202032557934

@@ -1,0 +1,2 @@
+model	dataset	task	accuracy	macro_f1	micro_f1	text_logit_scale_effective	text_logit_scale_status	split	n_samples	balanced_accuracy
+siglip2_so400m	crisismmd	humanitarian	0.618	0.37639704516629635	0.618	109.88121795654297	model_default	val	1000	0.6159722220637339

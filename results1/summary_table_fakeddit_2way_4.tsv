@@ -1,0 +1,2 @@
+model	dataset	task	accuracy	macro_f1	micro_f1	text_logit_scale_effective	text_logit_scale_status	split	n_samples	balanced_accuracy
+siglip2_so400m	fakeddit	2way	0.597	0.4353963083604777	0.597	50	manual	val	1000	0.5004223418857565

@@ -8,9 +8,9 @@
 # MODELS
 # ============================================================
 models:
-  # - metaclip2_vith14
+  - metaclip2_vith14
   # - dfn5b_vith14
-  - siglip2_so400m
+  # - siglip2_so400m
 
 # ============================================================
 # DATASETS
@@ -23,20 +23,10 @@ datasets:
   # cột thật: id, clean_title, image_path, hasImage, 2_way_label, 6_way_label
   # ----------------------------------------------------------
   fakeddit:
-    image_label_enabled: true        # ảnh ↔ prompt nhãn
-    text_label_enabled: true         # text ↔ prompt nhãn
     enabled: true
     task: "6way"
-    text_backend: clip_text  # baseline; nli: BART-MNLI (hiện chỉ Fakeddit 6way)
-    # Đối chứng NLI: đặt prompt_variants: [current] và bỏ comment dòng dưới.
-    text_backends: [clip_text, nli]  # ưu tiên hơn text_backend; 2 dòng/model
-    nli:
-      model: facebook/bart-large-mnli
-      revision: d7645e127eaf1aefc7862fd59a17a5aa8558b8ce
-      device: cpu  # có thể chọn mps/cuda nếu đủ bộ nhớ; độc lập nhánh ảnh
-      batch_size: 4  # số cặp text/giả thuyết, không phải số mẫu
-      max_length: 1024  # gồm premise + hypothesis + special tokens; chỉ cắt premise
-      hypotheses_path: configs/prompts/fakeddit_6way_nli.json
+    prompt_aggregation: mean_sim  # mean_embed: baseline; mean_sim: trung bình cosine từng prompt
+    # prompt_aggregations: [mean_embed, mean_sim]  # đối chứng 2 dòng/model, không thêm model
     prompt_variants: [current]  # current | class_name | descriptors
     # Bỏ comment để chạy cả ba trong cùng một summary (ưu tiên hơn prompt_variant):
     # prompt_variants: [current, class_name, descriptors]
@@ -58,16 +48,17 @@ datasets:
   #           label_informative, label_humanitarian, event
   # ----------------------------------------------------------
   crisismmd:
-    image_label_enabled: true
-    text_label_enabled: true
+    prompt_aggregation: mean_embed  # mean_embed: baseline; mean_sim: trung bình cosine từng prompt
+    # prompt_aggregations: [mean_embed, mean_sim]
     enabled: true
-    task: "humanitarian"
+    task: "informativeness"
     data_path: "data/processed/pro_crisismmd/pre_crisismmd.tsv"
     image_dir: "data/processed/pro_crisismmd/images"
     task_type: "single_label"
     id_col: tweet_id
     text_col: clean_text
-    label_col: label_humanitarian
+    label_col_info: label_informative  # task: informativeness
+    label_col_human: label_humanitarian  # task: humanitarian
     max_samples: 1000
 
   # ----------------------------------------------------------
@@ -75,8 +66,8 @@ datasets:
   # cột thật: id, plot, genres, n_genres, image_path
   # ----------------------------------------------------------
   mmimdb:
-    image_label_enabled: true
-    text_label_enabled: true
+    prompt_aggregation: mean_sim  # mean_embed: baseline; mean_sim: trung bình cosine từng prompt
+    # prompt_aggregations: [mean_embed, mean_sim]
     enabled: true
     task: "genres"
     data_path: "data/processed/pro_mmimdb/mmimdb_sample.tsv"
@@ -84,7 +75,7 @@ datasets:
     task_type: "multi_label"
     decision_mode: "relative_z"
     chunk_long_text: true  # encode mọi chunk của plot
-    chunk_aggregation: max_sim  # baseline; mean_embed đổi max_sim để thử max cosine từng nhãn
+    chunk_aggregation: mean_embed  # baseline; mean_embed đổi max_sim để thử max cosine từng nhãn
     relative_z_threshold: 1.0
     threshold: 0.22  # chỉ dùng khi decision_mode: fixed_threshold
     id_col: id
@@ -118,7 +109,7 @@ inference:
     # Trọng số ảnh w; trọng số text tự động = 1-w. Phạm vi [0, 1].
     # Các giá trị riêng này được ưu tiên hơn image_weight toàn cục ở trên.
     fakeddit: 0.75  # ảnh 75%, text 25%; dùng cho cả 2way và 6way
-    crisismmd: 0.25  # ảnh 50%, text 50%; dùng cho cả hai task
+    crisismmd: 0.5  # ảnh 50%, text 50%; dùng cho cả hai task
     mmimdb: 0.5     # ảnh 50%, text 50%; độc lập với bật/tắt chunking
 
 # ============================================================

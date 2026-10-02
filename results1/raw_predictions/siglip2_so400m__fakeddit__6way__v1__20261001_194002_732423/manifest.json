@@ -1,0 +1,80 @@
+{
+  "text_logit_scale_requested": 25,
+  "text_logit_scale_effective": 25,
+  "text_logit_scale_status": "manual",
+  "text_scale_override_applied": true,
+  "fusion_enabled": true,
+  "image_weight": 0.75,
+  "text_weight": 0.25,
+  "image_label_enabled": true,
+  "text_label_enabled": true,
+  "prompt_variant": "current",
+  "prompts_per_label": 4,
+  "prompt_definition_version": "legacy_current",
+  "rendered_prompts": {
+    "0": [
+      "a factual Reddit post accurately describing a real person, object, or event",
+      "an authentic photograph of a real scene with an accurate description",
+      "a truthful social media caption presenting an event in its original context",
+      "a genuine photograph documenting an ordinary or unusual real-life situation"
+    ],
+    "1": [
+      "a satirical Reddit post using fictional events to mock real news or social issues",
+      "a parody headline exaggerating a situation for humor rather than factual reporting",
+      "a satirical illustration or parody image making fun of a public figure or event",
+      "a humorous imitation of a news story intended as satire"
+    ],
+    "2": [
+      "a Reddit caption claiming something that the attached photograph does not show",
+      "a social media title describing a different person, object, or event from the image",
+      "a photograph paired with an unrelated headline or an invented personal story",
+      "a real image given a caption that assigns it a different meaning"
+    ],
+    "3": [
+      "a social media post pretending to be an official statement from a trusted organization",
+      "a fabricated quotation or announcement falsely attributed to a real person",
+      "an image imitating a news outlet, official account, or organization to appear authentic",
+      "a forged screenshot presenting an impersonated source as a genuine author"
+    ],
+    "4": [
+      "a digitally edited photograph with objects or people added, removed, or altered",
+      "a photo montage combining parts of different images into an artificial scene",
+      "a Reddit post presenting a photoshopped scene or a visually altered object",
+      "a manipulated image changing the appearance of a person, animal, or place"
+    ],
+    "5": [
+      "a Reddit post using selective facts or distorted claims to support a misleading conclusion",
+      "a social media caption presenting real information in a deceptive context",
+      "an image or graphic framing a real topic through selective or misleading information",
+      "a misleading explanation that exaggerates or misrepresents the meaning of an event"
+    ]
+  },
+  "max_samples": 1000,
+  "min_text_length": 20,
+  "batch_size": 16,
+  "logit_scale": 109.88121795654297,
+  "logit_bias": -15.932409286499023,
+  "sample_set_id": "cc6d8e421843d01b3985f207fcd2c69febf97aa4be25229ad9cc139c619232ed",
+  "config_id": "26263467ca38f022623627fa9836f730d510387c7beaf00263199837222fb57a",
+  "prompt_id": "0191b7fc393cb09e8843b9d0f51ae51936b23554f0574ed1cbc7c8da9ee330d1",
+  "split": "val",
+  "split_verified": false,
+  "evaluation_snapshot": "evaluation_snapshot.json",
+  "sample_lock_path": null,
+  "truncation": {
+    "status": "measured",
+    "context_length": 64,
+    "n_nonempty": 1000,
+    "n_measured": 1000,
+    "n_truncated": 0,
+    "truncated_rate": 0.0
+  },
+  "model": "siglip2_so400m",
+  "dataset": "fakeddit",
+  "task": "6way",
+  "prompt_version": "v1",
+  "n_total_samples": 1000,
+  "n_errors": 558,
+  "error_rate": 0.558,
+  "timestamp": "2026-10-01T19:40:02.845169"
+}

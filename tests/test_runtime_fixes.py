@@ -81,6 +81,21 @@ class RuntimeFixTests(unittest.TestCase):
         self.assertEqual(self.common.crisismmd_label_column(
             {"task": "humanitarian", "label_col": "label_informative"}), "label_humanitarian")
 
+    def test_crisis_task_specific_label_columns(self):
+        cfg = {"label_col_info": "custom_info", "label_col_human": "custom_human",
+               "label_col": "legacy_column"}
+        for task, expected in (("informativeness", "custom_info"), ("humanitarian", "custom_human")):
+            self.assertEqual(self.common.crisismmd_label_column({**cfg, "task": task}), expected)
+        self.assertEqual(self.common.crisismmd_label_column({"task": "informativeness"}), "label_informative")
+        self.assertEqual(self.common.crisismmd_label_column({"task": "humanitarian"}), "label_humanitarian")
+        self.assertEqual(self.common.crisismmd_label_column(
+            {"task": "humanitarian", "label_col": "legacy_column"}), "legacy_column")
+        for value in (None, "", "  ", 12):
+            with self.assertRaises(ValueError):
+                self.common.crisismmd_label_column({"task": "informativeness", "label_col_info": value})
+        with self.assertRaises(ValueError):
+            self.common.crisismmd_label_column({"task": "invalid"})
+
     def test_bounded_reader_and_filter(self):
         with tempfile.TemporaryDirectory() as directory:
             path = str(Path(directory) / "synthetic.tsv")

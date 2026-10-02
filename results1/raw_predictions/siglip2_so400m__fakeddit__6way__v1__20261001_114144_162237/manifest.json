@@ -1,0 +1,31 @@
+{
+  "max_samples": 1000,
+  "min_text_length": 20,
+  "batch_size": 16,
+  "image_weight": 0.5,
+  "logit_scale": 109.88121795654297,
+  "logit_bias": -15.932409286499023,
+  "sample_set_id": "cc6d8e421843d01b3985f207fcd2c69febf97aa4be25229ad9cc139c619232ed",
+  "config_id": "2f075e26191afd41763b598fdf13c33a3f501901da7aa5bf3cdd61e4860662a1",
+  "prompt_id": "0191b7fc393cb09e8843b9d0f51ae51936b23554f0574ed1cbc7c8da9ee330d1",
+  "split": "val",
+  "split_verified": false,
+  "evaluation_snapshot": "evaluation_snapshot.json",
+  "sample_lock_path": null,
+  "truncation": {
+    "status": "measured",
+    "context_length": 64,
+    "n_nonempty": 1000,
+    "n_measured": 1000,
+    "n_truncated": 0,
+    "truncated_rate": 0.0
+  },
+  "model": "siglip2_so400m",
+  "dataset": "fakeddit",
+  "task": "6way",
+  "prompt_version": "v1",
+  "n_total_samples": 1000,
+  "n_errors": 553,
+  "error_rate": 0.553,
+  "timestamp": "2026-10-01T11:41:44.283001"
+}

@@ -18,9 +18,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from evaluation_audit import prepare_audit, finish_audit
 from text_scale import text_scale_settings
-from modality_branches import modality_settings
-from nli_text import make_text_scorer, backend_summary, backend_manifest
-from inference import build_class_embeddings, predict_single_label
+from inference import build_class_embeddings, predict_single_label, prompt_aggregation_settings
 from evaluate import evaluate_single_label, evaluate_binary
 from logging_utils import save_single_label_log
 from prompts import fakeddit_prompts
@@ -56,8 +54,9 @@ def run_fakeddit(vlm, task_config: dict, config: dict) -> dict:
     
     prompt_set = fakeddit_prompts.get_prompt_set(task, task_config.get("prompt_variant", "current"))
     prompt_meta = fakeddit_prompts.prompt_metadata(task_config, prompt_set)
-    class_embeds, label_order = build_class_embeddings(vlm, prompt_set)
-    text_scorer = make_text_scorer(task_config, "fakeddit", label_order)
+    aggregation = prompt_aggregation_settings(task_config, "fakeddit")
+    prompt_meta["prompt_aggregation"] = aggregation
+    class_embeds, label_order = build_class_embeddings(vlm, prompt_set, aggregation=aggregation)
 
     image_paths = resolve_image_paths(df, task_config)
     images, valid_idx = load_images_safe(image_paths)
@@ -75,14 +74,11 @@ def run_fakeddit(vlm, task_config: dict, config: dict) -> dict:
 
     batch_size = config.get("inference", {}).get("batch_size", 16)
     image_weight = get_image_weight(config, "fakeddit")
-    image_weight, branch_meta = modality_settings(task_config, image_weight)
     text_scale, scale_meta = text_scale_settings(config, "fakeddit", vlm, task_config, image_weight)
-    scale_meta.update(branch_meta)
 
     predictions, p, p_img, p_text, text_empty_mask = predict_single_label(
         vlm, images, texts, class_embeds, label_order,
         batch_size=batch_size, image_weight=image_weight, diagnostics=audit, text_logit_scale=text_scale,
-        **({"text_scorer": text_scorer} if text_scorer is not None else {}),
     )
     
     df_valid["_text_was_empty"] = text_empty_mask
@@ -104,7 +100,6 @@ def run_fakeddit(vlm, task_config: dict, config: dict) -> dict:
 
     result.update(scale_meta)
     result.update(prompt_meta)
-    result.update(backend_summary(text_scorer))
     result.update(finish_audit(audit, vlm, df_valid, texts, y_true, label_order,
                                p, p_img, p_text, text_empty_mask, image_weight))
 
@@ -124,7 +119,6 @@ def run_fakeddit(vlm, task_config: dict, config: dict) -> dict:
         extra_manifest={
             **scale_meta,
             **prompt_meta, "rendered_prompts": prompt_set,
-            **backend_manifest(text_scorer),
             "max_samples": task_config.get("max_samples"),
             "min_text_length": task_config.get("min_text_length", 20),
             "batch_size": batch_size,

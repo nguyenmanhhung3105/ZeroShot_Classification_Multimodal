@@ -1,0 +1,2 @@
+model	dataset	task	accuracy	macro_f1	micro_f1	split	n_samples	balanced_accuracy
+metaclip2_vith14	fakeddit	6way	0.21	0.17829724382598636	0.21	val	1000	0.24465608871352731

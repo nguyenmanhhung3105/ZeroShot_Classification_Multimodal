@@ -1,0 +1,80 @@
+{
+  "text_logit_scale_requested": 25,
+  "text_logit_scale_effective": 25,
+  "text_logit_scale_status": "manual",
+  "text_scale_override_applied": true,
+  "fusion_enabled": true,
+  "image_weight": 0.75,
+  "text_weight": 0.25,
+  "image_label_enabled": true,
+  "text_label_enabled": true,
+  "prompt_variant": "descriptors",
+  "prompts_per_label": 4,
+  "prompt_definition_version": "fakeddit_6way_definitions_v1",
+  "rendered_prompts": {
+    "0": [
+      "a Reddit post classified as true content: a factual account representing a real person, object, or event accurately",
+      "a Reddit post classified as true content: authentic content presented with its original meaning and context",
+      "a Reddit post classified as true content: an accurate caption supported by the accompanying visual content",
+      "a Reddit post classified as true content: a genuine scene presented without fabrication or deceptive alteration"
+    ],
+    "1": [
+      "a Reddit post classified as satire or parody: a humorous fictional account that imitates factual reporting",
+      "a Reddit post classified as satire or parody: exaggeration used to ridicule an idea, event, or public figure",
+      "a Reddit post classified as satire or parody: an intentionally absurd claim presented for comic effect",
+      "a Reddit post classified as satire or parody: an imitation of a familiar source or situation intended as a joke"
+    ],
+    "2": [
+      "a Reddit post classified as false connection: a headline making a claim that the attached content does not support",
+      "a Reddit post classified as false connection: a caption and photograph referring to different events or situations",
+      "a Reddit post classified as false connection: an unrelated visual attached to a story as if it were supporting evidence",
+      "a Reddit post classified as false connection: a mismatch between what the title promises and what the content shows"
+    ],
+    "3": [
+      "a Reddit post classified as imposter content: a message falsely presented as coming from a trusted organization",
+      "a Reddit post classified as imposter content: an announcement attributed to a person or institution that did not issue it",
+      "a Reddit post classified as imposter content: a fabricated account or document impersonating an authentic source",
+      "a Reddit post classified as imposter content: a false claim of authorship or affiliation used to appear credible"
+    ],
+    "4": [
+      "a Reddit post classified as manipulated content: an existing photograph altered to change what it depicts",
+      "a Reddit post classified as manipulated content: objects or people digitally inserted into or removed from a scene",
+      "a Reddit post classified as manipulated content: separate visual elements combined into a fabricated composite",
+      "a Reddit post classified as manipulated content: authentic visual material edited to create a deceptive impression"
+    ],
+    "5": [
+      "a Reddit post classified as misleading content: selective information used to frame a person or issue deceptively",
+      "a Reddit post classified as misleading content: relevant facts presented with an interpretation that distorts their meaning",
+      "a Reddit post classified as misleading content: important context omitted to steer the audience toward a false conclusion",
+      "a Reddit post classified as misleading content: a claim exaggerating what the available evidence actually supports"
+    ]
+  },
+  "max_samples": 1000,
+  "min_text_length": 20,
+  "batch_size": 16,
+  "logit_scale": 100.00000762939453,
+  "logit_bias": 0.0,
+  "sample_set_id": "cc6d8e421843d01b3985f207fcd2c69febf97aa4be25229ad9cc139c619232ed",
+  "config_id": "57cd32ac2030cd0d3772062ac471d4a3d2c1b347c1d9b1415d01ae60910af7ea",
+  "prompt_id": "a41585507ef849817932c6e3cc04f1e63236e2f721665e9bd089daba6501930c",
+  "split": "val",
+  "split_verified": false,
+  "evaluation_snapshot": "evaluation_snapshot.json",
+  "sample_lock_path": null,
+  "truncation": {
+    "status": "measured",
+    "context_length": 77,
+    "n_nonempty": 1000,
+    "n_measured": 1000,
+    "n_truncated": 0,
+    "truncated_rate": 0.0
+  },
+  "model": "metaclip2_vith14",
+  "dataset": "fakeddit",
+  "task": "6way",
+  "prompt_version": "v1",
+  "n_total_samples": 1000,
+  "n_errors": 722,
+  "error_rate": 0.722,
+  "timestamp": "2026-10-01T19:36:31.354162"
+}

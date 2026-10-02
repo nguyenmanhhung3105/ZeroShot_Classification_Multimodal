@@ -2,12 +2,12 @@
 
 ### Bật/tắt hai nhánh phân loại
 
-Trong cấu hình từng dataset, `image_label_enabled: true` bật ảnh ↔ prompt nhãn,
-`text_label_enabled: true` bật text ↔ prompt nhãn. Hai cờ áp dụng cho Fakeddit,
-CrisisMMD và MM-IMDb ở runner chính, runner riêng và demo.
-Nếu chỉ bật ảnh, trọng số ảnh thực tế là 1; nếu chỉ bật text, trọng số là 0.
-Nếu bật cả hai, dùng trọng số fusion đã cấu hình. Phải bật ít nhất một nhánh.
-Text rỗng vẫn fallback ảnh. Summary/manifest ghi hai cờ và trọng số thực tế.
+Chỉ dùng `inference.image_weight_overrides` theo dataset (hoặc `image_weight`
+toàn cục): `1` = chỉ ảnh, `0` = chỉ text, `0.5` = chia đều. Các giá trị trong
+[0, 1] là trọng số ảnh, trọng số text = 1-w; **-1 không hợp lệ**.
+Hai cờ `image_label_enabled`/`text_label_enabled` đã được bỏ; xóa chúng khỏi
+config cũ và dùng trọng số thay thế. Text rỗng vẫn fallback ảnh kể cả w=0.
+Summary/manifest ghi trọng số thực tế; không thêm lại hai cột bật/tắt.
 Phần so sánh trực tiếp ảnh–text và hiệu chỉnh nhãn dựa trên quan hệ đã được
 gỡ khỏi code; kết quả thí nghiệm cũ trong `results/` được giữ nguyên.
 
@@ -454,86 +454,69 @@ Loại bỏ: `image_damage`, `image_damage_conf` (Task 3, không dùng trong d�
 | `CONF_THRESHOLD` | `0.6` | Ngưỡng lọc confidence, có thể tăng để lấy dữ liệu "sạch" hơn nhưng ít mẫu hơn |
 | `CHECK_IMAGE_EXISTS` | `True` | Tắt nếu chưa tải đủ ảnh về máy |
 | `STRIP_NON_ASCII` | `True` | Tắt nếu cần giữ lại ký tự có dấu hợp lệ (chấp nhận rủi ro còn sót rác) |
-## Đối chứng nhánh text NLI — Fakeddit 6-way
+## Gộp điểm prompt với model hiện tại — cả ba dataset
 
-Mục tiêu: so nhánh `clip_text` (cosine text–prompt) với nhánh `nli`
-(text làm premise, một giả thuyết cố định cho mỗi nhãn). Ảnh vẫn đi qua
-VLM hiện tại; input cuối cùng vẫn là **ảnh + text**. Đây là đối chứng thay
-backend text, không phải một nhánh kiểm chứng trực tiếp quan hệ ảnh–text.
-Chỉ hỗ trợ Fakeddit 6-way ở bước này; không thay CrisisMMD/MM-IMDb.
+Không dùng thêm BART/NLI hoặc LLM sinh prompt. Input vẫn là ảnh + text;
+MetaCLIP 2, SigLIP 2, DFN giữ nguyên theo danh sách model của bạn.
+Code/config/test riêng của NLI đã được gỡ và backup tại
+`backups/20261002_existing_models/`; các kết quả cũ không bị xóa.
+Không xóa checkpoint đã tải trong cache của bạn.
 
-### Cơ sở và khác biệt với paper
+### Cơ sở nghiên cứu và phạm vi
 
-- Yin, Hay & Roth, EMNLP-IJCNLP 2019,
-  [Benchmarking Zero-shot Text Classification: Datasets, Evaluation and Entailment Approach](https://aclanthology.org/D19-1404/),
-  mục 5: chuyển text/nhãn thành premise/hypothesis. Paper dùng hệ entailment
-  dựa trên BERT; bản này dùng checkpoint **BART đã được huấn luyện trên MNLI**,
-  không huấn luyện hoặc fine-tune thêm trên Fakeddit.
-- Cách tính single-label theo [Hugging Face ZeroShotClassificationPipeline v4.57.1](https://github.com/huggingface/transformers/blob/v4.57.1/src/transformers/pipelines/zero_shot_classification.py):
-  lấy entailment logit `e_c` của mỗi cặp, rồi `p_text(c) = softmax(e)_c`
-  **qua 6 nhãn**. Không dùng xác suất entailment/contradiction độc lập rồi
-  gọi đó là single-label softmax. ID entailment được tra từ `label2id`,
-  không hardcode vị trí 2.
-- [Model card BART-MNLI](https://huggingface.co/facebook/bart-large-mnli)
-  mô tả cách dùng NLI cho zero-shot. Revision được ghim trong config;
-  `eval()` và `torch.inference_mode()` tắt training/gradient.
-- Phần **fusion ảnh + NLI** là mở rộng riêng của dự án, không phải kết quả
-  đã được paper trên chứng minh. Vẫn dùng `w*p_image + (1-w)*p_text` và argmax.
+Thử **mean similarity aggregation**, thành phần chấm điểm trong
+[DCLIP — Visual Classification via Description from Large Language Models](https://arxiv.org/abs/2210.07183)
+và [code chính thức WaffleCLIP](https://github.com/ExplainableML/WaffleCLIP/blob/master/base_main.py)
+(`merge_predictions=False`, `aggregate=mean`).
+Hàm [aggregate_similarity](https://github.com/ExplainableML/WaffleCLIP/blob/master/waffle_tools.py)
+lấy trung bình similarity sau khi chuẩn hóa từng descriptor embedding.
 
-Giả thuyết được cố định trong `configs/prompts/fakeddit_6way_nli.json`;
-không sinh lúc inference, không trích từ khóa theo nhãn hay sửa theo mẫu lỗi.
-NLI không nhìn ảnh hoặc tìm bằng chứng bên ngoài: giả thuyết True,
-False Connection, Manipulated có thể không suy ra được chỉ từ tiêu đề.
-Điểm entailment không phải chứng nhận tin đúng. Chưa có bằng chứng cải thiện.
+- `mean_embed`: baseline cũ, lấy trung bình vector prompt rồi L2-normalize lại.
+- `mean_sim`: với vector input đơn vị x và các vector prompt đơn vị v,
+  score lớp = `mean_j(x @ v_j)`. Không lấy trung bình xác suất softmax.
+- Code dùng đẳng thức `mean_j(x @ v_j) = x @ mean_j(v_j)` để không tạo ma trận
+  mẫu × toàn bộ prompt. Vector trung bình ở chế độ này **không chuẩn hóa lại**;
+  norm không nhất thiết bằng 1 là đúng thiết kế, không phải lỗi.
 
-### Cách chạy đối chứng
+Đây là **đối chứng cách gộp điểm từ paper**, chưa phải tái lập đầy đủ DCLIP
+hoặc WaffleCLIP. Không sinh descriptors mới hay dùng random descriptors.
+Giữ nguyên bộ prompt hiện tại để chỉ thay cách gộp. Paper gốc phân loại ảnh;
+áp dụng cùng cách tính cho nhánh text–prompt và fusion hiện có là mở rộng của
+dự án. Không khẳng định paper đã chứng minh hiệu quả trên Fakeddit hoặc SigLIP.
+Không thay scale, trọng số fusion, threshold hay công thức metric.
 
-Giữ nguyên model ảnh, fusion, scale của baseline và danh sách mẫu. Trong
-`datasets.fakeddit` của `configs/experiment_config.yaml`, **thay** danh sách
-prompt đang chạy bằng `[current]`, rồi bật danh sách backend:
+### Chạy đối chứng
+
+Trong `datasets.fakeddit` của `configs/experiment_config.yaml`:
 
 ```yaml
 task: "6way"
 prompt_variants: [current]
-text_backend: clip_text
-text_backends: [clip_text, nli]
-max_samples: 5  # kiểm tra chạy được trước; sau đó tự đổi về 1000
+prompt_aggregation: mean_embed
+prompt_aggregations: [mean_embed, mean_sim]
 ```
 
-Chạy `venv/bin/python src/run/run_fakeddit.py`. Không tự chạy inference thật
-khi cài đặt tính năng. Mỗi model ảnh tạo hai dòng trong cùng summary TSV.
-Để chỉ chạy một cách, bỏ/comment `text_backends`, chọn `text_backend: nli`
-hoặc `clip_text`. Danh sách `text_backends` ưu tiên hơn lựa chọn đơn.
-Nếu giữ cả ba `prompt_variants`, sẽ chạy tích chéo 3 × 2 lượt/model;
-ở nhánh NLI, các prompt variant chỉ thay prompt nhánh ảnh, giả thuyết NLI cố định.
+Chạy `venv/bin/python src/run/run_fakeddit.py`. Danh sách số nhiều ưu tiên
+hơn lựa chọn đơn, tạo 2 dòng/model trong summary TSV. Nếu chỉ muốn một cách,
+bỏ/comment `prompt_aggregations` rồi chọn `prompt_aggregation`.
+Khi không khai báo, mặc định là baseline; config hiện tại chọn mean_sim cho
+cả ba dataset. Không tự chạy dataset. Có thể tự đặt
+`max_samples: 5` để kiểm tra chạy trước, rồi dùng cùng tập 1000 mẫu để so điểm.
 
-Mặc định mới vẫn là `clip_text`; config đang có của người dùng không bị
-tự đổi model/trọng số/số mẫu. BART chỉ được tải khi nhánh NLI thực sự dùng
-text không rỗng. Lần đầu cần Internet và chỗ lưu checkpoint; không cần API
-trả phí. `nli.device: cpu` là mặc định, có thể chọn `mps`/`cuda` nếu đủ RAM/VRAM.
-VLM và NLI cùng có mặt trong bộ nhớ ở lượt NLI. `nli.batch_size: 4` là
-**4 cặp premise/hypothesis**, nên 1000 mẫu không rỗng tạo 6000 cặp; sẽ chậm
-hơn encode text một lần/mẫu. Model NLI được giải phóng sau mỗi lượt.
+Summary và manifest ghi `prompt_aggregation`; log dự đoán giữ định dạng cũ.
+Runner riêng, runner tổng và demo dùng cùng công thức. Không đổi chunking
+MM-IMDb: `chunk_aggregation` gộp **các đoạn input**, còn tùy chọn này gộp
+**các prompt nhãn**. Cả Fakeddit 2way/6way, CrisisMMD và MM-IMDb đều hỗ trợ.
+Ở `datasets.crisismmd` hoặc `datasets.mmimdb`, cũng chọn
+`prompt_aggregation: mean_sim`, hoặc `prompt_aggregations: [mean_embed, mean_sim]`
+để chạy đối chứng. Chạy `src/run/run_crisismmd.py` hoặc `src/run/run_mmimdb.py`.
+Với MM-IMDb dùng chunk `max_sim`, thứ tự là trung bình điểm các prompt trong
+mỗi chunk, rồi lấy max qua các chunk. Không đổi thứ tự này thành trung bình
+max của từng prompt. Sau đó vẫn dùng relative_z hoặc fixed_threshold như config.
 
-### Đọc kết quả và các giới hạn
-
-- Summary thêm `text_backend`, `nli_model`, `nli_status`. Scale text của VLM
-  được giữ ở cột requested nhưng effective rỗng, status `ignored_nli`;
-  NLI không nhận scale 25 hoặc logit_bias của VLM.
-- Manifest lưu checkpoint/revision, toàn bộ giả thuyết/hash, cách tính điểm,
-  trạng thái và truncation. Raw predictions vẫn giữ schema TSV cũ.
-- Diagnostics vẫn có metric ảnh/text/fusion và entropy/margin; không báo
-  cosine giả cho NLI. `text_lengths.tsv` của NLI đếm **độ dài cặp lớn nhất
-  qua các nhãn cho mỗi mẫu**, gồm special tokens, so với `nli.max_length`.
-  Tokenizer chỉ cắt premise, giữ nguyên hypothesis; không dùng context 64/77
-  của VLM để báo truncation NLI. Text rỗng vẫn fallback về ảnh như trước.
-- Kiểm tra cùng sample IDs/hash trước khi so kết quả; không tự bật sample lock.
-  So Macro-F1 chính, balanced accuracy, F1 từng nhánh. Giữ log cả kết quả xấu.
-- So sánh này thay cả encoder, tokenizer/context và cách chấm text/nhãn;
-  không thể quy mọi thay đổi riêng cho entailment. Không sửa công thức metric,
-  không tối ưu scale/weight/ngưỡng từ nhãn trong code.
-- Vì validation đã được xem nhiều lần, kết quả là **exploratory validation**,
-  không phải phép kiểm chứng trên test độc lập. Không tự chọn phương pháp tốt nhất.
+So Macro-F1, balanced accuracy, điểm từng nhánh trên cùng sample IDs/hash;
+đây vẫn là exploratory validation, chưa phải đánh giá test độc lập và
+không có bảo đảm tăng điểm.
 
 ## Đối chứng prompt Fakeddit 6-way
 

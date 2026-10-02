@@ -1,0 +1,2 @@
+model	dataset	task	accuracy	macro_f1	micro_f1	text_logit_scale_requested	text_logit_scale_effective	text_logit_scale_status	text_scale_override_applied	fusion_enabled	image_weight	text_weight	image_label_enabled	text_label_enabled	image_text_relation_enabled	split	image_macro_f1	text_macro_f1	fusion_macro_f1_gain	fusion_improves_macro_f1	n_samples	balanced_accuracy
+siglip2_so400m	fakeddit	2way	0.598	0.45212499182276106	0.598	25	25	manual	True	True	0.75	0.25	True	True	False	val	0.480863580148749	0.4021296965774921	-0.028738588325987968	False	1000	0.5060922817020378

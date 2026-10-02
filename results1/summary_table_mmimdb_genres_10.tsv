@@ -1,0 +1,2 @@
+model	dataset	task	macro_f1	micro_f1	decision_mode	relative_z_threshold	chunk_long_text	text_logit_scale_requested	text_logit_scale_effective	text_logit_scale_status	text_scale_override_applied	fusion_enabled	image_weight	text_weight	split	image_macro_f1	text_macro_f1	fusion_macro_f1_gain	fusion_improves_macro_f1	n_samples	samples_f1
+siglip2_so400m	mmimdb	genres	0.4588370587749249	0.44383959354019237	relative_z	1.0	True			ignored_relative_z	False	True	0.75	0.25	val	0.4041531279308284	0.37613361530534783	0.05468393084409651	True	1000	0.42269761904761904

@@ -1,0 +1,2 @@
+model	dataset	task	accuracy	macro_f1	micro_f1	text_logit_scale_requested	text_logit_scale_effective	text_logit_scale_status	text_scale_override_applied	fusion_enabled	image_weight	text_weight	split	image_macro_f1	text_macro_f1	fusion_macro_f1_gain	fusion_improves_macro_f1	n_samples	balanced_accuracy
+siglip2_so400m	crisismmd	humanitarian	0.609	0.37715551933810515	0.609	25	25	manual	True	True	0.5	0.5	val	0.32961946087889515	0.5304776122834961	-0.15332209294539095	False	1000	0.6092197285553494

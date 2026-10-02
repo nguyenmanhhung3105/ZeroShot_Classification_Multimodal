@@ -18,8 +18,8 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from evaluation_audit import prepare_audit, finish_audit
 from text_scale import text_scale_settings
-from modality_branches import modality_settings
 from inference import build_class_embeddings, predict_single_label
+from inference import prompt_aggregation_settings
 from evaluate import evaluate_single_label, evaluate_binary
 from logging_utils import save_single_label_log
 from prompts import crisismmd_prompts
@@ -52,7 +52,8 @@ def run_crisismmd(vlm, task_config: dict, config: dict) -> dict:
 
     prompt_set = crisismmd_prompts.get_prompt_set(task)
     label_names = crisismmd_prompts.get_label_names(task)
-    class_embeds, label_order = build_class_embeddings(vlm, prompt_set)
+    aggregation = prompt_aggregation_settings(task_config, "crisismmd")
+    class_embeds, label_order = build_class_embeddings(vlm, prompt_set, aggregation=aggregation)
 
     image_paths = resolve_image_paths(df, task_config)
     images, valid_idx = load_images_safe(image_paths)
@@ -70,9 +71,8 @@ def run_crisismmd(vlm, task_config: dict, config: dict) -> dict:
 
     batch_size = config.get("inference", {}).get("batch_size", 16)
     image_weight = get_image_weight(config, "crisismmd")
-    image_weight, branch_meta = modality_settings(task_config, image_weight)
     text_scale, scale_meta = text_scale_settings(config, "crisismmd", vlm, task_config, image_weight)
-    scale_meta.update(branch_meta)
+    scale_meta["prompt_aggregation"] = aggregation
 
     predictions, p, p_img, p_text, text_empty_mask = predict_single_label(
         vlm, images, texts, class_embeds, label_order,

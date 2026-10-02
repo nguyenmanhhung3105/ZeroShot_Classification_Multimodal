@@ -1,0 +1,2 @@
+model	dataset	task	task_type	error
+siglip2_so400m	mmimdb	genres	multi_label	Sample lock mismatch: results/sample_locks/mmimdb_genres_main.json. Use a NEW sample_lock_dir for a new cohort; do not overwrite the old lock.

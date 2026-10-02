@@ -1,0 +1,62 @@
+{
+  "text_logit_scale_requested": 25,
+  "text_logit_scale_effective": 25,
+  "text_logit_scale_status": "manual",
+  "text_scale_override_applied": true,
+  "fusion_enabled": true,
+  "image_weight": 0.75,
+  "text_weight": 0.25,
+  "image_label_enabled": true,
+  "text_label_enabled": true,
+  "prompt_variant": "class_name",
+  "prompts_per_label": 1,
+  "prompt_definition_version": "fakeddit_6way_definitions_v1",
+  "rendered_prompts": {
+    "0": [
+      "a Reddit post classified as true content"
+    ],
+    "1": [
+      "a Reddit post classified as satire or parody"
+    ],
+    "2": [
+      "a Reddit post classified as false connection"
+    ],
+    "3": [
+      "a Reddit post classified as imposter content"
+    ],
+    "4": [
+      "a Reddit post classified as manipulated content"
+    ],
+    "5": [
+      "a Reddit post classified as misleading content"
+    ]
+  },
+  "max_samples": 1000,
+  "min_text_length": 20,
+  "batch_size": 16,
+  "logit_scale": 100.00000762939453,
+  "logit_bias": 0.0,
+  "sample_set_id": "cc6d8e421843d01b3985f207fcd2c69febf97aa4be25229ad9cc139c619232ed",
+  "config_id": "6c6f1c51bbca3dff33e2f7e9c4e5f9326bec207bbb2cf11fd1fa245a39d03aca",
+  "prompt_id": "7b775b8fde897c5c100fee0e4105e8ee0b32e9b53621045517cbadec1de65b1d",
+  "split": "val",
+  "split_verified": false,
+  "evaluation_snapshot": "evaluation_snapshot.json",
+  "sample_lock_path": null,
+  "truncation": {
+    "status": "measured",
+    "context_length": 77,
+    "n_nonempty": 1000,
+    "n_measured": 1000,
+    "n_truncated": 0,
+    "truncated_rate": 0.0
+  },
+  "model": "metaclip2_vith14",
+  "dataset": "fakeddit",
+  "task": "6way",
+  "prompt_version": "v1",
+  "n_total_samples": 1000,
+  "n_errors": 781,
+  "error_rate": 0.781,
+  "timestamp": "2026-10-01T19:34:14.860462"
+}

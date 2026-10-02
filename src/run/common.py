@@ -79,7 +79,18 @@ def load_dataframe(path: str, max_samples=None, text_col=None, min_text_length=0
 
 
 def crisismmd_label_column(task_config: dict) -> str:
-    default = "label_informative" if task_config["task"] == "informativeness" else "label_humanitarian"
+    columns = {"informativeness": ("label_col_info", "label_informative"),
+               "humanitarian": ("label_col_human", "label_humanitarian")}
+    task = task_config["task"]
+    if task not in columns:
+        raise ValueError("CrisisMMD task must be informativeness or humanitarian")
+    key, default = columns[task]
+    if key in task_config:
+        configured = task_config[key]
+        if not isinstance(configured, str) or not configured.strip():
+            raise ValueError(f"{key} must be a nonempty column name")
+        return configured
+    # Tương thích config cũ; khóa riêng theo task được ưu tiên ở trên.
     configured = task_config.get("label_col")
     # Hai cột chuẩn đi theo task; vẫn cho phép tên cột tùy chỉnh.
     return default if configured in (None, "label", "label_informative", "label_humanitarian") else configured
@@ -311,8 +322,6 @@ def compact_summary(rows):
                "sample_set_id", "prompt_id", "config_id", "hamming_accuracy"}
     # Drop only known audit fields, not arbitrary caller-defined result columns.
     scale_columns = {"text_logit_scale_effective", "text_logit_scale_status",
-                     "text_backend",
-                     "image_label_enabled", "text_label_enabled",
                      "text_logit_scale_requested", "text_scale_override_applied",
                      "fusion_enabled", "image_weight", "text_weight",
                      "image_macro_f1", "text_macro_f1",
@@ -418,7 +427,7 @@ def run_all_models_for_dataset(dataset_name: str, runner_fn, config: dict) -> pd
 
 
 def prompt_trial_configs(dataset_name, task_config):
-    """Expand explicit prompt/backend choices; keep data, image model and fusion."""
+    """Expand prompt/aggregation choices; never change model, data, scale or fusion."""
     variants = task_config.get("prompt_variants")
     if variants is None:
         variants = [task_config.get("prompt_variant", "current")]
@@ -432,15 +441,15 @@ def prompt_trial_configs(dataset_name, task_config):
             raise ValueError(f"Unknown prompt variant: {variant}")
         if variant != "current" and (dataset_name != "fakeddit" or task_config.get("task") != "6way"):
             raise ValueError("Alternative prompt variants support only Fakeddit 6way")
-    backends = task_config.get("text_backends", [task_config.get("text_backend", "clip_text")])
-    if (not isinstance(backends, list) or not backends
-            or any(not isinstance(b, str) for b in backends) or len(set(backends)) != len(backends)):
-        raise ValueError("text_backends must be a nonempty list of unique backend names")
-    from nli_text import validate_backend
-    trials = [{**task_config, "prompt_variant": variant, "text_backend": backend}
-              for variant in variants for backend in backends]
-    for trial in trials:
-        validate_backend(trial, dataset_name)
+    modes = task_config.get("prompt_aggregations", [task_config.get("prompt_aggregation", "mean_embed")])
+    if (not isinstance(modes, list) or not modes or any(not isinstance(m, str) for m in modes)
+            or len(set(modes)) != len(modes)):
+        raise ValueError("prompt_aggregations must be a nonempty list of unique mode names")
+    from inference import prompt_aggregation_settings
+    trials = [{**task_config, "prompt_variant": variant, "prompt_aggregation": mode}
+              for variant in variants for mode in modes]
+    for active in trials:
+        prompt_aggregation_settings(active, dataset_name)
     return trials
 
 
@@ -449,18 +458,18 @@ def run_prompt_trials(run_one, model_name, dataset_name, task_config):
     rows = []
     for active in prompt_trial_configs(dataset_name, task_config):
         variant = active["prompt_variant"]
-        backend = active["text_backend"]
-        print(f"[PROMPT] {dataset_name}/{active.get('task')}: {variant}; text_backend={backend}")
+        aggregation = active["prompt_aggregation"]
+        print(f"[PROMPT] {dataset_name}/{active.get('task')}: {variant}; aggregation={aggregation}")
         try:
             metrics = run_one(active)
         except Exception as exc:
-            print(f"Lỗi {model_name} x {dataset_name} x {variant} x {backend}: {exc}")
+            print(f"Lỗi {model_name} x {dataset_name} x {variant} x {aggregation}: {exc}")
             metrics = {"error": str(exc)}
         row = {"model": model_name, "dataset": dataset_name,
                "task": active.get("task", "-"), "task_type": active.get("task_type", "-")}
         if dataset_name == "fakeddit":
             row["prompt_variant"] = variant
-            row["text_backend"] = backend
+        row["prompt_aggregation"] = aggregation
         row.update(metrics or {})
         rows.append(row)
     return rows

@@ -1,0 +1,31 @@
+{
+  "max_samples": 1000,
+  "min_text_length": 20,
+  "batch_size": 16,
+  "image_weight": 0.75,
+  "logit_scale": 100.00000762939453,
+  "logit_bias": 0.0,
+  "sample_set_id": "78e6b369b177f20993d4d0a19ead4c23828c961426605e186ebf37aba071b8df",
+  "config_id": "1d5ffe6e87b6b58a7843c425c50ef53c55d8c319731782ae0ecbe157aebe5e20",
+  "prompt_id": "25403349586ea608e784145afea8fc25a064f06ecf0b4f4225ab54fd27dd4215",
+  "split": "val",
+  "split_verified": false,
+  "evaluation_snapshot": "evaluation_snapshot.json",
+  "sample_lock_path": null,
+  "truncation": {
+    "status": "measured",
+    "context_length": 77,
+    "n_nonempty": 1000,
+    "n_measured": 1000,
+    "n_truncated": 0,
+    "truncated_rate": 0.0
+  },
+  "model": "metaclip2_vith14",
+  "dataset": "fakeddit",
+  "task": "2way",
+  "prompt_version": "v1",
+  "n_total_samples": 1000,
+  "n_errors": 413,
+  "error_rate": 0.413,
+  "timestamp": "2026-10-01T12:04:21.515933"
+}

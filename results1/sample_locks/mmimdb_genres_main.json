@@ -1,0 +1,63 @@
+{
+  "dataset": "mmimdb",
+  "task": "genres",
+  "scope": "main",
+  "data_path": "data/processed/pro_mmimdb/mmimdb_sample.tsv",
+  "limit": 5,
+  "min_text_length": 0,
+  "id_col": "id",
+  "text_col": "plot",
+  "label_col": "genres",
+  "samples": [
+    {
+      "id": "0142248",
+      "text_sha256": "b5bd645da70f8bad861317bd6f772b3d1840c9fd0dddbd3c157b5fb50f6a2885",
+      "label": "Animation|Action|Adventure|Family|Mystery",
+      "image_path": "data/processed/pro_mmimdb/images/0142248.jpeg",
+      "image_stat": {
+        "size": 37915,
+        "mtime_ns": 1478906513000000000
+      }
+    },
+    {
+      "id": "0042179",
+      "text_sha256": "87a746aaddcf7fa816d3544f19ea554bf2f793bb881d05aa6767e116081351c8",
+      "label": "Adventure|Comedy",
+      "image_path": "data/processed/pro_mmimdb/images/0042179.jpeg",
+      "image_stat": {
+        "size": 49864,
+        "mtime_ns": 1478906470000000000
+      }
+    },
+    {
+      "id": "0109424",
+      "text_sha256": "9ee13aedd41e3f1dbf03affafcdb0df441b71d92936604c25787905db05da0c2",
+      "label": "Comedy|Drama|Romance",
+      "image_path": "data/processed/pro_mmimdb/images/0109424.jpeg",
+      "image_stat": {
+        "size": 44004,
+        "mtime_ns": 1478906488000000000
+      }
+    },
+    {
+      "id": "0058430",
+      "text_sha256": "f18f09ba9dd4f3ced3c55f900ad32da000770ba01ac3b9d99d9f04aaddfb186a",
+      "label": "Horror",
+      "image_path": "data/processed/pro_mmimdb/images/0058430.jpeg",
+      "image_stat": {
+        "size": 20700,
+        "mtime_ns": 1478906506000000000
+      }
+    },
+    {
+      "id": "1059969",
+      "text_sha256": "663df52f308113a8752b510ebfe1e6007e833b000ad8371cafe4df69ef5defc6",
+      "label": "Comedy|Drama",
+      "image_path": "data/processed/pro_mmimdb/images/1059969.jpeg",
+      "image_stat": {
+        "size": 1744156,
+        "mtime_ns": 1478906475000000000
+      }
+    }
+  ]
+}
