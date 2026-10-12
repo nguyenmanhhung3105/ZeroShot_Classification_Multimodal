@@ -1,0 +1,27 @@
+digraph G {
+graph [rankdir=TB, bgcolor="white", fontname="Arial", fontsize=19,
+  pad=0.3, nodesep=0.45, ranksep=0.65, splines=polyline,
+  labelloc=t, label="DCLIP: nhận diện bằng mô tả của từng lớp"];
+node [shape=box, style="rounded,filled", fontname="Arial", fontsize=12,
+  color="#64748b", fontcolor="#0f172a", penwidth=1.2,
+  margin="0.18,0.12", width=2.65];
+edge [fontname="Arial", fontsize=10, color="#475569",
+  fontcolor="#334155", arrowsize=0.75];
+names [label="TÊN LỚP", fillcolor="#dbeafe"];
+desc [label="DESCRIPTOR CỐ ĐỊNH\nPaper: sinh trước bằng LLM\nDự án: JSON viết từ taxonomy", fillcolor="#dbeafe"];
+render [label="Tên lớp + mô tả → câu prompt\nTemplate theo hparams\nMỗi lớp có K_c mô tả", fillcolor="#e2e8f0"];
+text [label="CLIP TEXT ENCODER\nL2 từng prompt → V_c", fillcolor="#ede9fe"];
+image [label="ẢNH → CLIP IMAGE ENCODER\nL2 → I", fillcolor="#ede9fe"];
+s [label="I × V_cᵀ → mean qua mô tả\nS_img [N, C]", fillcolor="#fef3c7"];
+o [label="GỐC: argmax → nhãn ảnh\nDỰ ÁN: có thể fusion với text", fillcolor="#dcfce7"];
+names -> render;
+desc -> render;
+render -> text;
+text -> s;
+image -> s;
+s -> o;
+{rank=same; names; desc;}
+names -> desc [style=invis, weight=100];
+{rank=same; text; image;}
+text -> image [style=invis, weight=100];
+}

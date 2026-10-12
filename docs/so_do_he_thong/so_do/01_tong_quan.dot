@@ -1,0 +1,38 @@
+digraph G {
+graph [rankdir=TB, bgcolor="white", fontname="Arial", fontsize=19,
+  pad=0.3, nodesep=0.45, ranksep=0.65, splines=polyline,
+  labelloc=t, label="Ba luồng chạy độc lập của dự án"];
+node [shape=box, style="rounded,filled", fontname="Arial", fontsize=12,
+  color="#64748b", fontcolor="#0f172a", penwidth=1.2,
+  margin="0.18,0.12", width=2.65];
+edge [fontname="Arial", fontsize=10, color="#475569",
+  fontcolor="#334155", arrowsize=0.75];
+cfg [label="CẤU HÌNH + TAXONOMY\nẢnh và text của mẫu", fillcolor="#dbeafe"];
+main [label="HỆ THỐNG CHÍNH\nrun_experiment.py", fillcolor="#e2e8f0"];
+up [label="NGHIÊN CỨU UPSTREAM\nrun_upstream.py", fillcolor="#e2e8f0"];
+ad [label="NGHIÊN CỨU ADAPTED\nrun_adapted_methods.py", fillcolor="#e2e8f0"];
+m [label="MetaCLIP2 / DFN5B / SigLIP2\nPrompt dự án", fillcolor="#ede9fe"];
+u [label="OpenAI CLIP\nHàm prompt/scoring tác giả", fillcolor="#ede9fe"];
+a [label="MetaCLIP2 / DFN5B / SigLIP2\nThay prompt nhánh ảnh", fillcolor="#ede9fe"];
+mo [label="Ảnh + text → fusion\nNhãn + log + metric", fillcolor="#dcfce7"];
+uo [label="original_image / multimodal\nNhãn + log + metric", fillcolor="#dcfce7"];
+ao [label="Ảnh + text → fusion\nĐối chứng phương pháp/seed", fillcolor="#dcfce7"];
+cfg -> main;
+cfg -> up;
+cfg -> ad;
+main -> m;
+up -> u;
+ad -> a;
+m -> mo;
+u -> uo;
+a -> ao;
+{rank=same; main; up; ad;}
+main -> up [style=invis, weight=100];
+up -> ad [style=invis, weight=100];
+{rank=same; m; u; a;}
+m -> u [style=invis, weight=100];
+u -> a [style=invis, weight=100];
+{rank=same; mo; uo; ao;}
+mo -> uo [style=invis, weight=100];
+uo -> ao [style=invis, weight=100];
+}

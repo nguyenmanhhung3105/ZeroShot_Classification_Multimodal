@@ -1,0 +1,34 @@
+digraph G {
+graph [rankdir=TB, bgcolor="white", fontname="Arial", fontsize=19,
+  pad=0.3, nodesep=0.45, ranksep=0.65, splines=polyline,
+  labelloc=t, label="MM-IMDb: hai chế độ quyết định nhiều nhãn"];
+node [shape=box, style="rounded,filled", fontname="Arial", fontsize=12,
+  color="#64748b", fontcolor="#0f172a", penwidth=1.2,
+  margin="0.18,0.12", width=2.65];
+edge [fontname="Arial", fontsize=10, color="#475569",
+  fontcolor="#334155", arrowsize=0.75];
+s [label="S_img và S_text [N, 23]\nCosine / mean cosine", fillcolor="#dbeafe"];
+z [label="relative_z — ĐANG DÙNG\nZ-score từng mẫu, từng nhánh\nBỏ scale, bias, sigmoid", fillcolor="#fef3c7"];
+p [label="fixed_threshold — TÙY CHỌN\nScale/bias rồi sigmoid\nTừng nhãn độc lập", fillcolor="#fef3c7"];
+zf [label="Fusion điểm z\nText rỗng: dùng ảnh", fillcolor="#fef3c7"];
+pf [label="Fusion điểm sigmoid\nText rỗng: dùng ảnh", fillcolor="#fef3c7"];
+zd [label="Chọn điểm > z_threshold\nHiện tại: > 1.0", fillcolor="#e2e8f0"];
+pd [label="Chọn điểm ≥ threshold\nCấu hình sẵn: ≥ 0.22", fillcolor="#e2e8f0"];
+fb [label="Không có nhãn vượt ngưỡng?\nfallback_top1=true → argmax\nfalse → danh sách rỗng", fillcolor="#e2e8f0"];
+o [label="DANH SÁCH THỂ LOẠI\nScore + cờ fallback + metric", fillcolor="#dcfce7"];
+s -> z;
+s -> p;
+z -> zf;
+p -> pf;
+zf -> zd;
+pf -> pd;
+zd -> fb;
+pd -> fb;
+fb -> o;
+{rank=same; z; p;}
+z -> p [style=invis, weight=100];
+{rank=same; zf; pf;}
+zf -> pf [style=invis, weight=100];
+{rank=same; zd; pd;}
+zd -> pd [style=invis, weight=100];
+}

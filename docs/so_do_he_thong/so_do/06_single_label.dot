@@ -1,0 +1,31 @@
+digraph G {
+graph [rankdir=TB, bgcolor="white", fontname="Arial", fontsize=19,
+  pad=0.3, nodesep=0.45, ranksep=0.65, splines=polyline,
+  labelloc=t, label="Một nhãn: hiệu chỉnh từng nhánh rồi fusion"];
+node [shape=box, style="rounded,filled", fontname="Arial", fontsize=12,
+  color="#64748b", fontcolor="#0f172a", penwidth=1.2,
+  margin="0.18,0.12", width=2.65];
+edge [fontname="Arial", fontsize=10, color="#475569",
+  fontcolor="#334155", arrowsize=0.75];
+i [label="S_img = I × E_imgᵀ\nCosine / mean cosine", fillcolor="#dbeafe"];
+t [label="S_text = T × E_textᵀ\nCosine / mean cosine", fillcolor="#dbeafe"];
+il [label="L_img = s_model × S_img + b\nScale/bias từ checkpoint", fillcolor="#fef3c7"];
+tl [label="L_text = s_text × S_text + b\nScale riêng hoặc scale model", fillcolor="#fef3c7"];
+ip [label="P_img = softmax(L_img)\nQua C lớp của từng mẫu", fillcolor="#fef3c7"];
+tp [label="P_text = softmax(L_text)\nQua C lớp của từng mẫu", fillcolor="#fef3c7"];
+f [label="P = w × P_img + (1-w) × P_text\nText rỗng: w hiệu lực = 1", fillcolor="#fef3c7"];
+o [label="argmax theo lớp\nMỗi mẫu đúng một nhãn", fillcolor="#dcfce7"];
+i -> il;
+t -> tl;
+il -> ip;
+tl -> tp;
+ip -> f;
+tp -> f;
+f -> o;
+{rank=same; i; t;}
+i -> t [style=invis, weight=100];
+{rank=same; il; tl;}
+il -> tl [style=invis, weight=100];
+{rank=same; ip; tp;}
+ip -> tp [style=invis, weight=100];
+}

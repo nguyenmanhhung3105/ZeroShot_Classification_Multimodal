@@ -1,0 +1,30 @@
+digraph G {
+graph [rankdir=TB, bgcolor="white", fontname="Arial", fontsize=19,
+  pad=0.3, nodesep=0.45, ranksep=0.65, splines=polyline,
+  labelloc=t, label="Plot dài: chia đoạn trước text encoder"];
+node [shape=box, style="rounded,filled", fontname="Arial", fontsize=12,
+  color="#64748b", fontcolor="#0f172a", penwidth=1.2,
+  margin="0.18,0.12", width=2.65];
+edge [fontname="Arial", fontsize=10, color="#475569",
+  fontcolor="#334155", arrowsize=0.75];
+in [label="PLOT KHÔNG RỖNG\nTokenizer + context_length thực tế", fillcolor="#dbeafe"];
+split [label="Đếm cả token đặc biệt\nChia theo câu → từ → ký tự\nMỗi đoạn vừa context", fillcolor="#e2e8f0"];
+enc [label="TEXT ENCODER + L2\nTừng batch các đoạn", fillcolor="#ede9fe"];
+mean [label="mean_embed — ĐANG DÙNG\nTrung bình vector các đoạn\nChuẩn hóa L2 lại", fillcolor="#e2e8f0"];
+max [label="max_sim — TÙY CHỌN\nCosine từng đoạn với từng lớp\nLấy max riêng từng lớp", fillcolor="#fef3c7"];
+ms [label="T_mean × E_textᵀ\nMột bảng điểm N × C", fillcolor="#fef3c7"];
+mx [label="Điểm max [N, C]\nKhông có một vector T chung", fillcolor="#fef3c7"];
+out [label="relative_z hoặc scale/sigmoid\nFusion + chọn thể loại", fillcolor="#dcfce7"];
+in -> split;
+split -> enc;
+enc -> mean;
+enc -> max;
+mean -> ms;
+max -> mx;
+ms -> out;
+mx -> out;
+{rank=same; mean; max;}
+mean -> max [style=invis, weight=100];
+{rank=same; ms; mx;}
+ms -> mx [style=invis, weight=100];
+}

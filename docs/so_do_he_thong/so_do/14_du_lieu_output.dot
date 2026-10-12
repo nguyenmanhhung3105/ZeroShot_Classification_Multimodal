@@ -1,0 +1,33 @@
+digraph G {
+graph [rankdir=TB, bgcolor="white", fontname="Arial", fontsize=19,
+  pad=0.3, nodesep=0.45, ranksep=0.65, splines=polyline,
+  labelloc=t, label="Cohort và output: nhãn thật chỉ đi vào đánh giá"];
+node [shape=box, style="rounded,filled", fontname="Arial", fontsize=12,
+  color="#64748b", fontcolor="#0f172a", penwidth=1.2,
+  margin="0.18,0.12", width=2.65];
+edge [fontname="Arial", fontsize=10, color="#475569",
+  fontcolor="#334155", arrowsize=0.75];
+in [label="TSV / CSV / Parquet processed\nẢnh + text + nhãn thật", fillcolor="#dbeafe"];
+sel [label="Lọc text → lấy max_samples\nKiểm tra ảnh → bỏ ảnh lỗi\nKhông bù mẫu tiếp theo", fillcolor="#e2e8f0"];
+co [label="COHORT HỢP LỆ\nCùng ID, text, ảnh, label_order", fillcolor="#e2e8f0"];
+infer [label="ẢNH + TEXT + PROMPT\nMã hóa → chấm điểm → nhãn", fillcolor="#ede9fe"];
+truth [label="NHÃN THẬT\nNormalize / parse genres", fillcolor="#dbeafe"];
+metric [label="So dự đoán với nhãn thật\nF1 / accuracy / audit nhánh", fillcolor="#e2e8f0"];
+log [label="raw_predictions.tsv\nerror_analysis.tsv\nmanifest.json", fillcolor="#dcfce7"];
+audit [label="diagnostics.tsv\ntext_lengths.tsv\nevaluation_snapshot.json", fillcolor="#dcfce7"];
+sum [label="Summary tổng hợp\nNghiên cứu: thêm seed_summary\nKhông chọn seed tốt nhất", fillcolor="#dcfce7"];
+in -> sel;
+sel -> co;
+co -> infer;
+co -> truth;
+infer -> metric;
+truth -> metric [label="đánh giá", style="dashed"];
+metric -> log;
+metric -> audit;
+metric -> sum;
+{rank=same; infer; truth;}
+infer -> truth [style=invis, weight=100];
+{rank=same; log; audit; sum;}
+log -> audit [style=invis, weight=100];
+audit -> sum [style=invis, weight=100];
+}

@@ -37,7 +37,9 @@ configs/
     └── descriptors/           # mô tả lớp cố định cho cả năm task
 
 tests/                         # chỉ kiểm thử tự động bằng dữ liệu giả
-docs/                          # hướng dẫn chi tiết
+docs/                          # hướng dẫn chi tiết và sơ đồ hệ thống
+├── so_do_he_thong/             # bản đồ input → xử lý → output của model/phương pháp
+│   └── so_do/                  # SVG, nguồn DOT và script dựng sơ đồ
 third_party/                   # checkout repo tác giả, Git bỏ qua
 results/, results1/            # kết quả đã có, được giữ nguyên
 backup/, backups/              # bản sao trước sửa và file đã loại bỏ
@@ -49,6 +51,11 @@ viết bằng tiếng Việt. Prompt tiếng Anh là đầu vào model và đư�
 tác giả và thông báo giấy phép giữ nguyên văn bản nguồn.
 
 ## Cài đặt và chạy hệ thống chính
+
+Để hình dung hệ thống trước khi chạy, mở [bản đồ hệ thống](docs/so_do_he_thong/README.md).
+Tài liệu có sơ đồ riêng cho MetaCLIP2, DFN5B, SigLIP2, OpenAI CLIP, WaffleCLIP,
+DCLIP, hai runner nghiên cứu và luồng dữ liệu/kết quả. Sơ đồ SVG được dựng sẵn để
+xem bố cục ổn định trong Markdown Preview hoặc trên GitHub.
 
 Chạy tại thư mục gốc, trong môi trường Python của dự án:
 

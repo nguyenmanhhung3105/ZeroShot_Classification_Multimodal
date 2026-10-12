@@ -1,0 +1,42 @@
+digraph G {
+graph [rankdir=TB, bgcolor="white", fontname="Arial", fontsize=19,
+  pad=0.3, nodesep=0.45, ranksep=0.65, splines=polyline,
+  labelloc=t, label="Hệ thống chính: input → suy luận → output"];
+node [shape=box, style="rounded,filled", fontname="Arial", fontsize=12,
+  color="#64748b", fontcolor="#0f172a", penwidth=1.2,
+  margin="0.18,0.12", width=2.65];
+edge [fontname="Arial", fontsize=10, color="#475569",
+  fontcolor="#334155", arrowsize=0.75];
+cfg [label="YAML\nModel, task, prompt, trọng số", fillcolor="#ffedd5"];
+data [label="BẢNG DỮ LIỆU\nID + text + đường dẫn ảnh", fillcolor="#dbeafe"];
+load [label="Đọc giới hạn + lọc text\nKiểm tra cột và ảnh hợp lệ", fillcolor="#e2e8f0"];
+prompt [label="PROMPT CÁC LỚP\nTaxonomy của task", fillcolor="#dbeafe"];
+img [label="Ảnh RGB theo batch\nPreprocess → image encoder", fillcolor="#ede9fe"];
+text [label="Text mẫu / plot\nTokenizer → text encoder", fillcolor="#ede9fe"];
+cls [label="Prompt → text encoder\nmean_embed / mean_sim", fillcolor="#ede9fe"];
+score [label="Điểm ảnh–prompt và text–prompt\nHai bảng điểm N × C", fillcolor="#fef3c7"];
+decision [label="Softmax hoặc relative_z/sigmoid\nFusion → quy tắc chọn nhãn", fillcolor="#fef3c7"];
+pred [label="NHÃN DỰ ĐOÁN\nMột nhãn / danh sách thể loại", fillcolor="#dcfce7"];
+truth [label="NHÃN THẬT\nTừ cột nhãn của task", fillcolor="#dbeafe"];
+eval [label="Metric + audit + lưu kết quả\nTSV / JSON / summary", fillcolor="#dcfce7"];
+cfg -> load [label="cấu hình", style="dashed"];
+cfg -> prompt [label="task", style="dashed"];
+data -> load;
+load -> img;
+load -> text;
+prompt -> cls;
+img -> score;
+text -> score;
+cls -> score;
+score -> decision;
+decision -> pred;
+pred -> eval;
+truth -> eval [label="đánh giá", style="dashed"];
+{rank=same; data; prompt;}
+data -> prompt [style=invis, weight=100];
+{rank=same; img; text; cls;}
+img -> text [style=invis, weight=100];
+text -> cls [style=invis, weight=100];
+{rank=same; pred; truth;}
+pred -> truth [style=invis, weight=100];
+}

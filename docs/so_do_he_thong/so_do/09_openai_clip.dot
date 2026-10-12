@@ -1,0 +1,37 @@
+digraph G {
+graph [rankdir=TB, bgcolor="white", fontname="Arial", fontsize=19,
+  pad=0.3, nodesep=0.45, ranksep=0.65, splines=polyline,
+  labelloc=t, label="OpenAI CLIP gốc: ảnh so với prompt tên lớp"];
+node [shape=box, style="rounded,filled", fontname="Arial", fontsize=12,
+  color="#64748b", fontcolor="#0f172a", penwidth=1.2,
+  margin="0.18,0.12", width=2.65];
+edge [fontname="Arial", fontsize=10, color="#475569",
+  fontcolor="#334155", arrowsize=0.75];
+i [label="ẢNH RGB", fillcolor="#dbeafe"];
+p [label="TÊN LỚP + TEMPLATE", fillcolor="#dbeafe"];
+ip [label="Resize bicubic + center crop\nTensor + normalize CLIP", fillcolor="#e2e8f0"];
+pt [label="SimpleTokenizer / BPE\nSOT + tokens + EOT + padding\nContext = 77", fillcolor="#e2e8f0"];
+iv [label="ViT: patch → transformer\nToken lớp → projection\nRN: ResNet → attention pool", fillcolor="#ede9fe"];
+tv [label="Token + positional embedding\nCausal transformer\nVector EOT → projection", fillcolor="#ede9fe"];
+in [label="L2 embedding ảnh", fillcolor="#e2e8f0"];
+tn [label="L2 embedding prompt", fillcolor="#e2e8f0"];
+s [label="Cosine ảnh–prompt [N, C]\nargmax giữ nhãn cao nhất", fillcolor="#fef3c7"];
+o [label="NHÃN PHÂN LOẠI ẢNH\nTrong dự án: log + metric", fillcolor="#dcfce7"];
+i -> ip;
+p -> pt;
+ip -> iv;
+pt -> tv;
+iv -> in;
+tv -> tn;
+in -> s;
+tn -> s;
+s -> o;
+{rank=same; i; p;}
+i -> p [style=invis, weight=100];
+{rank=same; ip; pt;}
+ip -> pt [style=invis, weight=100];
+{rank=same; iv; tv;}
+iv -> tv [style=invis, weight=100];
+{rank=same; in; tn;}
+in -> tn [style=invis, weight=100];
+}

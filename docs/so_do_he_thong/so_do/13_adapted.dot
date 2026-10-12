@@ -1,0 +1,30 @@
+digraph G {
+graph [rankdir=TB, bgcolor="white", fontname="Arial", fontsize=19,
+  pad=0.3, nodesep=0.45, ranksep=0.65, splines=polyline,
+  labelloc=t, label="Runner adapted: thay prompt ảnh, giữ nhánh text"];
+node [shape=box, style="rounded,filled", fontname="Arial", fontsize=12,
+  color="#64748b", fontcolor="#0f172a", penwidth=1.2,
+  margin="0.18,0.12", width=2.65];
+edge [fontname="Arial", fontsize=10, color="#475569",
+  fontcolor="#334155", arrowsize=0.75];
+cfg [label="adapted.yaml + base_config\nMethod + seeds + taxonomy", fillcolor="#ffedd5"];
+plan [label="Chuẩn bị prompt ảnh từng trial\nGiữ prompt text nền\nLưu frozen_plan.json", fillcolor="#e2e8f0"];
+prep [label="--prepare-only?\nCó → dừng tại plan\nKhông → tải model", fillcolor="#e2e8f0"];
+model [label="MetaCLIP2 / DFN5B / SigLIP2\nModel trong base_config", fillcolor="#ede9fe"];
+runner [label="Runner dataset của dự án\nCohort giống nhau giữa trial", fillcolor="#e2e8f0"];
+img [label="NHÁNH ẢNH\nE_img: baseline / class_name\ncurrent_mean_sim / waffle / dclip", fillcolor="#fef3c7"];
+text [label="NHÁNH TEXT\nE_text: prompt nền giữ chung\nAggregation theo base_config", fillcolor="#fef3c7"];
+fuse [label="Scoring + fusion dự án\nSo sánh sample_set_id\nKhác cohort → dừng", fillcolor="#e2e8f0"];
+out [label="Nhãn + log + metric\nsummary.tsv / seed_summary.tsv\nraw_predictions/", fillcolor="#dcfce7"];
+cfg -> plan;
+plan -> prep;
+prep -> model [label="tiếp tục"];
+model -> runner;
+runner -> img;
+runner -> text;
+img -> fuse;
+text -> fuse;
+fuse -> out;
+{rank=same; img; text;}
+img -> text [style=invis, weight=100];
+}

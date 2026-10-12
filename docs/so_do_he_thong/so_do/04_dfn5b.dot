@@ -1,0 +1,49 @@
+digraph G {
+graph [rankdir=TB, bgcolor="white", fontname="Arial", fontsize=19,
+  pad=0.3, nodesep=0.45, ranksep=0.65, splines=polyline,
+  labelloc=t, label="DFN5B: ba đường mã hóa"];
+node [shape=box, style="rounded,filled", fontname="Arial", fontsize=12,
+  color="#64748b", fontcolor="#0f172a", penwidth=1.2,
+  margin="0.18,0.12", width=2.65];
+edge [fontname="Arial", fontsize=10, color="#475569",
+  fontcolor="#334155", arrowsize=0.75];
+i [label="ẢNH RGB", fillcolor="#dbeafe"];
+t [label="TEXT MẪU", fillcolor="#dbeafe"];
+p [label="PROMPT TỪNG LỚP", fillcolor="#dbeafe"];
+ip [label="Preprocess của checkpoint\nResize/crop/normalize theo model", fillcolor="#e2e8f0"];
+tt [label="Tokenizer ViT-H-14\ncontext_length của model", fillcolor="#e2e8f0"];
+pt [label="Tokenizer ViT-H-14\ncontext_length của model", fillcolor="#e2e8f0"];
+ie [label="IMAGE ENCODER\napple/DFN5B-CLIP-ViT-H-14", fillcolor="#ede9fe"];
+te [label="TEXT ENCODER\nCùng trọng số với prompt", fillcolor="#ede9fe"];
+pe [label="TEXT ENCODER\nCùng trọng số với text mẫu", fillcolor="#ede9fe"];
+iv [label="L2 → I [N, D]", fillcolor="#e2e8f0"];
+tv [label="L2 → T [N, D]\nPlot dài: xem chunking", fillcolor="#e2e8f0"];
+pv [label="L2 từng prompt → gộp theo lớp\nE [C, D]", fillcolor="#e2e8f0"];
+s [label="I × Eᵀ và T × Eᵀ\nScale/bias hoặc relative_z\nFusion → chọn nhãn", fillcolor="#fef3c7"];
+o [label="NHÃN + ĐIỂM TỪNG NHÁNH\nMetric / TSV / JSON", fillcolor="#dcfce7"];
+i -> ip;
+t -> tt;
+p -> pt;
+ip -> ie;
+tt -> te;
+pt -> pe;
+ie -> iv;
+te -> tv;
+pe -> pv;
+iv -> s;
+tv -> s;
+pv -> s;
+s -> o;
+{rank=same; i; t; p;}
+i -> t [style=invis, weight=100];
+t -> p [style=invis, weight=100];
+{rank=same; ip; tt; pt;}
+ip -> tt [style=invis, weight=100];
+tt -> pt [style=invis, weight=100];
+{rank=same; ie; te; pe;}
+ie -> te [style=invis, weight=100];
+te -> pe [style=invis, weight=100];
+{rank=same; iv; tv; pv;}
+iv -> tv [style=invis, weight=100];
+tv -> pv [style=invis, weight=100];
+}

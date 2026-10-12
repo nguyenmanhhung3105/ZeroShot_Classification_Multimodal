@@ -1,0 +1,27 @@
+digraph G {
+graph [rankdir=TB, bgcolor="white", fontname="Arial", fontsize=19,
+  pad=0.3, nodesep=0.45, ranksep=0.65, splines=polyline,
+  labelloc=t, label="WaffleCLIP: nhiều prompt ngẫu nhiên cho mỗi lớp"];
+node [shape=box, style="rounded,filled", fontname="Arial", fontsize=12,
+  color="#64748b", fontcolor="#0f172a", penwidth=1.2,
+  margin="0.18,0.12", width=2.65];
+edge [fontname="Arial", fontsize=10, color="#475569",
+  fontcolor="#334155", arrowsize=0.75];
+classes [label="TÊN CÁC LỚP + TEMPLATE\nSeed + waffle_pairs", fillcolor="#dbeafe"];
+random [label="Từ điển word_list.pkl\nKý tự từ mô tả đầu vào\nSinh cặp từ / ký tự", fillcolor="#e2e8f0"];
+prompts [label="Cùng suffix ngẫu nhiên giữa lớp\nĐổi tên lớp trong prompt\n15 cặp → 30 prompt / lớp", fillcolor="#e2e8f0"];
+te [label="CLIP TEXT ENCODER\nL2 từng prompt → V_c [K_c, D]", fillcolor="#ede9fe"];
+img [label="ẢNH → CLIP IMAGE ENCODER\nL2 → I [N, D]", fillcolor="#ede9fe"];
+cos [label="I × V_cᵀ\nĐiểm từng ảnh × từng prompt", fillcolor="#fef3c7"];
+mean [label="mean điểm qua K_c prompt\nS_img [N, C]", fillcolor="#fef3c7"];
+out [label="GỐC: argmax → nhãn ảnh\nDỰ ÁN: có thể fusion với text", fillcolor="#dcfce7"];
+classes -> random;
+random -> prompts;
+prompts -> te;
+te -> cos;
+img -> cos;
+cos -> mean;
+mean -> out;
+{rank=same; te; img;}
+te -> img [style=invis, weight=100];
+}
