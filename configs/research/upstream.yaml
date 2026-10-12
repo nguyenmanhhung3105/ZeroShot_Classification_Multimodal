@@ -1,5 +1,9 @@
 # Chạy code và CLIP của tác giả: python3 src/research/run_upstream.py
 base_config: configs/experiment_config.yaml
+image_text_relation:
+  enabled: false             # bật true cho OpenAI CLIP và mọi phương pháp/task được chọn
+  mode: auto                 # original_image chỉ diagnostic; multimodal theo taxonomy
+  weight: 0.25
 backbones: [ViT-B/32]          # RN50 | ViT-B/32 | ViT-L/14
 device: auto                  # auto | cpu | cuda | mps
 batch_size: 16

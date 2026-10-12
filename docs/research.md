@@ -1,5 +1,11 @@
 # Các thí nghiệm WaffleCLIP / DCLIP
 
+Hai runner có flag quan hệ riêng, mặc định tắt: `image_text_relation.enabled: false`
+ở cấp gốc YAML nghiên cứu. Bật true dùng cho mọi backbone/method/task được chọn;
+mode auto chọn class_aware Fakeddit 6way, task khác diagnostic. Upstream
+original_image chỉ diagnostic để giữ cách quyết định ảnh gốc. Chi tiết tại
+[tài liệu flag và công thức](so_do_he_thong/13_quan_he_anh_text.md).
+
 ## Dùng checkpoint và hàm gốc của repo tác giả
 
 Runner: `src/research/run_upstream.py`. Cấu hình: `configs/research/upstream.yaml`.

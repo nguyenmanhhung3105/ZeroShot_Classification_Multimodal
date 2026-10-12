@@ -18,6 +18,7 @@
 | 6. Mã hóa mẫu | PIL RGB và text | `encode_multimodal_embeddings`; model encode, L2; chunking nếu bật | `I [N,D]`, `T [N,D]`, mask text rỗng; hoặc điểm max_sim |
 | 7. Chấm điểm | Embedding và vector lớp | Phép nhân với chuyển vị vector lớp | `S_img`, `S_text [N,C]` |
 | 8. Chọn nhãn | Điểm + scale/bias/trọng số/ngưỡng | Các công thức dưới đây | Nhãn và điểm từng nhánh/fusion |
+| 8b. Quan hệ tùy chọn | Vector ảnh/text cùng mẫu | Cosine; single-label thêm JS/entropy; class_aware hiệu chỉnh sau fusion trước argmax | Log quan hệ, điểm fusion cuối |
 | 9. Đánh giá/lưu | Dự đoán + nhãn thật + audit | scikit-learn; TSV/JSON | Metric, log từng mẫu, summary |
 
 Trong pipeline chính, `E_img = E_text`. Điểm nối nghiên cứu cho phép thay riêng `E_img`; chi tiết ở [adapted](10_nghien_cuu_adapted.md). Các vector lớp luôn cùng thứ tự `label_order`.
@@ -53,6 +54,8 @@ P_text = softmax(L_text, qua các lớp)
 P      = w × P_img + (1-w) × P_text
 y_hat  = label_order[argmax(P)]
 ```
+
+Khi flag enabled=true và mode hiệu lực class_aware (auto chọn cho Fakeddit 6way), P là điểm nền B; hiệu chỉnh thành P' trước argmax theo [trang 13](13_quan_he_anh_text.md). Các task khác dùng diagnostic. Mặc định flag tắt và mọi đầu ra/nhánh encode giữ cách nền.
 
 `s_model = exp(model.logit_scale)`; `b_model` lấy từ model nếu có, mặc định 0. `s_text` dùng số dương trong cấu hình hoặc scale model khi `null`. Dự án không tự học thêm một scale cho text–text trong lượt đánh giá; phân phối softmax của nhánh này không chứng minh đã được hiệu chỉnh xác suất.
 

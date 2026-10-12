@@ -15,7 +15,8 @@ img [label="Ảnh RGB theo batch\nPreprocess → image encoder", fillcolor="#ede
 text [label="Text mẫu / plot\nTokenizer → text encoder", fillcolor="#ede9fe"];
 cls [label="Prompt → text encoder\nmean_embed / mean_sim", fillcolor="#ede9fe"];
 score [label="Điểm ảnh–prompt và text–prompt\nHai bảng điểm N × C", fillcolor="#fef3c7"];
-decision [label="Softmax hoặc relative_z/sigmoid\nFusion → quy tắc chọn nhãn", fillcolor="#fef3c7"];
+pair [label="Chỉ khi flag enabled=true\nẢnh ↔ text cùng mẫu\nCosine; một nhãn thêm JS/entropy", fillcolor="#fef3c7"];
+decision [label="Softmax hoặc relative_z/sigmoid\nFusion → quan hệ nếu class_aware\n→ quy tắc chọn nhãn", fillcolor="#fef3c7"];
 pred [label="NHÃN DỰ ĐOÁN\nMột nhãn / danh sách thể loại", fillcolor="#dcfce7"];
 truth [label="NHÃN THẬT\nTừ cột nhãn của task", fillcolor="#dbeafe"];
 eval [label="Metric + audit + lưu kết quả\nTSV / JSON / summary", fillcolor="#dcfce7"];
@@ -29,6 +30,9 @@ img -> score;
 text -> score;
 cls -> score;
 score -> decision;
+img -> pair;
+text -> pair;
+pair -> decision [label="policy / diagnostic"];
 decision -> pred;
 pred -> eval;
 truth -> eval [label="đánh giá", style="dashed"];
@@ -37,6 +41,8 @@ data -> prompt [style=invis, weight=100];
 {rank=same; img; text; cls;}
 img -> text [style=invis, weight=100];
 text -> cls [style=invis, weight=100];
+{rank=same; score; pair;}
+score -> pair [style=invis, weight=100];
 {rank=same; pred; truth;}
 pred -> truth [style=invis, weight=100];
 }

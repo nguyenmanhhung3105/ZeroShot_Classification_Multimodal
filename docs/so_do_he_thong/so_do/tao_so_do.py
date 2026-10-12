@@ -81,15 +81,17 @@ def main():
         ("text", "Text mẫu / plot\nTokenizer → text encoder", "model"),
         ("cls", "Prompt → text encoder\nmean_embed / mean_sim", "model"),
         ("score", "Điểm ảnh–prompt và text–prompt\nHai bảng điểm N × C", "score"),
-        ("decision", "Softmax hoặc relative_z/sigmoid\nFusion → quy tắc chọn nhãn", "score"),
+        ("pair", "Chỉ khi flag enabled=true\nẢnh ↔ text cùng mẫu\nCosine; một nhãn thêm JS/entropy", "score"),
+        ("decision", "Softmax hoặc relative_z/sigmoid\nFusion → quan hệ nếu class_aware\n→ quy tắc chọn nhãn", "score"),
         ("pred", "NHÃN DỰ ĐOÁN\nMột nhãn / danh sách thể loại", "output"),
         ("truth", "NHÃN THẬT\nTừ cột nhãn của task", "input"),
         ("eval", "Metric + audit + lưu kết quả\nTSV / JSON / summary", "output"),
     ], [("cfg","load","cấu hình",True),("cfg","prompt","task",True),
         ("data","load"),("load","img"),("load","text"),("prompt","cls"),
         ("img","score"),("text","score"),("cls","score"),("score","decision"),
+        ("img","pair"),("text","pair"),("pair","decision","policy / diagnostic"),
         ("decision","pred"),("pred","eval"),("truth","eval","đánh giá",True)],
-        [("data","prompt"),("img","text","cls"),("pred","truth")])
+        [("data","prompt"),("img","text","cls"),("score","pair"),("pred","truth")])
     for name, title, arch, tokenizer in [
         ("03_metaclip2", "MetaCLIP2: ba đường mã hóa", "ViT-H-14-worldwide-quickgelu", "Tokenizer theo kiến trúc"),
         ("04_dfn5b", "DFN5B: ba đường mã hóa", "apple/DFN5B-CLIP-ViT-H-14", "Tokenizer ViT-H-14"),
@@ -105,7 +107,7 @@ def main():
             ("pe", "TEXT ENCODER\nCùng trọng số với text mẫu", "model"),
             ("iv", "L2 → I [N, D]", "process"),("tv", "L2 → T [N, D]\nPlot dài: xem chunking", "process"),
             ("pv", "L2 từng prompt → gộp theo lớp\nE [C, D]", "process"),
-            ("s", "I × Eᵀ và T × Eᵀ\nScale/bias hoặc relative_z\nFusion → chọn nhãn", "score"),
+            ("s", "I × Eᵀ và T × Eᵀ\nScale/bias hoặc relative_z\nFusion + quan hệ theo config\n→ chọn nhãn", "score"),
             ("o", "NHÃN + ĐIỂM TỪNG NHÁNH\nMetric / TSV / JSON", "output"),
         ], [("i","ip"),("t","tt"),("p","pt"),("ip","ie"),("tt","te"),("pt","pe"),
             ("ie","iv"),("te","tv"),("pe","pv"),("iv","s"),("tv","s"),("pv","s"),("s","o")],
@@ -118,8 +120,9 @@ def main():
         ("ip", "P_img = softmax(L_img)\nQua C lớp của từng mẫu", "score"),
         ("tp", "P_text = softmax(L_text)\nQua C lớp của từng mẫu", "score"),
         ("f", "P = w × P_img + (1-w) × P_text\nText rỗng: w hiệu lực = 1", "score"),
+        ("rel", "Quan hệ nếu flag bật\nFakeddit 6way: class_aware\nTask khác: diagnostic", "process"),
         ("o", "argmax theo lớp\nMỗi mẫu đúng một nhãn", "output"),
-    ], [("i","il"),("t","tl"),("il","ip"),("tl","tp"),("ip","f"),("tp","f"),("f","o")],
+    ], [("i","il"),("t","tl"),("il","ip"),("tl","tp"),("ip","f"),("tp","f"),("f","rel"),("rel","o")],
         [("i","t"),("il","tl"),("ip","tp")])
     diagram("07_multi_label", "MM-IMDb: hai chế độ quyết định nhiều nhãn", [
         ("s", "S_img và S_text [N, 23]\nCosine / mean cosine", "input"),
@@ -176,27 +179,28 @@ def main():
     ],[("names","render"),("desc","render"),("render","text"),("text","s"),
         ("image","s"),("s","o")],[("names","desc"),("text","image")])
     diagram("12_upstream", "Runner upstream: code tác giả + dữ liệu dự án", [
-        ("cfg", "upstream.yaml + base_config\nRepo ghim commit + descriptors", "control"),
+        ("cfg", "upstream.yaml + base_config\nRepo ghim commit + descriptors\nFlag quan hệ mặc định false", "control"),
         ("plan", "Kiểm tra repo / taxonomy\nSinh và kiểm token prompt\nLưu frozen_plan.json", "process"),
         ("prep", "--prepare-only?\nCó → dừng tại plan\nKhông → tiếp tục", "process"),
         ("input", "Loader chung → cohort hợp lệ\nOpenAI CLIP checkpoint", "input"),
         ("encode", "Mã hóa ảnh + text một lần\nMỗi backbone/cohort\nTái dùng giữa method/seed", "model"),
         ("score", "clip / waffle / dclip_labels / dclip\nHàm mã hóa + mean của tác giả\nS_img và S_text chung", "score"),
-        ("native", "original_image\nw = 1; một nhãn: argmax cosine\nMM-IMDb: quy tắc mở rộng", "process"),
-        ("multi", "multimodal\nScale hoặc relative_z → fusion\nText prompt giữ chung", "process"),
+        ("pair", "Flag quan hệ = true?\nCó: cosine cặp; JS/entropy tùy task\nKhông: giữ scoring nền", "process"),
+        ("native", "original_image\nw = 1; quan hệ chỉ diagnostic\nMM-IMDb: quy tắc mở rộng", "process"),
+        ("multi", "multimodal\nScale hoặc relative_z → fusion\nQuan hệ theo taxonomy nếu bật", "process"),
         ("out", "Nhãn + metric + audit từng trial\nsummary.tsv / seed_summary.tsv\nraw_predictions/", "output"),
     ],[("cfg","plan"),("plan","prep"),("prep","input","tiếp tục"),("input","encode"),
-        ("encode","score"),("score","native"),("score","multi"),("native","out"),("multi","out")],
+        ("encode","score"),("score","pair"),("pair","native"),("pair","multi"),("native","out"),("multi","out")],
         [("native","multi")])
     diagram("13_adapted", "Runner adapted: thay prompt ảnh, giữ nhánh text", [
-        ("cfg", "adapted.yaml + base_config\nMethod + seeds + taxonomy", "control"),
+        ("cfg", "adapted.yaml + base_config\nMethod + seeds + taxonomy\nFlag quan hệ mặc định false", "control"),
         ("plan", "Chuẩn bị prompt ảnh từng trial\nGiữ prompt text nền\nLưu frozen_plan.json", "process"),
         ("prep", "--prepare-only?\nCó → dừng tại plan\nKhông → tải model", "process"),
         ("model", "MetaCLIP2 / DFN5B / SigLIP2\nModel trong base_config", "model"),
         ("runner", "Runner dataset của dự án\nCohort giống nhau giữa trial", "process"),
         ("img", "NHÁNH ẢNH\nE_img: baseline / class_name\ncurrent_mean_sim / waffle / dclip", "score"),
         ("text", "NHÁNH TEXT\nE_text: prompt nền giữ chung\nAggregation theo base_config", "score"),
-        ("fuse", "Scoring + fusion dự án\nSo sánh sample_set_id\nKhác cohort → dừng", "process"),
+        ("fuse", "Scoring + fusion dự án\nQuan hệ nếu flag bật\nKhác cohort → dừng", "process"),
         ("out", "Nhãn + log + metric\nsummary.tsv / seed_summary.tsv\nraw_predictions/", "output"),
     ],[("cfg","plan"),("plan","prep"),("prep","model","tiếp tục"),("model","runner"),
         ("runner","img"),("runner","text"),("img","fuse"),("text","fuse"),("fuse","out")],
@@ -214,7 +218,18 @@ def main():
     ],[("in","sel"),("sel","co"),("co","infer"),("co","truth"),("infer","metric"),
         ("truth","metric","đánh giá",True),("metric","log"),("metric","audit"),("metric","sum")],
         [("infer","truth"),("log","audit","sum")])
-    print("Đã dựng 14 sơ đồ DOT + SVG; không truy cập dataset hoặc model.")
+    diagram("15_quan_he_anh_text", "Ảnh–text (khi flag bật): hiệu chỉnh theo nhãn ứng viên", [
+        ("pair", "I và T của cùng mẫu\nL2; plot: mean các chunk", "input"),
+        ("probs", "P_img và P_text [N, C]\nSoftmax riêng từng nhánh", "input"),
+        ("cos", "Cosine r = I · T\nm = (1+r)/2; d = (1-r)/2", "score"),
+        ("js", "JS chuẩn hóa → J ∈ [0,1]\nEntropy hai nhánh → R ∈ [0,1]\nPhẳng → R = 0", "score"),
+        ("ev", "A = m × (1-J) × R\nD = d × J × R", "score"),
+        ("base", "B = w P_img + (1-w) P_text\nĐiểm fusion nền", "score"),
+        ("policy", "POLICY CỐ ĐỊNH THEO TAXONOMY\n0=True: e=A; 2=False Connection: e=D\n1/3/4/5: e=0, neutral", "control"),
+        ("out", "U_c = B_c × (1 + 0.25 e_c)\nChuẩn hóa tổng → P' → argmax\nThiếu text / diagnostic → giữ B", "output"),
+    ],[("pair","cos"),("probs","js"),("cos","ev"),("js","ev"),("probs","base"),
+        ("ev","policy"),("policy","out"),("base","out")],[("pair","probs"),("cos","js")])
+    print("Đã dựng 15 sơ đồ DOT + SVG; không truy cập dataset hoặc model.")
 
 
 if __name__ == "__main__":

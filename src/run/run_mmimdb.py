@@ -13,6 +13,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from evaluation_audit import prepare_audit, finish_audit
 from text_scale import text_scale_settings
+from pair_relation import relation_settings, attach_relation
 from research.adapted_methods import research_embeddings
 from inference import build_class_embeddings, predict_multi_label, multilabel_settings
 from inference import prompt_aggregation_settings
@@ -35,6 +36,8 @@ from run.common import (
 
 
 def run_mmimdb(vlm, task_config: dict, config: dict) -> dict:
+    relation, relation_meta = relation_settings(task_config, "mmimdb", config)
+    relation_scores = {}
     print(f"\n{'=' * 70}\nDATASET: MM-IMDb | TASK: multi-label\n{'=' * 70}")
 
     df = load_dataframe(task_config["data_path"], max_samples=task_config.get("max_samples"))
@@ -85,15 +88,18 @@ def run_mmimdb(vlm, task_config: dict, config: dict) -> dict:
         image_weight=image_weight,
         **decision_options, diagnostics=audit, text_logit_scale=text_scale,
         image_class_embeds=image_classes,
+        image_text_relation=relation, relation_scores=relation_scores,
     )
     df_valid["_text_was_empty"] = text_empty_mask
     df_valid["_used_top1_fallback"] = used_fallback
+    attach_relation(df_valid, relation_scores)
 
     y_true = [parse_multilabel(value) for value in df_valid[label_col].tolist()]
     result = evaluate_multi_label(y_true, predictions, label_order)
     result.update(decision_meta)
     result.update(scale_meta)
     result.update(research_meta)
+    result.update(relation_meta)
 
     result.update(finish_audit(audit, vlm, df_valid, texts, y_true, label_order,
                                probs, p_img, p_text, text_empty_mask, image_weight,
@@ -113,6 +119,7 @@ def run_mmimdb(vlm, task_config: dict, config: dict) -> dict:
         sim_text=p_text,
         evaluation_audit=audit,
         extra_manifest={
+            **relation_meta,
             **research_meta,
             "research_image_prompts": task_config.get("_research_image_prompts"),
             **scale_meta,

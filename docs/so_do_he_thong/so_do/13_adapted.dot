@@ -7,14 +7,14 @@ node [shape=box, style="rounded,filled", fontname="Arial", fontsize=12,
   margin="0.18,0.12", width=2.65];
 edge [fontname="Arial", fontsize=10, color="#475569",
   fontcolor="#334155", arrowsize=0.75];
-cfg [label="adapted.yaml + base_config\nMethod + seeds + taxonomy", fillcolor="#ffedd5"];
+cfg [label="adapted.yaml + base_config\nMethod + seeds + taxonomy\nFlag quan hệ mặc định false", fillcolor="#ffedd5"];
 plan [label="Chuẩn bị prompt ảnh từng trial\nGiữ prompt text nền\nLưu frozen_plan.json", fillcolor="#e2e8f0"];
 prep [label="--prepare-only?\nCó → dừng tại plan\nKhông → tải model", fillcolor="#e2e8f0"];
 model [label="MetaCLIP2 / DFN5B / SigLIP2\nModel trong base_config", fillcolor="#ede9fe"];
 runner [label="Runner dataset của dự án\nCohort giống nhau giữa trial", fillcolor="#e2e8f0"];
 img [label="NHÁNH ẢNH\nE_img: baseline / class_name\ncurrent_mean_sim / waffle / dclip", fillcolor="#fef3c7"];
 text [label="NHÁNH TEXT\nE_text: prompt nền giữ chung\nAggregation theo base_config", fillcolor="#fef3c7"];
-fuse [label="Scoring + fusion dự án\nSo sánh sample_set_id\nKhác cohort → dừng", fillcolor="#e2e8f0"];
+fuse [label="Scoring + fusion dự án\nQuan hệ nếu flag bật\nKhác cohort → dừng", fillcolor="#e2e8f0"];
 out [label="Nhãn + log + metric\nsummary.tsv / seed_summary.tsv\nraw_predictions/", fillcolor="#dcfce7"];
 cfg -> plan;
 plan -> prep;

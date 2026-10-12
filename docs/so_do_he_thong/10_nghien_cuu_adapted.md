@@ -34,6 +34,8 @@ Nếu nền đã chọn mean_sim, `baseline` và `current_mean_sim` có thể t�
 
 ## Điểm nối với runner chính
 
+Runner có flag `image_text_relation.enabled` riêng trong adapted.yaml, mặc định false và ưu tiên hơn base config. Bật true áp dụng cho mọi backbone/method của task đã chọn; auto chọn class_aware với Fakeddit 6way, diagnostic với task khác. Xem [trang 13](13_quan_he_anh_text.md).
+
 ```text
 prepare_trials
   → task_config['_research_image_prompts'] + metadata

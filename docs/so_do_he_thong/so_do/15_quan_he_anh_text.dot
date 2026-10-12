@@ -1,0 +1,30 @@
+digraph G {
+graph [rankdir=TB, bgcolor="white", fontname="Arial", fontsize=19,
+  pad=0.3, nodesep=0.45, ranksep=0.65, splines=polyline,
+  labelloc=t, label="Ảnh–text (khi flag bật): hiệu chỉnh theo nhãn ứng viên"];
+node [shape=box, style="rounded,filled", fontname="Arial", fontsize=12,
+  color="#64748b", fontcolor="#0f172a", penwidth=1.2,
+  margin="0.18,0.12", width=2.65];
+edge [fontname="Arial", fontsize=10, color="#475569",
+  fontcolor="#334155", arrowsize=0.75];
+pair [label="I và T của cùng mẫu\nL2; plot: mean các chunk", fillcolor="#dbeafe"];
+probs [label="P_img và P_text [N, C]\nSoftmax riêng từng nhánh", fillcolor="#dbeafe"];
+cos [label="Cosine r = I · T\nm = (1+r)/2; d = (1-r)/2", fillcolor="#fef3c7"];
+js [label="JS chuẩn hóa → J ∈ [0,1]\nEntropy hai nhánh → R ∈ [0,1]\nPhẳng → R = 0", fillcolor="#fef3c7"];
+ev [label="A = m × (1-J) × R\nD = d × J × R", fillcolor="#fef3c7"];
+base [label="B = w P_img + (1-w) P_text\nĐiểm fusion nền", fillcolor="#fef3c7"];
+policy [label="POLICY CỐ ĐỊNH THEO TAXONOMY\n0=True: e=A; 2=False Connection: e=D\n1/3/4/5: e=0, neutral", fillcolor="#ffedd5"];
+out [label="U_c = B_c × (1 + 0.25 e_c)\nChuẩn hóa tổng → P' → argmax\nThiếu text / diagnostic → giữ B", fillcolor="#dcfce7"];
+pair -> cos;
+probs -> js;
+cos -> ev;
+js -> ev;
+probs -> base;
+ev -> policy;
+policy -> out;
+base -> out;
+{rank=same; pair; probs;}
+pair -> probs [style=invis, weight=100];
+{rank=same; cos; js;}
+cos -> js [style=invis, weight=100];
+}

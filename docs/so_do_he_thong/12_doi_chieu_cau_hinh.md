@@ -31,6 +31,8 @@ Các task đã hỗ trợ còn lại: Fakeddit 2way và CrisisMMD humanitarian. 
 
 ## Method tích hợp trong hai runner nghiên cứu
 
+Mọi runner hiện có flag quan hệ mặc định **false**. Pipeline chính dùng `inference.image_text_relation.enabled`; adapted/upstream dùng `image_text_relation.enabled` ở cấp gốc YAML riêng. Bật true và mode auto: Fakeddit 6way class_aware (weight 0.25, 0=match/2=mismatch), task khác diagnostic. Upstream original_image luôn chỉ diagnostic. Xem [công thức và phạm vi](13_quan_he_anh_text.md).
+
 | Runner | Method hợp lệ | Đang bật | Có lặp seed? |
 |---|---|---|---|
 | Upstream | clip | Có | Không |

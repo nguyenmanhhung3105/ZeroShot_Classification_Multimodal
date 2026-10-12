@@ -7,22 +7,24 @@ node [shape=box, style="rounded,filled", fontname="Arial", fontsize=12,
   margin="0.18,0.12", width=2.65];
 edge [fontname="Arial", fontsize=10, color="#475569",
   fontcolor="#334155", arrowsize=0.75];
-cfg [label="upstream.yaml + base_config\nRepo ghim commit + descriptors", fillcolor="#ffedd5"];
+cfg [label="upstream.yaml + base_config\nRepo ghim commit + descriptors\nFlag quan hệ mặc định false", fillcolor="#ffedd5"];
 plan [label="Kiểm tra repo / taxonomy\nSinh và kiểm token prompt\nLưu frozen_plan.json", fillcolor="#e2e8f0"];
 prep [label="--prepare-only?\nCó → dừng tại plan\nKhông → tiếp tục", fillcolor="#e2e8f0"];
 input [label="Loader chung → cohort hợp lệ\nOpenAI CLIP checkpoint", fillcolor="#dbeafe"];
 encode [label="Mã hóa ảnh + text một lần\nMỗi backbone/cohort\nTái dùng giữa method/seed", fillcolor="#ede9fe"];
 score [label="clip / waffle / dclip_labels / dclip\nHàm mã hóa + mean của tác giả\nS_img và S_text chung", fillcolor="#fef3c7"];
-native [label="original_image\nw = 1; một nhãn: argmax cosine\nMM-IMDb: quy tắc mở rộng", fillcolor="#e2e8f0"];
-multi [label="multimodal\nScale hoặc relative_z → fusion\nText prompt giữ chung", fillcolor="#e2e8f0"];
+pair [label="Flag quan hệ = true?\nCó: cosine cặp; JS/entropy tùy task\nKhông: giữ scoring nền", fillcolor="#e2e8f0"];
+native [label="original_image\nw = 1; quan hệ chỉ diagnostic\nMM-IMDb: quy tắc mở rộng", fillcolor="#e2e8f0"];
+multi [label="multimodal\nScale hoặc relative_z → fusion\nQuan hệ theo taxonomy nếu bật", fillcolor="#e2e8f0"];
 out [label="Nhãn + metric + audit từng trial\nsummary.tsv / seed_summary.tsv\nraw_predictions/", fillcolor="#dcfce7"];
 cfg -> plan;
 plan -> prep;
 prep -> input [label="tiếp tục"];
 input -> encode;
 encode -> score;
-score -> native;
-score -> multi;
+score -> pair;
+pair -> native;
+pair -> multi;
 native -> out;
 multi -> out;
 {rank=same; native; multi;}

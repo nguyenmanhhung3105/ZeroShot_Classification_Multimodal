@@ -45,6 +45,8 @@ Nhánh text giữ cùng prompt, aggregation và score cache giữa các method �
 
 ## Hai output có ý nghĩa khác nhau
 
+Flag `image_text_relation.enabled` trong upstream.yaml mặc định false và áp dụng mọi backbone/method/task đang chọn. Bật true tính quan hệ từ input cache; original_image chỉ diagnostic, còn multimodal dùng auto theo taxonomy. Override dataset ưu tiên hơn flag runner. Khi tắt, không encode thêm nhánh chỉ phục vụ quan hệ. Xem [công thức](13_quan_he_anh_text.md).
+
 | Output | Nhánh mẫu | Một nhãn | MM-IMDb |
 |---|---|---|---|
 | `original_image` | Chỉ ảnh, w hiệu lực = 1 | Argmax cosine; softmax(scale=1) phục vụ log | Quy tắc relative_z hoặc fixed_threshold từ dự án; đánh dấu multi_label_extension |

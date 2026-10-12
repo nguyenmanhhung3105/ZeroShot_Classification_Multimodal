@@ -2,6 +2,7 @@
 from pathlib import Path
 
 import yaml
+from pair_relation import relation_settings
 
 DEFAULT_CONFIG = "configs/experiment_config.yaml"
 TASKS = {"fakeddit": {"2way", "6way"}, "crisismmd": {"informativeness", "humanitarian"},
@@ -18,6 +19,7 @@ def load_config(path=DEFAULT_CONFIG):
     for dataset, settings in config.get("datasets", {}).items():
         if dataset not in TASKS or settings.get("task") not in TASKS[dataset]:
             raise ValueError(f"Dataset/task không hợp lệ: {dataset}/{settings.get('task')}")
+        relation_settings(settings, dataset, config)
         expected = "multi_label" if dataset == "mmimdb" else "single_label"
         if settings.get("task_type", expected) != expected:
             raise ValueError(f"{dataset}: task_type phải là {expected}")

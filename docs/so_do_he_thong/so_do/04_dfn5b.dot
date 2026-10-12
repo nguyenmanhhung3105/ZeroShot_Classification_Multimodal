@@ -19,7 +19,7 @@ pe [label="TEXT ENCODER\nCùng trọng số với text mẫu", fillcolor="#ede9f
 iv [label="L2 → I [N, D]", fillcolor="#e2e8f0"];
 tv [label="L2 → T [N, D]\nPlot dài: xem chunking", fillcolor="#e2e8f0"];
 pv [label="L2 từng prompt → gộp theo lớp\nE [C, D]", fillcolor="#e2e8f0"];
-s [label="I × Eᵀ và T × Eᵀ\nScale/bias hoặc relative_z\nFusion → chọn nhãn", fillcolor="#fef3c7"];
+s [label="I × Eᵀ và T × Eᵀ\nScale/bias hoặc relative_z\nFusion + quan hệ theo config\n→ chọn nhãn", fillcolor="#fef3c7"];
 o [label="NHÃN + ĐIỂM TỪNG NHÁNH\nMetric / TSV / JSON", fillcolor="#dcfce7"];
 i -> ip;
 t -> tt;

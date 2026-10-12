@@ -31,6 +31,8 @@ Wrapper/docstring ghi context SigLIP2 64; code truyền **`model.context_length`
 
 ## Tên family và hành vi thực thi
 
+API chung có thêm quan hệ ảnh–text; Fakeddit 6way có thể hiệu chỉnh sau softmax/fusion. MM-IMDb chỉ ghi cosine, không áp JS lên điểm z hoặc điểm sigmoid multi-label. Xem [công thức](13_quan_he_anh_text.md).
+
 | Task/mode | Biến đổi thật trong inference | Scale/bias |
 |---|---|---|
 | Fakeddit/CrisisMMD một nhãn | **Softmax** riêng ảnh/text → fusion → argmax | Có dùng; bias cộng đều vào các lớp nên không đổi softmax |
@@ -48,6 +50,8 @@ Runner adapted dùng SigLIP2 nếu chọn model này trong base config. Method W
 ## Phạm vi kiến trúc
 
 OpenCLIP/checkpoint định nghĩa chi tiết image/text encoder và preprocess. Bộ tài liệu không mặc định sao chép sơ đồ pooling EOT hay causal text transformer của OpenAI CLIP sang SigLIP2; phần đó chưa được kiểm tra từ thư viện/trọng số trong nhiệm vụ này. Kích thước ảnh, D, số layer/head lấy từ model thực tế khi có lượt chạy được yêu cầu.
+
+Smoke quan hệ ngày 12-10-2026 xác nhận ảnh (224,224), context 64, scale≈109.88, bias≈−15.9324. Thuộc tính `visual.output_dim` wrapper tra được là None trên backend này, nên tài liệu không tự gán D từ thuộc tính đó. Encoder vẫn tạo embedding thực tế tương thích để chấm điểm.
 
 ## Đối chiếu code
 

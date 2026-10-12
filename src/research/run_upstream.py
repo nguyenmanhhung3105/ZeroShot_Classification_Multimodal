@@ -33,6 +33,8 @@ from run.common import (load_dataframe, validate_columns, crisismmd_label_column
                         load_images_safe, get_image_weight, resolve_override, compact_summary)
 from text_chunking import encode_chunked_texts, encode_chunked_max_sim
 from text_scale import text_scale_settings
+from pair_relation import (relation_settings, relation_evidence, apply_class_relation,
+                           attach_relation, research_relation_config)
 
 
 def validate_settings(settings):
@@ -64,6 +66,8 @@ def validate_settings(settings):
             or not any(d.get("enabled") is True for d in datasets.values())):
         raise ValueError("Cần bật ít nhất một dataset")
     for dataset, options in datasets.items():
+        relation_task = {**options, "image_text_relation": research_relation_config({}, settings, options)}
+        relation_settings(relation_task, dataset)
         if dataset not in TASKS or options.get("task") not in TASKS[dataset]:
             raise ValueError(f"Dataset/task không hợp lệ: {dataset}/{options.get('task')}")
         if type(options.get("enabled")) is not bool:
@@ -83,6 +87,8 @@ def prepare_plan(settings, base, api, root, sources):
         if not options["enabled"]:
             continue
         task = {**deepcopy(base["datasets"][dataset]), **options}
+        task["image_text_relation"] = research_relation_config(base["datasets"][dataset], settings, options)
+        relation_settings(task, dataset, base)
         for plural, singular, default in (("prompt_variants", "prompt_variant", "current"),
                                           ("prompt_aggregations", "prompt_aggregation", "mean_embed")):
             values = task.pop(plural, [task.get(singular, default)])
@@ -174,6 +180,7 @@ def load_cohort(dataset, spec):
 def encode_inputs(vlm, dataset, spec, cohort, config, settings):
     """Mã hóa một lần mỗi model/bộ mẫu; cache embedding CPU, không giữ ảnh PIL."""
     batch_size = settings["batch_size"]
+    relation, _ = relation_settings(spec["task_config"], dataset, config)
     blocks = []
     for start in _progress_iter(range(0, len(cohort["images"]), batch_size), desc="Mã hóa ảnh", unit="batch"):
         batch = cohort["images"][start:start + batch_size]
@@ -187,7 +194,11 @@ def encode_inputs(vlm, dataset, spec, cohort, config, settings):
     empty = np.array([not t for t in texts], dtype=bool)
     text_scores = np.zeros((len(texts), len(cohort["labels"])))
     result = {"image": image, "text_scores": text_scores, "empty": empty}
-    if "multimodal" not in settings["outputs"] or get_image_weight(config, dataset) == 1 or empty.all():
+    if relation["enabled"]:
+        result["relation_embeddings"] = {"image": image.numpy(),
+                                         "text": np.zeros((len(texts), image.shape[1]))}
+    if empty.all() or (not relation["enabled"] and
+            ("multimodal" not in settings["outputs"] or get_image_weight(config, dataset) == 1)):
         return result
     classes, labels = build_class_embeddings(vlm, spec["text_prompts"],
                                             aggregation=spec["task_config"]["prompt_aggregation"])
@@ -202,7 +213,10 @@ def encode_inputs(vlm, dataset, spec, cohort, config, settings):
         indices = nonempty[start:start + batch_size]
         batch = [texts[i] for i in indices]
         if chunking and use_max:
-            scores, sizes = encode_chunked_max_sim(vlm, batch, batch_size, classes)
+            mean_buffer = {} if relation["enabled"] else None
+            scores, sizes = encode_chunked_max_sim(vlm, batch, batch_size, classes, mean_embeddings=mean_buffer)
+            if mean_buffer is not None:
+                vectors = mean_buffer["text"]
         elif chunking:
             vectors, sizes = encode_chunked_texts(vlm, batch, batch_size)
             scores = vectors @ classes.T
@@ -210,6 +224,8 @@ def encode_inputs(vlm, dataset, spec, cohort, config, settings):
             vectors = vlm.encode_texts(batch).detach().float().cpu().numpy()
             scores, sizes = vectors @ classes.T, [1] * len(batch)
         text_scores[indices] = scores
+        if relation["enabled"]:
+            result["relation_embeddings"]["text"][indices] = vectors
         for i, size in zip(indices, sizes):
             counts[i] = size
     if chunking:
@@ -245,6 +261,9 @@ def score_predictions(vlm, image, text, empty, labels, weight, scale, *, multila
 def evaluate_trial(vlm, dataset, spec, cohort, cache, trial, image, output, base, root):
     task = spec["task_config"]
     native, multi = output == "original_image", dataset == "mmimdb"
+    relation, relation_meta = relation_settings(task, dataset, base)
+    effective_relation = {**relation, "mode": "diagnostic" if native else relation["mode"]}
+    relation_meta["relation_mode"] = effective_relation["mode"]
     config = deepcopy(base)
     config["datasets"][dataset] = task
     config.setdefault("evaluation", {}).update(enabled=True, sample_lock_mode="off")
@@ -259,11 +278,22 @@ def evaluate_trial(vlm, dataset, spec, cohort, cache, trial, image, output, base
     predictions, fused, p_image, p_text, fallback = score_predictions(
         vlm, image, text, cache["empty"], cohort["labels"], weight, scale,
         multilabel=multi, decision=decision, native=native)
+    relation_scores = {}
+    if relation["enabled"]:
+        vectors = cache["relation_embeddings"]
+        relation_scores = relation_evidence(vectors["image"], vectors["text"], p_image, p_text,
+                                            cache["empty"], single_label=not multi)
+        fused = apply_class_relation(fused, cohort["labels"], relation_scores, effective_relation, weight)
+        if not multi:
+            predictions = [cohort["labels"][i] for i in fused.argmax(axis=1)]
+        if audit is not None:
+            audit["image_text_relation"] = {**effective_relation, **relation_scores}
     _record_cosine(audit, image, text, weight, cache["empty"])
     if not native and "chunking" in cache:
         audit["chunking"] = deepcopy(cache["chunking"])
     frame = cohort["frame"].copy()
     frame["_text_was_empty"] = cache["empty"]
+    attach_relation(frame, relation_scores)
     if multi:
         frame["_used_top1_fallback"] = fallback
     result = (evaluate_multi_label(cohort["truth"], predictions, cohort["labels"]) if multi else
@@ -271,7 +301,7 @@ def evaluate_trial(vlm, dataset, spec, cohort, cache, trial, image, output, base
     result.update(finish_audit(audit, vlm, frame, cohort["texts"], cohort["truth"], cohort["labels"],
                                fused, p_image, p_text, cache["empty"], weight,
                                multilabel=multi, decision_meta=decision, fallback=decision["fallback_top1"]))
-    metadata = {**decision, **scale_meta, "method": trial["method"], "seed": trial["seed"],
+    metadata = {**decision, **scale_meta, **relation_meta, "method": trial["method"], "seed": trial["seed"],
                 "output_variant": output, "backbone": vlm.backbone, "device": vlm.device,
                 "implementation": "author_functions_openai_clip_v1",
                 "classification_scope": "multi_label_extension" if multi else "paper_image" if native else "multimodal_extension",
@@ -316,7 +346,7 @@ def experiment_summary(rows):
                "relative_z_threshold", "threshold", "image_weight", "text_logit_scale_requested",
                "text_logit_scale_effective", "text_logit_scale_status", "chunk_long_text",
                "chunk_aggregation", "n_skipped_images", "image_macro_f1", "text_macro_f1", "fusion_macro_f1_gain",
-               "fusion_improves_macro_f1", "prediction_log_dir"]
+               "fusion_improves_macro_f1", "relation_enabled", "relation_mode", "relation_weight", "prediction_log_dir"]
     native = frame["output_variant"].eq("original_image")
     for key in ("fusion_macro_f1_gain", "fusion_improves_macro_f1", "text_macro_f1"):
         if key in frame:

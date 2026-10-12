@@ -32,6 +32,8 @@
 
 ## Quy tắc phân loại và tích hợp nghiên cứu
 
+API chung có thêm cosine ảnh–text, JS/entropy và class_aware cho Fakeddit 6way. Quan hệ dùng chính embedding DFN5B, không so vector của backbone khác. Xem [công thức](13_quan_he_anh_text.md).
+
 - Fakeddit/CrisisMMD: scale/bias → softmax từng nhánh → fusion → một nhãn.
 - MM-IMDb trong cấu hình hiện tại: relative_z từng nhánh → fusion → chọn tất cả lớp điểm > 1.0; top-1 dự phòng khi cần.
 - `fixed_threshold` MM-IMDb chỉ được dùng khi chủ động chọn; sigmoid trên model CLIP-family không mặc định tạo xác suất multi-label được hiệu chỉnh.
@@ -39,7 +41,7 @@
 
 ## Phạm vi kiến trúc
 
-Ảnh dùng lựa chọn ViT-H/14 khai báo bởi Hub ID. Preprocess, chiều embedding, context và tham số scale lấy từ model thực tế. Dự án không tự xây layer ViT, pooling text hay tokenizer DFN. Bộ tài liệu không đọc trọng số hoặc code thư viện cài sẵn để khẳng định số head/layer, pooling chi tiết, kích thước ảnh hoặc D của checkpoint.
+Ảnh dùng lựa chọn ViT-H/14 khai báo bởi Hub ID. Smoke quan hệ ngày 12-10-2026 xác nhận D=1024, ảnh (224,224), context 77, scale≈14.28, bias=0 trên model đã nạp. Dự án không tự xây layer ViT, pooling text hay tokenizer DFN; số head/layer và pooling chi tiết chưa được kiểm tra.
 
 Việc đổi sang DFN5B thay backbone cho cả ảnh/text/prompt, không chỉ đổi tên phương pháp. So sánh backbone phải giữ cùng task, cohort, prompt và quy tắc quyết định.
 

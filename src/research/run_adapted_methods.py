@@ -20,6 +20,7 @@ import yaml
 
 from research.adapted_methods import ROOT, official_words, waffle_prompts, load_descriptors
 from prompts import fakeddit_prompts, crisismmd_prompts, mmimdb_prompts
+from pair_relation import research_relation_config, relation_settings
 
 
 def write_json(path, value):
@@ -52,6 +53,8 @@ def prepare_trials(settings, base):
     dataset = settings["dataset"]
     task = deepcopy(base["datasets"][dataset])
     task["task"] = settings.get("task", task.get("task", "genres"))
+    task["image_text_relation"] = research_relation_config(task, settings)
+    relation_settings(task, dataset, base)
     task["enabled"] = True
     limit = settings.get("max_samples", 5)
     if type(limit) is not int or limit < 1:

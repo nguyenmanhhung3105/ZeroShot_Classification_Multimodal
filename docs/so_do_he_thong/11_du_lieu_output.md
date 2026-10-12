@@ -97,6 +97,8 @@ Gộp đoạn text và gộp prompt lớp là hai lựa chọn khác nhau: `chun
 
 ## Output từng lượt
 
+Các runner chính bổ sung cột cosine ảnh–text và, với single-label, JS/entropy/evidence. `relation_applied` đánh dấu mẫu được hiệu chỉnh; chi tiết [trang 13](13_quan_he_anh_text.md). Nhãn thật vẫn chỉ dùng kiểm tra/đánh giá.
+
 | File | Bạn đọc được gì |
 |---|---|
 | `raw_predictions.tsv` | ID/text/path, nhãn thật/dự đoán, điểm từng lớp và nhánh, mask/fallback; là log inference theo mẫu |

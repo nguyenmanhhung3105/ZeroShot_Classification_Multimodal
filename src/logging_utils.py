@@ -140,6 +140,11 @@ def _audit_manifest(metadata, audit):
 
 
 def _add_diagnostics(row, source, index, label_order, sim_image, sim_text, metadata=None):
+    from pair_relation import RELATION_COLUMNS
+    for key in RELATION_COLUMNS:
+        if key in source:
+            value = source[key]
+            row[key] = (bool(value) if key == "relation_applied" else float(value)) if pd.notna(value) else None
     for flag in ("_text_was_empty", "_used_top1_fallback"):
         if flag in source:
             row[flag] = bool(source[flag])

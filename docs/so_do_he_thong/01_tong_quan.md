@@ -1,6 +1,6 @@
 # 01 — Toàn cảnh hệ thống
 
-**Hệ thống nhận ảnh + text, so từng nội dung với prompt của các lớp, kết hợp điểm rồi chọn nhãn.** Ba runner dưới đây là ba điểm vào độc lập; chạy hệ thống chính không tự chạy nghiên cứu.
+**Hệ thống nhận ảnh + text, so với prompt lớp và tùy chọn thêm quan hệ ảnh–text.** Ba runner dưới đây độc lập, đều có flag quan hệ mặc định tắt. Nhánh quan hệ ở [trang 13](13_quan_he_anh_text.md); upstream hỗ trợ flag cho multimodal và giữ original_image chỉ diagnostic.
 
 ![Toàn cảnh ba luồng](so_do/01_tong_quan.svg)
 

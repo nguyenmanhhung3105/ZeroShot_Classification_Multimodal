@@ -2,6 +2,8 @@
 Suy luận zero-shot cho ảnh và text, kết hợp điểm của hai nhánh.
 
 Single-label: tính cosine → scale/bias → softmax riêng mỗi nhánh → fusion → argmax.
+Quan hệ tùy chọn: cosine ảnh–text + JS/entropy; Fakeddit 6way hiệu chỉnh nhẹ
+theo policy của lớp trước argmax, task khác chỉ ghi chẩn đoán.
 Multi-label: runner MM-IMDb mặc định chuẩn hóa cosine qua các nhãn của từng mẫu
 (relative_z) rồi fusion; fixed_threshold giữ cách sigmoid khi chủ động chọn.
 Text rỗng dùng ảnh làm dự phòng. mean_sim giữ trung bình cosine từng prompt,
@@ -12,6 +14,7 @@ thực nghiệm, không mặc định xem là xác suất đã được hiệu c
 
 import numpy as np
 from text_scale import validate_text_scale
+from pair_relation import validate_relation_options, relation_evidence, apply_class_relation
 
 try:
     from tqdm.auto import tqdm as _tqdm
@@ -156,8 +159,9 @@ def _clean_texts(texts: list) -> list:
 def encode_multimodal_embeddings(vlm, images: list, texts: list, batch_size: int = 16,
                                   show_progress: bool = True, desc: str = "Encoding",
                                   image_weight: float = None, chunk_long_text=False,
-                                  diagnostics=None, max_sim_classes=None, chunk_scores=None) -> tuple:
-    """Encode theo batch, bỏ nhánh có trọng số 0; giữ fallback ảnh khi text rỗng."""
+                                  diagnostics=None, max_sim_classes=None, chunk_scores=None,
+                                  relation_embeddings=None) -> tuple:
+    """Encode theo batch; quan hệ có buffer riêng, không đổi nhánh phân loại bị bỏ."""
     if len(images) != len(texts) or not texts:
         raise ValueError("Ảnh và text phải cùng số mẫu và không rỗng")
     if not isinstance(batch_size, int) or batch_size < 1:
@@ -177,10 +181,11 @@ def encode_multimodal_embeddings(vlm, images: list, texts: list, batch_size: int
     for start in iterator:
         end = min(start + batch_size, len(images))
         image_indices = [i for i in range(start, end)
-                         if image_weight is None or image_weight > 0 or text_empty_mask[i]]
+                         if relation_embeddings is not None or image_weight is None or image_weight > 0 or text_empty_mask[i]]
         text_indices = [i for i in range(start, end)
-                        if (image_weight is None or image_weight < 1) and not text_empty_mask[i]]
+                        if (relation_embeddings is not None or image_weight is None or image_weight < 1) and not text_empty_mask[i]]
         encoded_image = encoded_text = None
+        relation_text = None
         if image_indices:
             batch = [images[i] for i in image_indices]
             try:
@@ -193,8 +198,11 @@ def encode_multimodal_embeddings(vlm, images: list, texts: list, batch_size: int
         if text_indices:
             if max_sim_classes is not None:
                 from text_chunking import encode_chunked_max_sim
+                mean_buffer = {} if relation_embeddings is not None else None
                 scores, counts = encode_chunked_max_sim(
-                    vlm, [texts[i] for i in text_indices], batch_size, max_sim_classes)
+                    vlm, [texts[i] for i in text_indices], batch_size, max_sim_classes,
+                    mean_embeddings=mean_buffer)
+                relation_text = mean_buffer["text"] if mean_buffer is not None else None
                 chunk_scores["text"][text_indices] = scores
                 # Điểm cực đại riêng từng nhãn không có một vector text đại diện chung.
                 encoded_text = np.zeros((len(text_indices), max_sim_classes.shape[1]), dtype=scores.dtype)
@@ -212,10 +220,23 @@ def encode_multimodal_embeddings(vlm, images: list, texts: list, batch_size: int
             prototype = encoded_image if encoded_image is not None else encoded_text
             image_embeds = np.zeros((len(images), prototype.shape[1]), dtype=prototype.dtype)
             text_embeds = np.zeros_like(image_embeds)
+            if relation_embeddings is not None:
+                relation_embeddings["image"] = np.zeros_like(image_embeds)
+                relation_embeddings["text"] = np.zeros_like(text_embeds)
         if encoded_image is not None:
-            image_embeds[image_indices] = _l2_normalize(encoded_image)
+            normalized = _l2_normalize(encoded_image)
+            if relation_embeddings is not None:
+                relation_embeddings["image"][image_indices] = normalized
+            keep = [j for j, i in enumerate(image_indices) if image_weight is None or image_weight > 0 or text_empty_mask[i]]
+            image_embeds[[image_indices[j] for j in keep]] = normalized[keep]
         if encoded_text is not None:
-            text_embeds[text_indices] = _l2_normalize(encoded_text)
+            normalized = _l2_normalize(encoded_text)
+            if relation_embeddings is not None:
+                relation_embeddings["text"][text_indices] = _l2_normalize(relation_text if relation_text is not None else encoded_text)
+            if image_weight is None or image_weight < 1:
+                text_embeds[text_indices] = normalized
+            elif max_sim_classes is not None:
+                chunk_scores["text"][text_indices] = 0
     if chunk_long_text and diagnostics is not None:
         diagnostics["chunking"] = {"enabled": True, "aggregation": "max_sim" if max_sim_classes is not None else "mean_embed",
                                   "counts": chunk_counts, "total_chunks": sum(chunk_counts),
@@ -226,7 +247,8 @@ def encode_multimodal_embeddings(vlm, images: list, texts: list, batch_size: int
 def predict_single_label(vlm, images: list, texts: list, class_embeds: np.ndarray, label_order: list,
                           batch_size: int = 16, image_weight: float = 0.5,
                           text_logit_scale: float = None, show_progress: bool = True,
-                          diagnostics=None, image_class_embeds=None) -> tuple:
+                          diagnostics=None, image_class_embeds=None,
+                          image_text_relation=None, relation_scores=None) -> tuple:
     """
     Suy luận đa phương thức, một nhãn cho Fakeddit / CrisisMMD.
 
@@ -242,11 +264,16 @@ def predict_single_label(vlm, images: list, texts: list, class_embeds: np.ndarra
         text_empty_mask: np.ndarray[bool] (N,)
     """
     validate_text_scale(text_logit_scale)
+    relation = validate_relation_options(image_text_relation)
+    if relation["enabled"] and relation["mode"] == "class_aware" and set(label_order) != set(range(6)):
+        raise ValueError("class_aware chỉ nhận sáu ID Fakeddit 0..5")
+    relation_embeddings = {} if relation["enabled"] else None
     if not 0 <= image_weight <= 1:
         raise ValueError('image_weight must be in [0, 1]')
     image_embeds, text_embeds, text_empty_mask = encode_multimodal_embeddings(
         vlm, images, texts, batch_size=batch_size,
         show_progress=show_progress, desc="Single-label inference", image_weight=image_weight,
+        relation_embeddings=relation_embeddings,
     )
 
     image_classes = _image_classes(class_embeds, image_class_embeds)
@@ -263,6 +290,18 @@ def predict_single_label(vlm, images: list, texts: list, class_embeds: np.ndarra
     p_text = _softmax(logits_text, axis=-1)
 
     p = _weighted_fuse(p_img, p_text, image_weight, text_empty_mask)
+    if relation_embeddings is not None:
+        # Điểm JS cần phân phối cả hai nhánh, kể cả nhánh chỉ encode cho chẩn đoán.
+        ri = relation_embeddings["image"] @ image_classes.T
+        rt = relation_embeddings["text"] @ class_embeds.T
+        scores = relation_evidence(relation_embeddings["image"], relation_embeddings["text"],
+            _softmax(_calibrated_logits(vlm, ri)),
+            _softmax(rt * scale_text + getattr(vlm, "logit_bias", 0.0)), text_empty_mask)
+        p = apply_class_relation(p, label_order, scores, relation, image_weight)
+        if relation_scores is not None:
+            relation_scores.update(scores)
+        if diagnostics is not None:
+            diagnostics["image_text_relation"] = {**relation, **scores}
 
     pred_indices = np.argmax(p, axis=1)
     predictions = [label_order[i] for i in pred_indices]
@@ -277,7 +316,8 @@ def predict_multi_label(vlm, images: list, texts: list, class_embeds: np.ndarray
                          decision_mode="fixed_threshold",
                          relative_z_threshold=1.0, diagnostics=None,
                          chunk_long_text=False, chunk_aggregation="mean_embed",
-                         image_class_embeds=None) -> tuple:
+                         image_class_embeds=None, image_text_relation=None,
+                         relation_scores=None) -> tuple:
     """
     Suy luận đa phương thức, nhiều nhãn cho MM-IMDb.
 
@@ -302,6 +342,10 @@ def predict_multi_label(vlm, images: list, texts: list, class_embeds: np.ndarray
     """
     if decision_mode not in ("fixed_threshold", "relative_z"):
         raise ValueError("Unknown decision_mode")
+    relation = validate_relation_options(image_text_relation)
+    if relation["enabled"] and relation["mode"] != "diagnostic":
+        raise ValueError("MM-IMDb chỉ hỗ trợ quan hệ diagnostic; không có lớp mismatch")
+    relation_embeddings = {} if relation["enabled"] else None
     validate_text_scale(text_logit_scale)
     if chunk_aggregation not in ("mean_embed", "max_sim"):
         raise ValueError("chunk_aggregation must be mean_embed or max_sim")
@@ -319,6 +363,7 @@ def predict_multi_label(vlm, images: list, texts: list, class_embeds: np.ndarray
         show_progress=show_progress, desc="Multi-label inference", image_weight=image_weight,
         chunk_long_text=chunk_long_text, diagnostics=diagnostics,
         max_sim_classes=class_embeds if use_max else None, chunk_scores=chunk_scores,
+        relation_embeddings=relation_embeddings,
     )
 
     image_classes = _image_classes(class_embeds, image_class_embeds)
@@ -336,6 +381,13 @@ def predict_multi_label(vlm, images: list, texts: list, class_embeds: np.ndarray
         probs = _weighted_fuse(p_img, p_text, image_weight, text_empty_mask)
 
     _record_cosine(diagnostics, sim_image, sim_text, image_weight, text_empty_mask)
+    if relation_embeddings is not None:
+        scores = relation_evidence(relation_embeddings["image"], relation_embeddings["text"],
+                                   None, None, text_empty_mask, single_label=False)
+        if relation_scores is not None:
+            relation_scores.update(scores)
+        if diagnostics is not None:
+            diagnostics["image_text_relation"] = {**relation, **scores}
     predictions = []
     used_fallback = []
     for row in probs:

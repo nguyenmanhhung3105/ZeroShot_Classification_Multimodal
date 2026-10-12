@@ -2,7 +2,7 @@
 
 **Bắt đầu tại [01_tong_quan.md](01_tong_quan.md).** Mỗi trang có sơ đồ input → xử lý → output, bảng giải thích các khối và đường dẫn tới code thực thi.
 
-Đối chiếu code/cấu hình ngày **12-10-2026**. Tài liệu mô tả phiên bản trong workspace, không tự suy ra kiến trúc chi tiết của trọng số chưa nạp. Không có lượt train, inference hoặc đọc dataset để tạo bộ tài liệu này.
+Đối chiếu code/cấu hình ngày **12-10-2026**. Bộ sơ đồ ban đầu chỉ dựa trên code. Phần quan hệ ảnh–text bổ sung sau đó có thử thật trên năm dòng đầu Fakeddit; xem báo cáo riêng. Thông số chưa đo từ runtime không được tự suy ra từ tên checkpoint.
 
 ## Đọc theo nhu cầu
 
@@ -20,6 +20,7 @@
 | Runner thích nghi phương pháp trên backbone của bạn | [10 — Nghiên cứu adapted](10_nghien_cuu_adapted.md) |
 | Dataset, taxonomy, chunking, metric và file kết quả | [11 — Dữ liệu và output](11_du_lieu_output.md) |
 | Danh sách đầy đủ backbone/method, trạng thái bật và phạm vi repo clone | [12 — Đối chiếu cấu hình](12_doi_chieu_cau_hinh.md) |
+| Quan hệ ảnh–text và công thức match/mismatch/neutral | [13 — Quan hệ ảnh–text](13_quan_he_anh_text.md) |
 
 ## Bố cục và ký hiệu thống nhất
 
@@ -52,4 +53,4 @@ Quy ước chỉnh sửa: giữ hướng trên xuống, giới hạn mỗi khố
 
 Tài liệu dựa vào `src/`, `configs/`, README và code các checkout `third_party/`. Các đường dẫn dữ liệu được lấy từ cấu hình; bộ tài liệu không xác minh nội dung hoặc thống kê của các file dữ liệu. Các checkpoint không được tải/nạp để lấy thông số kiến trúc. Phương pháp trong repo nghiên cứu và phương pháp đang được runner dự án gọi được ghi rõ ở từng trang.
 
-Tài liệu trạng thái thí nghiệm: [research.md](../research.md), [báo cáo chạy thử](../zeroshot_smoke_20261011.md), [bàn giao](../ban_giao_du_an.md).
+Tài liệu trạng thái thí nghiệm: [research.md](../research.md), [báo cáo chạy thử](../zeroshot_smoke_20261011.md), [bàn giao](../ban_giao_du_an.md). Flag quan hệ mới mặc định tắt trong cả ba YAML; kiểm thử hiện có 110 test, gồm mở rộng flag upstream trên cả năm task và invariance original_image.

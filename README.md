@@ -17,6 +17,7 @@ src/
 │   ├── run_crisismmd.py        # informativeness hoặc humanitarian
 │   └── run_mmimdb.py           # phân loại nhiều thể loại
 ├── inference.py               # chấm điểm ảnh/text và fusion
+├── pair_relation.py           # cosine ảnh–text, JS/entropy và policy theo nhãn
 ├── text_scale.py              # chọn scale riêng cho text
 ├── text_chunking.py           # chia plot dài và gộp các đoạn
 ├── evaluate.py                # tính metric
@@ -120,6 +121,21 @@ của **từng mẫu và từng nhánh**, fusion rồi chọn điểm lớn hơn
 `relative_z_threshold: 1.0`. Điểm không phải xác suất; mode này bỏ scale/bias.
 `threshold: 0.22` chỉ dùng khi chủ động chọn `fixed_threshold`.
 
+Nhánh ảnh ↔ text có flag chung cho mọi model/dataset, **mặc định tắt**:
+
+```yaml
+inference:
+  image_text_relation:
+    enabled: false           # đổi true để bật
+    mode: auto
+    weight: 0.25
+```
+
+`auto` chọn class_aware cho Fakeddit 6way (True/False Connection); các task còn
+lại chỉ diagnostic. Cấu hình `datasets.<tên>.image_text_relation` ưu tiên hơn
+flag chung, nên có thể bật/tắt riêng từng dataset. Chuyển task không cần sửa
+mode nếu dùng auto. Xem [công thức và sơ đồ](docs/so_do_he_thong/13_quan_he_anh_text.md).
+
 ## Luồng xử lý và giới hạn mẫu
 
 YAML → đọc TSV/CSV/Parquet → lọc text → chọn số mẫu → kiểm tra ảnh →
@@ -158,6 +174,22 @@ người dùng khai báo, chưa được xác minh từ nguồn. Thử nhiều l
 giá khám phá; kết quả đó không chứng minh hiệu quả trên test độc lập.
 
 ## Thí nghiệm nghiên cứu
+
+Đối chứng quan hệ ảnh–text trên đúng năm dòng đầu Fakeddit, giữ cùng điểm nền:
+
+```sh
+venv/bin/python -B src/research/run_relation_ablation.py --offline --device cpu
+```
+
+Runner encode một lần/model, so baseline/heuristic cũ/class_aware và lưu plan,
+hash source, summary, điểm từng mẫu dưới `results/relation_ablation/`.
+Ngày 12-10-2026 đã thử MetaCLIP2/DFN5B/SigLIP2; chưa thấy cải thiện nhãn trên
+nhóm năm mẫu này. Xem [báo cáo](docs/quan_he_anh_text_20261012.md).
+Hai file `configs/research/adapted.yaml` và `upstream.yaml` có flag riêng
+`image_text_relation.enabled: false` ở cấp gốc; đổi true để bật trên tất cả
+model/phương pháp/task của runner được chọn. Upstream giữ `original_image`
+chỉ diagnostic; `multimodal` có thể class_aware theo taxonomy. Khi flag tắt,
+không tính nhánh quan hệ hoặc mã hóa thêm text/ảnh dành riêng cho nó.
 
 Có hai runner riêng trong `src/research/`. Chạy `run_upstream.py` để dùng OpenAI
 CLIP cùng các hàm tạo prompt và chấm điểm lấy từ repo WaffleCLIP/DCLIP đã ghim

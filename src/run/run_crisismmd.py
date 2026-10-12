@@ -13,6 +13,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from evaluation_audit import prepare_audit, finish_audit
 from text_scale import text_scale_settings
+from pair_relation import relation_settings, attach_relation
 from research.adapted_methods import research_embeddings
 from inference import build_class_embeddings, predict_single_label
 from inference import prompt_aggregation_settings
@@ -36,6 +37,8 @@ from run.common import (
 
 def run_crisismmd(vlm, task_config: dict, config: dict) -> dict:
     task = task_config["task"]
+    relation, relation_meta = relation_settings(task_config, "crisismmd", config)
+    relation_scores = {}
     print(f"\n{'=' * 70}\nDATASET: CrisisMMD | TASK: {task}\n{'=' * 70}")
 
     df = load_dataframe(task_config["data_path"], max_samples=task_config.get("max_samples"))
@@ -76,8 +79,10 @@ def run_crisismmd(vlm, task_config: dict, config: dict) -> dict:
         vlm, images, texts, class_embeds, label_order,
         batch_size=batch_size, image_weight=image_weight, diagnostics=audit, text_logit_scale=text_scale,
         image_class_embeds=image_classes,
+        image_text_relation=relation, relation_scores=relation_scores,
     )
     df_valid["_text_was_empty"] = text_empty_mask
+    attach_relation(df_valid, relation_scores)
 
     y_true = normalize_single_labels(df_valid[label_col].tolist(), label_names, label_order)
     low_sample = crisismmd_prompts.LOW_SAMPLE_WARNING_CLASSES if task == "humanitarian" else None
@@ -92,6 +97,7 @@ def run_crisismmd(vlm, task_config: dict, config: dict) -> dict:
 
     result.update(scale_meta)
     result.update(research_meta)
+    result.update(relation_meta)
     result.update(finish_audit(audit, vlm, df_valid, texts, y_true, label_order,
                                p, p_img, p_text, text_empty_mask, image_weight))
 
@@ -109,6 +115,7 @@ def run_crisismmd(vlm, task_config: dict, config: dict) -> dict:
         sim_text=p_text,
         evaluation_audit=audit,
         extra_manifest={
+            **relation_meta,
             **research_meta,
             "research_image_prompts": task_config.get("_research_image_prompts"),
             **scale_meta,

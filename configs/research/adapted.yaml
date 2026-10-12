@@ -1,5 +1,9 @@
 # Thử phương pháp trên model hiện có; chạy bằng src/research/run_adapted_methods.py.
 base_config: configs/experiment_config.yaml
+image_text_relation:
+  enabled: false             # flag riêng runner; ưu tiên hơn flag từ base_config
+  mode: auto
+  weight: 0.25
 dataset: crisismmd              # fakeddit | crisismmd | mmimdb
 task: humanitarian             # fakeddit: 2way/6way; mmimdb: genres
 max_samples: 1000              # giới hạn hiện tại; đặt 5 để chạy thử nhỏ
@@ -9,5 +13,5 @@ waffle_pairs: 15               # mỗi lớp nhận 15 prompt từ và 15 prompt
 descriptor_file: configs/research/descriptors/crisismmd_humanitarian.json
 # Thêm dclip vào methods để dùng descriptor_file cho nhánh ảnh.
 output_dir: results/paper_methods
-# Model, fusion, scale, chunking và ngưỡng lấy từ base_config.
+# Model, fusion, scale, chunking/ngưỡng lấy từ base_config; quan hệ theo flag riêng ở trên.
 # Đây là bản thích nghi, không tái lập toàn bộ thí nghiệm của paper.

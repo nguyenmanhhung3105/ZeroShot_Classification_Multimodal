@@ -95,23 +95,32 @@ def encode_chunked_texts(vlm, texts, batch_size):
     return np.stack(embeddings), counts
 
 
-def encode_chunked_max_sim(vlm, texts, batch_size, class_embeds):
+def encode_chunked_max_sim(vlm, texts, batch_size, class_embeds, mean_embeddings=None):
     """Lấy cosine cực đại của từng nhãn qua các đoạn trước hiệu chỉnh hoặc chuẩn hóa z.
 
     Chỉ giữ vector điểm của từng mẫu, không giữ toàn bộ embedding các đoạn.
+    mean_embeddings tùy chọn nhận vector trung bình chuẩn hóa cho ảnh–plot;
+    tái dùng cùng lượt encode, không ảnh hưởng điểm max_sim.
     """
     count, context = token_counter(vlm)
-    scores, counts = [], []
+    scores, counts, means = [], [], []
     for text in texts:
         chunks = split_text(text, count, context)
         if not chunks:
             raise ValueError("Empty texts must use the existing image fallback")
-        best = None
+        best, total = None, None
         for start in range(0, len(chunks), batch_size):
             values = vlm.encode_texts(chunks[start:start + batch_size]).detach().cpu().numpy()
             values = values / (np.linalg.norm(values, axis=-1, keepdims=True) + 1e-12)
+            if mean_embeddings is not None:
+                subtotal = values.sum(axis=0)
+                total = subtotal if total is None else total + subtotal
             batch_best = (values @ class_embeds.T).max(axis=0)
             best = batch_best if best is None else np.maximum(best, batch_best)
         scores.append(best)
         counts.append(len(chunks))
+        if mean_embeddings is not None:
+            means.append(total / max(np.linalg.norm(total), 1e-12))
+    if mean_embeddings is not None:
+        mean_embeddings["text"] = np.stack(means)
     return np.stack(scores), counts

@@ -5,12 +5,18 @@ models:
   # - siglip2_so400m
 
 inference:
+  image_text_relation:
+    enabled: false           # bật true để dùng ảnh ↔ text cho mọi model/dataset
+    mode: auto               # 6way: class_aware; các task khác: diagnostic
+    weight: 0.25              # heuristic cố định, không fit nhãn thật
   batch_size: 16
   image_weight: 0.5          # mặc định khi dataset không khai báo trọng số riêng
   text_logit_scale: null    # null: lấy scale gốc; số dương: scale tuyệt đối cho text
 
 datasets:
   fakeddit:
+    image_text_relation:
+      mode: auto             # kế thừa flag toàn cục; 6way có policy 0=match, 2=mismatch
     enabled: true
     task: 6way              # 2way | 6way; cột nhãn tự chọn theo task
     data_path: data/processed/pro_fakeddit/fakeddit_sample.tsv
@@ -28,6 +34,8 @@ datasets:
       text_logit_scale: 25
 
   crisismmd:
+    image_text_relation:
+      mode: auto             # kế thừa flag; hai task chỉ diagnostic
     enabled: true
     task: informativeness   # informativeness | humanitarian
     data_path: data/processed/pro_crisismmd/pre_crisismmd.tsv
@@ -43,6 +51,8 @@ datasets:
       text_logit_scale: null
 
   mmimdb:
+    image_text_relation:
+      mode: auto             # kế thừa flag; genres chỉ diagnostic
     enabled: true
     task: genres
     data_path: data/processed/pro_mmimdb/mmimdb_sample.tsv

@@ -33,6 +33,8 @@ Wrapper gọi encoder text cùng trọng số cho **text mẫu** và **prompt l�
 
 ## Các đường quyết định hiện tại
 
+Backbone này hỗ trợ cosine ảnh–text khi bật flag; mặc định tắt. Mode auto chọn class_aware cho Fakeddit 6way và diagnostic cho các task khác. Xem [công thức quan hệ](13_quan_he_anh_text.md).
+
 | Dataset | Input cụ thể | Điều kiện trong YAML | Nhãn đầu ra |
 |---|---|---|---|
 | Fakeddit | Ảnh + `clean_title` | 6way; mean_sim; w ảnh 0.75; scale text 25 | Một trong 6 ID lớp |
@@ -47,7 +49,7 @@ Model này cũng có thể chạy baseline/current_mean_sim/class_name/waffle/dc
 
 ## Thông số và giới hạn chứng cứ
 
-Wrapper lấy `embed_dim`, kích thước ảnh, `context_length`, scale và bias từ model nạp thực tế. Docstring hiện ghi context CLIP-family 77, nhưng lời gọi tokenizer vẫn truyền giá trị runtime. Bộ tài liệu không nạp trọng số để kiểm lại số layer/head/D/resolution; các thông số này không được tự điền thành số đo đã xác minh.
+Wrapper lấy `embed_dim`, kích thước ảnh, `context_length`, scale và bias từ model nạp thực tế. Smoke quan hệ ngày 12-10-2026 xác nhận D=1024, ảnh (224,224), context 77, scale≈100, bias=0 trên model đã nạp. Số layer/head chưa được kiểm tra; tokenizer vẫn truyền context runtime.
 
 Scale được học trên cặp ảnh–text; áp dụng cho text mẫu–prompt là lựa chọn thực nghiệm. Prompt Fakeddit thể hiện giả thuyết nội dung, không bảo đảm ảnh đơn lẻ có thể xác minh tính thật/giả.
 

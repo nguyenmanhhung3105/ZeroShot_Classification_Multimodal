@@ -50,6 +50,8 @@ Patch size được thể hiện trong tên ViT; số layer/head/embedding dimen
 
 ## Baseline và phần mở rộng trong dự án
 
+OpenAIClipBackend cũng hỗ trợ flag quan hệ cho mọi task/method upstream. Mặc định tắt; bật trong upstream.yaml để cache cosine ảnh–text, JS/entropy theo task. original_image chỉ diagnostic, multimodal có thể class_aware. Xem [trang 13](13_quan_he_anh_text.md).
+
 - `clip`: một prompt ảnh `A photo of a {class}.` theo template WaffleCLIP.
 - `dclip_labels`: một prompt tên lớp với template DCLIP hiện để trống tiền tố/hậu tố.
 - `waffle`/`dclip`: nhiều prompt ảnh; lấy mean similarity theo lớp.

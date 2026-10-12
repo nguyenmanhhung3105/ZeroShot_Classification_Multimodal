@@ -14,6 +14,7 @@ tl [label="L_text = s_text × S_text + b\nScale riêng hoặc scale model", fill
 ip [label="P_img = softmax(L_img)\nQua C lớp của từng mẫu", fillcolor="#fef3c7"];
 tp [label="P_text = softmax(L_text)\nQua C lớp của từng mẫu", fillcolor="#fef3c7"];
 f [label="P = w × P_img + (1-w) × P_text\nText rỗng: w hiệu lực = 1", fillcolor="#fef3c7"];
+rel [label="Quan hệ nếu flag bật\nFakeddit 6way: class_aware\nTask khác: diagnostic", fillcolor="#e2e8f0"];
 o [label="argmax theo lớp\nMỗi mẫu đúng một nhãn", fillcolor="#dcfce7"];
 i -> il;
 t -> tl;
@@ -21,7 +22,8 @@ il -> ip;
 tl -> tp;
 ip -> f;
 tp -> f;
-f -> o;
+f -> rel;
+rel -> o;
 {rank=same; i; t;}
 i -> t [style=invis, weight=100];
 {rank=same; il; tl;}
