@@ -1,4 +1,4 @@
-"""Sentence-first input chunking; no labels, prompt changes or learned parameters."""
+"""Chia text ưu tiên theo câu; không dùng nhãn hoặc học tham số."""
 import re
 import numpy as np
 
@@ -20,10 +20,10 @@ def token_counter(vlm):
 
 
 def split_text(text, count, context):
-    """Keep sentences when possible; fall back to words then Unicode characters.
+    """Giữ trọn câu nếu vừa cửa sổ; nếu quá dài thì chia theo từ hoặc ký tự Unicode.
 
-    Whitespace may be normalized at joins; no non-whitespace content is dropped.
-    Every emitted chunk is checked with the tokenizer INCLUDING special tokens.
+    Có thể chuẩn hóa khoảng trắng lúc ghép, nhưng không bỏ nội dung.
+    Kiểm tra từng đoạn bằng tokenizer, tính cả token đặc biệt.
     """
     text = text.strip()
     if not text:
@@ -54,7 +54,7 @@ def split_text(text, count, context):
                 if count(word) <= context:
                     add(word)
                 else:
-                    # Start an oversized word separately, then preserve its characters.
+                    # Tách riêng từ quá dài và giữ đủ các ký tự.
                     if current:
                         chunks.append(current)
                         current = ""
@@ -68,7 +68,7 @@ def split_text(text, count, context):
 
 
 def encode_chunked_texts(vlm, texts, batch_size):
-    """Bound encoder calls by batch_size; retain only a running embedding sum."""
+    """Giới hạn lượt mã hóa theo batch_size; chỉ giữ tổng embedding đang tích lũy."""
     count, context = token_counter(vlm)
     embeddings, counts = [], []
     for text in texts:
@@ -79,7 +79,7 @@ def encode_chunked_texts(vlm, texts, batch_size):
         for start in range(0, len(chunks), batch_size):
             values = vlm.encode_texts(chunks[start:start + batch_size]).detach().cpu().numpy()
             if len(chunks) == 1:
-                total = values[0]  # Preserve the short-text baseline exactly.
+                total = values[0]  # Giữ nguyên kết quả nền với text ngắn.
             else:
                 values = values / np.maximum(np.linalg.norm(values, axis=1, keepdims=True), 1e-12)
                 subtotal = values.sum(axis=0)
@@ -96,9 +96,9 @@ def encode_chunked_texts(vlm, texts, batch_size):
 
 
 def encode_chunked_max_sim(vlm, texts, batch_size, class_embeds):
-    """Per-label maximum cosine over chunks, before calibration/z-score.
+    """Lấy cosine cực đại của từng nhãn qua các đoạn trước hiệu chỉnh hoặc chuẩn hóa z.
 
-    Keep only a running C-vector per sample, never all chunk embeddings.
+    Chỉ giữ vector điểm của từng mẫu, không giữ toàn bộ embedding các đoạn.
     """
     count, context = token_counter(vlm)
     scores, counts = [], []

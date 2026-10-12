@@ -1,4 +1,4 @@
-"""Regression against the dataset author's published IDs; no dataset access."""
+"""Kiểm tra ID theo nguồn tác giả công bố, không đọc dataset."""
 import sys
 from pathlib import Path
 import unittest
@@ -24,8 +24,8 @@ class FakedditTaxonomyTests(unittest.TestCase):
         vectors, labels = build_class_embeddings(FakeVLM(), prompts.get_prompt_set('6way'))
         self.assertEqual(labels, list(range(6)))
         np.testing.assert_allclose(np.linalg.norm(vectors, axis=1), 1)
-        # Distinct synthetic class vectors ensure argmax maps to label IDs,
-        # rather than assuming predicted index is the public label.
+        # Dùng vector giả khác nhau để kiểm tra argmax ánh xạ đúng ID nhãn,
+        # thay vì coi vị trí trong mảng luôn là ID nhãn.
         model = FakeVLM()
         classes = np.array([[0., 1.], [1., 0.]])
         pred, *_ = predict_single_label(model, [None], ['text'], classes, [5, 2],

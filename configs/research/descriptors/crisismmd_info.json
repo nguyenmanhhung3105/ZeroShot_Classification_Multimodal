@@ -1,0 +1,15 @@
+{
+  "provenance": "Assistant tạo từ định nghĩa lớp, cố định ngày 2026-10-10; không lấy từ dòng dữ liệu hoặc lỗi validation. Mô tả dùng cho nhánh ảnh, không phải đầu ra GPT-3 gốc của paper.",
+  "descriptors": {
+    "informative": [
+      "a view showing the effects of a disaster or an ongoing emergency",
+      "a scene of damaged property, affected people, or emergency response",
+      "a map, weather chart, or public warning about a disaster"
+    ],
+    "not_informative": [
+      "an everyday scene unrelated to a disaster or emergency",
+      "a personal portrait, advertisement, or entertainment image",
+      "a generic illustration with no concrete disaster information"
+    ]
+  }
+}

@@ -1,18 +1,18 @@
 # ============================================================
-# preprocess_mmimdb.py
+# Tệp tiền xử lý bộ dữ liệu MM-IMDb.
 # Đặt tại: src/preprocessing/data_mmimdb/preprocess_mmimdb.py
 # ------------------------------------------------------------
-# Tiền xử lý dữ liệu mmimdb (multi-label) cho vlm_zeroshot_content_classification.
+# Chuẩn bị MM-IMDb cho bài toán phân loại nhiều nhãn trong dự án.
 #
-# Input : data/raw/mmimdb/dataset/  (chứa các cặp file <id>.json + <id>.jpeg)
-# Output:
+# Dữ liệu đầu vào: data/raw/mmimdb/dataset/ (các cặp tệp <id>.json và <id>.jpeg).
+# Tệp đầu ra:
 #   - data/processed/pro_mmimdb/mmimdb_sample.tsv
 #   - data/processed/pro_mmimdb/images/<id>.jpeg   (copy từ raw, chỉ những mẫu được chọn)
 #
-# Khác biệt so với Fakeddit:
-#   - Nhãn là MULTI-LABEL (list thể loại), không phải 1 số nguyên
-#   - Ảnh đã có sẵn dạng file local, chỉ cần copy chứ không tải qua URL
-#   - Sample tạm thời dùng random đơn giản (sẽ nâng cấp iterative stratification sau)
+# Khác với Fakeddit:
+#   - Mỗi mẫu có danh sách thể loại thay vì một nhãn số.
+#   - Ảnh được sao chép từ tệp cục bộ, không tải từ mạng.
+#   - Hiện chọn mẫu ngẫu nhiên; có thể bổ sung phân tầng nhiều nhãn sau.
 # ============================================================
 
 import os
@@ -25,7 +25,7 @@ from PIL import Image
 np.random.seed(42)
 
 # ============================================================
-# CONFIG
+# CẤU HÌNH
 # ============================================================
 RAW_DIR = "data/raw/mmimdb/dataset"
 OUTPUT_DIR = "data/processed/pro_mmimdb"

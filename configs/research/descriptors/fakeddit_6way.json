@@ -1,0 +1,35 @@
+{
+  "provenance": "Assistant tạo từ định nghĩa taxonomy Fakeddit, cố định ngày 2026-10-10; không lấy từ dòng dữ liệu hoặc lỗi validation. Một số lớp cần ngữ cảnh để xác minh, không thể kết luận bằng ảnh đơn thuần. Không phải đầu ra GPT-3 gốc của paper.",
+  "descriptors": {
+    "0": [
+      "an authentic photograph documenting a real event",
+      "a factual presentation of a person, place, or object",
+      "an unaltered scene presented in its original context"
+    ],
+    "1": [
+      "a humorous parody or deliberate satire",
+      "an exaggerated cartoon or joke about a public event",
+      "an absurd scene intended for comedy rather than factual reporting"
+    ],
+    "2": [
+      "a photograph paired with an unrelated headline",
+      "a picture whose content does not support its accompanying claim",
+      "a genuine image presented as evidence for a different event"
+    ],
+    "3": [
+      "a presentation pretending to come from a trusted news source",
+      "a forged identity, logo, or official document",
+      "a fabricated screenshot impersonating a real person or organization"
+    ],
+    "4": [
+      "a photograph digitally edited to change its meaning",
+      "a composite image with objects or people added or removed",
+      "an altered scene with inconsistent lighting or unnatural details"
+    ],
+    "5": [
+      "a real photograph framed to suggest a misleading interpretation",
+      "a cropped or selectively presented scene hiding important context",
+      "an image used to support a deceptive claim about an event"
+    ]
+  }
+}

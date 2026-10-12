@@ -1,0 +1,15 @@
+{
+  "provenance": "Assistant tạo từ định nghĩa lớp, cố định ngày 2026-10-10; không lấy từ dòng dữ liệu hoặc lỗi validation. Sự thật không thể luôn suy ra từ hình ảnh; mô tả này chỉ là giả thuyết zero-shot, không phải đầu ra GPT-3 gốc của paper.",
+  "descriptors": {
+    "0": [
+      "a satirical or parody presentation rather than a factual report",
+      "an altered, staged, or misleading presentation of an event",
+      "a picture presented with an unrelated or misleading claim"
+    ],
+    "1": [
+      "an authentic photograph documenting a real event",
+      "a factual presentation of a person, place, or object",
+      "an unaltered scene presented in its original context"
+    ]
+  }
+}

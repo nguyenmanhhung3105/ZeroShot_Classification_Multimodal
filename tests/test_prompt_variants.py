@@ -1,4 +1,4 @@
-"""Prompt comparison tests without real data or model weights."""
+"""Kiểm tra đối chứng prompt bằng dữ liệu và model giả."""
 import importlib
 from pathlib import Path
 import sys

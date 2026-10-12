@@ -31,7 +31,7 @@ except ImportError:
 np.random.seed(42)
 
 # ============================================================
-# CONFIG
+# CẤU HÌNH
 # ============================================================
 
 CONFIG_PATH = "configs/experiment_config.yaml"

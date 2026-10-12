@@ -1,4 +1,4 @@
-"""Resolve optional text calibration without changing image calibration."""
+"""Chọn scale tùy chỉnh cho text, giữ hiệu chỉnh nhánh ảnh."""
 import math
 from numbers import Real
 
@@ -13,7 +13,8 @@ def validate_text_scale(value):
 def text_scale_settings(config, dataset, vlm, task_config, image_weight):
     settings = (config or {}).get("inference", {})
     overrides = settings.get("text_logit_scale_overrides") or {}
-    requested = validate_text_scale(overrides.get(dataset, settings.get("text_logit_scale")))
+    options = (config or {}).get("datasets", {}).get(dataset, {}).get("inference", {})
+    requested = validate_text_scale(options.get("text_logit_scale", overrides.get(dataset, settings.get("text_logit_scale"))))
     relative = dataset == "mmimdb" and task_config.get("decision_mode", "relative_z") == "relative_z"
     applied = not relative and image_weight < 1
     effective = (requested if requested is not None else getattr(vlm, "logit_scale", 100.0)) if applied else None

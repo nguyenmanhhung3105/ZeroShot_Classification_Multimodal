@@ -16,25 +16,15 @@ VARIANT_FILE = Path(__file__).resolve().parents[2] / "configs/prompts/fakeddit_6
 # ============================================================
 # BỘ PROMPT CHO 2_WAY_LABEL (binary: real vs fake)
 # ============================================================
-# PROMPTS_2WAY = {
-#     0: [  # fake
-#         "a fake or misleading Reddit post",
-#         "a social media post spreading misinformation",
-#     ],
-#     1: [  # real
-#         "a real and accurate Reddit post",
-#         "a genuine, truthful social media post",
-#     ],
-# }
 
 #------------------------------------------------------------------------------------------
 
 PROMPTS_2WAY = {
 
-    0: [  # fake
+    0: [  # Nhãn giả
 
         # =========================
-        # TEXT-FOCUSED PROMPTS
+        # Prompt mô tả văn bản
         # =========================
 
         "a Reddit post containing false or misleading information",
@@ -51,7 +41,7 @@ PROMPTS_2WAY = {
         "a Reddit post presenting content in a false or deceptive context",
 
         # =========================
-        # IMAGE-FOCUSED PROMPTS
+        # Prompt mô tả ảnh
         # =========================
 
         "a photo containing manipulated, altered, or fabricated visual content",
@@ -68,10 +58,10 @@ PROMPTS_2WAY = {
         "a misleading social media image associated with false or deceptive information",
     ],
 
-    1: [  # real
+    1: [  # Nhãn thật
 
         # =========================
-        # TEXT-FOCUSED PROMPTS
+        # Prompt mô tả văn bản
         # =========================
 
         "a Reddit post containing accurate and truthful information",
@@ -88,7 +78,7 @@ PROMPTS_2WAY = {
         "an unusual or surprising but genuine and factual Reddit post",
 
         # =========================
-        # IMAGE-FOCUSED PROMPTS
+        # Prompt mô tả ảnh
         # =========================
 
         "a real and authentic photo showing an actual event, object, or scene",
@@ -117,37 +107,37 @@ LABEL_NAMES_2WAY = {0: "fake", 1: "real"}
 # Các câu cùng lớp được lấy trung bình bởi build_class_embeddings; chưa có
 # nhánh prompt riêng cho ảnh/text hay bộ kiểm tra quan hệ ảnh-caption.
 PROMPTS_6WAY = {
-    0: [  # True
+    0: [  # Nhãn thật
         "a factual Reddit post accurately describing a real person, object, or event",
         "an authentic photograph of a real scene with an accurate description",
         "a truthful social media caption presenting an event in its original context",
         "a genuine photograph documenting an ordinary or unusual real-life situation",
     ],
-    1: [  # Satire/Parody
+    1: [  # Châm biếm hoặc nhại
         "a satirical Reddit post using fictional events to mock real news or social issues",
         "a parody headline exaggerating a situation for humor rather than factual reporting",
         "a satirical illustration or parody image making fun of a public figure or event",
         "a humorous imitation of a news story intended as satire",
     ],
-    2: [  # False Connection
+    2: [  # Ảnh và nội dung không khớp
         "a Reddit caption claiming something that the attached photograph does not show",
         "a social media title describing a different person, object, or event from the image",
         "a photograph paired with an unrelated headline or an invented personal story",
         "a real image given a caption that assigns it a different meaning",
     ],
-    3: [  # Imposter Content
+    3: [  # Nội dung mạo danh
         "a social media post pretending to be an official statement from a trusted organization",
         "a fabricated quotation or announcement falsely attributed to a real person",
         "an image imitating a news outlet, official account, or organization to appear authentic",
         "a forged screenshot presenting an impersonated source as a genuine author",
     ],
-    4: [  # Manipulated Content
+    4: [  # Nội dung bị chỉnh sửa
         "a digitally edited photograph with objects or people added, removed, or altered",
         "a photo montage combining parts of different images into an artificial scene",
         "a Reddit post presenting a photoshopped scene or a visually altered object",
         "a manipulated image changing the appearance of a person, animal, or place",
     ],
-    5: [  # Misleading Content
+    5: [  # Nội dung gây hiểu lầm
         "a Reddit post using selective facts or distorted claims to support a misleading conclusion",
         "a social media caption presenting real information in a deceptive context",
         "an image or graphic framing a real topic through selective or misleading information",
@@ -155,9 +145,9 @@ PROMPTS_6WAY = {
     ],
 }
 
-# Verified against Fakeddit collaborator Sharon Levy's label mapping:
+# Đã đối chiếu ánh xạ nhãn do Sharon Levy, cộng tác viên Fakeddit, công bố:
 # https://github.com/entitize/Fakeddit/issues/14#issuecomment-815355653
-# Unlike 2-way (1=true), 6-way uses 0=true. Do not reorder IDs by score.
+# 2way dùng 1 cho thật, còn 6way dùng 0; giữ ID nguồn khi chấm điểm.
 LABEL_NAMES_6WAY = {
     0: "True",
     1: "Satire/Parody",
@@ -209,7 +199,7 @@ def get_prompt_set(task: str = "6way", variant: str = "current") -> dict:
 
 
 def prompt_metadata(task_config, prompts):
-    """Small run identifiers; full rendered prompts are recorded in the manifest."""
+    """Thông tin nhận diện lần chạy; prompt đầy đủ được lưu trong manifest."""
     variant = task_config.get("prompt_variant", "current")
     counts = {len(values) for values in prompts.values()}
     return {"prompt_variant": variant,

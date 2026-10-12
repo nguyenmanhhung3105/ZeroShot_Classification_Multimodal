@@ -1,578 +1,240 @@
-# ZeroShot_Classification_Multimodal
+# Phân loại nội dung đa phương thức zero-shot
 
-### Bật/tắt hai nhánh phân loại
+Đầu vào của hệ thống chính là **ảnh + text**. Dự án dùng MetaCLIP2, DFN hoặc SigLIP2
+đã huấn luyện sẵn để so nội dung với prompt nhãn, sau đó kết hợp điểm hai nhánh.
+Không có bước huấn luyện hoặc fine-tune trong runner đánh giá.
 
-Chỉ dùng `inference.image_weight_overrides` theo dataset (hoặc `image_weight`
-toàn cục): `1` = chỉ ảnh, `0` = chỉ text, `0.5` = chia đều. Các giá trị trong
-[0, 1] là trọng số ảnh, trọng số text = 1-w; **-1 không hợp lệ**.
-Hai cờ `image_label_enabled`/`text_label_enabled` đã được bỏ; xóa chúng khỏi
-config cũ và dùng trọng số thay thế. Text rỗng vẫn fallback ảnh kể cả w=0.
-Summary/manifest ghi trọng số thực tế; không thêm lại hai cột bật/tắt.
-Phần so sánh trực tiếp ảnh–text và hiệu chỉnh nhãn dựa trên quan hệ đã được
-gỡ khỏi code; kết quả thí nghiệm cũ trong `results/` được giữ nguyên.
+## Bố trí mã nguồn
 
-### Fakeddit 6-way: ánh xạ đã xác minh
+```text
+src/
+├── run_experiment.py          # chạy model × dataset
+├── demo.py                    # chạy nhóm mẫu nhỏ và vẽ kết quả
+├── config.py                  # đọc, kiểm tra YAML
+├── run/
+│   ├── common.py              # đọc dữ liệu, ánh xạ nhãn, ảnh, summary
+│   ├── run_fakeddit.py         # tác vụ 2way hoặc 6way
+│   ├── run_crisismmd.py        # informativeness hoặc humanitarian
+│   └── run_mmimdb.py           # phân loại nhiều thể loại
+├── inference.py               # chấm điểm ảnh/text và fusion
+├── text_scale.py              # chọn scale riêng cho text
+├── text_chunking.py           # chia plot dài và gộp các đoạn
+├── evaluate.py                # tính metric
+├── evaluation_audit.py        # báo cáo nhánh, độ dài và bộ mẫu
+├── logging_utils.py           # dự đoán từng mẫu, lỗi và manifest
+├── models/model_registry.py   # tải và mã hóa bằng model
+├── prompts/                   # prompt và taxonomy dùng ở code chính
+├── research/                  # code thích nghi và runner dùng code gốc của paper
+└── preprocessing/             # script chuẩn bị/kiểm tra dữ liệu, không tự chạy
 
-Nguồn: [Sharon Levy, cộng tác viên Fakeddit, 08/04/2021](https://github.com/entitize/Fakeddit/issues/14#issuecomment-815355653).
-ID 0=True, 1=Satire, 2=False Connection, 3=Imposter Content,
-4=Manipulated Content, 5=Misleading Content. Ánh xạ hiện tại đúng;
-không đổi ID hoặc hoán vị prompt để tăng điểm validation. Với 2-way, True là 1,
-không phải 0. Tiền xử lý giữ ID nguồn (ép kiểu int), không remap 6-way.
-Đã đọc schema và đúng 5 dòng đầu processed, không đọc raw; dữ liệu processed
-không có subreddit nên chưa đối chiếu được nguồn gán nhãn từng subreddit.
-Xác minh taxonomy không chứng minh prompt mô tả đủ tốt hoặc dữ liệu không có
-nhãn nhiễu. Pipeline vẫn chấm ảnh/text riêng, chưa trực tiếp đánh giá quan hệ
-ảnh-caption cho False Connection. Không đổi prompt/model/threshold trong lần
-xác minh này; không chạy lại inference.
+configs/
+├── experiment_config.yaml     # cấu hình hệ thống chính
+├── prompts/                   # prompt/descriptor cố định
+└── research/
+    ├── upstream.yaml          # model CLIP gốc, repo, task và chế độ đầu ra
+    ├── adapted.yaml           # đối chứng trên model hiện dùng
+    ├── sources.json           # URL và commit repo tác giả
+    └── descriptors/           # mô tả lớp cố định cho cả năm task
 
-### MM-IMDb: max_sim
+tests/                         # chỉ kiểm thử tự động bằng dữ liệu giả
+docs/                          # hướng dẫn chi tiết
+third_party/                   # checkout repo tác giả, Git bỏ qua
+results/, results1/            # kết quả đã có, được giữ nguyên
+backup/, backups/              # bản sao trước sửa và file đã loại bỏ
+```
 
-Giữ `datasets.mmimdb.chunk_long_text: true`, đổi `chunk_aggregation` từ
-`mean_embed` (mặc định, cách cũ) sang `max_sim` để thử. Max cosine được lấy
-riêng cho từng nhãn qua các chunk, sau đó mới `relative_z`/calibration và fusion.
-Không normalize lại vector điểm max, không đổi prompt/ảnh/ngưỡng. Encoder
-vẫn chạy theo batch giới hạn, không giữ toàn bộ embedding chunk. Text rỗng
-fallback ảnh; image-only không encode text. Tắt chunking thì aggregation
-không áp dụng. Runner chính/riêng/demo dùng chung cấu hình; summary và manifest
-ghi `chunk_aggregation`, snapshot ghi số chunk. Giữ cùng bộ mẫu/fusion khi
-so sánh; chưa khẳng định max_sim tăng F1 hoặc không gán thừa thể loại.
+Mỗi lần thêm, chuyển hoặc bỏ module phải cập nhật cây thư mục, lệnh chạy và cấu hình
+trong README này cùng thay đổi mã nguồn. Comment/docstring của code do dự án quản lý
+viết bằng tiếng Việt. Prompt tiếng Anh là đầu vào model và được giữ nguyên. Repo
+tác giả và thông báo giấy phép giữ nguyên văn bản nguồn.
 
-Summary cũng giữ cấu hình để đối chiếu từng lần chạy:
-`text_scale_override_applied` (có áp dụng scale tự đặt không),
-`text_logit_scale_requested/effective/status`, `fusion_enabled`,
-`image_weight`, `text_weight` (trọng số cấu hình; text rỗng fallback ảnh).
-`image_macro_f1`, `text_macro_f1` là điểm nhánh đơn; `macro_f1` là đầu ra cuối.
-`fusion_macro_f1_gain = fusion_macro_f1 - max(image_macro_f1, text_macro_f1)`;
-`fusion_improves_macro_f1` chỉ nói tăng Macro-F1 quan sát được, không khẳng định
-ý nghĩa thống kê hoặc tăng mọi metric. Nếu hai nhánh không được đánh giá trên
-cùng đầy đủ bộ mẫu (ví dụ text rỗng), gain/boolean để trống; audit tắt thì không
-tính gain. `model_default` vẫn dùng scale model, không đồng nghĩa không scale.
+## Cài đặt và chạy hệ thống chính
 
-### Thử scale nhánh text
+Chạy tại thư mục gốc, trong môi trường Python của dự án:
 
-Trong `inference.text_logit_scale_overrides`, đặt riêng `fakeddit`, `crisismmd`,
-`mmimdb` thành `null` (baseline: dùng scale model) hoặc số dương như `25`, `50`.
-Đây là scale tuyệt đối, không phải hệ số nhân thêm. Override `null` vẫn ưu tiên
-hơn cấu hình toàn cục. Giữ nguyên fusion/model/prompt/mẫu khi so sánh.
-Runner tổng, riêng và demo đều nhận cấu hình này. Manifest lưu requested,
-effective và status; summary giữ effective/status để không nhầm lần chạy.
+```sh
+pip install -r requirements.txt
 
-MM-IMDb `relative_z` không dùng logit scale: log ghi `ignored_relative_z`,
-effective để trống, kết quả không đổi khi chỉnh scale. Không tự chuyển sang
-sigmoid/fixed_threshold (có nguy cơ quay lại lỗi chọn mọi nhãn). Chỉ khi bạn
-chủ động dùng `fixed_threshold`, scale mới áp dụng cho nhánh text MM-IMDb.
-Chọn scale bằng F1 validation là hiệu chỉnh trên validation, không phải
-zero-shot thuần không dùng nhãn.
+# Các model × dataset có enabled: true
+python3 src/run_experiment.py
 
-### Chỉnh fusion cho từng dataset
+# Chỉ một dataset
+python3 src/run/run_fakeddit.py
+python3 src/run/run_crisismmd.py
+python3 src/run/run_mmimdb.py
 
-Sửa `inference.image_weight_overrides` trong config trung tâm:
+# Nhóm mẫu nhỏ, cùng logic với chạy chính
+python3 src/demo.py
+```
 
+Các lệnh trên nhận `--config <đường_dẫn.yaml>`. Lần tải model đầu có thể cần mạng và
+dung lượng lưu trọng số. Không chạy module model_registry để tự tải toàn bộ model.
+
+## Cấu hình cần chỉnh
+
+Chọn model ở danh sách `models` trong `configs/experiment_config.yaml`.
+Các tên hợp lệ: `metaclip2_vith14`, `dfn5b_vith14`, `siglip2_so400m`.
+
+Với mỗi dataset, chỉnh `enabled`, `task`, `max_samples` và:
 ```yaml
-image_weight_overrides:
-  fakeddit: 0.75
-  crisismmd: 0.5
-  mmimdb: 0.5
+inference:
+  image_weight: 0.5       # trọng số ảnh; text có trọng số 1 - giá trị này
+  text_logit_scale: null  # null lấy scale model; 25/50/... là scale tuyệt đối
 ```
 
-Giá trị là trọng số ảnh, trọng số text tự động bằng `1 - image_weight`.
-`0` chỉ text, `1` chỉ ảnh (text rỗng luôn fallback sang ảnh).
-Override có ưu tiên cao hơn `inference.image_weight` toàn cục; xóa override
-của dataset nếu muốn dùng giá trị toàn cục. Runner chính, runner riêng và demo
-đều dùng cấu hình này. Single-label trộn xác suất; MM-IMDb ở `relative_z`
-trộn điểm z của hai nhánh. Trọng số thực tế được lưu trong manifest.
+`image_weight: 1` chỉ ảnh, `0` chỉ text, `0.5` chia đều; phạm vi hợp lệ [0, 1].
+Text rỗng luôn dùng ảnh dự phòng. Cấu hình riêng của dataset ưu tiên hơn mục
+`inference` toàn cục. Cấu hình cũ với `image_weight_overrides` và
+`text_logit_scale_overrides` vẫn đọc được nếu không có lựa chọn riêng mới.
 
-### Kết quả chạy chính và chunking
-
-MM-IMDb dùng `datasets.mmimdb.chunk_long_text: true` để bật chunking;
-đổi thành `false` để chạy baseline. Cờ này dùng chung cho runner tổng, runner
-MM-IMDb riêng và demo; không cần runner ablation riêng.
-
-Summary TSV mới chỉ giữ thông tin lần chạy, số mẫu (khi bật audit), cờ chunking,
-quy tắc/ngưỡng quyết định và metric cuối cùng. `micro_f1`, `macro_f1`,
-`samples_f1` là metric của đầu ra fusion; không lặp thêm cột `fusion_*`.
-Chi tiết ảnh/text/fusion, token/chunk và cấu hình/hash vẫn nằm trong
-`results/raw_predictions/<run>/` (`diagnostics.tsv`, `text_lengths.tsv`,
-`manifest.json`, `evaluation_snapshot.json`). Dự đoán từng mẫu vẫn lưu tại
-`raw_predictions.tsv`, các mẫu sai tại `error_analysis.tsv` như trước.
-Không xóa hoặc chuyển đổi kết quả cũ. Khóa bộ mẫu vẫn được giữ để so sánh công bằng.
-
-## Chạy với dữ liệu processed hiện tại
-
-Chạy từ thư mục gốc, dùng `configs/experiment_config.yaml`:
-
-- `python3 src/run_experiment.py`: các model × dataset được bật.
-- `python3 src/run/run_crisismmd.py` (hoặc `run_fakeddit.py`, `run_mmimdb.py`): một dataset.
-- `python3 src/demo.py`: lấy số mẫu, batch size và thư mục output từ mục `demo`.
-
-`max_samples` giới hạn số dòng sau lọc text, trước kiểm tra ảnh. Ảnh thiếu/hỏng
-được bỏ qua; số mẫu đánh giá có thể nhỏ hơn giới hạn. Các chế độ ảnh/text/kết hợp
-dùng chung tập mẫu ghép cặp hợp lệ. Ảnh được mở theo batch, không giữ toàn bộ ảnh
-RGB trong RAM. Chế độ một modality bỏ qua encoder không đóng góp; text rỗng vẫn
-dùng nhánh ảnh làm fallback.
-
-Fakeddit: cả runner riêng, runner tổng và demo đều mặc định hơn 20 ký tự
-sau khi bỏ dấu cách. `min_text_length: 20` được ghi rõ trong cấu hình.
-Kết quả runner riêng cũ dùng ngưỡng 5 không còn cùng bộ mẫu để so trực tiếp.
-Nhãn được đánh giá bằng khóa prompt, còn tên hiển thị chỉ dùng để ánh xạ. Binary giữ Macro/Micro-F1
-và bổ sung F1 lớp dương/AUROC, kể cả khi `positive_label: 0`.
-
-Giữ các phần mở rộng đã có: Fakeddit/CrisisMMD thường là `.jpg`, MM-IMDb là
-`.jpeg`. Không cần đổi tên hoặc tải lại ảnh. Logging giữ các cột cũ, bổ sung
-điểm từng nhánh, cờ fallback và cấu hình lần chạy khi caller cung cấp.
-
-Lưu ý về phần kế hoạch bên dưới: `preprocess_crisismmd.py` hiện chỉ kiểm tra
-TSV processed và tùy chọn copy ảnh, không tạo TSV từ annotation thô. Mặc định
-không kiểm tra/copy ảnh nguồn vì inference dùng ảnh processed đã chuẩn bị.
-Quy trình tạo lại CrisisMMD từ raw chưa được xác minh trong lần sửa này.
-
-Kiểm thử nhỏ không tải model hoặc đọc dataset:
-`python3 -B -m unittest discover -s tests -v -b`.
-
-Summary được lưu riêng theo dataset/task và tự tăng số lần chạy, ví dụ
-`results/summary_table_fakeddit_2way_1.tsv`, `summary_table_fakeddit_2way_2.tsv`.
-Chạy nhiều model thì các dòng model vẫn nằm chung file của dataset/task đó.
-Demo dùng `demo_summary_<dataset>_<task>_<số>.tsv` trong thư mục demo.
-Số tiếp theo bằng số lớn nhất đang có cộng 1; các summary cũ không bị ghi đè.
-Các bảng đầu ra dùng tab (TSV), kể cả khi config cũ còn đường dẫn `.csv`.
-File CSV đã xuất trước đây được giữ nguyên; số thứ tự mới tính theo file TSV.
-
-## Khóa bộ mẫu và đo lường baseline
-
-`evaluation.enabled: true` bật báo cáo bổ sung, không đổi cách dự đoán.
-`split: val` là tên split do người dùng khai báo, không được runner tự xác minh.
-Không chọn tham số hoặc sửa prompt bằng nhãn khi tạo báo cáo.
-
-`sample_lock_mode: create_or_verify` tạo khóa lần đầu và so khớp ở các lần sau;
-`verify` yêu cầu khóa đã có, `off` tắt kiểm tra. File khóa được xuất nguyên vẹn
-trước khi công bố, hỗ trợ nhiều lần chạy đồng thời mà không ghi đè. Khóa nằm dưới
-`evaluation.sample_lock_dir`, dùng chung giữa model và runner chính/runner riêng.
-Demo có khóa riêng vì lấy số mẫu khác. Khóa so thứ tự mẫu, ID, hash text, nhãn,
-path ảnh, size/mtime ảnh, limit và bộ lọc. Ảnh chỉ kiểm tra metadata, chưa hash
-nội dung byte. Nếu ảnh thiếu/hỏng làm đổi tập hợp, lần chạy sẽ báo mismatch.
-Muốn thử limit hoặc bộ mẫu mới, đặt **sample_lock_dir mới**, không ghi đè khóa cũ.
-Đây là khóa cohort; model/prompt/weight được phép thay nhưng có config/prompt ID
-và snapshot riêng. Không tự chọn hoặc trộn train/val/test.
-
-Summary thêm metric `image_*`, `text_*`, `fusion_*`, số mẫu và mã cấu hình.
-Trong từng thư mục log có:
-
-- `diagnostics.tsv`: metric mỗi nhánh, entropy/margin, cosine mean/std,
-  thống kê truncate tại dòng text (các cột `input_*`);
-  MM-IMDb thêm số nhãn dự đoán trung bình và tỷ lệ fallback.
-- `text_lengths.tsv`: ID, số token trước truncate, cờ bị cắt theo mẫu.
-- `evaluation_snapshot.json`: config, prompt thực tế, cohort, thống kê truncate,
-  thông số inference, git hash và hash các file source (kể cả chưa commit).
-
-Truncate đo riêng input text, không tính prompt; loại text rỗng khỏi mẫu số.
-Hỗ trợ OpenCLIP SimpleTokenizer và HFTokenizer thông thường. Backend chưa nhận
-diện ghi `unknown`, không giả định tỷ lệ bằng 0. Chỉ tokenize thêm, không encode
-model lần hai. Logic đếm dựa trên [tokenizer OpenCLIP chính thức](https://github.com/mlfoundations/open_clip/blob/main/src/open_clip/tokenizer.py).
-Backend được kiểm tra qua tokenizer giả trong bộ test nhỏ; checkpoint thật
-cần được xác minh bằng lần chạy của bạn. `manifest.json` liên kết snapshot và
-ghi mã bộ mẫu/cấu hình/prompt để tra cứu kết quả.
-
-Nhánh không encode (weight 0/1) không được báo như một dự đoán hợp lệ; text-only
-loại text rỗng, fusion vẫn fallback ảnh. Balanced accuracy tính trên lớp hiện có,
-macro-F1 single-label dùng đủ bộ nhãn. Điểm relative_z không có entropy xác suất.
-
-Chạy nhỏ: tự đặt `max_samples: 5` cho dataset cần thử và dùng một thư mục khóa
-riêng (ví dụ `results/sample_locks_smoke5`) trước khi chạy runner tương ứng.
-Không dùng 5 mẫu để kết luận cải thiện. Để tắt toàn bộ audit: `evaluation.enabled: false`.
-
-## MM-IMDb: quyết định nhãn bằng relative_z
-
-Runner riêng, runner tổng và demo dùng cấu hình `datasets.mmimdb`:
-`decision_mode: relative_z`, `relative_z_threshold: 1.0`.
-Ảnh và text vẫn so với cùng bộ prompt lớp. Không thay model hoặc prompt.
-
-Với mỗi phim và từng nhánh, tính `z = (cosine - mean) / std` qua 23 nhãn
-(population std, ddof=0), rồi `score = w*z_image + (1-w)*z_text`.
-Chọn nhãn có score > 1.0. Text rỗng dùng nhánh ảnh; std <= 1e-8 cho điểm 0.
-Nếu không nhãn nào vượt ngưỡng, dùng top-1 khi fallback được bật.
-Không dùng nhãn thật hoặc thống kê giữa các mẫu để tính z.
-
-Điểm z không phải xác suất; không áp sigmoid, model scale/bias hay ngưỡng 0.22.
-Log dùng `zscore_<nhãn>`; summary/manifest ghi mode, score_type và ngưỡng.
-Ngưỡng 1.0 chưa được tối ưu; chưa đảm bảo F1 hoặc số nhãn dự đoán phù hợp.
-Muốn tái lập sigmoid cũ, chủ động chọn `decision_mode: fixed_threshold`;
-chỉ khi đó threshold 0.22 có tác dụng. API inference giữ mặc định cũ để tương thích.
-
-Toàn bộ kết quả thí nghiệm trước đây trong `results/` được giữ nguyên.
-
-# Data Processing Plan
-
-Kế hoạch và quy trình xử lý dữ liệu cho dự án Zero-Shot Multi-Modal Content Classification. Mỗi dataset có một mục riêng, ghi lại các bước đã làm, các lỗi phát hiện được, và cách xử lý.
-
----
-
-## 1. Fakeddit 
-
-### 1.1. Nguồn dữ liệu
-
-- Bản dùng: `multimodal_only_samples` từ Google Drive chính thức của tác giả Fakeddit (`entitize`/Kai Nakamura).
-- Lý do chọn bản này thay vì `all_samples`: paper gốc chỉ tính baseline trên các mẫu có cả ảnh và text, nên dùng đúng bản `multimodal_only_samples` để kết quả so sánh được với literature.
-
-### 1.2. Vị trí lưu trữ
-
-```
-data/raw/fakeddit/
-├── multimodal_train.tsv
-├── multimodal_validate.tsv
-├── multimodal_test_public.tsv
-└── images/            # để trống, dành cho ảnh tải sau nếu cần
-```
-
-### 1.3. Cột giữ lại và mô tả
-
-Dataset gốc có 16 cột. Chỉ giữ 6 cột sau, đúng theo guideline chính thức của Fakeddit (dùng `clean_title` thay cho `title` thô, bỏ các cột `Unnamed...`):
-
-| Cột | Mô tả | Kiểu | Giá trị |
-|---|---|---|---|
-| `id` | Mã bài đăng Reddit, dùng để tra cứu và loại trùng, không đưa vào model | string | chuỗi ký tự-số, ví dụ `7reuo3` |
-| `clean_title` | Tiêu đề đã làm sạch, dùng làm input text cho model | string | văn bản tự do |
-| `image_url` | URL ảnh đính kèm | string (URL) | bắt đầu bằng `http://` hoặc `https://` |
-| `hasImage` | Bài có ảnh hay không | boolean | `True` / `False` |
-| `2_way_label` | Nhãn nhị phân | int | `0` = fake, `1` = real |
-| `6_way_label` | Nhãn chi tiết 6 loại | int | `0` True · `1` Satire/Parody · `2` False Connection · `3` Imposter Content · `4` Manipulated Content · `5` Misleading Content |
-
-**Cột bỏ qua:** `title` (dùng `clean_title` thay thế), `author`, `created_utc`, `domain`, `subreddit` (metadata phụ, không liên quan nội dung), `num_comments`, `score`, `upvote_ratio` (tín hiệu tương tác xã hội, không phải đặc trưng nội dung), `linked_submission_id`, `3_way_label` (dư thừa khi đã có 2-way và 6-way).
-
-### 1.4. Kiểm tra dữ liệu gốc (`check_fakeddit.py`)
-
-Chạy trên file `multimodal_train.tsv` (564,000 dòng), kiểm tra:
-
-- **Null/missing** theo từng cột bắt buộc.
-- **Trùng lặp** theo `id` và trùng lặp toàn dòng.
-- **Text quá ngắn** (`clean_title` dưới 3 ký tự) — phát hiện 1,049 dòng.
-- **Tính hợp lệ của nhãn** — `2_way_label` phải thuộc {0,1}, `6_way_label` phải thuộc {0..5}.
-- **Mismatch `hasImage` vs `image_url`** — phát hiện 1,534 dòng có `hasImage=True` nhưng `image_url` rỗng. Đây là lỗi cần loại bỏ trước khi dùng cho bài toán multimodal.
-- **Định dạng URL** — kiểm tra URL có bắt đầu đúng `http(s)://`.
-
-Kết quả: 562,466 / 564,000 dòng đạt chuẩn (99.73%) sau khi loại các trường hợp mismatch.
-
-### 1.6. Sampling — subset cân bằng cho zero-shot
-
-Vì zero-shot không cần dataset lớn để đánh giá có ý nghĩa, giảm từ 562,466 dòng xuống subset nhỏ hơn:
-
-- **Tổng số mẫu mục tiêu:** 3,000
-- **Số mẫu tối thiểu mỗi lớp:** 200 (đảm bảo lớp hiếm như Imposter Content vẫn đủ mẫu để đánh giá, thay vì random sample thuần túy sẽ khiến lớp hiếm chỉ còn vài chục dòng)
-- **Phương pháp:** stratified sampling theo `6_way_label`, `random_state=42` để tái lập được kết quả.
-
-### 1.7. Kiểm tra lại bản sample (`check_fakeddit_sample.py`)
-
-Sau khi sample, chạy lại toàn bộ kiểm tra ở mục 1.4 trên subset mới, cộng thêm:
-
-- **Phân bố nhãn sau sample** — xác nhận tỷ lệ lớp nhiều nhất/ít nhất không lệch quá 3 lần.
-- **Xem mẫu thực tế theo từng lớp** — đọc bằng mắt vài dòng mỗi lớp để xác nhận nội dung hợp lý, không chỉ dựa vào số liệu.
-- **Kiểm tra ảnh còn tải được không** — thử tải thật 10 URL ngẫu nhiên bằng `requests` + `PIL`, vì URL đúng định dạng không đồng nghĩa ảnh còn tồn tại (ảnh Reddit cũ hay bị xóa). Nếu tỷ lệ lỗi trên mẫu thử vượt 30%, cần tăng cỡ subset ban đầu để bù trừ phần ảnh chết.
-
-### 1.8. File đầu ra
-
-```
-data/processed/pro_fakeddit
-├── fakeddit_clean.tsv    # toàn bộ dữ liệu đã làm sạch (~562K dòng)
-└── fakeddit_sample.tsv    # subset 3,000 dòng dùng cho zero-shot
-```
-
-### 1.9. Việc còn lại
-
-- [ ] Tải ảnh thật cho 3,000 dòng trong `fakeddit_sample.tsv` (dùng `image_downloader.py` từ repo gốc hoặc script tương tự), lưu vào `data/raw/fakeddit/images/`.
-- [ ] Loại bỏ các dòng có ảnh không tải được sau bước tải thật.
-- [ ] Viết `fakeddit_loader.py` theo class `BaseZeroShotDataset` đã thiết kế.
-
----
-
-# 2. CrisisMMD 
-
-## 2.1. Mục tiêu
-
-Xây dựng một bộ dữ liệu đánh giá (evaluation set) sạch, đáng tin cậy từ CrisisMMD v2.0, phục vụ cho việc đánh giá các mô hình **zero-shot multimodal classification** (CLIP, BLIP-2, LLM có vision như GPT-4V/Claude...) trên bài toán phân loại **humanitarian categories** (hoặc informative), sử dụng đồng thời **text (tweet)** và **image**.
-
-> Lưu ý: Zero-shot không cần tập train — dữ liệu xử lý ở đây chỉ dùng để **đánh giá (test/eval)**, không dùng để fine-tune.
-
----
-
-## 2.2. Nguồn dữ liệu
-
-- **Bộ dữ liệu:** CrisisMMD v2.0
-- **Nguồn gốc:** 7 thảm họa thiên nhiên năm 2017 (động đất, bão, cháy rừng, lũ lụt), thu thập từ Twitter
-- **File sử dụng:** 6 file annotation (TSV), mỗi file tương ứng 1 sự kiện:
-  - `california_wildfires_final_data.tsv`
-  - `hurricane_harvey_final_data.tsv`
-  - `hurricane_irma_final_data.tsv`
-  - `iraq_iran_earthquake_final_data.tsv`
-  - `mexico_earthquake_final_data.tsv`
-  - `srilanka_floods_final_data.tsv`
-- **Vị trí lưu trữ raw:** `data/raw/CrisisMMD_v2.0/annotations/`
-- **Ảnh gốc:** `data/raw/CrisisMMD_v2.0/data_image/`
-
----
-
-## 2.3. Nhiệm vụ phân loại (Task) được chọn
-
-| Task | Nhãn | Lý do chọn |
+| Dataset | task | Nhãn/cột |
 |---|---|---|
-| **Task 2 – Humanitarian categories** (mặc định) | 8 lớp: affected_individuals, infrastructure_and_utility_damage, injured_or_dead_people, missing_or_found_people, rescue_volunteering_or_donation_effort, vehicle_damage, other_relevant_information, not_humanitarian | Nhiều lớp hơn, phù hợp để đánh giá khả năng phân biệt chi tiết của model zero-shot |
-| Task 1 – Informative | 2 lớp: informative / not_informative | Dự phòng, dùng nếu cần bài toán binary đơn giản hơn |
+| Fakeddit | 2way / 6way | label_col_2way / label_col_6way |
+| CrisisMMD | informativeness / humanitarian | label_col_info / label_col_human |
+| MM-IMDb | genres | label_col |
 
----
+Chỉ đổi task để chọn cột nhãn; loại tác vụ được suy ra theo dataset.
+Fakeddit 2way: 0 giả, 1 thật. Fakeddit 6way: 0 thật, 1 châm biếm, 2 liên kết sai,
+3 mạo danh, 4 chỉnh sửa, 5 gây hiểu lầm.
+[Nguồn ánh xạ Fakeddit](https://github.com/entitize/Fakeddit/issues/14#issuecomment-815355653).
 
-## 2.4. Quy trình xử lý dữ liệu (Data Processing Pipeline)
+`prompt_aggregation: mean_embed` lấy trung bình embedding rồi chuẩn hóa lại;
+`mean_sim` lấy trung bình cosine các prompt, không chuẩn hóa lại trung bình.
+Muốn quét cả hai, đặt `prompt_aggregations: [mean_embed, mean_sim]`.
+Fakeddit 6way hỗ trợ `prompt_variants: [current, class_name, descriptors]`;
+các task khác dùng current.
 
+MM-IMDb có `chunk_long_text: true/false`. Khi bật, `chunk_aggregation` chọn
+`mean_embed` hoặc `max_sim`. Plot được chia vừa context của tokenizer;
+max_sim lấy điểm cao nhất của từng nhãn qua các đoạn.
+
+MM-IMDb mặc định `decision_mode: relative_z`: chuẩn hóa cosine qua 23 nhãn
+của **từng mẫu và từng nhánh**, fusion rồi chọn điểm lớn hơn
+`relative_z_threshold: 1.0`. Điểm không phải xác suất; mode này bỏ scale/bias.
+`threshold: 0.22` chỉ dùng khi chủ động chọn `fixed_threshold`.
+
+## Luồng xử lý và giới hạn mẫu
+
+YAML → đọc TSV/CSV/Parquet → lọc text → chọn số mẫu → kiểm tra ảnh →
+mã hóa ảnh/text và prompt → chấm điểm từng nhánh → fusion → chọn nhãn →
+metric → TSV/manifest.
+
+Fakeddit mặc định bỏ text có không quá 20 ký tự sau khi bỏ dấu cách.
+`max_samples` là số dòng **sau lọc text, trước kiểm tra ảnh**. Ảnh lỗi bị bỏ;
+không tự bù bằng mẫu tiếp theo. Giữ ảnh dưới dạng đường dẫn và mở theo batch.
+Các runner dùng chung bộ lọc, ánh xạ, công thức suy luận và metric.
+
+## Kết quả và cách đối chiếu
+
+Summary tự tăng số: `results/summary_table_<dataset>_<task>_<số>.tsv`.
+Demo lưu `demo_summary_...tsv` trong thư mục visualization_dir.
+Dự đoán mỗi lần chạy nằm dưới raw_predictions_dir:
+
+- `raw_predictions.tsv`: nhãn thật/dự đoán, điểm các lớp và các nhánh.
+- `error_analysis.tsv`: mẫu bị đoán sai.
+- `manifest.json`: cấu hình hiệu lực và thông tin lần chạy.
+- `diagnostics.tsv`: metric ảnh/text/fusion, độ nhọn, số nhãn và fallback.
+- `text_lengths.tsv`: độ dài text trước cắt.
+- `evaluation_snapshot.json`: cấu hình, prompt, mẫu, git hash và hash mã nguồn.
+
+Fakeddit/CrisisMMD: Macro-F1 và balanced accuracy giúp quan sát các lớp hiếm;
+accuracy/micro-F1 là thông tin bổ sung. MM-IMDb dùng macro/micro/samples-F1;
+không dùng Hamming accuracy làm bằng chứng chính cho chất lượng nhiều nhãn.
+
+`fusion_macro_f1_gain` so Macro-F1 fusion với nhánh đơn tốt nhất, chỉ tính khi
+hai nhánh được đánh giá trên cùng đầy đủ bộ mẫu. Không coi tăng nhỏ là cải thiện
+có ý nghĩa thống kê. Giữ cùng model, bộ mẫu, filter và trọng số khi đối chứng prompt.
+
+`evaluation.enabled` điều khiển báo cáo; `sample_lock_mode: "off"` mặc định không
+tạo khóa. `create_or_verify` và `verify` là lựa chọn chủ động. Split trong YAML do
+người dùng khai báo, chưa được xác minh từ nguồn. Thử nhiều lần trên val là đánh
+giá khám phá; kết quả đó không chứng minh hiệu quả trên test độc lập.
+
+## Thí nghiệm nghiên cứu
+
+Có hai runner riêng trong `src/research/`. Chạy `run_upstream.py` để dùng OpenAI
+CLIP cùng các hàm tạo prompt và chấm điểm lấy từ repo WaffleCLIP/DCLIP đã ghim
+commit; chạy `run_adapted_methods.py` để áp dụng các prompt ảnh lên model hiện có.
+Code chính không tự kích hoạt cả hai thí nghiệm.
+
+Để chuẩn bị trước prompt và lưu cấu hình đã khóa, không mở dataset hoặc tải model:
+
+```sh
+python3 src/research/run_upstream.py --prepare-only
 ```
-Raw TSV (6 events)
-      │
-      ▼
-[Bước 1] Đọc & chọn cột cần thiết
-      │
-      ▼
-[Bước 2] Lọc theo Confidence Score
-      │
-      ▼
-[Bước 3] Lọc theo sự đồng thuận nhãn Text–Image (label agreement)
-      │
-      ▼
-[Bước 4] Làm sạch văn bản (text cleaning)
-      │
-      ▼
-[Bước 5] Loại bỏ trùng lặp
-      │
-      ▼
-[Bước 6] Kiểm tra ảnh tồn tại trên đĩa
-      │
-      ▼
-[Bước 7] Gộp 6 sự kiện thành 1 file dataset duy nhất
-      │
-      ▼
-[Bước 8] Kiểm tra chất lượng cuối (QA check)
-      │
-      ▼
-Output: crisismmd_multimodal.tsv
+
+Để chạy đối chứng bằng backbone ViT-B/32 của OpenAI CLIP:
+
+```sh
+python3 src/research/run_upstream.py
 ```
 
-### Bước 1: Chọn cột cần thiết
+Runner dùng `configs/research/upstream.yaml`. Hiện chỉ bật CrisisMMD humanitarian
+và `max_samples: 5` để chạy thử; Fakeddit và MM-IMDb đang tắt. Sau khi xem
+`frozen_plan.json`, có thể bật một dataset, chọn task và giới hạn mẫu trong YAML.
+Chỉ nên tăng lên 1000 và `seeds: [0, 1, 2, 3, 4, 5, 6]` sau khi đã chạy thử nhỏ;
+riêng WaffleCLIP chạy lặp cho từng seed. Lượt thực tế có thể tải trọng số CLIP.
 
-Từ mỗi file TSV gốc (15 cột), chỉ giữ lại các cột phục vụ trực tiếp cho zero-shot multimodal:
+Các phương pháp cấu hình sẵn:
 
-| Cột giữ lại | Mục đích |
+| Tên | Cách tạo prompt ảnh |
 |---|---|
-| `tweet_id`, `image_id` | Định danh, tra cứu |
-| `tweet_text` | Input văn bản gốc (trước khi làm sạch) |
-| `image_path` | Đường dẫn ảnh local để load vào model |
-| `image_url` | Link ảnh gốc, dùng để kiểm tra thủ công/online |
-| `text_human`, `image_human` (hoặc `text_info`, `image_info`) | Nhãn gốc theo từng modal |
-| `text_human_conf`, `image_human_conf` | Độ tin cậy nhãn |
-| `event` | Tên sự kiện thảm họa (lấy từ tên file) |
+| `clip` | Baseline kiểu WaffleCLIP: `A photo of a {class}.` |
+| `waffle` | Hàm gốc WaffleCLIP, từ điển chính thức và cách sinh prompt theo seed |
+| `dclip_labels` | Baseline tên lớp theo template mặc định DCLIP |
+| `dclip` | Mô tả lớp cố định, ghép theo template mặc định DCLIP |
 
-Loại bỏ: `image_damage`, `image_damage_conf` (Task 3, không dùng trong dự án này).
+Mỗi phương pháp có thể xuất `original_image` và `multimodal`. Kết quả ảnh gốc dùng
+argmax cosine như bài phân loại ảnh một nhãn trong paper. Kết quả đa phương thức
+dùng ảnh và text sample so với prompt text cố định của dự án rồi fusion theo YAML;
+nhánh text giống nhau giữa các phương pháp để đo tác động nhánh ảnh. MM-IMDb là
+phần mở rộng nhiều nhãn: các paper ảnh gốc không định nghĩa cách chấm 23 thể loại,
+nên quyết định `relative_z`/`fixed_threshold` lấy từ cấu hình dự án.
 
-### Bước 2: Lọc theo Confidence Score
+Các file `configs/research/descriptors/*.json` đủ taxonomy cho Fakeddit 2/6 lớp,
+CrisisMMD hai task và MM-IMDb 23 thể loại. Chúng được viết cố định từ định nghĩa
+lớp, không phải descriptor GPT-3 gốc được tác giả dùng trong paper. Đặc biệt,
+ảnh đơn lẻ không luôn cho biết một bài Fakeddit thật hay giả.
 
-- Chỉ giữ dòng có **cả** confidence của nhãn text và nhãn ảnh **≥ ngưỡng (mặc định 0.7)**
-- Mục đích: loại bỏ các nhãn có độ chắc chắn thấp từ người gán nhãn (crowdsourcing qua Figure Eight), tránh đánh giá model dựa trên ground-truth không đáng tin
+Ba checkout tác giả nằm trong `third_party/` và bị Git của dự án bỏ qua. Nguồn
+được ghim tại `configs/research/sources.json`; cài thêm thư viện cần thiết bằng:
 
-### Bước 3: Lọc theo sự đồng thuận nhãn Text–Image
-
-- CrisisMMD gán nhãn **riêng biệt** cho text và ảnh, có thể không trùng nhau
-- Với bài toán multimodal (dùng cả 2 input để dự đoán 1 output), chỉ giữ lại các dòng mà `text_human == image_human`
-- Nhãn đồng thuận này trở thành cột `label` duy nhất — vừa đảm bảo chất lượng, vừa tạo ground-truth thống nhất cho cả 2 modal
-
-### Bước 4: Làm sạch văn bản (Text Cleaning)
-
-Áp dụng cho cột `tweet_text` → sinh ra `clean_text`:
-
-1. Xóa tiền tố `RT @user:`
-2. Xóa toàn bộ `@mention`
-3. Xóa URL (link rút gọn t.co, http/https)
-4. Xóa ký tự `#` nhưng giữ từ hashtag
-5. Sửa lỗi encoding (mojibake), kể cả lỗi encoding **lặp 2 lần**:
-   - Áp bảng ánh xạ các mẫu lỗi đã biết
-   - Dùng thư viện `ftfy` để tổng quát hóa việc sửa lỗi
-   - Thử round-trip encode/decode (cp1252 / latin1 / mac_roman) nếu vẫn còn lỗi
-6. **Loại bỏ toàn bộ ký tự non-ASCII còn sót lại** (catch-all cuối cùng) — vì dữ liệu là tweet tiếng Anh, đảm bảo văn bản đầu ra sạch hoàn toàn dù không nhận diện được nguồn gốc lỗi
-7. Gộp khoảng trắng thừa
-
-### Bước 5: Loại bỏ trùng lặp
-
-- Drop các dòng trùng theo cặp (`tweet_id`, `image_id`)
-
-### Bước 6: Kiểm tra ảnh tồn tại trên đĩa
-
-- Với mỗi `image_path`, kiểm tra file ảnh có thực sự tồn tại trong `data_image/` hay không
-- Loại bỏ các dòng thiếu ảnh (tránh lỗi khi load ảnh lúc chạy model)
-
-### Bước 7: Gộp thành 1 dataset duy nhất
-
-- Gộp dữ liệu đã xử lý của cả 6 sự kiện thành **1 file duy nhất**
-- Cột `event` giữ lại tên sự kiện tương ứng để phân tích theo từng thảm họa nếu cần
-
-### Bước 8: Kiểm tra chất lượng (QA check)
-
-- Kiểm tra `clean_text` không còn ký tự non-ASCII (đảm bảo làm sạch thành công)
-- In thống kê:
-  - Số dòng còn lại sau mỗi bước lọc
-  - Phân bố nhãn (`label`) — kiểm tra mất cân bằng lớp
-  - Số dòng theo từng sự kiện (`event`)
-
----
-
-## 2.5. Output cuối cùng
-
-**File:** `data/process/pro_CrisisMMD/crisismmd_multimodal.tsv`
-
-**Cấu trúc cột:**
-
-| Cột | Mô tả |
-|---|---|
-| `tweet_id` | ID tweet gốc |
-| `image_id` | ID ảnh (tweet_id + index) |
-| `clean_text` | Văn bản đã làm sạch, sẵn sàng đưa vào text encoder |
-| `image_path` | Đường dẫn ảnh local |
-| `image_url` | Link ảnh gốc (kiểm tra thủ công) |
-| `label` | Nhãn thống nhất (text–image đồng thuận) |
-| `event` | Tên sự kiện thảm họa |
-
----
-
-## 2.6. Bước tiếp theo sau khi có dữ liệu sạch (định hướng)
-
-1. **Chọn model zero-shot**: CLIP (ViT-B/32, ViT-L/14), BLIP-2, hoặc LLM đa phương thức (GPT-4V, Claude, Gemini)
-2. **Thiết kế prompt / candidate labels**: chuyển 8 nhãn humanitarian thành câu mô tả tự nhiên (ví dụ: `"a photo related to rescue, volunteering, or donation efforts"`)
-3. **Chạy inference**: đưa `clean_text` + ảnh tại `image_path` vào model, lấy nhãn dự đoán
-4. **Đánh giá**: so sánh dự đoán với `label`, tính Accuracy, F1-score (macro/weighted) theo từng lớp và từng sự kiện
-5. **Phân tích lỗi**: xem model nhầm lẫn ở nhóm nhãn nào, sự kiện nào nhiều nhất
-6. **(Tùy chọn) So sánh** hiệu năng zero-shot khi dùng: chỉ text / chỉ ảnh / kết hợp cả hai
-
----
-
-## 2.7. Cấu hình có thể điều chỉnh (config trong script xử lý)
-
-| Config | Giá trị mặc định | Ghi chú |
-|---|---|---|
-| `TASK` | `"humanitarian"` | Đổi thành `"informative"` nếu cần Task 1 |
-| `CONF_THRESHOLD` | `0.6` | Ngưỡng lọc confidence, có thể tăng để lấy dữ liệu "sạch" hơn nhưng ít mẫu hơn |
-| `CHECK_IMAGE_EXISTS` | `True` | Tắt nếu chưa tải đủ ảnh về máy |
-| `STRIP_NON_ASCII` | `True` | Tắt nếu cần giữ lại ký tự có dấu hợp lệ (chấp nhận rủi ro còn sót rác) |
-## Gộp điểm prompt với model hiện tại — cả ba dataset
-
-Không dùng thêm BART/NLI hoặc LLM sinh prompt. Input vẫn là ảnh + text;
-MetaCLIP 2, SigLIP 2, DFN giữ nguyên theo danh sách model của bạn.
-Code/config/test riêng của NLI đã được gỡ và backup tại
-`backups/20261002_existing_models/`; các kết quả cũ không bị xóa.
-Không xóa checkpoint đã tải trong cache của bạn.
-
-### Cơ sở nghiên cứu và phạm vi
-
-Thử **mean similarity aggregation**, thành phần chấm điểm trong
-[DCLIP — Visual Classification via Description from Large Language Models](https://arxiv.org/abs/2210.07183)
-và [code chính thức WaffleCLIP](https://github.com/ExplainableML/WaffleCLIP/blob/master/base_main.py)
-(`merge_predictions=False`, `aggregate=mean`).
-Hàm [aggregate_similarity](https://github.com/ExplainableML/WaffleCLIP/blob/master/waffle_tools.py)
-lấy trung bình similarity sau khi chuẩn hóa từng descriptor embedding.
-
-- `mean_embed`: baseline cũ, lấy trung bình vector prompt rồi L2-normalize lại.
-- `mean_sim`: với vector input đơn vị x và các vector prompt đơn vị v,
-  score lớp = `mean_j(x @ v_j)`. Không lấy trung bình xác suất softmax.
-- Code dùng đẳng thức `mean_j(x @ v_j) = x @ mean_j(v_j)` để không tạo ma trận
-  mẫu × toàn bộ prompt. Vector trung bình ở chế độ này **không chuẩn hóa lại**;
-  norm không nhất thiết bằng 1 là đúng thiết kế, không phải lỗi.
-
-Đây là **đối chứng cách gộp điểm từ paper**, chưa phải tái lập đầy đủ DCLIP
-hoặc WaffleCLIP. Không sinh descriptors mới hay dùng random descriptors.
-Giữ nguyên bộ prompt hiện tại để chỉ thay cách gộp. Paper gốc phân loại ảnh;
-áp dụng cùng cách tính cho nhánh text–prompt và fusion hiện có là mở rộng của
-dự án. Không khẳng định paper đã chứng minh hiệu quả trên Fakeddit hoặc SigLIP.
-Không thay scale, trọng số fusion, threshold hay công thức metric.
-
-### Chạy đối chứng
-
-Trong `datasets.fakeddit` của `configs/experiment_config.yaml`:
-
-```yaml
-task: "6way"
-prompt_variants: [current]
-prompt_aggregation: mean_embed
-prompt_aggregations: [mean_embed, mean_sim]
+```sh
+pip install -r requirements/research.txt
 ```
 
-Chạy `venv/bin/python src/run/run_fakeddit.py`. Danh sách số nhiều ưu tiên
-hơn lựa chọn đơn, tạo 2 dòng/model trong summary TSV. Nếu chỉ muốn một cách,
-bỏ/comment `prompt_aggregations` rồi chọn `prompt_aggregation`.
-Khi không khai báo, mặc định là baseline; config hiện tại chọn mean_sim cho
-cả ba dataset. Không tự chạy dataset. Có thể tự đặt
-`max_samples: 5` để kiểm tra chạy trước, rồi dùng cùng tập 1000 mẫu để so điểm.
+Đọc [tài liệu nghiên cứu](docs/research.md) về nguồn code, chế độ đầu ra và giới hạn
+so sánh. Đọc [tài liệu bàn giao dự án](docs/ban_giao_du_an.md) để biết luồng hiện
+tại, trạng thái triển khai và các bước tiếp tục ở tài khoản/môi trường khác.
 
-Summary và manifest ghi `prompt_aggregation`; log dự đoán giữ định dạng cũ.
-Runner riêng, runner tổng và demo dùng cùng công thức. Không đổi chunking
-MM-IMDb: `chunk_aggregation` gộp **các đoạn input**, còn tùy chọn này gộp
-**các prompt nhãn**. Cả Fakeddit 2way/6way, CrisisMMD và MM-IMDb đều hỗ trợ.
-Ở `datasets.crisismmd` hoặc `datasets.mmimdb`, cũng chọn
-`prompt_aggregation: mean_sim`, hoặc `prompt_aggregations: [mean_embed, mean_sim]`
-để chạy đối chứng. Chạy `src/run/run_crisismmd.py` hoặc `src/run/run_mmimdb.py`.
-Với MM-IMDb dùng chunk `max_sim`, thứ tự là trung bình điểm các prompt trong
-mỗi chunk, rồi lấy max qua các chunk. Không đổi thứ tự này thành trung bình
-max của từng prompt. Sau đó vẫn dùng relative_z hoặc fixed_threshold như config.
+Ngày 11-10-2026 đã chạy thử OpenAI CLIP thật cho cả năm tác vụ, mỗi tác vụ 5 mẫu;
+đã đối chiếu scoring humanitarian và sửa báo cáo metric theo seed. Xem
+[báo cáo tiếp tục nghiên cứu](docs/zeroshot_smoke_20261011.md) để đọc kết quả,
+các file log và phần còn thiếu. Chưa có đánh giá quy mô lớn hoặc kết luận tốt hơn
+hệ thống chính. Summary/manifest upstream mới ghi thiết bị thực thi thực tế.
 
-So Macro-F1, balanced accuracy, điểm từng nhánh trên cùng sample IDs/hash;
-đây vẫn là exploratory validation, chưa phải đánh giá test độc lập và
-không có bảo đảm tăng điểm.
+Đối chứng thích nghi trên model hiện có:
 
-## Đối chứng prompt Fakeddit 6-way
-
-Trong `configs/experiment_config.yaml`, ở `datasets.fakeddit`, đặt:
-
-```yaml
-task: "6way"
-prompt_variant: current
-prompt_variants: [current, class_name, descriptors]
+```sh
+python3 src/research/run_adapted_methods.py --prepare-only
+python3 src/research/run_adapted_methods.py
 ```
 
-Chạy `venv/bin/python src/run/run_fakeddit.py`. Danh sách `prompt_variants`
-ưu tiên hơn `prompt_variant`; bỏ danh sách để chỉ chạy một bộ. Mặc định vẫn
-là `current`, không thay đổi baseline. Mỗi model được load một lần, nhưng
-inference chạy lại cho từng bộ prompt (chi phí khoảng ba lượt).
+Runner thích nghi lấy model từ YAML chính. Cấu hình hiện giữ limit 1000 như lựa
+chọn trước đó; hãy giảm limit trước khi chạy thử. Không nhầm hai runner hoặc model
+OpenAI CLIP với MetaCLIP2/SigLIP2/DFN.
 
-- `current`: 4 prompt/nhãn hiện có, giữ nguyên.
-- `class_name`: 1 câu ngắn chứa tên nhãn.
-- `descriptors`: 4 câu/nhãn mô tả định nghĩa, cố định trong
-  `configs/prompts/fakeddit_6way_variants.json`, không khai thác từ khóa dữ liệu.
+## Kiểm thử và dữ liệu
 
-Cả ba vẫn nhận ảnh + text, dùng chung vector nhãn cho hai nhánh và cùng
-cách gộp embedding prompt. Không bật lại split prompts hoặc quan hệ ảnh–text.
-Model, lọc mẫu, fusion và scale giữ nguyên cấu hình. Không đổi dữ liệu/config
-giữa các lượt; đối chiếu ID mẫu trong log trước khi so điểm (không tự bật khóa mẫu).
+```sh
+python3 -B -m unittest discover -s tests -b
+```
 
-Summary TSV có một dòng cho mỗi model × bộ prompt, thêm `prompt_variant`,
-`prompts_per_label`, `prompt_definition_version`, `prediction_log_dir`.
-Hai model và ba bộ cho sáu dòng. Mỗi log riêng lưu prompt thực tế trong
-`manifest.json`; diagnostics và dự đoán vẫn được lưu như trước.
-Gửi summary và các log tương ứng để so macro-F1, balanced accuracy, từng nhánh
-và các nhãn bị nhầm. Không tự chọn bộ tốt nhất hoặc thay prompt theo lỗi.
+Test dùng ảnh/dữ liệu giả trong thư mục tạm; không tải checkpoint hoặc chạy toàn
+dataset. Công cụ thống kê nhãn đã hủy được bỏ khỏi src/tests/docs; bản sao nằm
+trong backup/20261010_cleanup. Kết quả thống kê cũ vẫn được giữ.
 
-Đây là so sánh exploratory trên validation, chưa chứng minh cải thiện ngoài tập
-này, không phải tái lập DCLIP. `class_name` thay đổi cả số prompt lẫn nội dung;
-`current` và `descriptors` có cùng số câu nhưng vẫn khác cách diễn đạt/độ dài.
-Các biến thể mới chỉ hỗ trợ Fakeddit 6-way.
-
-## Thử chunking plot MM-IMDb
-
-Trong `datasets.mmimdb` của `configs/experiment_config.yaml`, đặt
-`chunk_long_text: true` rồi chạy `venv/bin/python src/run/run_mmimdb.py`.
-Mặc định `false` giữ baseline; runner tổng và demo cũng dùng cùng cờ này.
-Giữ nguyên model, prompt, sample lock, trọng số và ngưỡng khi so sánh hai lần chạy.
-
-Plot được chia ưu tiên theo câu; câu quá dài chia theo từ, từ quá dài chia theo
-ký tự. Giới hạn lấy từ tokenizer/model và tính cả special tokens. Mỗi chunk
-được encode riêng theo batch giới hạn, lấy trung bình các vector đã chuẩn hóa
-rồi L2-normalize lại thành một vector cho phim. Không chia prompt nhãn, không
-nhân bản ảnh hoặc nhãn, không dùng nhãn để chọn cách chia. `mean_embed` là
-mặc định; có thể thử `max_sim` như hướng dẫn đầu tài liệu. Không tự chọn
-phương pháp gộp theo kết quả validation.
-
-`diagnostics.tsv` ghi `total_chunks`, `n_chunked_texts`; `text_lengths.tsv`
-ghi `n_chunks` (0 nếu không encode text), `encoded_chunk_truncated`.
-Các trường `truncated`/`input_truncated_rate` vẫn mô tả text gốc vượt context,
-không có nghĩa các chunk đã encode bị cắt. Snapshot lưu số chunk từng mẫu;
-manifest/summary ghi cờ chunking. Tokenizer chưa hỗ trợ sẽ báo lỗi thay vì
-âm thầm cắt text. Có thêm chi phí encode; chưa khẳng định cải thiện F1.
+Các script preprocessing chỉ chạy khi chủ động gọi; một số đọc dữ liệu thô và
+toàn bộ processed. Khi rà soát tuân thủ AGENTS.md: không đọc dữ liệu thô, chỉ
+schema/tối đa 5 bản ghi đầu processed, không chạy pipeline tiền xử lý.
+Quy trình tạo CrisisMMD từ annotation thô chưa được triển khai trong script hiện có.

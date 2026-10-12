@@ -1,30 +1,10 @@
 """
-Model Registry — nơi khai báo và load các Vision-Language Model dùng cho zero-shot.
+Khai báo và tải model OpenCLIP dùng trong pipeline chính.
 
-NGUYÊN TẮC QUAN TRỌNG (đã thống nhất trong quá trình thiết kế dự án):
-- Mỗi model chỉ được load ĐÚNG 1 LẦN, tái sử dụng xuyên suốt nhiều dataset và nhiều prompt set.
-- Đây là inference thuần túy (forward pass), không có bước train/fine-tune nào —
-  vì vậy không có khái niệm "xung đột" giữa các lần gọi.
-
-CẬP NHẬT (sau khi rà lại với tài liệu open_clip chính thức):
-- metaclip2_worldwide PHẢI dùng arch "ViT-H-14-worldwide-quickgelu" (không phải
-  "ViT-H-14-worldwide") — thiếu hậu tố -quickgelu sẽ không tìm thấy pretrained
-  config tương ứng, load sẽ lỗi ngay.
-- encode_texts giờ luôn truyền context_length=model.context_length tường minh,
-  vì SigLIP2 (64 token) và CLIP-family (77 token) không dùng chung default.
-- Thay openclip_vith14_laion2b bằng DFN5B cùng kiến trúc ViT-H/14 nhưng data
-  curation tốt hơn (~84% vs ~78% zero-shot ImageNet cùng compute class).
-  Chưa xác nhận được tag ngắn cho DFN5B trong registry nên load qua hf-hub
-  trực tiếp — đây là cách duy nhất mọi model card chính thức xác nhận hoạt động.
-- siglip2_so400m: bỏ field image_size (dead code, và sai — checkpoint này chỉ
-  có ở resolution ~384, không có bản 224). Resolution thật được log ra khi load
-  để đối chiếu, không còn dựa vào con số gõ tay có thể sai.
-- siglip2_so400m dùng được cho CẢ 3 dataset (không chỉ riêng mmimdb):
-  multi-label (mmimdb) dùng sigmoid độc lập từng lớp; single-label
-  (Fakeddit/CrisisMMD) dùng calibrated_logits() rồi softmax ở tầng inference,
-  KHÔNG gọi sigmoid — vì sigmoid đơn điệu theo từng phần tử nên argmax không đổi.
-  Quyết định sigmoid-vs-softmax là việc của inference.py theo TASK, không phải
-  theo MODEL, nên wrapper chỉ cung cấp logits đã hiệu chỉnh, không tự quyết định.
+Mỗi model cung cấp embedding ảnh/text đã chuẩn hóa cùng scale và bias gốc.
+Tokenizer nhận đúng context_length của model (SigLIP2: 64, CLIP-family: 77).
+Runner quyết định softmax, sigmoid hoặc relative_z theo tác vụ và cấu hình;
+wrapper chỉ tải và mã hóa, không huấn luyện hoặc tự chọn nhãn.
 """
 
 import torch
@@ -34,27 +14,22 @@ import open_clip
 # ============================================================
 # CẤU HÌNH CÁC MODEL SẼ DÙNG TRONG DỰ ÁN
 # ============================================================
-# Yêu cầu: pip install -U open_clip_torch  (>= 2.31.0 để có SigLIP2 / MetaCLIP2)
+# Phiên bản yêu cầu trong requirements.txt có đủ tên model/pretrained bên dưới.
 MODEL_CONFIGS = {
-    # Dùng cho cả 3 dataset — data curation kỹ hơn là điểm mạnh của MetaCLIP 2
-    # trên domain ít gặp (tweet/poster không giống ảnh web thông thường).
+    # MetaCLIP2 dùng chung cho ba dataset; không mặc định kết luận tốt hơn model khác.
     "metaclip2_vith14": {
-        "arch": "ViT-H-14-worldwide-quickgelu",   # FIX: thiếu "-quickgelu" sẽ crash khi load
+        "arch": "ViT-H-14-worldwide-quickgelu",   # giữ đúng hậu tố của kiến trúc pretrained
         "pretrained": "metaclip2_worldwide",
         "family": "clip_softmax",
     },
-    
-    
     "dfn5b_vith14": {
         "arch": "hf-hub:apple/DFN5B-CLIP-ViT-H-14",
         "pretrained": None,          # bắt buộc None khi arch là hf-hub:...
-        "tokenizer": "ViT-H-14",     # Apple dùng tokenizer CLIP chuẩn, không phải hf-hub id
+        "tokenizer": "ViT-H-14",     # Apple dùng tokenizer CLIP chuẩn, không dùng ID hf-hub
         "family": "clip_softmax",
     },
 
-    # Dùng cho cả 3 dataset. Với mmimdb (multi-label): dùng sigmoid độc lập
-    # từng lớp qua calibrated_logits(). Với Fakeddit/CrisisMMD (single-label):
-    # vẫn dùng calibrated_logits() nhưng softmax ở tầng inference.py.
+    # Dùng cho cả ba dataset; cách quyết định nhãn được chọn ở inference.py.
     "siglip2_so400m": {
         "arch": "ViT-SO400M-14-SigLIP2",
         "pretrained": "webli",
@@ -65,14 +40,14 @@ MODEL_CONFIGS = {
 
 class VLMWrapper:
     """
-    Bọc 1 model VLM (CLIP/SigLIP) lại thành interface đồng nhất:
-    - encode_images(list[PIL.Image]) -> tensor embedding đã normalize
-    - encode_texts(list[str]) -> tensor embedding đã normalize
-    - similarity(image_embeds, text_embeds) -> cosine similarity thô (để debug/log)
+    Bọc model VLM (CLIP/SigLIP) thành giao diện thống nhất:
+    - encode_images(list[PIL.Image]) -> tensor embedding đã chuẩn hóa
+    - encode_texts(list[str]) -> tensor embedding đã chuẩn hóa
+    - similarity(image_embeds, text_embeds) -> cosine thô để kiểm tra/ghi log
     - calibrated_logits(image_embeds, text_embeds) -> logits đã nhân logit_scale
       + cộng logit_bias, sẵn sàng để inference.py tự chọn softmax hay sigmoid
       tuỳ theo task (single-label hay multi-label), không phải tuỳ theo model.
-    Dùng chung interface này để run_experiment.py không cần biết
+    Dùng chung giao diện này để run_experiment.py không cần biết
     bên trong là CLIP hay SigLIP.
     """
 
@@ -85,9 +60,6 @@ class VLMWrapper:
         config = MODEL_CONFIGS[model_name]
         self.model_name = model_name
         self.family = config.get("family", "clip_softmax")
-        
-        # self.device = device or ("cuda" if torch.cuda.is_available() else "cpu")
-        
         if device is not None:
             self.device = device
         elif torch.cuda.is_available():
@@ -108,20 +80,16 @@ class VLMWrapper:
         self.model.to(self.device)
         self.model.eval()  # QUAN TRỌNG: chế độ eval, tắt dropout/batchnorm update
 
-        # Lấy calibration params thật từ model đã học, KHÔNG hardcode.
+        # Lấy tham số hiệu chỉnh đã học từ model, không gán giá trị cố định.
         # logit_bias chỉ tồn tại ở SigLIP-family; CLIP-family không có -> mặc định 0.
-        # self.logit_scale = float(self.model.logit_scale.exp().item())
-        # self.logit_bias = float(getattr(self.model, "logit_bias", torch.tensor(0.0)).item())
         self.logit_scale = float(self.model.logit_scale.exp().item())
         logit_bias = getattr(self.model, "logit_bias", None)
         self.logit_bias = float(logit_bias.item()) if logit_bias is not None else 0.0
 
-        # Embedding dim thật, để downstream code assert thay vì crash âm thầm
-        # khi cache embedding của nhiều model vào cùng một bảng cố định chiều.
+        # Chiều embedding thực tế, tránh dùng nhầm bộ nhớ đệm của model khác.
         self.embed_dim = getattr(self.model.visual, "output_dim", None)
 
-        # Resolution THẬT model dùng, đối chiếu với con số khai trong docstring/README
-        # của bạn (đừng tin số gõ tay — đây chính là lỗi vừa bắt được ở siglip2).
+        # Kích thước ảnh lấy từ model thực tế, không dựa vào con số ghi tay trong tài liệu.
         actual_image_size = getattr(self.model.visual, "image_size", None)
 
         print(f"[model_registry] -> Load xong '{model_name}': "
@@ -131,7 +99,7 @@ class VLMWrapper:
 
     @torch.no_grad()
     def encode_images(self, images: list) -> torch.Tensor:
-        """images: list các PIL.Image (chưa preprocess)."""
+        """Nhận danh sách ảnh PIL chưa tiền xử lý."""
         batch = torch.stack([self.preprocess(img) for img in images]).to(self.device)
         embeds = self.model.encode_image(batch)
         embeds = embeds / embeds.norm(dim=-1, keepdim=True)
@@ -139,9 +107,8 @@ class VLMWrapper:
 
     @torch.no_grad()
     def encode_texts(self, texts: list) -> torch.Tensor:
-        """texts: list các câu prompt (string)."""
-        # FIX: truyền context_length tường minh — bắt buộc với SigLIP2 (64 token),
-        # không được để tokenizer tự đoán default vì có thể không khớp model.
+        """Nhận danh sách text hoặc prompt."""
+        # Truyền context_length tường minh, đặc biệt SigLIP2 chỉ nhận 64 token.
         tokens = self.tokenizer(texts, context_length=self.model.context_length).to(self.device)
         embeds = self.model.encode_text(tokens)
         embeds = embeds / embeds.norm(dim=-1, keepdim=True)
@@ -165,12 +132,8 @@ class VLMWrapper:
         return cos_sim * self.logit_scale + self.logit_bias
 
     def unload(self):
-        """Giải phóng GPU memory trước khi load model tiếp theo."""
+        """Giải phóng bộ nhớ thiết bị trước khi tải model tiếp theo."""
         del self.model
-        
-        # if torch.cuda.is_available():
-        #     torch.cuda.empty_cache()
-        
         if torch.cuda.is_available():
             torch.cuda.empty_cache()
         elif torch.backends.mps.is_available():
@@ -180,24 +143,9 @@ class VLMWrapper:
 
 
 def load_model(model_name: str, device: str = None) -> VLMWrapper:
-    """Hàm tiện ích để gọi từ run_experiment.py"""
+    """Hàm tải model dùng chung cho các điểm vào của dự án."""
     return VLMWrapper(model_name, device=device)
 
 
 def list_available_models() -> list:
     return list(MODEL_CONFIGS.keys())
-
-
-if __name__ == "__main__":
-    # Smoke test: load lần lượt TỪNG model trong MODEL_CONFIGS, không chỉ 1 model
-    # như bản cũ — chính cách test cũ (chỉ test siglip2) là lý do lỗi quickgelu
-    # ở metaclip2 không bị phát hiện sớm.
-    print("Các model khả dụng:", list_available_models())
-    for name in list_available_models():
-        try:
-            vlm = load_model(name)
-            text_embeds = vlm.encode_texts(["a photo of a cat", "a photo of a dog"])
-            print(f"  [{name}] OK — text_embeds shape: {tuple(text_embeds.shape)}")
-            vlm.unload()
-        except Exception as e:
-            print(f"  [{name}] LỖI khi load: {e}")

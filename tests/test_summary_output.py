@@ -1,4 +1,4 @@
-"""Summary naming tests; write only synthetic results in temporary directories."""
+"""Kiểm tra tên summary bằng kết quả giả trong thư mục tạm."""
 from concurrent.futures import ThreadPoolExecutor
 import importlib
 from pathlib import Path
@@ -87,7 +87,7 @@ class SummaryOutputTests(unittest.TestCase):
         self.assertNotIn('threshold', compact)
         self.assertNotIn('fusion_macro_f1', compact)
         self.assertEqual(compact.iloc[0]['image_macro_f1'], .3)
-        # Missing branch sample counts: no unsupported improvement claim.
+        # Thiếu số mẫu mỗi nhánh thì không kết luận fusion cải thiện.
         self.assertNotIn('fusion_macro_f1_gain', compact)
         pd.testing.assert_frame_equal(original, pd.DataFrame(rows))
         with tempfile.TemporaryDirectory() as directory:

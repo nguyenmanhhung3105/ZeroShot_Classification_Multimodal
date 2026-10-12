@@ -1,19 +1,14 @@
 # ============================================================
-# check_mmimdb_ready.py
+# Tệp kiểm tra bản dữ liệu MM-IMDb đã chuẩn bị.
 # Đặt tại: src/preprocessing/data_mmimdb/check_mmimdb_ready.py
 # ------------------------------------------------------------
-# Kiểm tra bản sample mmimdb cuối cùng (output của preprocess_mmimdb.py)
-# có đạt chuẩn để dùng cho vlm_zeroshot_content_classification không.
+# Kiểm tra bản mẫu do preprocess_mmimdb.py tạo ra có đủ điều kiện dùng trong dự án.
 #
-# Khác biệt so với check_fakeddit_ready.py:
-#   - Không kiểm tra "phân bố nhãn" bằng value_counts() đơn giản mà phải
-#     "explode" cột genres (multi-label) trước khi đếm
-#   - Kiểm tra ảnh bằng cách đọc trực tiếp file local, KHÔNG cần
-#     requests.get() như Fakeddit (vì ảnh đã copy sẵn về máy)
-#   - Không có khái niệm "tỷ lệ lớp nhiều nhất/ít nhất phải <=3x" chặt như
-#     single-label, vì multi-label vốn dĩ luôn lệch (Drama luôn nhiều
-#     hơn hẳn Film-Noir) — chỉ cảnh báo nếu có thể loại gần như không
-#     có mẫu nào
+# Khác với kiểm tra Fakeddit:
+#   - Tách danh sách genre thành từng nhãn trước khi đếm tần suất.
+#   - Kiểm tra ảnh trực tiếp từ tệp cục bộ đã sao chép về máy.
+#   - Không áp tỷ lệ lớp lớn nhất/nhỏ nhất như bài toán một nhãn; chỉ cảnh báo
+#     nếu một thể loại gần như không có mẫu.
 # ============================================================
 
 import os
@@ -21,7 +16,7 @@ import pandas as pd
 from PIL import Image
 
 # ============================================================
-# CONFIG
+# CẤU HÌNH
 # ============================================================
 OUTPUT_DIR = "data/processed/pro_mmimdb"
 FILE_PATH = os.path.join(OUTPUT_DIR, "mmimdb_sample.tsv")

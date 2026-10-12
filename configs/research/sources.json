@@ -1,0 +1,17 @@
+{
+  "WaffleCLIP": {
+    "url": "https://github.com/ExplainableML/WaffleCLIP.git",
+    "commit": "7a1b8ee48e31285f62ecd839fecb6b89cbef81f1",
+    "paper": "https://arxiv.org/abs/2306.07282"
+  },
+  "DCLIP": {
+    "url": "https://github.com/sachit-menon/classify_by_description_release.git",
+    "commit": "d1a3d8920af89bd0d6a692ed3afeb277df46e082",
+    "paper": "https://arxiv.org/abs/2210.07183"
+  },
+  "OpenAI_CLIP": {
+    "url": "https://github.com/openai/CLIP.git",
+    "commit": "d05afc436d78f1c48dc0dbf8e5980a9d471f35f6",
+    "paper": "https://arxiv.org/abs/2103.00020"
+  }
+}

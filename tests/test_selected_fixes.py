@@ -1,4 +1,4 @@
-"""Regression tests using synthetic rows; no model or dataset is loaded."""
+"""Kiểm tra hồi quy bằng dòng dữ liệu giả, không tải model hoặc dataset."""
 
 import ast
 import importlib
@@ -38,7 +38,7 @@ class SelectedFixTests(unittest.TestCase):
             "save_single_label_log": save_single_label_log,
             "save_multi_label_log": save_multi_label_log,
         }
-        tree = ast.parse((ROOT / "src/run_experiment.py").read_text())
+        tree = ast.parse((ROOT / "src/logging_utils.py").read_text())
         count = 0
         for node in ast.walk(tree):
             if isinstance(node, ast.Call) and isinstance(node.func, ast.Name):
@@ -47,6 +47,17 @@ class SelectedFixTests(unittest.TestCase):
                         *([None] * len(node.args)),
                         **{kw.arg: None for kw in node.keywords},
                     )
+                    count += 1
+        # Kiểm tra các lời gọi thật trong runner, kể cả qua hàm lọc kwargs.
+        for path in (ROOT / "src/run").glob("run_*.py"):
+            source = ast.parse(path.read_text())
+            for node in ast.walk(source):
+                if (isinstance(node, ast.Call) and isinstance(node.func, ast.Name)
+                        and node.func.id == "call_with_supported_kwargs" and node.args
+                        and isinstance(node.args[0], ast.Name) and node.args[0].id in functions):
+                    inspect.signature(functions[node.args[0].id]).bind(
+                        *([None] * (len(node.args) - 1)),
+                        **{kw.arg: None for kw in node.keywords if kw.arg is not None})
                     count += 1
         self.assertEqual(count, 3)
 
@@ -77,7 +88,7 @@ class SelectedFixTests(unittest.TestCase):
                                                  "n_total_samples", "n_errors", "error_rate", "timestamp"})
 
     def test_mmimdb_labels_match_preprocessing_and_short_counts(self):
-        # Parse the constant only: importing this script would access raw data.
+        # Chỉ đọc hằng số bằng AST; import script sẽ truy cập dữ liệu thô.
         tree = ast.parse((ROOT / "src/preprocessing/data_mmimdb/preprocess_mmimdb.py").read_text())
         valid = next(ast.literal_eval(node.value) for node in tree.body
                      if isinstance(node, ast.Assign)
@@ -93,8 +104,8 @@ class SelectedFixTests(unittest.TestCase):
                 evaluate_multi_label(truth, prediction, mmimdb_prompts.get_genre_list())
 
     def test_fakeddit_all_entry_points_both_tasks(self):
-        # Stub only model loading and inference; run real label conversion,
-        # evaluation and logging through each entry point on synthetic rows.
+        # Giả lập model và suy luận; vẫn chạy thật phần ánh xạ nhãn,
+        # đánh giá và ghi log qua từng điểm vào bằng dòng dữ liệu giả.
         registry = types.ModuleType("models.model_registry")
         registry.load_model = lambda *a, **k: self.fail("Must not load a model")
         matplotlib = types.ModuleType("matplotlib")
@@ -124,11 +135,12 @@ class SelectedFixTests(unittest.TestCase):
                         config = {"output": {"raw_predictions_dir": output}}
                         scores = np.eye(count)
                         prediction = (labels, scores, scores, scores, np.zeros(count, dtype=bool))
-                        with patch.object(module, "load_dataframe", return_value=df), \
-                             patch.object(module, "build_class_embeddings", return_value=(None, labels)), \
-                             patch.object(module, "resolve_image_paths", return_value=["unused"] * count), \
-                             patch.object(module, "load_images_safe", return_value=([object()] * count, labels)), \
-                             patch.object(module, "predict_single_label", return_value=prediction):
+                        target = importlib.import_module(module.RUNNERS["fakeddit"].__module__) if hasattr(module, "RUNNERS") else module
+                        with patch.object(target, "load_dataframe", return_value=df), \
+                             patch.object(target, "build_class_embeddings", return_value=(None, labels)), \
+                             patch.object(target, "resolve_image_paths", return_value=["unused"] * count), \
+                             patch.object(target, "load_images_safe", return_value=([object()] * count, labels)), \
+                             patch.object(target, "predict_single_label", return_value=prediction):
                             vlm = types.SimpleNamespace(model_name=module.__name__)
                             if module is demo:
                                 with patch.object(demo, "LOG_DIR", output), \

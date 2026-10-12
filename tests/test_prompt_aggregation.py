@@ -1,4 +1,4 @@
-"""Paper-style mean similarity: synthetic inputs only; no model downloads."""
+"""Kiểm tra trung bình similarity bằng đầu vào giả, không tải model."""
 import importlib
 import json
 from pathlib import Path
@@ -157,7 +157,7 @@ class PromptAggregationTests(unittest.TestCase):
     def test_chunk_max_preserves_mean_prompt_scores(self):
         from test_text_chunking import ChunkVLM
         from text_chunking import encode_chunked_max_sim, token_counter, split_text
-        prototypes = np.array([[.5, .5], [-.2, .3]])  # deliberately not unit norm
+        prototypes = np.array([[.5, .5], [-.2, .3]])  # cố ý dùng vector chưa có chuẩn bằng 1
         text = "First sentence. Some other long sentence. End."
         count, limit = token_counter(ChunkVLM())
         chunks = split_text(text, count, limit)

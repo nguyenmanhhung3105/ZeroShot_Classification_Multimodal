@@ -11,7 +11,7 @@ from tqdm import tqdm
 
 
 # ============================================================
-# Argument
+# Tham số dòng lệnh
 # ============================================================
 
 parser = argparse.ArgumentParser(
@@ -28,14 +28,14 @@ args = parser.parse_args()
 
 
 # ============================================================
-# Load TSV
+# Đọc TSV
 # ============================================================
 
 print(f"Loading dataset: {args.type}")
 
 df = pd.read_csv(args.type, sep="\t")
 
-# Replace NaN
+# Thay giá trị NaN
 df = df.replace(np.nan, "", regex=True)
 df.fillna("", inplace=True)
 
@@ -43,7 +43,7 @@ print(f"Total samples: {len(df):,}")
 
 
 # ============================================================
-# Create image directory
+# Tạo thư mục ảnh
 # ============================================================
 
 IMAGE_DIR = "data/raw/fakeddit/images"
@@ -52,14 +52,14 @@ os.makedirs(IMAGE_DIR, exist_ok=True)
 
 
 # ============================================================
-# Failed image log
+# Log ảnh tải thất bại
 # ============================================================
 
 FAILED_FILE = "data/raw/fakeddit/failed_images.txt"
 
 
 # ============================================================
-# Download settings
+# Thiết lập tải ảnh
 # ============================================================
 
 MAX_RETRIES = 3
@@ -68,23 +68,21 @@ REQUEST_DELAY = 0.3
 
 
 # ============================================================
-# Download function
+# Hàm tải ảnh
 # ============================================================
 
 def download_image(image_url, output_path):
     """
-    Download one image with retry mechanism.
+    Tải một ảnh và thử lại khi lỗi.
 
-    Returns:
-        True  -> success
-        False -> failed
+    Trả True nếu thành công, False nếu thất bại.
     """
 
     for attempt in range(1, MAX_RETRIES + 1):
 
         try:
 
-            # User-Agent helps avoid some servers rejecting requests
+            # User-Agent giúp một số máy chủ chấp nhận yêu cầu
             request = urllib.request.Request(
                 image_url,
                 headers={
@@ -110,7 +108,7 @@ def download_image(image_url, output_path):
 
         except urllib.error.HTTPError as e:
 
-            # 429 = Too Many Requests
+            # 429: quá nhiều yêu cầu
             if e.code == 429:
 
                 wait_time = RETRY_DELAY * attempt
@@ -146,7 +144,7 @@ def download_image(image_url, output_path):
 
 
 # ============================================================
-# Download images
+# Tải ảnh
 # ============================================================
 
 success_count = 0
@@ -167,7 +165,7 @@ with open(FAILED_FILE, "a", encoding="utf-8") as failed_log:
         image_url = str(row["image_url"]).strip()
 
         # ----------------------------------------------------
-        # Check whether image exists
+        # Kiểm tra ảnh đã có
         # ----------------------------------------------------
 
         output_path = os.path.join(
@@ -183,12 +181,12 @@ with open(FAILED_FILE, "a", encoding="utf-8") as failed_log:
 
 
         # ----------------------------------------------------
-        # Check image availability
+        # Kiểm tra khả năng tải ảnh
         # ----------------------------------------------------
 
         has_image = row["hasImage"]
 
-        # Handle possible string values
+        # Xử lý trường hợp giá trị là chuỗi
         if isinstance(has_image, str):
 
             has_image = has_image.lower() == "true"
@@ -206,7 +204,7 @@ with open(FAILED_FILE, "a", encoding="utf-8") as failed_log:
 
 
         # ----------------------------------------------------
-        # Download
+        # Tải ảnh
         # ----------------------------------------------------
 
         success = download_image(
@@ -231,7 +229,7 @@ with open(FAILED_FILE, "a", encoding="utf-8") as failed_log:
 
 
         # ----------------------------------------------------
-        # Small delay between requests
+        # Nghỉ ngắn giữa các yêu cầu
         # ----------------------------------------------------
 
         time.sleep(REQUEST_DELAY)
@@ -243,7 +241,7 @@ with open(FAILED_FILE, "a", encoding="utf-8") as failed_log:
 
 
 # ============================================================
-# Summary
+# Tổng kết
 # ============================================================
 
 print("\n" + "=" * 60)

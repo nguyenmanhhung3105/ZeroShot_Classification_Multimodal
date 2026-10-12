@@ -1,0 +1,36 @@
+# Chạy code và CLIP của tác giả: python3 src/research/run_upstream.py
+base_config: configs/experiment_config.yaml
+backbones: [ViT-B/32]          # RN50 | ViT-B/32 | ViT-L/14
+device: auto                  # auto | cpu | cuda | mps
+batch_size: 16
+methods: [clip, waffle, dclip_labels, dclip]  # hai baseline theo template riêng của mỗi repo
+seeds: [0]                    # chạy nhỏ; dùng [0, 1, 2, 3, 4, 5, 6] để đối chứng nhiều seed
+waffle_pairs: 15
+outputs: [original_image, multimodal]
+output_dir: results/upstream_projects
+
+# Chỉ bật dataset cần chạy. Giới hạn riêng cho phép chạy thử nhỏ độc lập với code chính.
+datasets:
+  crisismmd:
+    enabled: true
+    task: humanitarian
+    max_samples: 5
+  fakeddit:
+    enabled: false
+    task: 6way
+    max_samples: 5
+  mmimdb:
+    enabled: false
+    task: genres
+    max_samples: 5
+
+# Mô tả mới cố định từ định nghĩa lớp; không phải mô tả GPT-3 gốc của paper.
+descriptor_files:
+  crisismmd:
+    humanitarian: configs/research/descriptors/crisismmd_humanitarian.json
+    informativeness: configs/research/descriptors/crisismmd_info.json
+  fakeddit:
+    2way: configs/research/descriptors/fakeddit_2way.json
+    6way: configs/research/descriptors/fakeddit_6way.json
+  mmimdb:
+    genres: configs/research/descriptors/mmimdb_genres.json

@@ -1,27 +1,9 @@
 """
-Sanity-check script for the output of preprocess_crisismmd.py.
+Kiểm tra đầu ra TSV CrisisMMD đã xử lý.
 
-Loads data/processed/pro_CrisisMMD/pre_crisismmd.tsv and re-verifies
-every guarantee the preprocessing pipeline is supposed to have enforced:
-
-  1. Expected columns are present, in a sane order.
-  2. No missing values in either label column (label_informative,
-     label_humanitarian) or in clean_text / image_path.
-  3. label_informative only contains the 2 expected classes.
-  4. label_humanitarian only contains the 8 expected classes.
-  5. clean_text is fully ASCII (no leftover mojibake / non-ASCII junk).
-  6. clean_text has no leftover "RT @user:", "@mentions", URLs, or "#"
-     symbols (hashtag word should remain, symbol should not).
-  7. No duplicate (tweet_id, image_id) pairs.
-  8. Every image_path actually exists on disk (relative to IMAGE_ROOT).
-  9. tweet_id / image_id look like non-empty identifiers.
-
-Any failed check prints the offending rows (first few) and the script exits
-with a non-zero status code, so it can also be used as a CI gate.
-
-Usage:
-    pip install pandas
-    python check_crisismmd_processed.py
+Kiểm tra cột, giá trị thiếu, bộ 2/8 nhãn, text ASCII, URL/mention còn sót,
+cặp tweet_id/image_id trùng và định dạng ID. Kiểm tra ảnh là tùy chọn.
+In lỗi và trả mã thoát khác 0 nếu có kiểm tra không đạt.
 """
 
 import os
@@ -30,11 +12,11 @@ import sys
 import pandas as pd
 
 # =============================================================================
-# CONFIG - keep in sync with preprocess_crisismmd.py
+# CẤU HÌNH: đồng bộ với preprocess_crisismmd.py
 # =============================================================================
 
 IN_FILE = "data/processed/pro_crisismmd/pre_crisismmd.tsv"
-IMAGE_ROOT = "data/raw/CrisisMMD_v2.0"  # folder containing "data_image/..."
+IMAGE_ROOT = "data/raw/CrisisMMD_v2.0"  # Thư mục chứa "data_image/..."
 CHECK_IMAGE_EXISTS = False  # Inference tự bỏ qua ảnh thiếu/hỏng.
 
 EXPECTED_COLUMNS = [
@@ -61,11 +43,11 @@ MENTION_RE = re.compile(r"@\w+")
 RT_PREFIX_RE = re.compile(r"^\s*RT\b", flags=re.IGNORECASE)
 HASHTAG_SYMBOL_RE = re.compile(r"#")
 
-FAILURES = []  # collect (check_name, DataFrame_of_bad_rows) for the summary
+FAILURES = []  # Lưu tên kiểm tra và các dòng lỗi để tổng hợp
 
 
 def report(check_name: str, bad_df: pd.DataFrame, max_show: int = 5, cols=None):
-    """Record + print a check's result."""
+    """Lưu và in kết quả kiểm tra."""
     n_bad = len(bad_df)
     if n_bad == 0:
         print(f"[PASS] {check_name}")
@@ -86,7 +68,7 @@ def main():
     n = len(df)
     print(f"Loaded {n} rows from {IN_FILE}\n")
 
-    # 1. Column presence / order -------------------------------------------------
+    # 1. Kiểm tra tên và thứ tự cột -------------------------------------------------
     missing_cols = [c for c in EXPECTED_COLUMNS if c not in df.columns]
     extra_cols = [c for c in df.columns if c not in EXPECTED_COLUMNS]
     if missing_cols or extra_cols:
@@ -100,27 +82,27 @@ def main():
         print("Cannot continue further checks without required columns. Exiting.")
         sys.exit(1)
 
-    # 2. No missing values in key columns ----------------------------------------
+    # 2. Không thiếu giá trị ở cột bắt buộc ----------------------------------------
     for col in ["clean_text", "image_path", "label_informative", "label_humanitarian",
                 "tweet_id", "image_id"]:
         bad = df[df[col].isna() | (df[col].astype(str).str.strip() == "")]
         report(f"no missing values in '{col}'", bad, cols=["tweet_id", "image_id", col])
 
-    # 3. label_informative only has expected classes ------------------------------
+    # 3. Nhãn informative thuộc bộ lớp cho phép ------------------------------
     bad = df[~df["label_informative"].isin(INFORMATIVE_CLASSES)]
     report("label_informative in expected 2 classes", bad,
            cols=["tweet_id", "label_informative"])
 
-    # 4. label_humanitarian only has expected classes -----------------------------
+    # 4. Nhãn humanitarian thuộc bộ lớp cho phép -----------------------------
     bad = df[~df["label_humanitarian"].isin(HUMANITARIAN_CLASSES)]
     report("label_humanitarian in expected 8 classes", bad,
            cols=["tweet_id", "label_humanitarian"])
 
-    # 5. clean_text is fully ASCII -------------------------------------------------
+    # 5. clean_text chỉ chứa ký tự ASCII -------------------------------------------------
     bad_mask = df["clean_text"].apply(lambda t: bool(NON_ASCII_RE.search(str(t))))
     report("clean_text is fully ASCII", df[bad_mask], cols=["tweet_id", "clean_text"])
 
-    # 6. clean_text has no leftover RT-prefix / mentions / URLs / '#' symbol -------
+    # 6. Text không còn tiền tố RT, mention, URL hoặc ký hiệu hashtag -------
     bad_mask = df["clean_text"].apply(lambda t: bool(RT_PREFIX_RE.match(str(t))))
     report("no leftover 'RT' prefix in clean_text", df[bad_mask], cols=["tweet_id", "clean_text"])
 
@@ -133,12 +115,12 @@ def main():
     bad_mask = df["clean_text"].apply(lambda t: bool(HASHTAG_SYMBOL_RE.search(str(t))))
     report("no leftover '#' symbol in clean_text", df[bad_mask], cols=["tweet_id", "clean_text"])
 
-    # 7. No duplicate (tweet_id, image_id) pairs ------------------------------------
+    # 7. Không trùng cặp tweet_id/image_id ------------------------------------
     dup_mask = df.duplicated(subset=["tweet_id", "image_id"], keep=False)
     report("no duplicate (tweet_id, image_id) pairs", df[dup_mask],
            cols=["tweet_id", "image_id"])
 
-    # 8. image_path exists on disk ---------------------------------------------------
+    # 8. Đường dẫn ảnh tồn tại ---------------------------------------------------
     if CHECK_IMAGE_EXISTS:
         def missing_image(rel_path):
             if pd.isna(rel_path):
@@ -151,13 +133,13 @@ def main():
     else:
         print("[SKIP] image_path exists on disk (CHECK_IMAGE_EXISTS=False)")
 
-    # 9. tweet_id / image_id look like real identifiers -------------------------------
+    # 9. Kiểm tra định dạng tweet_id/image_id -------------------------------
     id_re = re.compile(r"^\S+$")
     for col in ["tweet_id", "image_id"]:
         bad_mask = ~df[col].astype(str).apply(lambda v: bool(id_re.match(v)))
         report(f"'{col}' looks like a valid identifier", df[bad_mask], cols=["tweet_id", "image_id"])
 
-    # --- Summary ---------------------------------------------------------------------
+    # --- Tổng kết ---------------------------------------------------------------------
     print("\n" + "=" * 70)
     if FAILURES:
         print(f"SUMMARY: {len(FAILURES)} check(s) FAILED out of the run above.")

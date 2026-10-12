@@ -1,4 +1,4 @@
-"""Audit regressions using synthetic rows/images and model stubs only."""
+"""Kiểm tra báo cáo bằng dòng dữ liệu, ảnh và model giả."""
 from concurrent.futures import ThreadPoolExecutor
 from contextlib import ExitStack
 import copy
@@ -191,7 +191,7 @@ class AuditRunnerTests(unittest.TestCase):
                 picture = root / "synthetic.png"
                 Image.new("RGB", (3, 3), "red").save(picture)
                 data_path = root / "synthetic.tsv"
-                # Short first row tests consistent Fakeddit filtering in all entry points.
+                # Dòng đầu ngắn kiểm tra bộ lọc Fakeddit thống nhất giữa các điểm vào.
                 pd.DataFrame({"id": ["short", "one", "two"], "text": ["tiny", "long title " * 4, "another title " * 4],
                               column: [truth[0], *truth], "image_path": [str(picture)] * 3}).to_csv(data_path, sep="\t", index=False)
                 task_cfg = {"task": task, "task_type": "multi_label" if dataset == "mmimdb" else "single_label",
@@ -218,7 +218,7 @@ class AuditRunnerTests(unittest.TestCase):
                     self.assertEqual(result["fusion_n_samples"], 2)
                     self.assertIn("image_macro_f1", result)
                     self.assertIn("text_macro_f1", result)
-                    # Prompts plus one input batch; diagnostics never re-encode samples.
+                    # Mã hóa prompt và một batch đầu vào; báo cáo không mã hóa mẫu lần nữa.
                     self.assertEqual(model.image_batches, [2])
                 self.assertEqual(outputs[0]["sample_set_id"], outputs[1]["sample_set_id"])
                 snapshots = list(root.glob("**/evaluation_snapshot.json"))
@@ -236,7 +236,7 @@ class AuditRunnerTests(unittest.TestCase):
                     self.assertEqual(report.branch.tolist(), ["image", "text", "fusion"])
                     self.assertEqual(report.loc[report.branch == "text", "input_status"].item(), "measured")
                     self.assertEqual(len(pd.read_csv(path.parent / "text_lengths.tsv", sep="\t")), 2)
-                # Reordering locked samples must stop before encoding input images.
+                # Đổi thứ tự mẫu đã khóa phải dừng trước khi mã hóa ảnh.
                 changed = pd.read_csv(data_path, sep="\t", dtype=str).iloc[::-1]
                 changed.to_csv(data_path, sep="\t", index=False)
                 model = FakeVLM()

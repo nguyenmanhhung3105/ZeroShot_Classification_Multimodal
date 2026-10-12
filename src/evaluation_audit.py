@@ -1,4 +1,4 @@
-"""Read-only scoring diagnostics and explicit cohort locks; no fitting or tuning."""
+"""Báo cáo điểm số và khóa bộ mẫu; không học hoặc tự chọn tham số."""
 import hashlib
 import json
 import os
@@ -18,7 +18,7 @@ def digest(value):
 
 
 def _create_lock(path, cohort):
-    """Publish a complete JSON atomically, without replacing an existing lock."""
+    """Công bố JSON hoàn chỉnh theo thao tác nguyên tử, giữ khóa đã có."""
     temporary = None
     try:
         with tempfile.NamedTemporaryFile(mode="w", encoding="utf-8", dir=path.parent,
@@ -85,10 +85,10 @@ def prepare_audit(frame, task_config, config, dataset, task, id_col, text_col, l
 
 
 def token_lengths(vlm, texts):
-    """Count before truncation using known OpenCLIP adapters, never infer from padding.
+    """Đếm token trước khi cắt bằng tokenizer OpenCLIP đã nhận diện.
 
-    Unsupported backends report unknown rather than an invented zero rate.
-    Clean texts exactly as inference does; inspect only input texts, not prompts.
+    Tokenizer chưa hỗ trợ ghi unknown. Làm sạch text giống khi suy luận;
+    chỉ đo text đầu vào, không đo prompt nhãn.
     """
     tokenizer = getattr(vlm, "tokenizer", None)
     context = getattr(getattr(vlm, "model", None), "context_length", None)
@@ -131,7 +131,7 @@ def finish_audit(audit, vlm, frame, texts, truth, labels, fused, image, text, em
     report, summary = [], {"sample_set_id": audit["sample_set_id"], "prompt_id": audit["prompt_id"],
                            "split": audit["split"]}
     for branch, scores in (("image", image), ("text", text), ("fusion", fused)):
-        # Never report an unencoded branch or image fallback as text-only evidence.
+        # Không báo điểm nhánh chưa mã hóa hoặc ảnh dự phòng như kết quả chỉ text.
         mask = (np.ones(len(texts), bool) if branch == "fusion" else
                 (~empty & (weight < 1)) if branch == "text" else
                 (np.ones(len(texts), bool) if weight > 0 else empty))
@@ -178,8 +178,8 @@ def finish_audit(audit, vlm, frame, texts, truth, labels, fused, image, text, em
     audit["truncation"] = {"status": status, "context_length": context, "n_nonempty": int((~empty).sum()),
                            "n_measured": len(measured), "n_truncated": truncated if measured else None,
                            "truncated_rate": truncated / len(measured) if measured else None}
-    # Keep the rate visible next to the text-branch diagnostics. It measures all
-    # nonempty inputs, including when the text encoder is disabled by weight=1.
+    # Ghi tỷ lệ cạnh báo cáo nhánh text; đo mọi text không rỗng,
+    # kể cả khi trọng số ảnh bằng 1 và bộ mã hóa text không chạy.
     report[1].update({f"input_{key}": value for key, value in audit["truncation"].items()})
     if truncated:
         print(f"[INPUT LENGTH] {truncated}/{len(measured)} original texts exceed context_length={context}")

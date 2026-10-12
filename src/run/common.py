@@ -7,27 +7,18 @@ import json
 import inspect
 import re
 
-import numpy as np
 import pandas as pd
-import yaml
 from PIL import Image
 
-# Các file run_*.py nằm trong thư mục con (experiments/), còn models/,
-# inference.py, evaluate.py, logging_utils.py, prompts/ nằm ở thư mục cha
-# (src/) — cần add path này vào sys.path thì mới import được.
-# Nếu layout thư mục thật khác đi, chỉ cần sửa dòng insert bên dưới.
+# Cho phép chạy script từng dataset từ thư mục gốc bằng đường dẫn file.
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from models.model_registry import load_model  # noqa: E402  (import sau khi sửa sys.path)
+from config import load_config
 
 
-# ============================================================
-# CONFIG
-# ============================================================
-
-def load_config(path: str = "configs/experiment_config.yaml") -> dict:
-    with open(path, "r", encoding="utf-8") as f:
-        return yaml.safe_load(f)
+def load_model(*args, **kwargs):
+    from models.model_registry import load_model as load
+    return load(*args, **kwargs)
 
 
 # ============================================================
@@ -106,7 +97,7 @@ def validate_columns(df: pd.DataFrame, required_columns: list, dataset_name: str
 
 
 # ============================================================
-# OVERRIDE THEO MODEL / DATASET
+# GIÁ TRỊ RIÊNG THEO MODEL VÀ DATASET
 # ============================================================
 
 def resolve_override(default_value, overrides: dict, key: str):
@@ -118,6 +109,9 @@ def resolve_override(default_value, overrides: dict, key: str):
 
 
 def get_image_weight(config: dict, dataset_name: str) -> float:
+    options = config.get("datasets", {}).get(dataset_name, {}).get("inference", {})
+    if "image_weight" in options:
+        return options["image_weight"]
     inference_cfg = config.get("inference", {})
     return resolve_override(
         inference_cfg.get("image_weight", 0.5),
@@ -178,27 +172,6 @@ def normalize_single_labels(values: list, label_names, label_order: list) -> lis
             raise ValueError(f"Nhãn không thuộc prompt: {value!r}; cần {label_order}")
         result.append(mapping[key])
     return result
-
-
-def _canonical_label_lookup(label_order: list) -> dict:
-    def canon(s):
-        return str(s).strip().lower().replace(" ", "_").replace("-", "_")
-    return {canon(label): label for label in label_order}
-
-
-def coerce_labels_to_prompt_format(values: list, label_order: list) -> list:
-    """Fallback case/khoảng-trắng-insensitive: nếu normalize_single_labels
-    (map theo get_label_names khai báo trong file prompts) không phủ hết biến
-    thể viết của dataset thật (vd. 'Not Informative' vs 'not_informative'),
-    vẫn cố khớp bằng canonical form trước khi đành giữ nguyên giá trị gốc.
-    Không cứu được các trường hợp khác nhau cả về từ ngữ (không chỉ hoa/thường
-    hay khoảng trắng) — những trường hợp đó phải sửa đúng ở file prompts."""
-    lookup = _canonical_label_lookup(label_order)
-
-    def canon(s):
-        return str(s).strip().lower().replace(" ", "_").replace("-", "_")
-
-    return [lookup.get(canon(v), v) for v in values]
 
 
 # ============================================================
@@ -300,7 +273,7 @@ def call_with_supported_kwargs(func, *args, **kwargs):
 # ============================================================
 
 def compact_summary(rows):
-    """Presentation only: detailed branch metrics/config stay in per-run logs."""
+    """Rút gọn bảng hiển thị; metric và cấu hình chi tiết vẫn nằm trong log mỗi lần chạy."""
     frame = (rows.copy() if isinstance(rows, pd.DataFrame) else pd.DataFrame(rows))
     comparison = {"image_macro_f1", "text_macro_f1", "fusion_macro_f1",
                   "image_n_samples", "text_n_samples", "fusion_n_samples"}
@@ -320,7 +293,7 @@ def compact_summary(rows):
             frame[metric] = frame[source].combine_first(frame[metric]) if metric in frame else frame[source]
     details = {"task_type", "score_type", "model_scale_applied", "apply_bias_to_text",
                "sample_set_id", "prompt_id", "config_id", "hamming_accuracy"}
-    # Drop only known audit fields, not arbitrary caller-defined result columns.
+    # Chỉ bỏ cột báo cáo đã biết; giữ các cột kết quả tùy chỉnh của caller.
     scale_columns = {"text_logit_scale_effective", "text_logit_scale_status",
                      "text_logit_scale_requested", "text_scale_override_applied",
                      "fusion_enabled", "image_weight", "text_weight",
@@ -427,7 +400,7 @@ def run_all_models_for_dataset(dataset_name: str, runner_fn, config: dict) -> pd
 
 
 def prompt_trial_configs(dataset_name, task_config):
-    """Expand prompt/aggregation choices; never change model, data, scale or fusion."""
+    """Mở rộng lựa chọn prompt và tổng hợp; giữ model, dữ liệu, scale và fusion."""
     variants = task_config.get("prompt_variants")
     if variants is None:
         variants = [task_config.get("prompt_variant", "current")]
@@ -454,7 +427,7 @@ def prompt_trial_configs(dataset_name, task_config):
 
 
 def run_prompt_trials(run_one, model_name, dataset_name, task_config):
-    """One model already loaded; each variant gets an independent result/log."""
+    """Dùng model đã tải; mỗi biến thể có kết quả và log riêng."""
     rows = []
     for active in prompt_trial_configs(dataset_name, task_config):
         variant = active["prompt_variant"]
@@ -466,7 +439,8 @@ def run_prompt_trials(run_one, model_name, dataset_name, task_config):
             print(f"Lỗi {model_name} x {dataset_name} x {variant} x {aggregation}: {exc}")
             metrics = {"error": str(exc)}
         row = {"model": model_name, "dataset": dataset_name,
-               "task": active.get("task", "-"), "task_type": active.get("task_type", "-")}
+               "task": active.get("task", "-"),
+               "task_type": "multi_label" if dataset_name == "mmimdb" else "single_label"}
         if dataset_name == "fakeddit":
             row["prompt_variant"] = variant
         row["prompt_aggregation"] = aggregation

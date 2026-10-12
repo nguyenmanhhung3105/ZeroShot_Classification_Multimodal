@@ -1,4 +1,4 @@
-"""Synthetic only: no dataset reads, weights or network."""
+"""Dùng dữ liệu giả, không đọc dataset, trọng số hoặc truy cập mạng."""
 import sys
 from pathlib import Path
 from types import SimpleNamespace

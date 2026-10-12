@@ -1,20 +1,21 @@
-# Virtual environment
+# Môi trường ảo
 venv/
 .venv/
 
-# Raw dataset
+# Dữ liệu thô
 data/raw/
 
-# backup files
+# Bản sao dự phòng
 backup/
+backups/
 
-# results
+# Kết quả
 results/
 
-# Large / unnecessary processed dataset
+# File dữ liệu đã xử lý lớn, không đưa lên Git
 data/processed/pro_fakeddit/fakeddit_clean.tsv
 
-# Archives
+# File nén
 *.tar.gz
 
 # Python
@@ -26,3 +27,6 @@ __pycache__/
 
 # macOS
 .DS_Store
+
+# Repo nghiên cứu được cố định phiên bản trong configs/research/sources.json
+third_party/

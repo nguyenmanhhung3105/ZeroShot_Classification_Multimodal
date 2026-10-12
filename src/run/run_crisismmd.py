@@ -1,30 +1,26 @@
 """
-Chạy zero-shot classification cho CrisisMMD (informativeness / humanitarian).
+Chạy CrisisMMD theo tác vụ informativeness hoặc humanitarian.
 
-Tách riêng từ run_experiment.py để chạy độc lập từng dataset. Logic dùng
-chung nằm ở common.py.
-
-Chạy:
-    python3 experiments/run_crisismmd.py
+Chạy: python3 src/run/run_crisismmd.py --config configs/experiment_config.yaml
+Tự chọn cột nhãn tương ứng theo task.
 """
 
 import os
 import sys
 
-# PHẢI đứng trước các import bên dưới (inference/evaluate/logging_utils/prompts
-# nằm ở src/, còn file này nằm trong src/run/ hoặc src/experiments/) — nếu đặt
-# sau, các import bên dưới sẽ fail trước khi sys.path kịp được sửa.
+# Thêm src trước import để chạy trực tiếp script từ thư mục gốc.
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from evaluation_audit import prepare_audit, finish_audit
 from text_scale import text_scale_settings
+from research.adapted_methods import research_embeddings
 from inference import build_class_embeddings, predict_single_label
 from inference import prompt_aggregation_settings
 from evaluate import evaluate_single_label, evaluate_binary
 from logging_utils import save_single_label_log
 from prompts import crisismmd_prompts
 
-from common import (
+from run.common import (
     load_config,
     crisismmd_label_column,
     load_dataframe,
@@ -54,6 +50,7 @@ def run_crisismmd(vlm, task_config: dict, config: dict) -> dict:
     label_names = crisismmd_prompts.get_label_names(task)
     aggregation = prompt_aggregation_settings(task_config, "crisismmd")
     class_embeds, label_order = build_class_embeddings(vlm, prompt_set, aggregation=aggregation)
+    image_classes, research_meta, audit_prompts = research_embeddings(vlm, task_config, prompt_set, label_order)
 
     image_paths = resolve_image_paths(df, task_config)
     images, valid_idx = load_images_safe(image_paths)
@@ -65,7 +62,8 @@ def run_crisismmd(vlm, task_config: dict, config: dict) -> dict:
     df_valid["_resolved_image_path"] = [image_paths[i] for i in valid_idx]
 
     audit = prepare_audit(df_valid, task_config, config, "crisismmd", task_config.get("task", "genres"),
-                          id_col, text_col, label_col, prompt_set)
+                          id_col, text_col, label_col, audit_prompts,
+                          scope=task_config.get("_audit_scope", "main"))
 
     texts = df_valid[text_col].fillna("").astype(str).tolist()
 
@@ -77,6 +75,7 @@ def run_crisismmd(vlm, task_config: dict, config: dict) -> dict:
     predictions, p, p_img, p_text, text_empty_mask = predict_single_label(
         vlm, images, texts, class_embeds, label_order,
         batch_size=batch_size, image_weight=image_weight, diagnostics=audit, text_logit_scale=text_scale,
+        image_class_embeds=image_classes,
     )
     df_valid["_text_was_empty"] = text_empty_mask
 
@@ -92,6 +91,7 @@ def run_crisismmd(vlm, task_config: dict, config: dict) -> dict:
         result = evaluate_single_label(y_true, predictions, label_order, low_sample_classes=low_sample)
 
     result.update(scale_meta)
+    result.update(research_meta)
     result.update(finish_audit(audit, vlm, df_valid, texts, y_true, label_order,
                                p, p_img, p_text, text_empty_mask, image_weight))
 
@@ -109,6 +109,8 @@ def run_crisismmd(vlm, task_config: dict, config: dict) -> dict:
         sim_text=p_text,
         evaluation_audit=audit,
         extra_manifest={
+            **research_meta,
+            "research_image_prompts": task_config.get("_research_image_prompts"),
             **scale_meta,
             "max_samples": task_config.get("max_samples"),
             "min_text_length": 0,
@@ -119,12 +121,17 @@ def run_crisismmd(vlm, task_config: dict, config: dict) -> dict:
         },
     )
     print(f"[LOG] {log_dir}")
+    result["prediction_log_dir"] = log_dir
 
     return result
 
 
 def main():
-    config = load_config()
+    import argparse
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--config", default="configs/experiment_config.yaml")
+    args = parser.parse_args()
+    config = load_config(args.config)
     run_all_models_for_dataset("crisismmd", run_crisismmd, config)
 
 

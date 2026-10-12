@@ -1,4 +1,4 @@
-"""Text scale tests with synthetic embeddings, no datasets or model weights."""
+"""Kiểm tra scale text bằng embedding giả, không đọc dataset hoặc trọng số."""
 import unittest
 import numpy as np
 from test_runtime_fixes import FakeVLM

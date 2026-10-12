@@ -1,4 +1,4 @@
-"""Small synthetic tests: never read project datasets or load pretrained weights."""
+"""Kiểm tra nhỏ bằng dữ liệu giả, không đọc dataset hoặc tải trọng số."""
 import ast
 import importlib
 import json
@@ -196,12 +196,13 @@ class RuntimeFixTests(unittest.TestCase):
                 cfg = {"task": task, "data_path": "never-read", "text_col": "text", "task_type": "single_label",
                        "label_col": "label_informative"}
                 scores = np.eye(len(labels))
+                target = importlib.import_module(module.RUNNERS["crisismmd"].__module__) if hasattr(module, "RUNNERS") else module
                 with self.subTest(entry=module.__name__, task=task), tempfile.TemporaryDirectory() as out, \
-                     patch.object(module, "load_dataframe", return_value=df), \
-                     patch.object(module, "build_class_embeddings", return_value=(None, labels)), \
-                     patch.object(module, "resolve_image_paths", return_value=["unused"] * len(labels)), \
-                     patch.object(module, "load_images_safe", return_value=([object()] * len(labels), list(range(len(labels))))), \
-                     patch.object(module, "predict_single_label", return_value=(labels, scores, scores, scores, np.zeros(len(labels), dtype=bool))):
+                     patch.object(target, "load_dataframe", return_value=df), \
+                     patch.object(target, "build_class_embeddings", return_value=(None, labels)), \
+                     patch.object(target, "resolve_image_paths", return_value=["unused"] * len(labels)), \
+                     patch.object(target, "load_images_safe", return_value=([object()] * len(labels), list(range(len(labels))))), \
+                     patch.object(target, "predict_single_label", return_value=(labels, scores, scores, scores, np.zeros(len(labels), dtype=bool))):
                     if module is self.demo:
                         with patch.object(module, "LOG_DIR", out), patch.object(module, "OUTPUT_DIR", out), patch.object(module, "visualize"):
                             result = module.run_dataset(FakeVLM(), "stub", "crisismmd", cfg, 0.5)
@@ -220,7 +221,7 @@ class RuntimeFixTests(unittest.TestCase):
                               self.demo.OUTPUT_DIR, self.demo.PROMPT_VERSION), tuple(settings.values()))
 
     def test_mmimdb_source_extension_selection(self):
-        # Execute only filename mapping, never the preprocessing pipeline.
+        # Chỉ thực thi phần ánh xạ tên file, không chạy tiền xử lý.
         source = (ROOT / "src/preprocessing/data_mmimdb/preprocess_mmimdb.py").read_text()
         tree = ast.parse(source)
         nodes = []
@@ -268,12 +269,13 @@ class RuntimeFixTests(unittest.TestCase):
         scores[0, labels.index("Drama")] = 0.9
         cfg = {"task": "genres", "task_type": "multi_label", "data_path": "never-read"}
         for module in (self.main, separate, self.demo):
+            target = importlib.import_module(module.RUNNERS["mmimdb"].__module__) if hasattr(module, "RUNNERS") else module
             with self.subTest(entry=module.__name__), tempfile.TemporaryDirectory() as out, \
-                 patch.object(module, "load_dataframe", return_value=df), \
-                 patch.object(module, "build_class_embeddings", return_value=(None, labels)), \
-                 patch.object(module, "resolve_image_paths", return_value=["unused"]), \
-                 patch.object(module, "load_images_safe", return_value=([object()], [0])), \
-                 patch.object(module, "predict_multi_label", return_value=([["Drama"]], scores, scores, scores,
+                 patch.object(target, "load_dataframe", return_value=df), \
+                 patch.object(target, "build_class_embeddings", return_value=(None, labels)), \
+                 patch.object(target, "resolve_image_paths", return_value=["unused"]), \
+                 patch.object(target, "load_images_safe", return_value=([object()], [0])), \
+                 patch.object(target, "predict_multi_label", return_value=([["Drama"]], scores, scores, scores,
                                                                           np.array([False]), np.array([False]))) as predictor:
                 if module is self.demo:
                     with patch.object(module, "LOG_DIR", out), patch.object(module, "OUTPUT_DIR", out), patch.object(module, "visualize"):

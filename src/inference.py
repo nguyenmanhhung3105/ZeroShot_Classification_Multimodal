@@ -1,26 +1,13 @@
 """
-Core zero-shot inference — multimodal (image + text) fusion, CLIP-style.
+Suy luận zero-shot cho ảnh và text, kết hợp điểm của hai nhánh.
 
-Cơ chế (SCORE-LEVEL FUSION — KHÔNG fuse embedding):
-    Image  -> image embedding  (normalize) -> sim_image = image_embed @ class_embeds.T
-    Text   -> text embedding   (normalize) -> sim_text  = text_embed  @ class_embeds.T
-    Mỗi nhánh được calibrate riêng bằng logit_scale/logit_bias CỦA CHÍNH MODEL đó
-    (KHÔNG cộng cosine thô của 2 nhánh — thang đo cross-modal và text-text khác nhau
-    hoàn toàn do modality gap của CLIP/SigLIP).
-    p_img, p_text -> fuse ở tầng PROBABILITY: p = w * p_img + (1-w) * p_text
-
-Single-label (Fakeddit, CrisisMMD): softmax mỗi nhánh theo lớp -> fuse -> ARGMAX
-Multi-label  (MM-IMDb)            : sigmoid mỗi nhánh theo lớp -> fuse -> THRESHOLD
-
-LƯU Ý: nhánh text dùng logit_scale của model dù model đó được calibrate cho
-cặp (ảnh, text) chứ chưa từng được calibrate cho (text sample, text prompt).
-Đây là giả định hợp lý nhất hiện có, nhưng nên coi là điểm cần validate/tune
-riêng (xem tham số text_logit_scale) chứ không mặc định đúng.
-
-PROGRESS BAR: encode_multimodal_embeddings (và do đó predict_single_label /
-predict_multi_label) hiện % tiến trình qua các batch bằng tqdm, nếu có cài
-đặt. Tắt bằng show_progress=False khi chạy trong pipeline không muốn in ra
-console (vd: ghi log file, job chấm điểm tự động).
+Single-label: tính cosine → scale/bias → softmax riêng mỗi nhánh → fusion → argmax.
+Multi-label: runner MM-IMDb mặc định chuẩn hóa cosine qua các nhãn của từng mẫu
+(relative_z) rồi fusion; fixed_threshold giữ cách sigmoid khi chủ động chọn.
+Text rỗng dùng ảnh làm dự phòng. mean_sim giữ trung bình cosine từng prompt,
+không chuẩn hóa lại vector lớp. show_progress điều khiển thanh tiến trình.
+Scale của model được học cho ảnh–text; áp dụng cho text–prompt là lựa chọn
+thực nghiệm, không mặc định xem là xác suất đã được hiệu chỉnh.
 """
 
 import numpy as np
@@ -116,7 +103,7 @@ def _weighted_fuse(p_img: np.ndarray, p_text: np.ndarray, image_weight: float,
 
 
 def prompt_aggregation_settings(task_config, dataset):
-    """Resolve prompt aggregation independently of dataset and decision rule."""
+    """Chọn cách tổng hợp prompt độc lập với dataset và quy tắc quyết định nhãn."""
     if ("nli" in task_config or "text_backends" in task_config
             or task_config.get("text_backend", "clip_text") != "clip_text"):
         raise ValueError("NLI/backend switching was removed; remove nli/text_backends from config")
@@ -129,12 +116,10 @@ def prompt_aggregation_settings(task_config, dataset):
 def build_class_embeddings(vlm, prompt_set: dict, aggregation="mean_embed") -> tuple:
     """
     Tạo embedding đại diện cho từng class bằng prompt ensembling.
-    mean_embed: baseline mean embedding followed by L2 renormalization.
-    mean_sim: mean of individually normalized prompt vectors WITHOUT final
-    renormalization. x @ mean(v) == mean(x @ v), so scores are exactly mean
-    per-prompt cosines, as in DCLIP/WaffleCLIP similarity aggregation. Avoids
-    allocating an N-samples x all-prompts score matrix. These prototypes need
-    NOT have unit norm; do not normalize them again downstream.
+    mean_embed: trung bình embedding rồi chuẩn hóa L2 lại.
+    mean_sim: trung bình vector prompt đã chuẩn hóa, không chuẩn hóa lại trung bình.
+    x @ mean(v) bằng mean(x @ v), nên giữ đúng trung bình cosine mà không cần
+    cấp phát bảng điểm mẫu × toàn bộ prompt. Vector mean_sim không cần chuẩn 1.
     """
     if aggregation not in ("mean_embed", "mean_sim"):
         raise ValueError("aggregation must be mean_embed or mean_sim")
@@ -211,7 +196,7 @@ def encode_multimodal_embeddings(vlm, images: list, texts: list, batch_size: int
                 scores, counts = encode_chunked_max_sim(
                     vlm, [texts[i] for i in text_indices], batch_size, max_sim_classes)
                 chunk_scores["text"][text_indices] = scores
-                # No single text vector represents per-class maximum scores.
+                # Điểm cực đại riêng từng nhãn không có một vector text đại diện chung.
                 encoded_text = np.zeros((len(text_indices), max_sim_classes.shape[1]), dtype=scores.dtype)
                 for i, count in zip(text_indices, counts):
                     chunk_counts[i] = count
@@ -241,15 +226,15 @@ def encode_multimodal_embeddings(vlm, images: list, texts: list, batch_size: int
 def predict_single_label(vlm, images: list, texts: list, class_embeds: np.ndarray, label_order: list,
                           batch_size: int = 16, image_weight: float = 0.5,
                           text_logit_scale: float = None, show_progress: bool = True,
-                          diagnostics=None) -> tuple:
+                          diagnostics=None, image_class_embeds=None) -> tuple:
     """
-    Single-label multimodal inference cho Fakeddit / CrisisMMD.
+    Suy luận đa phương thức, một nhãn cho Fakeddit / CrisisMMD.
 
     text_logit_scale: cho phép override scale riêng cho nhánh text (mặc định
     dùng chung logit_scale của model — xem lưu ý ở docstring đầu file).
     show_progress   : hiện % tiến trình trong lúc encode ảnh/text.
 
-    Returns:
+    Kết quả trả về:
         predictions    : list[str]
         p              : np.ndarray (N, n_classes) — probability đã fuse, DÙNG ĐỂ EVALUATE
         p_img          : np.ndarray (N, n_classes) — probability riêng nhánh ảnh, DÙNG ĐỂ LOG/DEBUG
@@ -264,7 +249,8 @@ def predict_single_label(vlm, images: list, texts: list, class_embeds: np.ndarra
         show_progress=show_progress, desc="Single-label inference", image_weight=image_weight,
     )
 
-    sim_image = image_embeds @ class_embeds.T
+    image_classes = _image_classes(class_embeds, image_class_embeds)
+    sim_image = image_embeds @ image_classes.T
     sim_text = text_embeds @ class_embeds.T
 
     _record_cosine(diagnostics, sim_image, sim_text, image_weight, text_empty_mask)
@@ -290,21 +276,22 @@ def predict_multi_label(vlm, images: list, texts: list, class_embeds: np.ndarray
                          text_logit_scale: float = None, show_progress: bool = True,
                          decision_mode="fixed_threshold",
                          relative_z_threshold=1.0, diagnostics=None,
-                         chunk_long_text=False, chunk_aggregation="mean_embed") -> tuple:
+                         chunk_long_text=False, chunk_aggregation="mean_embed",
+                         image_class_embeds=None) -> tuple:
     """
-    Multi-label multimodal inference cho MM-IMDb.
+    Suy luận đa phương thức, nhiều nhãn cho MM-IMDb.
 
     Mỗi lớp được đánh giá ĐỘC LẬP qua sigmoid ở TỪNG NHÁNH riêng, rồi mới fuse —
     không sigmoid trên cosine đã bị trộn 2 modality (khác biệt cốt lõi so với bản cũ).
 
     show_progress: hiện % tiến trình trong lúc encode ảnh/text.
 
-    decision_mode="relative_z": bypass sigmoid/model calibration and threshold;
-    return relative scores in the existing probs/p_img/p_text tuple positions.
-    Select scores > relative_z_threshold. These outputs are NOT probabilities.
-    Main MM-IMDb runners explicitly select this mode through their config.
+    decision_mode="relative_z": bỏ sigmoid, scale/bias và threshold xác suất;
+    trả điểm tương đối tại các vị trí probs/p_img/p_text của kết quả hiện có.
+    Chọn điểm > relative_z_threshold. Những điểm này KHÔNG phải xác suất.
+    Runner MM-IMDb chọn chế độ này bằng cấu hình.
 
-    Returns:
+    Kết quả trả về:
         predictions    : list[list[str]]
         probs          : np.ndarray (N, n_classes) — đã fuse, DÙNG ĐỂ EVALUATE
         p_img          : np.ndarray (N, n_classes) — DÙNG ĐỂ LOG/DEBUG
@@ -334,7 +321,8 @@ def predict_multi_label(vlm, images: list, texts: list, class_embeds: np.ndarray
         max_sim_classes=class_embeds if use_max else None, chunk_scores=chunk_scores,
     )
 
-    sim_image = image_embeds @ class_embeds.T
+    image_classes = _image_classes(class_embeds, image_class_embeds)
+    sim_image = image_embeds @ image_classes.T
     sim_text = chunk_scores["text"] if use_max else text_embeds @ class_embeds.T
 
     if relative:
@@ -363,12 +351,22 @@ def predict_multi_label(vlm, images: list, texts: list, class_embeds: np.ndarray
     return predictions, probs, p_img, p_text, np.array(used_fallback), text_empty_mask
 
 
-def relative_multilabel_scores(sim_image, sim_text, image_weight=0.5, text_empty_mask=None):
-    """Per-sample, across-label z scores; no labels or cross-sample statistics.
+def _image_classes(text_classes, image_classes):
+    """Vector lớp tùy chọn cho nhánh ảnh; giữ cách chấm điểm text và các đoạn."""
+    if image_classes is None:
+        return text_classes
+    image_classes = np.asarray(image_classes)
+    if image_classes.shape != text_classes.shape or not np.isfinite(image_classes).all():
+        raise ValueError("image_class_embeds must be finite and match class_embeds shape/order")
+    return image_classes
 
-    Standardize each modality separately, then linearly fuse. These are scores,
-    NOT probabilities; learned model scale/bias and sigmoid are not applied.
-    Constant rows map to zeros, leaving the caller's explicit top-1 fallback.
+
+def relative_multilabel_scores(sim_image, sim_text, image_weight=0.5, text_empty_mask=None):
+    """Tính điểm z qua các nhãn của từng mẫu, không dùng nhãn thật hoặc thống kê toàn tập.
+
+    Chuẩn hóa từng nhánh rồi kết hợp tuyến tính. Điểm này không phải xác suất;
+    không áp dụng scale, bias hoặc sigmoid. Dòng hằng được gán điểm 0;
+    caller quyết định có dùng nhãn điểm cao nhất làm dự phòng hay không.
     """
     image = np.asarray(sim_image, dtype=np.float64)
     text = np.asarray(sim_text, dtype=np.float64)
@@ -389,7 +387,7 @@ def relative_multilabel_scores(sim_image, sim_text, image_weight=0.5, text_empty
 
 
 def multilabel_settings(task_config, threshold):
-    """Main MM-IMDb runners default to relative_z; legacy API remains opt-in compatible."""
+    """Runner MM-IMDb mặc định dùng relative_z; API cũ vẫn cho phép chọn fixed_threshold."""
     mode = task_config.get("decision_mode", "relative_z")
     cutoff = task_config.get("relative_z_threshold", 1.0)
     chunking = task_config.get("chunk_long_text", False)

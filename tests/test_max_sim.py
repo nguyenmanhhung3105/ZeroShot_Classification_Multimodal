@@ -1,4 +1,4 @@
-"""Synthetic max-sim regressions; no project data or model loading."""
+"""Kiểm tra max_sim bằng dữ liệu giả, không tải model."""
 import unittest
 import numpy as np
 from test_text_chunking import ChunkVLM
