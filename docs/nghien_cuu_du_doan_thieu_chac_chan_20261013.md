@@ -30,11 +30,11 @@ Nguồn code: [inference.py](../src/inference.py), [logging_utils.py](../src/log
 
 Đối với single-label, nếu relation tắt:
 
-\[
-P_I=\operatorname{softmax}(s_I S_I+b),\quad
-P_T=\operatorname{softmax}(s_T S_T+b),\quad
-B=wP_I+(1-w)P_T.
-\]
+$$
+P_I = \operatorname{softmax}(s_I S_I + b), \quad
+P_T = \operatorname{softmax}(s_T S_T + b), \quad
+B = wP_I + (1-w)P_T.
+$$
 
 `S_I`, `S_T` là điểm similarity với mô tả lớp. Dự đoán là `argmax(B)`. Text rỗng có fallback riêng trong code. Scale của mô hình được học cho ảnh–text; dùng nó cho text–text không chứng minh xác suất đã được calibration cho task.
 
