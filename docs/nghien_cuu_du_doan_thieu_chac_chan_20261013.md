@@ -69,10 +69,13 @@ Fakeddit được gán nhãn bằng distant supervision; tác giả ghi nhận k
 
 Với phân phối điểm cuối `p`, số lớp `C`, điểm lớn nhất và nhì `p_(1), p_(2)`:
 
-\[
-\Delta(x)=p_{(1)}-p_{(2)},\qquad
-H_{norm}(x)=\frac{-\sum_{c=1}^{C}p_c\log p_c}{\log C}.
-\]
+$$
+\Delta(x) = p_{(1)} - p_{(2)}
+$$
+
+$$
+H_{norm}(x) = \frac{-\sum_{c=1}^{C} p_c \log p_c}{\log C}
+$$
 
 Quy ước `0 log 0 = 0`. Margin nhỏ: hai ứng viên gần nhau. Entropy gần 1: điểm trải rộng qua nhiều lớp. Chúng đo hai khía cạnh khác nhau; không phải xác suất model sai.
 
@@ -80,21 +83,21 @@ Ví dụ `[0.48,0.52]`: margin `0.04`, entropy chuẩn hóa khoảng `0.99885`. 
 
 Để đo bất đồng ảnh/text, đặt `M=(P_I+P_T)/2`:
 
-\[
-J(x)=\frac{\operatorname{KL}(P_I\Vert M)+\operatorname{KL}(P_T\Vert M)}{2\log2}.
-\]
+$$
+J(x)=\frac{\mathrm{KL}(P_I \Vert M)+\mathrm{KL}(P_T \Vert M)}{2\log 2}.
+$$
 
 `J` gần 0: hai nhánh cho phân phối giống nhau; có thể cùng phẳng. `J` lớn: bất đồng mạnh. Không diễn giải `J` thành nhãn False Connection trực tiếp.
 
 Nếu có `K` dự đoán từ các model, prompt hoặc view đã định nghĩa trước:
 
-\[
-\bar p=\sum_{k=1}^{K}a_kp^{(k)},\quad a_k\ge0,\quad\sum_k a_k=1,
-\]
+$$
+\bar{p} = \sum_{k=1}^{K} a_k p^{(k)}, \quad a_k \geq 0, \quad \sum_k a_k = 1
+$$
 
-\[
-D=\frac{H(\bar p)-\sum_k a_kH(p^{(k)})}{\log C}.
-\]
+$$
+D = \frac{H(\bar{p}) - \sum_{k=1}^{K} a_k H(p^{(k)})}{\log C}
+$$
 
 Đây là bất đồng của tập dự đoán; không tự chứng minh phân rã uncertainty theo Bayes. Cần giữ entropy của `bar p`: tất cả model cùng phẳng sẽ có `D=0` nhưng vẫn thiếu chắc chắn.
 
@@ -104,18 +107,21 @@ Một gate thử nghiệm có thể là `margin < δ OR entropy > h OR disagreem
 
 Với điểm z cuối `z_c` và ngưỡng hiện tại `τ=1.0`:
 
-\[
-d_c(x)=|z_c(x)-\tau|.
-\]
+$$
+d_c(x) = |z_c(x) - \tau|
+$$
 
 `d_c` nhỏ báo genre ở gần biên quyết định. Ví dụ `Action=1.02` gần biên hơn `Action=2.0`. Hai genre có điểm cao gần nhau không phải xung đột vì cả hai có thể đúng.
 
 Qua các view/model đã định nghĩa, có thể đo:
 
-\[
-V_c=\frac1K\sum_k\mathbf1[z_c^{(k)}>\tau],\qquad
-\sigma_c^2=\frac1K\sum_k(z_c^{(k)}-\bar z_c)^2.
-\]
+$$
+V_c = \frac{1}{K}\sum_{k=1}^{K}\mathbf{1}[z_c^{(k)} > \tau]
+$$
+
+$$
+\sigma_c^2 = \frac{1}{K}\sum_{k=1}^{K}(z_c^{(k)} - \bar{z}_c)^2
+$$
 
 `V_c` gần 0.5 cho thấy quyết định genre hay đổi. Đây là tỷ lệ bỏ phiếu, không phải xác suất genre đúng. Khi ensemble nhiều backbone, vẫn phải xác minh điểm/threshold có ý nghĩa tương thích; không lấy trung bình tùy ý raw cosine hoặc logit khác scale.
 
@@ -161,9 +167,9 @@ Phụ lục A.2 của [TPT](https://arxiv.org/html/2209.07511v1) có baseline l�
 
 ### 5.6 Temperature scaling: hữu ích cho độ tin cậy
 
-\[
-p_T(c|x)=\frac{\exp(\ell_c/T)}{\sum_j\exp(\ell_j/T)},\quad T>0.
-\]
+$$
+p_T(c|x) = \frac{\exp(\ell_c/T)}{\sum_j \exp(\ell_j/T)}, \quad T > 0
+$$
 
 [Guo et al. — ICML 2017](https://proceedings.mlr.press/v70/guo17a/guo17a.pdf), phần 4.2: một nhiệt độ chung giữ thứ tự logits, nên giữ argmax. Cần tập có nhãn để fit calibration. Không thể dùng việc sharpen 0.52 thành 0.9 như bằng chứng tăng accuracy.
 
@@ -179,10 +185,15 @@ Trong dự án có thể giữ nhãn argmax cho benchmark, thêm trạng thái `
 
 Một baseline split conformal đơn giản, theo [Angelopoulos & Bates](https://arxiv.org/html/2107.07511): trên `n` mẫu calibration có nhãn, tính
 
-\[
-s_i=1-p_{y_i}(x_i),\quad k=\lceil(n+1)(1-\alpha)\rceil,
-\quad q=s_{(k)},\quad\Gamma(x)=\{c:1-p_c(x)\le q\}.
-\]
+$$
+s_i = 1 - p_{y_i}(x_i), \quad
+k = \lceil (n+1)(1-\alpha) \rceil
+$$
+
+$$
+q = s_{(k)}, \quad
+\Gamma(x) = \{c : 1 - p_c(x) \le q\}
+$$
 
 `s_(k)` là phần tử thứ k sau khi sắp tăng; nếu `k>n`, dùng `q=+∞`. Công thức này là threshold conformal đơn giản, **không phải APS**. [APS — NeurIPS 2020](https://arxiv.org/abs/2006.02544) dùng score theo tổng điểm tích lũy thứ hạng để tạo tập thích nghi.
 
@@ -196,9 +207,9 @@ Tập rỗng/nhiều lớp cần chính sách xử lý. Không thêm nhãn `unce
 
 Với tập genre thật `Y`, tập dự đoán `S`, chọn loss tỷ lệ bỏ sót:
 
-\[
-L_{FN}(S,Y)=\frac{|Y\setminus S|}{\max(1,|Y|)}.
-\]
+$$
+L_{FN}(S,Y) = \frac{|Y \setminus S|}{\max(1,|Y|)}
+$$
 
 [Conformal Risk Control](https://arxiv.org/html/2208.02814v4) chọn ngưỡng từ calibration để kiểm soát expected loss đơn điệu. Với loss trên, mở rộng tập giảm bỏ sót nhưng có thể tăng genre sai; không bảo đảm mỗi phim không bỏ sót.
 
