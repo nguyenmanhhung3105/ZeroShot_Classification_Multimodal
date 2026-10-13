@@ -1,0 +1,2 @@
+# Chỉ cần trên máy gửi bài chạy Kaggle; runner local không phụ thuộc CLI này.
+kaggle>=2.2.3,<3

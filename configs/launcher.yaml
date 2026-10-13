@@ -1,0 +1,208 @@
+# Chạy: venv/bin/python -B scripts/launch_runs.py --job crisismmd_info --dry-run
+# Chỉ job enabled=true được chạy khi không truyền --job. Token Kaggle không đặt ở đây.
+use_kaggle: false
+experiment_config: configs/experiment_config.yaml
+
+kaggle:
+  username: nguyenhung3105
+  code_dataset_slug: vlm-runs-code
+  data_dataset_slug: vlm-runs-data
+  kernel_slug: vlm-runs
+  accelerator: NvidiaTeslaT4
+  timeout_seconds: 7200
+  poll_seconds: 20
+
+jobs:
+  fakeddit_2way:
+    enabled: false
+    kind: standard
+    dataset: fakeddit
+    task: 2way
+    max_samples: 1000
+    models: &vlm_models [metaclip2_vith14, dfn5b_vith14, siglip2_so400m]
+    prompt_variants: [current]
+    prompt_aggregations: [mean_sim]
+    ensemble: &ensemble_binary
+      enabled: false
+      methods: [equal_mean, margin_gate]
+      margin_threshold: 0.10
+
+  fakeddit_6way:
+    enabled: false
+    kind: standard
+    dataset: fakeddit
+    task: 6way
+    max_samples: 1000
+    models: *vlm_models
+    prompt_variants: [current]    # Có thể chọn class_name/descriptors khi ensemble=false
+    prompt_aggregations: [mean_sim]
+    ensemble: *ensemble_binary
+
+  crisismmd_info:
+    enabled: true
+    kind: standard
+    dataset: crisismmd
+    task: informativeness
+    max_samples: 1000
+    models: *vlm_models
+    prompt_aggregations: [mean_embed]
+    ensemble: *ensemble_binary
+
+  crisismmd_humanitarian:
+    enabled: false
+    kind: standard
+    dataset: crisismmd
+    task: humanitarian
+    max_samples: 1000
+    models: *vlm_models
+    prompt_aggregations: [mean_embed]
+    ensemble: *ensemble_binary
+
+  mmimdb_genres:
+    enabled: false
+    kind: standard
+    dataset: mmimdb
+    task: genres
+    max_samples: 1000
+    models: *vlm_models
+    prompt_aggregations: [mean_sim]
+    ensemble:
+      enabled: false
+      methods: [equal_mean]    # multi-label: không dùng margin_gate
+
+  demo_fakeddit_2way:
+    enabled: false
+    kind: demo
+    dataset: fakeddit
+    task: 2way
+    max_samples: 5
+    models: [metaclip2_vith14]
+  demo_fakeddit_6way:
+    enabled: false
+    kind: demo
+    dataset: fakeddit
+    task: 6way
+    max_samples: 5
+    models: [metaclip2_vith14]
+  demo_crisismmd_info:
+    enabled: false
+    kind: demo
+    dataset: crisismmd
+    task: informativeness
+    max_samples: 5
+    models: [metaclip2_vith14]
+  demo_crisismmd_humanitarian:
+    enabled: false
+    kind: demo
+    dataset: crisismmd
+    task: humanitarian
+    max_samples: 5
+    models: [metaclip2_vith14]
+  demo_mmimdb_genres:
+    enabled: false
+    kind: demo
+    dataset: mmimdb
+    task: genres
+    max_samples: 5
+    models: [metaclip2_vith14]
+
+  # Runner nghiên cứu dùng cùng launcher/flag Kaggle, mỗi job có output riêng.
+  adapted_fakeddit_2way:
+    enabled: false
+    kind: adapted
+    dataset: fakeddit
+    task: 2way
+    max_samples: 30
+    models: *vlm_models
+    methods: &adapted_methods [baseline, current_mean_sim, class_name, waffle]
+    research_config: configs/research/adapted.yaml
+  adapted_fakeddit_6way:
+    enabled: false
+    kind: adapted
+    dataset: fakeddit
+    task: 6way
+    max_samples: 30
+    models: *vlm_models
+    methods: *adapted_methods
+    research_config: configs/research/adapted.yaml
+  adapted_crisismmd_info:
+    enabled: false
+    kind: adapted
+    dataset: crisismmd
+    task: informativeness
+    max_samples: 30
+    models: *vlm_models
+    methods: *adapted_methods
+    research_config: configs/research/adapted.yaml
+  adapted_crisismmd_humanitarian:
+    enabled: false
+    kind: adapted
+    dataset: crisismmd
+    task: humanitarian
+    max_samples: 30
+    models: *vlm_models
+    methods: *adapted_methods
+    research_config: configs/research/adapted.yaml
+  adapted_mmimdb_genres:
+    enabled: false
+    kind: adapted
+    dataset: mmimdb
+    task: genres
+    max_samples: 30
+    models: *vlm_models
+    methods: *adapted_methods
+    research_config: configs/research/adapted.yaml
+
+  upstream_fakeddit_2way:
+    enabled: false
+    kind: upstream
+    dataset: fakeddit
+    task: 2way
+    max_samples: 30
+    models: [metaclip2_vith14]  # upstream lấy backbones từ configs/research/upstream.yaml
+    methods: &upstream_methods [clip, waffle, dclip_labels, dclip]
+    research_config: configs/research/upstream.yaml
+  upstream_fakeddit_6way:
+    enabled: false
+    kind: upstream
+    dataset: fakeddit
+    task: 6way
+    max_samples: 30
+    models: [metaclip2_vith14]
+    methods: *upstream_methods
+    research_config: configs/research/upstream.yaml
+  upstream_crisismmd_info:
+    enabled: false
+    kind: upstream
+    dataset: crisismmd
+    task: informativeness
+    max_samples: 30
+    models: [metaclip2_vith14]
+    methods: *upstream_methods
+    research_config: configs/research/upstream.yaml
+  upstream_crisismmd_humanitarian:
+    enabled: false
+    kind: upstream
+    dataset: crisismmd
+    task: humanitarian
+    max_samples: 30
+    models: [metaclip2_vith14]
+    methods: *upstream_methods
+    research_config: configs/research/upstream.yaml
+  upstream_mmimdb_genres:
+    enabled: false
+    kind: upstream
+    dataset: mmimdb
+    task: genres
+    max_samples: 30
+    models: [metaclip2_vith14]
+    methods: *upstream_methods
+    research_config: configs/research/upstream.yaml
+
+  relation_fakeddit_6way:
+    enabled: false
+    kind: relation_ablation
+    dataset: fakeddit
+    task: 6way
+    max_samples: 5
+    models: [metaclip2_vith14]

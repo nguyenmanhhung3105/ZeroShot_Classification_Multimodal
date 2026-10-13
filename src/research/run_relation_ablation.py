@@ -23,12 +23,12 @@ from config import load_config
 from pair_relation import relation_settings, relation_evidence, apply_class_relation
 
 
-def bounded_copy(source, target):
+def bounded_copy(source, target, limit=5):
     """Chỉ đọc schema và năm dòng đầu, giới hạn ngay tại iterator."""
     with Path(source).open(encoding="utf-8", newline="") as stream:
         reader = csv.DictReader(stream, delimiter="\t")
         fields = reader.fieldnames
-        rows = list(islice(reader, 5))
+        rows = list(islice(reader, limit))
     if not rows:
         raise ValueError("Fakeddit không có mẫu trong năm dòng đầu")
     with target.open("w", encoding="utf-8", newline="") as stream:
@@ -90,7 +90,11 @@ def main(argv=None):
     parser.add_argument("--model", default=None)
     parser.add_argument("--device", default=None)
     parser.add_argument("--offline", action="store_true")
+    parser.add_argument("--max-samples", type=int, default=5)
+    parser.add_argument("--output-dir", default="results/relation_ablation")
     args = parser.parse_args(argv)
+    if not 1 <= args.max_samples <= 5:
+        parser.error("--max-samples phải trong [1, 5] cho ablation này")
     if args.offline:
         os.environ["HF_HUB_OFFLINE"] = "1"
         os.environ["TRANSFORMERS_OFFLINE"] = "1"
@@ -101,11 +105,11 @@ def main(argv=None):
     options.update(enabled=True, mode="class_aware")
     if not options["class_policies"]:
         options["class_policies"] = {0: "match", 2: "mismatch"}
-    root_parent = Path("results/relation_ablation")
+    root_parent = Path(args.output_dir)
     root_parent.mkdir(parents=True, exist_ok=True)
-    root = Path(tempfile.mkdtemp(prefix="smoke5_", dir=root_parent))
-    bounded = root / "input_first5.tsv"
-    selected = bounded_copy(base["datasets"]["fakeddit"]["data_path"], bounded)
+    root = Path(tempfile.mkdtemp(prefix=f"smoke{args.max_samples}_", dir=root_parent))
+    bounded = root / "input_bounded.tsv"
+    selected = bounded_copy(base["datasets"]["fakeddit"]["data_path"], bounded, args.max_samples)
     cfg = deepcopy(base)
     task = cfg["datasets"]["fakeddit"]
     task.update(data_path=str(bounded), max_samples=selected, _audit_scope="relation_smoke5",
@@ -119,7 +123,7 @@ def main(argv=None):
     if not 0 < weight < 1:
         raise ValueError("Đối chứng quan hệ cần hai nhánh phân loại (0 < image_weight < 1)")
     plan = {"model": model, "device_requested": args.device, "base_config": base,
-            "relation_options": options, "legacy_weight": 0.1, "source_rows_limit": 5,
+            "relation_options": options, "legacy_weight": 0.1, "source_rows_limit": args.max_samples,
             "input_sha256": hashlib.sha256(bounded.read_bytes()).hexdigest(),
             "protocol": "frozen_smoke_only_no_fit", "bounded_input": str(bounded)}
     source_root = Path(__file__).resolve().parents[1]
@@ -134,7 +138,7 @@ def main(argv=None):
         vlm = load_model(model, device=args.device)
         result = run_fakeddit(vlm, task, cfg)
         with (Path(result["prediction_log_dir"]) / "raw_predictions.tsv").open(encoding="utf-8", newline="") as stream:
-            rows = list(islice(csv.DictReader(stream, delimiter="\t"), 5))
+            rows = list(islice(csv.DictReader(stream, delimiter="\t"), selected))
         summary, comparison = compare_rows(rows, options, weight)
         for row in summary:
             row.update(model=model, device=vlm.device, sample_set_id=result.get("sample_set_id"))

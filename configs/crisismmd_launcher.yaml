@@ -1,0 +1,15 @@
+# Chỉ đổi use_kaggle thành true khi muốn gửi bài chạy lên Kaggle.
+# Không ghi token/API key vào file này; dùng `kaggle auth login` một lần.
+use_kaggle: false
+task: both                 # both | informativeness | humanitarian
+max_samples: 1000          # phép thử giới hạn 2..100 dòng đầu
+experiment_config: configs/experiment_config.yaml
+
+kaggle:
+  username: "nguyenhung3105"             # username Kaggle của bạn (không phải token)
+  code_dataset_slug: crisismmd-ensemble-code
+  data_dataset_slug: crisismmd-ensemble-data
+  kernel_slug: crisismmd-ensemble
+  accelerator: NvidiaTeslaT4
+  timeout_seconds: 3600
+  poll_seconds: 20

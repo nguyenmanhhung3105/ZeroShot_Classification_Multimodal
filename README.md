@@ -25,11 +25,14 @@ src/
 ├── logging_utils.py           # dự đoán từng mẫu, lỗi và manifest
 ├── models/model_registry.py   # tải và mã hóa bằng model
 ├── prompts/                   # prompt và taxonomy dùng ở code chính
-├── research/                  # code thích nghi và runner dùng code gốc của paper
+├── research/                  # runner paper và đối chứng quan hệ ảnh–text
 └── preprocessing/             # script chuẩn bị/kiểm tra dữ liệu, không tự chạy
 
+experiments/ensemble/           # mã thử nghiệm ensemble tùy chọn, 3 dataset
 configs/
 ├── experiment_config.yaml     # cấu hình hệ thống chính
+├── launcher.yaml              # job, số mẫu, phương pháp, ensemble và local/Kaggle
+├── crisismmd_launcher.yaml    # cấu hình tương thích launcher CrisisMMD cũ
 ├── prompts/                   # prompt/descriptor cố định
 └── research/
     ├── upstream.yaml          # model CLIP gốc, repo, task và chế độ đầu ra
@@ -38,11 +41,17 @@ configs/
     └── descriptors/           # mô tả lớp cố định cho cả năm task
 
 tests/                         # chỉ kiểm thử tự động bằng dữ liệu giả
+scripts/                       # launcher chung, worker Kaggle và lệnh tương thích cũ
+requirements/kaggle_launcher.txt # CLI Kaggle tùy chọn cho máy gửi bài chạy
 docs/                          # hướng dẫn chi tiết và sơ đồ hệ thống
+├── experiments/               # tài liệu và báo cáo thử nghiệm
 ├── so_do_he_thong/             # bản đồ input → xử lý → output của model/phương pháp
 │   └── so_do/                  # SVG, nguồn DOT và script dựng sơ đồ
 third_party/                   # checkout repo tác giả, Git bỏ qua
-results/, results1/            # kết quả đã có, được giữ nguyên
+results/runs/                  # kết quả job chuẩn từ launcher chung
+results/experiments/           # kết quả ensemble và runner nghiên cứu
+results/launches/              # gói và trạng thái Kaggle, Git bỏ qua
+results1/                      # kết quả lịch sử, được giữ nguyên
 backup/, backups/              # bản sao trước sửa và file đã loại bỏ
 ```
 
@@ -149,6 +158,9 @@ Các runner dùng chung bộ lọc, ánh xạ, công thức suy luận và metri
 
 ## Kết quả và cách đối chiếu
 
+Xem [giải thích các chỉ số output](docs/giai_thich_chi_so_output.md) để hiểu công thức,
+ý nghĩa và cách dùng từng metric, điểm dự đoán, cột log và metadata.
+
 Summary tự tăng số: `results/summary_table_<dataset>_<task>_<số>.tsv`.
 Demo lưu `demo_summary_...tsv` trong thư mục visualization_dir.
 Dự đoán mỗi lần chạy nằm dưới raw_predictions_dir:
@@ -174,6 +186,21 @@ người dùng khai báo, chưa được xác minh từ nguồn. Thử nhiều l
 giá khám phá; kết quả đó không chứng minh hiệu quả trên test độc lập.
 
 ## Thí nghiệm nghiên cứu
+
+Launcher chung chạy Fakeddit 2way/6way, CrisisMMD informativeness/humanitarian,
+MM-IMDb genres và các runner nghiên cứu. Cấu hình số mẫu, model, phương pháp và
+flag ensemble trong `configs/launcher.yaml`; chi tiết ở
+[hướng dẫn launcher](docs/experiments/launcher_kaggle.md). Mặc định chạy local;
+`--use-kaggle true` gửi job lên Kaggle. Xem trước không tải model hoặc upload:
+
+```sh
+venv/bin/python -B scripts/launch_runs.py --job crisismmd_info --dry-run
+venv/bin/python -B scripts/launch_runs.py --job mmimdb_genres --ensemble true --use-kaggle true --dry-run
+```
+
+Ensemble chỉ chạy khi `ensemble.enabled: true` hoặc `--ensemble true`.
+Lệnh `scripts/launch_crisismmd_ensemble.py` cũ vẫn dùng được để chạy lại
+phép thử CrisisMMD, nhưng job mới nên dùng launcher chung.
 
 Đối chứng quan hệ ảnh–text trên đúng năm dòng đầu Fakeddit, giữ cùng điểm nền:
 

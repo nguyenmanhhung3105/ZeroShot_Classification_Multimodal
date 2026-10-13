@@ -8,6 +8,7 @@ import argparse
 from copy import deepcopy
 import hashlib
 import json
+import os
 from pathlib import Path
 import subprocess
 import sys
@@ -28,6 +29,10 @@ def write_json(path, value):
 
 
 def git_revision(path):
+    if Path(path).resolve() == ROOT.resolve() and not (ROOT / ".git").exists():
+        revision = os.environ.get("SOURCE_REVISION")
+        if revision and len(revision) == 64 and all(c in "0123456789abcdef" for c in revision):
+            return f"archive-sha256:{revision}"
     return subprocess.check_output(["git", "-C", str(path), "rev-parse", "HEAD"], text=True).strip()
 
 
