@@ -1,0 +1,347 @@
+
+# standard: fakeddit_2way (mặc định 1000 mẫu)
+venv/bin/python -B scripts/launch_runs.py --job fakeddit_2way --model metaclip2_vith14 --ensemble false --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job fakeddit_2way --model dfn5b_vith14 --ensemble false --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job fakeddit_2way --model siglip2_so400m --ensemble false --use-kaggle true
+
+# ensemble: fakeddit_2way (mặc định 1000 mẫu)
+venv/bin/python -B scripts/launch_runs.py --job fakeddit_2way --ensemble true --use-kaggle true
+
+# standard: fakeddit_6way (mặc định 1000 mẫu)
+venv/bin/python -B scripts/launch_runs.py --job fakeddit_6way --model metaclip2_vith14 --ensemble false --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job fakeddit_6way --model dfn5b_vith14 --ensemble false --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job fakeddit_6way --model siglip2_so400m --ensemble false --use-kaggle true
+
+# ensemble: fakeddit_6way (mặc định 1000 mẫu)
+venv/bin/python -B scripts/launch_runs.py --job fakeddit_6way --ensemble true --use-kaggle true
+
+# standard: crisismmd_info (mặc định 1000 mẫu)
+venv/bin/python -B scripts/launch_runs.py --job crisismmd_info --model metaclip2_vith14 --ensemble false --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job crisismmd_info --model dfn5b_vith14 --ensemble false --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job crisismmd_info --model siglip2_so400m --ensemble false --use-kaggle true
+
+# ensemble: crisismmd_info (mặc định 1000 mẫu)
+venv/bin/python -B scripts/launch_runs.py --job crisismmd_info --ensemble true --use-kaggle true
+
+# standard: crisismmd_humanitarian (mặc định 1000 mẫu)
+venv/bin/python -B scripts/launch_runs.py --job crisismmd_humanitarian --model metaclip2_vith14 --ensemble false --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job crisismmd_humanitarian --model dfn5b_vith14 --ensemble false --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job crisismmd_humanitarian --model siglip2_so400m --ensemble false --use-kaggle true
+
+# ensemble: crisismmd_humanitarian (mặc định 1000 mẫu)
+venv/bin/python -B scripts/launch_runs.py --job crisismmd_humanitarian --ensemble true --use-kaggle true
+
+# standard: mmimdb_genres (mặc định 1000 mẫu)
+venv/bin/python -B scripts/launch_runs.py --job mmimdb_genres --model metaclip2_vith14 --ensemble false --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job mmimdb_genres --model dfn5b_vith14 --ensemble false --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job mmimdb_genres --model siglip2_so400m --ensemble false --use-kaggle true
+
+# ensemble: mmimdb_genres (mặc định 1000 mẫu)
+venv/bin/python -B scripts/launch_runs.py --job mmimdb_genres --ensemble true --use-kaggle true
+
+# demo: demo_fakeddit_2way (mặc định 5 mẫu)
+venv/bin/python -B scripts/launch_runs.py --job demo_fakeddit_2way --model metaclip2_vith14 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job demo_fakeddit_2way --model dfn5b_vith14 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job demo_fakeddit_2way --model siglip2_so400m --use-kaggle true
+
+# demo: demo_fakeddit_6way (mặc định 5 mẫu)
+venv/bin/python -B scripts/launch_runs.py --job demo_fakeddit_6way --model metaclip2_vith14 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job demo_fakeddit_6way --model dfn5b_vith14 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job demo_fakeddit_6way --model siglip2_so400m --use-kaggle true
+
+# demo: demo_crisismmd_info (mặc định 5 mẫu)
+venv/bin/python -B scripts/launch_runs.py --job demo_crisismmd_info --model metaclip2_vith14 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job demo_crisismmd_info --model dfn5b_vith14 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job demo_crisismmd_info --model siglip2_so400m --use-kaggle true
+
+# demo: demo_crisismmd_humanitarian (mặc định 5 mẫu)
+venv/bin/python -B scripts/launch_runs.py --job demo_crisismmd_humanitarian --model metaclip2_vith14 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job demo_crisismmd_humanitarian --model dfn5b_vith14 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job demo_crisismmd_humanitarian --model siglip2_so400m --use-kaggle true
+
+# demo: demo_mmimdb_genres (mặc định 5 mẫu)
+venv/bin/python -B scripts/launch_runs.py --job demo_mmimdb_genres --model metaclip2_vith14 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job demo_mmimdb_genres --model dfn5b_vith14 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job demo_mmimdb_genres --model siglip2_so400m --use-kaggle true
+
+# adapted: adapted_fakeddit_2way (mặc định 30 mẫu)
+venv/bin/python -B scripts/launch_runs.py --job adapted_fakeddit_2way --model metaclip2_vith14 --method baseline --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_fakeddit_2way --model metaclip2_vith14 --method current_mean_sim --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_fakeddit_2way --model metaclip2_vith14 --method class_name --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_fakeddit_2way --model metaclip2_vith14 --method waffle --seed 0 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_fakeddit_2way --model metaclip2_vith14 --method waffle --seed 1 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_fakeddit_2way --model metaclip2_vith14 --method waffle --seed 2 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_fakeddit_2way --model metaclip2_vith14 --method waffle --seed 3 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_fakeddit_2way --model metaclip2_vith14 --method waffle --seed 4 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_fakeddit_2way --model metaclip2_vith14 --method dclip --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_fakeddit_2way --model dfn5b_vith14 --method baseline --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_fakeddit_2way --model dfn5b_vith14 --method current_mean_sim --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_fakeddit_2way --model dfn5b_vith14 --method class_name --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_fakeddit_2way --model dfn5b_vith14 --method waffle --seed 0 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_fakeddit_2way --model dfn5b_vith14 --method waffle --seed 1 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_fakeddit_2way --model dfn5b_vith14 --method waffle --seed 2 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_fakeddit_2way --model dfn5b_vith14 --method waffle --seed 3 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_fakeddit_2way --model dfn5b_vith14 --method waffle --seed 4 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_fakeddit_2way --model dfn5b_vith14 --method dclip --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_fakeddit_2way --model siglip2_so400m --method baseline --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_fakeddit_2way --model siglip2_so400m --method current_mean_sim --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_fakeddit_2way --model siglip2_so400m --method class_name --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_fakeddit_2way --model siglip2_so400m --method waffle --seed 0 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_fakeddit_2way --model siglip2_so400m --method waffle --seed 1 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_fakeddit_2way --model siglip2_so400m --method waffle --seed 2 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_fakeddit_2way --model siglip2_so400m --method waffle --seed 3 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_fakeddit_2way --model siglip2_so400m --method waffle --seed 4 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_fakeddit_2way --model siglip2_so400m --method dclip --use-kaggle true
+
+# adapted: adapted_fakeddit_6way (mặc định 30 mẫu)
+venv/bin/python -B scripts/launch_runs.py --job adapted_fakeddit_6way --model metaclip2_vith14 --method baseline --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_fakeddit_6way --model metaclip2_vith14 --method current_mean_sim --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_fakeddit_6way --model metaclip2_vith14 --method class_name --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_fakeddit_6way --model metaclip2_vith14 --method waffle --seed 0 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_fakeddit_6way --model metaclip2_vith14 --method waffle --seed 1 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_fakeddit_6way --model metaclip2_vith14 --method waffle --seed 2 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_fakeddit_6way --model metaclip2_vith14 --method waffle --seed 3 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_fakeddit_6way --model metaclip2_vith14 --method waffle --seed 4 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_fakeddit_6way --model metaclip2_vith14 --method dclip --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_fakeddit_6way --model dfn5b_vith14 --method baseline --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_fakeddit_6way --model dfn5b_vith14 --method current_mean_sim --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_fakeddit_6way --model dfn5b_vith14 --method class_name --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_fakeddit_6way --model dfn5b_vith14 --method waffle --seed 0 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_fakeddit_6way --model dfn5b_vith14 --method waffle --seed 1 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_fakeddit_6way --model dfn5b_vith14 --method waffle --seed 2 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_fakeddit_6way --model dfn5b_vith14 --method waffle --seed 3 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_fakeddit_6way --model dfn5b_vith14 --method waffle --seed 4 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_fakeddit_6way --model dfn5b_vith14 --method dclip --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_fakeddit_6way --model siglip2_so400m --method baseline --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_fakeddit_6way --model siglip2_so400m --method current_mean_sim --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_fakeddit_6way --model siglip2_so400m --method class_name --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_fakeddit_6way --model siglip2_so400m --method waffle --seed 0 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_fakeddit_6way --model siglip2_so400m --method waffle --seed 1 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_fakeddit_6way --model siglip2_so400m --method waffle --seed 2 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_fakeddit_6way --model siglip2_so400m --method waffle --seed 3 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_fakeddit_6way --model siglip2_so400m --method waffle --seed 4 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_fakeddit_6way --model siglip2_so400m --method dclip --use-kaggle true
+
+# adapted: adapted_crisismmd_info (mặc định 30 mẫu)
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_info --model metaclip2_vith14 --method baseline --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_info --model metaclip2_vith14 --method current_mean_sim --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_info --model metaclip2_vith14 --method class_name --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_info --model metaclip2_vith14 --method waffle --seed 0 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_info --model metaclip2_vith14 --method waffle --seed 1 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_info --model metaclip2_vith14 --method waffle --seed 2 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_info --model metaclip2_vith14 --method waffle --seed 3 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_info --model metaclip2_vith14 --method waffle --seed 4 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_info --model metaclip2_vith14 --method dclip --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_info --model dfn5b_vith14 --method baseline --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_info --model dfn5b_vith14 --method current_mean_sim --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_info --model dfn5b_vith14 --method class_name --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_info --model dfn5b_vith14 --method waffle --seed 0 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_info --model dfn5b_vith14 --method waffle --seed 1 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_info --model dfn5b_vith14 --method waffle --seed 2 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_info --model dfn5b_vith14 --method waffle --seed 3 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_info --model dfn5b_vith14 --method waffle --seed 4 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_info --model dfn5b_vith14 --method dclip --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_info --model siglip2_so400m --method baseline --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_info --model siglip2_so400m --method current_mean_sim --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_info --model siglip2_so400m --method class_name --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_info --model siglip2_so400m --method waffle --seed 0 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_info --model siglip2_so400m --method waffle --seed 1 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_info --model siglip2_so400m --method waffle --seed 2 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_info --model siglip2_so400m --method waffle --seed 3 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_info --model siglip2_so400m --method waffle --seed 4 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_info --model siglip2_so400m --method dclip --use-kaggle true
+
+# adapted: adapted_crisismmd_humanitarian (mặc định 30 mẫu)
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_humanitarian --model metaclip2_vith14 --method baseline --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_humanitarian --model metaclip2_vith14 --method current_mean_sim --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_humanitarian --model metaclip2_vith14 --method class_name --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_humanitarian --model metaclip2_vith14 --method waffle --seed 0 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_humanitarian --model metaclip2_vith14 --method waffle --seed 1 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_humanitarian --model metaclip2_vith14 --method waffle --seed 2 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_humanitarian --model metaclip2_vith14 --method waffle --seed 3 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_humanitarian --model metaclip2_vith14 --method waffle --seed 4 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_humanitarian --model metaclip2_vith14 --method dclip --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_humanitarian --model dfn5b_vith14 --method baseline --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_humanitarian --model dfn5b_vith14 --method current_mean_sim --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_humanitarian --model dfn5b_vith14 --method class_name --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_humanitarian --model dfn5b_vith14 --method waffle --seed 0 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_humanitarian --model dfn5b_vith14 --method waffle --seed 1 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_humanitarian --model dfn5b_vith14 --method waffle --seed 2 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_humanitarian --model dfn5b_vith14 --method waffle --seed 3 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_humanitarian --model dfn5b_vith14 --method waffle --seed 4 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_humanitarian --model dfn5b_vith14 --method dclip --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_humanitarian --model siglip2_so400m --method baseline --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_humanitarian --model siglip2_so400m --method current_mean_sim --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_humanitarian --model siglip2_so400m --method class_name --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_humanitarian --model siglip2_so400m --method waffle --seed 0 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_humanitarian --model siglip2_so400m --method waffle --seed 1 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_humanitarian --model siglip2_so400m --method waffle --seed 2 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_humanitarian --model siglip2_so400m --method waffle --seed 3 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_humanitarian --model siglip2_so400m --method waffle --seed 4 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_humanitarian --model siglip2_so400m --method dclip --use-kaggle true
+
+# adapted: adapted_mmimdb_genres (mặc định 30 mẫu)
+venv/bin/python -B scripts/launch_runs.py --job adapted_mmimdb_genres --model metaclip2_vith14 --method baseline --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_mmimdb_genres --model metaclip2_vith14 --method current_mean_sim --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_mmimdb_genres --model metaclip2_vith14 --method class_name --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_mmimdb_genres --model metaclip2_vith14 --method waffle --seed 0 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_mmimdb_genres --model metaclip2_vith14 --method waffle --seed 1 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_mmimdb_genres --model metaclip2_vith14 --method waffle --seed 2 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_mmimdb_genres --model metaclip2_vith14 --method waffle --seed 3 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_mmimdb_genres --model metaclip2_vith14 --method waffle --seed 4 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_mmimdb_genres --model metaclip2_vith14 --method dclip --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_mmimdb_genres --model dfn5b_vith14 --method baseline --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_mmimdb_genres --model dfn5b_vith14 --method current_mean_sim --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_mmimdb_genres --model dfn5b_vith14 --method class_name --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_mmimdb_genres --model dfn5b_vith14 --method waffle --seed 0 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_mmimdb_genres --model dfn5b_vith14 --method waffle --seed 1 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_mmimdb_genres --model dfn5b_vith14 --method waffle --seed 2 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_mmimdb_genres --model dfn5b_vith14 --method waffle --seed 3 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_mmimdb_genres --model dfn5b_vith14 --method waffle --seed 4 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_mmimdb_genres --model dfn5b_vith14 --method dclip --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_mmimdb_genres --model siglip2_so400m --method baseline --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_mmimdb_genres --model siglip2_so400m --method current_mean_sim --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_mmimdb_genres --model siglip2_so400m --method class_name --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_mmimdb_genres --model siglip2_so400m --method waffle --seed 0 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_mmimdb_genres --model siglip2_so400m --method waffle --seed 1 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_mmimdb_genres --model siglip2_so400m --method waffle --seed 2 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_mmimdb_genres --model siglip2_so400m --method waffle --seed 3 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_mmimdb_genres --model siglip2_so400m --method waffle --seed 4 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_mmimdb_genres --model siglip2_so400m --method dclip --use-kaggle true
+
+# upstream: upstream_fakeddit_2way (mặc định 30 mẫu)
+venv/bin/python -B scripts/launch_runs.py --job upstream_fakeddit_2way --backbone RN50 --method clip --output original_image --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_fakeddit_2way --backbone RN50 --method clip --output multimodal --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_fakeddit_2way --backbone RN50 --method waffle --output original_image --seed 0 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_fakeddit_2way --backbone RN50 --method waffle --output multimodal --seed 0 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_fakeddit_2way --backbone RN50 --method dclip_labels --output original_image --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_fakeddit_2way --backbone RN50 --method dclip_labels --output multimodal --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_fakeddit_2way --backbone RN50 --method dclip --output original_image --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_fakeddit_2way --backbone RN50 --method dclip --output multimodal --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_fakeddit_2way --backbone ViT-B/32 --method clip --output original_image --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_fakeddit_2way --backbone ViT-B/32 --method clip --output multimodal --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_fakeddit_2way --backbone ViT-B/32 --method waffle --output original_image --seed 0 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_fakeddit_2way --backbone ViT-B/32 --method waffle --output multimodal --seed 0 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_fakeddit_2way --backbone ViT-B/32 --method dclip_labels --output original_image --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_fakeddit_2way --backbone ViT-B/32 --method dclip_labels --output multimodal --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_fakeddit_2way --backbone ViT-B/32 --method dclip --output original_image --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_fakeddit_2way --backbone ViT-B/32 --method dclip --output multimodal --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_fakeddit_2way --backbone ViT-L/14 --method clip --output original_image --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_fakeddit_2way --backbone ViT-L/14 --method clip --output multimodal --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_fakeddit_2way --backbone ViT-L/14 --method waffle --output original_image --seed 0 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_fakeddit_2way --backbone ViT-L/14 --method waffle --output multimodal --seed 0 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_fakeddit_2way --backbone ViT-L/14 --method dclip_labels --output original_image --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_fakeddit_2way --backbone ViT-L/14 --method dclip_labels --output multimodal --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_fakeddit_2way --backbone ViT-L/14 --method dclip --output original_image --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_fakeddit_2way --backbone ViT-L/14 --method dclip --output multimodal --use-kaggle true
+
+# upstream: upstream_fakeddit_6way (mặc định 30 mẫu)
+venv/bin/python -B scripts/launch_runs.py --job upstream_fakeddit_6way --backbone RN50 --method clip --output original_image --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_fakeddit_6way --backbone RN50 --method clip --output multimodal --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_fakeddit_6way --backbone RN50 --method waffle --output original_image --seed 0 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_fakeddit_6way --backbone RN50 --method waffle --output multimodal --seed 0 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_fakeddit_6way --backbone RN50 --method dclip_labels --output original_image --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_fakeddit_6way --backbone RN50 --method dclip_labels --output multimodal --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_fakeddit_6way --backbone RN50 --method dclip --output original_image --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_fakeddit_6way --backbone RN50 --method dclip --output multimodal --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_fakeddit_6way --backbone ViT-B/32 --method clip --output original_image --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_fakeddit_6way --backbone ViT-B/32 --method clip --output multimodal --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_fakeddit_6way --backbone ViT-B/32 --method waffle --output original_image --seed 0 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_fakeddit_6way --backbone ViT-B/32 --method waffle --output multimodal --seed 0 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_fakeddit_6way --backbone ViT-B/32 --method dclip_labels --output original_image --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_fakeddit_6way --backbone ViT-B/32 --method dclip_labels --output multimodal --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_fakeddit_6way --backbone ViT-B/32 --method dclip --output original_image --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_fakeddit_6way --backbone ViT-B/32 --method dclip --output multimodal --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_fakeddit_6way --backbone ViT-L/14 --method clip --output original_image --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_fakeddit_6way --backbone ViT-L/14 --method clip --output multimodal --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_fakeddit_6way --backbone ViT-L/14 --method waffle --output original_image --seed 0 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_fakeddit_6way --backbone ViT-L/14 --method waffle --output multimodal --seed 0 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_fakeddit_6way --backbone ViT-L/14 --method dclip_labels --output original_image --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_fakeddit_6way --backbone ViT-L/14 --method dclip_labels --output multimodal --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_fakeddit_6way --backbone ViT-L/14 --method dclip --output original_image --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_fakeddit_6way --backbone ViT-L/14 --method dclip --output multimodal --use-kaggle true
+
+# upstream: upstream_crisismmd_info (mặc định 30 mẫu)
+venv/bin/python -B scripts/launch_runs.py --job upstream_crisismmd_info --backbone RN50 --method clip --output original_image --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_crisismmd_info --backbone RN50 --method clip --output multimodal --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_crisismmd_info --backbone RN50 --method waffle --output original_image --seed 0 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_crisismmd_info --backbone RN50 --method waffle --output multimodal --seed 0 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_crisismmd_info --backbone RN50 --method dclip_labels --output original_image --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_crisismmd_info --backbone RN50 --method dclip_labels --output multimodal --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_crisismmd_info --backbone RN50 --method dclip --output original_image --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_crisismmd_info --backbone RN50 --method dclip --output multimodal --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_crisismmd_info --backbone ViT-B/32 --method clip --output original_image --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_crisismmd_info --backbone ViT-B/32 --method clip --output multimodal --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_crisismmd_info --backbone ViT-B/32 --method waffle --output original_image --seed 0 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_crisismmd_info --backbone ViT-B/32 --method waffle --output multimodal --seed 0 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_crisismmd_info --backbone ViT-B/32 --method dclip_labels --output original_image --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_crisismmd_info --backbone ViT-B/32 --method dclip_labels --output multimodal --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_crisismmd_info --backbone ViT-B/32 --method dclip --output original_image --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_crisismmd_info --backbone ViT-B/32 --method dclip --output multimodal --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_crisismmd_info --backbone ViT-L/14 --method clip --output original_image --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_crisismmd_info --backbone ViT-L/14 --method clip --output multimodal --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_crisismmd_info --backbone ViT-L/14 --method waffle --output original_image --seed 0 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_crisismmd_info --backbone ViT-L/14 --method waffle --output multimodal --seed 0 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_crisismmd_info --backbone ViT-L/14 --method dclip_labels --output original_image --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_crisismmd_info --backbone ViT-L/14 --method dclip_labels --output multimodal --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_crisismmd_info --backbone ViT-L/14 --method dclip --output original_image --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_crisismmd_info --backbone ViT-L/14 --method dclip --output multimodal --use-kaggle true
+
+# upstream: upstream_crisismmd_humanitarian (mặc định 1000 mẫu)
+venv/bin/python -B scripts/launch_runs.py --job upstream_crisismmd_humanitarian --backbone RN50 --method clip --output original_image --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_crisismmd_humanitarian --backbone RN50 --method clip --output multimodal --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_crisismmd_humanitarian --backbone RN50 --method waffle --output original_image --seed 0 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_crisismmd_humanitarian --backbone RN50 --method waffle --output multimodal --seed 0 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_crisismmd_humanitarian --backbone RN50 --method dclip_labels --output original_image --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_crisismmd_humanitarian --backbone RN50 --method dclip_labels --output multimodal --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_crisismmd_humanitarian --backbone RN50 --method dclip --output original_image --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_crisismmd_humanitarian --backbone RN50 --method dclip --output multimodal --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_crisismmd_humanitarian --backbone ViT-B/32 --method clip --output original_image --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_crisismmd_humanitarian --backbone ViT-B/32 --method clip --output multimodal --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_crisismmd_humanitarian --backbone ViT-B/32 --method waffle --output original_image --seed 0 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_crisismmd_humanitarian --backbone ViT-B/32 --method waffle --output multimodal --seed 0 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_crisismmd_humanitarian --backbone ViT-B/32 --method dclip_labels --output original_image --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_crisismmd_humanitarian --backbone ViT-B/32 --method dclip_labels --output multimodal --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_crisismmd_humanitarian --backbone ViT-B/32 --method dclip --output original_image --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_crisismmd_humanitarian --backbone ViT-B/32 --method dclip --output multimodal --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_crisismmd_humanitarian --backbone ViT-L/14 --method clip --output original_image --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_crisismmd_humanitarian --backbone ViT-L/14 --method clip --output multimodal --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_crisismmd_humanitarian --backbone ViT-L/14 --method waffle --output original_image --seed 0 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_crisismmd_humanitarian --backbone ViT-L/14 --method waffle --output multimodal --seed 0 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_crisismmd_humanitarian --backbone ViT-L/14 --method dclip_labels --output original_image --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_crisismmd_humanitarian --backbone ViT-L/14 --method dclip_labels --output multimodal --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_crisismmd_humanitarian --backbone ViT-L/14 --method dclip --output original_image --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_crisismmd_humanitarian --backbone ViT-L/14 --method dclip --output multimodal --use-kaggle true
+
+# upstream: upstream_mmimdb_genres (mặc định 30 mẫu)
+venv/bin/python -B scripts/launch_runs.py --job upstream_mmimdb_genres --backbone RN50 --method clip --output original_image --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_mmimdb_genres --backbone RN50 --method clip --output multimodal --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_mmimdb_genres --backbone RN50 --method waffle --output original_image --seed 0 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_mmimdb_genres --backbone RN50 --method waffle --output multimodal --seed 0 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_mmimdb_genres --backbone RN50 --method dclip_labels --output original_image --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_mmimdb_genres --backbone RN50 --method dclip_labels --output multimodal --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_mmimdb_genres --backbone RN50 --method dclip --output original_image --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_mmimdb_genres --backbone RN50 --method dclip --output multimodal --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_mmimdb_genres --backbone ViT-B/32 --method clip --output original_image --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_mmimdb_genres --backbone ViT-B/32 --method clip --output multimodal --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_mmimdb_genres --backbone ViT-B/32 --method waffle --output original_image --seed 0 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_mmimdb_genres --backbone ViT-B/32 --method waffle --output multimodal --seed 0 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_mmimdb_genres --backbone ViT-B/32 --method dclip_labels --output original_image --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_mmimdb_genres --backbone ViT-B/32 --method dclip_labels --output multimodal --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_mmimdb_genres --backbone ViT-B/32 --method dclip --output original_image --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_mmimdb_genres --backbone ViT-B/32 --method dclip --output multimodal --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_mmimdb_genres --backbone ViT-L/14 --method clip --output original_image --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_mmimdb_genres --backbone ViT-L/14 --method clip --output multimodal --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_mmimdb_genres --backbone ViT-L/14 --method waffle --output original_image --seed 0 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_mmimdb_genres --backbone ViT-L/14 --method waffle --output multimodal --seed 0 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_mmimdb_genres --backbone ViT-L/14 --method dclip_labels --output original_image --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_mmimdb_genres --backbone ViT-L/14 --method dclip_labels --output multimodal --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_mmimdb_genres --backbone ViT-L/14 --method dclip --output original_image --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_mmimdb_genres --backbone ViT-L/14 --method dclip --output multimodal --use-kaggle true
+
+# relation_ablation: relation_fakeddit_6way (mặc định 5 mẫu)
+venv/bin/python -B scripts/launch_runs.py --job relation_fakeddit_6way --model metaclip2_vith14 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job relation_fakeddit_6way --model dfn5b_vith14 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job relation_fakeddit_6way --model siglip2_so400m --use-kaggle true
+
+# Tổng cộng: 293 lệnh độc lập. Chỉ chạy một lệnh mỗi lần.

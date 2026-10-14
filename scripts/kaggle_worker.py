@@ -76,27 +76,35 @@ def clone_sources(root):
 
 def run(settings):
     root = Path(tempfile.mkdtemp(prefix="vlm_run_"))
+    print(f"[WORKER] Bắt đầu job {settings['job_id']} ({settings['run_id']})", flush=True)
     for slug, expected in ((settings["code_dataset_slug"], settings["code_tree_sha256"]),
                            (settings["data_dataset_slug"], settings["data_tree_sha256"])):
+        print(f"[WORKER] Kiểm tra dataset {slug}", flush=True)
         source = find_dataset("/kaggle/input", slug, expected)
         shutil.copytree(source, root, dirs_exist_ok=True)
+        print(f"[WORKER] Đã nạp dataset {slug}", flush=True)
     (root / "configs/research").mkdir(parents=True, exist_ok=True)
     (root / "configs/active.yaml").write_text(settings["active_yaml"], encoding="utf-8")
     (root / "configs/job.yaml").write_text(settings["job_yaml"], encoding="utf-8")
     if settings["research_yaml"] is not None:
         (root / "configs/research/active.yaml").write_text(settings["research_yaml"], encoding="utf-8")
+    print("[WORKER] Cài thư viện chính", flush=True)
     subprocess.run([sys.executable, "-m", "pip", "install", "-r", "requirements.txt"],
                    cwd=root, check=True)
     if settings["kind"] in ("adapted", "upstream"):
+        print("[WORKER] Cài thư viện và nguồn nghiên cứu", flush=True)
         subprocess.run([sys.executable, "-m", "pip", "install", "-r", "requirements/research.txt"],
                        cwd=root, check=True)
         clone_sources(root)
     import torch
     if not torch.cuda.is_available():
         raise RuntimeError("Kaggle Kernel không có GPU CUDA")
-    command = [sys.executable, "-B", *settings["command"]]
-    environment = {**os.environ, "SOURCE_REVISION": settings["code_sha256"]}
+    command = [sys.executable, "-u", "-B", *settings["command"]]
+    environment = {**os.environ, "SOURCE_REVISION": settings["code_sha256"],
+                   "PYTHONUNBUFFERED": "1"}
+    print(f"[WORKER] Chạy {settings['command'][0]}", flush=True)
     subprocess.run(command, cwd=root, env=environment, check=True)
+    print("[WORKER] Đóng gói kết quả", flush=True)
     output_dir = (root / settings["output_dir"]).resolve()
     if not output_dir.is_relative_to(root / "results") or not output_dir.is_dir():
         raise RuntimeError("Không tìm thấy thư mục kết quả trong results/")

@@ -1,11 +1,12 @@
 """Kiểm tra launcher đa dataset bằng dữ liệu giả rất nhỏ, không gọi mạng/model."""
 
 import ast
-from contextlib import redirect_stdout
+from contextlib import redirect_stderr, redirect_stdout
 import csv
 import io
 import json
 from pathlib import Path
+import shlex
 import shutil
 import sys
 import tempfile
@@ -19,6 +20,7 @@ import yaml
 REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO / "scripts"))
 import launch_runs as launcher
+import list_kaggle_commands as command_list
 from kaggle_worker import find_dataset, tree_sha256, unpack_archive
 
 
@@ -71,6 +73,7 @@ class LauncherTests(unittest.TestCase):
 
     def test_every_standard_dataset_builds_bounded_cloud_bundle(self):
         self.config["use_kaggle"] = True
+        self.config["kaggle"]["data_mode"] = "bounded"
         for name in ("fakeddit_2way", "fakeddit_6way", "crisismmd_info",
                      "crisismmd_humanitarian", "mmimdb_genres"):
             with self.subTest(name=name), patch.object(launcher, "run_cli") as cli, redirect_stdout(io.StringIO()):
@@ -115,6 +118,87 @@ class LauncherTests(unittest.TestCase):
                     self.assertEqual(yaml.safe_load(research.read_text())["methods"], job["methods"])
                     self.assertIn("--config", command)
 
+    def test_upstream_job_can_select_original_image_only(self):
+        name = "upstream_crisismmd_humanitarian"
+        self.config["jobs"][name]["outputs"] = ["original_image"]
+        launcher.validate(self.config, [name])
+        stage = self.root / "upstream_stage"
+        stage.mkdir()
+        _, _, _, _, active, _, research = launcher.job_plan(self.config, name, stage)
+        self.assertEqual(launcher.load_config(active)["models"],
+                         yaml.safe_load((self.root / "configs/experiment_config.yaml").read_text())["models"])
+        self.assertEqual(yaml.safe_load(research.read_text())["outputs"], ["original_image"])
+
+    def test_upstream_outputs_reject_unknown_variant(self):
+        name = "upstream_crisismmd_humanitarian"
+        self.config["jobs"][name]["outputs"] = ["unknown"]
+        with self.assertRaisesRegex(ValueError, "outputs"):
+            launcher.validate(self.config, [name])
+
+    def test_research_job_can_override_waffle_seeds(self):
+        name = "adapted_crisismmd_info"
+        self.config["jobs"][name]["seeds"] = [2, 3]
+        launcher.validate(self.config, [name])
+        stage = self.root / "adapted_seed_stage"
+        stage.mkdir()
+        research = launcher.job_plan(self.config, name, stage)[-1]
+        self.assertEqual(yaml.safe_load(research.read_text())["seeds"], [2, 3])
+        self.config["jobs"][name]["seeds"] = [2, 2]
+        with self.assertRaisesRegex(ValueError, "seeds"):
+            launcher.validate(self.config, [name])
+
+    def test_cli_selects_one_standard_model_without_running(self):
+        with patch.object(launcher, "run_one") as run:
+            launcher.main(["--job", "crisismmd_info", "--model", "dfn5b_vith14",
+                           "--use-kaggle", "true", "--dry-run"])
+        config, name, dry_run = run.call_args.args
+        self.assertEqual(name, "crisismmd_info")
+        self.assertTrue(dry_run)
+        self.assertEqual(config["jobs"][name]["models"], ["dfn5b_vith14"])
+
+    def test_cli_selects_one_upstream_method_backbone_output_and_seed(self):
+        with patch.object(launcher, "run_one") as run:
+            launcher.main(["--job", "upstream_crisismmd_info", "--method", "dclip",
+                           "--backbone", "ViT-L/14", "--output", "original_image", "--seed", "3",
+                           "--use-kaggle", "true", "--dry-run"])
+        config, name, _ = run.call_args.args
+        job = config["jobs"][name]
+        self.assertEqual(job["methods"], ["dclip"])
+        self.assertEqual(job["backbones"], ["ViT-L/14"])
+        self.assertEqual(job["outputs"], ["original_image"])
+        self.assertEqual(job["seeds"], [3])
+        stage = self.root / "selected_upstream_stage"
+        stage.mkdir()
+        research = launcher.job_plan(config, name, stage)[-1]
+        self.assertEqual(yaml.safe_load(research.read_text())["backbones"], ["ViT-L/14"])
+
+    def test_cloud_upstream_rejects_multiple_methods_before_staging(self):
+        error = io.StringIO()
+        with patch.object(launcher, "run_one") as run, redirect_stderr(error), \
+                self.assertRaises(SystemExit):
+            launcher.main(["--job", "upstream_crisismmd_info", "--backbone", "ViT-B/32",
+                           "--output", "original_image", "--use-kaggle", "true"])
+        self.assertIn("--method", error.getvalue())
+        run.assert_not_called()
+
+    def test_cli_rejects_model_for_upstream(self):
+        with self.assertRaises(SystemExit), patch.object(launcher, "run_one") as run:
+            launcher.main(["--job", "upstream_crisismmd_info", "--model", "metaclip2_vith14",
+                           "--dry-run"])
+        run.assert_not_called()
+
+    def test_listed_kaggle_commands_are_accepted_by_launcher(self):
+        config = yaml.safe_load((REPO / "configs/launcher.yaml").read_text())
+        count = 0
+        with patch.object(launcher, "run_one") as run:
+            for _, _, command in command_list.commands(config):
+                launcher.main(shlex.split(command)[3:] + ["--dry-run"])
+                self.assertTrue(run.call_args.args[0]["use_kaggle"])
+                self.assertEqual(run.call_args.args[2], True)
+                count += 1
+        self.assertGreater(count, 250)
+        self.assertEqual(run.call_count, count)
+
     def test_research_cloud_bundle_keeps_per_run_yaml_in_worker(self):
         self.config["use_kaggle"] = True
         for name in ("demo_crisismmd_info", "adapted_crisismmd_info",
@@ -144,6 +228,71 @@ class LauncherTests(unittest.TestCase):
         first = launcher.archive_data(self.root / "first.zip", experiment, "crisismmd", 2)[0]
         second = launcher.archive_data(self.root / "second.zip", experiment, "crisismmd", 2)[0]
         self.assertEqual(first, second)
+
+    def test_full_dataset_bundle_reused_between_tasks_and_limits(self):
+        self.config["use_kaggle"] = True
+        self.config["kaggle"]["data_mode"] = "full_dataset"
+        (self.root / "data/processed/pro_crisismmd/images/.DS_Store").write_bytes(b"macOS metadata")
+        jobs = ("crisismmd_info", "crisismmd_humanitarian")
+        with redirect_stdout(io.StringIO()):
+            for name in jobs:
+                launcher.validate(self.config, [name])
+                launcher.run_one(self.config, name, dry_run=True)
+        stages = list((self.root / "results/launches/staging").iterdir())
+        self.assertEqual(len(stages), 2)
+        settings = [launcher.staged_run(stage)[0] for stage in stages]
+        self.assertEqual(settings[0]["data_sha256"], settings[1]["data_sha256"])
+        self.assertTrue(all(item["data_dataset_slug"] == "vlm-runs-data-crisismmd" for item in settings))
+        with zipfile.ZipFile(stages[0] / "data/data_bundle.zip") as archive:
+            self.assertEqual(sum(name.startswith("data/processed/pro_crisismmd/images/")
+                                 for name in archive.namelist()), 3)
+            self.assertFalse(any(".DS_Store" in name for name in archive.namelist()))
+        self.assertTrue((self.root / "results/launches/full_data_cache/crisismmd/data_bundle.zip").is_file())
+
+    def test_full_dataset_cache_detects_changed_bytes_with_same_metadata(self):
+        experiment = yaml.safe_load((self.root / "configs/experiment_config.yaml").read_text())
+        image = self.root / "data/processed/pro_crisismmd/images/a.jpg"
+        old_stat = image.stat()
+        first = launcher.archive_full_data(self.root / "first.zip", experiment, "crisismmd", 2)[0]
+        image.write_bytes(b"other-data")  # Cùng số byte với b"fake-image".
+        import os
+        os.utime(image, ns=(old_stat.st_atime_ns, old_stat.st_mtime_ns))
+        second = launcher.archive_full_data(self.root / "second.zip", experiment, "crisismmd", 2)[0]
+        self.assertNotEqual(first, second)
+
+    def test_sync_full_data_does_not_start_kernel(self):
+        self.config["kaggle"]["data_mode"] = "full_dataset"
+        with patch.object(launcher, "find_kaggle_cli", return_value="kaggle"), \
+                patch.object(launcher, "sync_dataset") as sync, redirect_stdout(io.StringIO()):
+            launcher.sync_full_data(self.config, ("crisismmd", "mmimdb"))
+        self.assertEqual([call.args[1] for call in sync.call_args_list],
+                         ["testuser/vlm-runs-data-crisismmd", "testuser/vlm-runs-data-mmimdb"])
+
+    def test_existing_dataset_can_be_verified_from_paginated_files_when_download_is_404(self):
+        stage = self.root / "dataset_stage"
+        stage.mkdir()
+        with zipfile.ZipFile(stage / "data_bundle.zip", "w") as archive:
+            archive.writestr("a.txt", "alpha")
+            archive.writestr("b.txt", "beta")
+        name, digest, state = "testuser/vlm-runs-data-mmimdb", "abc123", {}
+
+        def fake_cli(args, check=True):
+            if args[1:3] == ["datasets", "list"]:
+                return SimpleNamespace(stdout=json.dumps([{"ref": name}]), stderr="", returncode=0)
+            if args[1:3] == ["datasets", "download"]:
+                return SimpleNamespace(stdout="", stderr="404 Not Found", returncode=1)
+            self.assertEqual(args[1:3], ["datasets", "files"])
+            if "--page-token" not in args:
+                return SimpleNamespace(stdout='Next Page Token = page2\n[{"name":"a.txt","size":5}]',
+                                       stderr="", returncode=0)
+            self.assertEqual(args[-1], "page2")
+            return SimpleNamespace(stdout='[{"name":"b.txt","size":4}]', stderr="", returncode=0)
+
+        with patch.object(launcher, "run_cli", side_effect=fake_cli) as cli, redirect_stdout(io.StringIO()):
+            launcher.sync_dataset(stage, name, digest, state, "kaggle")
+        self.assertEqual(state[name], digest)
+        self.assertFalse(any(call.args[0][1:3] in (["datasets", "create"], ["datasets", "version"])
+                             for call in cli.call_args_list))
 
     def test_code_bundle_is_independent_of_job_and_run_id(self):
         first = launcher.archive_code(self.root / "code_first.zip")
@@ -277,6 +426,15 @@ class LauncherTests(unittest.TestCase):
         with patch.object(launcher, "run_cli", return_value=denied), \
                 patch.object(launcher.time, "sleep"), redirect_stdout(io.StringIO()), \
                 self.assertRaisesRegex(RuntimeError, "kaggle auth login --force"):
+            launcher.await_kernel("kaggle", "testuser/vlm-runs", 5, 300)
+
+    def test_failed_kernel_is_terminal_and_does_not_suggest_resume(self):
+        failed = SimpleNamespace(stdout="failed", stderr="", returncode=0)
+        logs = SimpleNamespace(stdout='[{"data":"ValueError: models phải là danh sách model không rỗng"}]',
+                               stderr="", returncode=0)
+        with patch.object(launcher, "run_cli", side_effect=[failed, logs]), \
+                redirect_stdout(io.StringIO()), \
+                self.assertRaisesRegex(launcher.KernelExecutionError, "models phải là danh sách"):
             launcher.await_kernel("kaggle", "testuser/vlm-runs", 5, 300)
 
     def test_invalid_ensemble_method_for_mmimdb_rejected(self):

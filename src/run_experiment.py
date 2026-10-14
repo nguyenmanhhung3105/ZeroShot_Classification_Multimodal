@@ -41,6 +41,7 @@ def main(argv=None):
                         model_name, dataset, settings))
         finally:
             vlm.unload()
+            del vlm
     paths = shared.save_summary_tables(rows, config["output"]["summary_table"])
     print("Đã lưu summary:", ", ".join(paths))
     print(shared.compact_summary(pd.DataFrame(rows)).to_string(index=False))

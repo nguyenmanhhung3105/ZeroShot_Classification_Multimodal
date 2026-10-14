@@ -7,6 +7,8 @@ Runner quyết định softmax, sigmoid hoặc relative_z theo tác vụ và c�
 wrapper chỉ tải và mã hóa, không huấn luyện hoặc tự chọn nhãn.
 """
 
+import gc
+
 import torch
 import open_clip
 
@@ -134,9 +136,14 @@ class VLMWrapper:
     def unload(self):
         """Giải phóng bộ nhớ thiết bị trước khi tải model tiếp theo."""
         del self.model
-        if torch.cuda.is_available():
+        gc.collect()
+        if str(self.device).startswith("cuda") and torch.cuda.is_available():
             torch.cuda.empty_cache()
-        elif torch.backends.mps.is_available():
+            allocated = torch.cuda.memory_allocated(self.device) / (1024 ** 3)
+            reserved = torch.cuda.memory_reserved(self.device) / (1024 ** 3)
+            print(f"[model_registry] VRAM sau giải phóng: "
+                  f"allocated={allocated:.2f} GiB, reserved={reserved:.2f} GiB")
+        elif str(self.device).startswith("mps") and torch.backends.mps.is_available():
             torch.mps.empty_cache()
         
         print(f"[model_registry] Đã giải phóng '{self.model_name}' khỏi bộ nhớ")

@@ -176,9 +176,11 @@ def encode_multimodal_embeddings(vlm, images: list, texts: list, batch_size: int
             raise ValueError("max_sim requires chunking and a score output buffer")
         chunk_scores["text"] = np.zeros((len(texts), len(max_sim_classes)))
     image_embeds = text_embeds = None
+    total_batches = (len(images) + batch_size - 1) // batch_size
+    report_every = max(1, total_batches // 10)
     iterator = _progress_iter(range(0, len(images), batch_size), enabled=show_progress,
                               desc=desc, unit="batch")
-    for start in iterator:
+    for batch_index, start in enumerate(iterator):
         end = min(start + batch_size, len(images))
         image_indices = [i for i in range(start, end)
                          if relation_embeddings is not None or image_weight is None or image_weight > 0 or text_empty_mask[i]]
@@ -237,6 +239,9 @@ def encode_multimodal_embeddings(vlm, images: list, texts: list, batch_size: int
                 text_embeds[text_indices] = normalized
             elif max_sim_classes is not None:
                 chunk_scores["text"][text_indices] = 0
+        if show_progress and ((batch_index + 1) % report_every == 0 or batch_index + 1 == total_batches):
+            print(f"[PROGRESS] {desc}: {batch_index + 1}/{total_batches} batches, "
+                  f"{end}/{len(images)} samples", flush=True)
     if chunk_long_text and diagnostics is not None:
         diagnostics["chunking"] = {"enabled": True, "aggregation": "max_sim" if max_sim_classes is not None else "mean_embed",
                                   "counts": chunk_counts, "total_chunks": sum(chunk_counts),

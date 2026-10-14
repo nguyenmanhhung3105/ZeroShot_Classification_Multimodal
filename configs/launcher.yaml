@@ -7,6 +7,7 @@ kaggle:
   username: nguyenhung3105
   code_dataset_slug: vlm-runs-code
   data_dataset_slug: vlm-runs-data
+  data_mode: full_dataset       # một dataset ổn định cho mỗi bộ dữ liệu đã xử lý
   kernel_slug: vlm-runs
   accelerator: NvidiaTeslaT4
   timeout_seconds: 7200
@@ -159,7 +160,6 @@ jobs:
     dataset: fakeddit
     task: 2way
     max_samples: 30
-    models: [metaclip2_vith14]  # upstream lấy backbones từ configs/research/upstream.yaml
     methods: &upstream_methods [clip, waffle, dclip_labels, dclip]
     research_config: configs/research/upstream.yaml
   upstream_fakeddit_6way:
@@ -168,7 +168,6 @@ jobs:
     dataset: fakeddit
     task: 6way
     max_samples: 30
-    models: [metaclip2_vith14]
     methods: *upstream_methods
     research_config: configs/research/upstream.yaml
   upstream_crisismmd_info:
@@ -177,7 +176,6 @@ jobs:
     dataset: crisismmd
     task: informativeness
     max_samples: 30
-    models: [metaclip2_vith14]
     methods: *upstream_methods
     research_config: configs/research/upstream.yaml
   upstream_crisismmd_humanitarian:
@@ -185,9 +183,9 @@ jobs:
     kind: upstream
     dataset: crisismmd
     task: humanitarian
-    max_samples: 30
-    models: [metaclip2_vith14]
+    max_samples: 1000
     methods: *upstream_methods
+    outputs: [original_image]
     research_config: configs/research/upstream.yaml
   upstream_mmimdb_genres:
     enabled: false
@@ -195,7 +193,6 @@ jobs:
     dataset: mmimdb
     task: genres
     max_samples: 30
-    models: [metaclip2_vith14]
     methods: *upstream_methods
     research_config: configs/research/upstream.yaml
 
