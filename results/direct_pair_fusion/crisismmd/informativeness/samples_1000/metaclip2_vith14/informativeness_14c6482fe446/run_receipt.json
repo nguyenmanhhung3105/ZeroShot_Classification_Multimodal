@@ -1,0 +1,8 @@
+{
+  "run_id": "14c6482fe446",
+  "job_id": "crisismmd_info_direct_pair",
+  "kind": "standard",
+  "code_sha256": "3690356f99ea97d6d147b822729e2f39c7c727aa9b3c02f789cbb41f32fc2e89",
+  "data_sha256": "4d9a5d6ae79565f922e63f50c7e25fcf4837dfde5ac83ba7c5f1eee484a1d8af",
+  "gpu": "Tesla T4"
+}

@@ -1,0 +1,31 @@
+{
+  "policy": "prompt_stability_v1",
+  "dataset": "crisismmd",
+  "task": "humanitarian",
+  "model": "metaclip2_vith14",
+  "n_samples": 1000,
+  "baseline_sample_set_id": "ef2c3571480d37f1c51cef4c68c89966f6aa53fbc3c502b23a123f405dc30f5c",
+  "adapted_sample_set_id": "ef2c3571480d37f1c51cef4c68c89966f6aa53fbc3c502b23a123f405dc30f5c",
+  "sample_set_id_equal": true,
+  "split_verified": false,
+  "baseline_accuracy": 0.731,
+  "adapted_accuracy": 0.733,
+  "wrong_to_right": 49,
+  "right_to_wrong": 47,
+  "final_prediction_disagreement": {
+    "n_disagreement": 111,
+    "baseline_errors_in_disagreement": 64,
+    "baseline_error_rate_disagreement": 0.5765765765765766,
+    "baseline_error_rate_agreement": 0.23059617547806524,
+    "error_auroc": 0.586811364988634
+  },
+  "image_branch_disagreement": {
+    "n_disagreement": 273,
+    "baseline_errors_in_disagreement": 95,
+    "baseline_error_rate_disagreement": 0.34798534798534797,
+    "baseline_error_rate_agreement": 0.2393397524071527,
+    "error_auroc": 0.5548288996587655
+  },
+  "baseline_run": "results/baseline/crisismmd/humanitarian/samples_1000/metaclip2_vith14/humanitarian_e20dbf10ac1f",
+  "adapted_run": "results/adapted_dclip/crisismmd/humanitarian/samples_1000/metaclip2_vith14/humanitarian_8688b1c0c9cf"
+}

@@ -1,0 +1,69 @@
+{
+  "source_run_id": "03f1882357bb",
+  "policy": "fusion_weight_group_cv_v2",
+  "n_samples": 3000,
+  "n_groups": 2678,
+  "split_method": "group_by_shared_id_or_exact_caption; deterministic_sha256; 5_folds",
+  "selection_metric": "macro_f1_then_accuracy_then_closest_to_baseline",
+  "baseline_image_weight": 0.5,
+  "candidate_weights": [
+    0.0,
+    0.05,
+    0.1,
+    0.15,
+    0.2,
+    0.25,
+    0.3,
+    0.35,
+    0.4,
+    0.45,
+    0.5,
+    0.55,
+    0.6,
+    0.65,
+    0.7,
+    0.75,
+    0.8,
+    0.85,
+    0.9,
+    0.95,
+    1.0
+  ],
+  "selected_weights": [
+    0.55,
+    0.55,
+    0.55,
+    0.55,
+    0.55
+  ],
+  "n_branch_disagreement": 927,
+  "n_baseline_margin_le_0_10": 277,
+  "baseline": {
+    "accuracy": 0.8656666666666667,
+    "macro_f1": 0.8645449635094888
+  },
+  "cross_fitted": {
+    "accuracy": 0.8703333333333333,
+    "macro_f1": 0.869118740704711,
+    "changed_vs_baseline": 80,
+    "changed_with_branch_disagreement": 80,
+    "changed_with_baseline_margin_le_0_10": 80,
+    "wrong_to_right": 47,
+    "right_to_wrong": 33,
+    "mcnemar_exact_two_sided_p_exploratory": 0.1456354544029827
+  },
+  "per_class": {
+    "informative": {
+      "n": 1622,
+      "wrong_to_right": 27,
+      "right_to_wrong": 12
+    },
+    "not_informative": {
+      "n": 1378,
+      "wrong_to_right": 20,
+      "right_to_wrong": 21
+    }
+  },
+  "source_split_verified": false,
+  "independent_test": false
+}

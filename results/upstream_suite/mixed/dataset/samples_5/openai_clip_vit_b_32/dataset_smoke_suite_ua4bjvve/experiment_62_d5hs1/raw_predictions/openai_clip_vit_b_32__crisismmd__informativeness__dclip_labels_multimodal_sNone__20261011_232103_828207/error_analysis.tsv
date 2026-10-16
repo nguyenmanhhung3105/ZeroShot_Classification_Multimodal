@@ -1,0 +1,1 @@
+id	text	image_path	y_true	y_pred	correct	confidence	margin	score_informative	score_not_informative	_text_was_empty	_image_encoded	score_image_informative	score_image_not_informative	_text_encoded	score_text_informative	score_text_not_informative

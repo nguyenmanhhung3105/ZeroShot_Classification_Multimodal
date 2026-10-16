@@ -1,0 +1,4 @@
+method	n_samples	accuracy	macro_f1	balanced_accuracy	relation_weight	changed_predictions	model	device	sample_set_id
+baseline	5	0.2	0.06666666666666667	0.125	0	0	metaclip2_vith14	cpu	b977e3477c5dbd650d507c69b4042262596d85a8d38186e8fd2548c1de71a6ba
+legacy_false_connection_0.1	5	0.2	0.06666666666666667	0.125	0.1	0	metaclip2_vith14	cpu	b977e3477c5dbd650d507c69b4042262596d85a8d38186e8fd2548c1de71a6ba
+class_aware	5	0.2	0.06666666666666667	0.125	0.25	0	metaclip2_vith14	cpu	b977e3477c5dbd650d507c69b4042262596d85a8d38186e8fd2548c1de71a6ba

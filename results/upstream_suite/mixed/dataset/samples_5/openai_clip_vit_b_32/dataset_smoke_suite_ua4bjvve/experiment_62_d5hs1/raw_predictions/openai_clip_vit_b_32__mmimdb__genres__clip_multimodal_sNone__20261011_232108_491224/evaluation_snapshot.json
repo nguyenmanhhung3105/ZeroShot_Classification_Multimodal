@@ -1,0 +1,583 @@
+{
+  "sample_set_id": "baeee6a049dc115e80cc3b3cf762b70d66becade99291cc46c3d247d12fa0e80",
+  "cohort": {
+    "dataset": "mmimdb",
+    "task": "genres",
+    "scope": "upstream",
+    "data_path": "data/processed/pro_mmimdb/mmimdb_sample.tsv",
+    "limit": 5,
+    "min_text_length": 0,
+    "id_col": "id",
+    "text_col": "plot",
+    "label_col": "genres",
+    "samples": [
+      {
+        "id": "0142248",
+        "text_sha256": "b5bd645da70f8bad861317bd6f772b3d1840c9fd0dddbd3c157b5fb50f6a2885",
+        "label": "Animation|Action|Adventure|Family|Mystery",
+        "image_path": "data/processed/pro_mmimdb/images/0142248.jpeg",
+        "image_stat": {
+          "size": 37915,
+          "mtime_ns": 1478906513000000000
+        }
+      },
+      {
+        "id": "0042179",
+        "text_sha256": "87a746aaddcf7fa816d3544f19ea554bf2f793bb881d05aa6767e116081351c8",
+        "label": "Adventure|Comedy",
+        "image_path": "data/processed/pro_mmimdb/images/0042179.jpeg",
+        "image_stat": {
+          "size": 49864,
+          "mtime_ns": 1478906470000000000
+        }
+      },
+      {
+        "id": "0109424",
+        "text_sha256": "9ee13aedd41e3f1dbf03affafcdb0df441b71d92936604c25787905db05da0c2",
+        "label": "Comedy|Drama|Romance",
+        "image_path": "data/processed/pro_mmimdb/images/0109424.jpeg",
+        "image_stat": {
+          "size": 44004,
+          "mtime_ns": 1478906488000000000
+        }
+      },
+      {
+        "id": "0058430",
+        "text_sha256": "f18f09ba9dd4f3ced3c55f900ad32da000770ba01ac3b9d99d9f04aaddfb186a",
+        "label": "Horror",
+        "image_path": "data/processed/pro_mmimdb/images/0058430.jpeg",
+        "image_stat": {
+          "size": 20700,
+          "mtime_ns": 1478906506000000000
+        }
+      },
+      {
+        "id": "1059969",
+        "text_sha256": "663df52f308113a8752b510ebfe1e6007e833b000ad8371cafe4df69ef5defc6",
+        "label": "Comedy|Drama",
+        "image_path": "data/processed/pro_mmimdb/images/1059969.jpeg",
+        "image_stat": {
+          "size": 1744156,
+          "mtime_ns": 1478906475000000000
+        }
+      }
+    ]
+  },
+  "sample_lock_path": null,
+  "config": {
+    "models": [
+      "metaclip2_vith14"
+    ],
+    "inference": {
+      "batch_size": 16,
+      "image_weight": 0.5,
+      "text_logit_scale": null
+    },
+    "datasets": {
+      "fakeddit": {
+        "enabled": true,
+        "task": "6way",
+        "data_path": "data/processed/pro_fakeddit/fakeddit_sample.tsv",
+        "image_dir": "data/processed/pro_fakeddit/images",
+        "id_col": "id",
+        "text_col": "clean_title",
+        "label_col_2way": "2_way_label",
+        "label_col_6way": "6_way_label",
+        "min_text_length": 20,
+        "max_samples": 1000,
+        "prompt_aggregation": "mean_sim",
+        "prompt_variants": [
+          "current"
+        ],
+        "inference": {
+          "image_weight": 0.75,
+          "text_logit_scale": 25
+        }
+      },
+      "crisismmd": {
+        "enabled": true,
+        "task": "informativeness",
+        "data_path": "data/processed/pro_crisismmd/pre_crisismmd.tsv",
+        "image_dir": "data/processed/pro_crisismmd/images",
+        "id_col": "tweet_id",
+        "text_col": "clean_text",
+        "label_col_info": "label_informative",
+        "label_col_human": "label_humanitarian",
+        "max_samples": 1000,
+        "prompt_aggregation": "mean_embed",
+        "inference": {
+          "image_weight": 0.5,
+          "text_logit_scale": null
+        }
+      },
+      "mmimdb": {
+        "enabled": true,
+        "task": "genres",
+        "data_path": "data/processed/pro_mmimdb/mmimdb_sample.tsv",
+        "image_dir": "data/processed/pro_mmimdb/images",
+        "id_col": "id",
+        "text_col": "plot",
+        "label_col": "genres",
+        "max_samples": 5,
+        "prompt_aggregation": "mean_sim",
+        "decision_mode": "relative_z",
+        "relative_z_threshold": 1.0,
+        "threshold": 0.22,
+        "chunk_long_text": true,
+        "chunk_aggregation": "mean_embed",
+        "inference": {
+          "image_weight": 0.5,
+          "text_logit_scale": null
+        },
+        "prompt_variant": "current"
+      }
+    },
+    "evaluation": {
+      "enabled": true,
+      "split": "val",
+      "measure_truncation": true,
+      "sample_lock_mode": "off",
+      "sample_lock_dir": "results/sample_locks"
+    },
+    "demo": {
+      "n_samples": 10,
+      "batch_size": 4,
+      "prompt_version": "v1",
+      "log_dir": "results/demo_logs",
+      "visualization_dir": "results/demo"
+    },
+    "output": {
+      "results_dir": "results/",
+      "raw_predictions_dir": "results/raw_predictions/",
+      "summary_table": "results/summary_table.tsv"
+    }
+  },
+  "effective_dataset": {
+    "enabled": true,
+    "task": "genres",
+    "data_path": "data/processed/pro_mmimdb/mmimdb_sample.tsv",
+    "image_dir": "data/processed/pro_mmimdb/images",
+    "id_col": "id",
+    "text_col": "plot",
+    "label_col": "genres",
+    "max_samples": 5,
+    "prompt_aggregation": "mean_sim",
+    "decision_mode": "relative_z",
+    "relative_z_threshold": 1.0,
+    "threshold": 0.22,
+    "chunk_long_text": true,
+    "chunk_aggregation": "mean_embed",
+    "inference": {
+      "image_weight": 0.5,
+      "text_logit_scale": null
+    },
+    "prompt_variant": "current"
+  },
+  "prompts": {
+    "image": {
+      "Action": [
+        "A photo of a Action."
+      ],
+      "Adventure": [
+        "A photo of a Adventure."
+      ],
+      "Animation": [
+        "A photo of a Animation."
+      ],
+      "Biography": [
+        "A photo of a Biography."
+      ],
+      "Comedy": [
+        "A photo of a Comedy."
+      ],
+      "Crime": [
+        "A photo of a Crime."
+      ],
+      "Documentary": [
+        "A photo of a Documentary."
+      ],
+      "Drama": [
+        "A photo of a Drama."
+      ],
+      "Family": [
+        "A photo of a Family."
+      ],
+      "Fantasy": [
+        "A photo of a Fantasy."
+      ],
+      "Film-Noir": [
+        "A photo of a Film-Noir."
+      ],
+      "History": [
+        "A photo of a History."
+      ],
+      "Horror": [
+        "A photo of a Horror."
+      ],
+      "Music": [
+        "A photo of a Music."
+      ],
+      "Musical": [
+        "A photo of a Musical."
+      ],
+      "Mystery": [
+        "A photo of a Mystery."
+      ],
+      "Short": [
+        "A photo of a Short."
+      ],
+      "Romance": [
+        "A photo of a Romance."
+      ],
+      "Sci-Fi": [
+        "A photo of a Sci-Fi."
+      ],
+      "Sport": [
+        "A photo of a Sport."
+      ],
+      "Thriller": [
+        "A photo of a Thriller."
+      ],
+      "War": [
+        "A photo of a War."
+      ],
+      "Western": [
+        "A photo of a Western."
+      ]
+    },
+    "text": {
+      "Action": [
+        "a movie poster for an action film",
+        "an action movie featuring physical conflict, chases, or daring confrontations",
+        "a film about characters fighting opponents and surviving dangerous encounters",
+        "an action film with combat, martial arts, stunts, or high-speed pursuits"
+      ],
+      "Adventure": [
+        "a movie poster for an adventure film",
+        "an adventure movie about a journey, quest, or exploration of unfamiliar places",
+        "a film about characters overcoming obstacles while pursuing a difficult goal",
+        "an adventure story involving travel, discovery, danger, and unexpected encounters"
+      ],
+      "Animation": [
+        "a movie poster for an animated film",
+        "an animated movie told through drawn, computer-generated, or stop-motion characters",
+        "a film presenting its story through animation rather than live-action performances",
+        "an animated feature or short film with stylized characters and settings"
+      ],
+      "Biography": [
+        "a movie poster for a biographical film",
+        "a biographical movie portraying the life of a real person",
+        "a film about a real individual's personal struggles, relationships, and achievements",
+        "a biopic dramatizing important episodes in an actual person's life"
+      ],
+      "Comedy": [
+        "a movie poster for a comedy film",
+        "a comedy movie built around humorous situations and amusing characters",
+        "a film about misunderstandings, awkward encounters, or absurd situations played for laughs",
+        "a comic story using witty dialogue, satire, slapstick, or everyday humor"
+      ],
+      "Crime": [
+        "a movie poster for a crime film",
+        "a crime movie about criminals, detectives, or people drawn into illegal activities",
+        "a film about a robbery, murder, criminal organization, or police investigation",
+        "a story centered on committing crimes, pursuing offenders, or facing criminal consequences"
+      ],
+      "Documentary": [
+        "a movie poster for a documentary film",
+        "a documentary examining real people, events, or issues",
+        "a nonfiction film presenting interviews, observations, or archival evidence",
+        "a documentary recording real experiences or investigating a factual subject"
+      ],
+      "Drama": [
+        "a movie poster for a drama film",
+        "a drama exploring personal conflicts, difficult choices, and human relationships",
+        "a film about characters facing emotional struggles and significant changes in their lives",
+        "a character-driven dramatic story about family, society, loss, or personal growth"
+      ],
+      "Family": [
+        "a movie poster for a family film",
+        "a family movie intended to be enjoyed by children and adults together",
+        "a family-oriented story about friendship, belonging, courage, or growing up",
+        "a film for a broad family audience with accessible characters and themes"
+      ],
+      "Fantasy": [
+        "a movie poster for a fantasy film",
+        "a fantasy movie involving magic, mythical beings, or supernatural powers",
+        "a film about characters entering an enchanted world or encountering magical forces",
+        "a fantasy story where spells, legends, or impossible creatures shape events"
+      ],
+      "Film-Noir": [
+        "a movie poster for a film-noir crime drama",
+        "a film-noir story involving deception, moral ambiguity, and a doomed protagonist",
+        "a dark crime film about betrayal, corruption, or a dangerous entanglement",
+        "a noir film with shadowy imagery, cynical characters, and a fatalistic atmosphere"
+      ],
+      "History": [
+        "a movie poster for a historical film",
+        "a historical movie portraying significant events or social conditions of an earlier era",
+        "a film dramatizing actual historical events and the people involved",
+        "a story grounded in documented political, cultural, or social history"
+      ],
+      "Horror": [
+        "a movie poster for a horror film",
+        "a horror movie intended to evoke fear, dread, or terror",
+        "a film about characters facing a haunting, monstrous threat, or terrifying violence",
+        "a horror story with an ominous atmosphere and frightening encounters"
+      ],
+      "Music": [
+        "a movie poster for a film about music or musicians",
+        "a music-centered movie about performers, bands, composers, or musical careers",
+        "a film about creating music, rehearsing, recording, or performing in concerts",
+        "a story in which musical performance and the lives of musicians are central"
+      ],
+      "Musical": [
+        "a movie poster for a musical film",
+        "a musical in which characters sing or dance as part of telling the story",
+        "a film whose songs express characters' feelings and advance the narrative",
+        "a musical movie combining dramatic scenes with staged song-and-dance numbers"
+      ],
+      "Mystery": [
+        "a movie poster for a mystery film",
+        "a mystery movie about uncovering a hidden truth or explaining puzzling events",
+        "a film in which characters follow clues to solve a disappearance, secret, or unexplained incident",
+        "a mystery story built around unanswered questions and gradual revelations"
+      ],
+      "Short": [
+        "a movie poster for a short film",
+        "a short film with a brief running time",
+        "a short-format movie presenting a compact story or a focused cinematic idea",
+        "a brief cinematic work released as a short rather than a full-length feature"
+      ],
+      "Romance": [
+        "a movie poster for a romance film",
+        "a romantic movie centered on love, attraction, and intimate relationships",
+        "a film about people falling in love, separating, or trying to sustain a relationship",
+        "a romance story exploring courtship, heartbreak, longing, or reconciliation"
+      ],
+      "Sci-Fi": [
+        "a movie poster for a science fiction film",
+        "a science fiction movie exploring imagined science, technology, or future societies",
+        "a film involving space travel, alien life, time travel, robots, or advanced technology",
+        "a science fiction story about the consequences of a scientific discovery or technological change"
+      ],
+      "Sport": [
+        "a movie poster for a sports film",
+        "a sports movie about athletes, teams, training, or competition",
+        "a film about preparing for a sporting event and facing rivals or personal setbacks",
+        "a story centered on athletic performance, teamwork, and the pursuit of sporting success"
+      ],
+      "Thriller": [
+        "a movie poster for a thriller film",
+        "a thriller driven by suspense, escalating danger, and uncertainty",
+        "a film about characters caught in a pursuit, conspiracy, threat, or dangerous deception",
+        "a tense story in which characters struggle to escape danger or prevent a looming disaster"
+      ],
+      "War": [
+        "a movie poster for a war film",
+        "a war movie about armed conflict and its effects on soldiers or civilians",
+        "a film portraying military operations, battlefield survival, or life during wartime",
+        "a story centered on the human experiences and consequences of war"
+      ],
+      "Western": [
+        "a movie poster for a western film",
+        "a western set on the American frontier with cowboys, settlers, or outlaws",
+        "a film about frontier life, lawmen, ranchers, or conflicts in the Old West",
+        "a western story featuring frontier towns, horseback travel, and struggles over land or justice"
+      ]
+    }
+  },
+  "prompt_id": "8f40c5a5109fa9ee86ec59bb0ca9b3a4dd52c1d08f658472ac5bca22ac508b20",
+  "split": "val",
+  "split_verified": false,
+  "truncate_enabled": true,
+  "cosine": {
+    "image": {
+      "cosine_mean": 0.20006045699119568,
+      "cosine_std": 0.021013494580984116
+    },
+    "text": {
+      "cosine_mean": 0.7426180088001749,
+      "cosine_std": 0.06837645527770454
+    }
+  },
+  "chunking": {
+    "enabled": true,
+    "aggregation": "mean_embed",
+    "counts": [
+      2,
+      1,
+      2,
+      2,
+      5
+    ],
+    "total_chunks": 12,
+    "n_chunked_texts": 4
+  },
+  "effective_inference": {
+    "decision_mode": "relative_z",
+    "score_type": "relative_z",
+    "threshold": null,
+    "relative_z_threshold": 1.0,
+    "model_scale_applied": false,
+    "apply_bias_to_text": false,
+    "chunk_long_text": true,
+    "chunk_aggregation": "mean_embed",
+    "fallback_top1": true,
+    "image_weight": 0.5,
+    "logit_scale": 100.00000762939453,
+    "logit_bias": 0.0
+  },
+  "truncation": {
+    "status": "measured",
+    "context_length": 77,
+    "n_nonempty": 5,
+    "n_measured": 5,
+    "n_truncated": 4,
+    "truncated_rate": 0.8
+  },
+  "text_lengths": [
+    {
+      "sample_index": 0,
+      "id": "0142248",
+      "token_count": 118,
+      "truncated": true,
+      "n_chunks": 2,
+      "encoded_chunk_truncated": false
+    },
+    {
+      "sample_index": 1,
+      "id": "0042179",
+      "token_count": 68,
+      "truncated": false,
+      "n_chunks": 1,
+      "encoded_chunk_truncated": false
+    },
+    {
+      "sample_index": 2,
+      "id": "0109424",
+      "token_count": 135,
+      "truncated": true,
+      "n_chunks": 2,
+      "encoded_chunk_truncated": false
+    },
+    {
+      "sample_index": 3,
+      "id": "0058430",
+      "token_count": 106,
+      "truncated": true,
+      "n_chunks": 2,
+      "encoded_chunk_truncated": false
+    },
+    {
+      "sample_index": 4,
+      "id": "1059969",
+      "token_count": 301,
+      "truncated": true,
+      "n_chunks": 5,
+      "encoded_chunk_truncated": false
+    }
+  ],
+  "diagnostics": [
+    {
+      "branch": "image",
+      "n_samples": 5,
+      "score_type": "relative_z",
+      "mean_predicted_labels": 4.0,
+      "fallback_rate": 0.0,
+      "micro_f1": 0.24242424242424243,
+      "macro_f1": 0.10724637681159421,
+      "samples_f1": 0.21714285714285717,
+      "top2_margin": 0.820061956375465,
+      "cosine_mean": 0.20006045699119568,
+      "cosine_std": 0.021013494580984116
+    },
+    {
+      "branch": "text",
+      "n_samples": 5,
+      "score_type": "relative_z",
+      "mean_predicted_labels": 3.4,
+      "fallback_rate": 0.0,
+      "micro_f1": 0.3333333333333333,
+      "macro_f1": 0.13768115942028986,
+      "samples_f1": 0.31333333333333335,
+      "top2_margin": 0.2530868774554716,
+      "cosine_mean": 0.7426180088001749,
+      "cosine_std": 0.06837645527770454,
+      "input_status": "measured",
+      "input_context_length": 77,
+      "input_n_nonempty": 5,
+      "input_n_measured": 5,
+      "input_n_truncated": 4,
+      "input_truncated_rate": 0.8,
+      "chunking_enabled": true,
+      "total_chunks": 12,
+      "n_chunked_texts": 4
+    },
+    {
+      "branch": "fusion",
+      "n_samples": 5,
+      "score_type": "relative_z",
+      "mean_predicted_labels": 1.8,
+      "fallback_rate": 0.0,
+      "micro_f1": 0.18181818181818182,
+      "macro_f1": 0.05072463768115942,
+      "samples_f1": 0.13714285714285715,
+      "top2_margin": 0.3213306155810205
+    }
+  ],
+  "summary": {
+    "sample_set_id": "baeee6a049dc115e80cc3b3cf762b70d66becade99291cc46c3d247d12fa0e80",
+    "prompt_id": "8f40c5a5109fa9ee86ec59bb0ca9b3a4dd52c1d08f658472ac5bca22ac508b20",
+    "split": "val",
+    "image_n_samples": 5,
+    "image_micro_f1": 0.24242424242424243,
+    "image_macro_f1": 0.10724637681159421,
+    "image_samples_f1": 0.21714285714285717,
+    "text_n_samples": 5,
+    "text_micro_f1": 0.3333333333333333,
+    "text_macro_f1": 0.13768115942028986,
+    "text_samples_f1": 0.31333333333333335,
+    "fusion_n_samples": 5,
+    "fusion_micro_f1": 0.18181818181818182,
+    "fusion_macro_f1": 0.05072463768115942,
+    "fusion_samples_f1": 0.13714285714285715,
+    "config_id": "786123300f06fba8a6aec006d6cf32c57ba3676f7ed55c336e182608009fc513"
+  },
+  "model": "openai_clip_vit_b_32",
+  "config_id": "786123300f06fba8a6aec006d6cf32c57ba3676f7ed55c336e182608009fc513",
+  "source_sha256": {
+    "text_chunking.py": "ac5f2e917eda4783b4187bbfe7a5b82b09ab3761780d84d24bf01c01c4791487",
+    "config.py": "e85c8843c8e3b0f34b74cce4ad652b862ac70c6a3d8f17eae46e517ddddfe42d",
+    "text_scale.py": "bbdf3dade644f5036d0e5ad57766e711a7e0be8f1711e91fa541ef53aee94eae",
+    "evaluation_audit.py": "c51a314bf1fe0790a25201a59816fa88b6d06946960af3e6862ee5e5a27da1c0",
+    "inference.py": "58006800e7ffb45dd71d6a5511ce276aa7c77e6a78432d95988a4e6ce473defa",
+    "evaluate.py": "13e369b8fa8898a751afc0cd0b7d5360229b1a574cd00522dabf6b0137dc3d1f",
+    "run_experiment.py": "af61f2117f6ea4afadee2846032087adb28922bc647595a1bdcf7cc1ad982d74",
+    "demo.py": "7bf8794c2a19d1f47e27f8f9e706419de44115d5dd3c594da7db14c950fddf3f",
+    "logging_utils.py": "37ce22a854568fe025a645a415d4b391139f7ea00f043f2e352ebafabffeade9",
+    "research/__init__.py": "c0b1bb68d820937dd39326cbc9fcc24e001c6c3beefd0b09732de585760e4c01",
+    "research/adapted_methods.py": "6fa6b4dbf5c125b13146fb04cf01ab59cd2ca246981f40c833e70fdba1c50d3d",
+    "research/run_upstream.py": "cdc74ce6b61ec9f04edb117343280a0adb1f15e0c1e77489a22da090353da42f",
+    "research/run_adapted_methods.py": "20c9d4cb3de03fef75d632a41a7292bc39094cb2d1f6c43bddd5517ccf49c2a2",
+    "research/upstream.py": "8216a82d0ebe70204f1a2b5f7977210cb80b8632bc891cfde1333044bb990861",
+    "models/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "models/model_registry.py": "0aca2fae98e75eb75ba077f891367543f99d8b2dc22853609ab24d03b4d6e6bb",
+    "prompts/crisismmd_prompts.py": "1b4105bee5a11a4cd36b2cb75bd9c2cdad102b0b80431c142ec2d4ef225d82c7",
+    "prompts/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "prompts/mmimdb_prompts.py": "1fb94954049555d75d89c70182de29baf494625bedeaa1901059e94baaeb4ddc",
+    "prompts/fakeddit_prompts.py": "4440673640e19e6151417386e4c4512486f0187ad5bc3fc0ac137c4736904172",
+    "run/run_fakeddit.py": "5084a27f047aad3c463f50403262c347c8717512ebeed37d7b98379da27e4068",
+    "run/__init__.py": "d6045de51bed3d3aff5615c2e0a47242041fbf3ab45d3e01c018bac9b954d5cc",
+    "run/common.py": "765828356bf79483bf2ac2abb9b8241e86fc2f38238079b0292c584da1260b85",
+    "run/run_mmimdb.py": "f980892fab08f4bbc9cecd73548b663cae20f8144367863be34270c21a6cf76f",
+    "run/run_crisismmd.py": "c464d3a81bb96d138d0ff30b5d0332fa0838cbebf5a1a436082932e02733ab81",
+    "preprocessing/data_fakeddit/check_fakeddit_ready.py": "1da592331ef420f98763b2b4456bcb1d8a36129158deb6e6604500163a43bf9b",
+    "preprocessing/data_fakeddit/image_downloader.py": "ed5a2da169a357a274da29b2aaa272f20c7b71de432ba0a6e0471680e441e1df",
+    "preprocessing/data_fakeddit/preprocess_fakeddit.py": "8485e197320fa345f941cf637fbde35179a45713be150142873c82c52e3bd7c3",
+    "preprocessing/data_mmimdb/check_mmimdb_ready.py": "a85fea828306ae4b82cd03a2c8b1d3584d7b42793511f57a5983d924ed983bd2",
+    "preprocessing/data_mmimdb/preprocess_mmimdb.py": "95add68bb14e07c303df5b73f130328e2afe4a9fb8cf70a46c631dc5da791e19",
+    "preprocessing/data_crisismmd/check_crisismmd_processed.py": "db23159b26d73305d0e3ecd3e248c08a18ce892ad1b9536f496c95be20392178",
+    "preprocessing/data_crisismmd/preprocess_crisismmd.py": "dc63692f8de39e61d49e9fbfbd8634f980d856dbceda26a180b597268f95133a"
+  },
+  "git_hash": "e82d021743dcb07b6876e73e50e48442606629bd"
+}

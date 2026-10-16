@@ -1,0 +1,173 @@
+Sample Prompt: A photo of a real.
+Sample Prompt: A photo of a real, which has whee.
+
+Example description for class fake: "fake, which is a satirical or parody presentation rather than a factual report"
+
+[PLAN] /Users/hung/Documents/MyProject/Python/DA_CNTT/vlm-zeroshot-content-classification/results/upstream_projects/smoke_suite_ua4bjvve/experiment_yo4gy0ph/frozen_plan.json; 4 phương pháp/seed mỗi model
+/Users/hung/Documents/MyProject/Python/DA_CNTT/vlm-zeroshot-content-classification/venv/lib/python3.12/site-packages/torch/jit/_serialization.py:176: FutureWarning: `torch.jit.load` is deprecated. Please switch to `torch.export`.
+  warnings.warn(
+Mã hóa ảnh:   0%|          | 0/1 [00:00<?, ?batch/s]Mã hóa ảnh: 100%|██████████| 1/1 [00:00<00:00, 14.02batch/s]
+Mã hóa text:   0%|          | 0/1 [00:00<?, ?batch/s]Mã hóa text: 100%|██████████| 1/1 [00:00<00:00, 22.48batch/s]
+Encoding Descriptions...:   0%|          | 0/2 [00:00<?, ?it/s]Encoding Descriptions...: 100%|██████████| 2/2 [00:00<00:00, 62.68it/s]
+[TEXT SCALE] fakeddit: requested=25, effective=None, status=unused_image_only
+Accuracy : 0.4000  (chỉ tham khảo, có thể gây hiểu lầm nếu lệch lớp)
+Macro-F1 : 0.2857  (chỉ số chính, phản ánh đúng cả lớp hiếm)
+Micro-F1 : 0.4000
+
+Báo cáo chi tiết theo từng lớp:
+              precision    recall  f1-score   support
+
+           0       0.67      0.50      0.57         4
+           1       0.00      0.00      0.00         1
+
+    accuracy                           0.40         5
+   macro avg       0.33      0.25      0.29         5
+weighted avg       0.53      0.40      0.46         5
+
+branch  n_samples  macro_f1  balanced_accuracy
+ image          5  0.285714               0.25
+  text          0       NaN                NaN
+fusion          5  0.285714               0.25
+Đã lưu log tại: /Users/hung/Documents/MyProject/Python/DA_CNTT/vlm-zeroshot-content-classification/results/upstream_projects/smoke_suite_ua4bjvve/experiment_yo4gy0ph/raw_predictions/openai_clip_vit_b_32__fakeddit__2way__clip_original_image_sNone__20261011_232118_211711  (3/5 mẫu sai)
+[TEXT SCALE] fakeddit: requested=25, effective=25, status=manual
+Accuracy : 0.4000  (chỉ tham khảo, có thể gây hiểu lầm nếu lệch lớp)
+Macro-F1 : 0.2857  (chỉ số chính, phản ánh đúng cả lớp hiếm)
+Micro-F1 : 0.4000
+
+Báo cáo chi tiết theo từng lớp:
+              precision    recall  f1-score   support
+
+           0       0.67      0.50      0.57         4
+           1       0.00      0.00      0.00         1
+
+    accuracy                           0.40         5
+   macro avg       0.33      0.25      0.29         5
+weighted avg       0.53      0.40      0.46         5
+
+branch  n_samples  macro_f1  balanced_accuracy
+ image          5  0.285714              0.250
+  text          5  0.400000              0.625
+fusion          5  0.285714              0.250
+Đã lưu log tại: /Users/hung/Documents/MyProject/Python/DA_CNTT/vlm-zeroshot-content-classification/results/upstream_projects/smoke_suite_ua4bjvve/experiment_yo4gy0ph/raw_predictions/openai_clip_vit_b_32__fakeddit__2way__clip_multimodal_sNone__20261011_232118_255131  (3/5 mẫu sai)
+Encoding Descriptions...:   0%|          | 0/2 [00:00<?, ?it/s]Encoding Descriptions...:  50%|█████     | 1/2 [00:00<00:00,  4.10it/s]Encoding Descriptions...: 100%|██████████| 2/2 [00:00<00:00,  4.12it/s]Encoding Descriptions...: 100%|██████████| 2/2 [00:00<00:00,  4.12it/s]
+[TEXT SCALE] fakeddit: requested=25, effective=None, status=unused_image_only
+Accuracy : 0.4000  (chỉ tham khảo, có thể gây hiểu lầm nếu lệch lớp)
+Macro-F1 : 0.2857  (chỉ số chính, phản ánh đúng cả lớp hiếm)
+Micro-F1 : 0.4000
+
+Báo cáo chi tiết theo từng lớp:
+              precision    recall  f1-score   support
+
+           0       0.67      0.50      0.57         4
+           1       0.00      0.00      0.00         1
+
+    accuracy                           0.40         5
+   macro avg       0.33      0.25      0.29         5
+weighted avg       0.53      0.40      0.46         5
+
+branch  n_samples  macro_f1  balanced_accuracy
+ image          5  0.285714               0.25
+  text          0       NaN                NaN
+fusion          5  0.285714               0.25
+Đã lưu log tại: /Users/hung/Documents/MyProject/Python/DA_CNTT/vlm-zeroshot-content-classification/results/upstream_projects/smoke_suite_ua4bjvve/experiment_yo4gy0ph/raw_predictions/openai_clip_vit_b_32__fakeddit__2way__waffle_original_image_s0__20261011_232118_779238  (3/5 mẫu sai)
+[TEXT SCALE] fakeddit: requested=25, effective=25, status=manual
+Accuracy : 0.2000  (chỉ tham khảo, có thể gây hiểu lầm nếu lệch lớp)
+Macro-F1 : 0.1667  (chỉ số chính, phản ánh đúng cả lớp hiếm)
+Micro-F1 : 0.2000
+
+Báo cáo chi tiết theo từng lớp:
+              precision    recall  f1-score   support
+
+           0       0.50      0.25      0.33         4
+           1       0.00      0.00      0.00         1
+
+    accuracy                           0.20         5
+   macro avg       0.25      0.12      0.17         5
+weighted avg       0.40      0.20      0.27         5
+
+branch  n_samples  macro_f1  balanced_accuracy
+ image          5  0.285714              0.250
+  text          5  0.400000              0.625
+fusion          5  0.166667              0.125
+Đã lưu log tại: /Users/hung/Documents/MyProject/Python/DA_CNTT/vlm-zeroshot-content-classification/results/upstream_projects/smoke_suite_ua4bjvve/experiment_yo4gy0ph/raw_predictions/openai_clip_vit_b_32__fakeddit__2way__waffle_multimodal_s0__20261011_232118_818844  (4/5 mẫu sai)
+[TEXT SCALE] fakeddit: requested=25, effective=None, status=unused_image_only
+Accuracy : 0.6000  (chỉ tham khảo, có thể gây hiểu lầm nếu lệch lớp)
+Macro-F1 : 0.3750  (chỉ số chính, phản ánh đúng cả lớp hiếm)
+Micro-F1 : 0.6000
+
+Báo cáo chi tiết theo từng lớp:
+              precision    recall  f1-score   support
+
+           0       0.75      0.75      0.75         4
+           1       0.00      0.00      0.00         1
+
+    accuracy                           0.60         5
+   macro avg       0.38      0.38      0.38         5
+weighted avg       0.60      0.60      0.60         5
+
+branch  n_samples  macro_f1  balanced_accuracy
+ image          5     0.375              0.375
+  text          0       NaN                NaN
+fusion          5     0.375              0.375
+Đã lưu log tại: /Users/hung/Documents/MyProject/Python/DA_CNTT/vlm-zeroshot-content-classification/results/upstream_projects/smoke_suite_ua4bjvve/experiment_yo4gy0ph/raw_predictions/openai_clip_vit_b_32__fakeddit__2way__dclip_labels_original_image_sNone__20261011_232118_882027  (2/5 mẫu sai)
+[TEXT SCALE] fakeddit: requested=25, effective=25, status=manual
+Accuracy : 0.6000  (chỉ tham khảo, có thể gây hiểu lầm nếu lệch lớp)
+Macro-F1 : 0.3750  (chỉ số chính, phản ánh đúng cả lớp hiếm)
+Micro-F1 : 0.6000
+
+Báo cáo chi tiết theo từng lớp:
+              precision    recall  f1-score   support
+
+           0       0.75      0.75      0.75         4
+           1       0.00      0.00      0.00         1
+
+    accuracy                           0.60         5
+   macro avg       0.38      0.38      0.38         5
+weighted avg       0.60      0.60      0.60         5
+
+branch  n_samples  macro_f1  balanced_accuracy
+ image          5     0.375              0.375
+  text          5     0.400              0.625
+fusion          5     0.375              0.375
+Đã lưu log tại: /Users/hung/Documents/MyProject/Python/DA_CNTT/vlm-zeroshot-content-classification/results/upstream_projects/smoke_suite_ua4bjvve/experiment_yo4gy0ph/raw_predictions/openai_clip_vit_b_32__fakeddit__2way__dclip_labels_multimodal_sNone__20261011_232118_922217  (2/5 mẫu sai)
+[TEXT SCALE] fakeddit: requested=25, effective=None, status=unused_image_only
+Accuracy : 0.4000  (chỉ tham khảo, có thể gây hiểu lầm nếu lệch lớp)
+Macro-F1 : 0.2857  (chỉ số chính, phản ánh đúng cả lớp hiếm)
+Micro-F1 : 0.4000
+
+Báo cáo chi tiết theo từng lớp:
+              precision    recall  f1-score   support
+
+           0       0.67      0.50      0.57         4
+           1       0.00      0.00      0.00         1
+
+    accuracy                           0.40         5
+   macro avg       0.33      0.25      0.29         5
+weighted avg       0.53      0.40      0.46         5
+
+branch  n_samples  macro_f1  balanced_accuracy
+ image          5  0.285714               0.25
+  text          0       NaN                NaN
+fusion          5  0.285714               0.25
+Đã lưu log tại: /Users/hung/Documents/MyProject/Python/DA_CNTT/vlm-zeroshot-content-classification/results/upstream_projects/smoke_suite_ua4bjvve/experiment_yo4gy0ph/raw_predictions/openai_clip_vit_b_32__fakeddit__2way__dclip_original_image_sNone__20261011_232119_023079  (3/5 mẫu sai)
+[TEXT SCALE] fakeddit: requested=25, effective=25, status=manual
+Accuracy : 0.4000  (chỉ tham khảo, có thể gây hiểu lầm nếu lệch lớp)
+Macro-F1 : 0.2857  (chỉ số chính, phản ánh đúng cả lớp hiếm)
+Micro-F1 : 0.4000
+
+Báo cáo chi tiết theo từng lớp:
+              precision    recall  f1-score   support
+
+           0       0.67      0.50      0.57         4
+           1       0.00      0.00      0.00         1
+
+    accuracy                           0.40         5
+   macro avg       0.33      0.25      0.29         5
+weighted avg       0.53      0.40      0.46         5
+
+branch  n_samples  macro_f1  balanced_accuracy
+ image          5  0.285714              0.250
+  text          5  0.400000              0.625
+fusion          5  0.285714              0.250
+Đã lưu log tại: /Users/hung/Documents/MyProject/Python/DA_CNTT/vlm-zeroshot-content-classification/results/upstream_projects/smoke_suite_ua4bjvve/experiment_yo4gy0ph/raw_predictions/openai_clip_vit_b_32__fakeddit__2way__dclip_multimodal_sNone__20261011_232119_063301  (3/5 mẫu sai)
+[RESULTS] /Users/hung/Documents/MyProject/Python/DA_CNTT/vlm-zeroshot-content-classification/results/upstream_projects/smoke_suite_ua4bjvve/experiment_yo4gy0ph; summary.tsv + seed_summary.tsv + raw_predictions/

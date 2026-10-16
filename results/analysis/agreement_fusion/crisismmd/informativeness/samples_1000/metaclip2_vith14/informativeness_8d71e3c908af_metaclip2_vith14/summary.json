@@ -1,0 +1,25 @@
+{
+  "source": "results/runs/crisismmd_info_agreement/8d71e3c908af/run_artifacts.zip",
+  "model": "metaclip2_vith14",
+  "task": "informativeness",
+  "n_samples": 1000,
+  "n_relation_applied": 1000,
+  "mean_gate": 0.011716766594243946,
+  "max_gate": 0.06469264384841539,
+  "two_signal": {
+    "accuracy": 0.806,
+    "macro_f1": 0.8058881915983607,
+    "auroc_informative_positive": 0.905550796159771
+  },
+  "three_signal": {
+    "accuracy": 0.806,
+    "macro_f1": 0.8058881915983607,
+    "auroc_informative_positive": 0.9054904657906697
+  },
+  "n_changed": 0,
+  "wrong_to_right": 0,
+  "right_to_wrong": 0,
+  "wrong_to_wrong_changed": 0,
+  "split": "val",
+  "split_verified": false
+}

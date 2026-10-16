@@ -1,0 +1,8 @@
+{
+  "run_id": "0ca31ceaddc9",
+  "task": "both",
+  "max_samples": 30,
+  "code_sha256": "3815cdd70fe7a3b4654231918804c5e8b733cd9e0410165502163e94aa1d9c4e",
+  "data_sha256": "242b22ae91ecd9e8af53f5729195e7e6d5003cc333ab331ba27ac1cda09367c5",
+  "gpu": "Tesla T4"
+}

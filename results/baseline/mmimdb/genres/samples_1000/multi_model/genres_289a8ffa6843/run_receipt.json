@@ -1,0 +1,8 @@
+{
+  "run_id": "289a8ffa6843",
+  "job_id": "mmimdb_genres",
+  "kind": "standard",
+  "code_sha256": "50b211d5e660c8d21bb5ae500ba976f47ec24becf4d55c1badb34363de2877be",
+  "data_sha256": "2b6b926bb4fd8d0ab947f37fa976e647a4ccf4d54466bb97a5549665263fb1d4",
+  "gpu": "Tesla T4"
+}

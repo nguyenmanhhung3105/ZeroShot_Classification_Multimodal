@@ -1,0 +1,8 @@
+{
+  "run_id": "5c06beff2492",
+  "job_id": "upstream_crisismmd_info",
+  "kind": "upstream",
+  "code_sha256": "029fa7fa79b8753a840ab6ee3402e288d378783af645fe82c2c769f9796b9db6",
+  "data_sha256": "4d9a5d6ae79565f922e63f50c7e25fcf4837dfde5ac83ba7c5f1eee484a1d8af",
+  "gpu": "Tesla T4"
+}

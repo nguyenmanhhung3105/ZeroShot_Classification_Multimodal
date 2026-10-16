@@ -1,0 +1,465 @@
+{
+  "sample_set_id": "d57428274976edb4784c39e774fca5940a7b7bfe981f53d3638a33763f004368",
+  "cohort": {
+    "dataset": "crisismmd",
+    "task": "humanitarian",
+    "scope": "upstream",
+    "data_path": "data/processed/pro_crisismmd/pre_crisismmd.tsv",
+    "limit": 5,
+    "min_text_length": 0,
+    "id_col": "tweet_id",
+    "text_col": "clean_text",
+    "label_col": "label_humanitarian",
+    "samples": [
+      {
+        "id": "9,17791E+17",
+        "text_sha256": "73eb6e62b5b08e7cf0d7f302e770932608b091ff2834ef9a94a3df7faadf0323",
+        "label": "other_relevant_information",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/10_10_2017/917791044158185473_0.jpg",
+        "image_stat": {
+          "size": 43879,
+          "mtime_ns": 1581856182718355632
+        }
+      },
+      {
+        "id": "9,17793E+17",
+        "text_sha256": "37de66b3b00f4a01a4ed42dcf425262450135fdafca3e4d2150140d636890aa7",
+        "label": "infrastructure_and_utility_damage",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/10_10_2017/917793137925459968_0.jpg",
+        "image_stat": {
+          "size": 41100,
+          "mtime_ns": 1581856182000000000
+        }
+      },
+      {
+        "id": "9,17793E+17",
+        "text_sha256": "37de66b3b00f4a01a4ed42dcf425262450135fdafca3e4d2150140d636890aa7",
+        "label": "infrastructure_and_utility_damage",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/10_10_2017/917793137925459968_1.jpg",
+        "image_stat": {
+          "size": 21256,
+          "mtime_ns": 1581856182000000000
+        }
+      },
+      {
+        "id": "9,17793E+17",
+        "text_sha256": "37de66b3b00f4a01a4ed42dcf425262450135fdafca3e4d2150140d636890aa7",
+        "label": "infrastructure_and_utility_damage",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/10_10_2017/917793137925459968_2.jpg",
+        "image_stat": {
+          "size": 23830,
+          "mtime_ns": 1581856182000000000
+        }
+      },
+      {
+        "id": "9,17794E+17",
+        "text_sha256": "14ed28e504413422a06db19b3eac6b33ba458c302da03273877410fe51747b37",
+        "label": "not_humanitarian",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/10_10_2017/917793736918216706_0.jpg",
+        "image_stat": {
+          "size": 77325,
+          "mtime_ns": 1581856182774824105
+        }
+      }
+    ]
+  },
+  "sample_lock_path": null,
+  "config": {
+    "models": [
+      "metaclip2_vith14"
+    ],
+    "inference": {
+      "batch_size": 16,
+      "image_weight": 0.5,
+      "text_logit_scale": null
+    },
+    "datasets": {
+      "fakeddit": {
+        "enabled": true,
+        "task": "6way",
+        "data_path": "data/processed/pro_fakeddit/fakeddit_sample.tsv",
+        "image_dir": "data/processed/pro_fakeddit/images",
+        "id_col": "id",
+        "text_col": "clean_title",
+        "label_col_2way": "2_way_label",
+        "label_col_6way": "6_way_label",
+        "min_text_length": 20,
+        "max_samples": 1000,
+        "prompt_aggregation": "mean_sim",
+        "prompt_variants": [
+          "current"
+        ],
+        "inference": {
+          "image_weight": 0.75,
+          "text_logit_scale": 25
+        }
+      },
+      "crisismmd": {
+        "enabled": true,
+        "task": "humanitarian",
+        "data_path": "data/processed/pro_crisismmd/pre_crisismmd.tsv",
+        "image_dir": "data/processed/pro_crisismmd/images",
+        "id_col": "tweet_id",
+        "text_col": "clean_text",
+        "label_col_info": "label_informative",
+        "label_col_human": "label_humanitarian",
+        "max_samples": 5,
+        "prompt_aggregation": "mean_embed",
+        "inference": {
+          "image_weight": 0.5,
+          "text_logit_scale": null
+        },
+        "prompt_variant": "current"
+      },
+      "mmimdb": {
+        "enabled": true,
+        "task": "genres",
+        "data_path": "data/processed/pro_mmimdb/mmimdb_sample.tsv",
+        "image_dir": "data/processed/pro_mmimdb/images",
+        "id_col": "id",
+        "text_col": "plot",
+        "label_col": "genres",
+        "max_samples": 1000,
+        "prompt_aggregation": "mean_sim",
+        "decision_mode": "relative_z",
+        "relative_z_threshold": 1.0,
+        "threshold": 0.22,
+        "chunk_long_text": true,
+        "chunk_aggregation": "mean_embed",
+        "inference": {
+          "image_weight": 0.5,
+          "text_logit_scale": null
+        }
+      }
+    },
+    "evaluation": {
+      "enabled": true,
+      "split": "val",
+      "measure_truncation": true,
+      "sample_lock_mode": "off",
+      "sample_lock_dir": "results/sample_locks"
+    },
+    "demo": {
+      "n_samples": 10,
+      "batch_size": 4,
+      "prompt_version": "v1",
+      "log_dir": "results/demo_logs",
+      "visualization_dir": "results/demo"
+    },
+    "output": {
+      "results_dir": "results/",
+      "raw_predictions_dir": "results/raw_predictions/",
+      "summary_table": "results/summary_table.tsv"
+    }
+  },
+  "effective_dataset": {
+    "enabled": true,
+    "task": "humanitarian",
+    "data_path": "data/processed/pro_crisismmd/pre_crisismmd.tsv",
+    "image_dir": "data/processed/pro_crisismmd/images",
+    "id_col": "tweet_id",
+    "text_col": "clean_text",
+    "label_col_info": "label_informative",
+    "label_col_human": "label_humanitarian",
+    "max_samples": 5,
+    "prompt_aggregation": "mean_embed",
+    "inference": {
+      "image_weight": 0.5,
+      "text_logit_scale": null
+    },
+    "prompt_variant": "current"
+  },
+  "prompts": {
+    "image": {
+      "Not Humanitarian": [
+        "Not Humanitarian"
+      ],
+      "Other Relevant Information": [
+        "Other Relevant Information"
+      ],
+      "Rescue/Volunteering/Donation": [
+        "Rescue/Volunteering/Donation"
+      ],
+      "Infrastructure/Utility Damage": [
+        "Infrastructure/Utility Damage"
+      ],
+      "Affected Individuals": [
+        "Affected Individuals"
+      ],
+      "Vehicle Damage": [
+        "Vehicle Damage"
+      ],
+      "Injured or Dead People": [
+        "Injured or Dead People"
+      ],
+      "Missing or Found People": [
+        "Missing or Found People"
+      ]
+    },
+    "text": {
+      "not_humanitarian": [
+        "a casual tweet or everyday conversation that does not mention any damage, victims, or relief efforts from a disaster",
+        "a tweet expressing a personal opinion, a prayer, or a joke about a hurricane or disaster without sharing any useful humanitarian information",
+        "a tweet about politics, celebrities, or general news commentary that has no connection to disaster impacts or assistance",
+        "a promotional or advertising tweet that happens to use disaster-related hashtags but offers no real information",
+        "a vague tweet that only mentions the word hurricane, earthquake, or wildfire without describing what is happening",
+        "a tweet about sports, entertainment, or daily life that is unrelated to people affected by a disaster",
+        "an ordinary photograph of daily life, such as people, food, pets, or streets, with no sign of any disaster",
+        "a meme, cartoon, or illustrated graphic that contains no real information about disaster impacts or relief",
+        "a screenshot of plain text, a logo, or a banner that provides no visible information about damage or humanitarian needs",
+        "a photograph of a politician, celebrity, or speaker at a press event rather than a disaster scene",
+        "a calm and peaceful outdoor scene with a clear sky and no visible damage, danger, or emergency",
+        "an advertisement or product image that has no relation to disaster impacts or assistance"
+      ],
+      "other_relevant_information": [
+        "a tweet giving a general update about where a hurricane, wildfire, flood, or earthquake is happening and how serious it is",
+        "a tweet sharing a weather forecast, storm track, or official warning that helps people understand the situation",
+        "a tweet reporting the current conditions of an ongoing disaster, such as rising water, spreading fire, or strong winds",
+        "a tweet from a news outlet or authority summarizing the overall situation of a disaster without focusing on victims or damage",
+        "a tweet describing an earthquake or storm in general terms, such as its magnitude, location, or expected path",
+        "a tweet passing along useful situational information about a disaster that does not fit a specific humanitarian category",
+        "a wide overview photograph showing a disaster scene such as a wildfire, flooded area, or damaged landscape from a distance",
+        "a satellite image or aerial view showing the extent of a hurricane, flood, or fire",
+        "a weather map or radar image showing the path and intensity of an approaching storm",
+        "a screenshot of an official hazard warning, evacuation map, or situation report about a disaster",
+        "a photograph of dark storm clouds, rising floodwater, or smoke that shows a disaster developing without focusing on people or buildings",
+        "an informational graphic or chart that provides context about an ongoing natural disaster"
+      ],
+      "rescue_volunteering_or_donation_effort": [
+        "a tweet reporting that rescue teams or emergency crews are saving people from floodwater, fire, or collapsed buildings",
+        "a tweet showing gratitude to volunteers, firefighters, soldiers, or neighbors who are helping disaster survivors",
+        "a tweet asking people to donate money, food, water, clothing, or supplies to help disaster victims",
+        "a tweet calling for volunteers or announcing a fundraising campaign for communities recovering from a disaster",
+        "a tweet announcing that a shelter, relief center, or aid distribution point is open for people in need",
+        "a tweet describing charities, the Red Cross, or local organizations delivering help to affected areas",
+        "a photograph of rescue workers or boats helping people escape from flooded streets",
+        "a photograph of firefighters or emergency responders carrying out a rescue during a disaster",
+        "a photograph of volunteers handing out food, bottled water, blankets, or clothing to survivors",
+        "a photograph of people loading, sorting, or delivering relief supplies and donations",
+        "a photograph of volunteers cleaning up debris or helping rebuild homes after a disaster",
+        "a poster or flyer that asks for donations, volunteers, or support for disaster relief"
+      ],
+      "infrastructure_and_utility_damage": [
+        "a tweet reporting that houses, buildings, or schools were damaged or destroyed by a disaster",
+        "a tweet describing roads, bridges, or highways that are flooded, cracked, or blocked after a disaster",
+        "a tweet reporting power outages, broken water supply, or lost phone and internet service caused by a disaster",
+        "a tweet describing collapsed walls, torn roofs, or fallen trees and power lines after a storm",
+        "a tweet reporting that airports, railways, or public transportation were shut down because of damage",
+        "a tweet describing entire neighborhoods or towns left in ruins after an earthquake, fire, or hurricane",
+        "a photograph of collapsed buildings or houses reduced to rubble after an earthquake or hurricane",
+        "a photograph of homes burned to the ground by a wildfire, leaving only ashes and ruins",
+        "a photograph of a broken bridge, cracked road, or highway washed away by flooding",
+        "a photograph of fallen power lines, broken utility poles, or electrical equipment damaged by a storm",
+        "a photograph of a street or building heavily flooded, with water filling roads and entering structures",
+        "a photograph of a roof torn off, walls destroyed, or a public building severely damaged by a disaster"
+      ],
+      "affected_individuals": [
+        "a tweet describing families who lost their homes and are now displaced or living without shelter after a disaster",
+        "a tweet about people who were evacuated and are staying in shelters or with relatives",
+        "a tweet describing residents who are stranded, hungry, or waiting for help because of a flood or storm",
+        "a tweet sharing the emotional struggle of survivors who lost their belongings, livelihoods, or loved places",
+        "a tweet reporting how many people were affected, displaced, or left without basic necessities by a disaster",
+        "a tweet describing survivors trying to cope and rebuild their lives after a disaster",
+        "a photograph of families carrying their belongings as they leave their homes during an evacuation",
+        "a photograph of survivors sitting or sleeping in a crowded temporary shelter or relief camp",
+        "a photograph of residents standing in knee-deep floodwater in front of their damaged homes",
+        "a photograph of people looking through the remains of their destroyed house for belongings",
+        "a photograph of distressed or exhausted disaster survivors waiting for assistance",
+        "a photograph of children and elderly people affected by a disaster and in need of help"
+      ],
+      "vehicle_damage": [
+        "a tweet reporting that cars, trucks, or buses were damaged by floodwater, fire, or falling debris",
+        "a tweet describing vehicles that were swept away, submerged, or buried during a disaster",
+        "a tweet about boats or ships damaged, washed ashore, or destroyed by a hurricane or storm",
+        "a tweet reporting cars crushed by fallen trees, collapsed walls, or broken buildings",
+        "a tweet showing concern for vehicles left abandoned, flooded, or burned during a disaster",
+        "a tweet reporting that many vehicles were destroyed in a wildfire, earthquake, or flood",
+        "a close-up photograph of a car partly or fully submerged in floodwater",
+        "a photograph of rows of flooded cars standing in a water-filled street",
+        "a photograph of burned-out vehicles left behind after a wildfire",
+        "a photograph of a car crushed by a fallen tree, debris, or collapsed structure",
+        "a photograph of overturned trucks or buses damaged by a powerful storm or earthquake",
+        "a photograph of boats thrown onto land or wrecked by a hurricane"
+      ],
+      "injured_or_dead_people": [
+        "a tweet reporting that people were killed in a disaster and mentioning the number of deaths",
+        "a tweet reporting that many people were injured and are being treated at hospitals",
+        "a tweet sharing the growing death toll or casualty figures from an earthquake, hurricane, or flood",
+        "a tweet mourning the victims who lost their lives in a disaster",
+        "a tweet describing medical teams treating wounded survivors after a disaster",
+        "a tweet reporting that bodies were recovered or victims were found dead after a disaster",
+        "a photograph of injured survivors being treated by doctors, nurses, or paramedics after a disaster",
+        "a photograph of a wounded person being carried on a stretcher or helped into an ambulance",
+        "a photograph of victims lying injured or lifeless among the debris of a disaster",
+        "a photograph of rescuers recovering bodies from rubble, floodwater, or burned areas",
+        "a photograph of people grieving or mourning beside victims who died in a disaster",
+        "a photograph of a field hospital or medical tent caring for injured disaster victims"
+      ],
+      "missing_or_found_people": [
+        "a tweet asking for help finding a family member or friend who has gone missing after a disaster",
+        "a tweet sharing the name, age, and last known location of a person missing after a disaster",
+        "a tweet announcing that a missing person has been found safe and reunited with their family",
+        "a tweet asking people to share information about loved ones who they cannot contact after a disaster",
+        "a tweet reporting that rescuers are still searching for people missing under rubble or floodwater",
+        "a tweet confirming the safety of people who were previously reported missing",
+        "a missing person poster showing a photograph, name, and contact details",
+        "a social media post with a person's photo asking whether anyone has seen them after a disaster",
+        "a photograph of search teams looking for missing people among ruins or flooded areas",
+        "a photograph of family members happily reunited after being separated during a disaster",
+        "a list or board of names of people who are missing or have been found safe",
+        "a photograph of someone holding a picture of a missing relative while searching for information"
+      ]
+    }
+  },
+  "prompt_id": "7606d12673039816d82ad6139b63d21df052ccfc7748478b731ac9a7a7d7553b",
+  "split": "val",
+  "split_verified": false,
+  "truncate_enabled": true,
+  "cosine": {
+    "image": {
+      "cosine_mean": 0.20276889204978943,
+      "cosine_std": 0.017488842830061913
+    },
+    "text": {
+      "cosine_mean": 0.6842372015118598,
+      "cosine_std": 0.044775226100216885
+    }
+  },
+  "effective_inference": {
+    "fallback_top1": true,
+    "image_weight": 0.5,
+    "logit_scale": 100.00000762939453,
+    "logit_bias": 0.0
+  },
+  "truncation": {
+    "status": "measured",
+    "context_length": 77,
+    "n_nonempty": 5,
+    "n_measured": 5,
+    "n_truncated": 0,
+    "truncated_rate": 0.0
+  },
+  "text_lengths": [
+    {
+      "sample_index": 0,
+      "id": "9,17791E+17",
+      "token_count": 9,
+      "truncated": false
+    },
+    {
+      "sample_index": 1,
+      "id": "9,17793E+17",
+      "token_count": 13,
+      "truncated": false
+    },
+    {
+      "sample_index": 2,
+      "id": "9,17793E+17",
+      "token_count": 13,
+      "truncated": false
+    },
+    {
+      "sample_index": 3,
+      "id": "9,17793E+17",
+      "token_count": 13,
+      "truncated": false
+    },
+    {
+      "sample_index": 4,
+      "id": "9,17794E+17",
+      "token_count": 6,
+      "truncated": false
+    }
+  ],
+  "diagnostics": [
+    {
+      "branch": "image",
+      "n_samples": 5,
+      "score_type": "probability",
+      "macro_f1": 0.0625,
+      "balanced_accuracy": 0.1111111111111111,
+      "top2_margin": 0.23724296689033508,
+      "entropy": 1.2282975990051734,
+      "cosine_mean": 0.20276889204978943,
+      "cosine_std": 0.017488842830061913
+    },
+    {
+      "branch": "text",
+      "n_samples": 5,
+      "score_type": "probability",
+      "macro_f1": 0.175,
+      "balanced_accuracy": 0.6666666666666666,
+      "top2_margin": 0.19474369223466487,
+      "entropy": 1.1123061073730949,
+      "cosine_mean": 0.6842372015118598,
+      "cosine_std": 0.044775226100216885,
+      "input_status": "measured",
+      "input_context_length": 77,
+      "input_n_nonempty": 5,
+      "input_n_measured": 5,
+      "input_n_truncated": 0,
+      "input_truncated_rate": 0.0
+    },
+    {
+      "branch": "fusion",
+      "n_samples": 5,
+      "score_type": "probability",
+      "macro_f1": 0.1875,
+      "balanced_accuracy": 0.4444444444444444,
+      "top2_margin": 0.1354884572043919,
+      "entropy": 1.5301551744042579
+    }
+  ],
+  "summary": {
+    "sample_set_id": "d57428274976edb4784c39e774fca5940a7b7bfe981f53d3638a33763f004368",
+    "prompt_id": "7606d12673039816d82ad6139b63d21df052ccfc7748478b731ac9a7a7d7553b",
+    "split": "val",
+    "image_n_samples": 5,
+    "image_macro_f1": 0.0625,
+    "image_balanced_accuracy": 0.1111111111111111,
+    "text_n_samples": 5,
+    "text_macro_f1": 0.175,
+    "text_balanced_accuracy": 0.6666666666666666,
+    "fusion_n_samples": 5,
+    "fusion_macro_f1": 0.1875,
+    "fusion_balanced_accuracy": 0.4444444444444444,
+    "config_id": "8eaf611b028b35986fbc7fca4c37b83869bd1ac79b90c6e5b8c717a99b9f2501"
+  },
+  "model": "openai_clip_vit_b_32",
+  "config_id": "8eaf611b028b35986fbc7fca4c37b83869bd1ac79b90c6e5b8c717a99b9f2501",
+  "source_sha256": {
+    "text_chunking.py": "ac5f2e917eda4783b4187bbfe7a5b82b09ab3761780d84d24bf01c01c4791487",
+    "config.py": "e85c8843c8e3b0f34b74cce4ad652b862ac70c6a3d8f17eae46e517ddddfe42d",
+    "text_scale.py": "bbdf3dade644f5036d0e5ad57766e711a7e0be8f1711e91fa541ef53aee94eae",
+    "evaluation_audit.py": "c51a314bf1fe0790a25201a59816fa88b6d06946960af3e6862ee5e5a27da1c0",
+    "inference.py": "58006800e7ffb45dd71d6a5511ce276aa7c77e6a78432d95988a4e6ce473defa",
+    "evaluate.py": "13e369b8fa8898a751afc0cd0b7d5360229b1a574cd00522dabf6b0137dc3d1f",
+    "run_experiment.py": "af61f2117f6ea4afadee2846032087adb28922bc647595a1bdcf7cc1ad982d74",
+    "demo.py": "7bf8794c2a19d1f47e27f8f9e706419de44115d5dd3c594da7db14c950fddf3f",
+    "logging_utils.py": "37ce22a854568fe025a645a415d4b391139f7ea00f043f2e352ebafabffeade9",
+    "research/__init__.py": "c0b1bb68d820937dd39326cbc9fcc24e001c6c3beefd0b09732de585760e4c01",
+    "research/adapted_methods.py": "6fa6b4dbf5c125b13146fb04cf01ab59cd2ca246981f40c833e70fdba1c50d3d",
+    "research/run_upstream.py": "cdc74ce6b61ec9f04edb117343280a0adb1f15e0c1e77489a22da090353da42f",
+    "research/run_adapted_methods.py": "20c9d4cb3de03fef75d632a41a7292bc39094cb2d1f6c43bddd5517ccf49c2a2",
+    "research/upstream.py": "8216a82d0ebe70204f1a2b5f7977210cb80b8632bc891cfde1333044bb990861",
+    "models/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "models/model_registry.py": "0aca2fae98e75eb75ba077f891367543f99d8b2dc22853609ab24d03b4d6e6bb",
+    "prompts/crisismmd_prompts.py": "1b4105bee5a11a4cd36b2cb75bd9c2cdad102b0b80431c142ec2d4ef225d82c7",
+    "prompts/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "prompts/mmimdb_prompts.py": "1fb94954049555d75d89c70182de29baf494625bedeaa1901059e94baaeb4ddc",
+    "prompts/fakeddit_prompts.py": "4440673640e19e6151417386e4c4512486f0187ad5bc3fc0ac137c4736904172",
+    "run/run_fakeddit.py": "5084a27f047aad3c463f50403262c347c8717512ebeed37d7b98379da27e4068",
+    "run/__init__.py": "d6045de51bed3d3aff5615c2e0a47242041fbf3ab45d3e01c018bac9b954d5cc",
+    "run/common.py": "765828356bf79483bf2ac2abb9b8241e86fc2f38238079b0292c584da1260b85",
+    "run/run_mmimdb.py": "f980892fab08f4bbc9cecd73548b663cae20f8144367863be34270c21a6cf76f",
+    "run/run_crisismmd.py": "c464d3a81bb96d138d0ff30b5d0332fa0838cbebf5a1a436082932e02733ab81",
+    "preprocessing/data_fakeddit/check_fakeddit_ready.py": "1da592331ef420f98763b2b4456bcb1d8a36129158deb6e6604500163a43bf9b",
+    "preprocessing/data_fakeddit/image_downloader.py": "ed5a2da169a357a274da29b2aaa272f20c7b71de432ba0a6e0471680e441e1df",
+    "preprocessing/data_fakeddit/preprocess_fakeddit.py": "8485e197320fa345f941cf637fbde35179a45713be150142873c82c52e3bd7c3",
+    "preprocessing/data_mmimdb/check_mmimdb_ready.py": "a85fea828306ae4b82cd03a2c8b1d3584d7b42793511f57a5983d924ed983bd2",
+    "preprocessing/data_mmimdb/preprocess_mmimdb.py": "95add68bb14e07c303df5b73f130328e2afe4a9fb8cf70a46c631dc5da791e19",
+    "preprocessing/data_crisismmd/check_crisismmd_processed.py": "db23159b26d73305d0e3ecd3e248c08a18ce892ad1b9536f496c95be20392178",
+    "preprocessing/data_crisismmd/preprocess_crisismmd.py": "dc63692f8de39e61d49e9fbfbd8634f980d856dbceda26a180b597268f95133a"
+  },
+  "git_hash": "e82d021743dcb07b6876e73e50e48442606629bd"
+}

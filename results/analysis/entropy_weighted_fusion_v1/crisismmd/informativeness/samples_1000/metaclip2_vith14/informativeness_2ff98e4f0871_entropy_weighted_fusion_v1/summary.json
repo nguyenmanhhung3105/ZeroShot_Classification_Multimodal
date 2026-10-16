@@ -1,0 +1,57 @@
+{
+  "policy": "entropy_weighted_fusion_v1",
+  "source_archive": "results/adapted_dclip/crisismmd/informativeness/samples_1000/metaclip2_vith14/informativeness_2ff98e4f0871/run_artifacts.zip",
+  "model": "metaclip2_vith14",
+  "dataset": "crisismmd",
+  "task": "informativeness",
+  "n_samples": 1000,
+  "sample_set_id": "72ae423b00b5379a56d56a6530946ad78b2ad0c24a710af8f5ef6ab4e5d62d5c",
+  "source_relation_enabled": false,
+  "source_split_verified": false,
+  "uses_y_true_for_weight": false,
+  "formula": "c_b=1-H(p_b)/log(C); w_image=c_image/(c_image+c_text); P=w_image*p_image+(1-w_image)*p_text; both_zero=>w_image=0.5; empty_text=>w_image=1",
+  "baseline": {
+    "accuracy": 0.834,
+    "macro_f1": 0.8325201480279751,
+    "per_class": {
+      "informative": {
+        "support": 537,
+        "precision": 0.8330341113105925,
+        "recall": 0.8640595903165735,
+        "f1": 0.8482632541133455
+      },
+      "not_informative": {
+        "support": 463,
+        "precision": 0.835214446952596,
+        "recall": 0.7991360691144709,
+        "f1": 0.8167770419426048
+      }
+    }
+  },
+  "entropy_weighted": {
+    "accuracy": 0.834,
+    "macro_f1": 0.8325201480279751,
+    "per_class": {
+      "informative": {
+        "support": 537,
+        "precision": 0.8330341113105925,
+        "recall": 0.8640595903165735,
+        "f1": 0.8482632541133455
+      },
+      "not_informative": {
+        "support": 463,
+        "precision": 0.835214446952596,
+        "recall": 0.7991360691144709,
+        "f1": 0.8167770419426048
+      }
+    }
+  },
+  "n_branch_disagreement": 361,
+  "n_changed": 0,
+  "wrong_to_right": 0,
+  "right_to_wrong": 0,
+  "wrong_to_wrong_changed": 0,
+  "mean_image_weight": 0.5057648994218525,
+  "median_image_weight": 0.49484872760610915,
+  "n_image_weight_gt_half": 490
+}

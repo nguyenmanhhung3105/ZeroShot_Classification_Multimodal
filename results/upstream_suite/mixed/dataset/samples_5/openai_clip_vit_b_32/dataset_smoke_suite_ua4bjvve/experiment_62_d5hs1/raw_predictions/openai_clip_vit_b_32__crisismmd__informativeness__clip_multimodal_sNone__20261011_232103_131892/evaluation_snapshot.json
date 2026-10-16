@@ -1,0 +1,390 @@
+{
+  "sample_set_id": "5a0c433b876e56db482ebb87075f8e71316418783b1216c736de0753808b0ff1",
+  "cohort": {
+    "dataset": "crisismmd",
+    "task": "informativeness",
+    "scope": "upstream",
+    "data_path": "data/processed/pro_crisismmd/pre_crisismmd.tsv",
+    "limit": 5,
+    "min_text_length": 0,
+    "id_col": "tweet_id",
+    "text_col": "clean_text",
+    "label_col": "label_informative",
+    "samples": [
+      {
+        "id": "9,17791E+17",
+        "text_sha256": "73eb6e62b5b08e7cf0d7f302e770932608b091ff2834ef9a94a3df7faadf0323",
+        "label": "informative",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/10_10_2017/917791044158185473_0.jpg",
+        "image_stat": {
+          "size": 43879,
+          "mtime_ns": 1581856182718355632
+        }
+      },
+      {
+        "id": "9,17793E+17",
+        "text_sha256": "37de66b3b00f4a01a4ed42dcf425262450135fdafca3e4d2150140d636890aa7",
+        "label": "informative",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/10_10_2017/917793137925459968_0.jpg",
+        "image_stat": {
+          "size": 41100,
+          "mtime_ns": 1581856182000000000
+        }
+      },
+      {
+        "id": "9,17793E+17",
+        "text_sha256": "37de66b3b00f4a01a4ed42dcf425262450135fdafca3e4d2150140d636890aa7",
+        "label": "informative",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/10_10_2017/917793137925459968_1.jpg",
+        "image_stat": {
+          "size": 21256,
+          "mtime_ns": 1581856182000000000
+        }
+      },
+      {
+        "id": "9,17793E+17",
+        "text_sha256": "37de66b3b00f4a01a4ed42dcf425262450135fdafca3e4d2150140d636890aa7",
+        "label": "informative",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/10_10_2017/917793137925459968_2.jpg",
+        "image_stat": {
+          "size": 23830,
+          "mtime_ns": 1581856182000000000
+        }
+      },
+      {
+        "id": "9,17794E+17",
+        "text_sha256": "14ed28e504413422a06db19b3eac6b33ba458c302da03273877410fe51747b37",
+        "label": "not_informative",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/10_10_2017/917793736918216706_0.jpg",
+        "image_stat": {
+          "size": 77325,
+          "mtime_ns": 1581856182774824105
+        }
+      }
+    ]
+  },
+  "sample_lock_path": null,
+  "config": {
+    "models": [
+      "metaclip2_vith14"
+    ],
+    "inference": {
+      "batch_size": 16,
+      "image_weight": 0.5,
+      "text_logit_scale": null
+    },
+    "datasets": {
+      "fakeddit": {
+        "enabled": true,
+        "task": "6way",
+        "data_path": "data/processed/pro_fakeddit/fakeddit_sample.tsv",
+        "image_dir": "data/processed/pro_fakeddit/images",
+        "id_col": "id",
+        "text_col": "clean_title",
+        "label_col_2way": "2_way_label",
+        "label_col_6way": "6_way_label",
+        "min_text_length": 20,
+        "max_samples": 1000,
+        "prompt_aggregation": "mean_sim",
+        "prompt_variants": [
+          "current"
+        ],
+        "inference": {
+          "image_weight": 0.75,
+          "text_logit_scale": 25
+        }
+      },
+      "crisismmd": {
+        "enabled": true,
+        "task": "informativeness",
+        "data_path": "data/processed/pro_crisismmd/pre_crisismmd.tsv",
+        "image_dir": "data/processed/pro_crisismmd/images",
+        "id_col": "tweet_id",
+        "text_col": "clean_text",
+        "label_col_info": "label_informative",
+        "label_col_human": "label_humanitarian",
+        "max_samples": 5,
+        "prompt_aggregation": "mean_embed",
+        "inference": {
+          "image_weight": 0.5,
+          "text_logit_scale": null
+        },
+        "prompt_variant": "current"
+      },
+      "mmimdb": {
+        "enabled": true,
+        "task": "genres",
+        "data_path": "data/processed/pro_mmimdb/mmimdb_sample.tsv",
+        "image_dir": "data/processed/pro_mmimdb/images",
+        "id_col": "id",
+        "text_col": "plot",
+        "label_col": "genres",
+        "max_samples": 1000,
+        "prompt_aggregation": "mean_sim",
+        "decision_mode": "relative_z",
+        "relative_z_threshold": 1.0,
+        "threshold": 0.22,
+        "chunk_long_text": true,
+        "chunk_aggregation": "mean_embed",
+        "inference": {
+          "image_weight": 0.5,
+          "text_logit_scale": null
+        }
+      }
+    },
+    "evaluation": {
+      "enabled": true,
+      "split": "val",
+      "measure_truncation": true,
+      "sample_lock_mode": "off",
+      "sample_lock_dir": "results/sample_locks"
+    },
+    "demo": {
+      "n_samples": 10,
+      "batch_size": 4,
+      "prompt_version": "v1",
+      "log_dir": "results/demo_logs",
+      "visualization_dir": "results/demo"
+    },
+    "output": {
+      "results_dir": "results/",
+      "raw_predictions_dir": "results/raw_predictions/",
+      "summary_table": "results/summary_table.tsv"
+    }
+  },
+  "effective_dataset": {
+    "enabled": true,
+    "task": "informativeness",
+    "data_path": "data/processed/pro_crisismmd/pre_crisismmd.tsv",
+    "image_dir": "data/processed/pro_crisismmd/images",
+    "id_col": "tweet_id",
+    "text_col": "clean_text",
+    "label_col_info": "label_informative",
+    "label_col_human": "label_humanitarian",
+    "max_samples": 5,
+    "prompt_aggregation": "mean_embed",
+    "inference": {
+      "image_weight": 0.5,
+      "text_logit_scale": null
+    },
+    "prompt_variant": "current"
+  },
+  "prompts": {
+    "image": {
+      "Informative": [
+        "A photo of a Informative."
+      ],
+      "Not Informative": [
+        "A photo of a Not Informative."
+      ]
+    },
+    "text": {
+      "informative": [
+        "a tweet with useful, informative content about a disaster",
+        "a tweet reporting destruction or damage caused by a disaster",
+        "a tweet describing a dangerous or devastating crisis situation",
+        "a tweet describing fear, panic, suffering, or distress during a disaster",
+        "a tweet reporting collapsed buildings, damaged homes, or destroyed infrastructure",
+        "a tweet reporting casualties, injuries, missing people, or people in danger",
+        "a tweet describing severe damage caused by fire, flood, earthquake, tsunami, or landslide",
+        "a tweet reporting emergency conditions during a natural disaster",
+        "a tweet providing information about evacuation, rescue, or emergency response",
+        "a tweet describing the aftermath and destruction caused by a disaster",
+        "a tweet containing important updates about an ongoing crisis",
+        "a tweet providing useful humanitarian information about a disaster",
+        "a photo showing relevant information about a crisis event",
+        "a photo showing useful visual information about a disaster",
+        "a photo showing destruction caused by a natural disaster",
+        "a photo showing buildings or houses damaged or destroyed by a disaster",
+        "a photo showing collapsed buildings and damaged infrastructure",
+        "a photo showing fire, wildfire, or severe burning during a disaster",
+        "a photo showing flooding, tsunami, or dangerous flood water",
+        "a photo showing a landslide, earthquake damage, or collapsed terrain",
+        "a photo showing a devastated city or severely damaged neighborhood",
+        "a photo showing ruins, debris, destruction, or disaster aftermath",
+        "a photo showing people affected by a dangerous disaster situation",
+        "a photo showing rescue workers, emergency response, or disaster relief",
+        "a photo containing visible information about an ongoing natural disaster",
+        "a photo showing dangerous conditions during a crisis",
+        "a photo documenting the aftermath of a major disaster"
+      ],
+      "not_informative": [
+        "a tweet with no useful information about the disaster",
+        "a tweet unrelated to disasters, emergencies, or dangerous events",
+        "a casual tweet about everyday life with no crisis information",
+        "a tweet expressing happiness, love, joy, or positive emotions unrelated to a disaster",
+        "a tweet describing peaceful or pleasant situations with no danger",
+        "a tweet containing ordinary conversation unrelated to a crisis",
+        "a tweet about entertainment, hobbies, or personal activities unrelated to a disaster",
+        "a tweet containing positive and cheerful content with no emergency information",
+        "a tweet discussing unrelated news with no information about a disaster",
+        "a tweet with no information about destruction, danger, rescue, or emergency response",
+        "an irrelevant tweet that provides no useful crisis-related information",
+        "an irrelevant photo not related to disaster response",
+        "a photo unrelated to disasters, emergencies, or crisis events",
+        "a normal everyday photo with no disaster-related information",
+        "a peaceful and beautiful outdoor scene with no signs of danger",
+        "a photo showing a clear blue sky and pleasant weather",
+        "a photo showing healthy trees, nature, or a calm landscape",
+        "a bright and pleasant scene with no destruction or emergency",
+        "a photo showing normal buildings and streets with no visible disaster damage",
+        "a photo showing ordinary daily life unrelated to a crisis",
+        "a happy or cheerful photo unrelated to a disaster",
+        "a photo containing news or text unrelated to a disaster",
+        "an irrelevant image that provides no useful information about a crisis",
+        "a photo with no visible destruction, danger, emergency, or disaster response"
+      ]
+    }
+  },
+  "prompt_id": "ddb6c8adbb775c8f5e8835ed1577363d9846efe6079675072cc523fc88247d45",
+  "split": "val",
+  "split_verified": false,
+  "truncate_enabled": true,
+  "cosine": {
+    "image": {
+      "cosine_mean": 0.20140492916107178,
+      "cosine_std": 0.009329854510724545
+    },
+    "text": {
+      "cosine_mean": 0.7038507103919983,
+      "cosine_std": 0.05928005519893119
+    }
+  },
+  "effective_inference": {
+    "fallback_top1": true,
+    "image_weight": 0.5,
+    "logit_scale": 100.00000762939453,
+    "logit_bias": 0.0
+  },
+  "truncation": {
+    "status": "measured",
+    "context_length": 77,
+    "n_nonempty": 5,
+    "n_measured": 5,
+    "n_truncated": 0,
+    "truncated_rate": 0.0
+  },
+  "text_lengths": [
+    {
+      "sample_index": 0,
+      "id": "9,17791E+17",
+      "token_count": 9,
+      "truncated": false
+    },
+    {
+      "sample_index": 1,
+      "id": "9,17793E+17",
+      "token_count": 13,
+      "truncated": false
+    },
+    {
+      "sample_index": 2,
+      "id": "9,17793E+17",
+      "token_count": 13,
+      "truncated": false
+    },
+    {
+      "sample_index": 3,
+      "id": "9,17793E+17",
+      "token_count": 13,
+      "truncated": false
+    },
+    {
+      "sample_index": 4,
+      "id": "9,17794E+17",
+      "token_count": 6,
+      "truncated": false
+    }
+  ],
+  "diagnostics": [
+    {
+      "branch": "image",
+      "n_samples": 5,
+      "score_type": "probability",
+      "macro_f1": 0.375,
+      "balanced_accuracy": 0.375,
+      "top2_margin": 0.1689489632844925,
+      "entropy": 0.6717952817915619,
+      "cosine_mean": 0.20140492916107178,
+      "cosine_std": 0.009329854510724545
+    },
+    {
+      "branch": "text",
+      "n_samples": 5,
+      "score_type": "probability",
+      "macro_f1": 1.0,
+      "balanced_accuracy": 1.0,
+      "top2_margin": 0.6736635034174605,
+      "entropy": 0.3359751326318226,
+      "cosine_mean": 0.7038507103919983,
+      "cosine_std": 0.05928005519893119,
+      "input_status": "measured",
+      "input_context_length": 77,
+      "input_n_nonempty": 5,
+      "input_n_measured": 5,
+      "input_n_truncated": 0,
+      "input_truncated_rate": 0.0
+    },
+    {
+      "branch": "fusion",
+      "n_samples": 5,
+      "score_type": "probability",
+      "macro_f1": 0.4444444444444444,
+      "balanced_accuracy": 0.5,
+      "top2_margin": 0.40425234820585565,
+      "entropy": 0.5927447044236251
+    }
+  ],
+  "summary": {
+    "sample_set_id": "5a0c433b876e56db482ebb87075f8e71316418783b1216c736de0753808b0ff1",
+    "prompt_id": "ddb6c8adbb775c8f5e8835ed1577363d9846efe6079675072cc523fc88247d45",
+    "split": "val",
+    "image_n_samples": 5,
+    "image_macro_f1": 0.375,
+    "image_balanced_accuracy": 0.375,
+    "text_n_samples": 5,
+    "text_macro_f1": 1.0,
+    "text_balanced_accuracy": 1.0,
+    "fusion_n_samples": 5,
+    "fusion_macro_f1": 0.4444444444444444,
+    "fusion_balanced_accuracy": 0.5,
+    "config_id": "5f4776cecd52aea0eb97f0bb667ac94b08e77220c85f4653007688ef24b62356"
+  },
+  "model": "openai_clip_vit_b_32",
+  "config_id": "5f4776cecd52aea0eb97f0bb667ac94b08e77220c85f4653007688ef24b62356",
+  "source_sha256": {
+    "text_chunking.py": "ac5f2e917eda4783b4187bbfe7a5b82b09ab3761780d84d24bf01c01c4791487",
+    "config.py": "e85c8843c8e3b0f34b74cce4ad652b862ac70c6a3d8f17eae46e517ddddfe42d",
+    "text_scale.py": "bbdf3dade644f5036d0e5ad57766e711a7e0be8f1711e91fa541ef53aee94eae",
+    "evaluation_audit.py": "c51a314bf1fe0790a25201a59816fa88b6d06946960af3e6862ee5e5a27da1c0",
+    "inference.py": "58006800e7ffb45dd71d6a5511ce276aa7c77e6a78432d95988a4e6ce473defa",
+    "evaluate.py": "13e369b8fa8898a751afc0cd0b7d5360229b1a574cd00522dabf6b0137dc3d1f",
+    "run_experiment.py": "af61f2117f6ea4afadee2846032087adb28922bc647595a1bdcf7cc1ad982d74",
+    "demo.py": "7bf8794c2a19d1f47e27f8f9e706419de44115d5dd3c594da7db14c950fddf3f",
+    "logging_utils.py": "37ce22a854568fe025a645a415d4b391139f7ea00f043f2e352ebafabffeade9",
+    "research/__init__.py": "c0b1bb68d820937dd39326cbc9fcc24e001c6c3beefd0b09732de585760e4c01",
+    "research/adapted_methods.py": "6fa6b4dbf5c125b13146fb04cf01ab59cd2ca246981f40c833e70fdba1c50d3d",
+    "research/run_upstream.py": "cdc74ce6b61ec9f04edb117343280a0adb1f15e0c1e77489a22da090353da42f",
+    "research/run_adapted_methods.py": "20c9d4cb3de03fef75d632a41a7292bc39094cb2d1f6c43bddd5517ccf49c2a2",
+    "research/upstream.py": "8216a82d0ebe70204f1a2b5f7977210cb80b8632bc891cfde1333044bb990861",
+    "models/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "models/model_registry.py": "0aca2fae98e75eb75ba077f891367543f99d8b2dc22853609ab24d03b4d6e6bb",
+    "prompts/crisismmd_prompts.py": "1b4105bee5a11a4cd36b2cb75bd9c2cdad102b0b80431c142ec2d4ef225d82c7",
+    "prompts/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "prompts/mmimdb_prompts.py": "1fb94954049555d75d89c70182de29baf494625bedeaa1901059e94baaeb4ddc",
+    "prompts/fakeddit_prompts.py": "4440673640e19e6151417386e4c4512486f0187ad5bc3fc0ac137c4736904172",
+    "run/run_fakeddit.py": "5084a27f047aad3c463f50403262c347c8717512ebeed37d7b98379da27e4068",
+    "run/__init__.py": "d6045de51bed3d3aff5615c2e0a47242041fbf3ab45d3e01c018bac9b954d5cc",
+    "run/common.py": "765828356bf79483bf2ac2abb9b8241e86fc2f38238079b0292c584da1260b85",
+    "run/run_mmimdb.py": "f980892fab08f4bbc9cecd73548b663cae20f8144367863be34270c21a6cf76f",
+    "run/run_crisismmd.py": "c464d3a81bb96d138d0ff30b5d0332fa0838cbebf5a1a436082932e02733ab81",
+    "preprocessing/data_fakeddit/check_fakeddit_ready.py": "1da592331ef420f98763b2b4456bcb1d8a36129158deb6e6604500163a43bf9b",
+    "preprocessing/data_fakeddit/image_downloader.py": "ed5a2da169a357a274da29b2aaa272f20c7b71de432ba0a6e0471680e441e1df",
+    "preprocessing/data_fakeddit/preprocess_fakeddit.py": "8485e197320fa345f941cf637fbde35179a45713be150142873c82c52e3bd7c3",
+    "preprocessing/data_mmimdb/check_mmimdb_ready.py": "a85fea828306ae4b82cd03a2c8b1d3584d7b42793511f57a5983d924ed983bd2",
+    "preprocessing/data_mmimdb/preprocess_mmimdb.py": "95add68bb14e07c303df5b73f130328e2afe4a9fb8cf70a46c631dc5da791e19",
+    "preprocessing/data_crisismmd/check_crisismmd_processed.py": "db23159b26d73305d0e3ecd3e248c08a18ce892ad1b9536f496c95be20392178",
+    "preprocessing/data_crisismmd/preprocess_crisismmd.py": "dc63692f8de39e61d49e9fbfbd8634f980d856dbceda26a180b597268f95133a"
+  },
+  "git_hash": "e82d021743dcb07b6876e73e50e48442606629bd"
+}

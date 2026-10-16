@@ -9,8 +9,12 @@ data/raw/
 backup/
 backups/
 
-# Kết quả
-results/
+# Kết quả thí nghiệm; bỏ bản staging và cache dữ liệu gửi Kaggle
+results/_system/launches/
+results/_system/kaggle_launcher/
+
+# Kết quả cũ không thêm file mới vào Git
+results1/
 
 # File dữ liệu đã xử lý lớn, không đưa lên Git
 data/processed/pro_fakeddit/fakeddit_clean.tsv

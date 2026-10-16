@@ -1,0 +1,194 @@
+[{"stream_name":"stdout","time":4.522888673,"data":"Requirement already satisfied: pandas\u003e=2.0.0 in /usr/local/lib/python3.13/dist-packages (from -r requirements.txt (line 2)) (2.3.3)\n"}
+,{"stream_name":"stdout","time":4.524163394,"data":"Requirement already satisfied: pyarrow in /usr/local/lib/python3.13/dist-packages (from -r requirements.txt (line 3)) (23.0.1)\n"}
+,{"stream_name":"stdout","time":4.531504249,"data":"Requirement already satisfied: numpy\u003e=1.24.0 in /usr/local/lib/python3.13/dist-packages (from -r requirements.txt (line 4)) (2.1.3)\n"}
+,{"stream_name":"stdout","time":4.533042144,"data":"Requirement already satisfied: pillow\u003e=10.0.0 in /usr/local/lib/python3.13/dist-packages (from -r requirements.txt (line 5)) (12.3.0)\n"}
+,{"stream_name":"stdout","time":4.536560273,"data":"Requirement already satisfied: tqdm\u003e=4.66.0 in /usr/local/lib/python3.13/dist-packages (from -r requirements.txt (line 8)) (4.67.3)\n"}
+,{"stream_name":"stdout","time":4.538807912,"data":"Requirement already satisfied: torch\u003e=2.1.0 in /usr/local/lib/python3.13/dist-packages (from -r requirements.txt (line 11)) (2.11.0+cu128)\n"}
+,{"stream_name":"stdout","time":4.540033068,"data":"Requirement already satisfied: torchvision\u003e=0.16.0 in /usr/local/lib/python3.13/dist-packages (from -r requirements.txt (line 12)) (0.26.0+cu128)\n"}
+,{"stream_name":"stdout","time":4.668102407,"data":"Collecting open_clip_torch\u003e=3.3.0 (from -r requirements.txt (line 14))\n"}
+,{"stream_name":"stdout","time":4.733839025,"data":"  Downloading open_clip_torch-3.3.0-py3-none-any.whl.metadata (32 kB)\n"}
+,{"stream_name":"stdout","time":4.761812549,"data":"Requirement already satisfied: transformers\u003e=4.38.0 in /usr/local/lib/python3.13/dist-packages (from -r requirements.txt (line 15)) (5.16.1)\n"}
+,{"stream_name":"stdout","time":4.764238248,"data":"Requirement already satisfied: scikit-learn\u003e=1.3.0 in /usr/local/lib/python3.13/dist-packages (from -r requirements.txt (line 18)) (1.6.1)\n"}
+,{"stream_name":"stdout","time":4.766114451,"data":"Requirement already satisfied: matplotlib\u003e=3.8.0 in /usr/local/lib/python3.13/dist-packages (from -r requirements.txt (line 19)) (3.10.0)\n"}
+,{"stream_name":"stdout","time":4.767307463,"data":"Requirement already satisfied: pyyaml\u003e=6.0 in /usr/local/lib/python3.13/dist-packages (from -r requirements.txt (line 22)) (6.0.3)\n"}
+,{"stream_name":"stdout","time":4.785151881,"data":"Requirement already satisfied: python-dateutil\u003e=2.8.2 in /usr/local/lib/python3.13/dist-packages (from pandas\u003e=2.0.0-\u003e-r requirements.txt (line 2)) (2.9.0.post0)\n"}
+,{"stream_name":"stdout","time":4.787079601,"data":"Requirement already satisfied: pytz\u003e=2020.1 in /usr/local/lib/python3.13/dist-packages (from pandas\u003e=2.0.0-\u003e-r requirements.txt (line 2)) (2025.2)\n"}
+,{"stream_name":"stdout","time":4.788092323,"data":"Requirement already satisfied: tzdata\u003e=2022.7 in /usr/local/lib/python3.13/dist-packages (from pandas\u003e=2.0.0-\u003e-r requirements.txt (line 2)) (2026.3)\n"}
+,{"stream_name":"stdout","time":4.812668029,"data":"Requirement already satisfied: filelock in /usr/local/lib/python3.13/dist-packages (from torch\u003e=2.1.0-\u003e-r requirements.txt (line 11)) (3.32.5)\n"}
+,{"stream_name":"stdout","time":4.813767532,"data":"Requirement already satisfied: typing-extensions\u003e=4.10.0 in /usr/local/lib/python3.13/dist-packages (from torch\u003e=2.1.0-\u003e-r requirements.txt (line 11)) (4.16.0)\n"}
+,{"stream_name":"stdout","time":4.8152591959999995,"data":"Requirement already satisfied: setuptools\u003c82 in /usr/local/lib/python3.13/dist-packages (from torch\u003e=2.1.0-\u003e-r requirements.txt (line 11)) (81.0.0)\n"}
+,{"stream_name":"stdout","time":4.81694103,"data":"Requirement already satisfied: sympy\u003e=1.13.3 in /usr/local/lib/python3.13/dist-packages (from torch\u003e=2.1.0-\u003e-r requirements.txt (line 11)) (1.14.0)\n"}
+,{"stream_name":"stdout","time":4.81844211,"data":"Requirement already satisfied: networkx\u003e=2.5.1 in /usr/local/lib/python3.13/dist-packages (from torch\u003e=2.1.0-\u003e-r requirements.txt (line 11)) (3.6.1)\n"}
+,{"stream_name":"stdout","time":4.81940685,"data":"Requirement already satisfied: jinja2 in /usr/local/lib/python3.13/dist-packages (from torch\u003e=2.1.0-\u003e-r requirements.txt (line 11)) (3.1.6)\n"}
+,{"stream_name":"stdout","time":4.821281107,"data":"Requirement already satisfied: fsspec\u003e=0.8.5 in /usr/local/lib/python3.13/dist-packages (from torch\u003e=2.1.0-\u003e-r requirements.txt (line 11)) (2025.12.0)\n"}
+,{"stream_name":"stdout","time":4.822998267,"data":"Requirement already satisfied: cuda-toolkit==12.8.1 in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == \"Linux\"-\u003etorch\u003e=2.1.0-\u003e-r requirements.txt (line 11)) (12.8.1)\n"}
+,{"stream_name":"stdout","time":4.825135952,"data":"Requirement already satisfied: cuda-bindings\u003c13,\u003e=12.9.4 in /usr/local/lib/python3.13/dist-packages (from torch\u003e=2.1.0-\u003e-r requirements.txt (line 11)) (12.9.7)\n"}
+,{"stream_name":"stdout","time":4.82648897,"data":"Requirement already satisfied: nvidia-cudnn-cu12==9.19.0.56 in /usr/local/lib/python3.13/dist-packages (from torch\u003e=2.1.0-\u003e-r requirements.txt (line 11)) (9.19.0.56)\n"}
+,{"stream_name":"stdout","time":4.827970071,"data":"Requirement already satisfied: nvidia-cusparselt-cu12==0.7.1 in /usr/local/lib/python3.13/dist-packages (from torch\u003e=2.1.0-\u003e-r requirements.txt (line 11)) (0.7.1)\n"}
+,{"stream_name":"stdout","time":4.829505955,"data":"Requirement already satisfied: nvidia-nccl-cu12==2.28.9 in /usr/local/lib/python3.13/dist-packages (from torch\u003e=2.1.0-\u003e-r requirements.txt (line 11)) (2.28.9)\n"}
+,{"stream_name":"stdout","time":4.831021969,"data":"Requirement already satisfied: nvidia-nvshmem-cu12==3.4.5 in /usr/local/lib/python3.13/dist-packages (from torch\u003e=2.1.0-\u003e-r requirements.txt (line 11)) (3.4.5)\n"}
+,{"stream_name":"stdout","time":4.832495252,"data":"Requirement already satisfied: triton==3.6.0 in /usr/local/lib/python3.13/dist-packages (from torch\u003e=2.1.0-\u003e-r requirements.txt (line 11)) (3.6.0)\n"}
+,{"stream_name":"stdout","time":4.857527575,"data":"Requirement already satisfied: nvidia-cublas-cu12==12.8.4.1.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == \"Linux\"-\u003etorch\u003e=2.1.0-\u003e-r requirements.txt (line 11)) (12.8.4.1)\n"}
+,{"stream_name":"stdout","time":4.859077886,"data":"Requirement already satisfied: nvidia-cuda-runtime-cu12==12.8.90.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == \"Linux\"-\u003etorch\u003e=2.1.0-\u003e-r requirements.txt (line 11)) (12.8.90)\n"}
+,{"stream_name":"stdout","time":4.8604913419999995,"data":"Requirement already satisfied: nvidia-cufft-cu12==11.3.3.83.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == \"Linux\"-\u003etorch\u003e=2.1.0-\u003e-r requirements.txt (line 11)) (11.3.3.83)\n"}
+,{"stream_name":"stdout","time":4.861783214,"data":"Requirement already satisfied: nvidia-cufile-cu12==1.13.1.3.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == \"Linux\"-\u003etorch\u003e=2.1.0-\u003e-r requirements.txt (line 11)) (1.13.1.3)\n"}
+,{"stream_name":"stdout","time":4.863190502,"data":"Requirement already satisfied: nvidia-cuda-cupti-cu12==12.8.90.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == \"Linux\"-\u003etorch\u003e=2.1.0-\u003e-r requirements.txt (line 11)) (12.8.90)\n"}
+,{"stream_name":"stdout","time":4.864689969,"data":"Requirement already satisfied: nvidia-curand-cu12==10.3.9.90.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == \"Linux\"-\u003etorch\u003e=2.1.0-\u003e-r requirements.txt (line 11)) (10.3.9.90)\n"}
+,{"stream_name":"stdout","time":4.866231731,"data":"Requirement already satisfied: nvidia-cusolver-cu12==11.7.3.90.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == \"Linux\"-\u003etorch\u003e=2.1.0-\u003e-r requirements.txt (line 11)) (11.7.3.90)\n"}
+,{"stream_name":"stdout","time":4.867801756,"data":"Requirement already satisfied: nvidia-cusparse-cu12==12.5.8.93.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == \"Linux\"-\u003etorch\u003e=2.1.0-\u003e-r requirements.txt (line 11)) (12.5.8.93)\n"}
+,{"stream_name":"stdout","time":4.8694247,"data":"Requirement already satisfied: nvidia-nvjitlink-cu12==12.8.93.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == \"Linux\"-\u003etorch\u003e=2.1.0-\u003e-r requirements.txt (line 11)) (12.8.93)\n"}
+,{"stream_name":"stdout","time":4.871028676,"data":"Requirement already satisfied: nvidia-cuda-nvrtc-cu12==12.8.93.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == \"Linux\"-\u003etorch\u003e=2.1.0-\u003e-r requirements.txt (line 11)) (12.8.93)\n"}
+,{"stream_name":"stdout","time":4.872486612,"data":"Requirement already satisfied: nvidia-nvtx-cu12==12.8.90.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == \"Linux\"-\u003etorch\u003e=2.1.0-\u003e-r requirements.txt (line 11)) (12.8.90)\n"}
+,{"stream_name":"stdout","time":4.9079548,"data":"Requirement already satisfied: regex in /usr/local/lib/python3.13/dist-packages (from open_clip_torch\u003e=3.3.0-\u003e-r requirements.txt (line 14)) (2025.11.3)\n"}
+,{"stream_name":"stdout","time":4.9560464379999996,"data":"Collecting ftfy (from open_clip_torch\u003e=3.3.0-\u003e-r requirements.txt (line 14))\n"}
+,{"stream_name":"stdout","time":4.971424985,"data":"  Downloading ftfy-6.3.1-py3-none-any.whl.metadata (7.3 kB)\n"}
+,{"stream_name":"stdout","time":4.988973384,"data":"Requirement already satisfied: huggingface-hub in /usr/local/lib/python3.13/dist-packages (from open_clip_torch\u003e=3.3.0-\u003e-r requirements.txt (line 14)) (1.29.0)\n"}
+,{"stream_name":"stdout","time":4.990335292,"data":"Requirement already satisfied: safetensors in /usr/local/lib/python3.13/dist-packages (from open_clip_torch\u003e=3.3.0-\u003e-r requirements.txt (line 14)) (0.8.0)\n"}
+,{"stream_name":"stdout","time":4.992525983,"data":"Requirement already satisfied: timm\u003e=1.0.17 in /usr/local/lib/python3.13/dist-packages (from open_clip_torch\u003e=3.3.0-\u003e-r requirements.txt (line 14)) (1.0.29)\n"}
+,{"stream_name":"stdout","time":5.02285076,"data":"Requirement already satisfied: packaging\u003e=20.0 in /usr/local/lib/python3.13/dist-packages (from transformers\u003e=4.38.0-\u003e-r requirements.txt (line 15)) (26.3)\n"}
+,{"stream_name":"stdout","time":5.02559217,"data":"Requirement already satisfied: tokenizers\u003c0.24.0,\u003e=0.23.1 in /usr/local/lib/python3.13/dist-packages (from transformers\u003e=4.38.0-\u003e-r requirements.txt (line 15)) (0.23.1)\n"}
+,{"stream_name":"stdout","time":5.027096537,"data":"Requirement already satisfied: typer in /usr/local/lib/python3.13/dist-packages (from transformers\u003e=4.38.0-\u003e-r requirements.txt (line 15)) (0.27.2)\n"}
+,{"stream_name":"stdout","time":5.048212483,"data":"Requirement already satisfied: scipy\u003e=1.6.0 in /usr/local/lib/python3.13/dist-packages (from scikit-learn\u003e=1.3.0-\u003e-r requirements.txt (line 18)) (1.16.3)\n"}
+,{"stream_name":"stdout","time":5.049864279,"data":"Requirement already satisfied: joblib\u003e=1.2.0 in /usr/local/lib/python3.13/dist-packages (from scikit-learn\u003e=1.3.0-\u003e-r requirements.txt (line 18)) (1.6.0)\n"}
+,{"stream_name":"stdout","time":5.051389648,"data":"Requirement already satisfied: threadpoolctl\u003e=3.1.0 in /usr/local/lib/python3.13/dist-packages (from scikit-learn\u003e=1.3.0-\u003e-r requirements.txt (line 18)) (3.6.0)\n"}
+,{"stream_name":"stdout","time":5.056616469,"data":"Requirement already satisfied: contourpy\u003e=1.0.1 in /usr/local/lib/python3.13/dist-packages (from matplotlib\u003e=3.8.0-\u003e-r requirements.txt (line 19)) (1.3.3)\n"}
+,{"stream_name":"stdout","time":5.058919111,"data":"Requirement already satisfied: cycler\u003e=0.10 in /usr/local/lib/python3.13/dist-packages (from matplotlib\u003e=3.8.0-\u003e-r requirements.txt (line 19)) (0.12.1)\n"}
+,{"stream_name":"stdout","time":5.064256317,"data":"Requirement already satisfied: fonttools\u003e=4.22.0 in /usr/local/lib/python3.13/dist-packages (from matplotlib\u003e=3.8.0-\u003e-r requirements.txt (line 19)) (4.64.0)\n"}
+,{"stream_name":"stdout","time":5.065705504,"data":"Requirement already satisfied: kiwisolver\u003e=1.3.1 in /usr/local/lib/python3.13/dist-packages (from matplotlib\u003e=3.8.0-\u003e-r requirements.txt (line 19)) (1.5.1)\n"}
+,{"stream_name":"stdout","time":5.071100845,"data":"Requirement already satisfied: pyparsing\u003e=2.3.1 in /usr/local/lib/python3.13/dist-packages (from matplotlib\u003e=3.8.0-\u003e-r requirements.txt (line 19)) (3.3.2)\n"}
+,{"stream_name":"stdout","time":5.083994604,"data":"Requirement already satisfied: cuda-pathfinder~=1.1 in /usr/local/lib/python3.13/dist-packages (from cuda-bindings\u003c13,\u003e=12.9.4-\u003etorch\u003e=2.1.0-\u003e-r requirements.txt (line 11)) (1.8.0)\n"}
+,{"stream_name":"stdout","time":5.116741399,"data":"Requirement already satisfied: click\u003c9.0.0,\u003e=8.4.2 in /usr/local/lib/python3.13/dist-packages (from huggingface-hub-\u003eopen_clip_torch\u003e=3.3.0-\u003e-r requirements.txt (line 14)) (8.5.0)\n"}
+,{"stream_name":"stdout","time":5.119366493,"data":"Requirement already satisfied: hf-xet\u003c2.0.0,\u003e=1.5.2 in /usr/local/lib/python3.13/dist-packages (from huggingface-hub-\u003eopen_clip_torch\u003e=3.3.0-\u003e-r requirements.txt (line 14)) (1.6.0)\n"}
+,{"stream_name":"stdout","time":5.120744245,"data":"Requirement already satisfied: httpx\u003c1,\u003e=0.23.0 in /usr/local/lib/python3.13/dist-packages (from huggingface-hub-\u003eopen_clip_torch\u003e=3.3.0-\u003e-r requirements.txt (line 14)) (0.28.1)\n"}
+,{"stream_name":"stdout","time":5.13339701,"data":"Requirement already satisfied: cloudpickle\u003e=3.0 in /usr/local/lib/python3.13/dist-packages (from joblib\u003e=1.2.0-\u003escikit-learn\u003e=1.3.0-\u003e-r requirements.txt (line 18)) (3.1.2)\n"}
+,{"stream_name":"stdout","time":5.147389242,"data":"Requirement already satisfied: six\u003e=1.5 in /usr/local/lib/python3.13/dist-packages (from python-dateutil\u003e=2.8.2-\u003epandas\u003e=2.0.0-\u003e-r requirements.txt (line 2)) (1.17.0)\n"}
+,{"stream_name":"stdout","time":5.183267607,"data":"Requirement already satisfied: mpmath\u003c1.4,\u003e=1.1.0 in /usr/local/lib/python3.13/dist-packages (from sympy\u003e=1.13.3-\u003etorch\u003e=2.1.0-\u003e-r requirements.txt (line 11)) (1.3.0)\n"}
+,{"stream_name":"stdout","time":5.202675568,"data":"Requirement already satisfied: wcwidth in /usr/local/lib/python3.13/dist-packages (from ftfy-\u003eopen_clip_torch\u003e=3.3.0-\u003e-r requirements.txt (line 14)) (0.8.3)\n"}
+,{"stream_name":"stdout","time":5.205539585,"data":"Requirement already satisfied: MarkupSafe\u003e=2.0 in /usr/local/lib/python3.13/dist-packages (from jinja2-\u003etorch\u003e=2.1.0-\u003e-r requirements.txt (line 11)) (3.0.3)\n"}
+,{"stream_name":"stdout","time":5.209085306,"data":"Requirement already satisfied: shellingham\u003e=1.3.0 in /usr/local/lib/python3.13/dist-packages (from typer-\u003etransformers\u003e=4.38.0-\u003e-r requirements.txt (line 15)) (1.5.4)\n"}
+,{"stream_name":"stdout","time":5.211131564,"data":"Requirement already satisfied: rich\u003e=13.8.0 in /usr/local/lib/python3.13/dist-packages (from typer-\u003etransformers\u003e=4.38.0-\u003e-r requirements.txt (line 15)) (13.9.4)\n"}
+,{"stream_name":"stdout","time":5.212665973,"data":"Requirement already satisfied: annotated-doc\u003e=0.0.2 in /usr/local/lib/python3.13/dist-packages (from typer-\u003etransformers\u003e=4.38.0-\u003e-r requirements.txt (line 15)) (0.0.5)\n"}
+,{"stream_name":"stdout","time":5.22626669,"data":"Requirement already satisfied: anyio in /usr/local/lib/python3.13/dist-packages (from httpx\u003c1,\u003e=0.23.0-\u003ehuggingface-hub-\u003eopen_clip_torch\u003e=3.3.0-\u003e-r requirements.txt (line 14)) (4.14.2)\n"}
+,{"stream_name":"stdout","time":5.227543548,"data":"Requirement already satisfied: certifi in /usr/local/lib/python3.13/dist-packages (from httpx\u003c1,\u003e=0.23.0-\u003ehuggingface-hub-\u003eopen_clip_torch\u003e=3.3.0-\u003e-r requirements.txt (line 14)) (2026.7.22)\n"}
+,{"stream_name":"stdout","time":5.23018836,"data":"Requirement already satisfied: httpcore==1.* in /usr/local/lib/python3.13/dist-packages (from httpx\u003c1,\u003e=0.23.0-\u003ehuggingface-hub-\u003eopen_clip_torch\u003e=3.3.0-\u003e-r requirements.txt (line 14)) (1.0.9)\n"}
+,{"stream_name":"stdout","time":5.231736854,"data":"Requirement already satisfied: idna in /usr/local/lib/python3.13/dist-packages (from httpx\u003c1,\u003e=0.23.0-\u003ehuggingface-hub-\u003eopen_clip_torch\u003e=3.3.0-\u003e-r requirements.txt (line 14)) (3.19)\n"}
+,{"stream_name":"stdout","time":5.236740659,"data":"Requirement already satisfied: h11\u003e=0.16 in /usr/local/lib/python3.13/dist-packages (from httpcore==1.*-\u003ehttpx\u003c1,\u003e=0.23.0-\u003ehuggingface-hub-\u003eopen_clip_torch\u003e=3.3.0-\u003e-r requirements.txt (line 14)) (0.16.0)\n"}
+,{"stream_name":"stdout","time":5.245981164,"data":"Requirement already satisfied: markdown-it-py\u003e=2.2.0 in /usr/local/lib/python3.13/dist-packages (from rich\u003e=13.8.0-\u003etyper-\u003etransformers\u003e=4.38.0-\u003e-r requirements.txt (line 15)) (4.2.0)\n"}
+,{"stream_name":"stdout","time":5.247343411,"data":"Requirement already satisfied: pygments\u003c3.0.0,\u003e=2.13.0 in /usr/local/lib/python3.13/dist-packages (from rich\u003e=13.8.0-\u003etyper-\u003etransformers\u003e=4.38.0-\u003e-r requirements.txt (line 15)) (2.21.0)\n"}
+,{"stream_name":"stdout","time":5.260383362,"data":"Requirement already satisfied: mdurl~=0.1 in /usr/local/lib/python3.13/dist-packages (from markdown-it-py\u003e=2.2.0-\u003erich\u003e=13.8.0-\u003etyper-\u003etransformers\u003e=4.38.0-\u003e-r requirements.txt (line 15)) (0.1.2)\n"}
+,{"stream_name":"stdout","time":5.292629448,"data":"Downloading open_clip_torch-3.3.0-py3-none-any.whl (1.5 MB)\n"}
+,{"stream_name":"stdout","time":5.37745031,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.5/1.5 MB 19.5 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":5.394211432,"data":"Downloading ftfy-6.3.1-py3-none-any.whl (44 kB)\n"}
+,{"stream_name":"stdout","time":5.412866418,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 44.8/44.8 kB 2.2 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":7.587509941,"data":"Installing collected packages: ftfy, open_clip_torch\n"}
+,{"stream_name":"stdout","time":7.787027825,"data":"Successfully installed ftfy-6.3.1 open_clip_torch-3.3.0\n"}
+,{"stream_name":"stdout","time":43.182910871,"data":"[PLAN] /tmp/vlm_run_5f17myd8/results/experiments/crisismmd_info/d4f7cbd6281e/crisismmd_info_60d_zegq/frozen_plan.json\n"}
+,{"stream_name":"stderr","time":43.473272552,"data":"Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.\n"}
+,{"stream_name":"stderr","time":43.4733031,"data":"WARNING:huggingface_hub.utils._http:Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.\n"}
+,{"stream_name":"stdout","time":127.584749562,"data":"[model_registry] Đang load model 'metaclip2_vith14' (ViT-H-14-worldwide-quickgelu, pretrained=metaclip2_worldwide) lên cuda ...\n"}
+,{"stream_name":"stdout","time":127.584789959,"data":"[model_registry] -\u003e Load xong 'metaclip2_vith14': embed_dim=1024, image_size=(224, 224), context_length=77, logit_scale=100.00, logit_bias=0.0000\n"}
+,{"stream_name":"stdout","time":127.584797019,"data":"\n"}
+,{"stream_name":"stdout","time":127.584801888,"data":"======================================================================\n"}
+,{"stream_name":"stdout","time":127.584806749,"data":"DATASET: CrisisMMD | TASK: informativeness\n"}
+,{"stream_name":"stdout","time":127.584811735,"data":"======================================================================\n"}
+,{"stream_name":"stdout","time":127.584823617,"data":"[TEXT SCALE] crisismmd: requested=None, effective=100.0, status=model_default\n"}
+,{"stream_name":"stderr","time":128.911555926,"data":"\rSingle-label inference:   0%|          | 0/1 [00:00\u003c?, ?batch/s]\rSingle-label inference: 100%|██████████| 1/1 [00:01\u003c00:00,  1.33s/batch]\rSingle-label inference: 100%|██████████| 1/1 [00:01\u003c00:00,  1.33s/batch]\n"}
+,{"stream_name":"stdout","time":158.252989313,"data":"Accuracy : 1.0000  (chỉ tham khảo, có thể gây hiểu lầm nếu lệch lớp)\n"}
+,{"stream_name":"stdout","time":158.253052585,"data":"Macro-F1 : 1.0000  (chỉ số chính, phản ánh đúng cả lớp hiếm)\n"}
+,{"stream_name":"stdout","time":158.253059939,"data":"Micro-F1 : 1.0000\n"}
+,{"stream_name":"stdout","time":158.253063299,"data":"\n"}
+,{"stream_name":"stdout","time":158.253066367,"data":"Báo cáo chi tiết theo từng lớp:\n"}
+,{"stream_name":"stdout","time":158.253069545,"data":"                 precision    recall  f1-score   support\n"}
+,{"stream_name":"stdout","time":158.253072641,"data":"\n"}
+,{"stream_name":"stdout","time":158.253075644,"data":"    informative       1.00      1.00      1.00         4\n"}
+,{"stream_name":"stdout","time":158.253078577,"data":"not_informative       1.00      1.00      1.00         1\n"}
+,{"stream_name":"stdout","time":158.253081527,"data":"\n"}
+,{"stream_name":"stdout","time":158.253084249,"data":"       accuracy                           1.00         5\n"}
+,{"stream_name":"stdout","time":158.253087113,"data":"      macro avg       1.00      1.00      1.00         5\n"}
+,{"stream_name":"stdout","time":158.253103297,"data":"   weighted avg       1.00      1.00      1.00         5\n"}
+,{"stream_name":"stdout","time":158.253105865,"data":"\n"}
+,{"stream_name":"stdout","time":158.253107988,"data":"branch  n_samples  macro_f1  balanced_accuracy\n"}
+,{"stream_name":"stdout","time":158.253112882,"data":" image          5  1.000000              1.000\n"}
+,{"stream_name":"stdout","time":158.253115395,"data":"  text          5  0.761905              0.875\n"}
+,{"stream_name":"stdout","time":158.253117757,"data":"fusion          5  1.000000              1.000\n"}
+,{"stream_name":"stdout","time":158.253120123,"data":"Đã lưu log tại: /tmp/vlm_run_5f17myd8/results/experiments/crisismmd_info/d4f7cbd6281e/crisismmd_info_60d_zegq/model_logs/metaclip2_vith14__crisismmd__informativeness__v1__20261013_162542_382169  (0/5 mẫu sai)\n"}
+,{"stream_name":"stdout","time":158.253123929,"data":"[LOG] /tmp/vlm_run_5f17myd8/results/experiments/crisismmd_info/d4f7cbd6281e/crisismmd_info_60d_zegq/model_logs/metaclip2_vith14__crisismmd__informativeness__v1__20261013_162542_382169\n"}
+,{"stream_name":"stdout","time":158.253126537,"data":"[model_registry] Đã giải phóng 'metaclip2_vith14' khỏi bộ nhớ\n"}
+,{"stream_name":"stdout","time":158.253129109,"data":"[model_registry] Đang load model 'dfn5b_vith14' (hf-hub:apple/DFN5B-CLIP-ViT-H-14, pretrained=None) lên cuda ...\n"}
+,{"stream_name":"stdout","time":158.253131585,"data":"[model_registry] -\u003e Load xong 'dfn5b_vith14': embed_dim=1024, image_size=(224, 224), context_length=77, logit_scale=14.28, logit_bias=0.0000\n"}
+,{"stream_name":"stdout","time":158.253134465,"data":"\n"}
+,{"stream_name":"stdout","time":158.253136629,"data":"======================================================================\n"}
+,{"stream_name":"stdout","time":158.253138961,"data":"DATASET: CrisisMMD | TASK: informativeness\n"}
+,{"stream_name":"stdout","time":158.253141335,"data":"======================================================================\n"}
+,{"stream_name":"stdout","time":158.253143661,"data":"[TEXT SCALE] crisismmd: requested=None, effective=14.284856796264648, status=model_default\n"}
+,{"stream_name":"stderr","time":158.938388008,"data":"\rSingle-label inference:   0%|          | 0/1 [00:00\u003c?, ?batch/s]\rSingle-label inference: 100%|██████████| 1/1 [00:00\u003c00:00,  1.46batch/s]\rSingle-label inference: 100%|██████████| 1/1 [00:00\u003c00:00,  1.46batch/s]\n"}
+,{"stream_name":"stdout","time":202.244995879,"data":"Accuracy : 0.4000  (chỉ tham khảo, có thể gây hiểu lầm nếu lệch lớp)\n"}
+,{"stream_name":"stdout","time":202.245062275,"data":"Macro-F1 : 0.4000  (chỉ số chính, phản ánh đúng cả lớp hiếm)\n"}
+,{"stream_name":"stdout","time":202.245099524,"data":"Micro-F1 : 0.4000\n"}
+,{"stream_name":"stdout","time":202.245106453,"data":"\n"}
+,{"stream_name":"stdout","time":202.245112652,"data":"Báo cáo chi tiết theo từng lớp:\n"}
+,{"stream_name":"stdout","time":202.245118719,"data":"                 precision    recall  f1-score   support\n"}
+,{"stream_name":"stdout","time":202.245124937,"data":"\n"}
+,{"stream_name":"stdout","time":202.245130471,"data":"    informative       1.00      0.25      0.40         4\n"}
+,{"stream_name":"stdout","time":202.245135385,"data":"not_informative       0.25      1.00      0.40         1\n"}
+,{"stream_name":"stdout","time":202.245140442,"data":"\n"}
+,{"stream_name":"stdout","time":202.245145176,"data":"       accuracy                           0.40         5\n"}
+,{"stream_name":"stdout","time":202.245150271,"data":"      macro avg       0.62      0.62      0.40         5\n"}
+,{"stream_name":"stdout","time":202.245169707,"data":"   weighted avg       0.85      0.40      0.40         5\n"}
+,{"stream_name":"stdout","time":202.245174598,"data":"\n"}
+,{"stream_name":"stdout","time":202.245179396,"data":"branch  n_samples  macro_f1  balanced_accuracy\n"}
+,{"stream_name":"stdout","time":202.245184054,"data":" image          5  1.000000              1.000\n"}
+,{"stream_name":"stdout","time":202.245188571,"data":"  text          5  0.166667              0.500\n"}
+,{"stream_name":"stdout","time":202.245192439,"data":"fusion          5  0.400000              0.625\n"}
+,{"stream_name":"stdout","time":202.245196251,"data":"Đã lưu log tại: /tmp/vlm_run_5f17myd8/results/experiments/crisismmd_info/d4f7cbd6281e/crisismmd_info_60d_zegq/model_logs/dfn5b_vith14__crisismmd__informativeness__v1__20261013_162612_379001  (3/5 mẫu sai)\n"}
+,{"stream_name":"stdout","time":202.245202249,"data":"[LOG] /tmp/vlm_run_5f17myd8/results/experiments/crisismmd_info/d4f7cbd6281e/crisismmd_info_60d_zegq/model_logs/dfn5b_vith14__crisismmd__informativeness__v1__20261013_162612_379001\n"}
+,{"stream_name":"stdout","time":202.245206754,"data":"[model_registry] Đã giải phóng 'dfn5b_vith14' khỏi bộ nhớ\n"}
+,{"stream_name":"stdout","time":202.245211452,"data":"[model_registry] Đang load model 'siglip2_so400m' (ViT-SO400M-14-SigLIP2, pretrained=webli) lên cuda ...\n"}
+,{"stream_name":"stdout","time":202.24521561,"data":"[model_registry] -\u003e Load xong 'siglip2_so400m': embed_dim=None, image_size=(224, 224), context_length=64, logit_scale=109.88, logit_bias=-15.9324\n"}
+,{"stream_name":"stdout","time":202.245224808,"data":"\n"}
+,{"stream_name":"stdout","time":202.245228602,"data":"======================================================================\n"}
+,{"stream_name":"stdout","time":202.245232751,"data":"DATASET: CrisisMMD | TASK: informativeness\n"}
+,{"stream_name":"stdout","time":202.245236724,"data":"======================================================================\n"}
+,{"stream_name":"stdout","time":202.245240851,"data":"[TEXT SCALE] crisismmd: requested=None, effective=109.8812255859375, status=model_default\n"}
+,{"stream_name":"stderr","time":202.690751622,"data":"\rSingle-label inference:   0%|          | 0/1 [00:00\u003c?, ?batch/s]\rSingle-label inference: 100%|██████████| 1/1 [00:00\u003c00:00,  2.25batch/s]\rSingle-label inference: 100%|██████████| 1/1 [00:00\u003c00:00,  2.24batch/s]\n"}
+,{"stream_name":"stdout","time":203.240665338,"data":"Accuracy : 0.8000  (chỉ tham khảo, có thể gây hiểu lầm nếu lệch lớp)\n"}
+,{"stream_name":"stdout","time":203.240696418,"data":"Macro-F1 : 0.7619  (chỉ số chính, phản ánh đúng cả lớp hiếm)\n"}
+,{"stream_name":"stdout","time":203.240701705,"data":"Micro-F1 : 0.8000\n"}
+,{"stream_name":"stdout","time":203.240707237,"data":"\n"}
+,{"stream_name":"stdout","time":203.240711171,"data":"Báo cáo chi tiết theo từng lớp:\n"}
+,{"stream_name":"stdout","time":203.240715447,"data":"                 precision    recall  f1-score   support\n"}
+,{"stream_name":"stdout","time":203.240719511,"data":"\n"}
+,{"stream_name":"stdout","time":203.240723517,"data":"    informative       1.00      0.75      0.86         4\n"}
+,{"stream_name":"stdout","time":203.2407268,"data":"not_informative       0.50      1.00      0.67         1\n"}
+,{"stream_name":"stdout","time":203.240731378,"data":"\n"}
+,{"stream_name":"stdout","time":203.240735165,"data":"       accuracy                           0.80         5\n"}
+,{"stream_name":"stdout","time":203.240739278,"data":"      macro avg       0.75      0.88      0.76         5\n"}
+,{"stream_name":"stdout","time":203.240754466,"data":"   weighted avg       0.90      0.80      0.82         5\n"}
+,{"stream_name":"stdout","time":203.240758819,"data":"\n"}
+,{"stream_name":"stdout","time":203.240762607,"data":"branch  n_samples  macro_f1  balanced_accuracy\n"}
+,{"stream_name":"stdout","time":203.240766319,"data":" image          5  1.000000              1.000\n"}
+,{"stream_name":"stdout","time":203.240770027,"data":"  text          5  0.761905              0.875\n"}
+,{"stream_name":"stdout","time":203.240774083,"data":"fusion          5  0.761905              0.875\n"}
+,{"stream_name":"stdout","time":203.240777792,"data":"Đã lưu log tại: /tmp/vlm_run_5f17myd8/results/experiments/crisismmd_info/d4f7cbd6281e/crisismmd_info_60d_zegq/model_logs/siglip2_so400m__crisismmd__informativeness__v1__20261013_162656_130771  (1/5 mẫu sai)\n"}
+,{"stream_name":"stdout","time":203.240782244,"data":"[LOG] /tmp/vlm_run_5f17myd8/results/experiments/crisismmd_info/d4f7cbd6281e/crisismmd_info_60d_zegq/model_logs/siglip2_so400m__crisismmd__informativeness__v1__20261013_162656_130771\n"}
+,{"stream_name":"stdout","time":203.24078624,"data":"[model_registry] Đã giải phóng 'siglip2_so400m' khỏi bộ nhớ\n"}
+,{"stream_name":"stdout","time":203.240790112,"data":"[RESULT] /tmp/vlm_run_5f17myd8/results/experiments/crisismmd_info/d4f7cbd6281e/crisismmd_info_60d_zegq/summary.tsv\n"}
+,{"stream_name":"stdout","time":203.240793901,"data":"crisismmd/informativeness metaclip2_vith14         n=  5 macro-F1=1.0000 acc=1.0000 sửa=0 hỏng=0\n"}
+,{"stream_name":"stdout","time":203.240797743,"data":"crisismmd/informativeness dfn5b_vith14             n=  5 macro-F1=0.4000 acc=0.4000 sửa=0 hỏng=3\n"}
+,{"stream_name":"stdout","time":203.240803281,"data":"crisismmd/informativeness siglip2_so400m           n=  5 macro-F1=0.7619 acc=0.8000 sửa=0 hỏng=1\n"}
+,{"stream_name":"stdout","time":203.240812159,"data":"crisismmd/informativeness equal_mean               n=  5 macro-F1=0.7619 acc=0.8000 sửa=0 hỏng=1\n"}
+,{"stream_name":"stdout","time":203.240818441,"data":"crisismmd/informativeness margin_gate              n=  5 macro-F1=1.0000 acc=1.0000 sửa=0 hỏng=0\n"}
+,{"stream_name":"stdout","time":208.922101082,"data":"[KAGGLE_RESULT] dataset\ttask\tmethod\tn_samples\taccuracy\tmacro_f1\tbalanced_accuracy_observed\tchanged_vs_baseline\twrong_to_right\tright_to_wrong\tauroc\n"}
+,{"stream_name":"stdout","time":208.922142124,"data":"crisismmd\tinformativeness\tmetaclip2_vith14\t5\t1.0\t1.0\t1.0\t0\t0\t0\t1.0\n"}
+,{"stream_name":"stdout","time":208.922147196,"data":"crisismmd\tinformativeness\tdfn5b_vith14\t5\t0.4\t0.4\t0.625\t3\t0\t3\t1.0\n"}
+,{"stream_name":"stdout","time":208.922150499,"data":"crisismmd\tinformativeness\tsiglip2_so400m\t5\t0.8\t0.7619047619047619\t0.875\t1\t0\t1\t1.0\n"}
+,{"stream_name":"stdout","time":208.922153389,"data":"crisismmd\tinformativeness\tequal_mean\t5\t0.8\t0.7619047619047619\t0.875\t1\t0\t1\t1.0\n"}
+,{"stream_name":"stdout","time":208.922156173,"data":"crisismmd\tinformativeness\tmargin_gate\t5\t1.0\t1.0\t1.0\t0\t0\t0\t1.0\n"}
+,{"stream_name":"stdout","time":208.922158825,"data":"\n"}
+,{"stream_name":"stderr","time":211.625717608,"data":"/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":211.625756303,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":211.927602056,"data":"/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":211.927648257,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":212.740962815,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":213.87553101,"data":"[NbConvertApp] Writing 314434 bytes to __results__.html\n"}
+]

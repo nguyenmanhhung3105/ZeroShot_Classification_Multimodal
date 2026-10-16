@@ -1,0 +1,12 @@
+{
+  "fake": [
+    "a satirical or parody presentation rather than a factual report",
+    "an altered, staged, or misleading presentation of an event",
+    "a picture presented with an unrelated or misleading claim"
+  ],
+  "real": [
+    "an authentic photograph documenting a real event",
+    "a factual presentation of a person, place, or object",
+    "an unaltered scene presented in its original context"
+  ]
+}

@@ -1,0 +1,158 @@
+{
+  "model": "siglip2_so400m",
+  "device_requested": "cpu",
+  "base_config": {
+    "models": [
+      "metaclip2_vith14"
+    ],
+    "inference": {
+      "batch_size": 16,
+      "image_weight": 0.5,
+      "text_logit_scale": null
+    },
+    "datasets": {
+      "fakeddit": {
+        "image_text_relation": {
+          "enabled": true,
+          "mode": "class_aware",
+          "weight": 0.25,
+          "class_policies": {
+            "0": "match",
+            "2": "mismatch"
+          }
+        },
+        "enabled": true,
+        "task": "6way",
+        "data_path": "data/processed/pro_fakeddit/fakeddit_sample.tsv",
+        "image_dir": "data/processed/pro_fakeddit/images",
+        "id_col": "id",
+        "text_col": "clean_title",
+        "label_col_2way": "2_way_label",
+        "label_col_6way": "6_way_label",
+        "min_text_length": 20,
+        "max_samples": 1000,
+        "prompt_aggregation": "mean_sim",
+        "prompt_variants": [
+          "current"
+        ],
+        "inference": {
+          "image_weight": 0.75,
+          "text_logit_scale": 25
+        }
+      },
+      "crisismmd": {
+        "image_text_relation": {
+          "enabled": true,
+          "mode": "diagnostic"
+        },
+        "enabled": true,
+        "task": "informativeness",
+        "data_path": "data/processed/pro_crisismmd/pre_crisismmd.tsv",
+        "image_dir": "data/processed/pro_crisismmd/images",
+        "id_col": "tweet_id",
+        "text_col": "clean_text",
+        "label_col_info": "label_informative",
+        "label_col_human": "label_humanitarian",
+        "max_samples": 1000,
+        "prompt_aggregation": "mean_embed",
+        "inference": {
+          "image_weight": 0.5,
+          "text_logit_scale": null
+        }
+      },
+      "mmimdb": {
+        "image_text_relation": {
+          "enabled": true,
+          "mode": "diagnostic"
+        },
+        "enabled": true,
+        "task": "genres",
+        "data_path": "data/processed/pro_mmimdb/mmimdb_sample.tsv",
+        "image_dir": "data/processed/pro_mmimdb/images",
+        "id_col": "id",
+        "text_col": "plot",
+        "label_col": "genres",
+        "max_samples": 1000,
+        "prompt_aggregation": "mean_sim",
+        "decision_mode": "relative_z",
+        "relative_z_threshold": 1.0,
+        "threshold": 0.22,
+        "chunk_long_text": true,
+        "chunk_aggregation": "mean_embed",
+        "inference": {
+          "image_weight": 0.5,
+          "text_logit_scale": null
+        }
+      }
+    },
+    "evaluation": {
+      "enabled": true,
+      "split": "val",
+      "measure_truncation": true,
+      "sample_lock_mode": "off",
+      "sample_lock_dir": "results/sample_locks"
+    },
+    "demo": {
+      "n_samples": 10,
+      "batch_size": 4,
+      "prompt_version": "v1",
+      "log_dir": "results/demo_logs",
+      "visualization_dir": "results/demo"
+    },
+    "output": {
+      "results_dir": "results/",
+      "raw_predictions_dir": "results/raw_predictions/",
+      "summary_table": "results/summary_table.tsv"
+    }
+  },
+  "relation_options": {
+    "enabled": true,
+    "mode": "class_aware",
+    "weight": 0.25,
+    "class_policies": {
+      "0": "match",
+      "2": "mismatch"
+    }
+  },
+  "legacy_weight": 0.1,
+  "source_rows_limit": 5,
+  "input_sha256": "6e557fd7364ea6b4ae2e5884f5665e4d88486436c4c57eda71d299406c53bc0e",
+  "protocol": "frozen_smoke_only_no_fit",
+  "bounded_input": "/Users/hung/Documents/MyProject/Python/DA_CNTT/vlm-zeroshot-content-classification/results/relation_ablation/smoke5_wte6_1ml/input_first5.tsv",
+  "source_sha256": {
+    "config.py": "36e3cf493e75e9b3b2989b2a043ab86cc419025739e8b5023eaa8932aed6aa03",
+    "demo.py": "7bf8794c2a19d1f47e27f8f9e706419de44115d5dd3c594da7db14c950fddf3f",
+    "evaluate.py": "13e369b8fa8898a751afc0cd0b7d5360229b1a574cd00522dabf6b0137dc3d1f",
+    "evaluation_audit.py": "c51a314bf1fe0790a25201a59816fa88b6d06946960af3e6862ee5e5a27da1c0",
+    "inference.py": "3cbbabcc7a013e7a0a65a0c6cde551fc136237187486e446c99dbe1ce9940517",
+    "logging_utils.py": "206b5cd470eb4010a098d732c67304270cd9d02ceb33402f66507684a53e681d",
+    "models/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "models/model_registry.py": "0aca2fae98e75eb75ba077f891367543f99d8b2dc22853609ab24d03b4d6e6bb",
+    "pair_relation.py": "61ad12daa706bdc28600aa0f8c18051a7b28b87585b33fba5a05e66e246dac0e",
+    "preprocessing/data_crisismmd/check_crisismmd_processed.py": "db23159b26d73305d0e3ecd3e248c08a18ce892ad1b9536f496c95be20392178",
+    "preprocessing/data_crisismmd/preprocess_crisismmd.py": "dc63692f8de39e61d49e9fbfbd8634f980d856dbceda26a180b597268f95133a",
+    "preprocessing/data_fakeddit/check_fakeddit_ready.py": "1da592331ef420f98763b2b4456bcb1d8a36129158deb6e6604500163a43bf9b",
+    "preprocessing/data_fakeddit/image_downloader.py": "ed5a2da169a357a274da29b2aaa272f20c7b71de432ba0a6e0471680e441e1df",
+    "preprocessing/data_fakeddit/preprocess_fakeddit.py": "8485e197320fa345f941cf637fbde35179a45713be150142873c82c52e3bd7c3",
+    "preprocessing/data_mmimdb/check_mmimdb_ready.py": "a85fea828306ae4b82cd03a2c8b1d3584d7b42793511f57a5983d924ed983bd2",
+    "preprocessing/data_mmimdb/preprocess_mmimdb.py": "95add68bb14e07c303df5b73f130328e2afe4a9fb8cf70a46c631dc5da791e19",
+    "prompts/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "prompts/crisismmd_prompts.py": "1b4105bee5a11a4cd36b2cb75bd9c2cdad102b0b80431c142ec2d4ef225d82c7",
+    "prompts/fakeddit_prompts.py": "4440673640e19e6151417386e4c4512486f0187ad5bc3fc0ac137c4736904172",
+    "prompts/mmimdb_prompts.py": "1fb94954049555d75d89c70182de29baf494625bedeaa1901059e94baaeb4ddc",
+    "research/__init__.py": "c0b1bb68d820937dd39326cbc9fcc24e001c6c3beefd0b09732de585760e4c01",
+    "research/adapted_methods.py": "6fa6b4dbf5c125b13146fb04cf01ab59cd2ca246981f40c833e70fdba1c50d3d",
+    "research/run_adapted_methods.py": "20c9d4cb3de03fef75d632a41a7292bc39094cb2d1f6c43bddd5517ccf49c2a2",
+    "research/run_relation_ablation.py": "935ae94b4845b345d4dc548ce8f035bd1b80602984802452bae021532af5b15f",
+    "research/run_upstream.py": "cdc74ce6b61ec9f04edb117343280a0adb1f15e0c1e77489a22da090353da42f",
+    "research/upstream.py": "8216a82d0ebe70204f1a2b5f7977210cb80b8632bc891cfde1333044bb990861",
+    "run/__init__.py": "d6045de51bed3d3aff5615c2e0a47242041fbf3ab45d3e01c018bac9b954d5cc",
+    "run/common.py": "765828356bf79483bf2ac2abb9b8241e86fc2f38238079b0292c584da1260b85",
+    "run/run_crisismmd.py": "cd3be568f627ae92be9f1c90756f8077cb2a6c3185ecc46a480ec56f88d270a0",
+    "run/run_fakeddit.py": "2fd83615cbbed9af8e9777d2b8de94efc8f66bdc13972cf8bf1164c4c774e9a0",
+    "run/run_mmimdb.py": "ad6d4c908197125f69552e33e975f758a9cf546022d7f4771bb168e2eb76c41f",
+    "run_experiment.py": "af61f2117f6ea4afadee2846032087adb28922bc647595a1bdcf7cc1ad982d74",
+    "text_chunking.py": "e8da71b92f7884f70db02160aa82df0451777a9ef5603b911f297e221bd895d0",
+    "text_scale.py": "bbdf3dade644f5036d0e5ad57766e711a7e0be8f1711e91fa541ef53aee94eae"
+  }
+}

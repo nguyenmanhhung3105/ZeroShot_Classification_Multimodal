@@ -1,0 +1,6 @@
+dataset	task	method	n_samples	accuracy	macro_f1	balanced_accuracy_observed	changed_vs_baseline	wrong_to_right	right_to_wrong	auroc
+crisismmd	informativeness	metaclip2_vith14	5	1.0	1.0	1.0	0	0	0	1.0
+crisismmd	informativeness	dfn5b_vith14	5	0.4	0.4	0.625	3	0	3	1.0
+crisismmd	informativeness	siglip2_so400m	5	0.8	0.7619047619047619	0.875	1	0	1	1.0
+crisismmd	informativeness	equal_mean	5	0.8	0.7619047619047619	0.875	1	0	1	1.0
+crisismmd	informativeness	margin_gate	5	1.0	1.0	1.0	0	0	0	1.0

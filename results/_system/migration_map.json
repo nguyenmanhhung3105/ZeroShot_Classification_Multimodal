@@ -1,0 +1,670 @@
+[
+  {
+    "from": "runs/crisismmd_humanitarian_direct_pair/45948c7b7aa6",
+    "to": "direct_pair_fusion/crisismmd/humanitarian/samples_1000/metaclip2_vith14/humanitarian_45948c7b7aa6"
+  },
+  {
+    "from": "runs/crisismmd_info/00c6b9bb5d5a",
+    "to": "baseline/crisismmd/informativeness/samples_2/multi_model/informativeness_00c6b9bb5d5a"
+  },
+  {
+    "from": "runs/crisismmd_info/0ab0fc58ec2e",
+    "to": "baseline/crisismmd/informativeness/samples_2/multi_model/informativeness_0ab0fc58ec2e"
+  },
+  {
+    "from": "runs/crisismmd_info/0bd7439085b8",
+    "to": "baseline/crisismmd/informativeness/samples_2/multi_model/informativeness_0bd7439085b8"
+  },
+  {
+    "from": "runs/crisismmd_info/1177a8e0bbd3",
+    "to": "baseline/crisismmd/informativeness/samples_2/multi_model/informativeness_1177a8e0bbd3"
+  },
+  {
+    "from": "runs/crisismmd_info/17cd912393e2",
+    "to": "baseline/crisismmd/informativeness/samples_2/multi_model/informativeness_17cd912393e2"
+  },
+  {
+    "from": "runs/crisismmd_info/1a7c2b3c8106",
+    "to": "baseline/crisismmd/informativeness/samples_2/multi_model/informativeness_1a7c2b3c8106"
+  },
+  {
+    "from": "runs/crisismmd_info/26e3f06a0c8d",
+    "to": "baseline/crisismmd/informativeness/samples_2/multi_model/informativeness_26e3f06a0c8d"
+  },
+  {
+    "from": "runs/crisismmd_info/3f7d7eff38d3",
+    "to": "baseline/crisismmd/informativeness/samples_2/multi_model/informativeness_3f7d7eff38d3"
+  },
+  {
+    "from": "runs/crisismmd_info/407e14739ac3",
+    "to": "baseline/crisismmd/informativeness/samples_2/multi_model/informativeness_407e14739ac3"
+  },
+  {
+    "from": "runs/crisismmd_info/44a7e21121bc",
+    "to": "baseline/crisismmd/informativeness/samples_2/multi_model/informativeness_44a7e21121bc"
+  },
+  {
+    "from": "runs/crisismmd_info/497d0f6ff0f6",
+    "to": "baseline/crisismmd/informativeness/samples_2/multi_model/informativeness_497d0f6ff0f6"
+  },
+  {
+    "from": "runs/crisismmd_info/4e6ac3ca4131",
+    "to": "baseline/crisismmd/informativeness/samples_2/multi_model/informativeness_4e6ac3ca4131"
+  },
+  {
+    "from": "runs/crisismmd_info/59ec4767d4d8",
+    "to": "baseline/crisismmd/informativeness/samples_2/multi_model/informativeness_59ec4767d4d8"
+  },
+  {
+    "from": "runs/crisismmd_info/5c7d1d50f70b",
+    "to": "baseline/crisismmd/informativeness/samples_2/multi_model/informativeness_5c7d1d50f70b"
+  },
+  {
+    "from": "runs/crisismmd_info/5ed5f373d1f3",
+    "to": "baseline/crisismmd/informativeness/samples_2/multi_model/informativeness_5ed5f373d1f3"
+  },
+  {
+    "from": "runs/crisismmd_info/6116bba41706",
+    "to": "baseline/crisismmd/informativeness/samples_2/multi_model/informativeness_6116bba41706"
+  },
+  {
+    "from": "runs/crisismmd_info/61636652556d",
+    "to": "baseline/crisismmd/informativeness/samples_2/multi_model/informativeness_61636652556d"
+  },
+  {
+    "from": "runs/crisismmd_info/67aa66800e52",
+    "to": "baseline/crisismmd/informativeness/samples_2/multi_model/informativeness_67aa66800e52"
+  },
+  {
+    "from": "runs/crisismmd_info/6886d3766d86",
+    "to": "baseline/crisismmd/informativeness/samples_2/multi_model/informativeness_6886d3766d86"
+  },
+  {
+    "from": "runs/crisismmd_info/6acc864b7851",
+    "to": "baseline/crisismmd/informativeness/samples_3000/metaclip2_vith14/informativeness_6acc864b7851"
+  },
+  {
+    "from": "runs/crisismmd_info/6d2cd77c37e2",
+    "to": "baseline/crisismmd/informativeness/samples_2/multi_model/informativeness_6d2cd77c37e2"
+  },
+  {
+    "from": "runs/crisismmd_info/6f64594cad0f",
+    "to": "baseline/crisismmd/informativeness/samples_2/multi_model/informativeness_6f64594cad0f"
+  },
+  {
+    "from": "runs/crisismmd_info/75cf8792674c",
+    "to": "baseline/crisismmd/informativeness/samples_2/multi_model/informativeness_75cf8792674c"
+  },
+  {
+    "from": "runs/crisismmd_info/7a45a8b63fca",
+    "to": "baseline/crisismmd/informativeness/samples_2/multi_model/informativeness_7a45a8b63fca"
+  },
+  {
+    "from": "runs/crisismmd_info/7e4ac646681b",
+    "to": "baseline/crisismmd/informativeness/samples_2/multi_model/informativeness_7e4ac646681b"
+  },
+  {
+    "from": "runs/crisismmd_info/89a393137b84",
+    "to": "baseline/crisismmd/informativeness/samples_2/multi_model/informativeness_89a393137b84"
+  },
+  {
+    "from": "runs/crisismmd_info/91a14fc18da2",
+    "to": "baseline/crisismmd/informativeness/samples_2/multi_model/informativeness_91a14fc18da2"
+  },
+  {
+    "from": "runs/crisismmd_info/96dd3fffc78c",
+    "to": "baseline/crisismmd/informativeness/samples_2/multi_model/informativeness_96dd3fffc78c"
+  },
+  {
+    "from": "runs/crisismmd_info/99cf7512016f",
+    "to": "baseline/crisismmd/informativeness/samples_2/multi_model/informativeness_99cf7512016f"
+  },
+  {
+    "from": "runs/crisismmd_info/9e1dd5896f82",
+    "to": "baseline/crisismmd/informativeness/samples_2/multi_model/informativeness_9e1dd5896f82"
+  },
+  {
+    "from": "runs/crisismmd_info/a8b67bb9dfb8",
+    "to": "baseline/crisismmd/informativeness/samples_2/multi_model/informativeness_a8b67bb9dfb8"
+  },
+  {
+    "from": "runs/crisismmd_info/abe7fc933bd8",
+    "to": "baseline/crisismmd/informativeness/samples_2/multi_model/informativeness_abe7fc933bd8"
+  },
+  {
+    "from": "runs/crisismmd_info/b2cef86f98cd",
+    "to": "baseline/crisismmd/informativeness/samples_2/multi_model/informativeness_b2cef86f98cd"
+  },
+  {
+    "from": "runs/crisismmd_info/b39c69199718",
+    "to": "baseline/crisismmd/informativeness/samples_2/multi_model/informativeness_b39c69199718"
+  },
+  {
+    "from": "runs/crisismmd_info/be9979cd0783",
+    "to": "baseline/crisismmd/informativeness/samples_2/multi_model/informativeness_be9979cd0783"
+  },
+  {
+    "from": "runs/crisismmd_info/c1de1c3baa44",
+    "to": "baseline/crisismmd/informativeness/samples_2/multi_model/informativeness_c1de1c3baa44"
+  },
+  {
+    "from": "runs/crisismmd_info/c8c840f3e179",
+    "to": "baseline/crisismmd/informativeness/samples_2/multi_model/informativeness_c8c840f3e179"
+  },
+  {
+    "from": "runs/crisismmd_info/d0547510eb1d",
+    "to": "baseline/crisismmd/informativeness/samples_2/multi_model/informativeness_d0547510eb1d"
+  },
+  {
+    "from": "runs/crisismmd_info/d156546fbf81",
+    "to": "baseline/crisismmd/informativeness/samples_2/multi_model/informativeness_d156546fbf81"
+  },
+  {
+    "from": "runs/crisismmd_info/dc1395cff706",
+    "to": "baseline/crisismmd/informativeness/samples_2/multi_model/informativeness_dc1395cff706"
+  },
+  {
+    "from": "runs/crisismmd_info/e595fbb7f79a",
+    "to": "baseline/crisismmd/informativeness/samples_1000/multi_model/informativeness_e595fbb7f79a"
+  },
+  {
+    "from": "runs/crisismmd_info/e78a0c494851",
+    "to": "baseline/crisismmd/informativeness/samples_2/multi_model/informativeness_e78a0c494851"
+  },
+  {
+    "from": "runs/crisismmd_info/ee95d8f4a67e",
+    "to": "baseline/crisismmd/informativeness/samples_2/multi_model/informativeness_ee95d8f4a67e"
+  },
+  {
+    "from": "runs/crisismmd_info/f8f1fb51f99b",
+    "to": "baseline/crisismmd/informativeness/samples_2/multi_model/informativeness_f8f1fb51f99b"
+  },
+  {
+    "from": "runs/crisismmd_info/fc43a4d5cb34",
+    "to": "baseline/crisismmd/informativeness/samples_2/multi_model/informativeness_fc43a4d5cb34"
+  },
+  {
+    "from": "runs/crisismmd_info_agreement/8d71e3c908af",
+    "to": "agreement_fusion/crisismmd/informativeness/samples_1000/metaclip2_vith14/informativeness_8d71e3c908af"
+  },
+  {
+    "from": "runs/fakeddit_2way/531b142a5d92",
+    "to": "baseline/fakeddit/2way/samples_1000/metaclip2_vith14/2way_531b142a5d92"
+  },
+  {
+    "from": "runs/fakeddit_2way/9baaa61e42f6",
+    "to": "baseline/fakeddit/2way/samples_1000/siglip2_so400m/2way_9baaa61e42f6"
+  },
+  {
+    "from": "runs/fakeddit_2way/9ed97f55cf78",
+    "to": "baseline/fakeddit/2way/samples_1000/metaclip2_vith14/2way_9ed97f55cf78"
+  },
+  {
+    "from": "runs/fakeddit_2way/d85f0353d7d3",
+    "to": "baseline/fakeddit/2way/samples_1000/multi_model/2way_d85f0353d7d3"
+  },
+  {
+    "from": "runs/mmimdb_genres/289a8ffa6843",
+    "to": "baseline/mmimdb/genres/samples_1000/multi_model/genres_289a8ffa6843"
+  },
+  {
+    "from": "experiments/adapted_crisismmd_info/03f1882357bb",
+    "to": "adapted_dclip/crisismmd/informativeness/samples_3000/metaclip2_vith14/informativeness_03f1882357bb"
+  },
+  {
+    "from": "experiments/adapted_crisismmd_info/2ff98e4f0871",
+    "to": "adapted_dclip/crisismmd/informativeness/samples_1000/metaclip2_vith14/informativeness_2ff98e4f0871"
+  },
+  {
+    "from": "experiments/adapted_crisismmd_info/72686f1b262a",
+    "to": "adapted_baseline/crisismmd/informativeness/samples_1000/metaclip2_vith14/informativeness_72686f1b262a"
+  },
+  {
+    "from": "experiments/adapted_crisismmd_info/9595e1f70593",
+    "to": "adapted_waffle/crisismmd/informativeness/samples_1000/metaclip2_vith14/informativeness_9595e1f70593"
+  },
+  {
+    "from": "experiments/adapted_fakeddit_2way/4f1a23ced16d",
+    "to": "adapted_dclip/fakeddit/2way/samples_1000/siglip2_so400m/2way_4f1a23ced16d"
+  },
+  {
+    "from": "experiments/adapted_fakeddit_2way/fbbe3654b904",
+    "to": "adapted_dclip/fakeddit/2way/samples_1000/metaclip2_vith14/2way_fbbe3654b904"
+  },
+  {
+    "from": "experiments/crisismmd_info/d4f7cbd6281e",
+    "to": "ensemble/crisismmd/informativeness/samples_5/multi_model/informativeness_d4f7cbd6281e"
+  },
+  {
+    "from": "experiments/fakeddit_2way/5c026d594111",
+    "to": "ensemble/fakeddit/2way/samples_1000/multi_model/2way_5c026d594111"
+  },
+  {
+    "from": "experiments/upstream_crisismmd_humanitarian/9cebbce1f45d",
+    "to": "image_only_upstream_suite/crisismmd/humanitarian/samples_1000/openai_clip_vit_b_32/humanitarian_9cebbce1f45d"
+  },
+  {
+    "from": "experiments/upstream_crisismmd_info/5c06beff2492",
+    "to": "image_only_upstream_clip/crisismmd/informativeness/samples_1000/openai_clip_vit_b_32/informativeness_5c06beff2492"
+  },
+  {
+    "from": "experiments/upstream_crisismmd_info/61fa6fcc913c",
+    "to": "image_only_upstream_waffle/crisismmd/informativeness/samples_1000/openai_clip_vit_b_32/informativeness_61fa6fcc913c"
+  },
+  {
+    "from": "experiments/upstream_crisismmd_info/ea2e52baee6c",
+    "to": "image_only_upstream_dclip_labels/crisismmd/informativeness/samples_1000/openai_clip_vit_b_32/informativeness_ea2e52baee6c"
+  },
+  {
+    "from": "experiments/upstream_crisismmd_info/f59288d1c77e",
+    "to": "image_only_upstream_dclip/crisismmd/informativeness/samples_1000/openai_clip_vit_b_32/informativeness_f59288d1c77e"
+  },
+  {
+    "from": "raw_predictions/metaclip2_vith14__crisismmd__humanitarian__v1__20261002_144552_425967",
+    "to": "baseline/crisismmd/humanitarian/samples_1000/metaclip2_vith14/humanitarian_metaclip2_vith14__crisismmd__humanitarian__v1__20261002_144552_425967"
+  },
+  {
+    "from": "raw_predictions/metaclip2_vith14__crisismmd__humanitarian__v1__20261002_144948_049055",
+    "to": "baseline/crisismmd/humanitarian/samples_1000/metaclip2_vith14/humanitarian_metaclip2_vith14__crisismmd__humanitarian__v1__20261002_144948_049055"
+  },
+  {
+    "from": "raw_predictions/metaclip2_vith14__crisismmd__informativeness__v1__20261002_145334_902720",
+    "to": "baseline/crisismmd/informativeness/samples_1000/metaclip2_vith14/informativeness_metaclip2_vith14__crisismmd__informativeness__v1__20261002_145334_902720"
+  },
+  {
+    "from": "raw_predictions/metaclip2_vith14__crisismmd__informativeness__v1__20261002_145809_930616",
+    "to": "baseline/crisismmd/informativeness/samples_1000/metaclip2_vith14/informativeness_metaclip2_vith14__crisismmd__informativeness__v1__20261002_145809_930616"
+  },
+  {
+    "from": "raw_predictions/metaclip2_vith14__fakeddit__2way__v1__20261002_151209_856253",
+    "to": "baseline/fakeddit/2way/samples_1000/metaclip2_vith14/2way_metaclip2_vith14__fakeddit__2way__v1__20261002_151209_856253"
+  },
+  {
+    "from": "raw_predictions/metaclip2_vith14__fakeddit__2way__v1__20261002_151550_233426",
+    "to": "baseline/fakeddit/2way/samples_1000/metaclip2_vith14/2way_metaclip2_vith14__fakeddit__2way__v1__20261002_151550_233426"
+  },
+  {
+    "from": "raw_predictions/metaclip2_vith14__fakeddit__6way__v1__20261002_151925_304282",
+    "to": "baseline/fakeddit/6way/samples_1000/metaclip2_vith14/6way_metaclip2_vith14__fakeddit__6way__v1__20261002_151925_304282"
+  },
+  {
+    "from": "raw_predictions/siglip2_so400m__crisismmd__humanitarian__v1__20261002_131433_345715",
+    "to": "baseline/crisismmd/humanitarian/samples_1000/siglip2_so400m/humanitarian_siglip2_so400m__crisismmd__humanitarian__v1__20261002_131433_345715"
+  },
+  {
+    "from": "raw_predictions/siglip2_so400m__crisismmd__humanitarian__v1__20261002_131740_829562",
+    "to": "baseline/crisismmd/humanitarian/samples_1000/siglip2_so400m/humanitarian_siglip2_so400m__crisismmd__humanitarian__v1__20261002_131740_829562"
+  },
+  {
+    "from": "raw_predictions/siglip2_so400m__crisismmd__humanitarian__v1__20261002_132215_948247",
+    "to": "baseline/crisismmd/humanitarian/samples_1000/siglip2_so400m/humanitarian_siglip2_so400m__crisismmd__humanitarian__v1__20261002_132215_948247"
+  },
+  {
+    "from": "raw_predictions/siglip2_so400m__crisismmd__humanitarian__v1__20261002_132653_268374",
+    "to": "baseline/crisismmd/humanitarian/samples_1000/siglip2_so400m/humanitarian_siglip2_so400m__crisismmd__humanitarian__v1__20261002_132653_268374"
+  },
+  {
+    "from": "raw_predictions/siglip2_so400m__crisismmd__humanitarian__v1__20261002_141208_148364",
+    "to": "baseline/crisismmd/humanitarian/samples_1000/siglip2_so400m/humanitarian_siglip2_so400m__crisismmd__humanitarian__v1__20261002_141208_148364"
+  },
+  {
+    "from": "raw_predictions/siglip2_so400m__crisismmd__humanitarian__v1__20261002_141711_760333",
+    "to": "baseline/crisismmd/humanitarian/samples_1000/siglip2_so400m/humanitarian_siglip2_so400m__crisismmd__humanitarian__v1__20261002_141711_760333"
+  },
+  {
+    "from": "raw_predictions/siglip2_so400m__crisismmd__informativeness__v1__20261002_133037_083483",
+    "to": "baseline/crisismmd/informativeness/samples_1000/siglip2_so400m/informativeness_siglip2_so400m__crisismmd__informativeness__v1__20261002_133037_083483"
+  },
+  {
+    "from": "raw_predictions/siglip2_so400m__crisismmd__informativeness__v1__20261002_133553_577290",
+    "to": "baseline/crisismmd/informativeness/samples_1000/siglip2_so400m/informativeness_siglip2_so400m__crisismmd__informativeness__v1__20261002_133553_577290"
+  },
+  {
+    "from": "raw_predictions/siglip2_so400m__crisismmd__informativeness__v1__20261002_133837_803129",
+    "to": "baseline/crisismmd/informativeness/samples_1000/siglip2_so400m/informativeness_siglip2_so400m__crisismmd__informativeness__v1__20261002_133837_803129"
+  },
+  {
+    "from": "raw_predictions/siglip2_so400m__crisismmd__informativeness__v1__20261002_134553_494120",
+    "to": "baseline/crisismmd/informativeness/samples_1000/siglip2_so400m/informativeness_siglip2_so400m__crisismmd__informativeness__v1__20261002_134553_494120"
+  },
+  {
+    "from": "raw_predictions/siglip2_so400m__crisismmd__informativeness__v1__20261002_140416_300740",
+    "to": "baseline/crisismmd/informativeness/samples_1000/siglip2_so400m/informativeness_siglip2_so400m__crisismmd__informativeness__v1__20261002_140416_300740"
+  },
+  {
+    "from": "raw_predictions/siglip2_so400m__crisismmd__informativeness__v1__20261002_140704_186746",
+    "to": "baseline/crisismmd/informativeness/samples_1000/siglip2_so400m/informativeness_siglip2_so400m__crisismmd__informativeness__v1__20261002_140704_186746"
+  },
+  {
+    "from": "raw_predictions/siglip2_so400m__fakeddit__2way__v1__20261002_150552_814536",
+    "to": "baseline/fakeddit/2way/samples_1000/siglip2_so400m/2way_siglip2_so400m__fakeddit__2way__v1__20261002_150552_814536"
+  },
+  {
+    "from": "raw_predictions/siglip2_so400m__fakeddit__2way__v1__20261002_150816_364045",
+    "to": "baseline/fakeddit/2way/samples_1000/siglip2_so400m/2way_siglip2_so400m__fakeddit__2way__v1__20261002_150816_364045"
+  },
+  {
+    "from": "raw_predictions/siglip2_so400m__fakeddit__6way__v1__20261002_125951_459677",
+    "to": "baseline/fakeddit/6way/samples_1000/siglip2_so400m/6way_siglip2_so400m__fakeddit__6way__v1__20261002_125951_459677"
+  },
+  {
+    "from": "raw_predictions/siglip2_so400m__fakeddit__6way__v1__20261002_150331_079039",
+    "to": "baseline/fakeddit/6way/samples_1000/siglip2_so400m/6way_siglip2_so400m__fakeddit__6way__v1__20261002_150331_079039"
+  },
+  {
+    "from": "raw_predictions/siglip2_so400m__mmimdb__multi_label__v1__20261002_142455_267135",
+    "to": "baseline/mmimdb/genres/samples_1000/siglip2_so400m/multi_label_siglip2_so400m__mmimdb__multi_label__v1__20261002_142455_267135"
+  },
+  {
+    "from": "raw_predictions/siglip2_so400m__mmimdb__multi_label__v1__20261002_142926_470145",
+    "to": "baseline/mmimdb/genres/samples_1000/siglip2_so400m/multi_label_siglip2_so400m__mmimdb__multi_label__v1__20261002_142926_470145"
+  },
+  {
+    "from": "raw_predictions/siglip2_so400m__mmimdb__multi_label__v1__20261002_143556_302746",
+    "to": "baseline/mmimdb/genres/samples_1000/siglip2_so400m/multi_label_siglip2_so400m__mmimdb__multi_label__v1__20261002_143556_302746"
+  },
+  {
+    "from": "raw_predictions/siglip2_so400m__mmimdb__multi_label__v1__20261002_144053_456149",
+    "to": "baseline/mmimdb/genres/samples_1000/siglip2_so400m/multi_label_siglip2_so400m__mmimdb__multi_label__v1__20261002_144053_456149"
+  },
+  {
+    "from": "summary_table_crisismmd_humanitarian_1.tsv",
+    "to": "baseline/crisismmd/humanitarian/samples_1000/siglip2_so400m/humanitarian_legacy_summary_table_crisismmd_humanitarian_1/summary.tsv"
+  },
+  {
+    "from": "summary_table_crisismmd_humanitarian_2.tsv",
+    "to": "baseline/crisismmd/humanitarian/samples_1000/siglip2_so400m/humanitarian_legacy_summary_table_crisismmd_humanitarian_2/summary.tsv"
+  },
+  {
+    "from": "summary_table_crisismmd_humanitarian_3.tsv",
+    "to": "baseline/crisismmd/humanitarian/samples_1000/siglip2_so400m/humanitarian_legacy_summary_table_crisismmd_humanitarian_3/summary.tsv"
+  },
+  {
+    "from": "summary_table_crisismmd_humanitarian_4.tsv",
+    "to": "baseline/crisismmd/humanitarian/samples_1000/siglip2_so400m/humanitarian_legacy_summary_table_crisismmd_humanitarian_4/summary.tsv"
+  },
+  {
+    "from": "summary_table_crisismmd_humanitarian_5.tsv",
+    "to": "baseline/crisismmd/humanitarian/samples_1000/siglip2_so400m/humanitarian_legacy_summary_table_crisismmd_humanitarian_5/summary.tsv"
+  },
+  {
+    "from": "summary_table_crisismmd_humanitarian_6.tsv",
+    "to": "baseline/crisismmd/humanitarian/samples_1000/siglip2_so400m/humanitarian_legacy_summary_table_crisismmd_humanitarian_6/summary.tsv"
+  },
+  {
+    "from": "summary_table_crisismmd_humanitarian_7.tsv",
+    "to": "baseline/crisismmd/humanitarian/samples_1000/metaclip2_vith14/humanitarian_legacy_summary_table_crisismmd_humanitarian_7/summary.tsv"
+  },
+  {
+    "from": "summary_table_crisismmd_humanitarian_8.tsv",
+    "to": "baseline/crisismmd/humanitarian/samples_1000/metaclip2_vith14/humanitarian_legacy_summary_table_crisismmd_humanitarian_8/summary.tsv"
+  },
+  {
+    "from": "summary_table_crisismmd_informativeness_1.tsv",
+    "to": "baseline/crisismmd/informativeness/samples_1000/siglip2_so400m/informativeness_legacy_summary_table_crisismmd_informativeness_1/summary.tsv"
+  },
+  {
+    "from": "summary_table_crisismmd_informativeness_2.tsv",
+    "to": "baseline/crisismmd/informativeness/samples_1000/siglip2_so400m/informativeness_legacy_summary_table_crisismmd_informativeness_2/summary.tsv"
+  },
+  {
+    "from": "summary_table_crisismmd_informativeness_3.tsv",
+    "to": "baseline/crisismmd/informativeness/samples_1000/siglip2_so400m/informativeness_legacy_summary_table_crisismmd_informativeness_3/summary.tsv"
+  },
+  {
+    "from": "summary_table_crisismmd_informativeness_4.tsv",
+    "to": "baseline/crisismmd/informativeness/samples_1000/siglip2_so400m/informativeness_legacy_summary_table_crisismmd_informativeness_4/summary.tsv"
+  },
+  {
+    "from": "summary_table_crisismmd_informativeness_5.tsv",
+    "to": "baseline/crisismmd/informativeness/samples_1000/siglip2_so400m/informativeness_legacy_summary_table_crisismmd_informativeness_5/summary.tsv"
+  },
+  {
+    "from": "summary_table_crisismmd_informativeness_6.tsv",
+    "to": "baseline/crisismmd/informativeness/samples_1000/siglip2_so400m/informativeness_legacy_summary_table_crisismmd_informativeness_6/summary.tsv"
+  },
+  {
+    "from": "summary_table_crisismmd_informativeness_7.tsv",
+    "to": "baseline/crisismmd/informativeness/samples_1000/metaclip2_vith14/informativeness_legacy_summary_table_crisismmd_informativeness_7/summary.tsv"
+  },
+  {
+    "from": "summary_table_crisismmd_informativeness_8.tsv",
+    "to": "baseline/crisismmd/informativeness/samples_1000/metaclip2_vith14/informativeness_legacy_summary_table_crisismmd_informativeness_8/summary.tsv"
+  },
+  {
+    "from": "summary_table_fakeddit_2way_1.tsv",
+    "to": "baseline/fakeddit/2way/samples_1000/siglip2_so400m/2way_legacy_summary_table_fakeddit_2way_1/summary.tsv"
+  },
+  {
+    "from": "summary_table_fakeddit_2way_2.tsv",
+    "to": "baseline/fakeddit/2way/samples_1000/siglip2_so400m/2way_legacy_summary_table_fakeddit_2way_2/summary.tsv"
+  },
+  {
+    "from": "summary_table_fakeddit_2way_3.tsv",
+    "to": "baseline/fakeddit/2way/samples_1000/metaclip2_vith14/2way_legacy_summary_table_fakeddit_2way_3/summary.tsv"
+  },
+  {
+    "from": "summary_table_fakeddit_2way_4.tsv",
+    "to": "baseline/fakeddit/2way/samples_1000/metaclip2_vith14/2way_legacy_summary_table_fakeddit_2way_4/summary.tsv"
+  },
+  {
+    "from": "summary_table_fakeddit_6way_1.tsv",
+    "to": "baseline/fakeddit/6way/samples_1000/siglip2_so400m/6way_legacy_summary_table_fakeddit_6way_1/summary.tsv"
+  },
+  {
+    "from": "summary_table_fakeddit_6way_2.tsv",
+    "to": "baseline/fakeddit/6way/samples_1000/siglip2_so400m/6way_legacy_summary_table_fakeddit_6way_2/summary.tsv"
+  },
+  {
+    "from": "summary_table_fakeddit_6way_3.tsv",
+    "to": "baseline/fakeddit/6way/samples_1000/metaclip2_vith14/6way_legacy_summary_table_fakeddit_6way_3/summary.tsv"
+  },
+  {
+    "from": "summary_table_mmimdb_genres_1.tsv",
+    "to": "baseline/mmimdb/genres/samples_1000/siglip2_so400m/genres_legacy_summary_table_mmimdb_genres_1/summary.tsv"
+  },
+  {
+    "from": "summary_table_mmimdb_genres_2.tsv",
+    "to": "baseline/mmimdb/genres/samples_1000/siglip2_so400m/genres_legacy_summary_table_mmimdb_genres_2/summary.tsv"
+  },
+  {
+    "from": "summary_table_mmimdb_genres_3.tsv",
+    "to": "baseline/mmimdb/genres/samples_1000/siglip2_so400m/genres_legacy_summary_table_mmimdb_genres_3/summary.tsv"
+  },
+  {
+    "from": "summary_table_mmimdb_genres_4.tsv",
+    "to": "baseline/mmimdb/genres/samples_1000/siglip2_so400m/genres_legacy_summary_table_mmimdb_genres_4/summary.tsv"
+  },
+  {
+    "from": "paper_methods/crisismmd_7_k1xxnw",
+    "to": "adapted_suite/crisismmd/humanitarian/samples_1000/metaclip2_vith14/humanitarian_crisismmd_7_k1xxnw"
+  },
+  {
+    "from": "paper_methods/crisismmd_laltsniw",
+    "to": "adapted_suite/crisismmd/humanitarian/samples_1000/metaclip2_vith14/humanitarian_crisismmd_laltsniw"
+  },
+  {
+    "from": "upstream_projects/experiment_djym_cbk",
+    "to": "upstream_suite/crisismmd/humanitarian/samples_5/openai_clip_vit_b_32/humanitarian_experiment_djym_cbk"
+  },
+  {
+    "from": "upstream_projects/experiment_qzll_j5j",
+    "to": "upstream_suite/crisismmd/humanitarian/samples_5/openai_clip_vit_b_32/humanitarian_experiment_qzll_j5j"
+  },
+  {
+    "from": "upstream_projects/smoke_suite_ua4bjvve",
+    "to": "upstream_suite/mixed/dataset/samples_5/openai_clip_vit_b_32/dataset_smoke_suite_ua4bjvve"
+  },
+  {
+    "from": "uncertainty_ensemble/crisismmd_qxmz8es0",
+    "to": "ensemble/mixed/dataset/samples_100/multi_model/dataset_crisismmd_qxmz8es0"
+  },
+  {
+    "from": "uncertainty_ensemble/crisismmd_szp6nogc",
+    "to": "ensemble/mixed/dataset/samples_30/multi_model/dataset_crisismmd_szp6nogc"
+  },
+  {
+    "from": "uncertainty_ensemble/crisismmd_vkrvk61x",
+    "to": "ensemble/mixed/dataset/samples_100/multi_model/dataset_crisismmd_vkrvk61x"
+  },
+  {
+    "from": "uncertainty_ensemble/crisismmd_vmn8yql3",
+    "to": "ensemble/mixed/dataset/samples_30/multi_model/dataset_crisismmd_vmn8yql3"
+  },
+  {
+    "from": "kaggle_runs/0ca31ceaddc9",
+    "to": "ensemble/mixed/dataset/samples_30/multi_model/dataset_0ca31ceaddc9"
+  },
+  {
+    "from": "relation_ablation/smoke5_099f9f4r",
+    "to": "relation_ablation/fakeddit/6way/samples_5/dfn5b_vith14/6way_smoke5_099f9f4r"
+  },
+  {
+    "from": "relation_ablation/smoke5_0s35r8rk",
+    "to": "relation_ablation/fakeddit/6way/samples_5/dfn5b_vith14/6way_smoke5_0s35r8rk"
+  },
+  {
+    "from": "relation_ablation/smoke5_31gx_uv5",
+    "to": "relation_ablation/fakeddit/6way/samples_5/metaclip2_vith14/6way_smoke5_31gx_uv5"
+  },
+  {
+    "from": "relation_ablation/smoke5_c14gkjt3",
+    "to": "relation_ablation/fakeddit/6way/samples_5/metaclip2_vith14/6way_smoke5_c14gkjt3"
+  },
+  {
+    "from": "relation_ablation/smoke5_ibm0w2kt",
+    "to": "relation_ablation/fakeddit/6way/samples_5/metaclip2_vith14/6way_smoke5_ibm0w2kt"
+  },
+  {
+    "from": "relation_ablation/smoke5_wte6_1ml",
+    "to": "relation_ablation/fakeddit/6way/samples_5/siglip2_so400m/6way_smoke5_wte6_1ml"
+  },
+  {
+    "from": "analysis/crisismmd_agreement/8d71e3c908af_metaclip2_vith14.json",
+    "to": "analysis/agreement_fusion/crisismmd/informativeness/samples_1000/metaclip2_vith14/informativeness_8d71e3c908af_metaclip2_vith14/summary.json"
+  },
+  {
+    "from": "analysis/crisismmd_direct_pair/8d71e3c908af_metaclip2_vith14.json",
+    "to": "analysis/direct_pair_fusion/crisismmd/informativeness/samples_1000/metaclip2_vith14/informativeness_8d71e3c908af_metaclip2_vith14/summary.json"
+  },
+  {
+    "from": "analysis/fakeddit_text_exploratory.json",
+    "to": "analysis/text_diagnosis/fakeddit/2way/samples_1000/multi_model/2way_fakeddit_text_exploratory/summary.json"
+  },
+  {
+    "from": "analysis/fallback/2ff98e4f0871_e595fbb7f79a_siglip2_so400m",
+    "to": "analysis/fallback/crisismmd/informativeness/samples_1000/multi_model/informativeness_2ff98e4f0871_e595fbb7f79a_siglip2_so400m"
+  },
+  {
+    "from": "analysis/fallback/03f1882357bb_6acc864b7851_metaclip2_vith14",
+    "to": "analysis/fallback/crisismmd/informativeness/samples_3000/metaclip2_vith14/informativeness_03f1882357bb_6acc864b7851_metaclip2_vith14"
+  },
+  {
+    "from": "analysis/fallback/2ff98e4f0871_e595fbb7f79a_dfn5b_vith14",
+    "to": "analysis/fallback/crisismmd/informativeness/samples_1000/multi_model/informativeness_2ff98e4f0871_e595fbb7f79a_dfn5b_vith14"
+  },
+  {
+    "from": "analysis/uncertainty/9ed97f55cf78_split_conformal_group5_v2_pooled_alpha100",
+    "to": "analysis/split_conformal_group5_v2/fakeddit/2way/samples_1000/metaclip2_vith14/2way_9ed97f55cf78_split_conformal_group5_v2_pooled_alpha100"
+  },
+  {
+    "from": "analysis/uncertainty/2ff98e4f0871_branch_disagreement_v1",
+    "to": "analysis/branch_disagreement_v1/crisismmd/informativeness/samples_1000/metaclip2_vith14/informativeness_2ff98e4f0871_branch_disagreement_v1"
+  },
+  {
+    "from": "analysis/uncertainty/03f1882357bb_branch_disagreement_v1",
+    "to": "analysis/branch_disagreement_v1/crisismmd/informativeness/samples_3000/metaclip2_vith14/informativeness_03f1882357bb_branch_disagreement_v1"
+  },
+  {
+    "from": "analysis/uncertainty/03f1882357bb_fusion_weight_group_cv_v1",
+    "to": "analysis/fusion_weight_group_cv_v1/crisismmd/informativeness/samples_3000/metaclip2_vith14/informativeness_03f1882357bb_fusion_weight_group_cv_v1"
+  },
+  {
+    "from": "analysis/uncertainty/9ed97f55cf78_split_conformal_group5_v1_alpha100",
+    "to": "analysis/split_conformal_group5_v1/fakeddit/2way/samples_1000/metaclip2_vith14/2way_9ed97f55cf78_split_conformal_group5_v1_alpha100"
+  },
+  {
+    "from": "analysis/uncertainty/9ed97f55cf78_split_conformal_group5_v2_classwise_alpha100",
+    "to": "analysis/split_conformal_group5_v2/fakeddit/2way/samples_1000/metaclip2_vith14/2way_9ed97f55cf78_split_conformal_group5_v2_classwise_alpha100"
+  },
+  {
+    "from": "analysis/uncertainty/03f1882357bb_fusion_weight_group_cv_v2",
+    "to": "analysis/fusion_weight_group_cv_v2/crisismmd/informativeness/samples_3000/metaclip2_vith14/informativeness_03f1882357bb_fusion_weight_group_cv_v2"
+  },
+  {
+    "from": "launches",
+    "to": "_system/launches"
+  },
+  {
+    "from": "kaggle_launcher",
+    "to": "_system/kaggle_launcher"
+  },
+  {
+    "from": "label_distribution",
+    "to": "_system/label_distribution"
+  },
+  {
+    "from": "INDEX.md",
+    "to": "_system/old_index/INDEX.md"
+  },
+  {
+    "from": "INDEX.tsv",
+    "to": "_system/old_index/INDEX.tsv"
+  },
+  {
+    "from": "analysis_agreement_fusion",
+    "to": "analysis/agreement_fusion"
+  },
+  {
+    "from": "analysis_branch_disagreement_v1",
+    "to": "analysis/branch_disagreement_v1"
+  },
+  {
+    "from": "analysis_direct_pair_fusion",
+    "to": "analysis/direct_pair_fusion"
+  },
+  {
+    "from": "analysis_fallback",
+    "to": "analysis/fallback"
+  },
+  {
+    "from": "analysis_fusion_weight_group_cv_v1",
+    "to": "analysis/fusion_weight_group_cv_v1"
+  },
+  {
+    "from": "analysis_fusion_weight_group_cv_v2",
+    "to": "analysis/fusion_weight_group_cv_v2"
+  },
+  {
+    "from": "analysis_split_conformal_group5_v1",
+    "to": "analysis/split_conformal_group5_v1"
+  },
+  {
+    "from": "analysis_split_conformal_group5_v2",
+    "to": "analysis/split_conformal_group5_v2"
+  },
+  {
+    "from": "analysis_text_diagnosis",
+    "to": "analysis/text_diagnosis"
+  },
+  {
+    "from": "upstream_clip/crisismmd/informativeness/samples_1000/openai_clip_vit_b_32/informativeness_5c06beff2492",
+    "to": "image_only_upstream_clip/crisismmd/informativeness/samples_1000/openai_clip_vit_b_32/informativeness_5c06beff2492"
+  },
+  {
+    "from": "upstream_dclip/crisismmd/informativeness/samples_1000/openai_clip_vit_b_32/informativeness_f59288d1c77e",
+    "to": "image_only_upstream_dclip/crisismmd/informativeness/samples_1000/openai_clip_vit_b_32/informativeness_f59288d1c77e"
+  },
+  {
+    "from": "upstream_dclip_labels/crisismmd/informativeness/samples_1000/openai_clip_vit_b_32/informativeness_ea2e52baee6c",
+    "to": "image_only_upstream_dclip_labels/crisismmd/informativeness/samples_1000/openai_clip_vit_b_32/informativeness_ea2e52baee6c"
+  },
+  {
+    "from": "upstream_suite/crisismmd/humanitarian/samples_1000/openai_clip_vit_b_32/humanitarian_9cebbce1f45d",
+    "to": "image_only_upstream_suite/crisismmd/humanitarian/samples_1000/openai_clip_vit_b_32/humanitarian_9cebbce1f45d"
+  },
+  {
+    "from": "upstream_waffle/crisismmd/informativeness/samples_1000/openai_clip_vit_b_32/informativeness_61fa6fcc913c",
+    "to": "image_only_upstream_waffle/crisismmd/informativeness/samples_1000/openai_clip_vit_b_32/informativeness_61fa6fcc913c"
+  }
+]

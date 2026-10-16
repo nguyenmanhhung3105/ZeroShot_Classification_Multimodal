@@ -1,0 +1,6 @@
+﻿dataset	task	status	data_path	label_column	scope	n_rows	n_valid_rows	n_missing_labels	n_unknown_label_rows	n_duplicate_label_rows	known_label_assignments	error
+fakeddit	2way	ok	data/processed/pro_fakeddit/fakeddit_sample.tsv	2_way_label	first_rows_preview	5	5	0	0	0	5	
+fakeddit	6way	ok	data/processed/pro_fakeddit/fakeddit_sample.tsv	6_way_label	first_rows_preview	5	5	0	0	0	5	
+crisismmd	informativeness	ok	data/processed/pro_crisismmd/pre_crisismmd.tsv	label_informative	first_rows_preview	5	5	0	0	0	5	
+crisismmd	humanitarian	ok	data/processed/pro_crisismmd/pre_crisismmd.tsv	label_humanitarian	first_rows_preview	5	5	0	0	0	5	
+mmimdb	genres	ok	data/processed/pro_mmimdb/mmimdb_sample.tsv	genres	first_rows_preview	5	5	0	0	0	13	

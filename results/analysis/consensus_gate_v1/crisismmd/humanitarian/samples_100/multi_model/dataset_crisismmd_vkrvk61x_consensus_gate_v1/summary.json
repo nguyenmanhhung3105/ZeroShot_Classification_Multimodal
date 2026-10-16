@@ -1,0 +1,172 @@
+{
+  "policy": "consensus_gate_v1",
+  "dataset": "crisismmd",
+  "task": "humanitarian",
+  "n_samples": 100,
+  "sample_set_id": "e52a9a47d595d3a738cbbd19d50c23388b94ecbd9382fea965810c49fab3c1f0",
+  "split_verified": false,
+  "threshold_fixed_without_labels": 0.1,
+  "labels": [
+    "not_humanitarian",
+    "other_relevant_information",
+    "rescue_volunteering_or_donation_effort",
+    "infrastructure_and_utility_damage",
+    "affected_individuals",
+    "vehicle_damage",
+    "injured_or_dead_people",
+    "missing_or_found_people"
+  ],
+  "models": [
+    "metaclip2_vith14",
+    "dfn5b_vith14",
+    "siglip2_so400m"
+  ],
+  "methods": {
+    "primary": {
+      "accuracy": 0.57,
+      "macro_f1": 0.2843003634475597,
+      "changed": 0,
+      "wrong_to_right": 0,
+      "right_to_wrong": 0,
+      "wrong_to_wrong_changed": 0
+    },
+    "equal_mean": {
+      "accuracy": 0.54,
+      "macro_f1": 0.2521335807050093,
+      "changed": 8,
+      "wrong_to_right": 2,
+      "right_to_wrong": 5,
+      "wrong_to_wrong_changed": 1
+    },
+    "margin_gate_mean": {
+      "accuracy": 0.56,
+      "macro_f1": 0.26680510860820594,
+      "changed": 6,
+      "wrong_to_right": 2,
+      "right_to_wrong": 3,
+      "wrong_to_wrong_changed": 1
+    },
+    "aux_consensus_all": {
+      "accuracy": 0.56,
+      "macro_f1": 0.25767458977449725,
+      "changed": 10,
+      "wrong_to_right": 4,
+      "right_to_wrong": 5,
+      "wrong_to_wrong_changed": 1
+    },
+    "aux_consensus_low_margin": {
+      "accuracy": 0.56,
+      "macro_f1": 0.26680510860820594,
+      "changed": 6,
+      "wrong_to_right": 2,
+      "right_to_wrong": 3,
+      "wrong_to_wrong_changed": 1
+    }
+  },
+  "recoverability": {
+    "primary_errors": 43,
+    "primary_errors_any_aux_correct": 10,
+    "primary_errors_both_aux_correct": 4,
+    "primary_errors_all_models_wrong": 33
+  },
+  "predicted_class_counts": {
+    "metaclip2_vith14": {
+      "not_humanitarian": 64,
+      "other_relevant_information": 26,
+      "rescue_volunteering_or_donation_effort": 5,
+      "infrastructure_and_utility_damage": 3,
+      "affected_individuals": 0,
+      "vehicle_damage": 1,
+      "injured_or_dead_people": 0,
+      "missing_or_found_people": 1
+    },
+    "dfn5b_vith14": {
+      "not_humanitarian": 73,
+      "other_relevant_information": 13,
+      "rescue_volunteering_or_donation_effort": 8,
+      "infrastructure_and_utility_damage": 4,
+      "affected_individuals": 0,
+      "vehicle_damage": 1,
+      "injured_or_dead_people": 1,
+      "missing_or_found_people": 0
+    },
+    "siglip2_so400m": {
+      "not_humanitarian": 72,
+      "other_relevant_information": 20,
+      "rescue_volunteering_or_donation_effort": 4,
+      "infrastructure_and_utility_damage": 2,
+      "affected_individuals": 0,
+      "vehicle_damage": 0,
+      "injured_or_dead_people": 1,
+      "missing_or_found_people": 1
+    }
+  },
+  "uncertainty_detection": {
+    "one_minus_primary_margin": {
+      "error_auroc": 0.7021623827009383,
+      "error_average_precision": 0.5941000096539054,
+      "errors_in_top_20_percent": 13,
+      "top_20_percent_count": 20
+    },
+    "model_vote_disagreement": {
+      "error_auroc": 0.5428396572827419,
+      "error_average_precision": 0.4591331923890063,
+      "errors_in_top_20_percent": 8,
+      "top_20_percent_count": 20
+    },
+    "model_js_divergence": {
+      "error_auroc": 0.3655650754793962,
+      "error_average_precision": 0.3873808231977995,
+      "errors_in_top_20_percent": 7,
+      "top_20_percent_count": 20
+    },
+    "image_text_vote_disagreement": {
+      "error_auroc": 0.6183190534475724,
+      "error_average_precision": 0.5075581395348836,
+      "errors_in_top_20_percent": 10,
+      "top_20_percent_count": 20
+    },
+    "image_text_js_divergence": {
+      "error_auroc": 0.6629946960424317,
+      "error_average_precision": 0.5873795740115285,
+      "errors_in_top_20_percent": 13,
+      "top_20_percent_count": 20
+    }
+  },
+  "uncertainty_groups": {
+    "low_margin": {
+      "n": 17,
+      "primary_errors": 11,
+      "primary_error_rate": 0.6470588235294118,
+      "share_of_primary_errors": 0.2558139534883721,
+      "accepted_n": 83,
+      "accepted_accuracy": 0.6144578313253012
+    },
+    "any_model_disagreement": {
+      "n": 28,
+      "primary_errors": 14,
+      "primary_error_rate": 0.5,
+      "share_of_primary_errors": 0.32558139534883723,
+      "accepted_n": 72,
+      "accepted_accuracy": 0.5972222222222222
+    },
+    "aux_consensus_opposite": {
+      "n": 10,
+      "primary_errors": 5,
+      "primary_error_rate": 0.5,
+      "share_of_primary_errors": 0.11627906976744186,
+      "accepted_n": 90,
+      "accepted_accuracy": 0.5777777777777777
+    },
+    "low_margin_and_aux_consensus": {
+      "n": 6,
+      "primary_errors": 3,
+      "primary_error_rate": 0.5,
+      "share_of_primary_errors": 0.06976744186046512,
+      "accepted_n": 94,
+      "accepted_accuracy": 0.574468085106383
+    }
+  },
+  "source_type": "local_logs",
+  "source_run": "results/ensemble/mixed/dataset/samples_100/multi_model/dataset_crisismmd_vkrvk61x"
+}

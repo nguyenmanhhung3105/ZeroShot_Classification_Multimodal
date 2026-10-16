@@ -1,0 +1,69 @@
+{
+  "image_method": "class_name",
+  "research_seed": null,
+  "method_protocol": "frozen_no_fit_exploratory",
+  "implementation": "image_branch_adapter_v1",
+  "image_prompt_aggregation": "mean_sim",
+  "research_image_prompts": {
+    "not_humanitarian": [
+      "A photo of a Not Humanitarian."
+    ],
+    "other_relevant_information": [
+      "A photo of a Other Relevant Information."
+    ],
+    "rescue_volunteering_or_donation_effort": [
+      "A photo of a Rescue/Volunteering/Donation."
+    ],
+    "infrastructure_and_utility_damage": [
+      "A photo of a Infrastructure/Utility Damage."
+    ],
+    "affected_individuals": [
+      "A photo of a Affected Individuals."
+    ],
+    "vehicle_damage": [
+      "A photo of a Vehicle Damage."
+    ],
+    "injured_or_dead_people": [
+      "A photo of a Injured or Dead People."
+    ],
+    "missing_or_found_people": [
+      "A photo of a Missing or Found People."
+    ]
+  },
+  "text_logit_scale_requested": null,
+  "text_logit_scale_effective": 100.00000762939453,
+  "text_logit_scale_status": "model_default",
+  "text_scale_override_applied": false,
+  "fusion_enabled": true,
+  "image_weight": 0.5,
+  "text_weight": 0.5,
+  "prompt_aggregation": "mean_embed",
+  "max_samples": 1000,
+  "min_text_length": 0,
+  "batch_size": 16,
+  "logit_scale": 100.00000762939453,
+  "logit_bias": 0.0,
+  "sample_set_id": "c9145419daece8212d5b9f80d57970ccf8767f4ec963a03eab5951e76e35020a",
+  "config_id": "08a1845449b58a29e557dfe338088a59fae8c80bb0f2ffff5b7d904bff1fc377",
+  "prompt_id": "b547e4332c1e20839620b4028578675205b674a06acc358a8bcc0afa9e11a57c",
+  "split": "val",
+  "split_verified": false,
+  "evaluation_snapshot": "evaluation_snapshot.json",
+  "sample_lock_path": null,
+  "truncation": {
+    "status": "measured",
+    "context_length": 77,
+    "n_nonempty": 1000,
+    "n_measured": 1000,
+    "n_truncated": 0,
+    "truncated_rate": 0.0
+  },
+  "model": "metaclip2_vith14",
+  "dataset": "crisismmd",
+  "task": "humanitarian",
+  "prompt_version": "v1",
+  "n_total_samples": 1000,
+  "n_errors": 285,
+  "error_rate": 0.285,
+  "timestamp": "2026-10-10T14:08:18.854658"
+}

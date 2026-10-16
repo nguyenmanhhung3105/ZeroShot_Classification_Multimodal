@@ -1,0 +1,51 @@
+{
+  "policy": "prompt_margin_gate_v1",
+  "dataset": "crisismmd",
+  "task": "humanitarian",
+  "model": "metaclip2_vith14",
+  "n_samples": 1000,
+  "labels": [
+    "not_humanitarian",
+    "other_relevant_information",
+    "rescue_volunteering_or_donation_effort",
+    "infrastructure_and_utility_damage",
+    "affected_individuals",
+    "vehicle_damage",
+    "injured_or_dead_people",
+    "missing_or_found_people"
+  ],
+  "margin_threshold": 0.1,
+  "gate_count": 144,
+  "baseline_sample_set_id": "ef2c3571480d37f1c51cef4c68c89966f6aa53fbc3c502b23a123f405dc30f5c",
+  "adapted_sample_set_id": "ef2c3571480d37f1c51cef4c68c89966f6aa53fbc3c502b23a123f405dc30f5c",
+  "paired_rows_verified": true,
+  "split_verified": false,
+  "methods": {
+    "baseline": {
+      "accuracy": 0.731,
+      "macro_f1": 0.4561593485646458,
+      "changed_vs_baseline": 0,
+      "wrong_to_right": 0,
+      "right_to_wrong": 0,
+      "wrong_to_wrong_changed": 0
+    },
+    "adapted_dclip": {
+      "accuracy": 0.733,
+      "macro_f1": 0.46506805735510315,
+      "changed_vs_baseline": 111,
+      "wrong_to_right": 49,
+      "right_to_wrong": 47,
+      "wrong_to_wrong_changed": 15
+    },
+    "prompt_margin_gate": {
+      "accuracy": 0.742,
+      "macro_f1": 0.4707990433865291,
+      "changed_vs_baseline": 53,
+      "wrong_to_right": 28,
+      "right_to_wrong": 17,
+      "wrong_to_wrong_changed": 8
+    }
+  },
+  "baseline_run": "results/baseline/crisismmd/humanitarian/samples_1000/metaclip2_vith14/humanitarian_e20dbf10ac1f",
+  "adapted_run": "results/adapted_dclip/crisismmd/humanitarian/samples_1000/metaclip2_vith14/humanitarian_8688b1c0c9cf"
+}

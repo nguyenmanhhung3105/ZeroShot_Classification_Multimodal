@@ -1,0 +1,449 @@
+{
+  "settings": {
+    "base_config": "configs/experiment_config.yaml",
+    "backbones": [
+      "ViT-B/32"
+    ],
+    "device": "auto",
+    "batch_size": 16,
+    "methods": [
+      "clip",
+      "waffle",
+      "dclip_labels",
+      "dclip"
+    ],
+    "seeds": [
+      0
+    ],
+    "waffle_pairs": 15,
+    "outputs": [
+      "original_image",
+      "multimodal"
+    ],
+    "output_dir": "/Users/hung/Documents/MyProject/Python/DA_CNTT/vlm-zeroshot-content-classification/results/upstream_projects/smoke_suite_ua4bjvve",
+    "datasets": {
+      "crisismmd": {
+        "enabled": false,
+        "task": "humanitarian",
+        "max_samples": 5
+      },
+      "fakeddit": {
+        "enabled": true,
+        "task": "2way",
+        "max_samples": 5
+      },
+      "mmimdb": {
+        "enabled": false,
+        "task": "genres",
+        "max_samples": 5
+      }
+    },
+    "descriptor_files": {
+      "crisismmd": {
+        "humanitarian": "configs/research/descriptors/crisismmd_humanitarian.json",
+        "informativeness": "configs/research/descriptors/crisismmd_info.json"
+      },
+      "fakeddit": {
+        "2way": "configs/research/descriptors/fakeddit_2way.json",
+        "6way": "configs/research/descriptors/fakeddit_6way.json"
+      },
+      "mmimdb": {
+        "genres": "configs/research/descriptors/mmimdb_genres.json"
+      }
+    }
+  },
+  "base_config": {
+    "models": [
+      "metaclip2_vith14"
+    ],
+    "inference": {
+      "batch_size": 16,
+      "image_weight": 0.5,
+      "text_logit_scale": null
+    },
+    "datasets": {
+      "fakeddit": {
+        "enabled": true,
+        "task": "6way",
+        "data_path": "data/processed/pro_fakeddit/fakeddit_sample.tsv",
+        "image_dir": "data/processed/pro_fakeddit/images",
+        "id_col": "id",
+        "text_col": "clean_title",
+        "label_col_2way": "2_way_label",
+        "label_col_6way": "6_way_label",
+        "min_text_length": 20,
+        "max_samples": 1000,
+        "prompt_aggregation": "mean_sim",
+        "prompt_variants": [
+          "current"
+        ],
+        "inference": {
+          "image_weight": 0.75,
+          "text_logit_scale": 25
+        }
+      },
+      "crisismmd": {
+        "enabled": true,
+        "task": "informativeness",
+        "data_path": "data/processed/pro_crisismmd/pre_crisismmd.tsv",
+        "image_dir": "data/processed/pro_crisismmd/images",
+        "id_col": "tweet_id",
+        "text_col": "clean_text",
+        "label_col_info": "label_informative",
+        "label_col_human": "label_humanitarian",
+        "max_samples": 1000,
+        "prompt_aggregation": "mean_embed",
+        "inference": {
+          "image_weight": 0.5,
+          "text_logit_scale": null
+        }
+      },
+      "mmimdb": {
+        "enabled": true,
+        "task": "genres",
+        "data_path": "data/processed/pro_mmimdb/mmimdb_sample.tsv",
+        "image_dir": "data/processed/pro_mmimdb/images",
+        "id_col": "id",
+        "text_col": "plot",
+        "label_col": "genres",
+        "max_samples": 1000,
+        "prompt_aggregation": "mean_sim",
+        "decision_mode": "relative_z",
+        "relative_z_threshold": 1.0,
+        "threshold": 0.22,
+        "chunk_long_text": true,
+        "chunk_aggregation": "mean_embed",
+        "inference": {
+          "image_weight": 0.5,
+          "text_logit_scale": null
+        }
+      }
+    },
+    "evaluation": {
+      "enabled": true,
+      "split": "val",
+      "measure_truncation": true,
+      "sample_lock_mode": "off",
+      "sample_lock_dir": "results/sample_locks"
+    },
+    "demo": {
+      "n_samples": 10,
+      "batch_size": 4,
+      "prompt_version": "v1",
+      "log_dir": "results/demo_logs",
+      "visualization_dir": "results/demo"
+    },
+    "output": {
+      "results_dir": "results/",
+      "raw_predictions_dir": "results/raw_predictions/",
+      "summary_table": "results/summary_table.tsv"
+    }
+  },
+  "cohorts": {
+    "fakeddit": {
+      "task_config": {
+        "enabled": true,
+        "task": "2way",
+        "data_path": "data/processed/pro_fakeddit/fakeddit_sample.tsv",
+        "image_dir": "data/processed/pro_fakeddit/images",
+        "id_col": "id",
+        "text_col": "clean_title",
+        "label_col_2way": "2_way_label",
+        "label_col_6way": "6_way_label",
+        "min_text_length": 20,
+        "max_samples": 5,
+        "prompt_aggregation": "mean_sim",
+        "inference": {
+          "image_weight": 0.75,
+          "text_logit_scale": 25
+        },
+        "prompt_variant": "current"
+      },
+      "names": {
+        "0": "fake",
+        "1": "real"
+      },
+      "text_prompts": {
+        "0": [
+          "a Reddit post containing false or misleading information",
+          "a Reddit title presenting fabricated or deceptive information",
+          "a social media post spreading false or misleading claims",
+          "a Reddit post that distorts or misrepresents a real event",
+          "a Reddit title designed to create a misleading impression",
+          "a satirical or parody Reddit post that should not be interpreted as factual",
+          "a Reddit post containing exaggerated, deceptive, or manipulated information",
+          "a Reddit post misrepresenting the original source or meaning of the content",
+          "a Reddit title that does not accurately describe the associated content",
+          "a social media caption creating a false connection with the associated image",
+          "a misleading caption that gives the image a false or incorrect meaning",
+          "a Reddit post presenting content in a false or deceptive context",
+          "a photo containing manipulated, altered, or fabricated visual content",
+          "a photo digitally edited to create a false or misleading impression",
+          "an image containing visually manipulated or deceptive content",
+          "a manipulated image presented as if it were authentic",
+          "a photo used in a false or misleading context",
+          "an image used to support a misleading social media post",
+          "a photo that does not accurately support the accompanying Reddit title",
+          "an image whose meaning is misrepresented by the accompanying caption",
+          "a meme, parody, or altered image presented as factual content",
+          "a fabricated or edited image intended to mislead the viewer",
+          "an image creating a false impression about an event, object, or person",
+          "a misleading social media image associated with false or deceptive information"
+        ],
+        "1": [
+          "a Reddit post containing accurate and truthful information",
+          "a Reddit title accurately describing a real event, object, or scene",
+          "a factual social media post reporting genuine information",
+          "a Reddit post presenting information without misleading manipulation",
+          "a truthful Reddit title that accurately represents the original content",
+          "a social media post describing a real event or situation accurately",
+          "a Reddit post presenting authentic and correctly contextualized information",
+          "a factual post whose title accurately reflects the meaning of the content",
+          "a Reddit title that correctly describes the associated image",
+          "a social media caption that accurately matches the associated image",
+          "a truthful caption providing the correct context for an image",
+          "an unusual or surprising but genuine and factual Reddit post",
+          "a real and authentic photo showing an actual event, object, or scene",
+          "a genuine photo accurately representing what really happened",
+          "an authentic image that has not been misleadingly manipulated",
+          "a real photo presented in its correct context",
+          "a photo that accurately supports the accompanying Reddit title",
+          "an image whose content correctly matches the accompanying caption",
+          "a genuine image used to support accurate social media information",
+          "an authentic photo without deceptive visual manipulation",
+          "a real image accurately documenting an event, object, or situation",
+          "a factual social media image presented with the correct meaning",
+          "an unusual or surprising but genuine photograph",
+          "an authentic image associated with truthful and correctly contextualized information"
+        ]
+      },
+      "descriptor_provenance": "Assistant tạo từ định nghĩa lớp, cố định ngày 2026-10-10; không lấy từ dòng dữ liệu hoặc lỗi validation. Sự thật không thể luôn suy ra từ hình ảnh; mô tả này chỉ là giả thuyết zero-shot, không phải đầu ra GPT-3 gốc của paper.",
+      "descriptor_sha256": "8b05889f54b61a0d9eda70b7a5ea0bb404b98fe030db5917bb937a8aea0d321c"
+    }
+  },
+  "trials": [
+    {
+      "dataset": "fakeddit",
+      "method": "clip",
+      "seed": null,
+      "prompts": {
+        "fake": [
+          "A photo of a fake."
+        ],
+        "real": [
+          "A photo of a real."
+        ]
+      },
+      "author_options": {
+        "dataset": "custom",
+        "model_size": "ViT-B/32",
+        "mode": "clip",
+        "classes_to_load": null,
+        "label_to_classname": [
+          "fake",
+          "real"
+        ],
+        "n_classes": 2,
+        "descriptor_fname": "/Users/hung/Documents/MyProject/Python/DA_CNTT/vlm-zeroshot-content-classification/results/upstream_projects/smoke_suite_ua4bjvve/experiment_yo4gy0ph/descriptors_fakeddit_2way.json",
+        "waffle_count": 15,
+        "label_before_text": "A photo of a ",
+        "label_after_text": ".",
+        "pre_descriptor_text": "",
+        "descriptor_separator": ", ",
+        "apply_descriptor_modification": true
+      }
+    },
+    {
+      "dataset": "fakeddit",
+      "method": "waffle",
+      "seed": 0,
+      "prompts": {
+        "fake": [
+          "A photo of a fake, which has whee.",
+          "A photo of a fake, which has ohrxu.",
+          "A photo of a fake, which has ball.",
+          "A photo of a fake, which has cmitj.",
+          "A photo of a fake, which has reso.",
+          "A photo of a fake, which has jjcxp.",
+          "A photo of a fake, which has less.",
+          "A photo of a fake, which has nfwle.",
+          "A photo of a fake, which has prom.",
+          "A photo of a fake, which has ixwos.",
+          "A photo of a fake, which has rain.",
+          "A photo of a fake, which has otmax.",
+          "A photo of a fake, which has resi.",
+          "A photo of a fake, which has dewci.",
+          "A photo of a fake, which has chip.",
+          "A photo of a fake, which has hfuyc.",
+          "A photo of a fake, which has fill.",
+          "A photo of a fake, which has rmhni.",
+          "A photo of a fake, which has wind.",
+          "A photo of a fake, which has glbfc.",
+          "A photo of a fake, which has wedg.",
+          "A photo of a fake, which has fpsgs.",
+          "A photo of a fake, which has driz.",
+          "A photo of a fake, which has osffl.",
+          "A photo of a fake, which has pepp.",
+          "A photo of a fake, which is avvnh.",
+          "A photo of a fake, which has shop.",
+          "A photo of a fake, which has psxrg.",
+          "A photo of a fake, which has stri.",
+          "A photo of a fake, which has wiwps."
+        ],
+        "real": [
+          "A photo of a real, which has whee.",
+          "A photo of a real, which has ohrxu.",
+          "A photo of a real, which has ball.",
+          "A photo of a real, which has cmitj.",
+          "A photo of a real, which has reso.",
+          "A photo of a real, which has jjcxp.",
+          "A photo of a real, which has less.",
+          "A photo of a real, which has nfwle.",
+          "A photo of a real, which has prom.",
+          "A photo of a real, which has ixwos.",
+          "A photo of a real, which has rain.",
+          "A photo of a real, which has otmax.",
+          "A photo of a real, which has resi.",
+          "A photo of a real, which has dewci.",
+          "A photo of a real, which has chip.",
+          "A photo of a real, which has hfuyc.",
+          "A photo of a real, which has fill.",
+          "A photo of a real, which has rmhni.",
+          "A photo of a real, which has wind.",
+          "A photo of a real, which has glbfc.",
+          "A photo of a real, which has wedg.",
+          "A photo of a real, which has fpsgs.",
+          "A photo of a real, which has driz.",
+          "A photo of a real, which has osffl.",
+          "A photo of a real, which has pepp.",
+          "A photo of a real, which is avvnh.",
+          "A photo of a real, which has shop.",
+          "A photo of a real, which has psxrg.",
+          "A photo of a real, which has stri.",
+          "A photo of a real, which has wiwps."
+        ]
+      },
+      "author_options": {
+        "dataset": "custom",
+        "model_size": "ViT-B/32",
+        "mode": "waffle",
+        "classes_to_load": null,
+        "label_to_classname": [
+          "fake",
+          "real"
+        ],
+        "n_classes": 2,
+        "descriptor_fname": "/Users/hung/Documents/MyProject/Python/DA_CNTT/vlm-zeroshot-content-classification/results/upstream_projects/smoke_suite_ua4bjvve/experiment_yo4gy0ph/descriptors_fakeddit_2way.json",
+        "waffle_count": 15,
+        "label_before_text": "A photo of a ",
+        "label_after_text": ".",
+        "pre_descriptor_text": "",
+        "descriptor_separator": ", ",
+        "apply_descriptor_modification": true
+      }
+    },
+    {
+      "dataset": "fakeddit",
+      "method": "dclip_labels",
+      "seed": null,
+      "prompts": {
+        "fake": [
+          "fake"
+        ],
+        "real": [
+          "real"
+        ]
+      },
+      "author_options": {
+        "descriptor_fname": "/Users/hung/Documents/MyProject/Python/DA_CNTT/vlm-zeroshot-content-classification/results/upstream_projects/smoke_suite_ua4bjvve/experiment_yo4gy0ph/descriptors_fakeddit_2way.json",
+        "category_name_inclusion": "prepend",
+        "apply_descriptor_modification": true,
+        "before_text": "",
+        "between_text": ", ",
+        "after_text": "",
+        "label_before_text": "",
+        "label_after_text": ""
+      }
+    },
+    {
+      "dataset": "fakeddit",
+      "method": "dclip",
+      "seed": null,
+      "prompts": {
+        "fake": [
+          "fake, which is a satirical or parody presentation rather than a factual report",
+          "fake, which is an altered, staged, or misleading presentation of an event",
+          "fake, which is a picture presented with an unrelated or misleading claim"
+        ],
+        "real": [
+          "real, which is an authentic photograph documenting a real event",
+          "real, which is a factual presentation of a person, place, or object",
+          "real, which is an unaltered scene presented in its original context"
+        ]
+      },
+      "author_options": {
+        "descriptor_fname": "/Users/hung/Documents/MyProject/Python/DA_CNTT/vlm-zeroshot-content-classification/results/upstream_projects/smoke_suite_ua4bjvve/experiment_yo4gy0ph/descriptors_fakeddit_2way.json",
+        "category_name_inclusion": "prepend",
+        "apply_descriptor_modification": true,
+        "before_text": "",
+        "between_text": ", ",
+        "after_text": "",
+        "label_before_text": "",
+        "label_after_text": ""
+      }
+    }
+  ],
+  "sources": {
+    "WaffleCLIP": {
+      "url": "https://github.com/ExplainableML/WaffleCLIP.git",
+      "commit": "7a1b8ee48e31285f62ecd839fecb6b89cbef81f1",
+      "paper": "https://arxiv.org/abs/2306.07282"
+    },
+    "DCLIP": {
+      "url": "https://github.com/sachit-menon/classify_by_description_release.git",
+      "commit": "d1a3d8920af89bd0d6a692ed3afeb277df46e082",
+      "paper": "https://arxiv.org/abs/2210.07183"
+    },
+    "OpenAI_CLIP": {
+      "url": "https://github.com/openai/CLIP.git",
+      "commit": "d05afc436d78f1c48dc0dbf8e5980a9d471f35f6",
+      "paper": "https://arxiv.org/abs/2103.00020"
+    }
+  },
+  "git_hash": "e82d021743dcb07b6876e73e50e48442606629bd",
+  "protocol": "frozen_no_fit_exploratory",
+  "source_hashes": {
+    "src/config.py": "e85c8843c8e3b0f34b74cce4ad652b862ac70c6a3d8f17eae46e517ddddfe42d",
+    "src/demo.py": "7bf8794c2a19d1f47e27f8f9e706419de44115d5dd3c594da7db14c950fddf3f",
+    "src/evaluate.py": "13e369b8fa8898a751afc0cd0b7d5360229b1a574cd00522dabf6b0137dc3d1f",
+    "src/evaluation_audit.py": "c51a314bf1fe0790a25201a59816fa88b6d06946960af3e6862ee5e5a27da1c0",
+    "src/inference.py": "58006800e7ffb45dd71d6a5511ce276aa7c77e6a78432d95988a4e6ce473defa",
+    "src/logging_utils.py": "37ce22a854568fe025a645a415d4b391139f7ea00f043f2e352ebafabffeade9",
+    "src/models/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "src/models/model_registry.py": "0aca2fae98e75eb75ba077f891367543f99d8b2dc22853609ab24d03b4d6e6bb",
+    "src/preprocessing/data_crisismmd/check_crisismmd_processed.py": "db23159b26d73305d0e3ecd3e248c08a18ce892ad1b9536f496c95be20392178",
+    "src/preprocessing/data_crisismmd/preprocess_crisismmd.py": "dc63692f8de39e61d49e9fbfbd8634f980d856dbceda26a180b597268f95133a",
+    "src/preprocessing/data_fakeddit/check_fakeddit_ready.py": "1da592331ef420f98763b2b4456bcb1d8a36129158deb6e6604500163a43bf9b",
+    "src/preprocessing/data_fakeddit/image_downloader.py": "ed5a2da169a357a274da29b2aaa272f20c7b71de432ba0a6e0471680e441e1df",
+    "src/preprocessing/data_fakeddit/preprocess_fakeddit.py": "8485e197320fa345f941cf637fbde35179a45713be150142873c82c52e3bd7c3",
+    "src/preprocessing/data_mmimdb/check_mmimdb_ready.py": "a85fea828306ae4b82cd03a2c8b1d3584d7b42793511f57a5983d924ed983bd2",
+    "src/preprocessing/data_mmimdb/preprocess_mmimdb.py": "95add68bb14e07c303df5b73f130328e2afe4a9fb8cf70a46c631dc5da791e19",
+    "src/prompts/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "src/prompts/crisismmd_prompts.py": "1b4105bee5a11a4cd36b2cb75bd9c2cdad102b0b80431c142ec2d4ef225d82c7",
+    "src/prompts/fakeddit_prompts.py": "4440673640e19e6151417386e4c4512486f0187ad5bc3fc0ac137c4736904172",
+    "src/prompts/mmimdb_prompts.py": "1fb94954049555d75d89c70182de29baf494625bedeaa1901059e94baaeb4ddc",
+    "src/research/__init__.py": "c0b1bb68d820937dd39326cbc9fcc24e001c6c3beefd0b09732de585760e4c01",
+    "src/research/adapted_methods.py": "6fa6b4dbf5c125b13146fb04cf01ab59cd2ca246981f40c833e70fdba1c50d3d",
+    "src/research/run_adapted_methods.py": "20c9d4cb3de03fef75d632a41a7292bc39094cb2d1f6c43bddd5517ccf49c2a2",
+    "src/research/run_upstream.py": "cdc74ce6b61ec9f04edb117343280a0adb1f15e0c1e77489a22da090353da42f",
+    "src/research/upstream.py": "8216a82d0ebe70204f1a2b5f7977210cb80b8632bc891cfde1333044bb990861",
+    "src/run/__init__.py": "d6045de51bed3d3aff5615c2e0a47242041fbf3ab45d3e01c018bac9b954d5cc",
+    "src/run/common.py": "765828356bf79483bf2ac2abb9b8241e86fc2f38238079b0292c584da1260b85",
+    "src/run/run_crisismmd.py": "c464d3a81bb96d138d0ff30b5d0332fa0838cbebf5a1a436082932e02733ab81",
+    "src/run/run_fakeddit.py": "5084a27f047aad3c463f50403262c347c8717512ebeed37d7b98379da27e4068",
+    "src/run/run_mmimdb.py": "f980892fab08f4bbc9cecd73548b663cae20f8144367863be34270c21a6cf76f",
+    "src/run_experiment.py": "af61f2117f6ea4afadee2846032087adb28922bc647595a1bdcf7cc1ad982d74",
+    "src/text_chunking.py": "ac5f2e917eda4783b4187bbfe7a5b82b09ab3761780d84d24bf01c01c4791487",
+    "src/text_scale.py": "bbdf3dade644f5036d0e5ad57766e711a7e0be8f1711e91fa541ef53aee94eae"
+  }
+}

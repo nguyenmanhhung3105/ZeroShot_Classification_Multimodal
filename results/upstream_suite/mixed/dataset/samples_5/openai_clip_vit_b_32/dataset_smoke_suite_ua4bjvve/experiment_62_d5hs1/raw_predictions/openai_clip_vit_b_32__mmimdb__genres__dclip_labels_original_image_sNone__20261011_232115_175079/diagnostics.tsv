@@ -1,0 +1,4 @@
+branch	n_samples	score_type	mean_predicted_labels	fallback_rate	micro_f1	macro_f1	samples_f1	top2_margin	cosine_mean	cosine_std	input_status	input_context_length	input_n_nonempty	input_n_measured	input_n_truncated	input_truncated_rate
+image	5	relative_z	3.0	0.0	0.14285714285714285	0.05072463768115942	0.11666666666666665	1.0014142063998182	0.19686712324619293	0.021128054708242416						
+text	0	relative_z									measured	77.0	5.0	5.0	4.0	0.8
+fusion	5	relative_z	3.0	0.0	0.14285714285714285	0.05072463768115942	0.11666666666666665	1.0014142063998182								

@@ -1,0 +1,2 @@
+model	dataset	task	prompt_aggregation	accuracy	macro_f1	micro_f1	text_logit_scale_requested	text_logit_scale_effective	text_logit_scale_status	text_scale_override_applied	fusion_enabled	image_weight	text_weight	split	image_macro_f1	text_macro_f1	fusion_macro_f1_gain	fusion_improves_macro_f1	n_samples	balanced_accuracy
+metaclip2_vith14	crisismmd	humanitarian	mean_sim	0.691	0.4259694077995337	0.691		100.00000762939453	model_default	False	True	0.5	0.5	val	0.41096640171114784	0.28767432856365993	0.01500300608838584	True	1000	0.47288858122726324

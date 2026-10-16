@@ -1,0 +1,117 @@
+{
+  "Action": [
+    "a physical confrontation, chase, or armed conflict",
+    "a hero facing danger with weapons or vehicles",
+    "an explosive or high-energy scene"
+  ],
+  "Adventure": [
+    "a journey through an unfamiliar or dangerous place",
+    "an exploration of wilderness or distant lands",
+    "a quest involving travel and discovery"
+  ],
+  "Animation": [
+    "a scene drawn or rendered with animated characters",
+    "a stylized cartoon or computer-generated setting",
+    "an illustrated character rather than a live-action portrait"
+  ],
+  "Biography": [
+    "a portrait emphasizing the life of a historical person",
+    "a recognizable public figure in a period setting",
+    "a personal life story presented through a central individual"
+  ],
+  "Comedy": [
+    "a playful or humorous interaction between characters",
+    "an exaggerated expression or absurd situation",
+    "a lighthearted scene suggesting a comic misunderstanding"
+  ],
+  "Crime": [
+    "a criminal act or a police investigation",
+    "a gangster, detective, or law enforcement setting",
+    "a scene involving theft, murder, or organized crime"
+  ],
+  "Documentary": [
+    "a factual presentation of real people or events",
+    "an observational view of society, nature, or history",
+    "an interview or archival style of presentation"
+  ],
+  "Drama": [
+    "an emotionally serious interaction between people",
+    "a personal conflict involving family or relationships",
+    "a portrait emphasizing grief, hardship, or emotional tension"
+  ],
+  "Family": [
+    "a child-centered story suitable for a broad family audience",
+    "a warm interaction among family members",
+    "a friendly adventure involving children or animals"
+  ],
+  "Fantasy": [
+    "a magical creature or supernatural world",
+    "a mythical setting with enchanted objects",
+    "a scene involving magic, dragons, or imagined realms"
+  ],
+  "Film-Noir": [
+    "a shadowy urban scene with a detective or criminal",
+    "a high-contrast setting suggesting moral ambiguity",
+    "a mysterious figure in a dark crime atmosphere"
+  ],
+  "History": [
+    "a recreation of a significant historical event",
+    "a period setting with historically specific clothing",
+    "a depiction of historical leaders or social change"
+  ],
+  "Horror": [
+    "a frightening creature or threatening supernatural presence",
+    "a disturbing scene intended to evoke fear",
+    "a dark setting with danger, haunting, or gruesome imagery"
+  ],
+  "Music": [
+    "a musician performing or holding an instrument",
+    "a concert or a story centered on music",
+    "a singer or band in a performance setting"
+  ],
+  "Musical": [
+    "a staged song-and-dance performance",
+    "a theatrical ensemble singing or dancing",
+    "a colorful performance in which music advances the story"
+  ],
+  "Mystery": [
+    "a hidden identity or an unexplained event",
+    "a character searching for clues",
+    "a suspicious scene suggesting an unresolved puzzle"
+  ],
+  "Short": [
+    "a compact film story presented as a short film",
+    "a small-scale or experimental film presentation",
+    "a self-contained cinematic vignette"
+  ],
+  "Romance": [
+    "a couple in an intimate or affectionate interaction",
+    "a love story centered on a romantic relationship",
+    "a scene emphasizing attraction or emotional attachment"
+  ],
+  "Sci-Fi": [
+    "a futuristic technology or spacecraft",
+    "an alien world or a science-fiction setting",
+    "a robot, space exploration, or speculative scientific invention"
+  ],
+  "Sport": [
+    "an athlete competing or training",
+    "a sporting event with players and equipment",
+    "a story centered on a team or athletic achievement"
+  ],
+  "Thriller": [
+    "a tense confrontation or imminent threat",
+    "a character pursued or trapped in danger",
+    "a suspenseful scene involving secrecy or survival"
+  ],
+  "War": [
+    "a military conflict with soldiers or weapons",
+    "a battlefield or wartime civilian setting",
+    "a scene centered on combat or the effects of war"
+  ],
+  "Western": [
+    "a cowboy or gunslinger in a frontier setting",
+    "a horse, desert town, or American western landscape",
+    "a confrontation set in the historical American frontier"
+  ]
+}

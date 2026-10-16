@@ -1,0 +1,23 @@
+{
+  "status": "completed",
+  "runs": [
+    {
+      "run_dir": "/Users/hung/Documents/MyProject/Python/DA_CNTT/vlm-zeroshot-content-classification/results/upstream_projects/smoke_suite_ua4bjvve/experiment_62_d5hs1",
+      "tasks": {
+        "crisismmd": "informativeness",
+        "fakeddit": "6way",
+        "mmimdb": "genres"
+      },
+      "max_source_rows_per_dataset": 5,
+      "elapsed_seconds": 16.493353750000097
+    },
+    {
+      "run_dir": "/Users/hung/Documents/MyProject/Python/DA_CNTT/vlm-zeroshot-content-classification/results/upstream_projects/smoke_suite_ua4bjvve/experiment_yo4gy0ph",
+      "tasks": {
+        "fakeddit": "2way"
+      },
+      "max_source_rows_per_dataset": 5,
+      "elapsed_seconds": 3.0778237499998795
+    }
+  ]
+}

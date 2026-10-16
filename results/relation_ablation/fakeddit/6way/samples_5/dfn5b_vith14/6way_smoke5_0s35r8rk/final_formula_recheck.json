@@ -1,0 +1,33 @@
+{
+  "status": "passed_final_formula_recheck",
+  "pair_relation_sha256": "04957b8f8722ad102b9ab622dcaf6f91bd44930aea05fb6d5c4f600b2a499b09",
+  "summary": [
+    {
+      "method": "baseline",
+      "n_samples": 5,
+      "accuracy": 0.4,
+      "macro_f1": 0.1111111111111111,
+      "balanced_accuracy": 0.25,
+      "relation_weight": 0,
+      "changed_predictions": 0
+    },
+    {
+      "method": "legacy_false_connection_0.1",
+      "n_samples": 5,
+      "accuracy": 0.4,
+      "macro_f1": 0.1111111111111111,
+      "balanced_accuracy": 0.25,
+      "relation_weight": 0.1,
+      "changed_predictions": 0
+    },
+    {
+      "method": "class_aware",
+      "n_samples": 5,
+      "accuracy": 0.4,
+      "macro_f1": 0.1111111111111111,
+      "balanced_accuracy": 0.25,
+      "relation_weight": 0.25,
+      "changed_predictions": 0
+    }
+  ]
+}

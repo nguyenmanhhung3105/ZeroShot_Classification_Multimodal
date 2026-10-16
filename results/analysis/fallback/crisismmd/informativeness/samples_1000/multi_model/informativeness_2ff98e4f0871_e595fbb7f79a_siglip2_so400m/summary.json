@@ -1,0 +1,31 @@
+{
+  "primary_run_id": "2ff98e4f0871",
+  "primary_model": "metaclip2_vith14",
+  "candidate_run_id": "e595fbb7f79a",
+  "candidate_model": "siglip2_so400m",
+  "dataset": "crisismmd",
+  "task": "informativeness",
+  "review_policy": "branch_disagreement_v1",
+  "n_samples": 1000,
+  "n_review": 361,
+  "n_review_changed": 157,
+  "n_fixed": 56,
+  "n_broken": 101,
+  "net_correct_change": -45,
+  "primary_accuracy": 0.834,
+  "candidate_accuracy": 0.704,
+  "gated_accuracy": 0.789,
+  "primary_macro_f1": 0.8325201480279751,
+  "candidate_macro_f1": 0.6954030558482613,
+  "gated_macro_f1": 0.7887107450099187,
+  "per_class": {
+    "informative": {
+      "fixed": 9,
+      "broken": 97
+    },
+    "not_informative": {
+      "fixed": 47,
+      "broken": 4
+    }
+  }
+}

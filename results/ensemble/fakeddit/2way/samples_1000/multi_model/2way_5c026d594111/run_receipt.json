@@ -1,0 +1,8 @@
+{
+  "run_id": "5c026d594111",
+  "job_id": "fakeddit_2way",
+  "kind": "standard",
+  "code_sha256": "c94e8e2d80800f969373c072e399d62915e966b90b96fae33eb224f410e9c163",
+  "data_sha256": "7ee4a0f618f08447ab78fe128485f67a8f8d34a83e7f008f715e2407a96f5e8e",
+  "gpu": "Tesla T4"
+}

@@ -1,0 +1,25 @@
+model	dataset	task	method	output_variant	n_runs	macro_f1_mean	macro_f1_std	micro_f1_mean	micro_f1_std	balanced_accuracy_mean	balanced_accuracy_std	samples_f1_mean	samples_f1_std
+openai_clip_vit_b_32	crisismmd	informativeness	clip	original_image	1	0.375		0.6		0.375			
+openai_clip_vit_b_32	crisismmd	informativeness	clip	multimodal	1	0.4444444444444444		0.8		0.5			
+openai_clip_vit_b_32	crisismmd	informativeness	waffle	original_image	1	0.4444444444444444		0.8		0.5			
+openai_clip_vit_b_32	crisismmd	informativeness	waffle	multimodal	1	0.4444444444444444		0.8		0.5			
+openai_clip_vit_b_32	crisismmd	informativeness	dclip_labels	original_image	1	0.16666666666666666		0.2		0.5			
+openai_clip_vit_b_32	crisismmd	informativeness	dclip_labels	multimodal	1	1.0		1.0		1.0			
+openai_clip_vit_b_32	crisismmd	informativeness	dclip	original_image	1	0.4444444444444444		0.8		0.5			
+openai_clip_vit_b_32	crisismmd	informativeness	dclip	multimodal	1	0.4444444444444444		0.8		0.5			
+openai_clip_vit_b_32	fakeddit	6way	clip	original_image	1	0.08333333333333333		0.2		0.125			
+openai_clip_vit_b_32	fakeddit	6way	clip	multimodal	1	0.08333333333333333		0.2		0.125			
+openai_clip_vit_b_32	fakeddit	6way	waffle	original_image	1	0.08333333333333333		0.2		0.125			
+openai_clip_vit_b_32	fakeddit	6way	waffle	multimodal	1	0.08333333333333333		0.2		0.125			
+openai_clip_vit_b_32	fakeddit	6way	dclip_labels	original_image	1	0.08333333333333333		0.2		0.125			
+openai_clip_vit_b_32	fakeddit	6way	dclip_labels	multimodal	1	0.08333333333333333		0.2		0.125			
+openai_clip_vit_b_32	fakeddit	6way	dclip	original_image	1	0.08333333333333333		0.2		0.125			
+openai_clip_vit_b_32	fakeddit	6way	dclip	multimodal	1	0.08333333333333333		0.2		0.125			
+openai_clip_vit_b_32	mmimdb	genres	clip	original_image	1	0.10724637681159421		0.24242424242424243				0.21714285714285717	
+openai_clip_vit_b_32	mmimdb	genres	clip	multimodal	1	0.05072463768115942		0.18181818181818182				0.13714285714285715	
+openai_clip_vit_b_32	mmimdb	genres	waffle	original_image	1	0.0855072463768116		0.26666666666666666				0.26095238095238094	
+openai_clip_vit_b_32	mmimdb	genres	waffle	multimodal	1	0.0855072463768116		0.32				0.31714285714285717	
+openai_clip_vit_b_32	mmimdb	genres	dclip_labels	original_image	1	0.05072463768115942		0.14285714285714285				0.11666666666666665	
+openai_clip_vit_b_32	mmimdb	genres	dclip_labels	multimodal	1	0.05072463768115942		0.17391304347826086				0.13	
+openai_clip_vit_b_32	mmimdb	genres	dclip	original_image	1	0.12318840579710144		0.25				0.24666666666666667	
+openai_clip_vit_b_32	mmimdb	genres	dclip	multimodal	1	0.13768115942028986		0.3076923076923077				0.27999999999999997	

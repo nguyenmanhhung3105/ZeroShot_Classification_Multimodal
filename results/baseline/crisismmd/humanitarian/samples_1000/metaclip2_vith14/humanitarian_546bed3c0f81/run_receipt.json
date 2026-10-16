@@ -1,0 +1,8 @@
+{
+  "run_id": "546bed3c0f81",
+  "job_id": "crisismmd_humanitarian",
+  "kind": "standard",
+  "code_sha256": "882360f7e6ecad2961d5024d30d09cb222fa6465f3c78fe1cc6066c152ce3fb4",
+  "data_sha256": "4d9a5d6ae79565f922e63f50c7e25fcf4837dfde5ac83ba7c5f1eee484a1d8af",
+  "gpu": "Tesla T4"
+}

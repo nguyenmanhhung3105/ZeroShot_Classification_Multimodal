@@ -1,0 +1,9 @@
+{
+  "timestamp": "2026-10-11T16:19:20.660226+00:00",
+  "elapsed_seconds": 7.403921832999913,
+  "includes_checkpoint_download": false,
+  "status": "completed",
+  "max_samples": 5,
+  "dataset": "crisismmd",
+  "task": "humanitarian"
+}

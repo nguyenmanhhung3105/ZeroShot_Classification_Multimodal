@@ -1,0 +1,59 @@
+{
+  "policy": "uncertainty_diagnostic_v1",
+  "dataset": "crisismmd",
+  "task": "humanitarian",
+  "model": "metaclip2_vith14",
+  "n_samples": 1000,
+  "sample_set_id": "ef2c3571480d37f1c51cef4c68c89966f6aa53fbc3c502b23a123f405dc30f5c",
+  "split_verified": false,
+  "labels": [
+    "not_humanitarian",
+    "other_relevant_information",
+    "rescue_volunteering_or_donation_effort",
+    "infrastructure_and_utility_damage",
+    "affected_individuals",
+    "vehicle_damage",
+    "injured_or_dead_people",
+    "missing_or_found_people"
+  ],
+  "n_errors": 269,
+  "top2_contains_true": 900,
+  "errors_with_true_as_second_choice": 169,
+  "uncertainty_detection": {
+    "one_minus_margin": {
+      "error_auroc": 0.8086239250606442,
+      "error_average_precision": 0.5298672022943102,
+      "errors_in_top_20_percent": 108,
+      "n_review": 200,
+      "remaining_accuracy": 0.79875
+    },
+    "one_minus_top1_score": {
+      "error_auroc": 0.8096867864462289,
+      "error_average_precision": 0.5565717517021154,
+      "errors_in_top_20_percent": 118,
+      "n_review": 200,
+      "remaining_accuracy": 0.81125
+    },
+    "normalized_entropy": {
+      "error_auroc": 0.7653059667715967,
+      "error_average_precision": 0.49277586516605176,
+      "errors_in_top_20_percent": 106,
+      "n_review": 200,
+      "remaining_accuracy": 0.79625
+    },
+    "image_text_vote_disagreement": {
+      "error_auroc": 0.7146954571575324,
+      "error_average_precision": 0.4222735962921837,
+      "errors_in_top_20_percent": 96,
+      "n_review": 200,
+      "remaining_accuracy": 0.78375
+    },
+    "image_text_js_divergence": {
+      "error_auroc": 0.709645594210711,
+      "error_average_precision": 0.44896375046372616,
+      "errors_in_top_20_percent": 106,
+      "n_review": 200,
+      "remaining_accuracy": 0.79625
+    }
+  }
+}

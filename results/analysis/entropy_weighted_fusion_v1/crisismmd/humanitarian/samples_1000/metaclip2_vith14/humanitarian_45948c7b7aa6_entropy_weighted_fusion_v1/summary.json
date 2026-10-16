@@ -1,0 +1,129 @@
+{
+  "policy": "entropy_weighted_fusion_v1",
+  "source_archive": "results/direct_pair_fusion/crisismmd/humanitarian/samples_1000/metaclip2_vith14/humanitarian_45948c7b7aa6/run_artifacts.zip",
+  "model": "metaclip2_vith14",
+  "dataset": "crisismmd",
+  "task": "humanitarian",
+  "n_samples": 1000,
+  "sample_set_id": "ef2c3571480d37f1c51cef4c68c89966f6aa53fbc3c502b23a123f405dc30f5c",
+  "source_relation_enabled": true,
+  "source_split_verified": false,
+  "uses_y_true_for_weight": false,
+  "formula": "c_b=1-H(p_b)/log(C); w_image=c_image/(c_image+c_text); P=w_image*p_image+(1-w_image)*p_text; both_zero=>w_image=0.5; empty_text=>w_image=1",
+  "baseline": {
+    "accuracy": 0.731,
+    "macro_f1": 0.4561593485646458,
+    "per_class": {
+      "not_humanitarian": {
+        "support": 463,
+        "precision": 0.7186379928315412,
+        "recall": 0.8660907127429806,
+        "f1": 0.7855044074436827
+      },
+      "other_relevant_information": {
+        "support": 198,
+        "precision": 0.6877828054298643,
+        "recall": 0.7676767676767676,
+        "f1": 0.7255369928400954
+      },
+      "rescue_volunteering_or_donation_effort": {
+        "support": 178,
+        "precision": 0.8709677419354839,
+        "recall": 0.7584269662921348,
+        "f1": 0.8108108108108109
+      },
+      "infrastructure_and_utility_damage": {
+        "support": 145,
+        "precision": 0.972972972972973,
+        "recall": 0.2482758620689655,
+        "f1": 0.3956043956043956
+      },
+      "affected_individuals": {
+        "support": 9,
+        "precision": 0.42857142857142855,
+        "recall": 0.3333333333333333,
+        "f1": 0.375
+      },
+      "vehicle_damage": {
+        "support": 4,
+        "precision": 0.25,
+        "recall": 0.75,
+        "f1": 0.375
+      },
+      "injured_or_dead_people": {
+        "support": 2,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "missing_or_found_people": {
+        "support": 1,
+        "precision": 0.1,
+        "recall": 1.0,
+        "f1": 0.18181818181818182
+      }
+    }
+  },
+  "entropy_weighted": {
+    "accuracy": 0.727,
+    "macro_f1": 0.4634409754522442,
+    "per_class": {
+      "not_humanitarian": {
+        "support": 463,
+        "precision": 0.7160714285714286,
+        "recall": 0.8660907127429806,
+        "f1": 0.7839687194525904
+      },
+      "other_relevant_information": {
+        "support": 198,
+        "precision": 0.6784140969162996,
+        "recall": 0.7777777777777778,
+        "f1": 0.7247058823529412
+      },
+      "rescue_volunteering_or_donation_effort": {
+        "support": 178,
+        "precision": 0.8783783783783784,
+        "recall": 0.7303370786516854,
+        "f1": 0.7975460122699386
+      },
+      "infrastructure_and_utility_damage": {
+        "support": 145,
+        "precision": 0.9714285714285714,
+        "recall": 0.23448275862068965,
+        "f1": 0.37777777777777777
+      },
+      "affected_individuals": {
+        "support": 9,
+        "precision": 0.5,
+        "recall": 0.4444444444444444,
+        "f1": 0.47058823529411764
+      },
+      "vehicle_damage": {
+        "support": 4,
+        "precision": 0.23076923076923078,
+        "recall": 0.75,
+        "f1": 0.35294117647058826
+      },
+      "injured_or_dead_people": {
+        "support": 2,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "missing_or_found_people": {
+        "support": 1,
+        "precision": 0.1111111111111111,
+        "recall": 1.0,
+        "f1": 0.2
+      }
+    }
+  },
+  "n_branch_disagreement": 385,
+  "n_changed": 23,
+  "wrong_to_right": 7,
+  "right_to_wrong": 11,
+  "wrong_to_wrong_changed": 5,
+  "mean_image_weight": 0.42816285859240677,
+  "median_image_weight": 0.43944448881184894,
+  "n_image_weight_gt_half": 241
+}

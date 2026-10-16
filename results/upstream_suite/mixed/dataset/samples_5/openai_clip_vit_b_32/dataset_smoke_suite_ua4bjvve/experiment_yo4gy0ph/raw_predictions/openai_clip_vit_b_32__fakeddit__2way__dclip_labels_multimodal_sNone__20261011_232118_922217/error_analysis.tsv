@@ -1,0 +1,3 @@
+id	text	image_path	y_true	y_pred	correct	confidence	margin	score_0	score_1	_text_was_empty	_image_encoded	score_image_0	score_image_1	_text_encoded	score_text_0	score_text_1
+cv9kwi	my fathers first trip to school	data/processed/pro_fakeddit/images/cv9kwi.jpg	0	1	False	0.7894195426039703	0.5788391075596824	0.2105804350442879	0.7894195426039703	False	True	0.12935051321983337	0.8706494569778442	True	0.45427020051765143	0.5457297994823485
+46j162	snake head found in farmington womans can of green beans	data/processed/pro_fakeddit/images/46j162.jpg	1	0	False	0.7672264903288982	0.5344530030095382	0.7672264903288982	0.23277348731935996	False	True	0.8714669346809387	0.1285330355167389	True	0.45450515727277685	0.5454948427272232

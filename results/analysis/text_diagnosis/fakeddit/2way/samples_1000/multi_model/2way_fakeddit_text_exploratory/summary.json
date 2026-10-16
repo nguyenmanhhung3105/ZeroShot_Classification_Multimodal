@@ -1,0 +1,238 @@
+{
+  "source_2way_run": "results/runs/fakeddit_2way/d85f0353d7d3",
+  "source_6way_log": "results/raw_predictions/metaclip2_vith14__fakeddit__6way__v1__20261002_151925_304282/raw_predictions.tsv",
+  "n_six_way_rows": 1000,
+  "models": {
+    "dfn5b_vith14": {
+      "n_samples": 1000,
+      "n_real": 615,
+      "n_fake": 385,
+      "text_auc_real_positive": 0.404468377151304,
+      "spearman_title_characters_vs_text_score": -0.1741441544473421,
+      "title_style_associations": {
+        "title_characters": {
+          "n_nonzero": 1000,
+          "spearman_all": -0.1741441544473421,
+          "spearman_real": -0.018596038748845863,
+          "spearman_fake": -0.3042018728650677
+        },
+        "title_words": {
+          "n_nonzero": 1000,
+          "spearman_all": -0.07406672310252149,
+          "spearman_real": 0.08108012813388649,
+          "spearman_fake": -0.20504992153827561
+        },
+        "uppercase_letter_share": {
+          "n_nonzero": 0,
+          "spearman_all": null,
+          "spearman_real": null,
+          "spearman_fake": null
+        },
+        "digit_character_share": {
+          "n_nonzero": 0,
+          "spearman_all": null,
+          "spearman_real": null,
+          "spearman_fake": null
+        },
+        "contains_question_mark": {
+          "n_nonzero": 0,
+          "spearman_all": null,
+          "spearman_real": null,
+          "spearman_fake": null
+        },
+        "contains_exclamation_mark": {
+          "n_nonzero": 0,
+          "spearman_all": null,
+          "spearman_real": null,
+          "spearman_fake": null
+        }
+      },
+      "by_fake_subclass": {
+        "Satire/Parody": {
+          "n_fake": 47,
+          "auc_real_vs_subclass": 0.47950181629475874,
+          "median_title_characters": 44.0
+        },
+        "False Connection": {
+          "n_fake": 156,
+          "auc_real_vs_subclass": 0.47860120908901393,
+          "median_title_characters": 44.5
+        },
+        "Imposter Content": {
+          "n_fake": 27,
+          "auc_real_vs_subclass": 0.28027702499247215,
+          "median_title_characters": 63.0
+        },
+        "Manipulated Content": {
+          "n_fake": 117,
+          "auc_real_vs_subclass": 0.22728093947606143,
+          "median_title_characters": 33.0
+        },
+        "Misleading Content": {
+          "n_fake": 38,
+          "auc_real_vs_subclass": 0.6411210954214804,
+          "median_title_characters": 57.5
+        }
+      },
+      "split_declared": "val",
+      "split_verified": false,
+      "per_prompt_scores_available": false,
+      "subreddit_available": false
+    },
+    "metaclip2_vith14": {
+      "n_samples": 1000,
+      "n_real": 615,
+      "n_fake": 385,
+      "text_auc_real_positive": 0.35514306831380005,
+      "spearman_title_characters_vs_text_score": -0.34087794015758655,
+      "title_style_associations": {
+        "title_characters": {
+          "n_nonzero": 1000,
+          "spearman_all": -0.34087794015758655,
+          "spearman_real": -0.2177174521838306,
+          "spearman_fake": -0.41457347032859243
+        },
+        "title_words": {
+          "n_nonzero": 1000,
+          "spearman_all": -0.21097995629428687,
+          "spearman_real": -0.08279703489246505,
+          "spearman_fake": -0.2793041478810417
+        },
+        "uppercase_letter_share": {
+          "n_nonzero": 0,
+          "spearman_all": null,
+          "spearman_real": null,
+          "spearman_fake": null
+        },
+        "digit_character_share": {
+          "n_nonzero": 0,
+          "spearman_all": null,
+          "spearman_real": null,
+          "spearman_fake": null
+        },
+        "contains_question_mark": {
+          "n_nonzero": 0,
+          "spearman_all": null,
+          "spearman_real": null,
+          "spearman_fake": null
+        },
+        "contains_exclamation_mark": {
+          "n_nonzero": 0,
+          "spearman_all": null,
+          "spearman_real": null,
+          "spearman_fake": null
+        }
+      },
+      "by_fake_subclass": {
+        "Satire/Parody": {
+          "n_fake": 47,
+          "auc_real_vs_subclass": 0.4231793807299775,
+          "median_title_characters": 44.0
+        },
+        "False Connection": {
+          "n_fake": 156,
+          "auc_real_vs_subclass": 0.4113612674588284,
+          "median_title_characters": 44.5
+        },
+        "Imposter Content": {
+          "n_fake": 27,
+          "auc_real_vs_subclass": 0.36946702800361336,
+          "median_title_characters": 63.0
+        },
+        "Manipulated Content": {
+          "n_fake": 117,
+          "auc_real_vs_subclass": 0.15722326454033775,
+          "median_title_characters": 33.0
+        },
+        "Misleading Content": {
+          "n_fake": 38,
+          "auc_real_vs_subclass": 0.6394094993581515,
+          "median_title_characters": 57.5
+        }
+      },
+      "split_declared": "val",
+      "split_verified": false,
+      "per_prompt_scores_available": false,
+      "subreddit_available": false
+    },
+    "siglip2_so400m": {
+      "n_samples": 1000,
+      "n_real": 615,
+      "n_fake": 385,
+      "text_auc_real_positive": 0.3230683138000211,
+      "spearman_title_characters_vs_text_score": -0.32132371425157774,
+      "title_style_associations": {
+        "title_characters": {
+          "n_nonzero": 1000,
+          "spearman_all": -0.32132371425157774,
+          "spearman_real": -0.17554137807096842,
+          "spearman_fake": -0.41668014052927954
+        },
+        "title_words": {
+          "n_nonzero": 1000,
+          "spearman_all": -0.22515567968317657,
+          "spearman_real": -0.0902615670743179,
+          "spearman_fake": -0.30008090151849043
+        },
+        "uppercase_letter_share": {
+          "n_nonzero": 0,
+          "spearman_all": null,
+          "spearman_real": null,
+          "spearman_fake": null
+        },
+        "digit_character_share": {
+          "n_nonzero": 0,
+          "spearman_all": null,
+          "spearman_real": null,
+          "spearman_fake": null
+        },
+        "contains_question_mark": {
+          "n_nonzero": 0,
+          "spearman_all": null,
+          "spearman_real": null,
+          "spearman_fake": null
+        },
+        "contains_exclamation_mark": {
+          "n_nonzero": 0,
+          "spearman_all": null,
+          "spearman_real": null,
+          "spearman_fake": null
+        }
+      },
+      "by_fake_subclass": {
+        "Satire/Parody": {
+          "n_fake": 47,
+          "auc_real_vs_subclass": 0.3708354955889984,
+          "median_title_characters": 44.0
+        },
+        "False Connection": {
+          "n_fake": 156,
+          "auc_real_vs_subclass": 0.387330623306233,
+          "median_title_characters": 44.5
+        },
+        "Imposter Content": {
+          "n_fake": 27,
+          "auc_real_vs_subclass": 0.3194218608852756,
+          "median_title_characters": 63.0
+        },
+        "Manipulated Content": {
+          "n_fake": 117,
+          "auc_real_vs_subclass": 0.14056007226738934,
+          "median_title_characters": 33.0
+        },
+        "Misleading Content": {
+          "n_fake": 38,
+          "auc_real_vs_subclass": 0.5646983311938382,
+          "median_title_characters": 57.5
+        }
+      },
+      "split_declared": "val",
+      "split_verified": false,
+      "per_prompt_scores_available": false,
+      "subreddit_available": false
+    }
+  },
+  "independent_dev_verified": false,
+  "exploratory_only": true,
+  "note": "Cần xác minh dev/test độc lập trước khi dùng để kết luận hoặc chọn phương pháp."
+}

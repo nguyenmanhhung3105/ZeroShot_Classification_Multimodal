@@ -1,0 +1,784 @@
+{
+  "settings": {
+    "base_config": "configs/experiment_config.yaml",
+    "backbones": [
+      "ViT-B/32"
+    ],
+    "device": "auto",
+    "batch_size": 16,
+    "methods": [
+      "clip",
+      "waffle",
+      "dclip_labels",
+      "dclip"
+    ],
+    "seeds": [
+      0
+    ],
+    "waffle_pairs": 15,
+    "outputs": [
+      "original_image",
+      "multimodal"
+    ],
+    "output_dir": "results/upstream_projects",
+    "datasets": {
+      "crisismmd": {
+        "enabled": true,
+        "task": "humanitarian",
+        "max_samples": 5
+      },
+      "fakeddit": {
+        "enabled": false,
+        "task": "6way",
+        "max_samples": 5
+      },
+      "mmimdb": {
+        "enabled": false,
+        "task": "genres",
+        "max_samples": 5
+      }
+    },
+    "descriptor_files": {
+      "crisismmd": {
+        "humanitarian": "configs/research/descriptors/crisismmd_humanitarian.json",
+        "informativeness": "configs/research/descriptors/crisismmd_info.json"
+      },
+      "fakeddit": {
+        "2way": "configs/research/descriptors/fakeddit_2way.json",
+        "6way": "configs/research/descriptors/fakeddit_6way.json"
+      },
+      "mmimdb": {
+        "genres": "configs/research/descriptors/mmimdb_genres.json"
+      }
+    }
+  },
+  "base_config": {
+    "models": [
+      "metaclip2_vith14"
+    ],
+    "inference": {
+      "batch_size": 16,
+      "image_weight": 0.5,
+      "text_logit_scale": null
+    },
+    "datasets": {
+      "fakeddit": {
+        "enabled": true,
+        "task": "6way",
+        "data_path": "data/processed/pro_fakeddit/fakeddit_sample.tsv",
+        "image_dir": "data/processed/pro_fakeddit/images",
+        "id_col": "id",
+        "text_col": "clean_title",
+        "label_col_2way": "2_way_label",
+        "label_col_6way": "6_way_label",
+        "min_text_length": 20,
+        "max_samples": 1000,
+        "prompt_aggregation": "mean_sim",
+        "prompt_variants": [
+          "current"
+        ],
+        "inference": {
+          "image_weight": 0.75,
+          "text_logit_scale": 25
+        }
+      },
+      "crisismmd": {
+        "enabled": true,
+        "task": "informativeness",
+        "data_path": "data/processed/pro_crisismmd/pre_crisismmd.tsv",
+        "image_dir": "data/processed/pro_crisismmd/images",
+        "id_col": "tweet_id",
+        "text_col": "clean_text",
+        "label_col_info": "label_informative",
+        "label_col_human": "label_humanitarian",
+        "max_samples": 1000,
+        "prompt_aggregation": "mean_embed",
+        "inference": {
+          "image_weight": 0.5,
+          "text_logit_scale": null
+        }
+      },
+      "mmimdb": {
+        "enabled": true,
+        "task": "genres",
+        "data_path": "data/processed/pro_mmimdb/mmimdb_sample.tsv",
+        "image_dir": "data/processed/pro_mmimdb/images",
+        "id_col": "id",
+        "text_col": "plot",
+        "label_col": "genres",
+        "max_samples": 1000,
+        "prompt_aggregation": "mean_sim",
+        "decision_mode": "relative_z",
+        "relative_z_threshold": 1.0,
+        "threshold": 0.22,
+        "chunk_long_text": true,
+        "chunk_aggregation": "mean_embed",
+        "inference": {
+          "image_weight": 0.5,
+          "text_logit_scale": null
+        }
+      }
+    },
+    "evaluation": {
+      "enabled": true,
+      "split": "val",
+      "measure_truncation": true,
+      "sample_lock_mode": "off",
+      "sample_lock_dir": "results/sample_locks"
+    },
+    "demo": {
+      "n_samples": 10,
+      "batch_size": 4,
+      "prompt_version": "v1",
+      "log_dir": "results/demo_logs",
+      "visualization_dir": "results/demo"
+    },
+    "output": {
+      "results_dir": "results/",
+      "raw_predictions_dir": "results/raw_predictions/",
+      "summary_table": "results/summary_table.tsv"
+    }
+  },
+  "cohorts": {
+    "crisismmd": {
+      "task_config": {
+        "enabled": true,
+        "task": "humanitarian",
+        "data_path": "data/processed/pro_crisismmd/pre_crisismmd.tsv",
+        "image_dir": "data/processed/pro_crisismmd/images",
+        "id_col": "tweet_id",
+        "text_col": "clean_text",
+        "label_col_info": "label_informative",
+        "label_col_human": "label_humanitarian",
+        "max_samples": 5,
+        "prompt_aggregation": "mean_embed",
+        "inference": {
+          "image_weight": 0.5,
+          "text_logit_scale": null
+        },
+        "prompt_variant": "current"
+      },
+      "names": {
+        "not_humanitarian": "Not Humanitarian",
+        "other_relevant_information": "Other Relevant Information",
+        "rescue_volunteering_or_donation_effort": "Rescue/Volunteering/Donation",
+        "infrastructure_and_utility_damage": "Infrastructure/Utility Damage",
+        "affected_individuals": "Affected Individuals",
+        "vehicle_damage": "Vehicle Damage",
+        "injured_or_dead_people": "Injured or Dead People",
+        "missing_or_found_people": "Missing or Found People"
+      },
+      "text_prompts": {
+        "not_humanitarian": [
+          "a casual tweet or everyday conversation that does not mention any damage, victims, or relief efforts from a disaster",
+          "a tweet expressing a personal opinion, a prayer, or a joke about a hurricane or disaster without sharing any useful humanitarian information",
+          "a tweet about politics, celebrities, or general news commentary that has no connection to disaster impacts or assistance",
+          "a promotional or advertising tweet that happens to use disaster-related hashtags but offers no real information",
+          "a vague tweet that only mentions the word hurricane, earthquake, or wildfire without describing what is happening",
+          "a tweet about sports, entertainment, or daily life that is unrelated to people affected by a disaster",
+          "an ordinary photograph of daily life, such as people, food, pets, or streets, with no sign of any disaster",
+          "a meme, cartoon, or illustrated graphic that contains no real information about disaster impacts or relief",
+          "a screenshot of plain text, a logo, or a banner that provides no visible information about damage or humanitarian needs",
+          "a photograph of a politician, celebrity, or speaker at a press event rather than a disaster scene",
+          "a calm and peaceful outdoor scene with a clear sky and no visible damage, danger, or emergency",
+          "an advertisement or product image that has no relation to disaster impacts or assistance"
+        ],
+        "other_relevant_information": [
+          "a tweet giving a general update about where a hurricane, wildfire, flood, or earthquake is happening and how serious it is",
+          "a tweet sharing a weather forecast, storm track, or official warning that helps people understand the situation",
+          "a tweet reporting the current conditions of an ongoing disaster, such as rising water, spreading fire, or strong winds",
+          "a tweet from a news outlet or authority summarizing the overall situation of a disaster without focusing on victims or damage",
+          "a tweet describing an earthquake or storm in general terms, such as its magnitude, location, or expected path",
+          "a tweet passing along useful situational information about a disaster that does not fit a specific humanitarian category",
+          "a wide overview photograph showing a disaster scene such as a wildfire, flooded area, or damaged landscape from a distance",
+          "a satellite image or aerial view showing the extent of a hurricane, flood, or fire",
+          "a weather map or radar image showing the path and intensity of an approaching storm",
+          "a screenshot of an official hazard warning, evacuation map, or situation report about a disaster",
+          "a photograph of dark storm clouds, rising floodwater, or smoke that shows a disaster developing without focusing on people or buildings",
+          "an informational graphic or chart that provides context about an ongoing natural disaster"
+        ],
+        "rescue_volunteering_or_donation_effort": [
+          "a tweet reporting that rescue teams or emergency crews are saving people from floodwater, fire, or collapsed buildings",
+          "a tweet showing gratitude to volunteers, firefighters, soldiers, or neighbors who are helping disaster survivors",
+          "a tweet asking people to donate money, food, water, clothing, or supplies to help disaster victims",
+          "a tweet calling for volunteers or announcing a fundraising campaign for communities recovering from a disaster",
+          "a tweet announcing that a shelter, relief center, or aid distribution point is open for people in need",
+          "a tweet describing charities, the Red Cross, or local organizations delivering help to affected areas",
+          "a photograph of rescue workers or boats helping people escape from flooded streets",
+          "a photograph of firefighters or emergency responders carrying out a rescue during a disaster",
+          "a photograph of volunteers handing out food, bottled water, blankets, or clothing to survivors",
+          "a photograph of people loading, sorting, or delivering relief supplies and donations",
+          "a photograph of volunteers cleaning up debris or helping rebuild homes after a disaster",
+          "a poster or flyer that asks for donations, volunteers, or support for disaster relief"
+        ],
+        "infrastructure_and_utility_damage": [
+          "a tweet reporting that houses, buildings, or schools were damaged or destroyed by a disaster",
+          "a tweet describing roads, bridges, or highways that are flooded, cracked, or blocked after a disaster",
+          "a tweet reporting power outages, broken water supply, or lost phone and internet service caused by a disaster",
+          "a tweet describing collapsed walls, torn roofs, or fallen trees and power lines after a storm",
+          "a tweet reporting that airports, railways, or public transportation were shut down because of damage",
+          "a tweet describing entire neighborhoods or towns left in ruins after an earthquake, fire, or hurricane",
+          "a photograph of collapsed buildings or houses reduced to rubble after an earthquake or hurricane",
+          "a photograph of homes burned to the ground by a wildfire, leaving only ashes and ruins",
+          "a photograph of a broken bridge, cracked road, or highway washed away by flooding",
+          "a photograph of fallen power lines, broken utility poles, or electrical equipment damaged by a storm",
+          "a photograph of a street or building heavily flooded, with water filling roads and entering structures",
+          "a photograph of a roof torn off, walls destroyed, or a public building severely damaged by a disaster"
+        ],
+        "affected_individuals": [
+          "a tweet describing families who lost their homes and are now displaced or living without shelter after a disaster",
+          "a tweet about people who were evacuated and are staying in shelters or with relatives",
+          "a tweet describing residents who are stranded, hungry, or waiting for help because of a flood or storm",
+          "a tweet sharing the emotional struggle of survivors who lost their belongings, livelihoods, or loved places",
+          "a tweet reporting how many people were affected, displaced, or left without basic necessities by a disaster",
+          "a tweet describing survivors trying to cope and rebuild their lives after a disaster",
+          "a photograph of families carrying their belongings as they leave their homes during an evacuation",
+          "a photograph of survivors sitting or sleeping in a crowded temporary shelter or relief camp",
+          "a photograph of residents standing in knee-deep floodwater in front of their damaged homes",
+          "a photograph of people looking through the remains of their destroyed house for belongings",
+          "a photograph of distressed or exhausted disaster survivors waiting for assistance",
+          "a photograph of children and elderly people affected by a disaster and in need of help"
+        ],
+        "vehicle_damage": [
+          "a tweet reporting that cars, trucks, or buses were damaged by floodwater, fire, or falling debris",
+          "a tweet describing vehicles that were swept away, submerged, or buried during a disaster",
+          "a tweet about boats or ships damaged, washed ashore, or destroyed by a hurricane or storm",
+          "a tweet reporting cars crushed by fallen trees, collapsed walls, or broken buildings",
+          "a tweet showing concern for vehicles left abandoned, flooded, or burned during a disaster",
+          "a tweet reporting that many vehicles were destroyed in a wildfire, earthquake, or flood",
+          "a close-up photograph of a car partly or fully submerged in floodwater",
+          "a photograph of rows of flooded cars standing in a water-filled street",
+          "a photograph of burned-out vehicles left behind after a wildfire",
+          "a photograph of a car crushed by a fallen tree, debris, or collapsed structure",
+          "a photograph of overturned trucks or buses damaged by a powerful storm or earthquake",
+          "a photograph of boats thrown onto land or wrecked by a hurricane"
+        ],
+        "injured_or_dead_people": [
+          "a tweet reporting that people were killed in a disaster and mentioning the number of deaths",
+          "a tweet reporting that many people were injured and are being treated at hospitals",
+          "a tweet sharing the growing death toll or casualty figures from an earthquake, hurricane, or flood",
+          "a tweet mourning the victims who lost their lives in a disaster",
+          "a tweet describing medical teams treating wounded survivors after a disaster",
+          "a tweet reporting that bodies were recovered or victims were found dead after a disaster",
+          "a photograph of injured survivors being treated by doctors, nurses, or paramedics after a disaster",
+          "a photograph of a wounded person being carried on a stretcher or helped into an ambulance",
+          "a photograph of victims lying injured or lifeless among the debris of a disaster",
+          "a photograph of rescuers recovering bodies from rubble, floodwater, or burned areas",
+          "a photograph of people grieving or mourning beside victims who died in a disaster",
+          "a photograph of a field hospital or medical tent caring for injured disaster victims"
+        ],
+        "missing_or_found_people": [
+          "a tweet asking for help finding a family member or friend who has gone missing after a disaster",
+          "a tweet sharing the name, age, and last known location of a person missing after a disaster",
+          "a tweet announcing that a missing person has been found safe and reunited with their family",
+          "a tweet asking people to share information about loved ones who they cannot contact after a disaster",
+          "a tweet reporting that rescuers are still searching for people missing under rubble or floodwater",
+          "a tweet confirming the safety of people who were previously reported missing",
+          "a missing person poster showing a photograph, name, and contact details",
+          "a social media post with a person's photo asking whether anyone has seen them after a disaster",
+          "a photograph of search teams looking for missing people among ruins or flooded areas",
+          "a photograph of family members happily reunited after being separated during a disaster",
+          "a list or board of names of people who are missing or have been found safe",
+          "a photograph of someone holding a picture of a missing relative while searching for information"
+        ]
+      },
+      "descriptor_provenance": "Assistant tạo từ định nghĩa lớp, cố định ngày 2026-10-10; không lấy từ dòng dữ liệu hoặc lỗi validation. Mô tả dùng cho nhánh ảnh, không phải đầu ra GPT-3 gốc của paper.",
+      "descriptor_sha256": "c35da7c714e37b075745a67168cffe8fbfbbcc968531a83f9373fdd23f4ae986"
+    }
+  },
+  "trials": [
+    {
+      "dataset": "crisismmd",
+      "method": "clip",
+      "seed": null,
+      "prompts": {
+        "Not Humanitarian": [
+          "A photo of a Not Humanitarian."
+        ],
+        "Other Relevant Information": [
+          "A photo of a Other Relevant Information."
+        ],
+        "Rescue/Volunteering/Donation": [
+          "A photo of a Rescue/Volunteering/Donation."
+        ],
+        "Infrastructure/Utility Damage": [
+          "A photo of a Infrastructure/Utility Damage."
+        ],
+        "Affected Individuals": [
+          "A photo of a Affected Individuals."
+        ],
+        "Vehicle Damage": [
+          "A photo of a Vehicle Damage."
+        ],
+        "Injured or Dead People": [
+          "A photo of a Injured or Dead People."
+        ],
+        "Missing or Found People": [
+          "A photo of a Missing or Found People."
+        ]
+      },
+      "author_options": {
+        "dataset": "custom",
+        "model_size": "ViT-B/32",
+        "mode": "clip",
+        "classes_to_load": null,
+        "label_to_classname": [
+          "Not Humanitarian",
+          "Other Relevant Information",
+          "Rescue/Volunteering/Donation",
+          "Infrastructure/Utility Damage",
+          "Affected Individuals",
+          "Vehicle Damage",
+          "Injured or Dead People",
+          "Missing or Found People"
+        ],
+        "n_classes": 8,
+        "descriptor_fname": "/Users/hung/Documents/MyProject/Python/DA_CNTT/vlm-zeroshot-content-classification/results/upstream_projects/experiment_djym_cbk/descriptors_crisismmd_humanitarian.json",
+        "waffle_count": 15,
+        "label_before_text": "A photo of a ",
+        "label_after_text": ".",
+        "pre_descriptor_text": "",
+        "descriptor_separator": ", ",
+        "apply_descriptor_modification": true
+      }
+    },
+    {
+      "dataset": "crisismmd",
+      "method": "waffle",
+      "seed": 0,
+      "prompts": {
+        "Not Humanitarian": [
+          "A photo of a Not Humanitarian, which has meter's fluke.",
+          "A photo of a Not Humanitarian, which has mnbon, rycva, fsenb.",
+          "A photo of a Not Humanitarian, which has hat battery.",
+          "A photo of a Not Humanitarian, which has seomw, pdrot, ivfit.",
+          "A photo of a Not Humanitarian, which has plain gripping.",
+          "A photo of a Not Humanitarian, which has fspyf, yzsec, jltnp.",
+          "A photo of a Not Humanitarian, which is alert grazing.",
+          "A photo of a Not Humanitarian, which has dzjwn, dpcev, ullog.",
+          "A photo of a Not Humanitarian, which has tub insert.",
+          "A photo of a Not Humanitarian, which has tyewd, lding, pwomv.",
+          "A photo of a Not Humanitarian, which has platters hitched.",
+          "A photo of a Not Humanitarian, which is aybgi, ekjbm, bladt.",
+          "A photo of a Not Humanitarian, which has peoples special.",
+          "A photo of a Not Humanitarian, which has obedh, itovw, tvmbs.",
+          "A photo of a Not Humanitarian, which has sculpture three-dime.",
+          "A photo of a Not Humanitarian, which has fkefm, nessg, bzyla.",
+          "A photo of a Not Humanitarian, which has brush hayloft.",
+          "A photo of a Not Humanitarian, which has hojet, dwyno, mhttz.",
+          "A photo of a Not Humanitarian, which has club sort.",
+          "A photo of a Not Humanitarian, which has pplac, zhmua, gjfkp.",
+          "A photo of a Not Humanitarian, which has mouth instead.",
+          "A photo of a Not Humanitarian, which is azcvz, fctgm, ytsfy.",
+          "A photo of a Not Humanitarian, which has garment operating.",
+          "A photo of a Not Humanitarian, which has rocok, triht, svlbc.",
+          "A photo of a Not Humanitarian, which has barren rusty.",
+          "A photo of a Not Humanitarian, which has dhetp, uwklf, tojfn.",
+          "A photo of a Not Humanitarian, which has diamond just.",
+          "A photo of a Not Humanitarian, which has wvjiw, wwefe, mnzmv.",
+          "A photo of a Not Humanitarian, which has spur gate.",
+          "A photo of a Not Humanitarian, which has zzjzr, ljlhj, rracw."
+        ],
+        "Other Relevant Information": [
+          "A photo of a Other Relevant Information, which has meter's fluke.",
+          "A photo of a Other Relevant Information, which has mnbon, rycva, fsenb.",
+          "A photo of a Other Relevant Information, which has hat battery.",
+          "A photo of a Other Relevant Information, which has seomw, pdrot, ivfit.",
+          "A photo of a Other Relevant Information, which has plain gripping.",
+          "A photo of a Other Relevant Information, which has fspyf, yzsec, jltnp.",
+          "A photo of a Other Relevant Information, which is alert grazing.",
+          "A photo of a Other Relevant Information, which has dzjwn, dpcev, ullog.",
+          "A photo of a Other Relevant Information, which has tub insert.",
+          "A photo of a Other Relevant Information, which has tyewd, lding, pwomv.",
+          "A photo of a Other Relevant Information, which has platters hitched.",
+          "A photo of a Other Relevant Information, which is aybgi, ekjbm, bladt.",
+          "A photo of a Other Relevant Information, which has peoples special.",
+          "A photo of a Other Relevant Information, which has obedh, itovw, tvmbs.",
+          "A photo of a Other Relevant Information, which has sculpture three-dime.",
+          "A photo of a Other Relevant Information, which has fkefm, nessg, bzyla.",
+          "A photo of a Other Relevant Information, which has brush hayloft.",
+          "A photo of a Other Relevant Information, which has hojet, dwyno, mhttz.",
+          "A photo of a Other Relevant Information, which has club sort.",
+          "A photo of a Other Relevant Information, which has pplac, zhmua, gjfkp.",
+          "A photo of a Other Relevant Information, which has mouth instead.",
+          "A photo of a Other Relevant Information, which is azcvz, fctgm, ytsfy.",
+          "A photo of a Other Relevant Information, which has garment operating.",
+          "A photo of a Other Relevant Information, which has rocok, triht, svlbc.",
+          "A photo of a Other Relevant Information, which has barren rusty.",
+          "A photo of a Other Relevant Information, which has dhetp, uwklf, tojfn.",
+          "A photo of a Other Relevant Information, which has diamond just.",
+          "A photo of a Other Relevant Information, which has wvjiw, wwefe, mnzmv.",
+          "A photo of a Other Relevant Information, which has spur gate.",
+          "A photo of a Other Relevant Information, which has zzjzr, ljlhj, rracw."
+        ],
+        "Rescue/Volunteering/Donation": [
+          "A photo of a Rescue/Volunteering/Donation, which has meter's fluke.",
+          "A photo of a Rescue/Volunteering/Donation, which has mnbon, rycva, fsenb.",
+          "A photo of a Rescue/Volunteering/Donation, which has hat battery.",
+          "A photo of a Rescue/Volunteering/Donation, which has seomw, pdrot, ivfit.",
+          "A photo of a Rescue/Volunteering/Donation, which has plain gripping.",
+          "A photo of a Rescue/Volunteering/Donation, which has fspyf, yzsec, jltnp.",
+          "A photo of a Rescue/Volunteering/Donation, which is alert grazing.",
+          "A photo of a Rescue/Volunteering/Donation, which has dzjwn, dpcev, ullog.",
+          "A photo of a Rescue/Volunteering/Donation, which has tub insert.",
+          "A photo of a Rescue/Volunteering/Donation, which has tyewd, lding, pwomv.",
+          "A photo of a Rescue/Volunteering/Donation, which has platters hitched.",
+          "A photo of a Rescue/Volunteering/Donation, which is aybgi, ekjbm, bladt.",
+          "A photo of a Rescue/Volunteering/Donation, which has peoples special.",
+          "A photo of a Rescue/Volunteering/Donation, which has obedh, itovw, tvmbs.",
+          "A photo of a Rescue/Volunteering/Donation, which has sculpture three-dime.",
+          "A photo of a Rescue/Volunteering/Donation, which has fkefm, nessg, bzyla.",
+          "A photo of a Rescue/Volunteering/Donation, which has brush hayloft.",
+          "A photo of a Rescue/Volunteering/Donation, which has hojet, dwyno, mhttz.",
+          "A photo of a Rescue/Volunteering/Donation, which has club sort.",
+          "A photo of a Rescue/Volunteering/Donation, which has pplac, zhmua, gjfkp.",
+          "A photo of a Rescue/Volunteering/Donation, which has mouth instead.",
+          "A photo of a Rescue/Volunteering/Donation, which is azcvz, fctgm, ytsfy.",
+          "A photo of a Rescue/Volunteering/Donation, which has garment operating.",
+          "A photo of a Rescue/Volunteering/Donation, which has rocok, triht, svlbc.",
+          "A photo of a Rescue/Volunteering/Donation, which has barren rusty.",
+          "A photo of a Rescue/Volunteering/Donation, which has dhetp, uwklf, tojfn.",
+          "A photo of a Rescue/Volunteering/Donation, which has diamond just.",
+          "A photo of a Rescue/Volunteering/Donation, which has wvjiw, wwefe, mnzmv.",
+          "A photo of a Rescue/Volunteering/Donation, which has spur gate.",
+          "A photo of a Rescue/Volunteering/Donation, which has zzjzr, ljlhj, rracw."
+        ],
+        "Infrastructure/Utility Damage": [
+          "A photo of a Infrastructure/Utility Damage, which has meter's fluke.",
+          "A photo of a Infrastructure/Utility Damage, which has mnbon, rycva, fsenb.",
+          "A photo of a Infrastructure/Utility Damage, which has hat battery.",
+          "A photo of a Infrastructure/Utility Damage, which has seomw, pdrot, ivfit.",
+          "A photo of a Infrastructure/Utility Damage, which has plain gripping.",
+          "A photo of a Infrastructure/Utility Damage, which has fspyf, yzsec, jltnp.",
+          "A photo of a Infrastructure/Utility Damage, which is alert grazing.",
+          "A photo of a Infrastructure/Utility Damage, which has dzjwn, dpcev, ullog.",
+          "A photo of a Infrastructure/Utility Damage, which has tub insert.",
+          "A photo of a Infrastructure/Utility Damage, which has tyewd, lding, pwomv.",
+          "A photo of a Infrastructure/Utility Damage, which has platters hitched.",
+          "A photo of a Infrastructure/Utility Damage, which is aybgi, ekjbm, bladt.",
+          "A photo of a Infrastructure/Utility Damage, which has peoples special.",
+          "A photo of a Infrastructure/Utility Damage, which has obedh, itovw, tvmbs.",
+          "A photo of a Infrastructure/Utility Damage, which has sculpture three-dime.",
+          "A photo of a Infrastructure/Utility Damage, which has fkefm, nessg, bzyla.",
+          "A photo of a Infrastructure/Utility Damage, which has brush hayloft.",
+          "A photo of a Infrastructure/Utility Damage, which has hojet, dwyno, mhttz.",
+          "A photo of a Infrastructure/Utility Damage, which has club sort.",
+          "A photo of a Infrastructure/Utility Damage, which has pplac, zhmua, gjfkp.",
+          "A photo of a Infrastructure/Utility Damage, which has mouth instead.",
+          "A photo of a Infrastructure/Utility Damage, which is azcvz, fctgm, ytsfy.",
+          "A photo of a Infrastructure/Utility Damage, which has garment operating.",
+          "A photo of a Infrastructure/Utility Damage, which has rocok, triht, svlbc.",
+          "A photo of a Infrastructure/Utility Damage, which has barren rusty.",
+          "A photo of a Infrastructure/Utility Damage, which has dhetp, uwklf, tojfn.",
+          "A photo of a Infrastructure/Utility Damage, which has diamond just.",
+          "A photo of a Infrastructure/Utility Damage, which has wvjiw, wwefe, mnzmv.",
+          "A photo of a Infrastructure/Utility Damage, which has spur gate.",
+          "A photo of a Infrastructure/Utility Damage, which has zzjzr, ljlhj, rracw."
+        ],
+        "Affected Individuals": [
+          "A photo of a Affected Individuals, which has meter's fluke.",
+          "A photo of a Affected Individuals, which has mnbon, rycva, fsenb.",
+          "A photo of a Affected Individuals, which has hat battery.",
+          "A photo of a Affected Individuals, which has seomw, pdrot, ivfit.",
+          "A photo of a Affected Individuals, which has plain gripping.",
+          "A photo of a Affected Individuals, which has fspyf, yzsec, jltnp.",
+          "A photo of a Affected Individuals, which is alert grazing.",
+          "A photo of a Affected Individuals, which has dzjwn, dpcev, ullog.",
+          "A photo of a Affected Individuals, which has tub insert.",
+          "A photo of a Affected Individuals, which has tyewd, lding, pwomv.",
+          "A photo of a Affected Individuals, which has platters hitched.",
+          "A photo of a Affected Individuals, which is aybgi, ekjbm, bladt.",
+          "A photo of a Affected Individuals, which has peoples special.",
+          "A photo of a Affected Individuals, which has obedh, itovw, tvmbs.",
+          "A photo of a Affected Individuals, which has sculpture three-dime.",
+          "A photo of a Affected Individuals, which has fkefm, nessg, bzyla.",
+          "A photo of a Affected Individuals, which has brush hayloft.",
+          "A photo of a Affected Individuals, which has hojet, dwyno, mhttz.",
+          "A photo of a Affected Individuals, which has club sort.",
+          "A photo of a Affected Individuals, which has pplac, zhmua, gjfkp.",
+          "A photo of a Affected Individuals, which has mouth instead.",
+          "A photo of a Affected Individuals, which is azcvz, fctgm, ytsfy.",
+          "A photo of a Affected Individuals, which has garment operating.",
+          "A photo of a Affected Individuals, which has rocok, triht, svlbc.",
+          "A photo of a Affected Individuals, which has barren rusty.",
+          "A photo of a Affected Individuals, which has dhetp, uwklf, tojfn.",
+          "A photo of a Affected Individuals, which has diamond just.",
+          "A photo of a Affected Individuals, which has wvjiw, wwefe, mnzmv.",
+          "A photo of a Affected Individuals, which has spur gate.",
+          "A photo of a Affected Individuals, which has zzjzr, ljlhj, rracw."
+        ],
+        "Vehicle Damage": [
+          "A photo of a Vehicle Damage, which has meter's fluke.",
+          "A photo of a Vehicle Damage, which has mnbon, rycva, fsenb.",
+          "A photo of a Vehicle Damage, which has hat battery.",
+          "A photo of a Vehicle Damage, which has seomw, pdrot, ivfit.",
+          "A photo of a Vehicle Damage, which has plain gripping.",
+          "A photo of a Vehicle Damage, which has fspyf, yzsec, jltnp.",
+          "A photo of a Vehicle Damage, which is alert grazing.",
+          "A photo of a Vehicle Damage, which has dzjwn, dpcev, ullog.",
+          "A photo of a Vehicle Damage, which has tub insert.",
+          "A photo of a Vehicle Damage, which has tyewd, lding, pwomv.",
+          "A photo of a Vehicle Damage, which has platters hitched.",
+          "A photo of a Vehicle Damage, which is aybgi, ekjbm, bladt.",
+          "A photo of a Vehicle Damage, which has peoples special.",
+          "A photo of a Vehicle Damage, which has obedh, itovw, tvmbs.",
+          "A photo of a Vehicle Damage, which has sculpture three-dime.",
+          "A photo of a Vehicle Damage, which has fkefm, nessg, bzyla.",
+          "A photo of a Vehicle Damage, which has brush hayloft.",
+          "A photo of a Vehicle Damage, which has hojet, dwyno, mhttz.",
+          "A photo of a Vehicle Damage, which has club sort.",
+          "A photo of a Vehicle Damage, which has pplac, zhmua, gjfkp.",
+          "A photo of a Vehicle Damage, which has mouth instead.",
+          "A photo of a Vehicle Damage, which is azcvz, fctgm, ytsfy.",
+          "A photo of a Vehicle Damage, which has garment operating.",
+          "A photo of a Vehicle Damage, which has rocok, triht, svlbc.",
+          "A photo of a Vehicle Damage, which has barren rusty.",
+          "A photo of a Vehicle Damage, which has dhetp, uwklf, tojfn.",
+          "A photo of a Vehicle Damage, which has diamond just.",
+          "A photo of a Vehicle Damage, which has wvjiw, wwefe, mnzmv.",
+          "A photo of a Vehicle Damage, which has spur gate.",
+          "A photo of a Vehicle Damage, which has zzjzr, ljlhj, rracw."
+        ],
+        "Injured or Dead People": [
+          "A photo of a Injured or Dead People, which has meter's fluke.",
+          "A photo of a Injured or Dead People, which has mnbon, rycva, fsenb.",
+          "A photo of a Injured or Dead People, which has hat battery.",
+          "A photo of a Injured or Dead People, which has seomw, pdrot, ivfit.",
+          "A photo of a Injured or Dead People, which has plain gripping.",
+          "A photo of a Injured or Dead People, which has fspyf, yzsec, jltnp.",
+          "A photo of a Injured or Dead People, which is alert grazing.",
+          "A photo of a Injured or Dead People, which has dzjwn, dpcev, ullog.",
+          "A photo of a Injured or Dead People, which has tub insert.",
+          "A photo of a Injured or Dead People, which has tyewd, lding, pwomv.",
+          "A photo of a Injured or Dead People, which has platters hitched.",
+          "A photo of a Injured or Dead People, which is aybgi, ekjbm, bladt.",
+          "A photo of a Injured or Dead People, which has peoples special.",
+          "A photo of a Injured or Dead People, which has obedh, itovw, tvmbs.",
+          "A photo of a Injured or Dead People, which has sculpture three-dime.",
+          "A photo of a Injured or Dead People, which has fkefm, nessg, bzyla.",
+          "A photo of a Injured or Dead People, which has brush hayloft.",
+          "A photo of a Injured or Dead People, which has hojet, dwyno, mhttz.",
+          "A photo of a Injured or Dead People, which has club sort.",
+          "A photo of a Injured or Dead People, which has pplac, zhmua, gjfkp.",
+          "A photo of a Injured or Dead People, which has mouth instead.",
+          "A photo of a Injured or Dead People, which is azcvz, fctgm, ytsfy.",
+          "A photo of a Injured or Dead People, which has garment operating.",
+          "A photo of a Injured or Dead People, which has rocok, triht, svlbc.",
+          "A photo of a Injured or Dead People, which has barren rusty.",
+          "A photo of a Injured or Dead People, which has dhetp, uwklf, tojfn.",
+          "A photo of a Injured or Dead People, which has diamond just.",
+          "A photo of a Injured or Dead People, which has wvjiw, wwefe, mnzmv.",
+          "A photo of a Injured or Dead People, which has spur gate.",
+          "A photo of a Injured or Dead People, which has zzjzr, ljlhj, rracw."
+        ],
+        "Missing or Found People": [
+          "A photo of a Missing or Found People, which has meter's fluke.",
+          "A photo of a Missing or Found People, which has mnbon, rycva, fsenb.",
+          "A photo of a Missing or Found People, which has hat battery.",
+          "A photo of a Missing or Found People, which has seomw, pdrot, ivfit.",
+          "A photo of a Missing or Found People, which has plain gripping.",
+          "A photo of a Missing or Found People, which has fspyf, yzsec, jltnp.",
+          "A photo of a Missing or Found People, which is alert grazing.",
+          "A photo of a Missing or Found People, which has dzjwn, dpcev, ullog.",
+          "A photo of a Missing or Found People, which has tub insert.",
+          "A photo of a Missing or Found People, which has tyewd, lding, pwomv.",
+          "A photo of a Missing or Found People, which has platters hitched.",
+          "A photo of a Missing or Found People, which is aybgi, ekjbm, bladt.",
+          "A photo of a Missing or Found People, which has peoples special.",
+          "A photo of a Missing or Found People, which has obedh, itovw, tvmbs.",
+          "A photo of a Missing or Found People, which has sculpture three-dime.",
+          "A photo of a Missing or Found People, which has fkefm, nessg, bzyla.",
+          "A photo of a Missing or Found People, which has brush hayloft.",
+          "A photo of a Missing or Found People, which has hojet, dwyno, mhttz.",
+          "A photo of a Missing or Found People, which has club sort.",
+          "A photo of a Missing or Found People, which has pplac, zhmua, gjfkp.",
+          "A photo of a Missing or Found People, which has mouth instead.",
+          "A photo of a Missing or Found People, which is azcvz, fctgm, ytsfy.",
+          "A photo of a Missing or Found People, which has garment operating.",
+          "A photo of a Missing or Found People, which has rocok, triht, svlbc.",
+          "A photo of a Missing or Found People, which has barren rusty.",
+          "A photo of a Missing or Found People, which has dhetp, uwklf, tojfn.",
+          "A photo of a Missing or Found People, which has diamond just.",
+          "A photo of a Missing or Found People, which has wvjiw, wwefe, mnzmv.",
+          "A photo of a Missing or Found People, which has spur gate.",
+          "A photo of a Missing or Found People, which has zzjzr, ljlhj, rracw."
+        ]
+      },
+      "author_options": {
+        "dataset": "custom",
+        "model_size": "ViT-B/32",
+        "mode": "waffle",
+        "classes_to_load": null,
+        "label_to_classname": [
+          "Not Humanitarian",
+          "Other Relevant Information",
+          "Rescue/Volunteering/Donation",
+          "Infrastructure/Utility Damage",
+          "Affected Individuals",
+          "Vehicle Damage",
+          "Injured or Dead People",
+          "Missing or Found People"
+        ],
+        "n_classes": 8,
+        "descriptor_fname": "/Users/hung/Documents/MyProject/Python/DA_CNTT/vlm-zeroshot-content-classification/results/upstream_projects/experiment_djym_cbk/descriptors_crisismmd_humanitarian.json",
+        "waffle_count": 15,
+        "label_before_text": "A photo of a ",
+        "label_after_text": ".",
+        "pre_descriptor_text": "",
+        "descriptor_separator": ", ",
+        "apply_descriptor_modification": true
+      }
+    },
+    {
+      "dataset": "crisismmd",
+      "method": "dclip_labels",
+      "seed": null,
+      "prompts": {
+        "Not Humanitarian": [
+          "Not Humanitarian"
+        ],
+        "Other Relevant Information": [
+          "Other Relevant Information"
+        ],
+        "Rescue/Volunteering/Donation": [
+          "Rescue/Volunteering/Donation"
+        ],
+        "Infrastructure/Utility Damage": [
+          "Infrastructure/Utility Damage"
+        ],
+        "Affected Individuals": [
+          "Affected Individuals"
+        ],
+        "Vehicle Damage": [
+          "Vehicle Damage"
+        ],
+        "Injured or Dead People": [
+          "Injured or Dead People"
+        ],
+        "Missing or Found People": [
+          "Missing or Found People"
+        ]
+      },
+      "author_options": {
+        "descriptor_fname": "/Users/hung/Documents/MyProject/Python/DA_CNTT/vlm-zeroshot-content-classification/results/upstream_projects/experiment_djym_cbk/descriptors_crisismmd_humanitarian.json",
+        "category_name_inclusion": "prepend",
+        "apply_descriptor_modification": true,
+        "before_text": "",
+        "between_text": ", ",
+        "after_text": "",
+        "label_before_text": "",
+        "label_after_text": ""
+      }
+    },
+    {
+      "dataset": "crisismmd",
+      "method": "dclip",
+      "seed": null,
+      "prompts": {
+        "Not Humanitarian": [
+          "Not Humanitarian, which is an everyday scene unrelated to disaster impacts or relief",
+          "Not Humanitarian, which is a personal portrait or entertainment image without visible crisis information",
+          "Not Humanitarian, which is an advertisement unrelated to humanitarian assistance"
+        ],
+        "Other Relevant Information": [
+          "Other Relevant Information, which is a map showing a storm path or an affected geographical area",
+          "Other Relevant Information, which is a weather chart or an official disaster warning graphic",
+          "Other Relevant Information, which is a wide view of a hazard without a specific damaged object or victim"
+        ],
+        "Rescue/Volunteering/Donation": [
+          "Rescue/Volunteering/Donation, which has rescue workers helping people reach safety",
+          "Rescue/Volunteering/Donation, which has volunteers distributing food, water, or emergency supplies",
+          "Rescue/Volunteering/Donation, which is a donation appeal or an organized relief collection"
+        ],
+        "Infrastructure/Utility Damage": [
+          "Infrastructure/Utility Damage, which has collapsed buildings or broken walls surrounded by rubble",
+          "Infrastructure/Utility Damage, which has damaged roads, bridges, or power lines",
+          "Infrastructure/Utility Damage, which has houses or public facilities visibly damaged by flooding or fire"
+        ],
+        "Affected Individuals": [
+          "Affected Individuals, which has displaced families carrying belongings away from their homes",
+          "Affected Individuals, which has survivors staying in a temporary shelter",
+          "Affected Individuals, which has people stranded or waiting for assistance in a disaster area"
+        ],
+        "Vehicle Damage": [
+          "Vehicle Damage, which has cars or buses submerged in floodwater",
+          "Vehicle Damage, which has burned or crushed vehicles",
+          "Vehicle Damage, which has overturned vehicles or wrecked boats after a disaster"
+        ],
+        "Injured or Dead People": [
+          "Injured or Dead People, which has injured people receiving emergency medical treatment",
+          "Injured or Dead People, which has wounded victims carried on stretchers",
+          "Injured or Dead People, which has covered bodies or visibly deceased victims in a disaster setting"
+        ],
+        "Missing or Found People": [
+          "Missing or Found People, which is a missing person notice with a portrait and contact information",
+          "Missing or Found People, which is a list of people reported missing or located",
+          "Missing or Found People, which is a public announcement that a previously missing person has been found"
+        ]
+      },
+      "author_options": {
+        "descriptor_fname": "/Users/hung/Documents/MyProject/Python/DA_CNTT/vlm-zeroshot-content-classification/results/upstream_projects/experiment_djym_cbk/descriptors_crisismmd_humanitarian.json",
+        "category_name_inclusion": "prepend",
+        "apply_descriptor_modification": true,
+        "before_text": "",
+        "between_text": ", ",
+        "after_text": "",
+        "label_before_text": "",
+        "label_after_text": ""
+      }
+    }
+  ],
+  "sources": {
+    "WaffleCLIP": {
+      "url": "https://github.com/ExplainableML/WaffleCLIP.git",
+      "commit": "7a1b8ee48e31285f62ecd839fecb6b89cbef81f1",
+      "paper": "https://arxiv.org/abs/2306.07282"
+    },
+    "DCLIP": {
+      "url": "https://github.com/sachit-menon/classify_by_description_release.git",
+      "commit": "d1a3d8920af89bd0d6a692ed3afeb277df46e082",
+      "paper": "https://arxiv.org/abs/2210.07183"
+    },
+    "OpenAI_CLIP": {
+      "url": "https://github.com/openai/CLIP.git",
+      "commit": "d05afc436d78f1c48dc0dbf8e5980a9d471f35f6",
+      "paper": "https://arxiv.org/abs/2103.00020"
+    }
+  },
+  "git_hash": "e82d021743dcb07b6876e73e50e48442606629bd",
+  "protocol": "frozen_no_fit_exploratory",
+  "source_hashes": {
+    "src/config.py": "e85c8843c8e3b0f34b74cce4ad652b862ac70c6a3d8f17eae46e517ddddfe42d",
+    "src/demo.py": "7bf8794c2a19d1f47e27f8f9e706419de44115d5dd3c594da7db14c950fddf3f",
+    "src/evaluate.py": "13e369b8fa8898a751afc0cd0b7d5360229b1a574cd00522dabf6b0137dc3d1f",
+    "src/evaluation_audit.py": "c51a314bf1fe0790a25201a59816fa88b6d06946960af3e6862ee5e5a27da1c0",
+    "src/inference.py": "58006800e7ffb45dd71d6a5511ce276aa7c77e6a78432d95988a4e6ce473defa",
+    "src/logging_utils.py": "37ce22a854568fe025a645a415d4b391139f7ea00f043f2e352ebafabffeade9",
+    "src/models/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "src/models/model_registry.py": "0aca2fae98e75eb75ba077f891367543f99d8b2dc22853609ab24d03b4d6e6bb",
+    "src/preprocessing/data_crisismmd/check_crisismmd_processed.py": "db23159b26d73305d0e3ecd3e248c08a18ce892ad1b9536f496c95be20392178",
+    "src/preprocessing/data_crisismmd/preprocess_crisismmd.py": "dc63692f8de39e61d49e9fbfbd8634f980d856dbceda26a180b597268f95133a",
+    "src/preprocessing/data_fakeddit/check_fakeddit_ready.py": "1da592331ef420f98763b2b4456bcb1d8a36129158deb6e6604500163a43bf9b",
+    "src/preprocessing/data_fakeddit/image_downloader.py": "ed5a2da169a357a274da29b2aaa272f20c7b71de432ba0a6e0471680e441e1df",
+    "src/preprocessing/data_fakeddit/preprocess_fakeddit.py": "8485e197320fa345f941cf637fbde35179a45713be150142873c82c52e3bd7c3",
+    "src/preprocessing/data_mmimdb/check_mmimdb_ready.py": "a85fea828306ae4b82cd03a2c8b1d3584d7b42793511f57a5983d924ed983bd2",
+    "src/preprocessing/data_mmimdb/preprocess_mmimdb.py": "95add68bb14e07c303df5b73f130328e2afe4a9fb8cf70a46c631dc5da791e19",
+    "src/prompts/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "src/prompts/crisismmd_prompts.py": "1b4105bee5a11a4cd36b2cb75bd9c2cdad102b0b80431c142ec2d4ef225d82c7",
+    "src/prompts/fakeddit_prompts.py": "4440673640e19e6151417386e4c4512486f0187ad5bc3fc0ac137c4736904172",
+    "src/prompts/mmimdb_prompts.py": "1fb94954049555d75d89c70182de29baf494625bedeaa1901059e94baaeb4ddc",
+    "src/research/__init__.py": "c0b1bb68d820937dd39326cbc9fcc24e001c6c3beefd0b09732de585760e4c01",
+    "src/research/adapted_methods.py": "6fa6b4dbf5c125b13146fb04cf01ab59cd2ca246981f40c833e70fdba1c50d3d",
+    "src/research/run_adapted_methods.py": "20c9d4cb3de03fef75d632a41a7292bc39094cb2d1f6c43bddd5517ccf49c2a2",
+    "src/research/run_upstream.py": "cdc74ce6b61ec9f04edb117343280a0adb1f15e0c1e77489a22da090353da42f",
+    "src/research/upstream.py": "8216a82d0ebe70204f1a2b5f7977210cb80b8632bc891cfde1333044bb990861",
+    "src/run/__init__.py": "d6045de51bed3d3aff5615c2e0a47242041fbf3ab45d3e01c018bac9b954d5cc",
+    "src/run/common.py": "765828356bf79483bf2ac2abb9b8241e86fc2f38238079b0292c584da1260b85",
+    "src/run/run_crisismmd.py": "c464d3a81bb96d138d0ff30b5d0332fa0838cbebf5a1a436082932e02733ab81",
+    "src/run/run_fakeddit.py": "5084a27f047aad3c463f50403262c347c8717512ebeed37d7b98379da27e4068",
+    "src/run/run_mmimdb.py": "f980892fab08f4bbc9cecd73548b663cae20f8144367863be34270c21a6cf76f",
+    "src/run_experiment.py": "af61f2117f6ea4afadee2846032087adb28922bc647595a1bdcf7cc1ad982d74",
+    "src/text_chunking.py": "ac5f2e917eda4783b4187bbfe7a5b82b09ab3761780d84d24bf01c01c4791487",
+    "src/text_scale.py": "bbdf3dade644f5036d0e5ad57766e711a7e0be8f1711e91fa541ef53aee94eae"
+  }
+}

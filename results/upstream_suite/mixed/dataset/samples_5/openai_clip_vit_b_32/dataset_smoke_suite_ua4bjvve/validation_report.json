@@ -1,0 +1,117 @@
+{
+  "status": "passed",
+  "tasks": [
+    {
+      "dataset": "crisismmd",
+      "task": "humanitarian",
+      "n_samples": 5,
+      "n_outputs": 8,
+      "n_skipped_images": 0,
+      "same_cohort": true,
+      "identical_text_branch": true,
+      "seed_metric_matches": true,
+      "run_dir": "results/upstream_projects/experiment_djym_cbk",
+      "truncation": {
+        "status": "measured",
+        "context_length": 77,
+        "n_nonempty": 5,
+        "n_measured": 5,
+        "n_truncated": 0,
+        "truncated_rate": 0.0
+      },
+      "chunking": null
+    },
+    {
+      "dataset": "crisismmd",
+      "task": "informativeness",
+      "n_samples": 5,
+      "n_outputs": 8,
+      "n_skipped_images": 0,
+      "same_cohort": true,
+      "identical_text_branch": true,
+      "seed_metric_matches": true,
+      "run_dir": "/Users/hung/Documents/MyProject/Python/DA_CNTT/vlm-zeroshot-content-classification/results/upstream_projects/smoke_suite_ua4bjvve/experiment_62_d5hs1",
+      "truncation": {
+        "status": "measured",
+        "context_length": 77,
+        "n_nonempty": 5,
+        "n_measured": 5,
+        "n_truncated": 0,
+        "truncated_rate": 0.0
+      },
+      "chunking": null
+    },
+    {
+      "dataset": "fakeddit",
+      "task": "6way",
+      "n_samples": 5,
+      "n_outputs": 8,
+      "n_skipped_images": 0,
+      "same_cohort": true,
+      "identical_text_branch": true,
+      "seed_metric_matches": true,
+      "run_dir": "/Users/hung/Documents/MyProject/Python/DA_CNTT/vlm-zeroshot-content-classification/results/upstream_projects/smoke_suite_ua4bjvve/experiment_62_d5hs1",
+      "truncation": {
+        "status": "measured",
+        "context_length": 77,
+        "n_nonempty": 5,
+        "n_measured": 5,
+        "n_truncated": 0,
+        "truncated_rate": 0.0
+      },
+      "chunking": null
+    },
+    {
+      "dataset": "mmimdb",
+      "task": "genres",
+      "n_samples": 5,
+      "n_outputs": 8,
+      "n_skipped_images": 0,
+      "same_cohort": true,
+      "identical_text_branch": true,
+      "seed_metric_matches": true,
+      "run_dir": "/Users/hung/Documents/MyProject/Python/DA_CNTT/vlm-zeroshot-content-classification/results/upstream_projects/smoke_suite_ua4bjvve/experiment_62_d5hs1",
+      "truncation": {
+        "status": "measured",
+        "context_length": 77,
+        "n_nonempty": 5,
+        "n_measured": 5,
+        "n_truncated": 4,
+        "truncated_rate": 0.8
+      },
+      "chunking": {
+        "enabled": true,
+        "aggregation": "mean_embed",
+        "counts": [
+          2,
+          1,
+          2,
+          2,
+          5
+        ],
+        "total_chunks": 12,
+        "n_chunked_texts": 4
+      }
+    },
+    {
+      "dataset": "fakeddit",
+      "task": "2way",
+      "n_samples": 5,
+      "n_outputs": 8,
+      "n_skipped_images": 0,
+      "same_cohort": true,
+      "identical_text_branch": true,
+      "seed_metric_matches": true,
+      "run_dir": "/Users/hung/Documents/MyProject/Python/DA_CNTT/vlm-zeroshot-content-classification/results/upstream_projects/smoke_suite_ua4bjvve/experiment_yo4gy0ph",
+      "truncation": {
+        "status": "measured",
+        "context_length": 77,
+        "n_nonempty": 5,
+        "n_measured": 5,
+        "n_truncated": 0,
+        "truncated_rate": 0.0
+      },
+      "chunking": null
+    }
+  ]
+}

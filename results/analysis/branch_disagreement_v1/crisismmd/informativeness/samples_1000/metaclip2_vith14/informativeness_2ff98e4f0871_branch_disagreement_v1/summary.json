@@ -1,0 +1,17 @@
+{
+  "source_run_id": "2ff98e4f0871",
+  "model": "metaclip2_vith14",
+  "dataset": "crisismmd",
+  "task": "informativeness",
+  "policy": "branch_disagreement_v1",
+  "n_samples": 1000,
+  "n_automatic": 639,
+  "n_review": 361,
+  "coverage": 0.639,
+  "n_errors_total": 166,
+  "n_errors_automatic": 54,
+  "n_errors_review": 112,
+  "automatic_error_rate": 0.08450704225352113,
+  "review_error_rate": 0.31024930747922436,
+  "error_capture_rate": 0.6746987951807228
+}

@@ -1,0 +1,9 @@
+model	dataset	task	method	output_variant	n_runs	macro_f1_mean	macro_f1_std	micro_f1_mean	micro_f1_std
+openai_clip_vit_b_32	crisismmd	humanitarian	clip	original_image	1	0.14583333333333331		0.4	
+openai_clip_vit_b_32	crisismmd	humanitarian	clip	multimodal	1	0.35		0.8	
+openai_clip_vit_b_32	crisismmd	humanitarian	waffle	original_image	1	0.0625		0.2	
+openai_clip_vit_b_32	crisismmd	humanitarian	waffle	multimodal	1	0.22916666666666666		0.6	
+openai_clip_vit_b_32	crisismmd	humanitarian	dclip_labels	original_image	1	0.0625		0.2	
+openai_clip_vit_b_32	crisismmd	humanitarian	dclip_labels	multimodal	1	0.1875		0.4	
+openai_clip_vit_b_32	crisismmd	humanitarian	dclip	original_image	1	0.0625		0.2	
+openai_clip_vit_b_32	crisismmd	humanitarian	dclip	multimodal	1	0.35		0.8	

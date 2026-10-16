@@ -1,0 +1,45 @@
+{
+  "policy": "prompt_margin_gate_v1",
+  "dataset": "crisismmd",
+  "task": "informativeness",
+  "model": "metaclip2_vith14",
+  "n_samples": 1000,
+  "labels": [
+    "informative",
+    "not_informative"
+  ],
+  "margin_threshold": 0.1,
+  "gate_count": 124,
+  "baseline_sample_set_id": "7c1e9123a676b6f08da80625c683b72b38936bd63c1186bb34dc27e447753653",
+  "adapted_sample_set_id": "72ae423b00b5379a56d56a6530946ad78b2ad0c24a710af8f5ef6ab4e5d62d5c",
+  "paired_rows_verified": true,
+  "split_verified": false,
+  "methods": {
+    "baseline": {
+      "accuracy": 0.806,
+      "macro_f1": 0.8058881915983607,
+      "changed_vs_baseline": 0,
+      "wrong_to_right": 0,
+      "right_to_wrong": 0,
+      "wrong_to_wrong_changed": 0
+    },
+    "adapted_dclip": {
+      "accuracy": 0.834,
+      "macro_f1": 0.8325201480279751,
+      "changed_vs_baseline": 102,
+      "wrong_to_right": 65,
+      "right_to_wrong": 37,
+      "wrong_to_wrong_changed": 0
+    },
+    "prompt_margin_gate": {
+      "accuracy": 0.818,
+      "macro_f1": 0.8176783846705589,
+      "changed_vs_baseline": 42,
+      "wrong_to_right": 27,
+      "right_to_wrong": 15,
+      "wrong_to_wrong_changed": 0
+    }
+  },
+  "baseline_run": "results/baseline/crisismmd/informativeness/samples_1000/multi_model/informativeness_e595fbb7f79a",
+  "adapted_run": "results/adapted_dclip/crisismmd/informativeness/samples_1000/metaclip2_vith14/informativeness_2ff98e4f0871"
+}

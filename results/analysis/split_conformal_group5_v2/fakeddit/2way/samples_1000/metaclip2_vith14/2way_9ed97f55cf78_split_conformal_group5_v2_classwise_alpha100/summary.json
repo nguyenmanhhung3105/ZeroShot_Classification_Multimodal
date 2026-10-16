@@ -1,0 +1,43 @@
+{
+  "source_run_id": "9ed97f55cf78",
+  "model": "metaclip2_vith14",
+  "dataset": "fakeddit",
+  "task": "2way",
+  "policy": "split_conformal_group5_v2",
+  "mode": "classwise",
+  "alpha": 0.1,
+  "n_samples": 1000,
+  "n_groups": 1000,
+  "split_method": "group_by_shared_id_or_exact_caption; deterministic_sha256; 5_folds",
+  "nonconformity_score": "1 - score_of_true_label_on_calibration",
+  "n_singleton": 195,
+  "n_two_labels": 805,
+  "n_empty": 0,
+  "singleton_rate": 0.195,
+  "empirical_label_coverage": 0.9,
+  "average_set_size": 1.805,
+  "baseline_accuracy_all": 0.591,
+  "singleton_accuracy": 0.48717948717948717,
+  "baseline_accuracy_on_singleton": 0.48717948717948717,
+  "n_singleton_changed_from_baseline": 0,
+  "n_errors_singleton": 100,
+  "n_errors_review": 309,
+  "n_correct_review": 496,
+  "per_class": {
+    "0": {
+      "n": 385,
+      "empirical_coverage": 0.8987012987012987,
+      "n_singleton": 77,
+      "singleton_accuracy": 0.4935064935064935
+    },
+    "1": {
+      "n": 615,
+      "empirical_coverage": 0.9008130081300812,
+      "n_singleton": 118,
+      "singleton_accuracy": 0.4830508474576271
+    }
+  },
+  "source_split_verified": false,
+  "independent_test": false,
+  "guaranteed_coverage_claimed": false
+}

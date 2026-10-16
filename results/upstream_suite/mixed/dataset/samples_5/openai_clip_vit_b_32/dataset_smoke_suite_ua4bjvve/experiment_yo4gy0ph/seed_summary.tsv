@@ -1,0 +1,9 @@
+model	dataset	task	method	output_variant	n_runs	macro_f1_mean	macro_f1_std	micro_f1_mean	micro_f1_std	balanced_accuracy_mean	balanced_accuracy_std
+openai_clip_vit_b_32	fakeddit	2way	clip	original_image	1	0.2857142857142857		0.4		0.25	
+openai_clip_vit_b_32	fakeddit	2way	clip	multimodal	1	0.2857142857142857		0.4		0.25	
+openai_clip_vit_b_32	fakeddit	2way	waffle	original_image	1	0.2857142857142857		0.4		0.25	
+openai_clip_vit_b_32	fakeddit	2way	waffle	multimodal	1	0.16666666666666666		0.2		0.125	
+openai_clip_vit_b_32	fakeddit	2way	dclip_labels	original_image	1	0.375		0.6		0.375	
+openai_clip_vit_b_32	fakeddit	2way	dclip_labels	multimodal	1	0.375		0.6		0.375	
+openai_clip_vit_b_32	fakeddit	2way	dclip	original_image	1	0.2857142857142857		0.4		0.25	
+openai_clip_vit_b_32	fakeddit	2way	dclip	multimodal	1	0.2857142857142857		0.4		0.25	

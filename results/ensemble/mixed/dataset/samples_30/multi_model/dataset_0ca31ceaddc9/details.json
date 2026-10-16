@@ -1,0 +1,59 @@
+{
+  "informativeness": {
+    "class_support": {
+      "informative": 22,
+      "not_informative": 8
+    },
+    "uncertain_count": 3,
+    "margin_threshold": 0.1,
+    "sample_set_id": "0b4b442a8777719ca84552251cdedcfeb8a30bb3f2711df6309247596f833b35",
+    "prompt_id": "c90a14486c517c7973df233f33b6f089e820eda682faba838034a710b01b8ca5",
+    "runs": {
+      "metaclip2_vith14": {
+        "log_dir": "/tmp/crisismmd_ensemble_09y77wmk/results/uncertainty_ensemble/crisismmd_q6m_83i7/model_logs/metaclip2_vith14__crisismmd__informativeness__v1__20261013_151400_450031",
+        "sample_set_id": "0b4b442a8777719ca84552251cdedcfeb8a30bb3f2711df6309247596f833b35",
+        "prompt_id": "c90a14486c517c7973df233f33b6f089e820eda682faba838034a710b01b8ca5"
+      },
+      "dfn5b_vith14": {
+        "log_dir": "/tmp/crisismmd_ensemble_09y77wmk/results/uncertainty_ensemble/crisismmd_q6m_83i7/model_logs/dfn5b_vith14__crisismmd__informativeness__v1__20261013_151446_336700",
+        "sample_set_id": "0b4b442a8777719ca84552251cdedcfeb8a30bb3f2711df6309247596f833b35",
+        "prompt_id": "c90a14486c517c7973df233f33b6f089e820eda682faba838034a710b01b8ca5"
+      },
+      "siglip2_so400m": {
+        "log_dir": "/tmp/crisismmd_ensemble_09y77wmk/results/uncertainty_ensemble/crisismmd_q6m_83i7/model_logs/siglip2_so400m__crisismmd__informativeness__v1__20261013_151537_878247",
+        "sample_set_id": "0b4b442a8777719ca84552251cdedcfeb8a30bb3f2711df6309247596f833b35",
+        "prompt_id": "c90a14486c517c7973df233f33b6f089e820eda682faba838034a710b01b8ca5"
+      }
+    }
+  },
+  "humanitarian": {
+    "class_support": {
+      "other_relevant_information": 10,
+      "infrastructure_and_utility_damage": 10,
+      "not_humanitarian": 8,
+      "injured_or_dead_people": 1,
+      "rescue_volunteering_or_donation_effort": 1
+    },
+    "uncertain_count": 7,
+    "margin_threshold": 0.1,
+    "sample_set_id": "dc6031e1167ed6e9ecbb1ba4b9257e5605c403cf766adb61334c0b2c19a98666",
+    "prompt_id": "de5aee582c4c255e242ebf59a86b8c1fb7ea52eff49b8462260782532edebed5",
+    "runs": {
+      "metaclip2_vith14": {
+        "log_dir": "/tmp/crisismmd_ensemble_09y77wmk/results/uncertainty_ensemble/crisismmd_q6m_83i7/model_logs/metaclip2_vith14__crisismmd__humanitarian__v1__20261013_151405_921639",
+        "sample_set_id": "dc6031e1167ed6e9ecbb1ba4b9257e5605c403cf766adb61334c0b2c19a98666",
+        "prompt_id": "de5aee582c4c255e242ebf59a86b8c1fb7ea52eff49b8462260782532edebed5"
+      },
+      "dfn5b_vith14": {
+        "log_dir": "/tmp/crisismmd_ensemble_09y77wmk/results/uncertainty_ensemble/crisismmd_q6m_83i7/model_logs/dfn5b_vith14__crisismmd__humanitarian__v1__20261013_151451_809220",
+        "sample_set_id": "dc6031e1167ed6e9ecbb1ba4b9257e5605c403cf766adb61334c0b2c19a98666",
+        "prompt_id": "de5aee582c4c255e242ebf59a86b8c1fb7ea52eff49b8462260782532edebed5"
+      },
+      "siglip2_so400m": {
+        "log_dir": "/tmp/crisismmd_ensemble_09y77wmk/results/uncertainty_ensemble/crisismmd_q6m_83i7/model_logs/siglip2_so400m__crisismmd__humanitarian__v1__20261013_151542_247293",
+        "sample_set_id": "dc6031e1167ed6e9ecbb1ba4b9257e5605c403cf766adb61334c0b2c19a98666",
+        "prompt_id": "de5aee582c4c255e242ebf59a86b8c1fb7ea52eff49b8462260782532edebed5"
+      }
+    }
+  }
+}

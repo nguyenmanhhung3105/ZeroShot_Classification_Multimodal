@@ -1,0 +1,11 @@
+{
+  "source_run_id": "03f1882357bb",
+  "source_job_id": "adapted_crisismmd_info",
+  "source_code_sha256": "029fa7fa79b8753a840ab6ee3402e288d378783af645fe82c2c769f9796b9db6",
+  "source_data_sha256": "4d9a5d6ae79565f922e63f50c7e25fcf4837dfde5ac83ba7c5f1eee484a1d8af",
+  "sample_set_id": "b24eeb231803a90b5b8815e09b57cf1fdfe12674bc658ed0fe88692ff72fa1ab",
+  "source_archive_member": "crisismmd_qbxm2l1v/raw_predictions/metaclip2_vith14__crisismmd__informativeness__v1__20261014_135825_518876/raw_predictions.tsv",
+  "policy": "branch_disagreement_v1",
+  "uses_true_labels_for_flag": false,
+  "split_verified": false
+}

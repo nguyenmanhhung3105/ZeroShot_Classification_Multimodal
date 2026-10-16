@@ -1,0 +1,59 @@
+{
+  "informativeness": {
+    "class_support": {
+      "informative": 57,
+      "not_informative": 43
+    },
+    "uncertain_count": 10,
+    "margin_threshold": 0.1,
+    "sample_set_id": "bfef9f0a5ca519b10e0f50a1103f8567c03c6138ea33f57b4c4a75b98326d047",
+    "prompt_id": "c90a14486c517c7973df233f33b6f089e820eda682faba838034a710b01b8ca5",
+    "runs": {
+      "metaclip2_vith14": {
+        "log_dir": "/Users/hung/Documents/MyProject/Python/DA_CNTT/vlm-zeroshot-content-classification/results/uncertainty_ensemble/crisismmd_vkrvk61x/model_logs/metaclip2_vith14__crisismmd__informativeness__v1__20261013_205232_890687",
+        "sample_set_id": "bfef9f0a5ca519b10e0f50a1103f8567c03c6138ea33f57b4c4a75b98326d047",
+        "prompt_id": "c90a14486c517c7973df233f33b6f089e820eda682faba838034a710b01b8ca5"
+      },
+      "dfn5b_vith14": {
+        "log_dir": "/Users/hung/Documents/MyProject/Python/DA_CNTT/vlm-zeroshot-content-classification/results/uncertainty_ensemble/crisismmd_vkrvk61x/model_logs/dfn5b_vith14__crisismmd__informativeness__v1__20261013_205318_413013",
+        "sample_set_id": "bfef9f0a5ca519b10e0f50a1103f8567c03c6138ea33f57b4c4a75b98326d047",
+        "prompt_id": "c90a14486c517c7973df233f33b6f089e820eda682faba838034a710b01b8ca5"
+      },
+      "siglip2_so400m": {
+        "log_dir": "/Users/hung/Documents/MyProject/Python/DA_CNTT/vlm-zeroshot-content-classification/results/uncertainty_ensemble/crisismmd_vkrvk61x/model_logs/siglip2_so400m__crisismmd__informativeness__v1__20261013_205409_331386",
+        "sample_set_id": "bfef9f0a5ca519b10e0f50a1103f8567c03c6138ea33f57b4c4a75b98326d047",
+        "prompt_id": "c90a14486c517c7973df233f33b6f089e820eda682faba838034a710b01b8ca5"
+      }
+    }
+  },
+  "humanitarian": {
+    "class_support": {
+      "other_relevant_information": 28,
+      "infrastructure_and_utility_damage": 21,
+      "not_humanitarian": 43,
+      "injured_or_dead_people": 1,
+      "rescue_volunteering_or_donation_effort": 7
+    },
+    "uncertain_count": 17,
+    "margin_threshold": 0.1,
+    "sample_set_id": "e52a9a47d595d3a738cbbd19d50c23388b94ecbd9382fea965810c49fab3c1f0",
+    "prompt_id": "de5aee582c4c255e242ebf59a86b8c1fb7ea52eff49b8462260782532edebed5",
+    "runs": {
+      "metaclip2_vith14": {
+        "log_dir": "/Users/hung/Documents/MyProject/Python/DA_CNTT/vlm-zeroshot-content-classification/results/uncertainty_ensemble/crisismmd_vkrvk61x/model_logs/metaclip2_vith14__crisismmd__humanitarian__v1__20261013_205251_376370",
+        "sample_set_id": "e52a9a47d595d3a738cbbd19d50c23388b94ecbd9382fea965810c49fab3c1f0",
+        "prompt_id": "de5aee582c4c255e242ebf59a86b8c1fb7ea52eff49b8462260782532edebed5"
+      },
+      "dfn5b_vith14": {
+        "log_dir": "/Users/hung/Documents/MyProject/Python/DA_CNTT/vlm-zeroshot-content-classification/results/uncertainty_ensemble/crisismmd_vkrvk61x/model_logs/dfn5b_vith14__crisismmd__humanitarian__v1__20261013_205335_110704",
+        "sample_set_id": "e52a9a47d595d3a738cbbd19d50c23388b94ecbd9382fea965810c49fab3c1f0",
+        "prompt_id": "de5aee582c4c255e242ebf59a86b8c1fb7ea52eff49b8462260782532edebed5"
+      },
+      "siglip2_so400m": {
+        "log_dir": "/Users/hung/Documents/MyProject/Python/DA_CNTT/vlm-zeroshot-content-classification/results/uncertainty_ensemble/crisismmd_vkrvk61x/model_logs/siglip2_so400m__crisismmd__humanitarian__v1__20261013_205421_257704",
+        "sample_set_id": "e52a9a47d595d3a738cbbd19d50c23388b94ecbd9382fea965810c49fab3c1f0",
+        "prompt_id": "de5aee582c4c255e242ebf59a86b8c1fb7ea52eff49b8462260782532edebed5"
+      }
+    }
+  }
+}

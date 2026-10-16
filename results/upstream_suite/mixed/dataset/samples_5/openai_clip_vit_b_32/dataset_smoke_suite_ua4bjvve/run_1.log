@@ -1,0 +1,507 @@
+Sample Prompt: A photo of a Not Informative.
+Sample Prompt: A photo of a Not Informative, which has wheelbase very.
+
+Example description for class Informative: "Informative, which is a view showing the effects of a disaster or an ongoing emergency"
+
+Sample Prompt: A photo of a Satire/Parody.
+Sample Prompt: A photo of a Satire/Parody, which has cable-ac shorelin.
+
+Example description for class True: "True, which is an authentic photograph documenting a real event"
+
+Sample Prompt: A photo of a Adventure.
+Sample Prompt: A photo of a Adventure, which has reef.
+
+Example description for class Action: "Action, which is a physical confrontation, chase, or armed conflict"
+
+[PLAN] /Users/hung/Documents/MyProject/Python/DA_CNTT/vlm-zeroshot-content-classification/results/upstream_projects/smoke_suite_ua4bjvve/experiment_62_d5hs1/frozen_plan.json; 12 phương pháp/seed mỗi model
+/Users/hung/Documents/MyProject/Python/DA_CNTT/vlm-zeroshot-content-classification/venv/lib/python3.12/site-packages/torch/jit/_serialization.py:176: FutureWarning: `torch.jit.load` is deprecated. Please switch to `torch.export`.
+  warnings.warn(
+Mã hóa ảnh:   0%|          | 0/1 [00:00<?, ?batch/s]Mã hóa ảnh: 100%|██████████| 1/1 [00:00<00:00, 11.85batch/s]
+Mã hóa text:   0%|          | 0/1 [00:00<?, ?batch/s]Mã hóa text: 100%|██████████| 1/1 [00:00<00:00, 22.05batch/s]
+Encoding Descriptions...:   0%|          | 0/2 [00:00<?, ?it/s]Encoding Descriptions...: 100%|██████████| 2/2 [00:00<00:00, 58.19it/s]
+[TEXT SCALE] crisismmd: requested=None, effective=None, status=unused_image_only
+Accuracy : 0.6000  (chỉ tham khảo, có thể gây hiểu lầm nếu lệch lớp)
+Macro-F1 : 0.3750  (chỉ số chính, phản ánh đúng cả lớp hiếm)
+Micro-F1 : 0.6000
+
+Báo cáo chi tiết theo từng lớp:
+                 precision    recall  f1-score   support
+
+    informative       0.75      0.75      0.75         4
+not_informative       0.00      0.00      0.00         1
+
+       accuracy                           0.60         5
+      macro avg       0.38      0.38      0.38         5
+   weighted avg       0.60      0.60      0.60         5
+
+branch  n_samples  macro_f1  balanced_accuracy
+ image          5     0.375              0.375
+  text          0       NaN                NaN
+fusion          5     0.375              0.375
+Đã lưu log tại: /Users/hung/Documents/MyProject/Python/DA_CNTT/vlm-zeroshot-content-classification/results/upstream_projects/smoke_suite_ua4bjvve/experiment_62_d5hs1/raw_predictions/openai_clip_vit_b_32__crisismmd__informativeness__clip_original_image_sNone__20261011_232103_096389  (2/5 mẫu sai)
+[TEXT SCALE] crisismmd: requested=None, effective=100.00000762939453, status=model_default
+Accuracy : 0.8000  (chỉ tham khảo, có thể gây hiểu lầm nếu lệch lớp)
+Macro-F1 : 0.4444  (chỉ số chính, phản ánh đúng cả lớp hiếm)
+Micro-F1 : 0.8000
+
+Báo cáo chi tiết theo từng lớp:
+                 precision    recall  f1-score   support
+
+    informative       0.80      1.00      0.89         4
+not_informative       0.00      0.00      0.00         1
+
+       accuracy                           0.80         5
+      macro avg       0.40      0.50      0.44         5
+   weighted avg       0.64      0.80      0.71         5
+
+branch  n_samples  macro_f1  balanced_accuracy
+ image          5  0.375000              0.375
+  text          5  1.000000              1.000
+fusion          5  0.444444              0.500
+Đã lưu log tại: /Users/hung/Documents/MyProject/Python/DA_CNTT/vlm-zeroshot-content-classification/results/upstream_projects/smoke_suite_ua4bjvve/experiment_62_d5hs1/raw_predictions/openai_clip_vit_b_32__crisismmd__informativeness__clip_multimodal_sNone__20261011_232103_131892  (1/5 mẫu sai)
+Encoding Descriptions...:   0%|          | 0/2 [00:00<?, ?it/s]Encoding Descriptions...:  50%|█████     | 1/2 [00:00<00:00,  3.97it/s]Encoding Descriptions...: 100%|██████████| 2/2 [00:00<00:00,  3.94it/s]Encoding Descriptions...: 100%|██████████| 2/2 [00:00<00:00,  3.94it/s]
+[TEXT SCALE] crisismmd: requested=None, effective=None, status=unused_image_only
+Accuracy : 0.8000  (chỉ tham khảo, có thể gây hiểu lầm nếu lệch lớp)
+Macro-F1 : 0.4444  (chỉ số chính, phản ánh đúng cả lớp hiếm)
+Micro-F1 : 0.8000
+
+Báo cáo chi tiết theo từng lớp:
+                 precision    recall  f1-score   support
+
+    informative       0.80      1.00      0.89         4
+not_informative       0.00      0.00      0.00         1
+
+       accuracy                           0.80         5
+      macro avg       0.40      0.50      0.44         5
+   weighted avg       0.64      0.80      0.71         5
+
+branch  n_samples  macro_f1  balanced_accuracy
+ image          5  0.444444                0.5
+  text          0       NaN                NaN
+fusion          5  0.444444                0.5
+Đã lưu log tại: /Users/hung/Documents/MyProject/Python/DA_CNTT/vlm-zeroshot-content-classification/results/upstream_projects/smoke_suite_ua4bjvve/experiment_62_d5hs1/raw_predictions/openai_clip_vit_b_32__crisismmd__informativeness__waffle_original_image_s0__20261011_232103_677843  (1/5 mẫu sai)
+[TEXT SCALE] crisismmd: requested=None, effective=100.00000762939453, status=model_default
+Accuracy : 0.8000  (chỉ tham khảo, có thể gây hiểu lầm nếu lệch lớp)
+Macro-F1 : 0.4444  (chỉ số chính, phản ánh đúng cả lớp hiếm)
+Micro-F1 : 0.8000
+
+Báo cáo chi tiết theo từng lớp:
+                 precision    recall  f1-score   support
+
+    informative       0.80      1.00      0.89         4
+not_informative       0.00      0.00      0.00         1
+
+       accuracy                           0.80         5
+      macro avg       0.40      0.50      0.44         5
+   weighted avg       0.64      0.80      0.71         5
+
+branch  n_samples  macro_f1  balanced_accuracy
+ image          5  0.444444                0.5
+  text          5  1.000000                1.0
+fusion          5  0.444444                0.5
+Đã lưu log tại: /Users/hung/Documents/MyProject/Python/DA_CNTT/vlm-zeroshot-content-classification/results/upstream_projects/smoke_suite_ua4bjvve/experiment_62_d5hs1/raw_predictions/openai_clip_vit_b_32__crisismmd__informativeness__waffle_multimodal_s0__20261011_232103_718021  (1/5 mẫu sai)
+[TEXT SCALE] crisismmd: requested=None, effective=None, status=unused_image_only
+Accuracy : 0.2000  (chỉ tham khảo, có thể gây hiểu lầm nếu lệch lớp)
+Macro-F1 : 0.1667  (chỉ số chính, phản ánh đúng cả lớp hiếm)
+Micro-F1 : 0.2000
+
+Báo cáo chi tiết theo từng lớp:
+                 precision    recall  f1-score   support
+
+    informative       0.00      0.00      0.00         4
+not_informative       0.20      1.00      0.33         1
+
+       accuracy                           0.20         5
+      macro avg       0.10      0.50      0.17         5
+   weighted avg       0.04      0.20      0.07         5
+
+branch  n_samples  macro_f1  balanced_accuracy
+ image          5  0.166667                0.5
+  text          0       NaN                NaN
+fusion          5  0.166667                0.5
+Đã lưu log tại: /Users/hung/Documents/MyProject/Python/DA_CNTT/vlm-zeroshot-content-classification/results/upstream_projects/smoke_suite_ua4bjvve/experiment_62_d5hs1/raw_predictions/openai_clip_vit_b_32__crisismmd__informativeness__dclip_labels_original_image_sNone__20261011_232103_788331  (4/5 mẫu sai)
+[TEXT SCALE] crisismmd: requested=None, effective=100.00000762939453, status=model_default
+Accuracy : 1.0000  (chỉ tham khảo, có thể gây hiểu lầm nếu lệch lớp)
+Macro-F1 : 1.0000  (chỉ số chính, phản ánh đúng cả lớp hiếm)
+Micro-F1 : 1.0000
+
+Báo cáo chi tiết theo từng lớp:
+                 precision    recall  f1-score   support
+
+    informative       1.00      1.00      1.00         4
+not_informative       1.00      1.00      1.00         1
+
+       accuracy                           1.00         5
+      macro avg       1.00      1.00      1.00         5
+   weighted avg       1.00      1.00      1.00         5
+
+branch  n_samples  macro_f1  balanced_accuracy
+ image          5  0.166667                0.5
+  text          5  1.000000                1.0
+fusion          5  1.000000                1.0
+Đã lưu log tại: /Users/hung/Documents/MyProject/Python/DA_CNTT/vlm-zeroshot-content-classification/results/upstream_projects/smoke_suite_ua4bjvve/experiment_62_d5hs1/raw_predictions/openai_clip_vit_b_32__crisismmd__informativeness__dclip_labels_multimodal_sNone__20261011_232103_828207  (0/5 mẫu sai)
+[TEXT SCALE] crisismmd: requested=None, effective=None, status=unused_image_only
+Accuracy : 0.8000  (chỉ tham khảo, có thể gây hiểu lầm nếu lệch lớp)
+Macro-F1 : 0.4444  (chỉ số chính, phản ánh đúng cả lớp hiếm)
+Micro-F1 : 0.8000
+
+Báo cáo chi tiết theo từng lớp:
+                 precision    recall  f1-score   support
+
+    informative       0.80      1.00      0.89         4
+not_informative       0.00      0.00      0.00         1
+
+       accuracy                           0.80         5
+      macro avg       0.40      0.50      0.44         5
+   weighted avg       0.64      0.80      0.71         5
+
+branch  n_samples  macro_f1  balanced_accuracy
+ image          5  0.444444                0.5
+  text          0       NaN                NaN
+fusion          5  0.444444                0.5
+Đã lưu log tại: /Users/hung/Documents/MyProject/Python/DA_CNTT/vlm-zeroshot-content-classification/results/upstream_projects/smoke_suite_ua4bjvve/experiment_62_d5hs1/raw_predictions/openai_clip_vit_b_32__crisismmd__informativeness__dclip_original_image_sNone__20261011_232103_941529  (1/5 mẫu sai)
+[TEXT SCALE] crisismmd: requested=None, effective=100.00000762939453, status=model_default
+Accuracy : 0.8000  (chỉ tham khảo, có thể gây hiểu lầm nếu lệch lớp)
+Macro-F1 : 0.4444  (chỉ số chính, phản ánh đúng cả lớp hiếm)
+Micro-F1 : 0.8000
+
+Báo cáo chi tiết theo từng lớp:
+                 precision    recall  f1-score   support
+
+    informative       0.80      1.00      0.89         4
+not_informative       0.00      0.00      0.00         1
+
+       accuracy                           0.80         5
+      macro avg       0.40      0.50      0.44         5
+   weighted avg       0.64      0.80      0.71         5
+
+branch  n_samples  macro_f1  balanced_accuracy
+ image          5  0.444444                0.5
+  text          5  1.000000                1.0
+fusion          5  0.444444                0.5
+Đã lưu log tại: /Users/hung/Documents/MyProject/Python/DA_CNTT/vlm-zeroshot-content-classification/results/upstream_projects/smoke_suite_ua4bjvve/experiment_62_d5hs1/raw_predictions/openai_clip_vit_b_32__crisismmd__informativeness__dclip_multimodal_sNone__20261011_232103_980690  (1/5 mẫu sai)
+Mã hóa ảnh:   0%|          | 0/1 [00:00<?, ?batch/s]Mã hóa ảnh: 100%|██████████| 1/1 [00:00<00:00, 13.46batch/s]
+Mã hóa text:   0%|          | 0/1 [00:00<?, ?batch/s]Mã hóa text: 100%|██████████| 1/1 [00:00<00:00, 16.83batch/s]
+Encoding Descriptions...:   0%|          | 0/6 [00:00<?, ?it/s]Encoding Descriptions...:  83%|████████▎ | 5/6 [00:00<00:00, 46.83it/s]Encoding Descriptions...: 100%|██████████| 6/6 [00:00<00:00, 47.08it/s]
+[TEXT SCALE] fakeddit: requested=25, effective=None, status=unused_image_only
+Accuracy : 0.2000  (chỉ tham khảo, có thể gây hiểu lầm nếu lệch lớp)
+Macro-F1 : 0.0833  (chỉ số chính, phản ánh đúng cả lớp hiếm)
+Micro-F1 : 0.2000
+
+Báo cáo chi tiết theo từng lớp:
+              precision    recall  f1-score   support
+
+           0       0.00      0.00      0.00         1
+           1       0.00      0.00      0.00         0
+           2       0.50      0.50      0.50         2
+           3       0.00      0.00      0.00         0
+           4       0.00      0.00      0.00         1
+           5       0.00      0.00      0.00         1
+
+    accuracy                           0.20         5
+   macro avg       0.08      0.08      0.08         5
+weighted avg       0.20      0.20      0.20         5
+
+/Users/hung/Documents/MyProject/Python/DA_CNTT/vlm-zeroshot-content-classification/venv/lib/python3.12/site-packages/sklearn/metrics/_classification.py:2939: UserWarning: y_pred contains classes not in y_true
+  warnings.warn("y_pred contains classes not in y_true")
+/Users/hung/Documents/MyProject/Python/DA_CNTT/vlm-zeroshot-content-classification/venv/lib/python3.12/site-packages/sklearn/metrics/_classification.py:2939: UserWarning: y_pred contains classes not in y_true
+  warnings.warn("y_pred contains classes not in y_true")
+branch  n_samples  macro_f1  balanced_accuracy
+ image          5  0.083333              0.125
+  text          0       NaN                NaN
+fusion          5  0.083333              0.125
+Đã lưu log tại: /Users/hung/Documents/MyProject/Python/DA_CNTT/vlm-zeroshot-content-classification/results/upstream_projects/smoke_suite_ua4bjvve/experiment_62_d5hs1/raw_predictions/openai_clip_vit_b_32__fakeddit__6way__clip_original_image_sNone__20261011_232104_536850  (4/5 mẫu sai)
+[TEXT SCALE] fakeddit: requested=25, effective=25, status=manual
+Accuracy : 0.2000  (chỉ tham khảo, có thể gây hiểu lầm nếu lệch lớp)
+Macro-F1 : 0.0833  (chỉ số chính, phản ánh đúng cả lớp hiếm)
+Micro-F1 : 0.2000
+
+Báo cáo chi tiết theo từng lớp:
+              precision    recall  f1-score   support
+
+           0       0.00      0.00      0.00         1
+           1       0.00      0.00      0.00         0
+           2       0.50      0.50      0.50         2
+           3       0.00      0.00      0.00         0
+           4       0.00      0.00      0.00         1
+           5       0.00      0.00      0.00         1
+
+    accuracy                           0.20         5
+   macro avg       0.08      0.08      0.08         5
+weighted avg       0.20      0.20      0.20         5
+
+/Users/hung/Documents/MyProject/Python/DA_CNTT/vlm-zeroshot-content-classification/venv/lib/python3.12/site-packages/sklearn/metrics/_classification.py:2939: UserWarning: y_pred contains classes not in y_true
+  warnings.warn("y_pred contains classes not in y_true")
+/Users/hung/Documents/MyProject/Python/DA_CNTT/vlm-zeroshot-content-classification/venv/lib/python3.12/site-packages/sklearn/metrics/_classification.py:2939: UserWarning: y_pred contains classes not in y_true
+  warnings.warn("y_pred contains classes not in y_true")
+/Users/hung/Documents/MyProject/Python/DA_CNTT/vlm-zeroshot-content-classification/venv/lib/python3.12/site-packages/sklearn/metrics/_classification.py:2939: UserWarning: y_pred contains classes not in y_true
+  warnings.warn("y_pred contains classes not in y_true")
+branch  n_samples  macro_f1  balanced_accuracy
+ image          5  0.083333              0.125
+  text          5  0.083333              0.125
+fusion          5  0.083333              0.125
+Đã lưu log tại: /Users/hung/Documents/MyProject/Python/DA_CNTT/vlm-zeroshot-content-classification/results/upstream_projects/smoke_suite_ua4bjvve/experiment_62_d5hs1/raw_predictions/openai_clip_vit_b_32__fakeddit__6way__clip_multimodal_sNone__20261011_232104_583045  (4/5 mẫu sai)
+Encoding Descriptions...:   0%|          | 0/6 [00:00<?, ?it/s]Encoding Descriptions...:  17%|█▋        | 1/6 [00:00<00:01,  3.50it/s]Encoding Descriptions...:  33%|███▎      | 2/6 [00:00<00:01,  3.67it/s]Encoding Descriptions...:  50%|█████     | 3/6 [00:00<00:00,  3.79it/s]Encoding Descriptions...:  67%|██████▋   | 4/6 [00:01<00:00,  3.85it/s]Encoding Descriptions...:  83%|████████▎ | 5/6 [00:01<00:00,  3.77it/s]Encoding Descriptions...: 100%|██████████| 6/6 [00:01<00:00,  3.80it/s]Encoding Descriptions...: 100%|██████████| 6/6 [00:01<00:00,  3.77it/s]
+[TEXT SCALE] fakeddit: requested=25, effective=None, status=unused_image_only
+Accuracy : 0.2000  (chỉ tham khảo, có thể gây hiểu lầm nếu lệch lớp)
+Macro-F1 : 0.0833  (chỉ số chính, phản ánh đúng cả lớp hiếm)
+Micro-F1 : 0.2000
+
+Báo cáo chi tiết theo từng lớp:
+              precision    recall  f1-score   support
+
+           0       0.00      0.00      0.00         1
+           1       0.00      0.00      0.00         0
+           2       0.50      0.50      0.50         2
+           3       0.00      0.00      0.00         0
+           4       0.00      0.00      0.00         1
+           5       0.00      0.00      0.00         1
+
+    accuracy                           0.20         5
+   macro avg       0.08      0.08      0.08         5
+weighted avg       0.20      0.20      0.20         5
+
+/Users/hung/Documents/MyProject/Python/DA_CNTT/vlm-zeroshot-content-classification/venv/lib/python3.12/site-packages/sklearn/metrics/_classification.py:2939: UserWarning: y_pred contains classes not in y_true
+  warnings.warn("y_pred contains classes not in y_true")
+/Users/hung/Documents/MyProject/Python/DA_CNTT/vlm-zeroshot-content-classification/venv/lib/python3.12/site-packages/sklearn/metrics/_classification.py:2939: UserWarning: y_pred contains classes not in y_true
+  warnings.warn("y_pred contains classes not in y_true")
+branch  n_samples  macro_f1  balanced_accuracy
+ image          5  0.083333              0.125
+  text          0       NaN                NaN
+fusion          5  0.083333              0.125
+Đã lưu log tại: /Users/hung/Documents/MyProject/Python/DA_CNTT/vlm-zeroshot-content-classification/results/upstream_projects/smoke_suite_ua4bjvve/experiment_62_d5hs1/raw_predictions/openai_clip_vit_b_32__fakeddit__6way__waffle_original_image_s0__20261011_232106_212362  (4/5 mẫu sai)
+[TEXT SCALE] fakeddit: requested=25, effective=25, status=manual
+Accuracy : 0.2000  (chỉ tham khảo, có thể gây hiểu lầm nếu lệch lớp)
+Macro-F1 : 0.0833  (chỉ số chính, phản ánh đúng cả lớp hiếm)
+Micro-F1 : 0.2000
+
+Báo cáo chi tiết theo từng lớp:
+              precision    recall  f1-score   support
+
+           0       0.00      0.00      0.00         1
+           1       0.00      0.00      0.00         0
+           2       0.50      0.50      0.50         2
+           3       0.00      0.00      0.00         0
+           4       0.00      0.00      0.00         1
+           5       0.00      0.00      0.00         1
+
+    accuracy                           0.20         5
+   macro avg       0.08      0.08      0.08         5
+weighted avg       0.20      0.20      0.20         5
+
+/Users/hung/Documents/MyProject/Python/DA_CNTT/vlm-zeroshot-content-classification/venv/lib/python3.12/site-packages/sklearn/metrics/_classification.py:2939: UserWarning: y_pred contains classes not in y_true
+  warnings.warn("y_pred contains classes not in y_true")
+/Users/hung/Documents/MyProject/Python/DA_CNTT/vlm-zeroshot-content-classification/venv/lib/python3.12/site-packages/sklearn/metrics/_classification.py:2939: UserWarning: y_pred contains classes not in y_true
+  warnings.warn("y_pred contains classes not in y_true")
+/Users/hung/Documents/MyProject/Python/DA_CNTT/vlm-zeroshot-content-classification/venv/lib/python3.12/site-packages/sklearn/metrics/_classification.py:2939: UserWarning: y_pred contains classes not in y_true
+  warnings.warn("y_pred contains classes not in y_true")
+branch  n_samples  macro_f1  balanced_accuracy
+ image          5  0.083333              0.125
+  text          5  0.083333              0.125
+fusion          5  0.083333              0.125
+Đã lưu log tại: /Users/hung/Documents/MyProject/Python/DA_CNTT/vlm-zeroshot-content-classification/results/upstream_projects/smoke_suite_ua4bjvve/experiment_62_d5hs1/raw_predictions/openai_clip_vit_b_32__fakeddit__6way__waffle_multimodal_s0__20261011_232106_254383  (4/5 mẫu sai)
+[TEXT SCALE] fakeddit: requested=25, effective=None, status=unused_image_only
+Accuracy : 0.2000  (chỉ tham khảo, có thể gây hiểu lầm nếu lệch lớp)
+Macro-F1 : 0.0833  (chỉ số chính, phản ánh đúng cả lớp hiếm)
+Micro-F1 : 0.2000
+
+Báo cáo chi tiết theo từng lớp:
+              precision    recall  f1-score   support
+
+           0       0.00      0.00      0.00         1
+           1       0.00      0.00      0.00         0
+           2       0.50      0.50      0.50         2
+           3       0.00      0.00      0.00         0
+           4       0.00      0.00      0.00         1
+           5       0.00      0.00      0.00         1
+
+    accuracy                           0.20         5
+   macro avg       0.08      0.08      0.08         5
+weighted avg       0.20      0.20      0.20         5
+
+/Users/hung/Documents/MyProject/Python/DA_CNTT/vlm-zeroshot-content-classification/venv/lib/python3.12/site-packages/sklearn/metrics/_classification.py:2939: UserWarning: y_pred contains classes not in y_true
+  warnings.warn("y_pred contains classes not in y_true")
+/Users/hung/Documents/MyProject/Python/DA_CNTT/vlm-zeroshot-content-classification/venv/lib/python3.12/site-packages/sklearn/metrics/_classification.py:2939: UserWarning: y_pred contains classes not in y_true
+  warnings.warn("y_pred contains classes not in y_true")
+branch  n_samples  macro_f1  balanced_accuracy
+ image          5  0.083333              0.125
+  text          0       NaN                NaN
+fusion          5  0.083333              0.125
+Đã lưu log tại: /Users/hung/Documents/MyProject/Python/DA_CNTT/vlm-zeroshot-content-classification/results/upstream_projects/smoke_suite_ua4bjvve/experiment_62_d5hs1/raw_predictions/openai_clip_vit_b_32__fakeddit__6way__dclip_labels_original_image_sNone__20261011_232106_364675  (4/5 mẫu sai)
+[TEXT SCALE] fakeddit: requested=25, effective=25, status=manual
+Accuracy : 0.2000  (chỉ tham khảo, có thể gây hiểu lầm nếu lệch lớp)
+Macro-F1 : 0.0833  (chỉ số chính, phản ánh đúng cả lớp hiếm)
+Micro-F1 : 0.2000
+
+Báo cáo chi tiết theo từng lớp:
+              precision    recall  f1-score   support
+
+           0       0.00      0.00      0.00         1
+           1       0.00      0.00      0.00         0
+           2       0.50      0.50      0.50         2
+           3       0.00      0.00      0.00         0
+           4       0.00      0.00      0.00         1
+           5       0.00      0.00      0.00         1
+
+    accuracy                           0.20         5
+   macro avg       0.08      0.08      0.08         5
+weighted avg       0.20      0.20      0.20         5
+
+/Users/hung/Documents/MyProject/Python/DA_CNTT/vlm-zeroshot-content-classification/venv/lib/python3.12/site-packages/sklearn/metrics/_classification.py:2939: UserWarning: y_pred contains classes not in y_true
+  warnings.warn("y_pred contains classes not in y_true")
+/Users/hung/Documents/MyProject/Python/DA_CNTT/vlm-zeroshot-content-classification/venv/lib/python3.12/site-packages/sklearn/metrics/_classification.py:2939: UserWarning: y_pred contains classes not in y_true
+  warnings.warn("y_pred contains classes not in y_true")
+/Users/hung/Documents/MyProject/Python/DA_CNTT/vlm-zeroshot-content-classification/venv/lib/python3.12/site-packages/sklearn/metrics/_classification.py:2939: UserWarning: y_pred contains classes not in y_true
+  warnings.warn("y_pred contains classes not in y_true")
+branch  n_samples  macro_f1  balanced_accuracy
+ image          5  0.083333              0.125
+  text          5  0.083333              0.125
+fusion          5  0.083333              0.125
+Đã lưu log tại: /Users/hung/Documents/MyProject/Python/DA_CNTT/vlm-zeroshot-content-classification/results/upstream_projects/smoke_suite_ua4bjvve/experiment_62_d5hs1/raw_predictions/openai_clip_vit_b_32__fakeddit__6way__dclip_labels_multimodal_sNone__20261011_232106_406907  (4/5 mẫu sai)
+[TEXT SCALE] fakeddit: requested=25, effective=None, status=unused_image_only
+Accuracy : 0.2000  (chỉ tham khảo, có thể gây hiểu lầm nếu lệch lớp)
+Macro-F1 : 0.0833  (chỉ số chính, phản ánh đúng cả lớp hiếm)
+Micro-F1 : 0.2000
+
+Báo cáo chi tiết theo từng lớp:
+              precision    recall  f1-score   support
+
+           0       0.00      0.00      0.00         1
+           1       0.00      0.00      0.00         0
+           2       0.50      0.50      0.50         2
+           3       0.00      0.00      0.00         0
+           4       0.00      0.00      0.00         1
+           5       0.00      0.00      0.00         1
+
+    accuracy                           0.20         5
+   macro avg       0.08      0.08      0.08         5
+weighted avg       0.20      0.20      0.20         5
+
+/Users/hung/Documents/MyProject/Python/DA_CNTT/vlm-zeroshot-content-classification/venv/lib/python3.12/site-packages/sklearn/metrics/_classification.py:2939: UserWarning: y_pred contains classes not in y_true
+  warnings.warn("y_pred contains classes not in y_true")
+/Users/hung/Documents/MyProject/Python/DA_CNTT/vlm-zeroshot-content-classification/venv/lib/python3.12/site-packages/sklearn/metrics/_classification.py:2939: UserWarning: y_pred contains classes not in y_true
+  warnings.warn("y_pred contains classes not in y_true")
+branch  n_samples  macro_f1  balanced_accuracy
+ image          5  0.083333              0.125
+  text          0       NaN                NaN
+fusion          5  0.083333              0.125
+Đã lưu log tại: /Users/hung/Documents/MyProject/Python/DA_CNTT/vlm-zeroshot-content-classification/results/upstream_projects/smoke_suite_ua4bjvve/experiment_62_d5hs1/raw_predictions/openai_clip_vit_b_32__fakeddit__6way__dclip_original_image_sNone__20261011_232106_654133  (4/5 mẫu sai)
+[TEXT SCALE] fakeddit: requested=25, effective=25, status=manual
+Accuracy : 0.2000  (chỉ tham khảo, có thể gây hiểu lầm nếu lệch lớp)
+Macro-F1 : 0.0833  (chỉ số chính, phản ánh đúng cả lớp hiếm)
+Micro-F1 : 0.2000
+
+Báo cáo chi tiết theo từng lớp:
+              precision    recall  f1-score   support
+
+           0       0.00      0.00      0.00         1
+           1       0.00      0.00      0.00         0
+           2       0.50      0.50      0.50         2
+           3       0.00      0.00      0.00         0
+           4       0.00      0.00      0.00         1
+           5       0.00      0.00      0.00         1
+
+    accuracy                           0.20         5
+   macro avg       0.08      0.08      0.08         5
+weighted avg       0.20      0.20      0.20         5
+
+/Users/hung/Documents/MyProject/Python/DA_CNTT/vlm-zeroshot-content-classification/venv/lib/python3.12/site-packages/sklearn/metrics/_classification.py:2939: UserWarning: y_pred contains classes not in y_true
+  warnings.warn("y_pred contains classes not in y_true")
+/Users/hung/Documents/MyProject/Python/DA_CNTT/vlm-zeroshot-content-classification/venv/lib/python3.12/site-packages/sklearn/metrics/_classification.py:2939: UserWarning: y_pred contains classes not in y_true
+  warnings.warn("y_pred contains classes not in y_true")
+/Users/hung/Documents/MyProject/Python/DA_CNTT/vlm-zeroshot-content-classification/venv/lib/python3.12/site-packages/sklearn/metrics/_classification.py:2939: UserWarning: y_pred contains classes not in y_true
+  warnings.warn("y_pred contains classes not in y_true")
+branch  n_samples  macro_f1  balanced_accuracy
+ image          5  0.083333              0.125
+  text          5  0.083333              0.125
+fusion          5  0.083333              0.125
+Đã lưu log tại: /Users/hung/Documents/MyProject/Python/DA_CNTT/vlm-zeroshot-content-classification/results/upstream_projects/smoke_suite_ua4bjvve/experiment_62_d5hs1/raw_predictions/openai_clip_vit_b_32__fakeddit__6way__dclip_multimodal_sNone__20261011_232106_694533  (4/5 mẫu sai)
+Mã hóa ảnh:   0%|          | 0/1 [00:00<?, ?batch/s]Mã hóa ảnh: 100%|██████████| 1/1 [00:00<00:00,  6.85batch/s]Mã hóa ảnh: 100%|██████████| 1/1 [00:00<00:00,  6.84batch/s]
+Mã hóa text:   0%|          | 0/1 [00:00<?, ?batch/s]Mã hóa text: 100%|██████████| 1/1 [00:00<00:00,  6.42batch/s]Mã hóa text: 100%|██████████| 1/1 [00:00<00:00,  6.41batch/s]
+Encoding Descriptions...:   0%|          | 0/23 [00:00<?, ?it/s]Encoding Descriptions...:  26%|██▌       | 6/23 [00:00<00:00, 57.96it/s]Encoding Descriptions...:  52%|█████▏    | 12/23 [00:00<00:00, 58.88it/s]Encoding Descriptions...:  78%|███████▊  | 18/23 [00:00<00:00, 58.31it/s]Encoding Descriptions...: 100%|██████████| 23/23 [00:00<00:00, 58.20it/s]
+[TEXT SCALE] mmimdb: requested=None, effective=None, status=ignored_relative_z
+Macro-F1      : 0.1072  (chỉ số chính cho multi-label)
+Micro-F1      : 0.2424
+Hamming Acc.  : 0.7826
+[INPUT LENGTH] 4/5 original texts exceed context_length=77
+branch  n_samples  micro_f1  macro_f1  samples_f1  mean_predicted_labels  fallback_rate
+ image          5  0.242424  0.107246    0.217143                    4.0            0.0
+  text          0       NaN       NaN         NaN                    NaN            NaN
+fusion          5  0.242424  0.107246    0.217143                    4.0            0.0
+Đã lưu log tại: /Users/hung/Documents/MyProject/Python/DA_CNTT/vlm-zeroshot-content-classification/results/upstream_projects/smoke_suite_ua4bjvve/experiment_62_d5hs1/raw_predictions/openai_clip_vit_b_32__mmimdb__genres__clip_original_image_sNone__20261011_232108_449541  (5/5 mẫu không khớp hoàn toàn)
+[TEXT SCALE] mmimdb: requested=None, effective=None, status=ignored_relative_z
+Macro-F1      : 0.0507  (chỉ số chính cho multi-label)
+Micro-F1      : 0.1818
+Hamming Acc.  : 0.8435
+[INPUT LENGTH] 4/5 original texts exceed context_length=77
+[CHUNKING] 4 texts split; 12 chunks encoded
+branch  n_samples  micro_f1  macro_f1  samples_f1  mean_predicted_labels  fallback_rate
+ image          5  0.242424  0.107246    0.217143                    4.0            0.0
+  text          5  0.333333  0.137681    0.313333                    3.4            0.0
+fusion          5  0.181818  0.050725    0.137143                    1.8            0.0
+Đã lưu log tại: /Users/hung/Documents/MyProject/Python/DA_CNTT/vlm-zeroshot-content-classification/results/upstream_projects/smoke_suite_ua4bjvve/experiment_62_d5hs1/raw_predictions/openai_clip_vit_b_32__mmimdb__genres__clip_multimodal_sNone__20261011_232108_491224  (5/5 mẫu không khớp hoàn toàn)
+Encoding Descriptions...:   0%|          | 0/23 [00:00<?, ?it/s]Encoding Descriptions...:   4%|▍         | 1/23 [00:00<00:05,  3.98it/s]Encoding Descriptions...:   9%|▊         | 2/23 [00:00<00:05,  3.99it/s]Encoding Descriptions...:  13%|█▎        | 3/23 [00:00<00:04,  4.00it/s]Encoding Descriptions...:  17%|█▋        | 4/23 [00:00<00:04,  4.03it/s]Encoding Descriptions...:  22%|██▏       | 5/23 [00:01<00:04,  3.97it/s]Encoding Descriptions...:  26%|██▌       | 6/23 [00:01<00:04,  3.59it/s]Encoding Descriptions...:  30%|███       | 7/23 [00:01<00:04,  3.51it/s]Encoding Descriptions...:  35%|███▍      | 8/23 [00:02<00:04,  3.41it/s]Encoding Descriptions...:  39%|███▉      | 9/23 [00:02<00:04,  3.28it/s]Encoding Descriptions...:  43%|████▎     | 10/23 [00:02<00:04,  3.16it/s]Encoding Descriptions...:  48%|████▊     | 11/23 [00:03<00:03,  3.25it/s]Encoding Descriptions...:  52%|█████▏    | 12/23 [00:03<00:03,  2.97it/s]Encoding Descriptions...:  57%|█████▋    | 13/23 [00:03<00:03,  3.06it/s]Encoding Descriptions...:  61%|██████    | 14/23 [00:04<00:02,  3.28it/s]Encoding Descriptions...:  65%|██████▌   | 15/23 [00:04<00:02,  3.46it/s]Encoding Descriptions...:  70%|██████▉   | 16/23 [00:04<00:01,  3.60it/s]Encoding Descriptions...:  74%|███████▍  | 17/23 [00:04<00:01,  3.69it/s]Encoding Descriptions...:  78%|███████▊  | 18/23 [00:05<00:01,  3.76it/s]Encoding Descriptions...:  83%|████████▎ | 19/23 [00:05<00:01,  3.82it/s]Encoding Descriptions...:  87%|████████▋ | 20/23 [00:05<00:00,  3.89it/s]Encoding Descriptions...:  91%|█████████▏| 21/23 [00:05<00:00,  3.96it/s]Encoding Descriptions...:  96%|█████████▌| 22/23 [00:06<00:00,  3.92it/s]Encoding Descriptions...: 100%|██████████| 23/23 [00:06<00:00,  3.96it/s]Encoding Descriptions...: 100%|██████████| 23/23 [00:06<00:00,  3.61it/s]
+[TEXT SCALE] mmimdb: requested=None, effective=None, status=ignored_relative_z
+Macro-F1      : 0.0855  (chỉ số chính cho multi-label)
+Micro-F1      : 0.2667
+Hamming Acc.  : 0.8087
+[INPUT LENGTH] 4/5 original texts exceed context_length=77
+branch  n_samples  micro_f1  macro_f1  samples_f1  mean_predicted_labels  fallback_rate
+ image          5  0.266667  0.085507    0.260952                    3.4            0.0
+  text          0       NaN       NaN         NaN                    NaN            NaN
+fusion          5  0.266667  0.085507    0.260952                    3.4            0.0
+Đã lưu log tại: /Users/hung/Documents/MyProject/Python/DA_CNTT/vlm-zeroshot-content-classification/results/upstream_projects/smoke_suite_ua4bjvve/experiment_62_d5hs1/raw_predictions/openai_clip_vit_b_32__mmimdb__genres__waffle_original_image_s0__20261011_232114_907816  (5/5 mẫu không khớp hoàn toàn)
+[TEXT SCALE] mmimdb: requested=None, effective=None, status=ignored_relative_z
+Macro-F1      : 0.0855  (chỉ số chính cho multi-label)
+Micro-F1      : 0.3200
+Hamming Acc.  : 0.8522
+[INPUT LENGTH] 4/5 original texts exceed context_length=77
+[CHUNKING] 4 texts split; 12 chunks encoded
+branch  n_samples  micro_f1  macro_f1  samples_f1  mean_predicted_labels  fallback_rate
+ image          5  0.266667  0.085507    0.260952                    3.4            0.0
+  text          5  0.333333  0.137681    0.313333                    3.4            0.0
+fusion          5  0.320000  0.085507    0.317143                    2.4            0.0
+Đã lưu log tại: /Users/hung/Documents/MyProject/Python/DA_CNTT/vlm-zeroshot-content-classification/results/upstream_projects/smoke_suite_ua4bjvve/experiment_62_d5hs1/raw_predictions/openai_clip_vit_b_32__mmimdb__genres__waffle_multimodal_s0__20261011_232114_947989  (5/5 mẫu không khớp hoàn toàn)
+[TEXT SCALE] mmimdb: requested=None, effective=None, status=ignored_relative_z
+Macro-F1      : 0.0507  (chỉ số chính cho multi-label)
+Micro-F1      : 0.1429
+Hamming Acc.  : 0.7913
+[INPUT LENGTH] 4/5 original texts exceed context_length=77
+branch  n_samples  micro_f1  macro_f1  samples_f1  mean_predicted_labels  fallback_rate
+ image          5  0.142857  0.050725    0.116667                    3.0            0.0
+  text          0       NaN       NaN         NaN                    NaN            NaN
+fusion          5  0.142857  0.050725    0.116667                    3.0            0.0
+Đã lưu log tại: /Users/hung/Documents/MyProject/Python/DA_CNTT/vlm-zeroshot-content-classification/results/upstream_projects/smoke_suite_ua4bjvve/experiment_62_d5hs1/raw_predictions/openai_clip_vit_b_32__mmimdb__genres__dclip_labels_original_image_sNone__20261011_232115_175079  (5/5 mẫu không khớp hoàn toàn)
+[TEXT SCALE] mmimdb: requested=None, effective=None, status=ignored_relative_z
+Macro-F1      : 0.0507  (chỉ số chính cho multi-label)
+Micro-F1      : 0.1739
+Hamming Acc.  : 0.8348
+[INPUT LENGTH] 4/5 original texts exceed context_length=77
+[CHUNKING] 4 texts split; 12 chunks encoded
+branch  n_samples  micro_f1  macro_f1  samples_f1  mean_predicted_labels  fallback_rate
+ image          5  0.142857  0.050725    0.116667                    3.0            0.0
+  text          5  0.333333  0.137681    0.313333                    3.4            0.0
+fusion          5  0.173913  0.050725    0.130000                    2.0            0.0
+Đã lưu log tại: /Users/hung/Documents/MyProject/Python/DA_CNTT/vlm-zeroshot-content-classification/results/upstream_projects/smoke_suite_ua4bjvve/experiment_62_d5hs1/raw_predictions/openai_clip_vit_b_32__mmimdb__genres__dclip_labels_multimodal_sNone__20261011_232115_214158  (5/5 mẫu không khớp hoàn toàn)
+[TEXT SCALE] mmimdb: requested=None, effective=None, status=ignored_relative_z
+Macro-F1      : 0.1232  (chỉ số chính cho multi-label)
+Micro-F1      : 0.2500
+Hamming Acc.  : 0.7913
+[INPUT LENGTH] 4/5 original texts exceed context_length=77
+branch  n_samples  micro_f1  macro_f1  samples_f1  mean_predicted_labels  fallback_rate
+ image          5      0.25  0.123188    0.246667                    3.8            0.0
+  text          0       NaN       NaN         NaN                    NaN            NaN
+fusion          5      0.25  0.123188    0.246667                    3.8            0.0
+Đã lưu log tại: /Users/hung/Documents/MyProject/Python/DA_CNTT/vlm-zeroshot-content-classification/results/upstream_projects/smoke_suite_ua4bjvve/experiment_62_d5hs1/raw_predictions/openai_clip_vit_b_32__mmimdb__genres__dclip_original_image_sNone__20261011_232115_944240  (5/5 mẫu không khớp hoàn toàn)
+[TEXT SCALE] mmimdb: requested=None, effective=None, status=ignored_relative_z
+Macro-F1      : 0.1377  (chỉ số chính cho multi-label)
+Micro-F1      : 0.3077
+Hamming Acc.  : 0.8435
+[INPUT LENGTH] 4/5 original texts exceed context_length=77
+[CHUNKING] 4 texts split; 12 chunks encoded
+branch  n_samples  micro_f1  macro_f1  samples_f1  mean_predicted_labels  fallback_rate
+ image          5  0.250000  0.123188    0.246667                    3.8            0.0
+  text          5  0.333333  0.137681    0.313333                    3.4            0.0
+fusion          5  0.307692  0.137681    0.280000                    2.6            0.0
+Đã lưu log tại: /Users/hung/Documents/MyProject/Python/DA_CNTT/vlm-zeroshot-content-classification/results/upstream_projects/smoke_suite_ua4bjvve/experiment_62_d5hs1/raw_predictions/openai_clip_vit_b_32__mmimdb__genres__dclip_multimodal_sNone__20261011_232115_983208  (5/5 mẫu không khớp hoàn toàn)
+[RESULTS] /Users/hung/Documents/MyProject/Python/DA_CNTT/vlm-zeroshot-content-classification/results/upstream_projects/smoke_suite_ua4bjvve/experiment_62_d5hs1; summary.tsv + seed_summary.tsv + raw_predictions/

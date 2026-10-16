@@ -1,0 +1,4 @@
+branch	n_samples	score_type	mean_predicted_labels	fallback_rate	micro_f1	macro_f1	samples_f1	top2_margin	cosine_mean	cosine_std	input_status	input_context_length	input_n_nonempty	input_n_measured	input_n_truncated	input_truncated_rate	chunking_enabled	total_chunks	n_chunked_texts
+image	5	relative_z	3.4	0.0	0.26666666666666666	0.0855072463768116	0.26095238095238094	1.0561739029449648	0.20971520245075226	0.023527836427092552									
+text	5	relative_z	3.4	0.0	0.3333333333333333	0.13768115942028986	0.31333333333333335	0.2530868774554716	0.7426180088001749	0.06837645527770454	measured	77.0	5.0	5.0	4.0	0.8	True	12.0	4.0
+fusion	5	relative_z	2.4	0.0	0.32	0.0855072463768116	0.31714285714285717	0.3322697447955596											

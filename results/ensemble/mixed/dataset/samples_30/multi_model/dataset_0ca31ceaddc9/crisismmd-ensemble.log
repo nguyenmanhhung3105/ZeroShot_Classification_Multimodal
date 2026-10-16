@@ -1,0 +1,312 @@
+[{"stream_name":"stdout","time":9.676627949,"data":"Requirement already satisfied: pandas\u003e=2.0.0 in /usr/local/lib/python3.13/dist-packages (from -r requirements.txt (line 2)) (2.3.3)\n"}
+,{"stream_name":"stdout","time":9.677671043,"data":"Requirement already satisfied: pyarrow in /usr/local/lib/python3.13/dist-packages (from -r requirements.txt (line 3)) (23.0.1)\n"}
+,{"stream_name":"stdout","time":9.684593637999999,"data":"Requirement already satisfied: numpy\u003e=1.24.0 in /usr/local/lib/python3.13/dist-packages (from -r requirements.txt (line 4)) (2.1.3)\n"}
+,{"stream_name":"stdout","time":9.686080053,"data":"Requirement already satisfied: pillow\u003e=10.0.0 in /usr/local/lib/python3.13/dist-packages (from -r requirements.txt (line 5)) (12.3.0)\n"}
+,{"stream_name":"stdout","time":9.689562863,"data":"Requirement already satisfied: tqdm\u003e=4.66.0 in /usr/local/lib/python3.13/dist-packages (from -r requirements.txt (line 8)) (4.67.3)\n"}
+,{"stream_name":"stdout","time":9.69180579,"data":"Requirement already satisfied: torch\u003e=2.1.0 in /usr/local/lib/python3.13/dist-packages (from -r requirements.txt (line 11)) (2.11.0+cu128)\n"}
+,{"stream_name":"stdout","time":9.692920903,"data":"Requirement already satisfied: torchvision\u003e=0.16.0 in /usr/local/lib/python3.13/dist-packages (from -r requirements.txt (line 12)) (0.26.0+cu128)\n"}
+,{"stream_name":"stdout","time":9.838770917,"data":"Collecting open_clip_torch\u003e=3.3.0 (from -r requirements.txt (line 14))\n"}
+,{"stream_name":"stdout","time":9.897417508,"data":"  Downloading open_clip_torch-3.3.0-py3-none-any.whl.metadata (32 kB)\n"}
+,{"stream_name":"stdout","time":9.928696603,"data":"Requirement already satisfied: transformers\u003e=4.38.0 in /usr/local/lib/python3.13/dist-packages (from -r requirements.txt (line 15)) (5.16.1)\n"}
+,{"stream_name":"stdout","time":9.931311598,"data":"Requirement already satisfied: scikit-learn\u003e=1.3.0 in /usr/local/lib/python3.13/dist-packages (from -r requirements.txt (line 18)) (1.6.1)\n"}
+,{"stream_name":"stdout","time":9.933129024,"data":"Requirement already satisfied: matplotlib\u003e=3.8.0 in /usr/local/lib/python3.13/dist-packages (from -r requirements.txt (line 19)) (3.10.0)\n"}
+,{"stream_name":"stdout","time":9.934315136,"data":"Requirement already satisfied: pyyaml\u003e=6.0 in /usr/local/lib/python3.13/dist-packages (from -r requirements.txt (line 22)) (6.0.3)\n"}
+,{"stream_name":"stdout","time":9.95244548,"data":"Requirement already satisfied: python-dateutil\u003e=2.8.2 in /usr/local/lib/python3.13/dist-packages (from pandas\u003e=2.0.0-\u003e-r requirements.txt (line 2)) (2.9.0.post0)\n"}
+,{"stream_name":"stdout","time":9.954214107,"data":"Requirement already satisfied: pytz\u003e=2020.1 in /usr/local/lib/python3.13/dist-packages (from pandas\u003e=2.0.0-\u003e-r requirements.txt (line 2)) (2025.2)\n"}
+,{"stream_name":"stdout","time":9.955377695,"data":"Requirement already satisfied: tzdata\u003e=2022.7 in /usr/local/lib/python3.13/dist-packages (from pandas\u003e=2.0.0-\u003e-r requirements.txt (line 2)) (2026.3)\n"}
+,{"stream_name":"stdout","time":9.979749297,"data":"Requirement already satisfied: filelock in /usr/local/lib/python3.13/dist-packages (from torch\u003e=2.1.0-\u003e-r requirements.txt (line 11)) (3.32.5)\n"}
+,{"stream_name":"stdout","time":9.980840416,"data":"Requirement already satisfied: typing-extensions\u003e=4.10.0 in /usr/local/lib/python3.13/dist-packages (from torch\u003e=2.1.0-\u003e-r requirements.txt (line 11)) (4.16.0)\n"}
+,{"stream_name":"stdout","time":9.982196723,"data":"Requirement already satisfied: setuptools\u003c82 in /usr/local/lib/python3.13/dist-packages (from torch\u003e=2.1.0-\u003e-r requirements.txt (line 11)) (81.0.0)\n"}
+,{"stream_name":"stdout","time":9.98384362,"data":"Requirement already satisfied: sympy\u003e=1.13.3 in /usr/local/lib/python3.13/dist-packages (from torch\u003e=2.1.0-\u003e-r requirements.txt (line 11)) (1.14.0)\n"}
+,{"stream_name":"stdout","time":9.985469478,"data":"Requirement already satisfied: networkx\u003e=2.5.1 in /usr/local/lib/python3.13/dist-packages (from torch\u003e=2.1.0-\u003e-r requirements.txt (line 11)) (3.6.1)\n"}
+,{"stream_name":"stdout","time":9.986544061,"data":"Requirement already satisfied: jinja2 in /usr/local/lib/python3.13/dist-packages (from torch\u003e=2.1.0-\u003e-r requirements.txt (line 11)) (3.1.6)\n"}
+,{"stream_name":"stdout","time":9.988381831,"data":"Requirement already satisfied: fsspec\u003e=0.8.5 in /usr/local/lib/python3.13/dist-packages (from torch\u003e=2.1.0-\u003e-r requirements.txt (line 11)) (2025.12.0)\n"}
+,{"stream_name":"stdout","time":9.990179967,"data":"Requirement already satisfied: cuda-toolkit==12.8.1 in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == \"Linux\"-\u003etorch\u003e=2.1.0-\u003e-r requirements.txt (line 11)) (12.8.1)\n"}
+,{"stream_name":"stdout","time":9.992317693,"data":"Requirement already satisfied: cuda-bindings\u003c13,\u003e=12.9.4 in /usr/local/lib/python3.13/dist-packages (from torch\u003e=2.1.0-\u003e-r requirements.txt (line 11)) (12.9.7)\n"}
+,{"stream_name":"stdout","time":9.993624049,"data":"Requirement already satisfied: nvidia-cudnn-cu12==9.19.0.56 in /usr/local/lib/python3.13/dist-packages (from torch\u003e=2.1.0-\u003e-r requirements.txt (line 11)) (9.19.0.56)\n"}
+,{"stream_name":"stdout","time":9.995105278,"data":"Requirement already satisfied: nvidia-cusparselt-cu12==0.7.1 in /usr/local/lib/python3.13/dist-packages (from torch\u003e=2.1.0-\u003e-r requirements.txt (line 11)) (0.7.1)\n"}
+,{"stream_name":"stdout","time":9.996541087,"data":"Requirement already satisfied: nvidia-nccl-cu12==2.28.9 in /usr/local/lib/python3.13/dist-packages (from torch\u003e=2.1.0-\u003e-r requirements.txt (line 11)) (2.28.9)\n"}
+,{"stream_name":"stdout","time":9.997922089,"data":"Requirement already satisfied: nvidia-nvshmem-cu12==3.4.5 in /usr/local/lib/python3.13/dist-packages (from torch\u003e=2.1.0-\u003e-r requirements.txt (line 11)) (3.4.5)\n"}
+,{"stream_name":"stdout","time":9.999231616,"data":"Requirement already satisfied: triton==3.6.0 in /usr/local/lib/python3.13/dist-packages (from torch\u003e=2.1.0-\u003e-r requirements.txt (line 11)) (3.6.0)\n"}
+,{"stream_name":"stdout","time":10.024726035,"data":"Requirement already satisfied: nvidia-cublas-cu12==12.8.4.1.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == \"Linux\"-\u003etorch\u003e=2.1.0-\u003e-r requirements.txt (line 11)) (12.8.4.1)\n"}
+,{"stream_name":"stdout","time":10.026282383,"data":"Requirement already satisfied: nvidia-cuda-runtime-cu12==12.8.90.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == \"Linux\"-\u003etorch\u003e=2.1.0-\u003e-r requirements.txt (line 11)) (12.8.90)\n"}
+,{"stream_name":"stdout","time":10.02774609,"data":"Requirement already satisfied: nvidia-cufft-cu12==11.3.3.83.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == \"Linux\"-\u003etorch\u003e=2.1.0-\u003e-r requirements.txt (line 11)) (11.3.3.83)\n"}
+,{"stream_name":"stdout","time":10.029223851,"data":"Requirement already satisfied: nvidia-cufile-cu12==1.13.1.3.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == \"Linux\"-\u003etorch\u003e=2.1.0-\u003e-r requirements.txt (line 11)) (1.13.1.3)\n"}
+,{"stream_name":"stdout","time":10.030793413,"data":"Requirement already satisfied: nvidia-cuda-cupti-cu12==12.8.90.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == \"Linux\"-\u003etorch\u003e=2.1.0-\u003e-r requirements.txt (line 11)) (12.8.90)\n"}
+,{"stream_name":"stdout","time":10.03219791,"data":"Requirement already satisfied: nvidia-curand-cu12==10.3.9.90.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == \"Linux\"-\u003etorch\u003e=2.1.0-\u003e-r requirements.txt (line 11)) (10.3.9.90)\n"}
+,{"stream_name":"stdout","time":10.033651351,"data":"Requirement already satisfied: nvidia-cusolver-cu12==11.7.3.90.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == \"Linux\"-\u003etorch\u003e=2.1.0-\u003e-r requirements.txt (line 11)) (11.7.3.90)\n"}
+,{"stream_name":"stdout","time":10.035229061,"data":"Requirement already satisfied: nvidia-cusparse-cu12==12.5.8.93.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == \"Linux\"-\u003etorch\u003e=2.1.0-\u003e-r requirements.txt (line 11)) (12.5.8.93)\n"}
+,{"stream_name":"stdout","time":10.036855166,"data":"Requirement already satisfied: nvidia-nvjitlink-cu12==12.8.93.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == \"Linux\"-\u003etorch\u003e=2.1.0-\u003e-r requirements.txt (line 11)) (12.8.93)\n"}
+,{"stream_name":"stdout","time":10.038189286,"data":"Requirement already satisfied: nvidia-cuda-nvrtc-cu12==12.8.93.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == \"Linux\"-\u003etorch\u003e=2.1.0-\u003e-r requirements.txt (line 11)) (12.8.93)\n"}
+,{"stream_name":"stdout","time":10.039647408,"data":"Requirement already satisfied: nvidia-nvtx-cu12==12.8.90.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == \"Linux\"-\u003etorch\u003e=2.1.0-\u003e-r requirements.txt (line 11)) (12.8.90)\n"}
+,{"stream_name":"stdout","time":10.075486821,"data":"Requirement already satisfied: regex in /usr/local/lib/python3.13/dist-packages (from open_clip_torch\u003e=3.3.0-\u003e-r requirements.txt (line 14)) (2025.11.3)\n"}
+,{"stream_name":"stdout","time":10.132081218,"data":"Collecting ftfy (from open_clip_torch\u003e=3.3.0-\u003e-r requirements.txt (line 14))\n"}
+,{"stream_name":"stdout","time":10.146682284,"data":"  Downloading ftfy-6.3.1-py3-none-any.whl.metadata (7.3 kB)\n"}
+,{"stream_name":"stdout","time":10.175961918,"data":"Requirement already satisfied: huggingface-hub in /usr/local/lib/python3.13/dist-packages (from open_clip_torch\u003e=3.3.0-\u003e-r requirements.txt (line 14)) (1.29.0)\n"}
+,{"stream_name":"stdout","time":10.177286982,"data":"Requirement already satisfied: safetensors in /usr/local/lib/python3.13/dist-packages (from open_clip_torch\u003e=3.3.0-\u003e-r requirements.txt (line 14)) (0.8.0)\n"}
+,{"stream_name":"stdout","time":10.179635425,"data":"Requirement already satisfied: timm\u003e=1.0.17 in /usr/local/lib/python3.13/dist-packages (from open_clip_torch\u003e=3.3.0-\u003e-r requirements.txt (line 14)) (1.0.29)\n"}
+,{"stream_name":"stdout","time":10.210629362,"data":"Requirement already satisfied: packaging\u003e=20.0 in /usr/local/lib/python3.13/dist-packages (from transformers\u003e=4.38.0-\u003e-r requirements.txt (line 15)) (26.3)\n"}
+,{"stream_name":"stdout","time":10.213423588,"data":"Requirement already satisfied: tokenizers\u003c0.24.0,\u003e=0.23.1 in /usr/local/lib/python3.13/dist-packages (from transformers\u003e=4.38.0-\u003e-r requirements.txt (line 15)) (0.23.1)\n"}
+,{"stream_name":"stdout","time":10.214990197,"data":"Requirement already satisfied: typer in /usr/local/lib/python3.13/dist-packages (from transformers\u003e=4.38.0-\u003e-r requirements.txt (line 15)) (0.27.2)\n"}
+,{"stream_name":"stdout","time":10.235909158,"data":"Requirement already satisfied: scipy\u003e=1.6.0 in /usr/local/lib/python3.13/dist-packages (from scikit-learn\u003e=1.3.0-\u003e-r requirements.txt (line 18)) (1.16.3)\n"}
+,{"stream_name":"stdout","time":10.237610568,"data":"Requirement already satisfied: joblib\u003e=1.2.0 in /usr/local/lib/python3.13/dist-packages (from scikit-learn\u003e=1.3.0-\u003e-r requirements.txt (line 18)) (1.6.0)\n"}
+,{"stream_name":"stdout","time":10.239106963,"data":"Requirement already satisfied: threadpoolctl\u003e=3.1.0 in /usr/local/lib/python3.13/dist-packages (from scikit-learn\u003e=1.3.0-\u003e-r requirements.txt (line 18)) (3.6.0)\n"}
+,{"stream_name":"stdout","time":10.244389403,"data":"Requirement already satisfied: contourpy\u003e=1.0.1 in /usr/local/lib/python3.13/dist-packages (from matplotlib\u003e=3.8.0-\u003e-r requirements.txt (line 19)) (1.3.3)\n"}
+,{"stream_name":"stdout","time":10.245916384,"data":"Requirement already satisfied: cycler\u003e=0.10 in /usr/local/lib/python3.13/dist-packages (from matplotlib\u003e=3.8.0-\u003e-r requirements.txt (line 19)) (0.12.1)\n"}
+,{"stream_name":"stdout","time":10.251264639,"data":"Requirement already satisfied: fonttools\u003e=4.22.0 in /usr/local/lib/python3.13/dist-packages (from matplotlib\u003e=3.8.0-\u003e-r requirements.txt (line 19)) (4.64.0)\n"}
+,{"stream_name":"stdout","time":10.252860855,"data":"Requirement already satisfied: kiwisolver\u003e=1.3.1 in /usr/local/lib/python3.13/dist-packages (from matplotlib\u003e=3.8.0-\u003e-r requirements.txt (line 19)) (1.5.1)\n"}
+,{"stream_name":"stdout","time":10.258310381,"data":"Requirement already satisfied: pyparsing\u003e=2.3.1 in /usr/local/lib/python3.13/dist-packages (from matplotlib\u003e=3.8.0-\u003e-r requirements.txt (line 19)) (3.3.2)\n"}
+,{"stream_name":"stdout","time":10.271171026,"data":"Requirement already satisfied: cuda-pathfinder~=1.1 in /usr/local/lib/python3.13/dist-packages (from cuda-bindings\u003c13,\u003e=12.9.4-\u003etorch\u003e=2.1.0-\u003e-r requirements.txt (line 11)) (1.8.0)\n"}
+,{"stream_name":"stdout","time":10.304519648,"data":"Requirement already satisfied: click\u003c9.0.0,\u003e=8.4.2 in /usr/local/lib/python3.13/dist-packages (from huggingface-hub-\u003eopen_clip_torch\u003e=3.3.0-\u003e-r requirements.txt (line 14)) (8.5.0)\n"}
+,{"stream_name":"stdout","time":10.307234889,"data":"Requirement already satisfied: hf-xet\u003c2.0.0,\u003e=1.5.2 in /usr/local/lib/python3.13/dist-packages (from huggingface-hub-\u003eopen_clip_torch\u003e=3.3.0-\u003e-r requirements.txt (line 14)) (1.6.0)\n"}
+,{"stream_name":"stdout","time":10.308649434,"data":"Requirement already satisfied: httpx\u003c1,\u003e=0.23.0 in /usr/local/lib/python3.13/dist-packages (from huggingface-hub-\u003eopen_clip_torch\u003e=3.3.0-\u003e-r requirements.txt (line 14)) (0.28.1)\n"}
+,{"stream_name":"stdout","time":10.3204672,"data":"Requirement already satisfied: cloudpickle\u003e=3.0 in /usr/local/lib/python3.13/dist-packages (from joblib\u003e=1.2.0-\u003escikit-learn\u003e=1.3.0-\u003e-r requirements.txt (line 18)) (3.1.2)\n"}
+,{"stream_name":"stdout","time":10.334407995,"data":"Requirement already satisfied: six\u003e=1.5 in /usr/local/lib/python3.13/dist-packages (from python-dateutil\u003e=2.8.2-\u003epandas\u003e=2.0.0-\u003e-r requirements.txt (line 2)) (1.17.0)\n"}
+,{"stream_name":"stdout","time":10.370639432,"data":"Requirement already satisfied: mpmath\u003c1.4,\u003e=1.1.0 in /usr/local/lib/python3.13/dist-packages (from sympy\u003e=1.13.3-\u003etorch\u003e=2.1.0-\u003e-r requirements.txt (line 11)) (1.3.0)\n"}
+,{"stream_name":"stdout","time":10.389337334,"data":"Requirement already satisfied: wcwidth in /usr/local/lib/python3.13/dist-packages (from ftfy-\u003eopen_clip_torch\u003e=3.3.0-\u003e-r requirements.txt (line 14)) (0.8.3)\n"}
+,{"stream_name":"stdout","time":10.392236675,"data":"Requirement already satisfied: MarkupSafe\u003e=2.0 in /usr/local/lib/python3.13/dist-packages (from jinja2-\u003etorch\u003e=2.1.0-\u003e-r requirements.txt (line 11)) (3.0.3)\n"}
+,{"stream_name":"stdout","time":10.396110057,"data":"Requirement already satisfied: shellingham\u003e=1.3.0 in /usr/local/lib/python3.13/dist-packages (from typer-\u003etransformers\u003e=4.38.0-\u003e-r requirements.txt (line 15)) (1.5.4)\n"}
+,{"stream_name":"stdout","time":10.398059158,"data":"Requirement already satisfied: rich\u003e=13.8.0 in /usr/local/lib/python3.13/dist-packages (from typer-\u003etransformers\u003e=4.38.0-\u003e-r requirements.txt (line 15)) (13.9.4)\n"}
+,{"stream_name":"stdout","time":10.399321912,"data":"Requirement already satisfied: annotated-doc\u003e=0.0.2 in /usr/local/lib/python3.13/dist-packages (from typer-\u003etransformers\u003e=4.38.0-\u003e-r requirements.txt (line 15)) (0.0.5)\n"}
+,{"stream_name":"stdout","time":10.412696634,"data":"Requirement already satisfied: anyio in /usr/local/lib/python3.13/dist-packages (from httpx\u003c1,\u003e=0.23.0-\u003ehuggingface-hub-\u003eopen_clip_torch\u003e=3.3.0-\u003e-r requirements.txt (line 14)) (4.14.2)\n"}
+,{"stream_name":"stdout","time":10.413825823,"data":"Requirement already satisfied: certifi in /usr/local/lib/python3.13/dist-packages (from httpx\u003c1,\u003e=0.23.0-\u003ehuggingface-hub-\u003eopen_clip_torch\u003e=3.3.0-\u003e-r requirements.txt (line 14)) (2026.7.22)\n"}
+,{"stream_name":"stdout","time":10.416326321,"data":"Requirement already satisfied: httpcore==1.* in /usr/local/lib/python3.13/dist-packages (from httpx\u003c1,\u003e=0.23.0-\u003ehuggingface-hub-\u003eopen_clip_torch\u003e=3.3.0-\u003e-r requirements.txt (line 14)) (1.0.9)\n"}
+,{"stream_name":"stdout","time":10.417578883000001,"data":"Requirement already satisfied: idna in /usr/local/lib/python3.13/dist-packages (from httpx\u003c1,\u003e=0.23.0-\u003ehuggingface-hub-\u003eopen_clip_torch\u003e=3.3.0-\u003e-r requirements.txt (line 14)) (3.19)\n"}
+,{"stream_name":"stdout","time":10.421973772,"data":"Requirement already satisfied: h11\u003e=0.16 in /usr/local/lib/python3.13/dist-packages (from httpcore==1.*-\u003ehttpx\u003c1,\u003e=0.23.0-\u003ehuggingface-hub-\u003eopen_clip_torch\u003e=3.3.0-\u003e-r requirements.txt (line 14)) (0.16.0)\n"}
+,{"stream_name":"stdout","time":10.430771735,"data":"Requirement already satisfied: markdown-it-py\u003e=2.2.0 in /usr/local/lib/python3.13/dist-packages (from rich\u003e=13.8.0-\u003etyper-\u003etransformers\u003e=4.38.0-\u003e-r requirements.txt (line 15)) (4.2.0)\n"}
+,{"stream_name":"stdout","time":10.431909181,"data":"Requirement already satisfied: pygments\u003c3.0.0,\u003e=2.13.0 in /usr/local/lib/python3.13/dist-packages (from rich\u003e=13.8.0-\u003etyper-\u003etransformers\u003e=4.38.0-\u003e-r requirements.txt (line 15)) (2.21.0)\n"}
+,{"stream_name":"stdout","time":10.444298498,"data":"Requirement already satisfied: mdurl~=0.1 in /usr/local/lib/python3.13/dist-packages (from markdown-it-py\u003e=2.2.0-\u003erich\u003e=13.8.0-\u003etyper-\u003etransformers\u003e=4.38.0-\u003e-r requirements.txt (line 15)) (0.1.2)\n"}
+,{"stream_name":"stdout","time":10.4777678,"data":"Downloading open_clip_torch-3.3.0-py3-none-any.whl (1.5 MB)\n"}
+,{"stream_name":"stdout","time":10.558167767,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.5/1.5 MB 20.0 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":10.573167818,"data":"Downloading ftfy-6.3.1-py3-none-any.whl (44 kB)\n"}
+,{"stream_name":"stdout","time":10.595999661,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 44.8/44.8 kB 1.8 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":12.885011678,"data":"Installing collected packages: ftfy, open_clip_torch\n"}
+,{"stream_name":"stdout","time":13.074491474,"data":"Successfully installed ftfy-6.3.1 open_clip_torch-3.3.0\n"}
+,{"stream_name":"stdout","time":66.278053463,"data":"[PLAN] /tmp/crisismmd_ensemble_09y77wmk/results/uncertainty_ensemble/crisismmd_q6m_83i7/frozen_plan.json\n"}
+,{"stream_name":"stderr","time":152.754865354,"data":"Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.\n"}
+,{"stream_name":"stderr","time":152.754944912,"data":"WARNING:huggingface_hub.utils._http:Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.\n"}
+,{"stream_name":"stdout","time":168.973797605,"data":"[model_registry] Đang load model 'metaclip2_vith14' (ViT-H-14-worldwide-quickgelu, pretrained=metaclip2_worldwide) lên cuda ...\n"}
+,{"stream_name":"stdout","time":168.973830561,"data":"[model_registry] -\u003e Load xong 'metaclip2_vith14': embed_dim=1024, image_size=(224, 224), context_length=77, logit_scale=100.00, logit_bias=0.0000\n"}
+,{"stream_name":"stdout","time":168.973837408,"data":"\n"}
+,{"stream_name":"stdout","time":168.973842057,"data":"======================================================================\n"}
+,{"stream_name":"stdout","time":168.973847174,"data":"DATASET: CrisisMMD | TASK: informativeness\n"}
+,{"stream_name":"stdout","time":168.973852207,"data":"======================================================================\n"}
+,{"stream_name":"stdout","time":168.973856771,"data":"[TEXT SCALE] crisismmd: requested=None, effective=100.0, status=model_default\n"}
+,{"stream_name":"stderr","time":174.053192036,"data":"\rSingle-label inference:   0%|          | 0/2 [00:00\u003c?, ?batch/s]\rSingle-label inference:  50%|█████     | 1/2 [00:03\u003c00:03,  3.29s/batch]\rSingle-label inference: 100%|██████████| 2/2 [00:05\u003c00:00,  2.41s/batch]\rSingle-label inference: 100%|██████████| 2/2 [00:05\u003c00:00,  2.54s/batch]\n"}
+,{"stream_name":"stdout","time":175.81096457,"data":"Accuracy : 0.6667  (chỉ tham khảo, có thể gây hiểu lầm nếu lệch lớp)\n"}
+,{"stream_name":"stdout","time":175.8110078,"data":"Macro-F1 : 0.6032  (chỉ số chính, phản ánh đúng cả lớp hiếm)\n"}
+,{"stream_name":"stdout","time":175.811014944,"data":"Micro-F1 : 0.6667\n"}
+,{"stream_name":"stdout","time":175.811020317,"data":"\n"}
+,{"stream_name":"stdout","time":175.811025145,"data":"Báo cáo chi tiết theo từng lớp:\n"}
+,{"stream_name":"stdout","time":175.811030688,"data":"                 precision    recall  f1-score   support\n"}
+,{"stream_name":"stdout","time":175.811035635,"data":"\n"}
+,{"stream_name":"stdout","time":175.811040128,"data":"    informative       0.80      0.73      0.76        22\n"}
+,{"stream_name":"stdout","time":175.811045867,"data":"not_informative       0.40      0.50      0.44         8\n"}
+,{"stream_name":"stdout","time":175.811051035,"data":"\n"}
+,{"stream_name":"stdout","time":175.811055755,"data":"       accuracy                           0.67        30\n"}
+,{"stream_name":"stdout","time":175.811077345,"data":"      macro avg       0.60      0.61      0.60        30\n"}
+,{"stream_name":"stdout","time":175.811082931,"data":"   weighted avg       0.69      0.67      0.68        30\n"}
+,{"stream_name":"stdout","time":175.811090811,"data":"\n"}
+,{"stream_name":"stdout","time":175.811093415,"data":"branch  n_samples  macro_f1  balanced_accuracy\n"}
+,{"stream_name":"stdout","time":175.811095703,"data":" image         30  0.688889           0.681818\n"}
+,{"stream_name":"stdout","time":175.811098043,"data":"  text         30  0.625000           0.653409\n"}
+,{"stream_name":"stdout","time":175.811100297,"data":"fusion         30  0.603175           0.613636\n"}
+,{"stream_name":"stdout","time":175.811102727,"data":"Đã lưu log tại: /tmp/crisismmd_ensemble_09y77wmk/results/uncertainty_ensemble/crisismmd_q6m_83i7/model_logs/metaclip2_vith14__crisismmd__informativeness__v1__20261013_151400_450031  (10/30 mẫu sai)\n"}
+,{"stream_name":"stdout","time":175.811105535,"data":"[LOG] /tmp/crisismmd_ensemble_09y77wmk/results/uncertainty_ensemble/crisismmd_q6m_83i7/model_logs/metaclip2_vith14__crisismmd__informativeness__v1__20261013_151400_450031\n"}
+,{"stream_name":"stdout","time":175.811108138,"data":"\n"}
+,{"stream_name":"stdout","time":175.811110347,"data":"======================================================================\n"}
+,{"stream_name":"stdout","time":175.811112764,"data":"DATASET: CrisisMMD | TASK: humanitarian\n"}
+,{"stream_name":"stdout","time":175.811115125,"data":"======================================================================\n"}
+,{"stream_name":"stdout","time":175.811117927,"data":"[TEXT SCALE] crisismmd: requested=None, effective=100.0, status=model_default\n"}
+,{"stream_name":"stderr","time":179.572837844,"data":"\rSingle-label inference:   0%|          | 0/2 [00:00\u003c?, ?batch/s]\rSingle-label inference:  50%|█████     | 1/2 [00:01\u003c00:01,  1.98s/batch]\rSingle-label inference: 100%|██████████| 2/2 [00:03\u003c00:00,  1.86s/batch]\rSingle-label inference: 100%|██████████| 2/2 [00:03\u003c00:00,  1.88s/batch]\n"}
+,{"stream_name":"stderr","time":179.59462429,"data":"/usr/local/lib/python3.13/dist-packages/sklearn/metrics/_classification.py:2524: UserWarning: y_pred contains classes not in y_true\n"}
+,{"stream_name":"stderr","time":179.594645429,"data":"  warnings.warn(\"y_pred contains classes not in y_true\")\n"}
+,{"stream_name":"stdout","time":216.165448589,"data":"Accuracy : 0.5000  (chỉ tham khảo, có thể gây hiểu lầm nếu lệch lớp)\n"}
+,{"stream_name":"stdout","time":216.16551673,"data":"Macro-F1 : 0.2956  (chỉ số chính, phản ánh đúng cả lớp hiếm)\n"}
+,{"stream_name":"stdout","time":216.165525143,"data":"Micro-F1 : 0.5000\n"}
+,{"stream_name":"stdout","time":216.165529985,"data":"\n"}
+,{"stream_name":"stdout","time":216.165534328,"data":"Báo cáo chi tiết theo từng lớp:\n"}
+,{"stream_name":"stdout","time":216.165539008,"data":"                                        precision    recall  f1-score   support\n"}
+,{"stream_name":"stdout","time":216.165543623,"data":"\n"}
+,{"stream_name":"stdout","time":216.165547858,"data":"                      not_humanitarian       0.35      1.00      0.52         8\n"}
+,{"stream_name":"stdout","time":216.165552307,"data":"            other_relevant_information       1.00      0.50      0.67        10\n"}
+,{"stream_name":"stdout","time":216.165556846,"data":"rescue_volunteering_or_donation_effort       1.00      1.00      1.00         1\n"}
+,{"stream_name":"stdout","time":216.165561428,"data":"     infrastructure_and_utility_damage       1.00      0.10      0.18        10\n"}
+,{"stream_name":"stdout","time":216.165580577,"data":"                  affected_individuals       0.00      0.00      0.00         0\n"}
+,{"stream_name":"stdout","time":216.165583494,"data":"                        vehicle_damage       0.00      0.00      0.00         0\n"}
+,{"stream_name":"stdout","time":216.165585897,"data":"                injured_or_dead_people       0.00      0.00      0.00         1\n"}
+,{"stream_name":"stdout","time":216.165588316,"data":"               missing_or_found_people       0.00      0.00      0.00         0\n"}
+,{"stream_name":"stdout","time":216.165590944,"data":"\n"}
+,{"stream_name":"stdout","time":216.165593127,"data":"                              accuracy                           0.50        30\n"}
+,{"stream_name":"stdout","time":216.165595533,"data":"                             macro avg       0.42      0.33      0.30        30\n"}
+,{"stream_name":"stdout","time":216.165597834,"data":"                          weighted avg       0.79      0.50      0.45        30\n"}
+,{"stream_name":"stdout","time":216.165600247,"data":"\n"}
+,{"stream_name":"stdout","time":216.165602414,"data":"\n"}
+,{"stream_name":"stdout","time":216.165604656,"data":"  CẢNH BÁO: các lớp sau có cỡ mẫu quá nhỏ, kết quả không đủ tin cậy thống kê để kết luận chắc chắn: {'affected_individuals', 'injured_or_dead_people', 'vehicle_damage'}\n"}
+,{"stream_name":"stdout","time":216.165608678,"data":"branch  n_samples  macro_f1  balanced_accuracy\n"}
+,{"stream_name":"stdout","time":216.165611089,"data":" image         30  0.224052              0.370\n"}
+,{"stream_name":"stdout","time":216.165613464,"data":"  text         30  0.266896              0.475\n"}
+,{"stream_name":"stdout","time":216.165615752,"data":"fusion         30  0.295577              0.520\n"}
+,{"stream_name":"stdout","time":216.165618061,"data":"Đã lưu log tại: /tmp/crisismmd_ensemble_09y77wmk/results/uncertainty_ensemble/crisismmd_q6m_83i7/model_logs/metaclip2_vith14__crisismmd__humanitarian__v1__20261013_151405_921639  (15/30 mẫu sai)\n"}
+,{"stream_name":"stdout","time":216.165620835,"data":"[LOG] /tmp/crisismmd_ensemble_09y77wmk/results/uncertainty_ensemble/crisismmd_q6m_83i7/model_logs/metaclip2_vith14__crisismmd__humanitarian__v1__20261013_151405_921639\n"}
+,{"stream_name":"stdout","time":216.16562347,"data":"[model_registry] Đã giải phóng 'metaclip2_vith14' khỏi bộ nhớ\n"}
+,{"stream_name":"stdout","time":216.165627154,"data":"[model_registry] Đang load model 'dfn5b_vith14' (hf-hub:apple/DFN5B-CLIP-ViT-H-14, pretrained=None) lên cuda ...\n"}
+,{"stream_name":"stdout","time":216.165629722,"data":"[model_registry] -\u003e Load xong 'dfn5b_vith14': embed_dim=1024, image_size=(224, 224), context_length=77, logit_scale=14.28, logit_bias=0.0000\n"}
+,{"stream_name":"stdout","time":216.165632722,"data":"\n"}
+,{"stream_name":"stdout","time":216.165634904,"data":"======================================================================\n"}
+,{"stream_name":"stdout","time":216.165637284,"data":"DATASET: CrisisMMD | TASK: informativeness\n"}
+,{"stream_name":"stdout","time":216.165639635,"data":"======================================================================\n"}
+,{"stream_name":"stdout","time":216.165642047,"data":"[TEXT SCALE] crisismmd: requested=None, effective=14.284856796264648, status=model_default\n"}
+,{"stream_name":"stderr","time":219.995089021,"data":"\rSingle-label inference:   0%|          | 0/2 [00:00\u003c?, ?batch/s]\rSingle-label inference:  50%|█████     | 1/2 [00:02\u003c00:02,  2.03s/batch]\rSingle-label inference: 100%|██████████| 2/2 [00:03\u003c00:00,  1.89s/batch]\rSingle-label inference: 100%|██████████| 2/2 [00:03\u003c00:00,  1.91s/batch]\n"}
+,{"stream_name":"stdout","time":221.587556844,"data":"Accuracy : 0.5667  (chỉ tham khảo, có thể gây hiểu lầm nếu lệch lớp)\n"}
+,{"stream_name":"stdout","time":221.587608817,"data":"Macro-F1 : 0.5662  (chỉ số chính, phản ánh đúng cả lớp hiếm)\n"}
+,{"stream_name":"stdout","time":221.587627198,"data":"Micro-F1 : 0.5667\n"}
+,{"stream_name":"stdout","time":221.58763158,"data":"\n"}
+,{"stream_name":"stdout","time":221.587635595,"data":"Báo cáo chi tiết theo từng lớp:\n"}
+,{"stream_name":"stdout","time":221.587639806,"data":"                 precision    recall  f1-score   support\n"}
+,{"stream_name":"stdout","time":221.587643764,"data":"\n"}
+,{"stream_name":"stdout","time":221.587647443,"data":"    informative       1.00      0.41      0.58        22\n"}
+,{"stream_name":"stdout","time":221.587651495,"data":"not_informative       0.38      1.00      0.55         8\n"}
+,{"stream_name":"stdout","time":221.587655418,"data":"\n"}
+,{"stream_name":"stdout","time":221.587658724,"data":"       accuracy                           0.57        30\n"}
+,{"stream_name":"stdout","time":221.587662274,"data":"      macro avg       0.69      0.70      0.57        30\n"}
+,{"stream_name":"stdout","time":221.587665832,"data":"   weighted avg       0.83      0.57      0.57        30\n"}
+,{"stream_name":"stdout","time":221.587669432,"data":"\n"}
+,{"stream_name":"stdout","time":221.587672696,"data":"branch  n_samples  macro_f1  balanced_accuracy\n"}
+,{"stream_name":"stdout","time":221.587676236,"data":" image         30  0.730424           0.761364\n"}
+,{"stream_name":"stdout","time":221.587685118,"data":"  text         30  0.389140           0.590909\n"}
+,{"stream_name":"stdout","time":221.587688108,"data":"fusion         30  0.566185           0.704545\n"}
+,{"stream_name":"stdout","time":221.587690499,"data":"Đã lưu log tại: /tmp/crisismmd_ensemble_09y77wmk/results/uncertainty_ensemble/crisismmd_q6m_83i7/model_logs/dfn5b_vith14__crisismmd__informativeness__v1__20261013_151446_336700  (13/30 mẫu sai)\n"}
+,{"stream_name":"stdout","time":221.58769323799999,"data":"[LOG] /tmp/crisismmd_ensemble_09y77wmk/results/uncertainty_ensemble/crisismmd_q6m_83i7/model_logs/dfn5b_vith14__crisismmd__informativeness__v1__20261013_151446_336700\n"}
+,{"stream_name":"stdout","time":221.587695764,"data":"\n"}
+,{"stream_name":"stdout","time":221.587711385,"data":"======================================================================\n"}
+,{"stream_name":"stdout","time":221.587715861,"data":"DATASET: CrisisMMD | TASK: humanitarian\n"}
+,{"stream_name":"stdout","time":221.587723688,"data":"======================================================================\n"}
+,{"stream_name":"stdout","time":221.587727924,"data":"[TEXT SCALE] crisismmd: requested=None, effective=14.284856796264648, status=model_default\n"}
+,{"stream_name":"stderr","time":225.464616554,"data":"\rSingle-label inference:   0%|          | 0/2 [00:00\u003c?, ?batch/s]\rSingle-label inference:  50%|█████     | 1/2 [00:02\u003c00:02,  2.04s/batch]\rSingle-label inference: 100%|██████████| 2/2 [00:03\u003c00:00,  1.92s/batch]\rSingle-label inference: 100%|██████████| 2/2 [00:03\u003c00:00,  1.94s/batch]\n"}
+,{"stream_name":"stderr","time":225.482654695,"data":"/usr/local/lib/python3.13/dist-packages/sklearn/metrics/_classification.py:2524: UserWarning: y_pred contains classes not in y_true\n"}
+,{"stream_name":"stderr","time":225.482694503,"data":"  warnings.warn(\"y_pred contains classes not in y_true\")\n"}
+,{"stream_name":"stdout","time":268.965054471,"data":"Accuracy : 0.4000  (chỉ tham khảo, có thể gây hiểu lầm nếu lệch lớp)\n"}
+,{"stream_name":"stdout","time":268.965150029,"data":"Macro-F1 : 0.2415  (chỉ số chính, phản ánh đúng cả lớp hiếm)\n"}
+,{"stream_name":"stdout","time":268.965157146,"data":"Micro-F1 : 0.4000\n"}
+,{"stream_name":"stdout","time":268.965161424,"data":"\n"}
+,{"stream_name":"stdout","time":268.965165005,"data":"Báo cáo chi tiết theo từng lớp:\n"}
+,{"stream_name":"stdout","time":268.965168748,"data":"                                        precision    recall  f1-score   support\n"}
+,{"stream_name":"stdout","time":268.96517247,"data":"\n"}
+,{"stream_name":"stdout","time":268.965175798,"data":"                      not_humanitarian       0.31      1.00      0.47         8\n"}
+,{"stream_name":"stdout","time":268.965179375,"data":"            other_relevant_information       1.00      0.30      0.46        10\n"}
+,{"stream_name":"stdout","time":268.965183045,"data":"rescue_volunteering_or_donation_effort       0.00      0.00      0.00         1\n"}
+,{"stream_name":"stdout","time":268.96519156,"data":"     infrastructure_and_utility_damage       0.00      0.00      0.00        10\n"}
+,{"stream_name":"stdout","time":268.965194668,"data":"                  affected_individuals       0.00      0.00      0.00         0\n"}
+,{"stream_name":"stdout","time":268.965196963,"data":"                        vehicle_damage       0.00      0.00      0.00         0\n"}
+,{"stream_name":"stdout","time":268.965199269,"data":"                injured_or_dead_people       1.00      1.00      1.00         1\n"}
+,{"stream_name":"stdout","time":268.965201569,"data":"               missing_or_found_people       0.00      0.00      0.00         0\n"}
+,{"stream_name":"stdout","time":268.965203967,"data":"\n"}
+,{"stream_name":"stdout","time":268.965206149,"data":"                              accuracy                           0.40        30\n"}
+,{"stream_name":"stdout","time":268.965208469,"data":"                             macro avg       0.29      0.29      0.24        30\n"}
+,{"stream_name":"stdout","time":268.965210779,"data":"                          weighted avg       0.45      0.40      0.31        30\n"}
+,{"stream_name":"stdout","time":268.965213167,"data":"\n"}
+,{"stream_name":"stdout","time":268.965215344,"data":"\n"}
+,{"stream_name":"stdout","time":268.965217592,"data":"  CẢNH BÁO: các lớp sau có cỡ mẫu quá nhỏ, kết quả không đủ tin cậy thống kê để kết luận chắc chắn: {'affected_individuals', 'injured_or_dead_people', 'vehicle_damage'}\n"}
+,{"stream_name":"stdout","time":268.965220585,"data":"branch  n_samples  macro_f1  balanced_accuracy\n"}
+,{"stream_name":"stdout","time":268.965222875,"data":" image         30  0.444048               0.71\n"}
+,{"stream_name":"stdout","time":268.965225651,"data":"  text         30  0.076781               0.22\n"}
+,{"stream_name":"stdout","time":268.965241827,"data":"fusion         30  0.241516               0.46\n"}
+,{"stream_name":"stdout","time":268.96524677,"data":"Đã lưu log tại: /tmp/crisismmd_ensemble_09y77wmk/results/uncertainty_ensemble/crisismmd_q6m_83i7/model_logs/dfn5b_vith14__crisismmd__humanitarian__v1__20261013_151451_809220  (18/30 mẫu sai)\n"}
+,{"stream_name":"stdout","time":268.965251701,"data":"[LOG] /tmp/crisismmd_ensemble_09y77wmk/results/uncertainty_ensemble/crisismmd_q6m_83i7/model_logs/dfn5b_vith14__crisismmd__humanitarian__v1__20261013_151451_809220\n"}
+,{"stream_name":"stdout","time":268.96525632,"data":"[model_registry] Đã giải phóng 'dfn5b_vith14' khỏi bộ nhớ\n"}
+,{"stream_name":"stdout","time":268.965261393,"data":"[model_registry] Đang load model 'siglip2_so400m' (ViT-SO400M-14-SigLIP2, pretrained=webli) lên cuda ...\n"}
+,{"stream_name":"stdout","time":268.965265286,"data":"[model_registry] -\u003e Load xong 'siglip2_so400m': embed_dim=None, image_size=(224, 224), context_length=64, logit_scale=109.88, logit_bias=-15.9324\n"}
+,{"stream_name":"stdout","time":268.965273877,"data":"\n"}
+,{"stream_name":"stdout","time":268.96527728,"data":"======================================================================\n"}
+,{"stream_name":"stdout","time":268.965280917,"data":"DATASET: CrisisMMD | TASK: informativeness\n"}
+,{"stream_name":"stdout","time":268.965284431,"data":"======================================================================\n"}
+,{"stream_name":"stdout","time":268.965288386,"data":"[TEXT SCALE] crisismmd: requested=None, effective=109.8812255859375, status=model_default\n"}
+,{"stream_name":"stderr","time":271.535628457,"data":"\rSingle-label inference:   0%|          | 0/2 [00:00\u003c?, ?batch/s]\rSingle-label inference:  50%|█████     | 1/2 [00:01\u003c00:01,  1.39s/batch]\rSingle-label inference: 100%|██████████| 2/2 [00:02\u003c00:00,  1.27s/batch]\rSingle-label inference: 100%|██████████| 2/2 [00:02\u003c00:00,  1.29s/batch]\n"}
+,{"stream_name":"stdout","time":273.301579765,"data":"Accuracy : 0.6333  (chỉ tham khảo, có thể gây hiểu lầm nếu lệch lớp)\n"}
+,{"stream_name":"stdout","time":273.301615263,"data":"Macro-F1 : 0.5971  (chỉ số chính, phản ánh đúng cả lớp hiếm)\n"}
+,{"stream_name":"stdout","time":273.301620815,"data":"Micro-F1 : 0.6333\n"}
+,{"stream_name":"stdout","time":273.301625169,"data":"\n"}
+,{"stream_name":"stdout","time":273.301629158,"data":"Báo cáo chi tiết theo từng lớp:\n"}
+,{"stream_name":"stdout","time":273.301633565,"data":"                 precision    recall  f1-score   support\n"}
+,{"stream_name":"stdout","time":273.301637798,"data":"\n"}
+,{"stream_name":"stdout","time":273.301641637,"data":"    informative       0.82      0.64      0.72        22\n"}
+,{"stream_name":"stdout","time":273.301645831,"data":"not_informative       0.38      0.62      0.48         8\n"}
+,{"stream_name":"stdout","time":273.301650016,"data":"\n"}
+,{"stream_name":"stdout","time":273.301653697,"data":"       accuracy                           0.63        30\n"}
+,{"stream_name":"stdout","time":273.301657751,"data":"      macro avg       0.60      0.63      0.60        30\n"}
+,{"stream_name":"stdout","time":273.301661875,"data":"   weighted avg       0.71      0.63      0.65        30\n"}
+,{"stream_name":"stdout","time":273.30166618,"data":"\n"}
+,{"stream_name":"stdout","time":273.301670046,"data":"branch  n_samples  macro_f1  balanced_accuracy\n"}
+,{"stream_name":"stdout","time":273.301674156,"data":" image         30  0.712722           0.721591\n"}
+,{"stream_name":"stdout","time":273.301677882,"data":"  text         30  0.622857           0.710227\n"}
+,{"stream_name":"stdout","time":273.301681846,"data":"fusion         30  0.597070           0.630682\n"}
+,{"stream_name":"stdout","time":273.301685992,"data":"Đã lưu log tại: /tmp/crisismmd_ensemble_09y77wmk/results/uncertainty_ensemble/crisismmd_q6m_83i7/model_logs/siglip2_so400m__crisismmd__informativeness__v1__20261013_151537_878247  (11/30 mẫu sai)\n"}
+,{"stream_name":"stdout","time":273.301690885,"data":"[LOG] /tmp/crisismmd_ensemble_09y77wmk/results/uncertainty_ensemble/crisismmd_q6m_83i7/model_logs/siglip2_so400m__crisismmd__informativeness__v1__20261013_151537_878247\n"}
+,{"stream_name":"stdout","time":273.301695336,"data":"\n"}
+,{"stream_name":"stdout","time":273.301699091,"data":"======================================================================\n"}
+,{"stream_name":"stdout","time":273.301703263,"data":"DATASET: CrisisMMD | TASK: humanitarian\n"}
+,{"stream_name":"stdout","time":273.301707464,"data":"======================================================================\n"}
+,{"stream_name":"stdout","time":273.301732665,"data":"[TEXT SCALE] crisismmd: requested=None, effective=109.8812255859375, status=model_default\n"}
+,{"stream_name":"stderr","time":275.905501631,"data":"\rSingle-label inference:   0%|          | 0/2 [00:00\u003c?, ?batch/s]\rSingle-label inference:  50%|█████     | 1/2 [00:01\u003c00:01,  1.40s/batch]\rSingle-label inference: 100%|██████████| 2/2 [00:02\u003c00:00,  1.28s/batch]\rSingle-label inference: 100%|██████████| 2/2 [00:02\u003c00:00,  1.30s/batch]\n"}
+,{"stream_name":"stderr","time":275.920063784,"data":"/usr/local/lib/python3.13/dist-packages/sklearn/metrics/_classification.py:2524: UserWarning: y_pred contains classes not in y_true\n"}
+,{"stream_name":"stderr","time":275.920090206,"data":"  warnings.warn(\"y_pred contains classes not in y_true\")\n"}
+,{"stream_name":"stdout","time":276.478634984,"data":"Accuracy : 0.3667  (chỉ tham khảo, có thể gây hiểu lầm nếu lệch lớp)\n"}
+,{"stream_name":"stdout","time":276.47866169,"data":"Macro-F1 : 0.1197  (chỉ số chính, phản ánh đúng cả lớp hiếm)\n"}
+,{"stream_name":"stdout","time":276.478688693,"data":"Micro-F1 : 0.3667\n"}
+,{"stream_name":"stdout","time":276.478693291,"data":"\n"}
+,{"stream_name":"stdout","time":276.478697226,"data":"Báo cáo chi tiết theo từng lớp:\n"}
+,{"stream_name":"stdout","time":276.478701599,"data":"                                        precision    recall  f1-score   support\n"}
+,{"stream_name":"stdout","time":276.47870574,"data":"\n"}
+,{"stream_name":"stdout","time":276.478709523,"data":"                      not_humanitarian       0.28      0.88      0.42         8\n"}
+,{"stream_name":"stdout","time":276.478713894,"data":"            other_relevant_information       0.80      0.40      0.53        10\n"}
+,{"stream_name":"stdout","time":276.478718419,"data":"rescue_volunteering_or_donation_effort       0.00      0.00      0.00         1\n"}
+,{"stream_name":"stdout","time":276.478722704,"data":"     infrastructure_and_utility_damage       0.00      0.00      0.00        10\n"}
+,{"stream_name":"stdout","time":276.478726246,"data":"                  affected_individuals       0.00      0.00      0.00         0\n"}
+,{"stream_name":"stdout","time":276.478729977,"data":"                        vehicle_damage       0.00      0.00      0.00         0\n"}
+,{"stream_name":"stdout","time":276.47873401,"data":"                injured_or_dead_people       0.00      0.00      0.00         1\n"}
+,{"stream_name":"stdout","time":276.478737815,"data":"               missing_or_found_people       0.00      0.00      0.00         0\n"}
+,{"stream_name":"stdout","time":276.47874204,"data":"\n"}
+,{"stream_name":"stdout","time":276.478747255,"data":"                              accuracy                           0.37        30\n"}
+,{"stream_name":"stdout","time":276.478751109,"data":"                             macro avg       0.14      0.16      0.12        30\n"}
+,{"stream_name":"stdout","time":276.478755557,"data":"                          weighted avg       0.34      0.37      0.29        30\n"}
+,{"stream_name":"stdout","time":276.478759912,"data":"\n"}
+,{"stream_name":"stdout","time":276.478763803,"data":"\n"}
+,{"stream_name":"stdout","time":276.478767089,"data":"  CẢNH BÁO: các lớp sau có cỡ mẫu quá nhỏ, kết quả không đủ tin cậy thống kê để kết luận chắc chắn: {'affected_individuals', 'injured_or_dead_people', 'vehicle_damage'}\n"}
+,{"stream_name":"stdout","time":276.478771806,"data":"branch  n_samples  macro_f1  balanced_accuracy\n"}
+,{"stream_name":"stdout","time":276.478795246,"data":" image         30  0.203704              0.355\n"}
+,{"stream_name":"stdout","time":276.478799703,"data":"  text         30  0.241516              0.460\n"}
+,{"stream_name":"stdout","time":276.478803555,"data":"fusion         30  0.119697              0.255\n"}
+,{"stream_name":"stdout","time":276.478807363,"data":"Đã lưu log tại: /tmp/crisismmd_ensemble_09y77wmk/results/uncertainty_ensemble/crisismmd_q6m_83i7/model_logs/siglip2_so400m__crisismmd__humanitarian__v1__20261013_151542_247293  (19/30 mẫu sai)\n"}
+,{"stream_name":"stdout","time":276.478812277,"data":"[LOG] /tmp/crisismmd_ensemble_09y77wmk/results/uncertainty_ensemble/crisismmd_q6m_83i7/model_logs/siglip2_so400m__crisismmd__humanitarian__v1__20261013_151542_247293\n"}
+,{"stream_name":"stdout","time":276.478816715,"data":"[model_registry] Đã giải phóng 'siglip2_so400m' khỏi bộ nhớ\n"}
+,{"stream_name":"stdout","time":276.478823517,"data":"[RESULT] /tmp/crisismmd_ensemble_09y77wmk/results/uncertainty_ensemble/crisismmd_q6m_83i7/summary.tsv\n"}
+,{"stream_name":"stdout","time":276.478827695,"data":"informativeness  metaclip2_vith14         n= 30 macro-F1=0.6032 acc=0.6667 sửa=0 hỏng=0\n"}
+,{"stream_name":"stdout","time":276.478832212,"data":"informativeness  dfn5b_vith14             n= 30 macro-F1=0.5662 acc=0.5667 sửa=4 hỏng=7\n"}
+,{"stream_name":"stdout","time":276.478836485,"data":"informativeness  siglip2_so400m           n= 30 macro-F1=0.5971 acc=0.6333 sửa=2 hỏng=3\n"}
+,{"stream_name":"stdout","time":276.478840332,"data":"informativeness  equal_mean               n= 30 macro-F1=0.6411 acc=0.6667 sửa=2 hỏng=2\n"}
+,{"stream_name":"stdout","time":276.478844165,"data":"informativeness  margin_gate_0.10         n= 30 macro-F1=0.5764 acc=0.6333 sửa=0 hỏng=1\n"}
+,{"stream_name":"stdout","time":276.478848251,"data":"humanitarian     metaclip2_vith14         n= 30 macro-F1=0.2956 acc=0.5000 sửa=0 hỏng=0\n"}
+,{"stream_name":"stdout","time":276.478852437,"data":"humanitarian     dfn5b_vith14             n= 30 macro-F1=0.2415 acc=0.4000 sửa=2 hỏng=5\n"}
+,{"stream_name":"stdout","time":276.478856532,"data":"humanitarian     siglip2_so400m           n= 30 macro-F1=0.1197 acc=0.3667 sửa=0 hỏng=4\n"}
+,{"stream_name":"stdout","time":276.478887728,"data":"humanitarian     equal_mean               n= 30 macro-F1=0.1303 acc=0.4000 sửa=0 hỏng=3\n"}
+,{"stream_name":"stdout","time":276.478964717,"data":"humanitarian     margin_gate_0.10         n= 30 macro-F1=0.1548 acc=0.4333 sửa=0 hỏng=2\n"}
+,{"stream_name":"stdout","time":286.800754039,"data":"[KAGGLE_RESULT] task\tmethod\tn_samples\taccuracy\tmacro_f1\tbalanced_accuracy_observed\tchanged_vs_baseline\twrong_to_right\tright_to_wrong\tauroc\n"}
+,{"stream_name":"stdout","time":286.800781119,"data":"informativeness\tmetaclip2_vith14\t30\t0.6666666666666666\t0.6031746031746031\t0.6136363636363636\t0\t0\t0\t0.7556818181818181\n"}
+,{"stream_name":"stdout","time":286.800788504,"data":"informativeness\tdfn5b_vith14\t30\t0.5666666666666667\t0.5661846496106786\t0.7045454545454546\t11\t4\t7\t0.8693181818181819\n"}
+,{"stream_name":"stdout","time":286.800802113,"data":"informativeness\tsiglip2_so400m\t30\t0.6333333333333333\t0.5970695970695971\t0.6306818181818181\t5\t2\t3\t0.7670454545454545\n"}
+,{"stream_name":"stdout","time":286.800807319,"data":"informativeness\tequal_mean\t30\t0.6666666666666666\t0.6411483253588517\t0.6931818181818181\t4\t2\t2\t0.7897727272727273\n"}
+,{"stream_name":"stdout","time":286.800812412,"data":"informativeness\tmargin_gate_0.10\t30\t0.6333333333333333\t0.576379974326059\t0.5909090909090908\t1\t0\t1\t0.75\n"}
+,{"stream_name":"stdout","time":286.800826036,"data":"humanitarian\tmetaclip2_vith14\t30\t0.5\t0.2955767350928641\t0.52\t0\t0\t0\t\n"}
+,{"stream_name":"stdout","time":286.800830092,"data":"humanitarian\tdfn5b_vith14\t30\t0.4\t0.2415158371040724\t0.45999999999999996\t7\t2\t5\t\n"}
+,{"stream_name":"stdout","time":286.800833897,"data":"humanitarian\tsiglip2_so400m\t30\t0.36666666666666664\t0.11969696969696969\t0.255\t4\t0\t4\t\n"}
+,{"stream_name":"stdout","time":286.800843385,"data":"humanitarian\tequal_mean\t30\t0.4\t0.13025210084033612\t0.27999999999999997\t3\t0\t3\t\n"}
+,{"stream_name":"stdout","time":286.800846324,"data":"humanitarian\tmargin_gate_0.10\t30\t0.43333333333333335\t0.15476190476190477\t0.3\t2\t0\t2\t\n"}
+,{"stream_name":"stdout","time":286.8008488,"data":"\n"}
+,{"stream_name":"stderr","time":289.823157274,"data":"/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":289.823197685,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":290.277285101,"data":"/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":290.277312445,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":291.173961007,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":292.662824993,"data":"[NbConvertApp] Writing 297714 bytes to __results__.html\n"}
+]

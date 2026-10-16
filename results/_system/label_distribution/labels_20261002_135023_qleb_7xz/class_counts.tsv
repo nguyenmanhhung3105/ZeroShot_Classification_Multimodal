@@ -1,0 +1,42 @@
+﻿dataset	task	status	label_id	label_name	n_samples	percent_of_rows
+fakeddit	2way	ok	0	fake	4	80.0
+fakeddit	2way	ok	1	real	1	20.0
+fakeddit	6way	ok	0	True	1	20.0
+fakeddit	6way	ok	1	Satire/Parody	0	0.0
+fakeddit	6way	ok	2	False Connection	2	40.0
+fakeddit	6way	ok	3	Imposter Content	0	0.0
+fakeddit	6way	ok	4	Manipulated Content	1	20.0
+fakeddit	6way	ok	5	Misleading Content	1	20.0
+crisismmd	informativeness	ok	informative	Informative	4	80.0
+crisismmd	informativeness	ok	not_informative	Not Informative	1	20.0
+crisismmd	humanitarian	ok	not_humanitarian	Not Humanitarian	1	20.0
+crisismmd	humanitarian	ok	other_relevant_information	Other Relevant Information	1	20.0
+crisismmd	humanitarian	ok	rescue_volunteering_or_donation_effort	Rescue/Volunteering/Donation	0	0.0
+crisismmd	humanitarian	ok	infrastructure_and_utility_damage	Infrastructure/Utility Damage	3	60.0
+crisismmd	humanitarian	ok	affected_individuals	Affected Individuals	0	0.0
+crisismmd	humanitarian	ok	vehicle_damage	Vehicle Damage	0	0.0
+crisismmd	humanitarian	ok	injured_or_dead_people	Injured or Dead People	0	0.0
+crisismmd	humanitarian	ok	missing_or_found_people	Missing or Found People	0	0.0
+mmimdb	genres	ok	Action	Action	1	20.0
+mmimdb	genres	ok	Adventure	Adventure	2	40.0
+mmimdb	genres	ok	Animation	Animation	1	20.0
+mmimdb	genres	ok	Biography	Biography	0	0.0
+mmimdb	genres	ok	Comedy	Comedy	3	60.0
+mmimdb	genres	ok	Crime	Crime	0	0.0
+mmimdb	genres	ok	Documentary	Documentary	0	0.0
+mmimdb	genres	ok	Drama	Drama	2	40.0
+mmimdb	genres	ok	Family	Family	1	20.0
+mmimdb	genres	ok	Fantasy	Fantasy	0	0.0
+mmimdb	genres	ok	Film-Noir	Film-Noir	0	0.0
+mmimdb	genres	ok	History	History	0	0.0
+mmimdb	genres	ok	Horror	Horror	1	20.0
+mmimdb	genres	ok	Music	Music	0	0.0
+mmimdb	genres	ok	Musical	Musical	0	0.0
+mmimdb	genres	ok	Mystery	Mystery	1	20.0
+mmimdb	genres	ok	Short	Short	0	0.0
+mmimdb	genres	ok	Romance	Romance	1	20.0
+mmimdb	genres	ok	Sci-Fi	Sci-Fi	0	0.0
+mmimdb	genres	ok	Sport	Sport	0	0.0
+mmimdb	genres	ok	Thriller	Thriller	0	0.0
+mmimdb	genres	ok	War	War	0	0.0
+mmimdb	genres	ok	Western	Western	0	0.0

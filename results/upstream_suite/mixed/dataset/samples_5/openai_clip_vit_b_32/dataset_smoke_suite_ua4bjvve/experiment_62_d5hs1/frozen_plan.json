@@ -1,0 +1,2174 @@
+{
+  "settings": {
+    "base_config": "configs/experiment_config.yaml",
+    "backbones": [
+      "ViT-B/32"
+    ],
+    "device": "auto",
+    "batch_size": 16,
+    "methods": [
+      "clip",
+      "waffle",
+      "dclip_labels",
+      "dclip"
+    ],
+    "seeds": [
+      0
+    ],
+    "waffle_pairs": 15,
+    "outputs": [
+      "original_image",
+      "multimodal"
+    ],
+    "output_dir": "/Users/hung/Documents/MyProject/Python/DA_CNTT/vlm-zeroshot-content-classification/results/upstream_projects/smoke_suite_ua4bjvve",
+    "datasets": {
+      "crisismmd": {
+        "enabled": true,
+        "task": "informativeness",
+        "max_samples": 5
+      },
+      "fakeddit": {
+        "enabled": true,
+        "task": "6way",
+        "max_samples": 5
+      },
+      "mmimdb": {
+        "enabled": true,
+        "task": "genres",
+        "max_samples": 5
+      }
+    },
+    "descriptor_files": {
+      "crisismmd": {
+        "humanitarian": "configs/research/descriptors/crisismmd_humanitarian.json",
+        "informativeness": "configs/research/descriptors/crisismmd_info.json"
+      },
+      "fakeddit": {
+        "2way": "configs/research/descriptors/fakeddit_2way.json",
+        "6way": "configs/research/descriptors/fakeddit_6way.json"
+      },
+      "mmimdb": {
+        "genres": "configs/research/descriptors/mmimdb_genres.json"
+      }
+    }
+  },
+  "base_config": {
+    "models": [
+      "metaclip2_vith14"
+    ],
+    "inference": {
+      "batch_size": 16,
+      "image_weight": 0.5,
+      "text_logit_scale": null
+    },
+    "datasets": {
+      "fakeddit": {
+        "enabled": true,
+        "task": "6way",
+        "data_path": "data/processed/pro_fakeddit/fakeddit_sample.tsv",
+        "image_dir": "data/processed/pro_fakeddit/images",
+        "id_col": "id",
+        "text_col": "clean_title",
+        "label_col_2way": "2_way_label",
+        "label_col_6way": "6_way_label",
+        "min_text_length": 20,
+        "max_samples": 1000,
+        "prompt_aggregation": "mean_sim",
+        "prompt_variants": [
+          "current"
+        ],
+        "inference": {
+          "image_weight": 0.75,
+          "text_logit_scale": 25
+        }
+      },
+      "crisismmd": {
+        "enabled": true,
+        "task": "informativeness",
+        "data_path": "data/processed/pro_crisismmd/pre_crisismmd.tsv",
+        "image_dir": "data/processed/pro_crisismmd/images",
+        "id_col": "tweet_id",
+        "text_col": "clean_text",
+        "label_col_info": "label_informative",
+        "label_col_human": "label_humanitarian",
+        "max_samples": 1000,
+        "prompt_aggregation": "mean_embed",
+        "inference": {
+          "image_weight": 0.5,
+          "text_logit_scale": null
+        }
+      },
+      "mmimdb": {
+        "enabled": true,
+        "task": "genres",
+        "data_path": "data/processed/pro_mmimdb/mmimdb_sample.tsv",
+        "image_dir": "data/processed/pro_mmimdb/images",
+        "id_col": "id",
+        "text_col": "plot",
+        "label_col": "genres",
+        "max_samples": 1000,
+        "prompt_aggregation": "mean_sim",
+        "decision_mode": "relative_z",
+        "relative_z_threshold": 1.0,
+        "threshold": 0.22,
+        "chunk_long_text": true,
+        "chunk_aggregation": "mean_embed",
+        "inference": {
+          "image_weight": 0.5,
+          "text_logit_scale": null
+        }
+      }
+    },
+    "evaluation": {
+      "enabled": true,
+      "split": "val",
+      "measure_truncation": true,
+      "sample_lock_mode": "off",
+      "sample_lock_dir": "results/sample_locks"
+    },
+    "demo": {
+      "n_samples": 10,
+      "batch_size": 4,
+      "prompt_version": "v1",
+      "log_dir": "results/demo_logs",
+      "visualization_dir": "results/demo"
+    },
+    "output": {
+      "results_dir": "results/",
+      "raw_predictions_dir": "results/raw_predictions/",
+      "summary_table": "results/summary_table.tsv"
+    }
+  },
+  "cohorts": {
+    "crisismmd": {
+      "task_config": {
+        "enabled": true,
+        "task": "informativeness",
+        "data_path": "data/processed/pro_crisismmd/pre_crisismmd.tsv",
+        "image_dir": "data/processed/pro_crisismmd/images",
+        "id_col": "tweet_id",
+        "text_col": "clean_text",
+        "label_col_info": "label_informative",
+        "label_col_human": "label_humanitarian",
+        "max_samples": 5,
+        "prompt_aggregation": "mean_embed",
+        "inference": {
+          "image_weight": 0.5,
+          "text_logit_scale": null
+        },
+        "prompt_variant": "current"
+      },
+      "names": {
+        "informative": "Informative",
+        "not_informative": "Not Informative"
+      },
+      "text_prompts": {
+        "informative": [
+          "a tweet with useful, informative content about a disaster",
+          "a tweet reporting destruction or damage caused by a disaster",
+          "a tweet describing a dangerous or devastating crisis situation",
+          "a tweet describing fear, panic, suffering, or distress during a disaster",
+          "a tweet reporting collapsed buildings, damaged homes, or destroyed infrastructure",
+          "a tweet reporting casualties, injuries, missing people, or people in danger",
+          "a tweet describing severe damage caused by fire, flood, earthquake, tsunami, or landslide",
+          "a tweet reporting emergency conditions during a natural disaster",
+          "a tweet providing information about evacuation, rescue, or emergency response",
+          "a tweet describing the aftermath and destruction caused by a disaster",
+          "a tweet containing important updates about an ongoing crisis",
+          "a tweet providing useful humanitarian information about a disaster",
+          "a photo showing relevant information about a crisis event",
+          "a photo showing useful visual information about a disaster",
+          "a photo showing destruction caused by a natural disaster",
+          "a photo showing buildings or houses damaged or destroyed by a disaster",
+          "a photo showing collapsed buildings and damaged infrastructure",
+          "a photo showing fire, wildfire, or severe burning during a disaster",
+          "a photo showing flooding, tsunami, or dangerous flood water",
+          "a photo showing a landslide, earthquake damage, or collapsed terrain",
+          "a photo showing a devastated city or severely damaged neighborhood",
+          "a photo showing ruins, debris, destruction, or disaster aftermath",
+          "a photo showing people affected by a dangerous disaster situation",
+          "a photo showing rescue workers, emergency response, or disaster relief",
+          "a photo containing visible information about an ongoing natural disaster",
+          "a photo showing dangerous conditions during a crisis",
+          "a photo documenting the aftermath of a major disaster"
+        ],
+        "not_informative": [
+          "a tweet with no useful information about the disaster",
+          "a tweet unrelated to disasters, emergencies, or dangerous events",
+          "a casual tweet about everyday life with no crisis information",
+          "a tweet expressing happiness, love, joy, or positive emotions unrelated to a disaster",
+          "a tweet describing peaceful or pleasant situations with no danger",
+          "a tweet containing ordinary conversation unrelated to a crisis",
+          "a tweet about entertainment, hobbies, or personal activities unrelated to a disaster",
+          "a tweet containing positive and cheerful content with no emergency information",
+          "a tweet discussing unrelated news with no information about a disaster",
+          "a tweet with no information about destruction, danger, rescue, or emergency response",
+          "an irrelevant tweet that provides no useful crisis-related information",
+          "an irrelevant photo not related to disaster response",
+          "a photo unrelated to disasters, emergencies, or crisis events",
+          "a normal everyday photo with no disaster-related information",
+          "a peaceful and beautiful outdoor scene with no signs of danger",
+          "a photo showing a clear blue sky and pleasant weather",
+          "a photo showing healthy trees, nature, or a calm landscape",
+          "a bright and pleasant scene with no destruction or emergency",
+          "a photo showing normal buildings and streets with no visible disaster damage",
+          "a photo showing ordinary daily life unrelated to a crisis",
+          "a happy or cheerful photo unrelated to a disaster",
+          "a photo containing news or text unrelated to a disaster",
+          "an irrelevant image that provides no useful information about a crisis",
+          "a photo with no visible destruction, danger, emergency, or disaster response"
+        ]
+      },
+      "descriptor_provenance": "Assistant tạo từ định nghĩa lớp, cố định ngày 2026-10-10; không lấy từ dòng dữ liệu hoặc lỗi validation. Mô tả dùng cho nhánh ảnh, không phải đầu ra GPT-3 gốc của paper.",
+      "descriptor_sha256": "df765ec22af17043b64940d1a71659e6f3b573658dbdd908dc8847266a364686"
+    },
+    "fakeddit": {
+      "task_config": {
+        "enabled": true,
+        "task": "6way",
+        "data_path": "data/processed/pro_fakeddit/fakeddit_sample.tsv",
+        "image_dir": "data/processed/pro_fakeddit/images",
+        "id_col": "id",
+        "text_col": "clean_title",
+        "label_col_2way": "2_way_label",
+        "label_col_6way": "6_way_label",
+        "min_text_length": 20,
+        "max_samples": 5,
+        "prompt_aggregation": "mean_sim",
+        "inference": {
+          "image_weight": 0.75,
+          "text_logit_scale": 25
+        },
+        "prompt_variant": "current"
+      },
+      "names": {
+        "0": "True",
+        "1": "Satire/Parody",
+        "2": "False Connection",
+        "3": "Imposter Content",
+        "4": "Manipulated Content",
+        "5": "Misleading Content"
+      },
+      "text_prompts": {
+        "0": [
+          "a factual Reddit post accurately describing a real person, object, or event",
+          "an authentic photograph of a real scene with an accurate description",
+          "a truthful social media caption presenting an event in its original context",
+          "a genuine photograph documenting an ordinary or unusual real-life situation"
+        ],
+        "1": [
+          "a satirical Reddit post using fictional events to mock real news or social issues",
+          "a parody headline exaggerating a situation for humor rather than factual reporting",
+          "a satirical illustration or parody image making fun of a public figure or event",
+          "a humorous imitation of a news story intended as satire"
+        ],
+        "2": [
+          "a Reddit caption claiming something that the attached photograph does not show",
+          "a social media title describing a different person, object, or event from the image",
+          "a photograph paired with an unrelated headline or an invented personal story",
+          "a real image given a caption that assigns it a different meaning"
+        ],
+        "3": [
+          "a social media post pretending to be an official statement from a trusted organization",
+          "a fabricated quotation or announcement falsely attributed to a real person",
+          "an image imitating a news outlet, official account, or organization to appear authentic",
+          "a forged screenshot presenting an impersonated source as a genuine author"
+        ],
+        "4": [
+          "a digitally edited photograph with objects or people added, removed, or altered",
+          "a photo montage combining parts of different images into an artificial scene",
+          "a Reddit post presenting a photoshopped scene or a visually altered object",
+          "a manipulated image changing the appearance of a person, animal, or place"
+        ],
+        "5": [
+          "a Reddit post using selective facts or distorted claims to support a misleading conclusion",
+          "a social media caption presenting real information in a deceptive context",
+          "an image or graphic framing a real topic through selective or misleading information",
+          "a misleading explanation that exaggerates or misrepresents the meaning of an event"
+        ]
+      },
+      "descriptor_provenance": "Assistant tạo từ định nghĩa taxonomy Fakeddit, cố định ngày 2026-10-10; không lấy từ dòng dữ liệu hoặc lỗi validation. Một số lớp cần ngữ cảnh để xác minh, không thể kết luận bằng ảnh đơn thuần. Không phải đầu ra GPT-3 gốc của paper.",
+      "descriptor_sha256": "63c03aa4876af5ab31604a2274ef5ff5c1223f14ced082965370f343db9d9732"
+    },
+    "mmimdb": {
+      "task_config": {
+        "enabled": true,
+        "task": "genres",
+        "data_path": "data/processed/pro_mmimdb/mmimdb_sample.tsv",
+        "image_dir": "data/processed/pro_mmimdb/images",
+        "id_col": "id",
+        "text_col": "plot",
+        "label_col": "genres",
+        "max_samples": 5,
+        "prompt_aggregation": "mean_sim",
+        "decision_mode": "relative_z",
+        "relative_z_threshold": 1.0,
+        "threshold": 0.22,
+        "chunk_long_text": true,
+        "chunk_aggregation": "mean_embed",
+        "inference": {
+          "image_weight": 0.5,
+          "text_logit_scale": null
+        },
+        "prompt_variant": "current"
+      },
+      "names": {
+        "Action": "Action",
+        "Adventure": "Adventure",
+        "Animation": "Animation",
+        "Biography": "Biography",
+        "Comedy": "Comedy",
+        "Crime": "Crime",
+        "Documentary": "Documentary",
+        "Drama": "Drama",
+        "Family": "Family",
+        "Fantasy": "Fantasy",
+        "Film-Noir": "Film-Noir",
+        "History": "History",
+        "Horror": "Horror",
+        "Music": "Music",
+        "Musical": "Musical",
+        "Mystery": "Mystery",
+        "Short": "Short",
+        "Romance": "Romance",
+        "Sci-Fi": "Sci-Fi",
+        "Sport": "Sport",
+        "Thriller": "Thriller",
+        "War": "War",
+        "Western": "Western"
+      },
+      "text_prompts": {
+        "Action": [
+          "a movie poster for an action film",
+          "an action movie featuring physical conflict, chases, or daring confrontations",
+          "a film about characters fighting opponents and surviving dangerous encounters",
+          "an action film with combat, martial arts, stunts, or high-speed pursuits"
+        ],
+        "Adventure": [
+          "a movie poster for an adventure film",
+          "an adventure movie about a journey, quest, or exploration of unfamiliar places",
+          "a film about characters overcoming obstacles while pursuing a difficult goal",
+          "an adventure story involving travel, discovery, danger, and unexpected encounters"
+        ],
+        "Animation": [
+          "a movie poster for an animated film",
+          "an animated movie told through drawn, computer-generated, or stop-motion characters",
+          "a film presenting its story through animation rather than live-action performances",
+          "an animated feature or short film with stylized characters and settings"
+        ],
+        "Biography": [
+          "a movie poster for a biographical film",
+          "a biographical movie portraying the life of a real person",
+          "a film about a real individual's personal struggles, relationships, and achievements",
+          "a biopic dramatizing important episodes in an actual person's life"
+        ],
+        "Comedy": [
+          "a movie poster for a comedy film",
+          "a comedy movie built around humorous situations and amusing characters",
+          "a film about misunderstandings, awkward encounters, or absurd situations played for laughs",
+          "a comic story using witty dialogue, satire, slapstick, or everyday humor"
+        ],
+        "Crime": [
+          "a movie poster for a crime film",
+          "a crime movie about criminals, detectives, or people drawn into illegal activities",
+          "a film about a robbery, murder, criminal organization, or police investigation",
+          "a story centered on committing crimes, pursuing offenders, or facing criminal consequences"
+        ],
+        "Documentary": [
+          "a movie poster for a documentary film",
+          "a documentary examining real people, events, or issues",
+          "a nonfiction film presenting interviews, observations, or archival evidence",
+          "a documentary recording real experiences or investigating a factual subject"
+        ],
+        "Drama": [
+          "a movie poster for a drama film",
+          "a drama exploring personal conflicts, difficult choices, and human relationships",
+          "a film about characters facing emotional struggles and significant changes in their lives",
+          "a character-driven dramatic story about family, society, loss, or personal growth"
+        ],
+        "Family": [
+          "a movie poster for a family film",
+          "a family movie intended to be enjoyed by children and adults together",
+          "a family-oriented story about friendship, belonging, courage, or growing up",
+          "a film for a broad family audience with accessible characters and themes"
+        ],
+        "Fantasy": [
+          "a movie poster for a fantasy film",
+          "a fantasy movie involving magic, mythical beings, or supernatural powers",
+          "a film about characters entering an enchanted world or encountering magical forces",
+          "a fantasy story where spells, legends, or impossible creatures shape events"
+        ],
+        "Film-Noir": [
+          "a movie poster for a film-noir crime drama",
+          "a film-noir story involving deception, moral ambiguity, and a doomed protagonist",
+          "a dark crime film about betrayal, corruption, or a dangerous entanglement",
+          "a noir film with shadowy imagery, cynical characters, and a fatalistic atmosphere"
+        ],
+        "History": [
+          "a movie poster for a historical film",
+          "a historical movie portraying significant events or social conditions of an earlier era",
+          "a film dramatizing actual historical events and the people involved",
+          "a story grounded in documented political, cultural, or social history"
+        ],
+        "Horror": [
+          "a movie poster for a horror film",
+          "a horror movie intended to evoke fear, dread, or terror",
+          "a film about characters facing a haunting, monstrous threat, or terrifying violence",
+          "a horror story with an ominous atmosphere and frightening encounters"
+        ],
+        "Music": [
+          "a movie poster for a film about music or musicians",
+          "a music-centered movie about performers, bands, composers, or musical careers",
+          "a film about creating music, rehearsing, recording, or performing in concerts",
+          "a story in which musical performance and the lives of musicians are central"
+        ],
+        "Musical": [
+          "a movie poster for a musical film",
+          "a musical in which characters sing or dance as part of telling the story",
+          "a film whose songs express characters' feelings and advance the narrative",
+          "a musical movie combining dramatic scenes with staged song-and-dance numbers"
+        ],
+        "Mystery": [
+          "a movie poster for a mystery film",
+          "a mystery movie about uncovering a hidden truth or explaining puzzling events",
+          "a film in which characters follow clues to solve a disappearance, secret, or unexplained incident",
+          "a mystery story built around unanswered questions and gradual revelations"
+        ],
+        "Short": [
+          "a movie poster for a short film",
+          "a short film with a brief running time",
+          "a short-format movie presenting a compact story or a focused cinematic idea",
+          "a brief cinematic work released as a short rather than a full-length feature"
+        ],
+        "Romance": [
+          "a movie poster for a romance film",
+          "a romantic movie centered on love, attraction, and intimate relationships",
+          "a film about people falling in love, separating, or trying to sustain a relationship",
+          "a romance story exploring courtship, heartbreak, longing, or reconciliation"
+        ],
+        "Sci-Fi": [
+          "a movie poster for a science fiction film",
+          "a science fiction movie exploring imagined science, technology, or future societies",
+          "a film involving space travel, alien life, time travel, robots, or advanced technology",
+          "a science fiction story about the consequences of a scientific discovery or technological change"
+        ],
+        "Sport": [
+          "a movie poster for a sports film",
+          "a sports movie about athletes, teams, training, or competition",
+          "a film about preparing for a sporting event and facing rivals or personal setbacks",
+          "a story centered on athletic performance, teamwork, and the pursuit of sporting success"
+        ],
+        "Thriller": [
+          "a movie poster for a thriller film",
+          "a thriller driven by suspense, escalating danger, and uncertainty",
+          "a film about characters caught in a pursuit, conspiracy, threat, or dangerous deception",
+          "a tense story in which characters struggle to escape danger or prevent a looming disaster"
+        ],
+        "War": [
+          "a movie poster for a war film",
+          "a war movie about armed conflict and its effects on soldiers or civilians",
+          "a film portraying military operations, battlefield survival, or life during wartime",
+          "a story centered on the human experiences and consequences of war"
+        ],
+        "Western": [
+          "a movie poster for a western film",
+          "a western set on the American frontier with cowboys, settlers, or outlaws",
+          "a film about frontier life, lawmen, ranchers, or conflicts in the Old West",
+          "a western story featuring frontier towns, horseback travel, and struggles over land or justice"
+        ]
+      },
+      "descriptor_provenance": "Assistant tạo từ định nghĩa 23 thể loại, cố định ngày 2026-10-10; không lấy tên phim, dòng dữ liệu hoặc lỗi validation. Mô tả poster/đặc trưng thể loại dùng cho nhánh ảnh, không phải đầu ra GPT-3 gốc của paper.",
+      "descriptor_sha256": "08a1c86f2b7adb096adc1f8e71a7f427c64093c85244e1a4d04987b8bb8816c3"
+    }
+  },
+  "trials": [
+    {
+      "dataset": "crisismmd",
+      "method": "clip",
+      "seed": null,
+      "prompts": {
+        "Informative": [
+          "A photo of a Informative."
+        ],
+        "Not Informative": [
+          "A photo of a Not Informative."
+        ]
+      },
+      "author_options": {
+        "dataset": "custom",
+        "model_size": "ViT-B/32",
+        "mode": "clip",
+        "classes_to_load": null,
+        "label_to_classname": [
+          "Informative",
+          "Not Informative"
+        ],
+        "n_classes": 2,
+        "descriptor_fname": "/Users/hung/Documents/MyProject/Python/DA_CNTT/vlm-zeroshot-content-classification/results/upstream_projects/smoke_suite_ua4bjvve/experiment_62_d5hs1/descriptors_crisismmd_informativeness.json",
+        "waffle_count": 15,
+        "label_before_text": "A photo of a ",
+        "label_after_text": ".",
+        "pre_descriptor_text": "",
+        "descriptor_separator": ", ",
+        "apply_descriptor_modification": true
+      }
+    },
+    {
+      "dataset": "crisismmd",
+      "method": "waffle",
+      "seed": 0,
+      "prompts": {
+        "Informative": [
+          "A photo of a Informative, which has wheelbase very.",
+          "A photo of a Informative, which has iccuwgcnmhla.",
+          "A photo of a Informative, which has plant weeds.",
+          "A photo of a Informative, which has tfggebvrennl.",
+          "A photo of a Informative, which has slope basketbal.",
+          "A photo of a Informative, which has halpmarowpdy.",
+          "A photo of a Informative, which has ribs measureme.",
+          "A photo of a Informative, which has uvuhgutapces.",
+          "A photo of a Informative, which has garnished dry.",
+          "A photo of a Informative, which is aspcpdslatlb.",
+          "A photo of a Informative, which has slide stretches.",
+          "A photo of a Informative, which has heehltrdvupr.",
+          "A photo of a Informative, which has circular rattan.",
+          "A photo of a Informative, which has ohpdobdspdfs.",
+          "A photo of a Informative, which has geometric breaking.",
+          "A photo of a Informative, which has pwlbuetvndmm.",
+          "A photo of a Informative, which has sriracha insulatio.",
+          "A photo of a Informative, which has muuwhdyfvbtm.",
+          "A photo of a Informative, which has socializi sleeve.",
+          "A photo of a Informative, which has wromdgclottb.",
+          "A photo of a Informative, which has hay points.",
+          "A photo of a Informative, which has gfweoeehfoui.",
+          "A photo of a Informative, which has dryer bank.",
+          "A photo of a Informative, which has ovvohggrvivv.",
+          "A photo of a Informative, which has roofline moisture.",
+          "A photo of a Informative, which has lcstawycuhem.",
+          "A photo of a Informative, which has firing taillight.",
+          "A photo of a Informative, which has vneadwdteuuv.",
+          "A photo of a Informative, which has toppings band.",
+          "A photo of a Informative, which has fvlpffucfaor."
+        ],
+        "Not Informative": [
+          "A photo of a Not Informative, which has wheelbase very.",
+          "A photo of a Not Informative, which has iccuwgcnmhla.",
+          "A photo of a Not Informative, which has plant weeds.",
+          "A photo of a Not Informative, which has tfggebvrennl.",
+          "A photo of a Not Informative, which has slope basketbal.",
+          "A photo of a Not Informative, which has halpmarowpdy.",
+          "A photo of a Not Informative, which has ribs measureme.",
+          "A photo of a Not Informative, which has uvuhgutapces.",
+          "A photo of a Not Informative, which has garnished dry.",
+          "A photo of a Not Informative, which is aspcpdslatlb.",
+          "A photo of a Not Informative, which has slide stretches.",
+          "A photo of a Not Informative, which has heehltrdvupr.",
+          "A photo of a Not Informative, which has circular rattan.",
+          "A photo of a Not Informative, which has ohpdobdspdfs.",
+          "A photo of a Not Informative, which has geometric breaking.",
+          "A photo of a Not Informative, which has pwlbuetvndmm.",
+          "A photo of a Not Informative, which has sriracha insulatio.",
+          "A photo of a Not Informative, which has muuwhdyfvbtm.",
+          "A photo of a Not Informative, which has socializi sleeve.",
+          "A photo of a Not Informative, which has wromdgclottb.",
+          "A photo of a Not Informative, which has hay points.",
+          "A photo of a Not Informative, which has gfweoeehfoui.",
+          "A photo of a Not Informative, which has dryer bank.",
+          "A photo of a Not Informative, which has ovvohggrvivv.",
+          "A photo of a Not Informative, which has roofline moisture.",
+          "A photo of a Not Informative, which has lcstawycuhem.",
+          "A photo of a Not Informative, which has firing taillight.",
+          "A photo of a Not Informative, which has vneadwdteuuv.",
+          "A photo of a Not Informative, which has toppings band.",
+          "A photo of a Not Informative, which has fvlpffucfaor."
+        ]
+      },
+      "author_options": {
+        "dataset": "custom",
+        "model_size": "ViT-B/32",
+        "mode": "waffle",
+        "classes_to_load": null,
+        "label_to_classname": [
+          "Informative",
+          "Not Informative"
+        ],
+        "n_classes": 2,
+        "descriptor_fname": "/Users/hung/Documents/MyProject/Python/DA_CNTT/vlm-zeroshot-content-classification/results/upstream_projects/smoke_suite_ua4bjvve/experiment_62_d5hs1/descriptors_crisismmd_informativeness.json",
+        "waffle_count": 15,
+        "label_before_text": "A photo of a ",
+        "label_after_text": ".",
+        "pre_descriptor_text": "",
+        "descriptor_separator": ", ",
+        "apply_descriptor_modification": true
+      }
+    },
+    {
+      "dataset": "crisismmd",
+      "method": "dclip_labels",
+      "seed": null,
+      "prompts": {
+        "Informative": [
+          "Informative"
+        ],
+        "Not Informative": [
+          "Not Informative"
+        ]
+      },
+      "author_options": {
+        "descriptor_fname": "/Users/hung/Documents/MyProject/Python/DA_CNTT/vlm-zeroshot-content-classification/results/upstream_projects/smoke_suite_ua4bjvve/experiment_62_d5hs1/descriptors_crisismmd_informativeness.json",
+        "category_name_inclusion": "prepend",
+        "apply_descriptor_modification": true,
+        "before_text": "",
+        "between_text": ", ",
+        "after_text": "",
+        "label_before_text": "",
+        "label_after_text": ""
+      }
+    },
+    {
+      "dataset": "crisismmd",
+      "method": "dclip",
+      "seed": null,
+      "prompts": {
+        "Informative": [
+          "Informative, which is a view showing the effects of a disaster or an ongoing emergency",
+          "Informative, which is a scene of damaged property, affected people, or emergency response",
+          "Informative, which is a map, weather chart, or public warning about a disaster"
+        ],
+        "Not Informative": [
+          "Not Informative, which is an everyday scene unrelated to a disaster or emergency",
+          "Not Informative, which is a personal portrait, advertisement, or entertainment image",
+          "Not Informative, which is a generic illustration with no concrete disaster information"
+        ]
+      },
+      "author_options": {
+        "descriptor_fname": "/Users/hung/Documents/MyProject/Python/DA_CNTT/vlm-zeroshot-content-classification/results/upstream_projects/smoke_suite_ua4bjvve/experiment_62_d5hs1/descriptors_crisismmd_informativeness.json",
+        "category_name_inclusion": "prepend",
+        "apply_descriptor_modification": true,
+        "before_text": "",
+        "between_text": ", ",
+        "after_text": "",
+        "label_before_text": "",
+        "label_after_text": ""
+      }
+    },
+    {
+      "dataset": "fakeddit",
+      "method": "clip",
+      "seed": null,
+      "prompts": {
+        "True": [
+          "A photo of a True."
+        ],
+        "Satire/Parody": [
+          "A photo of a Satire/Parody."
+        ],
+        "False Connection": [
+          "A photo of a False Connection."
+        ],
+        "Imposter Content": [
+          "A photo of a Imposter Content."
+        ],
+        "Manipulated Content": [
+          "A photo of a Manipulated Content."
+        ],
+        "Misleading Content": [
+          "A photo of a Misleading Content."
+        ]
+      },
+      "author_options": {
+        "dataset": "custom",
+        "model_size": "ViT-B/32",
+        "mode": "clip",
+        "classes_to_load": null,
+        "label_to_classname": [
+          "True",
+          "Satire/Parody",
+          "False Connection",
+          "Imposter Content",
+          "Manipulated Content",
+          "Misleading Content"
+        ],
+        "n_classes": 6,
+        "descriptor_fname": "/Users/hung/Documents/MyProject/Python/DA_CNTT/vlm-zeroshot-content-classification/results/upstream_projects/smoke_suite_ua4bjvve/experiment_62_d5hs1/descriptors_fakeddit_6way.json",
+        "waffle_count": 15,
+        "label_before_text": "A photo of a ",
+        "label_after_text": ".",
+        "pre_descriptor_text": "",
+        "descriptor_separator": ", ",
+        "apply_descriptor_modification": true
+      }
+    },
+    {
+      "dataset": "fakeddit",
+      "method": "waffle",
+      "seed": 0,
+      "prompts": {
+        "True": [
+          "A photo of a True, which has cable-ac shorelin.",
+          "A photo of a True, which has flpggl, odmrec.",
+          "A photo of a True, which has sounds windmill.",
+          "A photo of a True, which has wnikjo, lncubv.",
+          "A photo of a True, which has forelegs goals.",
+          "A photo of a True, which has sxnkwe, zkyesr.",
+          "A photo of a True, which has fastened perfume.",
+          "A photo of a True, which has mtknmn, nbxown.",
+          "A photo of a True, which has bead warmth.",
+          "A photo of a True, which has plhotn, lucjso.",
+          "A photo of a True, which is ages opening.",
+          "A photo of a True, which has beordn, odydhe.",
+          "A photo of a True, which has lens sealed.",
+          "A photo of a True, which has coeuhk, djmipk.",
+          "A photo of a True, which has paprika drugstor.",
+          "A photo of a True, which has uimwuv, netjck.",
+          "A photo of a True, which has carrots their.",
+          "A photo of a True, which is airlgo, oypcwg.",
+          "A photo of a True, which has blade tuna.",
+          "A photo of a True, which has kjmhpo, pueuls.",
+          "A photo of a True, which has facing dehydrat.",
+          "A photo of a True, which has uuscec, raboiy.",
+          "A photo of a True, which has keychain trackpad.",
+          "A photo of a True, which has duzeku, umohgt.",
+          "A photo of a True, which has ringed rails.",
+          "A photo of a True, which has bbtdma, yufuhn.",
+          "A photo of a True, which has dials extend.",
+          "A photo of a True, which has lagoyl, mnlztp.",
+          "A photo of a True, which has military part.",
+          "A photo of a True, which has ecyoii, epzicu."
+        ],
+        "Satire/Parody": [
+          "A photo of a Satire/Parody, which has cable-ac shorelin.",
+          "A photo of a Satire/Parody, which has flpggl, odmrec.",
+          "A photo of a Satire/Parody, which has sounds windmill.",
+          "A photo of a Satire/Parody, which has wnikjo, lncubv.",
+          "A photo of a Satire/Parody, which has forelegs goals.",
+          "A photo of a Satire/Parody, which has sxnkwe, zkyesr.",
+          "A photo of a Satire/Parody, which has fastened perfume.",
+          "A photo of a Satire/Parody, which has mtknmn, nbxown.",
+          "A photo of a Satire/Parody, which has bead warmth.",
+          "A photo of a Satire/Parody, which has plhotn, lucjso.",
+          "A photo of a Satire/Parody, which is ages opening.",
+          "A photo of a Satire/Parody, which has beordn, odydhe.",
+          "A photo of a Satire/Parody, which has lens sealed.",
+          "A photo of a Satire/Parody, which has coeuhk, djmipk.",
+          "A photo of a Satire/Parody, which has paprika drugstor.",
+          "A photo of a Satire/Parody, which has uimwuv, netjck.",
+          "A photo of a Satire/Parody, which has carrots their.",
+          "A photo of a Satire/Parody, which is airlgo, oypcwg.",
+          "A photo of a Satire/Parody, which has blade tuna.",
+          "A photo of a Satire/Parody, which has kjmhpo, pueuls.",
+          "A photo of a Satire/Parody, which has facing dehydrat.",
+          "A photo of a Satire/Parody, which has uuscec, raboiy.",
+          "A photo of a Satire/Parody, which has keychain trackpad.",
+          "A photo of a Satire/Parody, which has duzeku, umohgt.",
+          "A photo of a Satire/Parody, which has ringed rails.",
+          "A photo of a Satire/Parody, which has bbtdma, yufuhn.",
+          "A photo of a Satire/Parody, which has dials extend.",
+          "A photo of a Satire/Parody, which has lagoyl, mnlztp.",
+          "A photo of a Satire/Parody, which has military part.",
+          "A photo of a Satire/Parody, which has ecyoii, epzicu."
+        ],
+        "False Connection": [
+          "A photo of a False Connection, which has cable-ac shorelin.",
+          "A photo of a False Connection, which has flpggl, odmrec.",
+          "A photo of a False Connection, which has sounds windmill.",
+          "A photo of a False Connection, which has wnikjo, lncubv.",
+          "A photo of a False Connection, which has forelegs goals.",
+          "A photo of a False Connection, which has sxnkwe, zkyesr.",
+          "A photo of a False Connection, which has fastened perfume.",
+          "A photo of a False Connection, which has mtknmn, nbxown.",
+          "A photo of a False Connection, which has bead warmth.",
+          "A photo of a False Connection, which has plhotn, lucjso.",
+          "A photo of a False Connection, which is ages opening.",
+          "A photo of a False Connection, which has beordn, odydhe.",
+          "A photo of a False Connection, which has lens sealed.",
+          "A photo of a False Connection, which has coeuhk, djmipk.",
+          "A photo of a False Connection, which has paprika drugstor.",
+          "A photo of a False Connection, which has uimwuv, netjck.",
+          "A photo of a False Connection, which has carrots their.",
+          "A photo of a False Connection, which is airlgo, oypcwg.",
+          "A photo of a False Connection, which has blade tuna.",
+          "A photo of a False Connection, which has kjmhpo, pueuls.",
+          "A photo of a False Connection, which has facing dehydrat.",
+          "A photo of a False Connection, which has uuscec, raboiy.",
+          "A photo of a False Connection, which has keychain trackpad.",
+          "A photo of a False Connection, which has duzeku, umohgt.",
+          "A photo of a False Connection, which has ringed rails.",
+          "A photo of a False Connection, which has bbtdma, yufuhn.",
+          "A photo of a False Connection, which has dials extend.",
+          "A photo of a False Connection, which has lagoyl, mnlztp.",
+          "A photo of a False Connection, which has military part.",
+          "A photo of a False Connection, which has ecyoii, epzicu."
+        ],
+        "Imposter Content": [
+          "A photo of a Imposter Content, which has cable-ac shorelin.",
+          "A photo of a Imposter Content, which has flpggl, odmrec.",
+          "A photo of a Imposter Content, which has sounds windmill.",
+          "A photo of a Imposter Content, which has wnikjo, lncubv.",
+          "A photo of a Imposter Content, which has forelegs goals.",
+          "A photo of a Imposter Content, which has sxnkwe, zkyesr.",
+          "A photo of a Imposter Content, which has fastened perfume.",
+          "A photo of a Imposter Content, which has mtknmn, nbxown.",
+          "A photo of a Imposter Content, which has bead warmth.",
+          "A photo of a Imposter Content, which has plhotn, lucjso.",
+          "A photo of a Imposter Content, which is ages opening.",
+          "A photo of a Imposter Content, which has beordn, odydhe.",
+          "A photo of a Imposter Content, which has lens sealed.",
+          "A photo of a Imposter Content, which has coeuhk, djmipk.",
+          "A photo of a Imposter Content, which has paprika drugstor.",
+          "A photo of a Imposter Content, which has uimwuv, netjck.",
+          "A photo of a Imposter Content, which has carrots their.",
+          "A photo of a Imposter Content, which is airlgo, oypcwg.",
+          "A photo of a Imposter Content, which has blade tuna.",
+          "A photo of a Imposter Content, which has kjmhpo, pueuls.",
+          "A photo of a Imposter Content, which has facing dehydrat.",
+          "A photo of a Imposter Content, which has uuscec, raboiy.",
+          "A photo of a Imposter Content, which has keychain trackpad.",
+          "A photo of a Imposter Content, which has duzeku, umohgt.",
+          "A photo of a Imposter Content, which has ringed rails.",
+          "A photo of a Imposter Content, which has bbtdma, yufuhn.",
+          "A photo of a Imposter Content, which has dials extend.",
+          "A photo of a Imposter Content, which has lagoyl, mnlztp.",
+          "A photo of a Imposter Content, which has military part.",
+          "A photo of a Imposter Content, which has ecyoii, epzicu."
+        ],
+        "Manipulated Content": [
+          "A photo of a Manipulated Content, which has cable-ac shorelin.",
+          "A photo of a Manipulated Content, which has flpggl, odmrec.",
+          "A photo of a Manipulated Content, which has sounds windmill.",
+          "A photo of a Manipulated Content, which has wnikjo, lncubv.",
+          "A photo of a Manipulated Content, which has forelegs goals.",
+          "A photo of a Manipulated Content, which has sxnkwe, zkyesr.",
+          "A photo of a Manipulated Content, which has fastened perfume.",
+          "A photo of a Manipulated Content, which has mtknmn, nbxown.",
+          "A photo of a Manipulated Content, which has bead warmth.",
+          "A photo of a Manipulated Content, which has plhotn, lucjso.",
+          "A photo of a Manipulated Content, which is ages opening.",
+          "A photo of a Manipulated Content, which has beordn, odydhe.",
+          "A photo of a Manipulated Content, which has lens sealed.",
+          "A photo of a Manipulated Content, which has coeuhk, djmipk.",
+          "A photo of a Manipulated Content, which has paprika drugstor.",
+          "A photo of a Manipulated Content, which has uimwuv, netjck.",
+          "A photo of a Manipulated Content, which has carrots their.",
+          "A photo of a Manipulated Content, which is airlgo, oypcwg.",
+          "A photo of a Manipulated Content, which has blade tuna.",
+          "A photo of a Manipulated Content, which has kjmhpo, pueuls.",
+          "A photo of a Manipulated Content, which has facing dehydrat.",
+          "A photo of a Manipulated Content, which has uuscec, raboiy.",
+          "A photo of a Manipulated Content, which has keychain trackpad.",
+          "A photo of a Manipulated Content, which has duzeku, umohgt.",
+          "A photo of a Manipulated Content, which has ringed rails.",
+          "A photo of a Manipulated Content, which has bbtdma, yufuhn.",
+          "A photo of a Manipulated Content, which has dials extend.",
+          "A photo of a Manipulated Content, which has lagoyl, mnlztp.",
+          "A photo of a Manipulated Content, which has military part.",
+          "A photo of a Manipulated Content, which has ecyoii, epzicu."
+        ],
+        "Misleading Content": [
+          "A photo of a Misleading Content, which has cable-ac shorelin.",
+          "A photo of a Misleading Content, which has flpggl, odmrec.",
+          "A photo of a Misleading Content, which has sounds windmill.",
+          "A photo of a Misleading Content, which has wnikjo, lncubv.",
+          "A photo of a Misleading Content, which has forelegs goals.",
+          "A photo of a Misleading Content, which has sxnkwe, zkyesr.",
+          "A photo of a Misleading Content, which has fastened perfume.",
+          "A photo of a Misleading Content, which has mtknmn, nbxown.",
+          "A photo of a Misleading Content, which has bead warmth.",
+          "A photo of a Misleading Content, which has plhotn, lucjso.",
+          "A photo of a Misleading Content, which is ages opening.",
+          "A photo of a Misleading Content, which has beordn, odydhe.",
+          "A photo of a Misleading Content, which has lens sealed.",
+          "A photo of a Misleading Content, which has coeuhk, djmipk.",
+          "A photo of a Misleading Content, which has paprika drugstor.",
+          "A photo of a Misleading Content, which has uimwuv, netjck.",
+          "A photo of a Misleading Content, which has carrots their.",
+          "A photo of a Misleading Content, which is airlgo, oypcwg.",
+          "A photo of a Misleading Content, which has blade tuna.",
+          "A photo of a Misleading Content, which has kjmhpo, pueuls.",
+          "A photo of a Misleading Content, which has facing dehydrat.",
+          "A photo of a Misleading Content, which has uuscec, raboiy.",
+          "A photo of a Misleading Content, which has keychain trackpad.",
+          "A photo of a Misleading Content, which has duzeku, umohgt.",
+          "A photo of a Misleading Content, which has ringed rails.",
+          "A photo of a Misleading Content, which has bbtdma, yufuhn.",
+          "A photo of a Misleading Content, which has dials extend.",
+          "A photo of a Misleading Content, which has lagoyl, mnlztp.",
+          "A photo of a Misleading Content, which has military part.",
+          "A photo of a Misleading Content, which has ecyoii, epzicu."
+        ]
+      },
+      "author_options": {
+        "dataset": "custom",
+        "model_size": "ViT-B/32",
+        "mode": "waffle",
+        "classes_to_load": null,
+        "label_to_classname": [
+          "True",
+          "Satire/Parody",
+          "False Connection",
+          "Imposter Content",
+          "Manipulated Content",
+          "Misleading Content"
+        ],
+        "n_classes": 6,
+        "descriptor_fname": "/Users/hung/Documents/MyProject/Python/DA_CNTT/vlm-zeroshot-content-classification/results/upstream_projects/smoke_suite_ua4bjvve/experiment_62_d5hs1/descriptors_fakeddit_6way.json",
+        "waffle_count": 15,
+        "label_before_text": "A photo of a ",
+        "label_after_text": ".",
+        "pre_descriptor_text": "",
+        "descriptor_separator": ", ",
+        "apply_descriptor_modification": true
+      }
+    },
+    {
+      "dataset": "fakeddit",
+      "method": "dclip_labels",
+      "seed": null,
+      "prompts": {
+        "True": [
+          "True"
+        ],
+        "Satire/Parody": [
+          "Satire/Parody"
+        ],
+        "False Connection": [
+          "False Connection"
+        ],
+        "Imposter Content": [
+          "Imposter Content"
+        ],
+        "Manipulated Content": [
+          "Manipulated Content"
+        ],
+        "Misleading Content": [
+          "Misleading Content"
+        ]
+      },
+      "author_options": {
+        "descriptor_fname": "/Users/hung/Documents/MyProject/Python/DA_CNTT/vlm-zeroshot-content-classification/results/upstream_projects/smoke_suite_ua4bjvve/experiment_62_d5hs1/descriptors_fakeddit_6way.json",
+        "category_name_inclusion": "prepend",
+        "apply_descriptor_modification": true,
+        "before_text": "",
+        "between_text": ", ",
+        "after_text": "",
+        "label_before_text": "",
+        "label_after_text": ""
+      }
+    },
+    {
+      "dataset": "fakeddit",
+      "method": "dclip",
+      "seed": null,
+      "prompts": {
+        "True": [
+          "True, which is an authentic photograph documenting a real event",
+          "True, which is a factual presentation of a person, place, or object",
+          "True, which is an unaltered scene presented in its original context"
+        ],
+        "Satire/Parody": [
+          "Satire/Parody, which is a humorous parody or deliberate satire",
+          "Satire/Parody, which is an exaggerated cartoon or joke about a public event",
+          "Satire/Parody, which is an absurd scene intended for comedy rather than factual reporting"
+        ],
+        "False Connection": [
+          "False Connection, which is a photograph paired with an unrelated headline",
+          "False Connection, which is a picture whose content does not support its accompanying claim",
+          "False Connection, which is a genuine image presented as evidence for a different event"
+        ],
+        "Imposter Content": [
+          "Imposter Content, which is a presentation pretending to come from a trusted news source",
+          "Imposter Content, which is a forged identity, logo, or official document",
+          "Imposter Content, which is a fabricated screenshot impersonating a real person or organization"
+        ],
+        "Manipulated Content": [
+          "Manipulated Content, which is a photograph digitally edited to change its meaning",
+          "Manipulated Content, which is a composite image with objects or people added or removed",
+          "Manipulated Content, which is an altered scene with inconsistent lighting or unnatural details"
+        ],
+        "Misleading Content": [
+          "Misleading Content, which is a real photograph framed to suggest a misleading interpretation",
+          "Misleading Content, which is a cropped or selectively presented scene hiding important context",
+          "Misleading Content, which is an image used to support a deceptive claim about an event"
+        ]
+      },
+      "author_options": {
+        "descriptor_fname": "/Users/hung/Documents/MyProject/Python/DA_CNTT/vlm-zeroshot-content-classification/results/upstream_projects/smoke_suite_ua4bjvve/experiment_62_d5hs1/descriptors_fakeddit_6way.json",
+        "category_name_inclusion": "prepend",
+        "apply_descriptor_modification": true,
+        "before_text": "",
+        "between_text": ", ",
+        "after_text": "",
+        "label_before_text": "",
+        "label_after_text": ""
+      }
+    },
+    {
+      "dataset": "mmimdb",
+      "method": "clip",
+      "seed": null,
+      "prompts": {
+        "Action": [
+          "A photo of a Action."
+        ],
+        "Adventure": [
+          "A photo of a Adventure."
+        ],
+        "Animation": [
+          "A photo of a Animation."
+        ],
+        "Biography": [
+          "A photo of a Biography."
+        ],
+        "Comedy": [
+          "A photo of a Comedy."
+        ],
+        "Crime": [
+          "A photo of a Crime."
+        ],
+        "Documentary": [
+          "A photo of a Documentary."
+        ],
+        "Drama": [
+          "A photo of a Drama."
+        ],
+        "Family": [
+          "A photo of a Family."
+        ],
+        "Fantasy": [
+          "A photo of a Fantasy."
+        ],
+        "Film-Noir": [
+          "A photo of a Film-Noir."
+        ],
+        "History": [
+          "A photo of a History."
+        ],
+        "Horror": [
+          "A photo of a Horror."
+        ],
+        "Music": [
+          "A photo of a Music."
+        ],
+        "Musical": [
+          "A photo of a Musical."
+        ],
+        "Mystery": [
+          "A photo of a Mystery."
+        ],
+        "Short": [
+          "A photo of a Short."
+        ],
+        "Romance": [
+          "A photo of a Romance."
+        ],
+        "Sci-Fi": [
+          "A photo of a Sci-Fi."
+        ],
+        "Sport": [
+          "A photo of a Sport."
+        ],
+        "Thriller": [
+          "A photo of a Thriller."
+        ],
+        "War": [
+          "A photo of a War."
+        ],
+        "Western": [
+          "A photo of a Western."
+        ]
+      },
+      "author_options": {
+        "dataset": "custom",
+        "model_size": "ViT-B/32",
+        "mode": "clip",
+        "classes_to_load": null,
+        "label_to_classname": [
+          "Action",
+          "Adventure",
+          "Animation",
+          "Biography",
+          "Comedy",
+          "Crime",
+          "Documentary",
+          "Drama",
+          "Family",
+          "Fantasy",
+          "Film-Noir",
+          "History",
+          "Horror",
+          "Music",
+          "Musical",
+          "Mystery",
+          "Short",
+          "Romance",
+          "Sci-Fi",
+          "Sport",
+          "Thriller",
+          "War",
+          "Western"
+        ],
+        "n_classes": 23,
+        "descriptor_fname": "/Users/hung/Documents/MyProject/Python/DA_CNTT/vlm-zeroshot-content-classification/results/upstream_projects/smoke_suite_ua4bjvve/experiment_62_d5hs1/descriptors_mmimdb_genres.json",
+        "waffle_count": 15,
+        "label_before_text": "A photo of a ",
+        "label_after_text": ".",
+        "pre_descriptor_text": "",
+        "descriptor_separator": ", ",
+        "apply_descriptor_modification": true
+      }
+    },
+    {
+      "dataset": "mmimdb",
+      "method": "waffle",
+      "seed": 0,
+      "prompts": {
+        "Action": [
+          "A photo of a Action, which has reef.",
+          "A photo of a Action, which has bv-qfwhb.",
+          "A photo of a Action, which has cord.",
+          "A photo of a Action, which has usweabwp.",
+          "A photo of a Action, which has barbell.",
+          "A photo of a Action, which has zutuirxz.",
+          "A photo of a Action, which has marble.",
+          "A photo of a Action, which has p-tulzaj.",
+          "A photo of a Action, which has flower.",
+          "A photo of a Action, which has ccrgcuuf.",
+          "A photo of a Action, which has manual.",
+          "A photo of a Action, which has brzbtlwr.",
+          "A photo of a Action, which has wasteba.",
+          "A photo of a Action, which has knnipmmr.",
+          "A photo of a Action, which has commerc.",
+          "A photo of a Action, which has wnbvbgfs.",
+          "A photo of a Action, which has fixture.",
+          "A photo of a Action, which has -rayevus.",
+          "A photo of a Action, which has fairly.",
+          "A photo of a Action, which has znsiaztk.",
+          "A photo of a Action, which has saturat.",
+          "A photo of a Action, which has kbpfymhA.",
+          "A photo of a Action, which has umbrell.",
+          "A photo of a Action, which has mwjs-eus.",
+          "A photo of a Action, which has magnet.",
+          "A photo of a Action, which has pllfnype.",
+          "A photo of a Action, which has tube-li.",
+          "A photo of a Action, which has noniicba.",
+          "A photo of a Action, which has species.",
+          "A photo of a Action, which has lqhvwcoc."
+        ],
+        "Adventure": [
+          "A photo of a Adventure, which has reef.",
+          "A photo of a Adventure, which has bv-qfwhb.",
+          "A photo of a Adventure, which has cord.",
+          "A photo of a Adventure, which has usweabwp.",
+          "A photo of a Adventure, which has barbell.",
+          "A photo of a Adventure, which has zutuirxz.",
+          "A photo of a Adventure, which has marble.",
+          "A photo of a Adventure, which has p-tulzaj.",
+          "A photo of a Adventure, which has flower.",
+          "A photo of a Adventure, which has ccrgcuuf.",
+          "A photo of a Adventure, which has manual.",
+          "A photo of a Adventure, which has brzbtlwr.",
+          "A photo of a Adventure, which has wasteba.",
+          "A photo of a Adventure, which has knnipmmr.",
+          "A photo of a Adventure, which has commerc.",
+          "A photo of a Adventure, which has wnbvbgfs.",
+          "A photo of a Adventure, which has fixture.",
+          "A photo of a Adventure, which has -rayevus.",
+          "A photo of a Adventure, which has fairly.",
+          "A photo of a Adventure, which has znsiaztk.",
+          "A photo of a Adventure, which has saturat.",
+          "A photo of a Adventure, which has kbpfymhA.",
+          "A photo of a Adventure, which has umbrell.",
+          "A photo of a Adventure, which has mwjs-eus.",
+          "A photo of a Adventure, which has magnet.",
+          "A photo of a Adventure, which has pllfnype.",
+          "A photo of a Adventure, which has tube-li.",
+          "A photo of a Adventure, which has noniicba.",
+          "A photo of a Adventure, which has species.",
+          "A photo of a Adventure, which has lqhvwcoc."
+        ],
+        "Animation": [
+          "A photo of a Animation, which has reef.",
+          "A photo of a Animation, which has bv-qfwhb.",
+          "A photo of a Animation, which has cord.",
+          "A photo of a Animation, which has usweabwp.",
+          "A photo of a Animation, which has barbell.",
+          "A photo of a Animation, which has zutuirxz.",
+          "A photo of a Animation, which has marble.",
+          "A photo of a Animation, which has p-tulzaj.",
+          "A photo of a Animation, which has flower.",
+          "A photo of a Animation, which has ccrgcuuf.",
+          "A photo of a Animation, which has manual.",
+          "A photo of a Animation, which has brzbtlwr.",
+          "A photo of a Animation, which has wasteba.",
+          "A photo of a Animation, which has knnipmmr.",
+          "A photo of a Animation, which has commerc.",
+          "A photo of a Animation, which has wnbvbgfs.",
+          "A photo of a Animation, which has fixture.",
+          "A photo of a Animation, which has -rayevus.",
+          "A photo of a Animation, which has fairly.",
+          "A photo of a Animation, which has znsiaztk.",
+          "A photo of a Animation, which has saturat.",
+          "A photo of a Animation, which has kbpfymhA.",
+          "A photo of a Animation, which has umbrell.",
+          "A photo of a Animation, which has mwjs-eus.",
+          "A photo of a Animation, which has magnet.",
+          "A photo of a Animation, which has pllfnype.",
+          "A photo of a Animation, which has tube-li.",
+          "A photo of a Animation, which has noniicba.",
+          "A photo of a Animation, which has species.",
+          "A photo of a Animation, which has lqhvwcoc."
+        ],
+        "Biography": [
+          "A photo of a Biography, which has reef.",
+          "A photo of a Biography, which has bv-qfwhb.",
+          "A photo of a Biography, which has cord.",
+          "A photo of a Biography, which has usweabwp.",
+          "A photo of a Biography, which has barbell.",
+          "A photo of a Biography, which has zutuirxz.",
+          "A photo of a Biography, which has marble.",
+          "A photo of a Biography, which has p-tulzaj.",
+          "A photo of a Biography, which has flower.",
+          "A photo of a Biography, which has ccrgcuuf.",
+          "A photo of a Biography, which has manual.",
+          "A photo of a Biography, which has brzbtlwr.",
+          "A photo of a Biography, which has wasteba.",
+          "A photo of a Biography, which has knnipmmr.",
+          "A photo of a Biography, which has commerc.",
+          "A photo of a Biography, which has wnbvbgfs.",
+          "A photo of a Biography, which has fixture.",
+          "A photo of a Biography, which has -rayevus.",
+          "A photo of a Biography, which has fairly.",
+          "A photo of a Biography, which has znsiaztk.",
+          "A photo of a Biography, which has saturat.",
+          "A photo of a Biography, which has kbpfymhA.",
+          "A photo of a Biography, which has umbrell.",
+          "A photo of a Biography, which has mwjs-eus.",
+          "A photo of a Biography, which has magnet.",
+          "A photo of a Biography, which has pllfnype.",
+          "A photo of a Biography, which has tube-li.",
+          "A photo of a Biography, which has noniicba.",
+          "A photo of a Biography, which has species.",
+          "A photo of a Biography, which has lqhvwcoc."
+        ],
+        "Comedy": [
+          "A photo of a Comedy, which has reef.",
+          "A photo of a Comedy, which has bv-qfwhb.",
+          "A photo of a Comedy, which has cord.",
+          "A photo of a Comedy, which has usweabwp.",
+          "A photo of a Comedy, which has barbell.",
+          "A photo of a Comedy, which has zutuirxz.",
+          "A photo of a Comedy, which has marble.",
+          "A photo of a Comedy, which has p-tulzaj.",
+          "A photo of a Comedy, which has flower.",
+          "A photo of a Comedy, which has ccrgcuuf.",
+          "A photo of a Comedy, which has manual.",
+          "A photo of a Comedy, which has brzbtlwr.",
+          "A photo of a Comedy, which has wasteba.",
+          "A photo of a Comedy, which has knnipmmr.",
+          "A photo of a Comedy, which has commerc.",
+          "A photo of a Comedy, which has wnbvbgfs.",
+          "A photo of a Comedy, which has fixture.",
+          "A photo of a Comedy, which has -rayevus.",
+          "A photo of a Comedy, which has fairly.",
+          "A photo of a Comedy, which has znsiaztk.",
+          "A photo of a Comedy, which has saturat.",
+          "A photo of a Comedy, which has kbpfymhA.",
+          "A photo of a Comedy, which has umbrell.",
+          "A photo of a Comedy, which has mwjs-eus.",
+          "A photo of a Comedy, which has magnet.",
+          "A photo of a Comedy, which has pllfnype.",
+          "A photo of a Comedy, which has tube-li.",
+          "A photo of a Comedy, which has noniicba.",
+          "A photo of a Comedy, which has species.",
+          "A photo of a Comedy, which has lqhvwcoc."
+        ],
+        "Crime": [
+          "A photo of a Crime, which has reef.",
+          "A photo of a Crime, which has bv-qfwhb.",
+          "A photo of a Crime, which has cord.",
+          "A photo of a Crime, which has usweabwp.",
+          "A photo of a Crime, which has barbell.",
+          "A photo of a Crime, which has zutuirxz.",
+          "A photo of a Crime, which has marble.",
+          "A photo of a Crime, which has p-tulzaj.",
+          "A photo of a Crime, which has flower.",
+          "A photo of a Crime, which has ccrgcuuf.",
+          "A photo of a Crime, which has manual.",
+          "A photo of a Crime, which has brzbtlwr.",
+          "A photo of a Crime, which has wasteba.",
+          "A photo of a Crime, which has knnipmmr.",
+          "A photo of a Crime, which has commerc.",
+          "A photo of a Crime, which has wnbvbgfs.",
+          "A photo of a Crime, which has fixture.",
+          "A photo of a Crime, which has -rayevus.",
+          "A photo of a Crime, which has fairly.",
+          "A photo of a Crime, which has znsiaztk.",
+          "A photo of a Crime, which has saturat.",
+          "A photo of a Crime, which has kbpfymhA.",
+          "A photo of a Crime, which has umbrell.",
+          "A photo of a Crime, which has mwjs-eus.",
+          "A photo of a Crime, which has magnet.",
+          "A photo of a Crime, which has pllfnype.",
+          "A photo of a Crime, which has tube-li.",
+          "A photo of a Crime, which has noniicba.",
+          "A photo of a Crime, which has species.",
+          "A photo of a Crime, which has lqhvwcoc."
+        ],
+        "Documentary": [
+          "A photo of a Documentary, which has reef.",
+          "A photo of a Documentary, which has bv-qfwhb.",
+          "A photo of a Documentary, which has cord.",
+          "A photo of a Documentary, which has usweabwp.",
+          "A photo of a Documentary, which has barbell.",
+          "A photo of a Documentary, which has zutuirxz.",
+          "A photo of a Documentary, which has marble.",
+          "A photo of a Documentary, which has p-tulzaj.",
+          "A photo of a Documentary, which has flower.",
+          "A photo of a Documentary, which has ccrgcuuf.",
+          "A photo of a Documentary, which has manual.",
+          "A photo of a Documentary, which has brzbtlwr.",
+          "A photo of a Documentary, which has wasteba.",
+          "A photo of a Documentary, which has knnipmmr.",
+          "A photo of a Documentary, which has commerc.",
+          "A photo of a Documentary, which has wnbvbgfs.",
+          "A photo of a Documentary, which has fixture.",
+          "A photo of a Documentary, which has -rayevus.",
+          "A photo of a Documentary, which has fairly.",
+          "A photo of a Documentary, which has znsiaztk.",
+          "A photo of a Documentary, which has saturat.",
+          "A photo of a Documentary, which has kbpfymhA.",
+          "A photo of a Documentary, which has umbrell.",
+          "A photo of a Documentary, which has mwjs-eus.",
+          "A photo of a Documentary, which has magnet.",
+          "A photo of a Documentary, which has pllfnype.",
+          "A photo of a Documentary, which has tube-li.",
+          "A photo of a Documentary, which has noniicba.",
+          "A photo of a Documentary, which has species.",
+          "A photo of a Documentary, which has lqhvwcoc."
+        ],
+        "Drama": [
+          "A photo of a Drama, which has reef.",
+          "A photo of a Drama, which has bv-qfwhb.",
+          "A photo of a Drama, which has cord.",
+          "A photo of a Drama, which has usweabwp.",
+          "A photo of a Drama, which has barbell.",
+          "A photo of a Drama, which has zutuirxz.",
+          "A photo of a Drama, which has marble.",
+          "A photo of a Drama, which has p-tulzaj.",
+          "A photo of a Drama, which has flower.",
+          "A photo of a Drama, which has ccrgcuuf.",
+          "A photo of a Drama, which has manual.",
+          "A photo of a Drama, which has brzbtlwr.",
+          "A photo of a Drama, which has wasteba.",
+          "A photo of a Drama, which has knnipmmr.",
+          "A photo of a Drama, which has commerc.",
+          "A photo of a Drama, which has wnbvbgfs.",
+          "A photo of a Drama, which has fixture.",
+          "A photo of a Drama, which has -rayevus.",
+          "A photo of a Drama, which has fairly.",
+          "A photo of a Drama, which has znsiaztk.",
+          "A photo of a Drama, which has saturat.",
+          "A photo of a Drama, which has kbpfymhA.",
+          "A photo of a Drama, which has umbrell.",
+          "A photo of a Drama, which has mwjs-eus.",
+          "A photo of a Drama, which has magnet.",
+          "A photo of a Drama, which has pllfnype.",
+          "A photo of a Drama, which has tube-li.",
+          "A photo of a Drama, which has noniicba.",
+          "A photo of a Drama, which has species.",
+          "A photo of a Drama, which has lqhvwcoc."
+        ],
+        "Family": [
+          "A photo of a Family, which has reef.",
+          "A photo of a Family, which has bv-qfwhb.",
+          "A photo of a Family, which has cord.",
+          "A photo of a Family, which has usweabwp.",
+          "A photo of a Family, which has barbell.",
+          "A photo of a Family, which has zutuirxz.",
+          "A photo of a Family, which has marble.",
+          "A photo of a Family, which has p-tulzaj.",
+          "A photo of a Family, which has flower.",
+          "A photo of a Family, which has ccrgcuuf.",
+          "A photo of a Family, which has manual.",
+          "A photo of a Family, which has brzbtlwr.",
+          "A photo of a Family, which has wasteba.",
+          "A photo of a Family, which has knnipmmr.",
+          "A photo of a Family, which has commerc.",
+          "A photo of a Family, which has wnbvbgfs.",
+          "A photo of a Family, which has fixture.",
+          "A photo of a Family, which has -rayevus.",
+          "A photo of a Family, which has fairly.",
+          "A photo of a Family, which has znsiaztk.",
+          "A photo of a Family, which has saturat.",
+          "A photo of a Family, which has kbpfymhA.",
+          "A photo of a Family, which has umbrell.",
+          "A photo of a Family, which has mwjs-eus.",
+          "A photo of a Family, which has magnet.",
+          "A photo of a Family, which has pllfnype.",
+          "A photo of a Family, which has tube-li.",
+          "A photo of a Family, which has noniicba.",
+          "A photo of a Family, which has species.",
+          "A photo of a Family, which has lqhvwcoc."
+        ],
+        "Fantasy": [
+          "A photo of a Fantasy, which has reef.",
+          "A photo of a Fantasy, which has bv-qfwhb.",
+          "A photo of a Fantasy, which has cord.",
+          "A photo of a Fantasy, which has usweabwp.",
+          "A photo of a Fantasy, which has barbell.",
+          "A photo of a Fantasy, which has zutuirxz.",
+          "A photo of a Fantasy, which has marble.",
+          "A photo of a Fantasy, which has p-tulzaj.",
+          "A photo of a Fantasy, which has flower.",
+          "A photo of a Fantasy, which has ccrgcuuf.",
+          "A photo of a Fantasy, which has manual.",
+          "A photo of a Fantasy, which has brzbtlwr.",
+          "A photo of a Fantasy, which has wasteba.",
+          "A photo of a Fantasy, which has knnipmmr.",
+          "A photo of a Fantasy, which has commerc.",
+          "A photo of a Fantasy, which has wnbvbgfs.",
+          "A photo of a Fantasy, which has fixture.",
+          "A photo of a Fantasy, which has -rayevus.",
+          "A photo of a Fantasy, which has fairly.",
+          "A photo of a Fantasy, which has znsiaztk.",
+          "A photo of a Fantasy, which has saturat.",
+          "A photo of a Fantasy, which has kbpfymhA.",
+          "A photo of a Fantasy, which has umbrell.",
+          "A photo of a Fantasy, which has mwjs-eus.",
+          "A photo of a Fantasy, which has magnet.",
+          "A photo of a Fantasy, which has pllfnype.",
+          "A photo of a Fantasy, which has tube-li.",
+          "A photo of a Fantasy, which has noniicba.",
+          "A photo of a Fantasy, which has species.",
+          "A photo of a Fantasy, which has lqhvwcoc."
+        ],
+        "Film-Noir": [
+          "A photo of a Film-Noir, which has reef.",
+          "A photo of a Film-Noir, which has bv-qfwhb.",
+          "A photo of a Film-Noir, which has cord.",
+          "A photo of a Film-Noir, which has usweabwp.",
+          "A photo of a Film-Noir, which has barbell.",
+          "A photo of a Film-Noir, which has zutuirxz.",
+          "A photo of a Film-Noir, which has marble.",
+          "A photo of a Film-Noir, which has p-tulzaj.",
+          "A photo of a Film-Noir, which has flower.",
+          "A photo of a Film-Noir, which has ccrgcuuf.",
+          "A photo of a Film-Noir, which has manual.",
+          "A photo of a Film-Noir, which has brzbtlwr.",
+          "A photo of a Film-Noir, which has wasteba.",
+          "A photo of a Film-Noir, which has knnipmmr.",
+          "A photo of a Film-Noir, which has commerc.",
+          "A photo of a Film-Noir, which has wnbvbgfs.",
+          "A photo of a Film-Noir, which has fixture.",
+          "A photo of a Film-Noir, which has -rayevus.",
+          "A photo of a Film-Noir, which has fairly.",
+          "A photo of a Film-Noir, which has znsiaztk.",
+          "A photo of a Film-Noir, which has saturat.",
+          "A photo of a Film-Noir, which has kbpfymhA.",
+          "A photo of a Film-Noir, which has umbrell.",
+          "A photo of a Film-Noir, which has mwjs-eus.",
+          "A photo of a Film-Noir, which has magnet.",
+          "A photo of a Film-Noir, which has pllfnype.",
+          "A photo of a Film-Noir, which has tube-li.",
+          "A photo of a Film-Noir, which has noniicba.",
+          "A photo of a Film-Noir, which has species.",
+          "A photo of a Film-Noir, which has lqhvwcoc."
+        ],
+        "History": [
+          "A photo of a History, which has reef.",
+          "A photo of a History, which has bv-qfwhb.",
+          "A photo of a History, which has cord.",
+          "A photo of a History, which has usweabwp.",
+          "A photo of a History, which has barbell.",
+          "A photo of a History, which has zutuirxz.",
+          "A photo of a History, which has marble.",
+          "A photo of a History, which has p-tulzaj.",
+          "A photo of a History, which has flower.",
+          "A photo of a History, which has ccrgcuuf.",
+          "A photo of a History, which has manual.",
+          "A photo of a History, which has brzbtlwr.",
+          "A photo of a History, which has wasteba.",
+          "A photo of a History, which has knnipmmr.",
+          "A photo of a History, which has commerc.",
+          "A photo of a History, which has wnbvbgfs.",
+          "A photo of a History, which has fixture.",
+          "A photo of a History, which has -rayevus.",
+          "A photo of a History, which has fairly.",
+          "A photo of a History, which has znsiaztk.",
+          "A photo of a History, which has saturat.",
+          "A photo of a History, which has kbpfymhA.",
+          "A photo of a History, which has umbrell.",
+          "A photo of a History, which has mwjs-eus.",
+          "A photo of a History, which has magnet.",
+          "A photo of a History, which has pllfnype.",
+          "A photo of a History, which has tube-li.",
+          "A photo of a History, which has noniicba.",
+          "A photo of a History, which has species.",
+          "A photo of a History, which has lqhvwcoc."
+        ],
+        "Horror": [
+          "A photo of a Horror, which has reef.",
+          "A photo of a Horror, which has bv-qfwhb.",
+          "A photo of a Horror, which has cord.",
+          "A photo of a Horror, which has usweabwp.",
+          "A photo of a Horror, which has barbell.",
+          "A photo of a Horror, which has zutuirxz.",
+          "A photo of a Horror, which has marble.",
+          "A photo of a Horror, which has p-tulzaj.",
+          "A photo of a Horror, which has flower.",
+          "A photo of a Horror, which has ccrgcuuf.",
+          "A photo of a Horror, which has manual.",
+          "A photo of a Horror, which has brzbtlwr.",
+          "A photo of a Horror, which has wasteba.",
+          "A photo of a Horror, which has knnipmmr.",
+          "A photo of a Horror, which has commerc.",
+          "A photo of a Horror, which has wnbvbgfs.",
+          "A photo of a Horror, which has fixture.",
+          "A photo of a Horror, which has -rayevus.",
+          "A photo of a Horror, which has fairly.",
+          "A photo of a Horror, which has znsiaztk.",
+          "A photo of a Horror, which has saturat.",
+          "A photo of a Horror, which has kbpfymhA.",
+          "A photo of a Horror, which has umbrell.",
+          "A photo of a Horror, which has mwjs-eus.",
+          "A photo of a Horror, which has magnet.",
+          "A photo of a Horror, which has pllfnype.",
+          "A photo of a Horror, which has tube-li.",
+          "A photo of a Horror, which has noniicba.",
+          "A photo of a Horror, which has species.",
+          "A photo of a Horror, which has lqhvwcoc."
+        ],
+        "Music": [
+          "A photo of a Music, which has reef.",
+          "A photo of a Music, which has bv-qfwhb.",
+          "A photo of a Music, which has cord.",
+          "A photo of a Music, which has usweabwp.",
+          "A photo of a Music, which has barbell.",
+          "A photo of a Music, which has zutuirxz.",
+          "A photo of a Music, which has marble.",
+          "A photo of a Music, which has p-tulzaj.",
+          "A photo of a Music, which has flower.",
+          "A photo of a Music, which has ccrgcuuf.",
+          "A photo of a Music, which has manual.",
+          "A photo of a Music, which has brzbtlwr.",
+          "A photo of a Music, which has wasteba.",
+          "A photo of a Music, which has knnipmmr.",
+          "A photo of a Music, which has commerc.",
+          "A photo of a Music, which has wnbvbgfs.",
+          "A photo of a Music, which has fixture.",
+          "A photo of a Music, which has -rayevus.",
+          "A photo of a Music, which has fairly.",
+          "A photo of a Music, which has znsiaztk.",
+          "A photo of a Music, which has saturat.",
+          "A photo of a Music, which has kbpfymhA.",
+          "A photo of a Music, which has umbrell.",
+          "A photo of a Music, which has mwjs-eus.",
+          "A photo of a Music, which has magnet.",
+          "A photo of a Music, which has pllfnype.",
+          "A photo of a Music, which has tube-li.",
+          "A photo of a Music, which has noniicba.",
+          "A photo of a Music, which has species.",
+          "A photo of a Music, which has lqhvwcoc."
+        ],
+        "Musical": [
+          "A photo of a Musical, which has reef.",
+          "A photo of a Musical, which has bv-qfwhb.",
+          "A photo of a Musical, which has cord.",
+          "A photo of a Musical, which has usweabwp.",
+          "A photo of a Musical, which has barbell.",
+          "A photo of a Musical, which has zutuirxz.",
+          "A photo of a Musical, which has marble.",
+          "A photo of a Musical, which has p-tulzaj.",
+          "A photo of a Musical, which has flower.",
+          "A photo of a Musical, which has ccrgcuuf.",
+          "A photo of a Musical, which has manual.",
+          "A photo of a Musical, which has brzbtlwr.",
+          "A photo of a Musical, which has wasteba.",
+          "A photo of a Musical, which has knnipmmr.",
+          "A photo of a Musical, which has commerc.",
+          "A photo of a Musical, which has wnbvbgfs.",
+          "A photo of a Musical, which has fixture.",
+          "A photo of a Musical, which has -rayevus.",
+          "A photo of a Musical, which has fairly.",
+          "A photo of a Musical, which has znsiaztk.",
+          "A photo of a Musical, which has saturat.",
+          "A photo of a Musical, which has kbpfymhA.",
+          "A photo of a Musical, which has umbrell.",
+          "A photo of a Musical, which has mwjs-eus.",
+          "A photo of a Musical, which has magnet.",
+          "A photo of a Musical, which has pllfnype.",
+          "A photo of a Musical, which has tube-li.",
+          "A photo of a Musical, which has noniicba.",
+          "A photo of a Musical, which has species.",
+          "A photo of a Musical, which has lqhvwcoc."
+        ],
+        "Mystery": [
+          "A photo of a Mystery, which has reef.",
+          "A photo of a Mystery, which has bv-qfwhb.",
+          "A photo of a Mystery, which has cord.",
+          "A photo of a Mystery, which has usweabwp.",
+          "A photo of a Mystery, which has barbell.",
+          "A photo of a Mystery, which has zutuirxz.",
+          "A photo of a Mystery, which has marble.",
+          "A photo of a Mystery, which has p-tulzaj.",
+          "A photo of a Mystery, which has flower.",
+          "A photo of a Mystery, which has ccrgcuuf.",
+          "A photo of a Mystery, which has manual.",
+          "A photo of a Mystery, which has brzbtlwr.",
+          "A photo of a Mystery, which has wasteba.",
+          "A photo of a Mystery, which has knnipmmr.",
+          "A photo of a Mystery, which has commerc.",
+          "A photo of a Mystery, which has wnbvbgfs.",
+          "A photo of a Mystery, which has fixture.",
+          "A photo of a Mystery, which has -rayevus.",
+          "A photo of a Mystery, which has fairly.",
+          "A photo of a Mystery, which has znsiaztk.",
+          "A photo of a Mystery, which has saturat.",
+          "A photo of a Mystery, which has kbpfymhA.",
+          "A photo of a Mystery, which has umbrell.",
+          "A photo of a Mystery, which has mwjs-eus.",
+          "A photo of a Mystery, which has magnet.",
+          "A photo of a Mystery, which has pllfnype.",
+          "A photo of a Mystery, which has tube-li.",
+          "A photo of a Mystery, which has noniicba.",
+          "A photo of a Mystery, which has species.",
+          "A photo of a Mystery, which has lqhvwcoc."
+        ],
+        "Short": [
+          "A photo of a Short, which has reef.",
+          "A photo of a Short, which has bv-qfwhb.",
+          "A photo of a Short, which has cord.",
+          "A photo of a Short, which has usweabwp.",
+          "A photo of a Short, which has barbell.",
+          "A photo of a Short, which has zutuirxz.",
+          "A photo of a Short, which has marble.",
+          "A photo of a Short, which has p-tulzaj.",
+          "A photo of a Short, which has flower.",
+          "A photo of a Short, which has ccrgcuuf.",
+          "A photo of a Short, which has manual.",
+          "A photo of a Short, which has brzbtlwr.",
+          "A photo of a Short, which has wasteba.",
+          "A photo of a Short, which has knnipmmr.",
+          "A photo of a Short, which has commerc.",
+          "A photo of a Short, which has wnbvbgfs.",
+          "A photo of a Short, which has fixture.",
+          "A photo of a Short, which has -rayevus.",
+          "A photo of a Short, which has fairly.",
+          "A photo of a Short, which has znsiaztk.",
+          "A photo of a Short, which has saturat.",
+          "A photo of a Short, which has kbpfymhA.",
+          "A photo of a Short, which has umbrell.",
+          "A photo of a Short, which has mwjs-eus.",
+          "A photo of a Short, which has magnet.",
+          "A photo of a Short, which has pllfnype.",
+          "A photo of a Short, which has tube-li.",
+          "A photo of a Short, which has noniicba.",
+          "A photo of a Short, which has species.",
+          "A photo of a Short, which has lqhvwcoc."
+        ],
+        "Romance": [
+          "A photo of a Romance, which has reef.",
+          "A photo of a Romance, which has bv-qfwhb.",
+          "A photo of a Romance, which has cord.",
+          "A photo of a Romance, which has usweabwp.",
+          "A photo of a Romance, which has barbell.",
+          "A photo of a Romance, which has zutuirxz.",
+          "A photo of a Romance, which has marble.",
+          "A photo of a Romance, which has p-tulzaj.",
+          "A photo of a Romance, which has flower.",
+          "A photo of a Romance, which has ccrgcuuf.",
+          "A photo of a Romance, which has manual.",
+          "A photo of a Romance, which has brzbtlwr.",
+          "A photo of a Romance, which has wasteba.",
+          "A photo of a Romance, which has knnipmmr.",
+          "A photo of a Romance, which has commerc.",
+          "A photo of a Romance, which has wnbvbgfs.",
+          "A photo of a Romance, which has fixture.",
+          "A photo of a Romance, which has -rayevus.",
+          "A photo of a Romance, which has fairly.",
+          "A photo of a Romance, which has znsiaztk.",
+          "A photo of a Romance, which has saturat.",
+          "A photo of a Romance, which has kbpfymhA.",
+          "A photo of a Romance, which has umbrell.",
+          "A photo of a Romance, which has mwjs-eus.",
+          "A photo of a Romance, which has magnet.",
+          "A photo of a Romance, which has pllfnype.",
+          "A photo of a Romance, which has tube-li.",
+          "A photo of a Romance, which has noniicba.",
+          "A photo of a Romance, which has species.",
+          "A photo of a Romance, which has lqhvwcoc."
+        ],
+        "Sci-Fi": [
+          "A photo of a Sci-Fi, which has reef.",
+          "A photo of a Sci-Fi, which has bv-qfwhb.",
+          "A photo of a Sci-Fi, which has cord.",
+          "A photo of a Sci-Fi, which has usweabwp.",
+          "A photo of a Sci-Fi, which has barbell.",
+          "A photo of a Sci-Fi, which has zutuirxz.",
+          "A photo of a Sci-Fi, which has marble.",
+          "A photo of a Sci-Fi, which has p-tulzaj.",
+          "A photo of a Sci-Fi, which has flower.",
+          "A photo of a Sci-Fi, which has ccrgcuuf.",
+          "A photo of a Sci-Fi, which has manual.",
+          "A photo of a Sci-Fi, which has brzbtlwr.",
+          "A photo of a Sci-Fi, which has wasteba.",
+          "A photo of a Sci-Fi, which has knnipmmr.",
+          "A photo of a Sci-Fi, which has commerc.",
+          "A photo of a Sci-Fi, which has wnbvbgfs.",
+          "A photo of a Sci-Fi, which has fixture.",
+          "A photo of a Sci-Fi, which has -rayevus.",
+          "A photo of a Sci-Fi, which has fairly.",
+          "A photo of a Sci-Fi, which has znsiaztk.",
+          "A photo of a Sci-Fi, which has saturat.",
+          "A photo of a Sci-Fi, which has kbpfymhA.",
+          "A photo of a Sci-Fi, which has umbrell.",
+          "A photo of a Sci-Fi, which has mwjs-eus.",
+          "A photo of a Sci-Fi, which has magnet.",
+          "A photo of a Sci-Fi, which has pllfnype.",
+          "A photo of a Sci-Fi, which has tube-li.",
+          "A photo of a Sci-Fi, which has noniicba.",
+          "A photo of a Sci-Fi, which has species.",
+          "A photo of a Sci-Fi, which has lqhvwcoc."
+        ],
+        "Sport": [
+          "A photo of a Sport, which has reef.",
+          "A photo of a Sport, which has bv-qfwhb.",
+          "A photo of a Sport, which has cord.",
+          "A photo of a Sport, which has usweabwp.",
+          "A photo of a Sport, which has barbell.",
+          "A photo of a Sport, which has zutuirxz.",
+          "A photo of a Sport, which has marble.",
+          "A photo of a Sport, which has p-tulzaj.",
+          "A photo of a Sport, which has flower.",
+          "A photo of a Sport, which has ccrgcuuf.",
+          "A photo of a Sport, which has manual.",
+          "A photo of a Sport, which has brzbtlwr.",
+          "A photo of a Sport, which has wasteba.",
+          "A photo of a Sport, which has knnipmmr.",
+          "A photo of a Sport, which has commerc.",
+          "A photo of a Sport, which has wnbvbgfs.",
+          "A photo of a Sport, which has fixture.",
+          "A photo of a Sport, which has -rayevus.",
+          "A photo of a Sport, which has fairly.",
+          "A photo of a Sport, which has znsiaztk.",
+          "A photo of a Sport, which has saturat.",
+          "A photo of a Sport, which has kbpfymhA.",
+          "A photo of a Sport, which has umbrell.",
+          "A photo of a Sport, which has mwjs-eus.",
+          "A photo of a Sport, which has magnet.",
+          "A photo of a Sport, which has pllfnype.",
+          "A photo of a Sport, which has tube-li.",
+          "A photo of a Sport, which has noniicba.",
+          "A photo of a Sport, which has species.",
+          "A photo of a Sport, which has lqhvwcoc."
+        ],
+        "Thriller": [
+          "A photo of a Thriller, which has reef.",
+          "A photo of a Thriller, which has bv-qfwhb.",
+          "A photo of a Thriller, which has cord.",
+          "A photo of a Thriller, which has usweabwp.",
+          "A photo of a Thriller, which has barbell.",
+          "A photo of a Thriller, which has zutuirxz.",
+          "A photo of a Thriller, which has marble.",
+          "A photo of a Thriller, which has p-tulzaj.",
+          "A photo of a Thriller, which has flower.",
+          "A photo of a Thriller, which has ccrgcuuf.",
+          "A photo of a Thriller, which has manual.",
+          "A photo of a Thriller, which has brzbtlwr.",
+          "A photo of a Thriller, which has wasteba.",
+          "A photo of a Thriller, which has knnipmmr.",
+          "A photo of a Thriller, which has commerc.",
+          "A photo of a Thriller, which has wnbvbgfs.",
+          "A photo of a Thriller, which has fixture.",
+          "A photo of a Thriller, which has -rayevus.",
+          "A photo of a Thriller, which has fairly.",
+          "A photo of a Thriller, which has znsiaztk.",
+          "A photo of a Thriller, which has saturat.",
+          "A photo of a Thriller, which has kbpfymhA.",
+          "A photo of a Thriller, which has umbrell.",
+          "A photo of a Thriller, which has mwjs-eus.",
+          "A photo of a Thriller, which has magnet.",
+          "A photo of a Thriller, which has pllfnype.",
+          "A photo of a Thriller, which has tube-li.",
+          "A photo of a Thriller, which has noniicba.",
+          "A photo of a Thriller, which has species.",
+          "A photo of a Thriller, which has lqhvwcoc."
+        ],
+        "War": [
+          "A photo of a War, which has reef.",
+          "A photo of a War, which has bv-qfwhb.",
+          "A photo of a War, which has cord.",
+          "A photo of a War, which has usweabwp.",
+          "A photo of a War, which has barbell.",
+          "A photo of a War, which has zutuirxz.",
+          "A photo of a War, which has marble.",
+          "A photo of a War, which has p-tulzaj.",
+          "A photo of a War, which has flower.",
+          "A photo of a War, which has ccrgcuuf.",
+          "A photo of a War, which has manual.",
+          "A photo of a War, which has brzbtlwr.",
+          "A photo of a War, which has wasteba.",
+          "A photo of a War, which has knnipmmr.",
+          "A photo of a War, which has commerc.",
+          "A photo of a War, which has wnbvbgfs.",
+          "A photo of a War, which has fixture.",
+          "A photo of a War, which has -rayevus.",
+          "A photo of a War, which has fairly.",
+          "A photo of a War, which has znsiaztk.",
+          "A photo of a War, which has saturat.",
+          "A photo of a War, which has kbpfymhA.",
+          "A photo of a War, which has umbrell.",
+          "A photo of a War, which has mwjs-eus.",
+          "A photo of a War, which has magnet.",
+          "A photo of a War, which has pllfnype.",
+          "A photo of a War, which has tube-li.",
+          "A photo of a War, which has noniicba.",
+          "A photo of a War, which has species.",
+          "A photo of a War, which has lqhvwcoc."
+        ],
+        "Western": [
+          "A photo of a Western, which has reef.",
+          "A photo of a Western, which has bv-qfwhb.",
+          "A photo of a Western, which has cord.",
+          "A photo of a Western, which has usweabwp.",
+          "A photo of a Western, which has barbell.",
+          "A photo of a Western, which has zutuirxz.",
+          "A photo of a Western, which has marble.",
+          "A photo of a Western, which has p-tulzaj.",
+          "A photo of a Western, which has flower.",
+          "A photo of a Western, which has ccrgcuuf.",
+          "A photo of a Western, which has manual.",
+          "A photo of a Western, which has brzbtlwr.",
+          "A photo of a Western, which has wasteba.",
+          "A photo of a Western, which has knnipmmr.",
+          "A photo of a Western, which has commerc.",
+          "A photo of a Western, which has wnbvbgfs.",
+          "A photo of a Western, which has fixture.",
+          "A photo of a Western, which has -rayevus.",
+          "A photo of a Western, which has fairly.",
+          "A photo of a Western, which has znsiaztk.",
+          "A photo of a Western, which has saturat.",
+          "A photo of a Western, which has kbpfymhA.",
+          "A photo of a Western, which has umbrell.",
+          "A photo of a Western, which has mwjs-eus.",
+          "A photo of a Western, which has magnet.",
+          "A photo of a Western, which has pllfnype.",
+          "A photo of a Western, which has tube-li.",
+          "A photo of a Western, which has noniicba.",
+          "A photo of a Western, which has species.",
+          "A photo of a Western, which has lqhvwcoc."
+        ]
+      },
+      "author_options": {
+        "dataset": "custom",
+        "model_size": "ViT-B/32",
+        "mode": "waffle",
+        "classes_to_load": null,
+        "label_to_classname": [
+          "Action",
+          "Adventure",
+          "Animation",
+          "Biography",
+          "Comedy",
+          "Crime",
+          "Documentary",
+          "Drama",
+          "Family",
+          "Fantasy",
+          "Film-Noir",
+          "History",
+          "Horror",
+          "Music",
+          "Musical",
+          "Mystery",
+          "Short",
+          "Romance",
+          "Sci-Fi",
+          "Sport",
+          "Thriller",
+          "War",
+          "Western"
+        ],
+        "n_classes": 23,
+        "descriptor_fname": "/Users/hung/Documents/MyProject/Python/DA_CNTT/vlm-zeroshot-content-classification/results/upstream_projects/smoke_suite_ua4bjvve/experiment_62_d5hs1/descriptors_mmimdb_genres.json",
+        "waffle_count": 15,
+        "label_before_text": "A photo of a ",
+        "label_after_text": ".",
+        "pre_descriptor_text": "",
+        "descriptor_separator": ", ",
+        "apply_descriptor_modification": true
+      }
+    },
+    {
+      "dataset": "mmimdb",
+      "method": "dclip_labels",
+      "seed": null,
+      "prompts": {
+        "Action": [
+          "Action"
+        ],
+        "Adventure": [
+          "Adventure"
+        ],
+        "Animation": [
+          "Animation"
+        ],
+        "Biography": [
+          "Biography"
+        ],
+        "Comedy": [
+          "Comedy"
+        ],
+        "Crime": [
+          "Crime"
+        ],
+        "Documentary": [
+          "Documentary"
+        ],
+        "Drama": [
+          "Drama"
+        ],
+        "Family": [
+          "Family"
+        ],
+        "Fantasy": [
+          "Fantasy"
+        ],
+        "Film-Noir": [
+          "Film-Noir"
+        ],
+        "History": [
+          "History"
+        ],
+        "Horror": [
+          "Horror"
+        ],
+        "Music": [
+          "Music"
+        ],
+        "Musical": [
+          "Musical"
+        ],
+        "Mystery": [
+          "Mystery"
+        ],
+        "Short": [
+          "Short"
+        ],
+        "Romance": [
+          "Romance"
+        ],
+        "Sci-Fi": [
+          "Sci-Fi"
+        ],
+        "Sport": [
+          "Sport"
+        ],
+        "Thriller": [
+          "Thriller"
+        ],
+        "War": [
+          "War"
+        ],
+        "Western": [
+          "Western"
+        ]
+      },
+      "author_options": {
+        "descriptor_fname": "/Users/hung/Documents/MyProject/Python/DA_CNTT/vlm-zeroshot-content-classification/results/upstream_projects/smoke_suite_ua4bjvve/experiment_62_d5hs1/descriptors_mmimdb_genres.json",
+        "category_name_inclusion": "prepend",
+        "apply_descriptor_modification": true,
+        "before_text": "",
+        "between_text": ", ",
+        "after_text": "",
+        "label_before_text": "",
+        "label_after_text": ""
+      }
+    },
+    {
+      "dataset": "mmimdb",
+      "method": "dclip",
+      "seed": null,
+      "prompts": {
+        "Action": [
+          "Action, which is a physical confrontation, chase, or armed conflict",
+          "Action, which is a hero facing danger with weapons or vehicles",
+          "Action, which is an explosive or high-energy scene"
+        ],
+        "Adventure": [
+          "Adventure, which is a journey through an unfamiliar or dangerous place",
+          "Adventure, which is an exploration of wilderness or distant lands",
+          "Adventure, which is a quest involving travel and discovery"
+        ],
+        "Animation": [
+          "Animation, which is a scene drawn or rendered with animated characters",
+          "Animation, which is a stylized cartoon or computer-generated setting",
+          "Animation, which is an illustrated character rather than a live-action portrait"
+        ],
+        "Biography": [
+          "Biography, which is a portrait emphasizing the life of a historical person",
+          "Biography, which is a recognizable public figure in a period setting",
+          "Biography, which is a personal life story presented through a central individual"
+        ],
+        "Comedy": [
+          "Comedy, which is a playful or humorous interaction between characters",
+          "Comedy, which is an exaggerated expression or absurd situation",
+          "Comedy, which is a lighthearted scene suggesting a comic misunderstanding"
+        ],
+        "Crime": [
+          "Crime, which is a criminal act or a police investigation",
+          "Crime, which is a gangster, detective, or law enforcement setting",
+          "Crime, which is a scene involving theft, murder, or organized crime"
+        ],
+        "Documentary": [
+          "Documentary, which is a factual presentation of real people or events",
+          "Documentary, which is an observational view of society, nature, or history",
+          "Documentary, which is an interview or archival style of presentation"
+        ],
+        "Drama": [
+          "Drama, which is an emotionally serious interaction between people",
+          "Drama, which is a personal conflict involving family or relationships",
+          "Drama, which is a portrait emphasizing grief, hardship, or emotional tension"
+        ],
+        "Family": [
+          "Family, which is a child-centered story suitable for a broad family audience",
+          "Family, which is a warm interaction among family members",
+          "Family, which is a friendly adventure involving children or animals"
+        ],
+        "Fantasy": [
+          "Fantasy, which is a magical creature or supernatural world",
+          "Fantasy, which is a mythical setting with enchanted objects",
+          "Fantasy, which is a scene involving magic, dragons, or imagined realms"
+        ],
+        "Film-Noir": [
+          "Film-Noir, which is a shadowy urban scene with a detective or criminal",
+          "Film-Noir, which is a high-contrast setting suggesting moral ambiguity",
+          "Film-Noir, which is a mysterious figure in a dark crime atmosphere"
+        ],
+        "History": [
+          "History, which is a recreation of a significant historical event",
+          "History, which is a period setting with historically specific clothing",
+          "History, which is a depiction of historical leaders or social change"
+        ],
+        "Horror": [
+          "Horror, which is a frightening creature or threatening supernatural presence",
+          "Horror, which is a disturbing scene intended to evoke fear",
+          "Horror, which is a dark setting with danger, haunting, or gruesome imagery"
+        ],
+        "Music": [
+          "Music, which is a musician performing or holding an instrument",
+          "Music, which is a concert or a story centered on music",
+          "Music, which is a singer or band in a performance setting"
+        ],
+        "Musical": [
+          "Musical, which is a staged song-and-dance performance",
+          "Musical, which is a theatrical ensemble singing or dancing",
+          "Musical, which is a colorful performance in which music advances the story"
+        ],
+        "Mystery": [
+          "Mystery, which is a hidden identity or an unexplained event",
+          "Mystery, which is a character searching for clues",
+          "Mystery, which is a suspicious scene suggesting an unresolved puzzle"
+        ],
+        "Short": [
+          "Short, which is a compact film story presented as a short film",
+          "Short, which is a small-scale or experimental film presentation",
+          "Short, which is a self-contained cinematic vignette"
+        ],
+        "Romance": [
+          "Romance, which is a couple in an intimate or affectionate interaction",
+          "Romance, which is a love story centered on a romantic relationship",
+          "Romance, which is a scene emphasizing attraction or emotional attachment"
+        ],
+        "Sci-Fi": [
+          "Sci-Fi, which is a futuristic technology or spacecraft",
+          "Sci-Fi, which is an alien world or a science-fiction setting",
+          "Sci-Fi, which is a robot, space exploration, or speculative scientific invention"
+        ],
+        "Sport": [
+          "Sport, which is an athlete competing or training",
+          "Sport, which is a sporting event with players and equipment",
+          "Sport, which is a story centered on a team or athletic achievement"
+        ],
+        "Thriller": [
+          "Thriller, which is a tense confrontation or imminent threat",
+          "Thriller, which is a character pursued or trapped in danger",
+          "Thriller, which is a suspenseful scene involving secrecy or survival"
+        ],
+        "War": [
+          "War, which is a military conflict with soldiers or weapons",
+          "War, which is a battlefield or wartime civilian setting",
+          "War, which is a scene centered on combat or the effects of war"
+        ],
+        "Western": [
+          "Western, which is a cowboy or gunslinger in a frontier setting",
+          "Western, which is a horse, desert town, or American western landscape",
+          "Western, which is a confrontation set in the historical American frontier"
+        ]
+      },
+      "author_options": {
+        "descriptor_fname": "/Users/hung/Documents/MyProject/Python/DA_CNTT/vlm-zeroshot-content-classification/results/upstream_projects/smoke_suite_ua4bjvve/experiment_62_d5hs1/descriptors_mmimdb_genres.json",
+        "category_name_inclusion": "prepend",
+        "apply_descriptor_modification": true,
+        "before_text": "",
+        "between_text": ", ",
+        "after_text": "",
+        "label_before_text": "",
+        "label_after_text": ""
+      }
+    }
+  ],
+  "sources": {
+    "WaffleCLIP": {
+      "url": "https://github.com/ExplainableML/WaffleCLIP.git",
+      "commit": "7a1b8ee48e31285f62ecd839fecb6b89cbef81f1",
+      "paper": "https://arxiv.org/abs/2306.07282"
+    },
+    "DCLIP": {
+      "url": "https://github.com/sachit-menon/classify_by_description_release.git",
+      "commit": "d1a3d8920af89bd0d6a692ed3afeb277df46e082",
+      "paper": "https://arxiv.org/abs/2210.07183"
+    },
+    "OpenAI_CLIP": {
+      "url": "https://github.com/openai/CLIP.git",
+      "commit": "d05afc436d78f1c48dc0dbf8e5980a9d471f35f6",
+      "paper": "https://arxiv.org/abs/2103.00020"
+    }
+  },
+  "git_hash": "e82d021743dcb07b6876e73e50e48442606629bd",
+  "protocol": "frozen_no_fit_exploratory",
+  "source_hashes": {
+    "src/config.py": "e85c8843c8e3b0f34b74cce4ad652b862ac70c6a3d8f17eae46e517ddddfe42d",
+    "src/demo.py": "7bf8794c2a19d1f47e27f8f9e706419de44115d5dd3c594da7db14c950fddf3f",
+    "src/evaluate.py": "13e369b8fa8898a751afc0cd0b7d5360229b1a574cd00522dabf6b0137dc3d1f",
+    "src/evaluation_audit.py": "c51a314bf1fe0790a25201a59816fa88b6d06946960af3e6862ee5e5a27da1c0",
+    "src/inference.py": "58006800e7ffb45dd71d6a5511ce276aa7c77e6a78432d95988a4e6ce473defa",
+    "src/logging_utils.py": "37ce22a854568fe025a645a415d4b391139f7ea00f043f2e352ebafabffeade9",
+    "src/models/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "src/models/model_registry.py": "0aca2fae98e75eb75ba077f891367543f99d8b2dc22853609ab24d03b4d6e6bb",
+    "src/preprocessing/data_crisismmd/check_crisismmd_processed.py": "db23159b26d73305d0e3ecd3e248c08a18ce892ad1b9536f496c95be20392178",
+    "src/preprocessing/data_crisismmd/preprocess_crisismmd.py": "dc63692f8de39e61d49e9fbfbd8634f980d856dbceda26a180b597268f95133a",
+    "src/preprocessing/data_fakeddit/check_fakeddit_ready.py": "1da592331ef420f98763b2b4456bcb1d8a36129158deb6e6604500163a43bf9b",
+    "src/preprocessing/data_fakeddit/image_downloader.py": "ed5a2da169a357a274da29b2aaa272f20c7b71de432ba0a6e0471680e441e1df",
+    "src/preprocessing/data_fakeddit/preprocess_fakeddit.py": "8485e197320fa345f941cf637fbde35179a45713be150142873c82c52e3bd7c3",
+    "src/preprocessing/data_mmimdb/check_mmimdb_ready.py": "a85fea828306ae4b82cd03a2c8b1d3584d7b42793511f57a5983d924ed983bd2",
+    "src/preprocessing/data_mmimdb/preprocess_mmimdb.py": "95add68bb14e07c303df5b73f130328e2afe4a9fb8cf70a46c631dc5da791e19",
+    "src/prompts/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "src/prompts/crisismmd_prompts.py": "1b4105bee5a11a4cd36b2cb75bd9c2cdad102b0b80431c142ec2d4ef225d82c7",
+    "src/prompts/fakeddit_prompts.py": "4440673640e19e6151417386e4c4512486f0187ad5bc3fc0ac137c4736904172",
+    "src/prompts/mmimdb_prompts.py": "1fb94954049555d75d89c70182de29baf494625bedeaa1901059e94baaeb4ddc",
+    "src/research/__init__.py": "c0b1bb68d820937dd39326cbc9fcc24e001c6c3beefd0b09732de585760e4c01",
+    "src/research/adapted_methods.py": "6fa6b4dbf5c125b13146fb04cf01ab59cd2ca246981f40c833e70fdba1c50d3d",
+    "src/research/run_adapted_methods.py": "20c9d4cb3de03fef75d632a41a7292bc39094cb2d1f6c43bddd5517ccf49c2a2",
+    "src/research/run_upstream.py": "cdc74ce6b61ec9f04edb117343280a0adb1f15e0c1e77489a22da090353da42f",
+    "src/research/upstream.py": "8216a82d0ebe70204f1a2b5f7977210cb80b8632bc891cfde1333044bb990861",
+    "src/run/__init__.py": "d6045de51bed3d3aff5615c2e0a47242041fbf3ab45d3e01c018bac9b954d5cc",
+    "src/run/common.py": "765828356bf79483bf2ac2abb9b8241e86fc2f38238079b0292c584da1260b85",
+    "src/run/run_crisismmd.py": "c464d3a81bb96d138d0ff30b5d0332fa0838cbebf5a1a436082932e02733ab81",
+    "src/run/run_fakeddit.py": "5084a27f047aad3c463f50403262c347c8717512ebeed37d7b98379da27e4068",
+    "src/run/run_mmimdb.py": "f980892fab08f4bbc9cecd73548b663cae20f8144367863be34270c21a6cf76f",
+    "src/run_experiment.py": "af61f2117f6ea4afadee2846032087adb28922bc647595a1bdcf7cc1ad982d74",
+    "src/text_chunking.py": "ac5f2e917eda4783b4187bbfe7a5b82b09ab3761780d84d24bf01c01c4791487",
+    "src/text_scale.py": "bbdf3dade644f5036d0e5ad57766e711a7e0be8f1711e91fa541ef53aee94eae"
+  }
+}

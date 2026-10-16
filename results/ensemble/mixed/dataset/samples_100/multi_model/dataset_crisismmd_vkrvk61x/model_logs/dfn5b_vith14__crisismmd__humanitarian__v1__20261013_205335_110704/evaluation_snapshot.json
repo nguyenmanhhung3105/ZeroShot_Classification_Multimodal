@@ -1,0 +1,1980 @@
+{
+  "sample_set_id": "e52a9a47d595d3a738cbbd19d50c23388b94ecbd9382fea965810c49fab3c1f0",
+  "cohort": {
+    "dataset": "crisismmd",
+    "task": "humanitarian",
+    "scope": "ensemble_smoke_100",
+    "data_path": "data/processed/pro_crisismmd/pre_crisismmd.tsv",
+    "limit": 100,
+    "min_text_length": 0,
+    "id_col": "tweet_id",
+    "text_col": "clean_text",
+    "label_col": "label_humanitarian",
+    "samples": [
+      {
+        "id": "9,17791E+17",
+        "text_sha256": "73eb6e62b5b08e7cf0d7f302e770932608b091ff2834ef9a94a3df7faadf0323",
+        "label": "other_relevant_information",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/10_10_2017/917791044158185473_0.jpg",
+        "image_stat": {
+          "size": 43879,
+          "mtime_ns": 1581856182718355632
+        }
+      },
+      {
+        "id": "9,17793E+17",
+        "text_sha256": "37de66b3b00f4a01a4ed42dcf425262450135fdafca3e4d2150140d636890aa7",
+        "label": "infrastructure_and_utility_damage",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/10_10_2017/917793137925459968_0.jpg",
+        "image_stat": {
+          "size": 41100,
+          "mtime_ns": 1581856182000000000
+        }
+      },
+      {
+        "id": "9,17793E+17",
+        "text_sha256": "37de66b3b00f4a01a4ed42dcf425262450135fdafca3e4d2150140d636890aa7",
+        "label": "infrastructure_and_utility_damage",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/10_10_2017/917793137925459968_1.jpg",
+        "image_stat": {
+          "size": 21256,
+          "mtime_ns": 1581856182000000000
+        }
+      },
+      {
+        "id": "9,17793E+17",
+        "text_sha256": "37de66b3b00f4a01a4ed42dcf425262450135fdafca3e4d2150140d636890aa7",
+        "label": "infrastructure_and_utility_damage",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/10_10_2017/917793137925459968_2.jpg",
+        "image_stat": {
+          "size": 23830,
+          "mtime_ns": 1581856182000000000
+        }
+      },
+      {
+        "id": "9,17794E+17",
+        "text_sha256": "14ed28e504413422a06db19b3eac6b33ba458c302da03273877410fe51747b37",
+        "label": "not_humanitarian",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/10_10_2017/917793736918216706_0.jpg",
+        "image_stat": {
+          "size": 77325,
+          "mtime_ns": 1581856182774824105
+        }
+      },
+      {
+        "id": "9,17794E+17",
+        "text_sha256": "d6ec7c49b75500bbb4ac42938ce0c5dde2e5092698cd7536977f217cb973ef5d",
+        "label": "injured_or_dead_people",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/10_10_2017/917794024173563904_0.jpg",
+        "image_stat": {
+          "size": 97146,
+          "mtime_ns": 1581856182000000000
+        }
+      },
+      {
+        "id": "9,17795E+17",
+        "text_sha256": "d57f9cdbf9a1d397e7ad7cacb58d3b809b4bb4071944f301b2f01ab539e50f40",
+        "label": "other_relevant_information",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/10_10_2017/917795098523512962_0.jpg",
+        "image_stat": {
+          "size": 167527,
+          "mtime_ns": 1581856182000000000
+        }
+      },
+      {
+        "id": "9,17798E+17",
+        "text_sha256": "675128977974e91f15a6141818312de5abc39971751451a9b7bb474fe3c8b664",
+        "label": "other_relevant_information",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/10_10_2017/917797601763889160_0.jpg",
+        "image_stat": {
+          "size": 159839,
+          "mtime_ns": 1581856182000000000
+        }
+      },
+      {
+        "id": "9,17798E+17",
+        "text_sha256": "c3d6d1087a6335f363757745e345f1417e4d1939f6dcd13d78a1bd5ecc768f06",
+        "label": "infrastructure_and_utility_damage",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/10_10_2017/917797763282214913_0.jpg",
+        "image_stat": {
+          "size": 162528,
+          "mtime_ns": 1581856182000000000
+        }
+      },
+      {
+        "id": "9,17803E+17",
+        "text_sha256": "316fd6a68d99e6d70da98f421001ea24da644abf044c6a9cf845c73c2c002d06",
+        "label": "other_relevant_information",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/10_10_2017/917803185317859329_0.jpg",
+        "image_stat": {
+          "size": 45745,
+          "mtime_ns": 1581856182000000000
+        }
+      },
+      {
+        "id": "9,17809E+17",
+        "text_sha256": "5be0220b4c961eff702dc5003046d2965c20d0bfe49168952eae28ff7953aa4a",
+        "label": "rescue_volunteering_or_donation_effort",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/10_10_2017/917809119310041089_0.jpg",
+        "image_stat": {
+          "size": 42674,
+          "mtime_ns": 1581856182000000000
+        }
+      },
+      {
+        "id": "9,17811E+17",
+        "text_sha256": "c892a1d4cffa50568ae30e8610dca52b494e52d47c42a06720c1f88c3651fa8d",
+        "label": "infrastructure_and_utility_damage",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/10_10_2017/917810972479381504_0.jpg",
+        "image_stat": {
+          "size": 30467,
+          "mtime_ns": 1581856182000000000
+        }
+      },
+      {
+        "id": "9,17815E+17",
+        "text_sha256": "4b440afd995302ad76fec963e2ccf375bfdec9ae4bb64e301ff00d71d0736736",
+        "label": "infrastructure_and_utility_damage",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/10_10_2017/917815040962695168_2.jpg",
+        "image_stat": {
+          "size": 105757,
+          "mtime_ns": 1581856182000000000
+        }
+      },
+      {
+        "id": "9,17816E+17",
+        "text_sha256": "3a31a19740143e1c41dfc07c06165f9b525051eeb71957530db968322db26c53",
+        "label": "other_relevant_information",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/10_10_2017/917816344061542401_0.jpg",
+        "image_stat": {
+          "size": 89920,
+          "mtime_ns": 1581856182000000000
+        }
+      },
+      {
+        "id": "9,17817E+17",
+        "text_sha256": "3ba7e677601f427f42d0f9e2368887c62d25f8db20611c1d300ab03fd5c5bcf2",
+        "label": "infrastructure_and_utility_damage",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/10_10_2017/917817013409583106_0.jpg",
+        "image_stat": {
+          "size": 43844,
+          "mtime_ns": 1581856182000000000
+        }
+      },
+      {
+        "id": "9,17819E+17",
+        "text_sha256": "53ed639508edf3662a643cfe18bde09865f05d4b71ee7eb2c3d1fa6cc78a4463",
+        "label": "infrastructure_and_utility_damage",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/10_10_2017/917818995377569793_0.jpg",
+        "image_stat": {
+          "size": 66606,
+          "mtime_ns": 1581856182000000000
+        }
+      },
+      {
+        "id": "9,17821E+17",
+        "text_sha256": "54bd84b6691e95f4e764ef9e8010ddfca11bc74d07b97a0f25c1d49c876461f9",
+        "label": "not_humanitarian",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/10_10_2017/917821459321556992_0.jpg",
+        "image_stat": {
+          "size": 18325,
+          "mtime_ns": 1581856183005616884
+        }
+      },
+      {
+        "id": "9,17822E+17",
+        "text_sha256": "da98cdf6b9d3493ae7810f888c697c7d61771ebadd7bae9ac17497b968e220a6",
+        "label": "infrastructure_and_utility_damage",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/10_10_2017/917822041079861248_0.jpg",
+        "image_stat": {
+          "size": 92815,
+          "mtime_ns": 1581856183000000000
+        }
+      },
+      {
+        "id": "9,17823E+17",
+        "text_sha256": "b79fef69cb29585776e0ff8993467cea5396fd74a3777906ef33e35962cd6312",
+        "label": "not_humanitarian",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/10_10_2017/917822562259931137_0.jpg",
+        "image_stat": {
+          "size": 2512,
+          "mtime_ns": 1581856183000000000
+        }
+      },
+      {
+        "id": "9,17825E+17",
+        "text_sha256": "ac964e5d9776b57f598e5490b06c0139bd69aa803c654bc615bb87fd54fb20bc",
+        "label": "other_relevant_information",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/10_10_2017/917825135884738560_0.jpg",
+        "image_stat": {
+          "size": 52415,
+          "mtime_ns": 1581856183000000000
+        }
+      },
+      {
+        "id": "9,17825E+17",
+        "text_sha256": "5fabb4dbcd41c39821b307ae3604a490c918d1e7ce3a65c64befe4d34040b6a9",
+        "label": "not_humanitarian",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/10_10_2017/917825152636907523_0.jpg",
+        "image_stat": {
+          "size": 50691,
+          "mtime_ns": 1581856183035231237
+        }
+      },
+      {
+        "id": "9,17825E+17",
+        "text_sha256": "b7b93285bec5fc1d8bbd554dfe8fbedf9409fcb82a5e11f53c44b8afbe95f3fb",
+        "label": "not_humanitarian",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/10_10_2017/917825267136995328_0.jpg",
+        "image_stat": {
+          "size": 33952,
+          "mtime_ns": 1581856183000000000
+        }
+      },
+      {
+        "id": "9,17827E+17",
+        "text_sha256": "7c0a14177b14d3698f8717581c61bbdd7941ff77c44a7d0a4d3ccda646fa6218",
+        "label": "other_relevant_information",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/10_10_2017/917826948625088512_0.jpg",
+        "image_stat": {
+          "size": 135676,
+          "mtime_ns": 1581856183000000000
+        }
+      },
+      {
+        "id": "9,17827E+17",
+        "text_sha256": "f65fc99ee7a468467a904deaa6e61547c7a96581e0c67d7d5f2c529ff3ded57f",
+        "label": "not_humanitarian",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/10_10_2017/917827102308671488_0.jpg",
+        "image_stat": {
+          "size": 36717,
+          "mtime_ns": 1581856183000000000
+        }
+      },
+      {
+        "id": "9,17827E+17",
+        "text_sha256": "fdce96b2593c889be6a80f8b6eb3e8a59a6d11a7038d23f7ae118934af1b81fe",
+        "label": "not_humanitarian",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/10_10_2017/917827226372132864_0.jpg",
+        "image_stat": {
+          "size": 25234,
+          "mtime_ns": 1581856183079854716
+        }
+      },
+      {
+        "id": "9,17828E+17",
+        "text_sha256": "f7e9b9a841d4f354a90baba12e7edab89a79ab66327a5860f8c4b27620e08b6c",
+        "label": "other_relevant_information",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/10_10_2017/917828283047260161_0.jpg",
+        "image_stat": {
+          "size": 58756,
+          "mtime_ns": 1581856183000000000
+        }
+      },
+      {
+        "id": "9,17828E+17",
+        "text_sha256": "f7e9b9a841d4f354a90baba12e7edab89a79ab66327a5860f8c4b27620e08b6c",
+        "label": "other_relevant_information",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/10_10_2017/917828283047260161_2.jpg",
+        "image_stat": {
+          "size": 120775,
+          "mtime_ns": 1581856183000000000
+        }
+      },
+      {
+        "id": "9,17829E+17",
+        "text_sha256": "5d824bb2e49c78bf49445f42bfbf8be8b9cc100beec976e082718069621d5b50",
+        "label": "infrastructure_and_utility_damage",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/10_10_2017/917828826083840000_0.jpg",
+        "image_stat": {
+          "size": 95322,
+          "mtime_ns": 1581856183000000000
+        }
+      },
+      {
+        "id": "9,17829E+17",
+        "text_sha256": "b0f41c9a54e82cd7bbca1e86cad8ccbc3ffc58a6b2b834a32e290a46e96138cf",
+        "label": "other_relevant_information",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/10_10_2017/917829232423731200_0.png",
+        "image_stat": {
+          "size": 468595,
+          "mtime_ns": 1581856183000000000
+        }
+      },
+      {
+        "id": "9,1783E+17",
+        "text_sha256": "7ab233791cdf5814cc03cc0f849bafe0e363bd6910cfe2a41bdf5384e5b80941",
+        "label": "not_humanitarian",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/10_10_2017/917829763812618240_0.jpg",
+        "image_stat": {
+          "size": 194481,
+          "mtime_ns": 1581856183000000000
+        }
+      },
+      {
+        "id": "9,1783E+17",
+        "text_sha256": "9cf9f19196f428a60adb827fb07107be87d871d6d38f3f5fa4e3fbe1dc9d79f7",
+        "label": "not_humanitarian",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/10_10_2017/917830092620836864_0.jpg",
+        "image_stat": {
+          "size": 237059,
+          "mtime_ns": 1581856183186097470
+        }
+      },
+      {
+        "id": "9,1783E+17",
+        "text_sha256": "9cf9f19196f428a60adb827fb07107be87d871d6d38f3f5fa4e3fbe1dc9d79f7",
+        "label": "not_humanitarian",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/10_10_2017/917830092620836864_1.jpg",
+        "image_stat": {
+          "size": 403762,
+          "mtime_ns": 1581856183000000000
+        }
+      },
+      {
+        "id": "9,1783E+17",
+        "text_sha256": "9cf9f19196f428a60adb827fb07107be87d871d6d38f3f5fa4e3fbe1dc9d79f7",
+        "label": "not_humanitarian",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/10_10_2017/917830092620836864_2.jpg",
+        "image_stat": {
+          "size": 469188,
+          "mtime_ns": 1581856183000000000
+        }
+      },
+      {
+        "id": "9,1783E+17",
+        "text_sha256": "9cf9f19196f428a60adb827fb07107be87d871d6d38f3f5fa4e3fbe1dc9d79f7",
+        "label": "not_humanitarian",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/10_10_2017/917830092620836864_3.jpg",
+        "image_stat": {
+          "size": 355166,
+          "mtime_ns": 1581856183000000000
+        }
+      },
+      {
+        "id": "9,1783E+17",
+        "text_sha256": "2ef266acf1613963a9ad3bf0455ae2feca58230b5167d8fc850e02925db742db",
+        "label": "not_humanitarian",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/10_10_2017/917830113529618433_0.jpg",
+        "image_stat": {
+          "size": 9225,
+          "mtime_ns": 1581856183000000000
+        }
+      },
+      {
+        "id": "9,17832E+17",
+        "text_sha256": "124d952c3019425d02720079a9b329bd1d9309085a752bd96fa200a3401f11b0",
+        "label": "not_humanitarian",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/10_10_2017/917832022017445888_1.jpg",
+        "image_stat": {
+          "size": 117818,
+          "mtime_ns": 1581856183000000000
+        }
+      },
+      {
+        "id": "9,17834E+17",
+        "text_sha256": "f2565e2ff807ab42fe0e45d8c509bde2d887af504567c98d4822a0595196e1e8",
+        "label": "other_relevant_information",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/10_10_2017/917833777812066304_0.jpg",
+        "image_stat": {
+          "size": 45447,
+          "mtime_ns": 1581856183000000000
+        }
+      },
+      {
+        "id": "9,17834E+17",
+        "text_sha256": "0559b24bedc3626d0ab7599f61d099d8b03e03248c2ab4f0853cee666f4b81a1",
+        "label": "other_relevant_information",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/10_10_2017/917833987824979968_0.jpg",
+        "image_stat": {
+          "size": 46537,
+          "mtime_ns": 1581856183000000000
+        }
+      },
+      {
+        "id": "9,17835E+17",
+        "text_sha256": "a803e15c0d47296ff45d442ae09cecd878253f946196908b160b4c1cb3e2a3b8",
+        "label": "infrastructure_and_utility_damage",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/10_10_2017/917834628290920448_0.jpg",
+        "image_stat": {
+          "size": 40466,
+          "mtime_ns": 1581856183000000000
+        }
+      },
+      {
+        "id": "9,17836E+17",
+        "text_sha256": "ae27abe5250728610d59f5250e5245a0d4c5e0ef2c68f92343164778a7be8ede",
+        "label": "other_relevant_information",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/10_10_2017/917836387155677185_0.jpg",
+        "image_stat": {
+          "size": 120288,
+          "mtime_ns": 1581856183000000000
+        }
+      },
+      {
+        "id": "9,17838E+17",
+        "text_sha256": "d184044cedd22862e8329bb16e34d34edb823f872ff1f8465562cd1fb2839ed9",
+        "label": "infrastructure_and_utility_damage",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/10_10_2017/917837517562445824_0.jpg",
+        "image_stat": {
+          "size": 103897,
+          "mtime_ns": 1581856183000000000
+        }
+      },
+      {
+        "id": "9,1784E+17",
+        "text_sha256": "dbe532e1df2052a5802661362d92c32fa2570f1d229f1d5134b42137de2656ca",
+        "label": "other_relevant_information",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/10_10_2017/917840110296752134_0.jpg",
+        "image_stat": {
+          "size": 168040,
+          "mtime_ns": 1581856183000000000
+        }
+      },
+      {
+        "id": "9,17841E+17",
+        "text_sha256": "21d51fa08566a857fdb1ab0a3db778d5e0cac26c31229dc538f47f5943e30415",
+        "label": "not_humanitarian",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/10_10_2017/917840814285443072_0.jpg",
+        "image_stat": {
+          "size": 31438,
+          "mtime_ns": 1581856183000000000
+        }
+      },
+      {
+        "id": "9,17843E+17",
+        "text_sha256": "22b68fe667747eeff42c23ada3b01623019f7dd9c4dc11199d06318f73c513d4",
+        "label": "not_humanitarian",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/10_10_2017/917843187187814400_0.jpg",
+        "image_stat": {
+          "size": 22178,
+          "mtime_ns": 1581856183000000000
+        }
+      },
+      {
+        "id": "9,17844E+17",
+        "text_sha256": "bdaf2cd4a60c11989f412cc7ba0c663a7d0228d167e82988e513cda1ed0fff2b",
+        "label": "not_humanitarian",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/10_10_2017/917844462662967297_0.jpg",
+        "image_stat": {
+          "size": 75778,
+          "mtime_ns": 1581856183000000000
+        }
+      },
+      {
+        "id": "9,17844E+17",
+        "text_sha256": "d032beb9c8fa0612b2ab98923f604f1c22110df21a4c51d7236079102406963e",
+        "label": "not_humanitarian",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/10_10_2017/917844475686162437_0.jpg",
+        "image_stat": {
+          "size": 140541,
+          "mtime_ns": 1581856183000000000
+        }
+      },
+      {
+        "id": "9,17845E+17",
+        "text_sha256": "f6fe1f3ff358e4fa1248d1400d5d25221eedbcd1272754109aa3b66561f91f2a",
+        "label": "other_relevant_information",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/10_10_2017/917844519890153472_0.jpg",
+        "image_stat": {
+          "size": 255638,
+          "mtime_ns": 1581856183000000000
+        }
+      },
+      {
+        "id": "9,17846E+17",
+        "text_sha256": "693b0528a39f0a7fabb9cdef1fd0d5b3a02cc14d0028ea74f3e707ec27a49656",
+        "label": "infrastructure_and_utility_damage",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/10_10_2017/917846485965959168_0.jpg",
+        "image_stat": {
+          "size": 22668,
+          "mtime_ns": 1581856183000000000
+        }
+      },
+      {
+        "id": "9,17848E+17",
+        "text_sha256": "9e3e3fee5696d67cfc7fd9fa5bc47202d7945d7076c77384f5f99432bfa10b94",
+        "label": "rescue_volunteering_or_donation_effort",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/10_10_2017/917848283120394241_0.jpg",
+        "image_stat": {
+          "size": 159556,
+          "mtime_ns": 1581856183000000000
+        }
+      },
+      {
+        "id": "9,17848E+17",
+        "text_sha256": "ef3411d488147f294ebd4eeb3ebf0e503e90f1f9b08f679887591356d88df5fd",
+        "label": "not_humanitarian",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/10_10_2017/917848318595751936_0.jpg",
+        "image_stat": {
+          "size": 199458,
+          "mtime_ns": 1581856183000000000
+        }
+      },
+      {
+        "id": "9,1785E+17",
+        "text_sha256": "fa3d832b4fdb9149c3ba580a0f54e7c13c96b00a162afd82960dda59f5f26ab6",
+        "label": "not_humanitarian",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/10_10_2017/917849898963349510_0.jpg",
+        "image_stat": {
+          "size": 140541,
+          "mtime_ns": 1581856183000000000
+        }
+      },
+      {
+        "id": "9,1785E+17",
+        "text_sha256": "f6cfdfb191f4dbc0d07822bf9a80c25222118ca8c9ee9375de0db0d4d0998977",
+        "label": "rescue_volunteering_or_donation_effort",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/10_10_2017/917850123543171073_0.jpg",
+        "image_stat": {
+          "size": 31820,
+          "mtime_ns": 1581856183000000000
+        }
+      },
+      {
+        "id": "9,17851E+17",
+        "text_sha256": "1d54636f7951fa59a3465549196a0ef3aca352d682989ac79c87b58e0f42f6c8",
+        "label": "not_humanitarian",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/10_10_2017/917851111406604288_0.jpg",
+        "image_stat": {
+          "size": 69421,
+          "mtime_ns": 1581856183000000000
+        }
+      },
+      {
+        "id": "9,17852E+17",
+        "text_sha256": "212ece3a7fa78f97a6196c5f2009e78994de51e739fd41932ad635eb6260985f",
+        "label": "not_humanitarian",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/10_10_2017/917851589053943813_0.jpg",
+        "image_stat": {
+          "size": 81052,
+          "mtime_ns": 1581856183000000000
+        }
+      },
+      {
+        "id": "9,17852E+17",
+        "text_sha256": "673bb1a323d8e99725837456ac991efddd694948a07e734e3eeaa36fac5c3095",
+        "label": "other_relevant_information",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/10_10_2017/917851944420610049_0.jpg",
+        "image_stat": {
+          "size": 231945,
+          "mtime_ns": 1581856183000000000
+        }
+      },
+      {
+        "id": "9,17852E+17",
+        "text_sha256": "05f97b269543db553a90a57b268f4e8c1faf1345146674b907f3ce539a12d050",
+        "label": "not_humanitarian",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/10_10_2017/917852446898102272_0.jpg",
+        "image_stat": {
+          "size": 135805,
+          "mtime_ns": 1581856183000000000
+        }
+      },
+      {
+        "id": "9,17853E+17",
+        "text_sha256": "9986f0c9bb398fcc4cd07679553b81340bcd41ebd9ba438af3c6b2506458889b",
+        "label": "not_humanitarian",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/10_10_2017/917852634408783872_0.jpg",
+        "image_stat": {
+          "size": 88391,
+          "mtime_ns": 1581856183000000000
+        }
+      },
+      {
+        "id": "9,17856E+17",
+        "text_sha256": "ff06bdc04426221e6fd665a917ccf751974cf27980865da33144e48c44cd9016",
+        "label": "other_relevant_information",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/10_10_2017/917856156059623424_0.jpg",
+        "image_stat": {
+          "size": 25448,
+          "mtime_ns": 1581856183000000000
+        }
+      },
+      {
+        "id": "9,17857E+17",
+        "text_sha256": "af20b937ee9c4e6d5cc6757e41983192f13c673bb9932f722bfe6aff91a6ab3b",
+        "label": "infrastructure_and_utility_damage",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/10_10_2017/917856722315874306_0.jpg",
+        "image_stat": {
+          "size": 98808,
+          "mtime_ns": 1581856183000000000
+        }
+      },
+      {
+        "id": "9,17858E+17",
+        "text_sha256": "cb8c06b2ce2743102a59ac73a6027e39c89bd0219e4996ce8bfe96085c43cc17",
+        "label": "other_relevant_information",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/10_10_2017/917858042615656448_0.jpg",
+        "image_stat": {
+          "size": 125129,
+          "mtime_ns": 1581856183000000000
+        }
+      },
+      {
+        "id": "9,17861E+17",
+        "text_sha256": "bfb5a5d2d8b8ca5842168c514a309a2b9e8f762b2a3aff43c622c3ed59a47d5f",
+        "label": "not_humanitarian",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/10_10_2017/917861480673902592_0.jpg",
+        "image_stat": {
+          "size": 46087,
+          "mtime_ns": 1581856183000000000
+        }
+      },
+      {
+        "id": "9,17863E+17",
+        "text_sha256": "ab64caa4880ee106479cdc4c869c0e96903b1b3cc826927fb229304fafddb4c6",
+        "label": "not_humanitarian",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/10_10_2017/917862609713446915_0.jpg",
+        "image_stat": {
+          "size": 27761,
+          "mtime_ns": 1581856183000000000
+        }
+      },
+      {
+        "id": "9,17867E+17",
+        "text_sha256": "70efb752445651d6029f49f480c7fd4cf9749820e792708d87922adf25fffe0a",
+        "label": "other_relevant_information",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/10_10_2017/917866755363442688_0.jpg",
+        "image_stat": {
+          "size": 105943,
+          "mtime_ns": 1581856183000000000
+        }
+      },
+      {
+        "id": "9,17868E+17",
+        "text_sha256": "44086d83d4034e8e6f22a5edff867e5276a66934cfdf4e666a969653fa427427",
+        "label": "other_relevant_information",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/10_10_2017/917868035423080449_0.jpg",
+        "image_stat": {
+          "size": 29071,
+          "mtime_ns": 1581856183000000000
+        }
+      },
+      {
+        "id": "9,17869E+17",
+        "text_sha256": "a596c324cd95766101d4b5696a4ae11c3b2077baa7fdcddbaf650d143631863a",
+        "label": "infrastructure_and_utility_damage",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/10_10_2017/917869210499399680_0.jpg",
+        "image_stat": {
+          "size": 96220,
+          "mtime_ns": 1581856183000000000
+        }
+      },
+      {
+        "id": "9,17873E+17",
+        "text_sha256": "e5dd9fa30d6c4ead5c9d640bb7c7101c86a9e6965c2a68d681ef1e990034daa0",
+        "label": "not_humanitarian",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/10_10_2017/917873017065160704_0.jpg",
+        "image_stat": {
+          "size": 29190,
+          "mtime_ns": 1581856183000000000
+        }
+      },
+      {
+        "id": "9,17915E+17",
+        "text_sha256": "3cf82470e7b5432878b49a6721fe7ee6fbd24f899b413239abc139178541e6e9",
+        "label": "not_humanitarian",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/11_10_2017/917915039004315650_0.jpg",
+        "image_stat": {
+          "size": 58055,
+          "mtime_ns": 1581856183000000000
+        }
+      },
+      {
+        "id": "9,17916E+17",
+        "text_sha256": "608723fd998fe32fbc63b462a33ebbe424879ba5051460c7864be2bf04dd968d",
+        "label": "not_humanitarian",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/11_10_2017/917915711216926722_0.jpg",
+        "image_stat": {
+          "size": 87781,
+          "mtime_ns": 1581856183000000000
+        }
+      },
+      {
+        "id": "9,17916E+17",
+        "text_sha256": "24fb0af714850ef1488437df0cf4f9ec0c8cc85ee608bd9afccf57de0b6b42f3",
+        "label": "infrastructure_and_utility_damage",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/11_10_2017/917915816615731201_0.jpg",
+        "image_stat": {
+          "size": 191209,
+          "mtime_ns": 1581856183000000000
+        }
+      },
+      {
+        "id": "9,17923E+17",
+        "text_sha256": "cf92a81cbb98b8a9c102ba173615c85f771092c59ab421f6a7b8868f5f2a3d5f",
+        "label": "not_humanitarian",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/11_10_2017/917922816195837952_0.jpg",
+        "image_stat": {
+          "size": 79380,
+          "mtime_ns": 1581856183000000000
+        }
+      },
+      {
+        "id": "9,17924E+17",
+        "text_sha256": "3abce25f6a63fbd8e6eba4644dc05807683a9cc269847a5d9f8aa4eb2342c372",
+        "label": "not_humanitarian",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/11_10_2017/917923911957803008_0.jpg",
+        "image_stat": {
+          "size": 201211,
+          "mtime_ns": 1581856183000000000
+        }
+      },
+      {
+        "id": "9,17932E+17",
+        "text_sha256": "33c309ffd7498e05cb0fc4bf60b41e8165c88d17fd18d5a58cf71d60f72cb0f4",
+        "label": "not_humanitarian",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/11_10_2017/917932273407754240_0.jpg",
+        "image_stat": {
+          "size": 46679,
+          "mtime_ns": 1581856183000000000
+        }
+      },
+      {
+        "id": "9,17934E+17",
+        "text_sha256": "04d6c2842145f128d3d4bdcd878a014f7ac114e1a9ad4c2c465a93ca355e4fc1",
+        "label": "not_humanitarian",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/11_10_2017/917934130368864256_0.jpg",
+        "image_stat": {
+          "size": 133807,
+          "mtime_ns": 1581856183000000000
+        }
+      },
+      {
+        "id": "9,17939E+17",
+        "text_sha256": "01d317c665a5bae2ba6b3c26844c14b1007a1cd38804df5b8981dee7300476b8",
+        "label": "not_humanitarian",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/11_10_2017/917939204155461632_0.jpg",
+        "image_stat": {
+          "size": 24952,
+          "mtime_ns": 1581856183000000000
+        }
+      },
+      {
+        "id": "9,1794E+17",
+        "text_sha256": "d2aac6458342658e59ade11149dd1b64fe767d95bcca153bcf520f43661435ac",
+        "label": "not_humanitarian",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/11_10_2017/917940349431099392_0.jpg",
+        "image_stat": {
+          "size": 150533,
+          "mtime_ns": 1581856183000000000
+        }
+      },
+      {
+        "id": "9,17944E+17",
+        "text_sha256": "f2272e5e27c0bc8a47eace3f5ca2e84059e683db2c6793deb584d1d7da283ba9",
+        "label": "not_humanitarian",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/11_10_2017/917944232572153856_0.jpg",
+        "image_stat": {
+          "size": 125352,
+          "mtime_ns": 1581856183000000000
+        }
+      },
+      {
+        "id": "9,17944E+17",
+        "text_sha256": "1381b7b2e9b5d822c0bae10a20729a09688bfcceca521d2700d8885d10c0fb71",
+        "label": "infrastructure_and_utility_damage",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/11_10_2017/917944458523566080_0.jpg",
+        "image_stat": {
+          "size": 111231,
+          "mtime_ns": 1581856183000000000
+        }
+      },
+      {
+        "id": "9,17949E+17",
+        "text_sha256": "3b089d137da244124b527090fe96396a78080296c6f6e041fc7cf5fe29275ec8",
+        "label": "not_humanitarian",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/11_10_2017/917948601388630016_0.jpg",
+        "image_stat": {
+          "size": 98192,
+          "mtime_ns": 1581856183000000000
+        }
+      },
+      {
+        "id": "9,1795E+17",
+        "text_sha256": "3ca099dbf4a2a104a8d6f994c80910830dc06c6b8f1d55954d813dca0f72b763",
+        "label": "not_humanitarian",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/11_10_2017/917949723167875077_0.jpg",
+        "image_stat": {
+          "size": 118681,
+          "mtime_ns": 1581856183000000000
+        }
+      },
+      {
+        "id": "9,1795E+17",
+        "text_sha256": "3330da67b1c80559f69ba41ce82acf8d42b453e5474458ec5f3b2630b56234a3",
+        "label": "not_humanitarian",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/11_10_2017/917950322252886016_0.jpg",
+        "image_stat": {
+          "size": 80122,
+          "mtime_ns": 1581856184000000000
+        }
+      },
+      {
+        "id": "9,17952E+17",
+        "text_sha256": "02186ca60a9b49074d06e95377c401c527a99b575f0ad8fd9fe1d48c1ee40bf2",
+        "label": "not_humanitarian",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/11_10_2017/917951521358274560_0.jpg",
+        "image_stat": {
+          "size": 33711,
+          "mtime_ns": 1581856184000000000
+        }
+      },
+      {
+        "id": "9,17954E+17",
+        "text_sha256": "c7902ad368079ecd64c5873f3913ac8b4d44bfd6e5fc9018a51800dcea775b7f",
+        "label": "not_humanitarian",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/11_10_2017/917953586272772097_0.jpg",
+        "image_stat": {
+          "size": 345369,
+          "mtime_ns": 1581856184000000000
+        }
+      },
+      {
+        "id": "9,17955E+17",
+        "text_sha256": "962562b72ec87d81656333efc0ed2165785f2052be653b78516a6fd00c35a95d",
+        "label": "other_relevant_information",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/11_10_2017/917954508231184385_0.jpg",
+        "image_stat": {
+          "size": 103061,
+          "mtime_ns": 1581856184000000000
+        }
+      },
+      {
+        "id": "9,17955E+17",
+        "text_sha256": "962562b72ec87d81656333efc0ed2165785f2052be653b78516a6fd00c35a95d",
+        "label": "other_relevant_information",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/11_10_2017/917954508231184385_1.jpg",
+        "image_stat": {
+          "size": 105818,
+          "mtime_ns": 1581856184000000000
+        }
+      },
+      {
+        "id": "9,17957E+17",
+        "text_sha256": "d4f04dca8a1efcf3593b5f894c021502ea0bd834fbd66f0b18e756472e85e6db",
+        "label": "other_relevant_information",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/11_10_2017/917956641269665792_0.jpg",
+        "image_stat": {
+          "size": 98007,
+          "mtime_ns": 1581856184000000000
+        }
+      },
+      {
+        "id": "9,17957E+17",
+        "text_sha256": "2b35ae1f1c2cae03cd9174533d76db9b4c1fedae182cb77507eebf9ec00c4604",
+        "label": "other_relevant_information",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/11_10_2017/917957391957848066_0.jpg",
+        "image_stat": {
+          "size": 58577,
+          "mtime_ns": 1581856184000000000
+        }
+      },
+      {
+        "id": "9,17962E+17",
+        "text_sha256": "e048da48ab5ddce35c52ce7bf501578d6a06e62b1ac76c5839fde28d372efc7d",
+        "label": "not_humanitarian",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/11_10_2017/917961969122017282_0.jpg",
+        "image_stat": {
+          "size": 46486,
+          "mtime_ns": 1581856184000000000
+        }
+      },
+      {
+        "id": "9,17967E+17",
+        "text_sha256": "306709ca69c3573d32f66a4fd2e940e13c9e793cb83e85e96a5aa38b9a745b6e",
+        "label": "not_humanitarian",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/11_10_2017/917967417602727936_0.jpg",
+        "image_stat": {
+          "size": 93593,
+          "mtime_ns": 1581856184000000000
+        }
+      },
+      {
+        "id": "9,17971E+17",
+        "text_sha256": "25071eb5422babf4cdf56fa6ab8c8b6047e586763cb5d0d8ee74291325e84414",
+        "label": "other_relevant_information",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/11_10_2017/917970575997497344_0.jpg",
+        "image_stat": {
+          "size": 63018,
+          "mtime_ns": 1581856184000000000
+        }
+      },
+      {
+        "id": "9,17973E+17",
+        "text_sha256": "241ccceb3ab92e9bd050eaa7154fdedc3b110c60cc9b85a88d7ae7f44f01a10b",
+        "label": "infrastructure_and_utility_damage",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/11_10_2017/917972569613045760_0.jpg",
+        "image_stat": {
+          "size": 48808,
+          "mtime_ns": 1581856184000000000
+        }
+      },
+      {
+        "id": "9,17973E+17",
+        "text_sha256": "3ef761cf5fbf18a14d02f4a482ac3ef028935e4ef19a7d2c9ab88bc3a33d0d71",
+        "label": "infrastructure_and_utility_damage",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/11_10_2017/917972593789063170_0.jpg",
+        "image_stat": {
+          "size": 30245,
+          "mtime_ns": 1581856184000000000
+        }
+      },
+      {
+        "id": "9,17973E+17",
+        "text_sha256": "aebd5278bcc78c09344b975b1781ac7c01c8b0588147b88f22ce71791781a433",
+        "label": "infrastructure_and_utility_damage",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/11_10_2017/917973346976968704_0.jpg",
+        "image_stat": {
+          "size": 29936,
+          "mtime_ns": 1581856184000000000
+        }
+      },
+      {
+        "id": "9,17983E+17",
+        "text_sha256": "5b92ecaf6a610cb3bfa01e69611190bb156bf414a266299eecc2f3695582a25e",
+        "label": "other_relevant_information",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/11_10_2017/917983113015365634_0.jpg",
+        "image_stat": {
+          "size": 188144,
+          "mtime_ns": 1581856184000000000
+        }
+      },
+      {
+        "id": "9,17987E+17",
+        "text_sha256": "5661db7b3ea581454e3563047c5b0c94b5940436d1da986ebb5f530585bbb8f7",
+        "label": "other_relevant_information",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/11_10_2017/917987134518321154_0.jpg",
+        "image_stat": {
+          "size": 124858,
+          "mtime_ns": 1581856184000000000
+        }
+      },
+      {
+        "id": "9,17989E+17",
+        "text_sha256": "861dd11a239939dc53b88467723701d6c7bb400e94b84ec6a5f880bb1de59a55",
+        "label": "other_relevant_information",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/11_10_2017/917988836541632512_0.jpg",
+        "image_stat": {
+          "size": 115285,
+          "mtime_ns": 1581856184000000000
+        }
+      },
+      {
+        "id": "9,1799E+17",
+        "text_sha256": "742eb262dffa00df7effdaee68990efad9bece180286a65795f2000256dd00de",
+        "label": "infrastructure_and_utility_damage",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/11_10_2017/917990440644866048_0.jpg",
+        "image_stat": {
+          "size": 46752,
+          "mtime_ns": 1581856184000000000
+        }
+      },
+      {
+        "id": "9,17991E+17",
+        "text_sha256": "5b6a754ee5f7fd7cb3827420f6a7bf06268bfb5227072f3c61849e19c13be08b",
+        "label": "rescue_volunteering_or_donation_effort",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/11_10_2017/917991257594572800_0.jpg",
+        "image_stat": {
+          "size": 101979,
+          "mtime_ns": 1581856184000000000
+        }
+      },
+      {
+        "id": "9,17991E+17",
+        "text_sha256": "5b6a754ee5f7fd7cb3827420f6a7bf06268bfb5227072f3c61849e19c13be08b",
+        "label": "rescue_volunteering_or_donation_effort",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/11_10_2017/917991257594572800_1.jpg",
+        "image_stat": {
+          "size": 127244,
+          "mtime_ns": 1581856184000000000
+        }
+      },
+      {
+        "id": "9,17991E+17",
+        "text_sha256": "5b6a754ee5f7fd7cb3827420f6a7bf06268bfb5227072f3c61849e19c13be08b",
+        "label": "rescue_volunteering_or_donation_effort",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/11_10_2017/917991257594572800_2.jpg",
+        "image_stat": {
+          "size": 102726,
+          "mtime_ns": 1581856184000000000
+        }
+      },
+      {
+        "id": "9,17991E+17",
+        "text_sha256": "5b6a754ee5f7fd7cb3827420f6a7bf06268bfb5227072f3c61849e19c13be08b",
+        "label": "rescue_volunteering_or_donation_effort",
+        "image_path": "data/processed/pro_crisismmd/images/data_image/california_wildfires/11_10_2017/917991257594572800_3.jpg",
+        "image_stat": {
+          "size": 93013,
+          "mtime_ns": 1581856184000000000
+        }
+      }
+    ]
+  },
+  "sample_lock_path": null,
+  "config": {
+    "models": [
+      "metaclip2_vith14",
+      "dfn5b_vith14",
+      "siglip2_so400m"
+    ],
+    "inference": {
+      "image_text_relation": {
+        "enabled": false,
+        "mode": "auto",
+        "weight": 0.25
+      },
+      "batch_size": 16,
+      "image_weight": 0.5,
+      "text_logit_scale": null
+    },
+    "datasets": {
+      "fakeddit": {
+        "image_text_relation": {
+          "mode": "auto"
+        },
+        "enabled": true,
+        "task": "6way",
+        "data_path": "data/processed/pro_fakeddit/fakeddit_sample.tsv",
+        "image_dir": "data/processed/pro_fakeddit/images",
+        "id_col": "id",
+        "text_col": "clean_title",
+        "label_col_2way": "2_way_label",
+        "label_col_6way": "6_way_label",
+        "min_text_length": 20,
+        "max_samples": 1000,
+        "prompt_aggregation": "mean_sim",
+        "prompt_variants": [
+          "current"
+        ],
+        "inference": {
+          "image_weight": 0.75,
+          "text_logit_scale": 25
+        }
+      },
+      "crisismmd": {
+        "image_text_relation": {
+          "mode": "auto",
+          "enabled": false
+        },
+        "enabled": true,
+        "task": "informativeness",
+        "data_path": "data/processed/pro_crisismmd/pre_crisismmd.tsv",
+        "image_dir": "data/processed/pro_crisismmd/images",
+        "id_col": "tweet_id",
+        "text_col": "clean_text",
+        "label_col_info": "label_informative",
+        "label_col_human": "label_humanitarian",
+        "max_samples": 1000,
+        "prompt_aggregation": "mean_embed",
+        "inference": {
+          "image_weight": 0.5,
+          "text_logit_scale": null
+        }
+      },
+      "mmimdb": {
+        "image_text_relation": {
+          "mode": "auto"
+        },
+        "enabled": true,
+        "task": "genres",
+        "data_path": "data/processed/pro_mmimdb/mmimdb_sample.tsv",
+        "image_dir": "data/processed/pro_mmimdb/images",
+        "id_col": "id",
+        "text_col": "plot",
+        "label_col": "genres",
+        "max_samples": 1000,
+        "prompt_aggregation": "mean_sim",
+        "decision_mode": "relative_z",
+        "relative_z_threshold": 1.0,
+        "threshold": 0.22,
+        "chunk_long_text": true,
+        "chunk_aggregation": "mean_embed",
+        "inference": {
+          "image_weight": 0.5,
+          "text_logit_scale": null
+        }
+      }
+    },
+    "evaluation": {
+      "enabled": true,
+      "split": "val",
+      "measure_truncation": true,
+      "sample_lock_mode": "off",
+      "sample_lock_dir": "results/sample_locks"
+    },
+    "demo": {
+      "n_samples": 10,
+      "batch_size": 4,
+      "prompt_version": "v1",
+      "log_dir": "results/demo_logs",
+      "visualization_dir": "results/demo"
+    },
+    "output": {
+      "results_dir": "results/",
+      "raw_predictions_dir": "/Users/hung/Documents/MyProject/Python/DA_CNTT/vlm-zeroshot-content-classification/results/uncertainty_ensemble/crisismmd_vkrvk61x/model_logs",
+      "summary_table": "results/summary_table.tsv"
+    }
+  },
+  "effective_dataset": {
+    "image_text_relation": {
+      "mode": "auto",
+      "enabled": false
+    },
+    "enabled": true,
+    "task": "humanitarian",
+    "data_path": "data/processed/pro_crisismmd/pre_crisismmd.tsv",
+    "image_dir": "data/processed/pro_crisismmd/images",
+    "id_col": "tweet_id",
+    "text_col": "clean_text",
+    "label_col_info": "label_informative",
+    "label_col_human": "label_humanitarian",
+    "max_samples": 100,
+    "prompt_aggregation": "mean_embed",
+    "inference": {
+      "image_weight": 0.5,
+      "text_logit_scale": null
+    },
+    "_audit_scope": "ensemble_smoke_100"
+  },
+  "prompts": {
+    "not_humanitarian": [
+      "a casual tweet or everyday conversation that does not mention any damage, victims, or relief efforts from a disaster",
+      "a tweet expressing a personal opinion, a prayer, or a joke about a hurricane or disaster without sharing any useful humanitarian information",
+      "a tweet about politics, celebrities, or general news commentary that has no connection to disaster impacts or assistance",
+      "a promotional or advertising tweet that happens to use disaster-related hashtags but offers no real information",
+      "a vague tweet that only mentions the word hurricane, earthquake, or wildfire without describing what is happening",
+      "a tweet about sports, entertainment, or daily life that is unrelated to people affected by a disaster",
+      "an ordinary photograph of daily life, such as people, food, pets, or streets, with no sign of any disaster",
+      "a meme, cartoon, or illustrated graphic that contains no real information about disaster impacts or relief",
+      "a screenshot of plain text, a logo, or a banner that provides no visible information about damage or humanitarian needs",
+      "a photograph of a politician, celebrity, or speaker at a press event rather than a disaster scene",
+      "a calm and peaceful outdoor scene with a clear sky and no visible damage, danger, or emergency",
+      "an advertisement or product image that has no relation to disaster impacts or assistance"
+    ],
+    "other_relevant_information": [
+      "a tweet giving a general update about where a hurricane, wildfire, flood, or earthquake is happening and how serious it is",
+      "a tweet sharing a weather forecast, storm track, or official warning that helps people understand the situation",
+      "a tweet reporting the current conditions of an ongoing disaster, such as rising water, spreading fire, or strong winds",
+      "a tweet from a news outlet or authority summarizing the overall situation of a disaster without focusing on victims or damage",
+      "a tweet describing an earthquake or storm in general terms, such as its magnitude, location, or expected path",
+      "a tweet passing along useful situational information about a disaster that does not fit a specific humanitarian category",
+      "a wide overview photograph showing a disaster scene such as a wildfire, flooded area, or damaged landscape from a distance",
+      "a satellite image or aerial view showing the extent of a hurricane, flood, or fire",
+      "a weather map or radar image showing the path and intensity of an approaching storm",
+      "a screenshot of an official hazard warning, evacuation map, or situation report about a disaster",
+      "a photograph of dark storm clouds, rising floodwater, or smoke that shows a disaster developing without focusing on people or buildings",
+      "an informational graphic or chart that provides context about an ongoing natural disaster"
+    ],
+    "rescue_volunteering_or_donation_effort": [
+      "a tweet reporting that rescue teams or emergency crews are saving people from floodwater, fire, or collapsed buildings",
+      "a tweet showing gratitude to volunteers, firefighters, soldiers, or neighbors who are helping disaster survivors",
+      "a tweet asking people to donate money, food, water, clothing, or supplies to help disaster victims",
+      "a tweet calling for volunteers or announcing a fundraising campaign for communities recovering from a disaster",
+      "a tweet announcing that a shelter, relief center, or aid distribution point is open for people in need",
+      "a tweet describing charities, the Red Cross, or local organizations delivering help to affected areas",
+      "a photograph of rescue workers or boats helping people escape from flooded streets",
+      "a photograph of firefighters or emergency responders carrying out a rescue during a disaster",
+      "a photograph of volunteers handing out food, bottled water, blankets, or clothing to survivors",
+      "a photograph of people loading, sorting, or delivering relief supplies and donations",
+      "a photograph of volunteers cleaning up debris or helping rebuild homes after a disaster",
+      "a poster or flyer that asks for donations, volunteers, or support for disaster relief"
+    ],
+    "infrastructure_and_utility_damage": [
+      "a tweet reporting that houses, buildings, or schools were damaged or destroyed by a disaster",
+      "a tweet describing roads, bridges, or highways that are flooded, cracked, or blocked after a disaster",
+      "a tweet reporting power outages, broken water supply, or lost phone and internet service caused by a disaster",
+      "a tweet describing collapsed walls, torn roofs, or fallen trees and power lines after a storm",
+      "a tweet reporting that airports, railways, or public transportation were shut down because of damage",
+      "a tweet describing entire neighborhoods or towns left in ruins after an earthquake, fire, or hurricane",
+      "a photograph of collapsed buildings or houses reduced to rubble after an earthquake or hurricane",
+      "a photograph of homes burned to the ground by a wildfire, leaving only ashes and ruins",
+      "a photograph of a broken bridge, cracked road, or highway washed away by flooding",
+      "a photograph of fallen power lines, broken utility poles, or electrical equipment damaged by a storm",
+      "a photograph of a street or building heavily flooded, with water filling roads and entering structures",
+      "a photograph of a roof torn off, walls destroyed, or a public building severely damaged by a disaster"
+    ],
+    "affected_individuals": [
+      "a tweet describing families who lost their homes and are now displaced or living without shelter after a disaster",
+      "a tweet about people who were evacuated and are staying in shelters or with relatives",
+      "a tweet describing residents who are stranded, hungry, or waiting for help because of a flood or storm",
+      "a tweet sharing the emotional struggle of survivors who lost their belongings, livelihoods, or loved places",
+      "a tweet reporting how many people were affected, displaced, or left without basic necessities by a disaster",
+      "a tweet describing survivors trying to cope and rebuild their lives after a disaster",
+      "a photograph of families carrying their belongings as they leave their homes during an evacuation",
+      "a photograph of survivors sitting or sleeping in a crowded temporary shelter or relief camp",
+      "a photograph of residents standing in knee-deep floodwater in front of their damaged homes",
+      "a photograph of people looking through the remains of their destroyed house for belongings",
+      "a photograph of distressed or exhausted disaster survivors waiting for assistance",
+      "a photograph of children and elderly people affected by a disaster and in need of help"
+    ],
+    "vehicle_damage": [
+      "a tweet reporting that cars, trucks, or buses were damaged by floodwater, fire, or falling debris",
+      "a tweet describing vehicles that were swept away, submerged, or buried during a disaster",
+      "a tweet about boats or ships damaged, washed ashore, or destroyed by a hurricane or storm",
+      "a tweet reporting cars crushed by fallen trees, collapsed walls, or broken buildings",
+      "a tweet showing concern for vehicles left abandoned, flooded, or burned during a disaster",
+      "a tweet reporting that many vehicles were destroyed in a wildfire, earthquake, or flood",
+      "a close-up photograph of a car partly or fully submerged in floodwater",
+      "a photograph of rows of flooded cars standing in a water-filled street",
+      "a photograph of burned-out vehicles left behind after a wildfire",
+      "a photograph of a car crushed by a fallen tree, debris, or collapsed structure",
+      "a photograph of overturned trucks or buses damaged by a powerful storm or earthquake",
+      "a photograph of boats thrown onto land or wrecked by a hurricane"
+    ],
+    "injured_or_dead_people": [
+      "a tweet reporting that people were killed in a disaster and mentioning the number of deaths",
+      "a tweet reporting that many people were injured and are being treated at hospitals",
+      "a tweet sharing the growing death toll or casualty figures from an earthquake, hurricane, or flood",
+      "a tweet mourning the victims who lost their lives in a disaster",
+      "a tweet describing medical teams treating wounded survivors after a disaster",
+      "a tweet reporting that bodies were recovered or victims were found dead after a disaster",
+      "a photograph of injured survivors being treated by doctors, nurses, or paramedics after a disaster",
+      "a photograph of a wounded person being carried on a stretcher or helped into an ambulance",
+      "a photograph of victims lying injured or lifeless among the debris of a disaster",
+      "a photograph of rescuers recovering bodies from rubble, floodwater, or burned areas",
+      "a photograph of people grieving or mourning beside victims who died in a disaster",
+      "a photograph of a field hospital or medical tent caring for injured disaster victims"
+    ],
+    "missing_or_found_people": [
+      "a tweet asking for help finding a family member or friend who has gone missing after a disaster",
+      "a tweet sharing the name, age, and last known location of a person missing after a disaster",
+      "a tweet announcing that a missing person has been found safe and reunited with their family",
+      "a tweet asking people to share information about loved ones who they cannot contact after a disaster",
+      "a tweet reporting that rescuers are still searching for people missing under rubble or floodwater",
+      "a tweet confirming the safety of people who were previously reported missing",
+      "a missing person poster showing a photograph, name, and contact details",
+      "a social media post with a person's photo asking whether anyone has seen them after a disaster",
+      "a photograph of search teams looking for missing people among ruins or flooded areas",
+      "a photograph of family members happily reunited after being separated during a disaster",
+      "a list or board of names of people who are missing or have been found safe",
+      "a photograph of someone holding a picture of a missing relative while searching for information"
+    ]
+  },
+  "prompt_id": "de5aee582c4c255e242ebf59a86b8c1fb7ea52eff49b8462260782532edebed5",
+  "split": "val",
+  "split_verified": false,
+  "truncate_enabled": true,
+  "cosine": {
+    "image": {
+      "cosine_mean": 0.1635727882385254,
+      "cosine_std": 0.057511650025844574
+    },
+    "text": {
+      "cosine_mean": 0.5294782519340515,
+      "cosine_std": 0.08277873694896698
+    }
+  },
+  "effective_inference": {
+    "image_weight": 0.5,
+    "fallback_top1": true,
+    "logit_scale": 14.284855842590332,
+    "logit_bias": 0.0
+  },
+  "truncation": {
+    "status": "measured",
+    "context_length": 77,
+    "n_nonempty": 100,
+    "n_measured": 100,
+    "n_truncated": 0,
+    "truncated_rate": 0.0
+  },
+  "text_lengths": [
+    {
+      "sample_index": 0,
+      "id": "9,17791E+17",
+      "token_count": 9,
+      "truncated": false
+    },
+    {
+      "sample_index": 1,
+      "id": "9,17793E+17",
+      "token_count": 13,
+      "truncated": false
+    },
+    {
+      "sample_index": 2,
+      "id": "9,17793E+17",
+      "token_count": 13,
+      "truncated": false
+    },
+    {
+      "sample_index": 3,
+      "id": "9,17793E+17",
+      "token_count": 13,
+      "truncated": false
+    },
+    {
+      "sample_index": 4,
+      "id": "9,17794E+17",
+      "token_count": 6,
+      "truncated": false
+    },
+    {
+      "sample_index": 5,
+      "id": "9,17794E+17",
+      "token_count": 14,
+      "truncated": false
+    },
+    {
+      "sample_index": 6,
+      "id": "9,17795E+17",
+      "token_count": 14,
+      "truncated": false
+    },
+    {
+      "sample_index": 7,
+      "id": "9,17798E+17",
+      "token_count": 15,
+      "truncated": false
+    },
+    {
+      "sample_index": 8,
+      "id": "9,17798E+17",
+      "token_count": 19,
+      "truncated": false
+    },
+    {
+      "sample_index": 9,
+      "id": "9,17803E+17",
+      "token_count": 28,
+      "truncated": false
+    },
+    {
+      "sample_index": 10,
+      "id": "9,17809E+17",
+      "token_count": 12,
+      "truncated": false
+    },
+    {
+      "sample_index": 11,
+      "id": "9,17811E+17",
+      "token_count": 13,
+      "truncated": false
+    },
+    {
+      "sample_index": 12,
+      "id": "9,17815E+17",
+      "token_count": 11,
+      "truncated": false
+    },
+    {
+      "sample_index": 13,
+      "id": "9,17816E+17",
+      "token_count": 17,
+      "truncated": false
+    },
+    {
+      "sample_index": 14,
+      "id": "9,17817E+17",
+      "token_count": 8,
+      "truncated": false
+    },
+    {
+      "sample_index": 15,
+      "id": "9,17819E+17",
+      "token_count": 13,
+      "truncated": false
+    },
+    {
+      "sample_index": 16,
+      "id": "9,17821E+17",
+      "token_count": 19,
+      "truncated": false
+    },
+    {
+      "sample_index": 17,
+      "id": "9,17822E+17",
+      "token_count": 18,
+      "truncated": false
+    },
+    {
+      "sample_index": 18,
+      "id": "9,17823E+17",
+      "token_count": 10,
+      "truncated": false
+    },
+    {
+      "sample_index": 19,
+      "id": "9,17825E+17",
+      "token_count": 13,
+      "truncated": false
+    },
+    {
+      "sample_index": 20,
+      "id": "9,17825E+17",
+      "token_count": 16,
+      "truncated": false
+    },
+    {
+      "sample_index": 21,
+      "id": "9,17825E+17",
+      "token_count": 13,
+      "truncated": false
+    },
+    {
+      "sample_index": 22,
+      "id": "9,17827E+17",
+      "token_count": 17,
+      "truncated": false
+    },
+    {
+      "sample_index": 23,
+      "id": "9,17827E+17",
+      "token_count": 13,
+      "truncated": false
+    },
+    {
+      "sample_index": 24,
+      "id": "9,17827E+17",
+      "token_count": 15,
+      "truncated": false
+    },
+    {
+      "sample_index": 25,
+      "id": "9,17828E+17",
+      "token_count": 12,
+      "truncated": false
+    },
+    {
+      "sample_index": 26,
+      "id": "9,17828E+17",
+      "token_count": 12,
+      "truncated": false
+    },
+    {
+      "sample_index": 27,
+      "id": "9,17829E+17",
+      "token_count": 18,
+      "truncated": false
+    },
+    {
+      "sample_index": 28,
+      "id": "9,17829E+17",
+      "token_count": 15,
+      "truncated": false
+    },
+    {
+      "sample_index": 29,
+      "id": "9,1783E+17",
+      "token_count": 20,
+      "truncated": false
+    },
+    {
+      "sample_index": 30,
+      "id": "9,1783E+17",
+      "token_count": 28,
+      "truncated": false
+    },
+    {
+      "sample_index": 31,
+      "id": "9,1783E+17",
+      "token_count": 28,
+      "truncated": false
+    },
+    {
+      "sample_index": 32,
+      "id": "9,1783E+17",
+      "token_count": 28,
+      "truncated": false
+    },
+    {
+      "sample_index": 33,
+      "id": "9,1783E+17",
+      "token_count": 28,
+      "truncated": false
+    },
+    {
+      "sample_index": 34,
+      "id": "9,1783E+17",
+      "token_count": 21,
+      "truncated": false
+    },
+    {
+      "sample_index": 35,
+      "id": "9,17832E+17",
+      "token_count": 22,
+      "truncated": false
+    },
+    {
+      "sample_index": 36,
+      "id": "9,17834E+17",
+      "token_count": 21,
+      "truncated": false
+    },
+    {
+      "sample_index": 37,
+      "id": "9,17834E+17",
+      "token_count": 18,
+      "truncated": false
+    },
+    {
+      "sample_index": 38,
+      "id": "9,17835E+17",
+      "token_count": 11,
+      "truncated": false
+    },
+    {
+      "sample_index": 39,
+      "id": "9,17836E+17",
+      "token_count": 12,
+      "truncated": false
+    },
+    {
+      "sample_index": 40,
+      "id": "9,17838E+17",
+      "token_count": 12,
+      "truncated": false
+    },
+    {
+      "sample_index": 41,
+      "id": "9,1784E+17",
+      "token_count": 17,
+      "truncated": false
+    },
+    {
+      "sample_index": 42,
+      "id": "9,17841E+17",
+      "token_count": 16,
+      "truncated": false
+    },
+    {
+      "sample_index": 43,
+      "id": "9,17843E+17",
+      "token_count": 20,
+      "truncated": false
+    },
+    {
+      "sample_index": 44,
+      "id": "9,17844E+17",
+      "token_count": 16,
+      "truncated": false
+    },
+    {
+      "sample_index": 45,
+      "id": "9,17844E+17",
+      "token_count": 17,
+      "truncated": false
+    },
+    {
+      "sample_index": 46,
+      "id": "9,17845E+17",
+      "token_count": 16,
+      "truncated": false
+    },
+    {
+      "sample_index": 47,
+      "id": "9,17846E+17",
+      "token_count": 15,
+      "truncated": false
+    },
+    {
+      "sample_index": 48,
+      "id": "9,17848E+17",
+      "token_count": 14,
+      "truncated": false
+    },
+    {
+      "sample_index": 49,
+      "id": "9,17848E+17",
+      "token_count": 11,
+      "truncated": false
+    },
+    {
+      "sample_index": 50,
+      "id": "9,1785E+17",
+      "token_count": 15,
+      "truncated": false
+    },
+    {
+      "sample_index": 51,
+      "id": "9,1785E+17",
+      "token_count": 19,
+      "truncated": false
+    },
+    {
+      "sample_index": 52,
+      "id": "9,17851E+17",
+      "token_count": 15,
+      "truncated": false
+    },
+    {
+      "sample_index": 53,
+      "id": "9,17852E+17",
+      "token_count": 10,
+      "truncated": false
+    },
+    {
+      "sample_index": 54,
+      "id": "9,17852E+17",
+      "token_count": 22,
+      "truncated": false
+    },
+    {
+      "sample_index": 55,
+      "id": "9,17852E+17",
+      "token_count": 37,
+      "truncated": false
+    },
+    {
+      "sample_index": 56,
+      "id": "9,17853E+17",
+      "token_count": 15,
+      "truncated": false
+    },
+    {
+      "sample_index": 57,
+      "id": "9,17856E+17",
+      "token_count": 13,
+      "truncated": false
+    },
+    {
+      "sample_index": 58,
+      "id": "9,17857E+17",
+      "token_count": 15,
+      "truncated": false
+    },
+    {
+      "sample_index": 59,
+      "id": "9,17858E+17",
+      "token_count": 23,
+      "truncated": false
+    },
+    {
+      "sample_index": 60,
+      "id": "9,17861E+17",
+      "token_count": 16,
+      "truncated": false
+    },
+    {
+      "sample_index": 61,
+      "id": "9,17863E+17",
+      "token_count": 10,
+      "truncated": false
+    },
+    {
+      "sample_index": 62,
+      "id": "9,17867E+17",
+      "token_count": 8,
+      "truncated": false
+    },
+    {
+      "sample_index": 63,
+      "id": "9,17868E+17",
+      "token_count": 12,
+      "truncated": false
+    },
+    {
+      "sample_index": 64,
+      "id": "9,17869E+17",
+      "token_count": 14,
+      "truncated": false
+    },
+    {
+      "sample_index": 65,
+      "id": "9,17873E+17",
+      "token_count": 27,
+      "truncated": false
+    },
+    {
+      "sample_index": 66,
+      "id": "9,17915E+17",
+      "token_count": 15,
+      "truncated": false
+    },
+    {
+      "sample_index": 67,
+      "id": "9,17916E+17",
+      "token_count": 15,
+      "truncated": false
+    },
+    {
+      "sample_index": 68,
+      "id": "9,17916E+17",
+      "token_count": 14,
+      "truncated": false
+    },
+    {
+      "sample_index": 69,
+      "id": "9,17923E+17",
+      "token_count": 16,
+      "truncated": false
+    },
+    {
+      "sample_index": 70,
+      "id": "9,17924E+17",
+      "token_count": 26,
+      "truncated": false
+    },
+    {
+      "sample_index": 71,
+      "id": "9,17932E+17",
+      "token_count": 12,
+      "truncated": false
+    },
+    {
+      "sample_index": 72,
+      "id": "9,17934E+17",
+      "token_count": 19,
+      "truncated": false
+    },
+    {
+      "sample_index": 73,
+      "id": "9,17939E+17",
+      "token_count": 17,
+      "truncated": false
+    },
+    {
+      "sample_index": 74,
+      "id": "9,1794E+17",
+      "token_count": 14,
+      "truncated": false
+    },
+    {
+      "sample_index": 75,
+      "id": "9,17944E+17",
+      "token_count": 9,
+      "truncated": false
+    },
+    {
+      "sample_index": 76,
+      "id": "9,17944E+17",
+      "token_count": 23,
+      "truncated": false
+    },
+    {
+      "sample_index": 77,
+      "id": "9,17949E+17",
+      "token_count": 18,
+      "truncated": false
+    },
+    {
+      "sample_index": 78,
+      "id": "9,1795E+17",
+      "token_count": 23,
+      "truncated": false
+    },
+    {
+      "sample_index": 79,
+      "id": "9,1795E+17",
+      "token_count": 23,
+      "truncated": false
+    },
+    {
+      "sample_index": 80,
+      "id": "9,17952E+17",
+      "token_count": 23,
+      "truncated": false
+    },
+    {
+      "sample_index": 81,
+      "id": "9,17954E+17",
+      "token_count": 12,
+      "truncated": false
+    },
+    {
+      "sample_index": 82,
+      "id": "9,17955E+17",
+      "token_count": 11,
+      "truncated": false
+    },
+    {
+      "sample_index": 83,
+      "id": "9,17955E+17",
+      "token_count": 11,
+      "truncated": false
+    },
+    {
+      "sample_index": 84,
+      "id": "9,17957E+17",
+      "token_count": 13,
+      "truncated": false
+    },
+    {
+      "sample_index": 85,
+      "id": "9,17957E+17",
+      "token_count": 11,
+      "truncated": false
+    },
+    {
+      "sample_index": 86,
+      "id": "9,17962E+17",
+      "token_count": 14,
+      "truncated": false
+    },
+    {
+      "sample_index": 87,
+      "id": "9,17967E+17",
+      "token_count": 21,
+      "truncated": false
+    },
+    {
+      "sample_index": 88,
+      "id": "9,17971E+17",
+      "token_count": 8,
+      "truncated": false
+    },
+    {
+      "sample_index": 89,
+      "id": "9,17973E+17",
+      "token_count": 17,
+      "truncated": false
+    },
+    {
+      "sample_index": 90,
+      "id": "9,17973E+17",
+      "token_count": 16,
+      "truncated": false
+    },
+    {
+      "sample_index": 91,
+      "id": "9,17973E+17",
+      "token_count": 12,
+      "truncated": false
+    },
+    {
+      "sample_index": 92,
+      "id": "9,17983E+17",
+      "token_count": 10,
+      "truncated": false
+    },
+    {
+      "sample_index": 93,
+      "id": "9,17987E+17",
+      "token_count": 21,
+      "truncated": false
+    },
+    {
+      "sample_index": 94,
+      "id": "9,17989E+17",
+      "token_count": 13,
+      "truncated": false
+    },
+    {
+      "sample_index": 95,
+      "id": "9,1799E+17",
+      "token_count": 15,
+      "truncated": false
+    },
+    {
+      "sample_index": 96,
+      "id": "9,17991E+17",
+      "token_count": 18,
+      "truncated": false
+    },
+    {
+      "sample_index": 97,
+      "id": "9,17991E+17",
+      "token_count": 18,
+      "truncated": false
+    },
+    {
+      "sample_index": 98,
+      "id": "9,17991E+17",
+      "token_count": 18,
+      "truncated": false
+    },
+    {
+      "sample_index": 99,
+      "id": "9,17991E+17",
+      "token_count": 18,
+      "truncated": false
+    }
+  ],
+  "diagnostics": [
+    {
+      "branch": "image",
+      "n_samples": 100,
+      "score_type": "probability",
+      "macro_f1": 0.4544125578422386,
+      "balanced_accuracy": 0.7638981173864895,
+      "top2_margin": 0.08759002387523651,
+      "entropy": 1.964741820169806,
+      "cosine_mean": 0.1635727882385254,
+      "cosine_std": 0.057511650025844574
+    },
+    {
+      "branch": "text",
+      "n_samples": 100,
+      "score_type": "probability",
+      "macro_f1": 0.1809873949579832,
+      "balanced_accuracy": 0.32220376522702104,
+      "top2_margin": 0.19056932628154755,
+      "entropy": 1.8360305378777384,
+      "cosine_mean": 0.5294782519340515,
+      "cosine_std": 0.08277873694896698,
+      "input_status": "measured",
+      "input_context_length": 77,
+      "input_n_nonempty": 100,
+      "input_n_measured": 100,
+      "input_n_truncated": 0,
+      "input_truncated_rate": 0.0
+    },
+    {
+      "branch": "fusion",
+      "n_samples": 100,
+      "score_type": "probability",
+      "macro_f1": 0.3702284833193159,
+      "balanced_accuracy": 0.5912513842746401,
+      "top2_margin": 0.1012013348378241,
+      "entropy": 1.941548265923444
+    }
+  ],
+  "summary": {
+    "sample_set_id": "e52a9a47d595d3a738cbbd19d50c23388b94ecbd9382fea965810c49fab3c1f0",
+    "prompt_id": "de5aee582c4c255e242ebf59a86b8c1fb7ea52eff49b8462260782532edebed5",
+    "split": "val",
+    "image_n_samples": 100,
+    "image_macro_f1": 0.4544125578422386,
+    "image_balanced_accuracy": 0.7638981173864895,
+    "text_n_samples": 100,
+    "text_macro_f1": 0.1809873949579832,
+    "text_balanced_accuracy": 0.32220376522702104,
+    "fusion_n_samples": 100,
+    "fusion_macro_f1": 0.3702284833193159,
+    "fusion_balanced_accuracy": 0.5912513842746401,
+    "config_id": "a59a455465e1be5006843520b11d06cce3ec7bed2b355dc9f3ba8d330756958b"
+  },
+  "model": "dfn5b_vith14",
+  "config_id": "a59a455465e1be5006843520b11d06cce3ec7bed2b355dc9f3ba8d330756958b",
+  "source_sha256": {
+    "text_chunking.py": "e8da71b92f7884f70db02160aa82df0451777a9ef5603b911f297e221bd895d0",
+    "config.py": "c7587f9bf3b7d97e63b1dfafffa17957c110ff283a4268f93284b064a59fd600",
+    "text_scale.py": "bbdf3dade644f5036d0e5ad57766e711a7e0be8f1711e91fa541ef53aee94eae",
+    "evaluation_audit.py": "c51a314bf1fe0790a25201a59816fa88b6d06946960af3e6862ee5e5a27da1c0",
+    "pair_relation.py": "69e5a5d9d4f9eeacfa040e16bace4ec78dd12870959d8a35ca1a357a3143ef09",
+    "inference.py": "3cbbabcc7a013e7a0a65a0c6cde551fc136237187486e446c99dbe1ce9940517",
+    "evaluate.py": "13e369b8fa8898a751afc0cd0b7d5360229b1a574cd00522dabf6b0137dc3d1f",
+    "run_experiment.py": "af61f2117f6ea4afadee2846032087adb28922bc647595a1bdcf7cc1ad982d74",
+    "demo.py": "7bf8794c2a19d1f47e27f8f9e706419de44115d5dd3c594da7db14c950fddf3f",
+    "logging_utils.py": "206b5cd470eb4010a098d732c67304270cd9d02ceb33402f66507684a53e681d",
+    "research/run_relation_ablation.py": "0fd91613cc37f00f20d3514caa47e7d049a5c3c84f64d76ee0196ee2040215dd",
+    "research/run_crisismmd_ensemble.py": "71905532fce6a9442dc8d06d4628531641f2297c5cc837993a8beb86e6555907",
+    "research/__init__.py": "c0b1bb68d820937dd39326cbc9fcc24e001c6c3beefd0b09732de585760e4c01",
+    "research/adapted_methods.py": "6fa6b4dbf5c125b13146fb04cf01ab59cd2ca246981f40c833e70fdba1c50d3d",
+    "research/run_upstream.py": "f7393ba379cdc9b0b63c8ac6301b95dd21d66b6b441c87730637ec6547c90a2c",
+    "research/run_adapted_methods.py": "04659db513a39fc6fa7acfc0d068eaa9e3e1684bddfdde0e4da5c0dc84d5a7c2",
+    "research/upstream.py": "8216a82d0ebe70204f1a2b5f7977210cb80b8632bc891cfde1333044bb990861",
+    "models/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "models/model_registry.py": "0aca2fae98e75eb75ba077f891367543f99d8b2dc22853609ab24d03b4d6e6bb",
+    "prompts/crisismmd_prompts.py": "1b4105bee5a11a4cd36b2cb75bd9c2cdad102b0b80431c142ec2d4ef225d82c7",
+    "prompts/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "prompts/mmimdb_prompts.py": "1fb94954049555d75d89c70182de29baf494625bedeaa1901059e94baaeb4ddc",
+    "prompts/fakeddit_prompts.py": "4440673640e19e6151417386e4c4512486f0187ad5bc3fc0ac137c4736904172",
+    "run/run_fakeddit.py": "2c0713253eb610bddb63288fc218eefa9c0e5a6a850b8dbf02fd5c2e4d031800",
+    "run/__init__.py": "d6045de51bed3d3aff5615c2e0a47242041fbf3ab45d3e01c018bac9b954d5cc",
+    "run/common.py": "765828356bf79483bf2ac2abb9b8241e86fc2f38238079b0292c584da1260b85",
+    "run/run_mmimdb.py": "0d3c8a63855f39c0b37bd38ecdf379d865952a1ae0b82b16d429b080e94fbc86",
+    "run/run_crisismmd.py": "dbc6b9d303dd16176bcfc4b83b0f4ee953aad4a1aa15159080ef2ce08c7b4641",
+    "preprocessing/data_fakeddit/check_fakeddit_ready.py": "1da592331ef420f98763b2b4456bcb1d8a36129158deb6e6604500163a43bf9b",
+    "preprocessing/data_fakeddit/image_downloader.py": "ed5a2da169a357a274da29b2aaa272f20c7b71de432ba0a6e0471680e441e1df",
+    "preprocessing/data_fakeddit/preprocess_fakeddit.py": "8485e197320fa345f941cf637fbde35179a45713be150142873c82c52e3bd7c3",
+    "preprocessing/data_mmimdb/check_mmimdb_ready.py": "a85fea828306ae4b82cd03a2c8b1d3584d7b42793511f57a5983d924ed983bd2",
+    "preprocessing/data_mmimdb/preprocess_mmimdb.py": "95add68bb14e07c303df5b73f130328e2afe4a9fb8cf70a46c631dc5da791e19",
+    "preprocessing/data_crisismmd/check_crisismmd_processed.py": "db23159b26d73305d0e3ecd3e248c08a18ce892ad1b9536f496c95be20392178",
+    "preprocessing/data_crisismmd/preprocess_crisismmd.py": "dc63692f8de39e61d49e9fbfbd8634f980d856dbceda26a180b597268f95133a"
+  },
+  "git_hash": "43e134f21782a939313b94e5278361e5900a6717"
+}

@@ -1,0 +1,4 @@
+method	n_samples	accuracy	macro_f1	balanced_accuracy	relation_weight	changed_predictions	model	device	sample_set_id
+baseline	5	0.4	0.1111111111111111	0.25	0	0	dfn5b_vith14	cpu	3538b49753d386be244d9eff2899efe6aa067c23f7315ce963c5e5bb77e91ec2
+legacy_false_connection_0.1	5	0.4	0.1111111111111111	0.25	0.1	0	dfn5b_vith14	cpu	3538b49753d386be244d9eff2899efe6aa067c23f7315ce963c5e5bb77e91ec2
+class_aware	5	0.4	0.1111111111111111	0.25	0.25	0	dfn5b_vith14	cpu	3538b49753d386be244d9eff2899efe6aa067c23f7315ce963c5e5bb77e91ec2

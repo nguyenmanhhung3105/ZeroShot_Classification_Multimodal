@@ -1,0 +1,5 @@
+dataset	task	method	n_samples	accuracy	macro_f1	balanced_accuracy_observed	changed_vs_baseline	wrong_to_right	right_to_wrong
+crisismmd	humanitarian	metaclip2_vith14	1000	0.731	0.4561593485646458	0.5904754552642727	0	0	0
+crisismmd	humanitarian	dfn5b_vith14	1000	0.707	0.5011464746808575	0.7071416306701803	230	84	108
+crisismmd	humanitarian	siglip2_so400m	1000	0.686	0.4530266151245981	0.576539107754406	198	58	103
+crisismmd	humanitarian	margin_majority	1000	0.731	0.4815637343671007	0.6296789844921313	42	18	18

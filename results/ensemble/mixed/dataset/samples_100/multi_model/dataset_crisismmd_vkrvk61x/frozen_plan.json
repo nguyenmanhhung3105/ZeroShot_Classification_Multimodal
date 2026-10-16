@@ -1,0 +1,122 @@
+{
+  "protocol": "bounded_no_fit",
+  "tasks": [
+    "informativeness",
+    "humanitarian"
+  ],
+  "models": [
+    "metaclip2_vith14",
+    "dfn5b_vith14",
+    "siglip2_so400m"
+  ],
+  "max_samples": 100,
+  "baseline": "metaclip2_vith14",
+  "ensemble": "arithmetic_mean_of_final_class_scores",
+  "gate": "use_mean_if_metaclip_top1_minus_top2_le_0.10_else_metaclip",
+  "device_requested": null,
+  "offline": false,
+  "config": {
+    "models": [
+      "metaclip2_vith14",
+      "dfn5b_vith14",
+      "siglip2_so400m"
+    ],
+    "inference": {
+      "image_text_relation": {
+        "enabled": false,
+        "mode": "auto",
+        "weight": 0.25
+      },
+      "batch_size": 16,
+      "image_weight": 0.5,
+      "text_logit_scale": null
+    },
+    "datasets": {
+      "fakeddit": {
+        "image_text_relation": {
+          "mode": "auto"
+        },
+        "enabled": true,
+        "task": "6way",
+        "data_path": "data/processed/pro_fakeddit/fakeddit_sample.tsv",
+        "image_dir": "data/processed/pro_fakeddit/images",
+        "id_col": "id",
+        "text_col": "clean_title",
+        "label_col_2way": "2_way_label",
+        "label_col_6way": "6_way_label",
+        "min_text_length": 20,
+        "max_samples": 1000,
+        "prompt_aggregation": "mean_sim",
+        "prompt_variants": [
+          "current"
+        ],
+        "inference": {
+          "image_weight": 0.75,
+          "text_logit_scale": 25
+        }
+      },
+      "crisismmd": {
+        "image_text_relation": {
+          "mode": "auto",
+          "enabled": false
+        },
+        "enabled": true,
+        "task": "informativeness",
+        "data_path": "data/processed/pro_crisismmd/pre_crisismmd.tsv",
+        "image_dir": "data/processed/pro_crisismmd/images",
+        "id_col": "tweet_id",
+        "text_col": "clean_text",
+        "label_col_info": "label_informative",
+        "label_col_human": "label_humanitarian",
+        "max_samples": 1000,
+        "prompt_aggregation": "mean_embed",
+        "inference": {
+          "image_weight": 0.5,
+          "text_logit_scale": null
+        }
+      },
+      "mmimdb": {
+        "image_text_relation": {
+          "mode": "auto"
+        },
+        "enabled": true,
+        "task": "genres",
+        "data_path": "data/processed/pro_mmimdb/mmimdb_sample.tsv",
+        "image_dir": "data/processed/pro_mmimdb/images",
+        "id_col": "id",
+        "text_col": "plot",
+        "label_col": "genres",
+        "max_samples": 1000,
+        "prompt_aggregation": "mean_sim",
+        "decision_mode": "relative_z",
+        "relative_z_threshold": 1.0,
+        "threshold": 0.22,
+        "chunk_long_text": true,
+        "chunk_aggregation": "mean_embed",
+        "inference": {
+          "image_weight": 0.5,
+          "text_logit_scale": null
+        }
+      }
+    },
+    "evaluation": {
+      "enabled": true,
+      "split": "val",
+      "measure_truncation": true,
+      "sample_lock_mode": "off",
+      "sample_lock_dir": "results/sample_locks"
+    },
+    "demo": {
+      "n_samples": 10,
+      "batch_size": 4,
+      "prompt_version": "v1",
+      "log_dir": "results/demo_logs",
+      "visualization_dir": "results/demo"
+    },
+    "output": {
+      "results_dir": "results/",
+      "raw_predictions_dir": "/Users/hung/Documents/MyProject/Python/DA_CNTT/vlm-zeroshot-content-classification/results/uncertainty_ensemble/crisismmd_vkrvk61x/model_logs",
+      "summary_table": "results/summary_table.tsv"
+    }
+  }
+}

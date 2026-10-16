@@ -1,0 +1,32 @@
+{
+  "True": [
+    "an authentic photograph documenting a real event",
+    "a factual presentation of a person, place, or object",
+    "an unaltered scene presented in its original context"
+  ],
+  "Satire/Parody": [
+    "a humorous parody or deliberate satire",
+    "an exaggerated cartoon or joke about a public event",
+    "an absurd scene intended for comedy rather than factual reporting"
+  ],
+  "False Connection": [
+    "a photograph paired with an unrelated headline",
+    "a picture whose content does not support its accompanying claim",
+    "a genuine image presented as evidence for a different event"
+  ],
+  "Imposter Content": [
+    "a presentation pretending to come from a trusted news source",
+    "a forged identity, logo, or official document",
+    "a fabricated screenshot impersonating a real person or organization"
+  ],
+  "Manipulated Content": [
+    "a photograph digitally edited to change its meaning",
+    "a composite image with objects or people added or removed",
+    "an altered scene with inconsistent lighting or unnatural details"
+  ],
+  "Misleading Content": [
+    "a real photograph framed to suggest a misleading interpretation",
+    "a cropped or selectively presented scene hiding important context",
+    "an image used to support a deceptive claim about an event"
+  ]
+}

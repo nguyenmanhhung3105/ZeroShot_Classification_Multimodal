@@ -1,0 +1,5 @@
+y_true	group	n_samples	n_errors	error_rate
+informative	automatic	1067	53	0.04967197750702906
+informative	review	555	134	0.24144144144144145
+not_informative	automatic	1006	91	0.09045725646123261
+not_informative	review	372	125	0.33602150537634407

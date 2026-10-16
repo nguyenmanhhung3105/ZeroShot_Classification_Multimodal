@@ -1,0 +1,4 @@
+dataset	task	model	method	n_samples	margin_threshold	gate_count	accuracy	macro_f1	changed_vs_baseline	wrong_to_right	right_to_wrong	wrong_to_wrong_changed
+crisismmd	humanitarian	metaclip2_vith14	baseline	1000	0.1	144	0.731	0.4561593485646458	0	0	0	0
+crisismmd	humanitarian	metaclip2_vith14	adapted_dclip	1000	0.1	144	0.733	0.46506805735510315	111	49	47	15
+crisismmd	humanitarian	metaclip2_vith14	prompt_margin_gate	1000	0.1	144	0.742	0.4707990433865291	53	28	17	8

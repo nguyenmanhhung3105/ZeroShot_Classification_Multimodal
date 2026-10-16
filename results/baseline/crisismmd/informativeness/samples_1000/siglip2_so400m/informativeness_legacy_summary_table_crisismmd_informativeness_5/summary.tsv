@@ -1,0 +1,2 @@
+model	dataset	task	prompt_aggregation	accuracy	macro_f1	micro_f1	text_logit_scale_requested	text_logit_scale_effective	text_logit_scale_status	text_scale_override_applied	fusion_enabled	image_weight	text_weight	split	image_macro_f1	text_macro_f1	fusion_macro_f1_gain	fusion_improves_macro_f1	n_samples	balanced_accuracy
+siglip2_so400m	crisismmd	informativeness	mean_sim	0.499	0.38855835240274594	0.499		109.88121795654297	model_default	False	True	0.5	0.5	val	0.705755959452969	0.3606892753167047	-0.31719760705022304	False	1000	0.5333707381621761

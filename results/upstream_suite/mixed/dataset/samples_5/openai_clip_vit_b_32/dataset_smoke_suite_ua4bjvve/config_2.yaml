@@ -1,0 +1,39 @@
+base_config: configs/experiment_config.yaml
+backbones:
+- ViT-B/32
+device: auto
+batch_size: 16
+methods:
+- clip
+- waffle
+- dclip_labels
+- dclip
+seeds:
+- 0
+waffle_pairs: 15
+outputs:
+- original_image
+- multimodal
+output_dir: /Users/hung/Documents/MyProject/Python/DA_CNTT/vlm-zeroshot-content-classification/results/upstream_projects/smoke_suite_ua4bjvve
+datasets:
+  crisismmd:
+    enabled: false
+    task: humanitarian
+    max_samples: 5
+  fakeddit:
+    enabled: true
+    task: 2way
+    max_samples: 5
+  mmimdb:
+    enabled: false
+    task: genres
+    max_samples: 5
+descriptor_files:
+  crisismmd:
+    humanitarian: configs/research/descriptors/crisismmd_humanitarian.json
+    informativeness: configs/research/descriptors/crisismmd_info.json
+  fakeddit:
+    2way: configs/research/descriptors/fakeddit_2way.json
+    6way: configs/research/descriptors/fakeddit_6way.json
+  mmimdb:
+    genres: configs/research/descriptors/mmimdb_genres.json

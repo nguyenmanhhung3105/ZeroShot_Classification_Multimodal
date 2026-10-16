@@ -1,0 +1,2 @@
+id	text	image_path	y_true	y_pred	correct	confidence	margin	score_informative	score_not_informative	_text_was_empty	_image_encoded	score_image_informative	score_image_not_informative	_text_encoded	score_text_informative	score_text_not_informative
+9,17794E+17	California wildfire. 4	data/processed/pro_crisismmd/images/data_image/california_wildfires/10_10_2017/917793736918216706_0.jpg	not_informative	informative	False	0.5018708109855652	0.003741621971130371	0.5018708109855652	0.4981291890144348	False	True	0.5018708109855652	0.4981291890144348	False		

@@ -1,0 +1,148 @@
+{
+  "policy": "consensus_gate_v1",
+  "dataset": "fakeddit",
+  "task": "2way",
+  "n_samples": 1000,
+  "sample_set_id": "6a36a0962b8d5691968f54b5cc0f0e8d1d48e756b0320f98304dfc4ad72c7509",
+  "split_verified": false,
+  "threshold_fixed_without_labels": 0.1,
+  "labels": [
+    "0",
+    "1"
+  ],
+  "models": [
+    "metaclip2_vith14",
+    "dfn5b_vith14",
+    "siglip2_so400m"
+  ],
+  "methods": {
+    "primary": {
+      "accuracy": 0.591,
+      "macro_f1": 0.5189542606656309,
+      "changed": 0,
+      "wrong_to_right": 0,
+      "right_to_wrong": 0,
+      "wrong_to_wrong_changed": 0
+    },
+    "equal_mean": {
+      "accuracy": 0.603,
+      "macro_f1": 0.46564443684711376,
+      "changed": 132,
+      "wrong_to_right": 72,
+      "right_to_wrong": 60,
+      "wrong_to_wrong_changed": 0
+    },
+    "margin_gate_mean": {
+      "accuracy": 0.598,
+      "macro_f1": 0.49362879211572475,
+      "changed": 77,
+      "wrong_to_right": 42,
+      "right_to_wrong": 35,
+      "wrong_to_wrong_changed": 0
+    },
+    "aux_consensus_all": {
+      "accuracy": 0.603,
+      "macro_f1": 0.4641789453368047,
+      "changed": 132,
+      "wrong_to_right": 72,
+      "right_to_wrong": 60,
+      "wrong_to_wrong_changed": 0
+    },
+    "aux_consensus_low_margin": {
+      "accuracy": 0.588,
+      "macro_f1": 0.48569688072661543,
+      "changed": 63,
+      "wrong_to_right": 30,
+      "right_to_wrong": 33,
+      "wrong_to_wrong_changed": 0
+    }
+  },
+  "recoverability": {
+    "primary_errors": 409,
+    "primary_errors_any_aux_correct": 148,
+    "primary_errors_both_aux_correct": 72,
+    "primary_errors_all_models_wrong": 261
+  },
+  "predicted_class_counts": {
+    "metaclip2_vith14": {
+      "0": 228,
+      "1": 772
+    },
+    "dfn5b_vith14": {
+      "0": 127,
+      "1": 873
+    },
+    "siglip2_so400m": {
+      "0": 92,
+      "1": 908
+    }
+  },
+  "uncertainty_detection": {
+    "one_minus_primary_margin": {
+      "error_auroc": 0.5437139819377045,
+      "error_average_precision": 0.4377747024370964,
+      "errors_in_top_20_percent": 98,
+      "top_20_percent_count": 200
+    },
+    "model_vote_disagreement": {
+      "error_auroc": 0.5614825479172098,
+      "error_average_precision": 0.4508821656993173,
+      "errors_in_top_20_percent": 103,
+      "top_20_percent_count": 200
+    },
+    "model_js_divergence": {
+      "error_auroc": 0.48765715562285133,
+      "error_average_precision": 0.417769984721149,
+      "errors_in_top_20_percent": 82,
+      "top_20_percent_count": 200
+    },
+    "image_text_vote_disagreement": {
+      "error_auroc": 0.5293853606874098,
+      "error_average_precision": 0.42506097762744266,
+      "errors_in_top_20_percent": 97,
+      "top_20_percent_count": 200
+    },
+    "image_text_js_divergence": {
+      "error_auroc": 0.4648455437925856,
+      "error_average_precision": 0.37363948445494627,
+      "errors_in_top_20_percent": 62,
+      "top_20_percent_count": 200
+    }
+  },
+  "uncertainty_groups": {
+    "low_margin": {
+      "n": 240,
+      "primary_errors": 115,
+      "primary_error_rate": 0.4791666666666667,
+      "share_of_primary_errors": 0.28117359413202936,
+      "accepted_n": 760,
+      "accepted_accuracy": 0.6131578947368421
+    },
+    "any_model_disagreement": {
+      "n": 293,
+      "primary_errors": 148,
+      "primary_error_rate": 0.5051194539249146,
+      "share_of_primary_errors": 0.36185819070904646,
+      "accepted_n": 707,
+      "accepted_accuracy": 0.6308345120226309
+    },
+    "aux_consensus_opposite": {
+      "n": 132,
+      "primary_errors": 72,
+      "primary_error_rate": 0.5454545454545454,
+      "share_of_primary_errors": 0.17603911980440098,
+      "accepted_n": 868,
+      "accepted_accuracy": 0.6117511520737327
+    },
+    "low_margin_and_aux_consensus": {
+      "n": 63,
+      "primary_errors": 30,
+      "primary_error_rate": 0.47619047619047616,
+      "share_of_primary_errors": 0.07334963325183375,
+      "accepted_n": 937,
+      "accepted_accuracy": 0.5955176093916756
+    }
+  },
+  "source_type": "kaggle_archive",
+  "source_run": "results/ensemble/fakeddit/2way/samples_1000/multi_model/2way_5c026d594111"
+}

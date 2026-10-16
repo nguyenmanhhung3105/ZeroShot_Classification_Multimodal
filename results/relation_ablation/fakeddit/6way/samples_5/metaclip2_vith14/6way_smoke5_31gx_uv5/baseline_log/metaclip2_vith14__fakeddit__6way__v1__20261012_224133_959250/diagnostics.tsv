@@ -1,0 +1,4 @@
+branch	n_samples	score_type	macro_f1	balanced_accuracy	top2_margin	entropy	cosine_mean	cosine_std	input_status	input_context_length	input_n_nonempty	input_n_measured	input_n_truncated	input_truncated_rate
+image	5	probability	0.06666666666666667	0.125	0.3790455758571625	1.1459102396424101	0.15481416881084442	0.02833513356745243						
+text	5	probability	0.08333333333333333	0.125	0.09700606763362885	1.6665910347689903	0.6195846796035767	0.07410112023353577	measured	77.0	5.0	5.0	0.0	0.0
+fusion	5	probability	0.06666666666666667	0.125	0.3158154087141156	1.3668988114551694								
