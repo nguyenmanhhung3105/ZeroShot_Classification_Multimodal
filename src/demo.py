@@ -3,6 +3,8 @@ import argparse
 from copy import deepcopy
 import math
 import os
+from pathlib import Path
+import uuid
 
 import pandas as pd
 
@@ -13,6 +15,7 @@ from run.common import (load_config, load_dataframe, resolve_override, resolve_i
 from run.run_fakeddit import run_fakeddit
 from run.run_crisismmd import run_crisismmd
 from run.run_mmimdb import run_mmimdb
+from results_layout import model_folder, run_path
 
 CONFIG_PATH = "configs/experiment_config.yaml"
 N_SAMPLES = 20
@@ -89,19 +92,34 @@ def main(argv=None):
     LOG_DIR = settings.get("log_dir", LOG_DIR)
     OUTPUT_DIR = settings.get("visualization_dir", OUTPUT_DIR)
     PROMPT_VERSION = settings.get("prompt_version", PROMPT_VERSION)
+    direct = (Path(LOG_DIR) in (Path("auto"), Path("results/demo_logs"))
+              and Path(OUTPUT_DIR) in (Path("auto"), Path("results/demo")))
+    run_id = uuid.uuid4().hex[:12] if direct else None
     rows = []
+    output_by_dataset = {}
     for model_name in config["models"]:
         vlm = load_model(model_name, device=config.get("device"))
         try:
             for dataset, task in config["datasets"].items():
                 if task.get("enabled", False):
+                    if direct:
+                        output = run_path("demo", dataset, task["task"],
+                                          min(N_SAMPLES, task.get("max_samples") or N_SAMPLES),
+                                          model_folder(models=config["models"]), run_id)
+                        LOG_DIR, OUTPUT_DIR = str(output / "demo_logs"), str(output)
+                        output_by_dataset[dataset] = output
                     rows.extend(shared.run_prompt_trials(
                         lambda active, name=dataset: run_dataset(vlm, model_name, name, active,
                                   get_image_weight(config, name), config), model_name, dataset, task))
         finally:
             vlm.unload()
     if rows:
-        shared.save_summary_tables(rows, os.path.join(OUTPUT_DIR, "demo_summary.tsv"))
+        if direct:
+            for dataset, output in output_by_dataset.items():
+                selected = [row for row in rows if row.get("dataset") == dataset]
+                shared.save_summary_tables(selected, str(output / "demo_summary.tsv"))
+        else:
+            shared.save_summary_tables(rows, os.path.join(OUTPUT_DIR, "demo_summary.tsv"))
     return rows
 
 

@@ -66,7 +66,7 @@ Runner duyệt `base['models']`, tải một model rồi gọi runner dataset ch
 ## Output và cấu hình hiện tại
 
 ```text
-results/paper_methods/<dataset>_<thư_mục_lượt_mới>/
+results/adapted_<method>/<dataset>/<task>/samples_N/<model>/<task>_<thư_mục_lượt_mới>/
 ├── frozen_plan.json
 ├── summary.tsv
 ├── seed_summary.tsv

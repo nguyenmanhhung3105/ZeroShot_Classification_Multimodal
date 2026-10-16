@@ -80,7 +80,7 @@ class LauncherTests(unittest.TestCase):
                 launcher.validate(self.config, [name])
                 launcher.run_one(self.config, name, dry_run=True)
                 cli.assert_not_called()
-        stages = list((self.root / "results/launches/staging").iterdir())
+        stages = list((self.root / "results/_system/launches/staging").iterdir())
         self.assertEqual(len(stages), 5)
         for stage in stages:
             with zipfile.ZipFile(stage / "data/data_bundle.zip") as archive:
@@ -112,11 +112,122 @@ class LauncherTests(unittest.TestCase):
                 stage = self.root / f"{name}_stage"
                 stage.mkdir()
                 _, job, output, command, _, _, research = launcher.job_plan(self.config, name, stage)
-                self.assertTrue(str(output).startswith("results/experiments/"))
+                self.assertTrue(str(output).startswith("results/"))
+                self.assertEqual(output.parts[-3], "samples_2")
+                self.assertIn(output.parts[-2], {"multi_model", "metaclip2_vith14", "openai_clip_vit_b_32"})
                 self.assertEqual(job["output_dir"], str(output))
                 if research:
                     self.assertEqual(yaml.safe_load(research.read_text())["methods"], job["methods"])
                     self.assertIn("--config", command)
+
+    def test_crisismmd_agreement_jobs_enable_relation_only_for_selected_job(self):
+        for name in ("crisismmd_info_agreement", "crisismmd_humanitarian_agreement",
+                     "adapted_crisismmd_info_agreement", "adapted_crisismmd_humanitarian_agreement"):
+            with self.subTest(name=name):
+                launcher.validate(self.config, [name])
+                stage = self.root / (name + "_stage")
+                stage.mkdir()
+                experiment, _, _, _, active, _, research = launcher.job_plan(self.config, name, stage)
+                relation = experiment["datasets"]["crisismmd"]["image_text_relation"]
+                self.assertEqual(relation["mode"], "agreement_fusion")
+                self.assertTrue(relation["enabled"])
+                self.assertFalse(experiment["datasets"]["fakeddit"]["image_text_relation"].get("enabled", False))
+                self.assertEqual(launcher.load_config(active)["datasets"]["crisismmd"]["task"],
+                                 self.config["jobs"][name]["task"])
+                if research is not None:
+                    self.assertTrue(yaml.safe_load(research.read_text())["image_text_relation"]["enabled"])
+
+    def test_crisismmd_direct_pair_jobs_are_opt_in(self):
+        for name in ("crisismmd_info_direct_pair", "crisismmd_humanitarian_direct_pair"):
+            with self.subTest(name=name):
+                launcher.validate(self.config, [name])
+                stage = self.root / (name + "_stage")
+                stage.mkdir()
+                experiment, _, _, _, active, _, _ = launcher.job_plan(self.config, name, stage)
+                relation = experiment["datasets"]["crisismmd"]["image_text_relation"]
+                self.assertEqual(relation, {"enabled": True, "mode": "direct_pair_fusion", "weight": .25})
+                self.assertEqual(launcher.load_config(active)["datasets"]["crisismmd"]["task"],
+                                 self.config["jobs"][name]["task"])
+
+    def test_crisismmd_entropy_jobs_freeze_fusion_and_separate_results(self):
+        for name in ("crisismmd_info_entropy", "crisismmd_humanitarian_entropy",
+                     "adapted_crisismmd_info_entropy", "adapted_crisismmd_humanitarian_entropy"):
+            with self.subTest(name=name):
+                self.config["use_kaggle"] = True
+                launcher.validate(self.config, [name])
+                launcher.validate_single_cloud_trial(self.config, [name])
+                stage = self.root / (name + "_stage")
+                stage.mkdir()
+                experiment, job, output, _, active, _, research = launcher.job_plan(self.config, name, stage)
+                task = experiment["datasets"]["crisismmd"]
+                self.assertEqual(task["inference"]["fusion_mode"], "entropy_weighted")
+                self.assertFalse(task["image_text_relation"]["enabled"])
+                self.assertEqual(output.parts[1], job["result_method"])
+                self.assertEqual(launcher.load_config(active)["datasets"]["crisismmd"]["task"], job["task"])
+                if job["kind"] == "adapted":
+                    self.assertEqual(yaml.safe_load(research.read_text())["methods"], ["dclip"])
+
+    def test_crisismmd_uncertainty_jobs_have_runnable_cloud_plans(self):
+        self.config["use_kaggle"] = True
+        self.config["kaggle"]["data_mode"] = "bounded"
+        cases = {
+            "crisismmd_info_margin_majority": ("margin_majority", "experiments/ensemble/run_ensemble.py"),
+            "crisismmd_humanitarian_margin_majority": ("margin_majority", "experiments/ensemble/run_ensemble.py"),
+            "crisismmd_info_prompt_margin_gate": ("prompt_margin_gate", "experiments/uncertainty/run_crisismmd_prompt_gate.py"),
+            "crisismmd_humanitarian_prompt_margin_gate": ("prompt_margin_gate", "experiments/uncertainty/run_crisismmd_prompt_gate.py"),
+        }
+        for name, (method, entry) in cases.items():
+            with self.subTest(name=name), patch.object(launcher, "run_cli") as cli, redirect_stdout(io.StringIO()):
+                launcher.validate(self.config, [name])
+                launcher.validate_single_cloud_trial(self.config, [name])
+                stage = self.root / (name + "_stage")
+                stage.mkdir()
+                _, _, output, command, _, _, _ = launcher.job_plan(self.config, name, stage)
+                self.assertEqual((output.parts[1], command[0]), (method, entry))
+                launcher.run_one(self.config, name, dry_run=True)
+                cli.assert_not_called()
+
+    def test_crisismmd_image_only_jobs_keep_results_separate(self):
+        cases = (("crisismmd_info_image_only", "standard", None),
+                 ("adapted_crisismmd_info_image_only", "adapted", "dclip"),
+                 ("upstream_crisismmd_info_image_only", "upstream", "dclip"))
+        for name, kind, method in cases:
+            with self.subTest(name=name):
+                job = self.config["jobs"][name]
+                if method:
+                    job["methods"] = [method]
+                launcher.validate(self.config, [name])
+                stage = self.root / (name + "_stage")
+                stage.mkdir()
+                active_config, saved_job, output, _, _, _, research_file = launcher.job_plan(
+                    self.config, name, stage)
+                self.assertEqual(active_config["datasets"]["crisismmd"]["image_text_relation"]["enabled"], False)
+                self.assertTrue(output.parts[1].startswith("image_only_"))
+                self.assertEqual(saved_job["result_protocol"], "image_only")
+                if kind == "upstream":
+                    self.assertEqual(yaml.safe_load(research_file.read_text())["outputs"], ["original_image"])
+                    self.assertEqual(output.parts[1], "image_only_upstream_dclip")
+                else:
+                    self.assertEqual(active_config["datasets"]["crisismmd"]["inference"]["image_weight"], 1)
+
+    def test_image_only_job_rejects_multimodal_configuration(self):
+        name = "crisismmd_info_image_only"
+        self.config["jobs"][name]["image_weight"] = .5
+        with self.assertRaisesRegex(ValueError, "image_weight: 1.0"):
+            launcher.validate(self.config, [name])
+
+    def test_inherited_relation_gets_its_own_method_folder(self):
+        path = self.root / "configs/experiment_config.yaml"
+        experiment = yaml.safe_load(path.read_text(encoding="utf-8"))
+        experiment["inference"]["image_text_relation"] = {"enabled": True, "mode": "auto", "weight": .25}
+        path.write_text(yaml.safe_dump(experiment), encoding="utf-8")
+        job = self.config["jobs"]["fakeddit_6way"]
+        job.pop("image_text_relation", None)
+        stage = self.root / "relation_stage"
+        stage.mkdir()
+        _, saved_job, output, _, _, _, _ = launcher.job_plan(self.config, "fakeddit_6way", stage)
+        self.assertEqual(output.parts[1], "class_aware")
+        self.assertEqual(saved_job["result_method"], "class_aware")
 
     def test_upstream_job_can_select_original_image_only(self):
         name = "upstream_crisismmd_humanitarian"
@@ -155,6 +266,30 @@ class LauncherTests(unittest.TestCase):
         self.assertEqual(name, "crisismmd_info")
         self.assertTrue(dry_run)
         self.assertEqual(config["jobs"][name]["models"], ["dfn5b_vith14"])
+
+    def test_openai_clip_uses_same_crisismmd_fusion_for_baseline_and_dclip(self):
+        model = "openai_clip_vit_b_32"
+        self.assertEqual(launcher.MODEL_CONFIGS[model]["pretrained"], "openai")
+        for task, suffix in (("informativeness", "info"), ("humanitarian", "humanitarian")):
+            for kind, name in (("standard", f"crisismmd_{suffix}"),
+                               ("adapted", f"adapted_crisismmd_{suffix}")):
+                with self.subTest(task=task, kind=kind):
+                    job = self.config["jobs"][name]
+                    job["models"] = [model]
+                    if kind == "adapted":
+                        job["methods"] = ["dclip"]
+                    launcher.validate(self.config, [name])
+                    stage = self.root / f"openai_{name}"
+                    stage.mkdir()
+                    experiment, _, output, _, _, _, research_file = launcher.job_plan(
+                        self.config, name, stage)
+                    self.assertEqual(experiment["models"], [model])
+                    self.assertEqual(experiment["datasets"]["crisismmd"]["inference"]["image_weight"], 0.5)
+                    self.assertEqual(output.parts[-2], model)
+                    self.assertEqual(output.parts[1], "baseline" if kind == "standard" else "adapted_dclip")
+                    if kind == "adapted":
+                        self.assertEqual(Path(yaml.safe_load(research_file.read_text())["descriptor_file"]).name,
+                                         f"crisismmd_{suffix}.json")
 
     def test_cli_selects_one_upstream_method_backbone_output_and_seed(self):
         with patch.object(launcher, "run_one") as run:
@@ -207,7 +342,7 @@ class LauncherTests(unittest.TestCase):
                 launcher.validate(self.config, [name])
                 launcher.run_one(self.config, name, dry_run=True)
                 cli.assert_not_called()
-        for stage in (self.root / "results/launches/staging").iterdir():
+        for stage in (self.root / "results/_system/launches/staging").iterdir():
             with zipfile.ZipFile(stage / "code/code_bundle.zip") as archive:
                 self.assertNotIn("configs/active.yaml", archive.namelist())
                 self.assertIn("requirements/research.txt", archive.namelist())
@@ -238,7 +373,7 @@ class LauncherTests(unittest.TestCase):
             for name in jobs:
                 launcher.validate(self.config, [name])
                 launcher.run_one(self.config, name, dry_run=True)
-        stages = list((self.root / "results/launches/staging").iterdir())
+        stages = list((self.root / "results/_system/launches/staging").iterdir())
         self.assertEqual(len(stages), 2)
         settings = [launcher.staged_run(stage)[0] for stage in stages]
         self.assertEqual(settings[0]["data_sha256"], settings[1]["data_sha256"])
@@ -247,7 +382,7 @@ class LauncherTests(unittest.TestCase):
             self.assertEqual(sum(name.startswith("data/processed/pro_crisismmd/images/")
                                  for name in archive.namelist()), 3)
             self.assertFalse(any(".DS_Store" in name for name in archive.namelist()))
-        self.assertTrue((self.root / "results/launches/full_data_cache/crisismmd/data_bundle.zip").is_file())
+        self.assertTrue((self.root / "results/_system/launches/full_data_cache/crisismmd/data_bundle.zip").is_file())
 
     def test_full_dataset_cache_detects_changed_bytes_with_same_metadata(self):
         experiment = yaml.safe_load((self.root / "configs/experiment_config.yaml").read_text())
@@ -370,7 +505,7 @@ class LauncherTests(unittest.TestCase):
         self.config["use_kaggle"] = True
         with redirect_stdout(io.StringIO()):
             launcher.run_one(self.config, "crisismmd_info", dry_run=True)
-        stage = next((self.root / "results/launches/staging").iterdir())
+        stage = next((self.root / "results/_system/launches/staging").iterdir())
         settings, kernel_id, output = launcher.staged_run(stage)
 
         def fake_cli(args, check=True):
@@ -391,11 +526,42 @@ class LauncherTests(unittest.TestCase):
         self.assertEqual([call.args[0][1:3] for call in cli.call_args_list],
                          [["kernels", "status"], ["kernels", "output"]])
 
+    def test_resume_accepts_stages_created_before_model_folder(self):
+        self.config["use_kaggle"] = True
+        with redirect_stdout(io.StringIO()):
+            launcher.run_one(self.config, "crisismmd_info", dry_run=True)
+        stage = next((self.root / "results/_system/launches/staging").iterdir())
+        settings, _, expected = launcher.staged_run(stage)
+        old = Path(settings["output_dir"])
+        worker = stage / "kernel/worker.py"
+        for previous in (old.parent.parent / old.name,
+                         old.parent.parent.parent.parent / old.parent.parent.name / old.name):
+            settings["output_dir"] = str(previous)
+            worker.write_text("SETTINGS = " + repr(settings) + "\n", encoding="utf-8")
+            self.assertEqual(launcher.staged_run(stage)[2], expected)
+
+    def test_collect_result_uses_migrated_image_only_run_without_download(self):
+        old = self.root / ("results/upstream_dclip/crisismmd/informativeness/samples_2/"
+                           "openai_clip_vit_b_32/informativeness_abc123")
+        new = self.root / ("results/image_only_upstream_dclip/crisismmd/informativeness/samples_2/"
+                           "openai_clip_vit_b_32/informativeness_abc123")
+        new.mkdir(parents=True)
+        settings = {key: "same" for key in ("run_id", "job_id", "code_sha256", "data_sha256")}
+        (new / "run_receipt.json").write_text(json.dumps(settings), encoding="utf-8")
+        (new / "summary.tsv").write_text("method\n", encoding="utf-8")
+        mapping = self.root / "results/_system/migration_map.json"
+        mapping.parent.mkdir(parents=True)
+        mapping.write_text(json.dumps([{"from": old.relative_to(self.root / "results").as_posix(),
+            "to": new.relative_to(self.root / "results").as_posix()}]), encoding="utf-8")
+        with patch.object(launcher, "run_cli") as cli, redirect_stdout(io.StringIO()):
+            self.assertEqual(launcher.collect_result("kaggle", "owner/kernel", settings, old), new)
+            cli.assert_not_called()
+
     def test_resume_rejects_receipt_from_other_run(self):
         self.config["use_kaggle"] = True
         with redirect_stdout(io.StringIO()):
             launcher.run_one(self.config, "crisismmd_info", dry_run=True)
-        stage = next((self.root / "results/launches/staging").iterdir())
+        stage = next((self.root / "results/_system/launches/staging").iterdir())
         _, _, output = launcher.staged_run(stage)
 
         def fake_cli(args, check=True):

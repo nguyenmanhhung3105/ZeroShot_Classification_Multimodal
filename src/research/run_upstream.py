@@ -283,7 +283,8 @@ def evaluate_trial(vlm, dataset, spec, cohort, cache, trial, image, output, base
         vectors = cache["relation_embeddings"]
         relation_scores = relation_evidence(vectors["image"], vectors["text"], p_image, p_text,
                                             cache["empty"], single_label=not multi)
-        fused = apply_class_relation(fused, cohort["labels"], relation_scores, effective_relation, weight)
+        fused = apply_class_relation(fused, cohort["labels"], relation_scores, effective_relation, weight,
+                                     p_image=p_image, p_text=p_text)
         if not multi:
             predictions = [cohort["labels"][i] for i in fused.argmax(axis=1)]
         if audit is not None:
@@ -366,8 +367,21 @@ def main(argv=None):
     base = load_config(settings["base_config"])
     sources, api = verify_sources(), author_api()
     output = Path(settings["output_dir"])
+    managed_output = output in (Path("auto"), Path("results/upstream_projects"))
+    if managed_output:
+        from results_layout import dataset_folder, model_folder, sample_folder, task_folder
+        enabled = [(name, spec) for name, spec in settings["datasets"].items() if spec.get("enabled")]
+        name, spec = enabled[0] if len(enabled) == 1 else ("mixed", {"task": "dataset"})
+        counts = {item["max_samples"] for _, item in enabled}
+        method = f"upstream_{settings['methods'][0]}" if len(settings["methods"]) == 1 else "upstream_suite"
+        output = (Path("results") / method / dataset_folder(name, spec["task"])
+                  / task_folder(name, spec["task"])
+                  / sample_folder(next(iter(counts)) if len(counts) == 1 else None)
+                  / model_folder(backbones=settings["backbones"]))
     output.mkdir(parents=True, exist_ok=True)
-    root = Path(tempfile.mkdtemp(prefix="experiment_", dir=output))
+    run_prefix = ((spec["task"] if len(enabled) == 1 else "dataset") + "_"
+                  if managed_output else "experiment_")
+    root = Path(tempfile.mkdtemp(prefix=run_prefix, dir=output))
     rows, vlm = [], None
     try:
         specs, trials = prepare_plan(settings, base, api, root, sources)

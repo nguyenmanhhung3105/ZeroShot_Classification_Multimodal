@@ -27,8 +27,8 @@ Số như `0.80` ở accuracy/F1 tương ứng `80%` khi biểu diễn theo ph�
 Đường dẫn có thể đổi theo YAML; cấu trúc thông thường:
 
 ```text
-results/
-├── summary_table_<dataset>_<task>_<số>.tsv
+results/<phương_pháp>/<dataset>/<task>/samples_N/<model>/<task>_<lượt>/
+├── summary.tsv hoặc summary_table_<dataset>_<task>_<số>.tsv
 └── raw_predictions/<run_id>/
     ├── raw_predictions.tsv
     ├── error_analysis.tsv
@@ -501,7 +501,7 @@ Ví dụ Macro-F1 qua 3 seed `.40, .42, .44`: mean `.42`, std khoảng `.01633`.
 
 ### 10.3 Đối chứng quan hệ ảnh–text
 
-Trong `results/relation_ablation/<lượt>/summary.tsv`:
+Trong `results/relation_ablation/fakeddit/6way/samples_5/<model>/6way_<lượt>/summary.tsv`:
 
 | Trường | Ý nghĩa |
 |---|---|

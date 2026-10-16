@@ -18,7 +18,7 @@ import tempfile
 import zipfile
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
-from experiments.uncertainty.analyze_review import ROOT, _prediction_member
+from experiments.uncertainty.analyze_review import ROOT, _prediction_member, analysis_path
 
 
 def _macro_f1(truth_pred, labels):
@@ -45,8 +45,9 @@ def compare(primary_dir, flags_dir, candidate_dir, candidate_model, output_dir=N
         raise ValueError("Quy tắc gắn cờ phải độc lập với nhãn thật")
     if not candidate_model:
         raise ValueError("Cần chỉ rõ --candidate-model")
-    target = (Path(output_dir).resolve() if output_dir else ROOT / "results/analysis/fallback" /
-              f"{primary_dir.name}_{candidate_dir.name}_{candidate_model}")
+    target = (Path(output_dir).resolve() if output_dir else ROOT / analysis_path(
+              "fallback", primary_dir, f"{primary_dir.name}_{candidate_dir.name}_{candidate_model}",
+              model="multi_model" if primary_model != candidate_model else primary_dir.parent.name))
     if target.exists():
         raise FileExistsError(f"Kết quả đã tồn tại: {target}")
     target.parent.mkdir(parents=True, exist_ok=True)

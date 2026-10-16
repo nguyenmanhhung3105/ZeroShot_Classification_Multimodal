@@ -57,7 +57,7 @@ Flag `image_text_relation.enabled` trong upstream.yaml mặc định false và �
 ## Kết quả và kiểm soát đối chứng
 
 ```text
-results/upstream_projects/<thư_mục_lượt_mới>/
+results/upstream_<method>/<dataset>/<task>/samples_N/<model>/<task>_<thư_mục_lượt_mới>/
 ├── frozen_plan.json
 ├── descriptors_<dataset>_<task>.json
 ├── summary.tsv
@@ -65,6 +65,8 @@ results/upstream_projects/<thư_mục_lượt_mới>/
 ├── raw_predictions/<thư_mục_trial>/...
 └── failure.json                         # chỉ khi lỗi
 ```
+
+Job có `result_protocol: image_only` đặt kết quả mới tại `results/image_only_upstream_<method>/...`; lượt lịch sử chỉ chứa `original_image` cũng được phân loại ở đó. Archive chứa cả `original_image` và `multimodal` giữ nguyên dưới `upstream_suite`.
 
 Summary giữ model/backbone/device/method/seed/output_variant/metric và cấu hình quyết định; thông tin cohort chi tiết nằm trong snapshot của từng trial. `seed_summary.tsv` nhóm theo model × dataset × task × method × output_variant, báo mean và std `ddof=0`; một lượt chưa có std có ý nghĩa. Với original_image, summary không dùng text Macro-F1 hay fusion gain như kết luận đa phương thức.
 

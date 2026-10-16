@@ -64,7 +64,7 @@ def prepare_audit(frame, task_config, config, dataset, task, id_col, text_col, l
         raise ValueError("Unknown sample_lock_mode")
     lock_path = None
     if mode != "off":
-        root = Path(settings.get("sample_lock_dir", "results/sample_locks"))
+        root = Path(settings.get("sample_lock_dir", "results/_system/sample_locks"))
         name = re.sub(r"[^a-zA-Z0-9_-]", "_", f"{dataset}_{task}_{scope}")
         lock_path = root / f"{name}.json"
         if mode == "create_or_verify":

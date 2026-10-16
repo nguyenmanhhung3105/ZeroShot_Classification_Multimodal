@@ -72,6 +72,7 @@ def run_crisismmd(vlm, task_config: dict, config: dict) -> dict:
 
     batch_size = config.get("inference", {}).get("batch_size", 16)
     image_weight = get_image_weight(config, "crisismmd")
+    fusion_mode = task_config.get("inference", {}).get("fusion_mode", "fixed")
     text_scale, scale_meta = text_scale_settings(config, "crisismmd", vlm, task_config, image_weight)
     scale_meta["prompt_aggregation"] = aggregation
 
@@ -79,7 +80,7 @@ def run_crisismmd(vlm, task_config: dict, config: dict) -> dict:
         vlm, images, texts, class_embeds, label_order,
         batch_size=batch_size, image_weight=image_weight, diagnostics=audit, text_logit_scale=text_scale,
         image_class_embeds=image_classes,
-        image_text_relation=relation, relation_scores=relation_scores,
+        image_text_relation=relation, relation_scores=relation_scores, fusion_mode=fusion_mode,
     )
     df_valid["_text_was_empty"] = text_empty_mask
     attach_relation(df_valid, relation_scores)
@@ -96,6 +97,7 @@ def run_crisismmd(vlm, task_config: dict, config: dict) -> dict:
         result = evaluate_single_label(y_true, predictions, label_order, low_sample_classes=low_sample)
 
     result.update(scale_meta)
+    result["fusion_mode"] = fusion_mode
     result.update(research_meta)
     result.update(relation_meta)
     result.update(finish_audit(audit, vlm, df_valid, texts, y_true, label_order,
@@ -123,6 +125,7 @@ def run_crisismmd(vlm, task_config: dict, config: dict) -> dict:
             "min_text_length": 0,
             "batch_size": batch_size,
             "image_weight": image_weight,
+            "fusion_mode": fusion_mode,
             "logit_scale": getattr(vlm, "logit_scale", 100.0),
             "logit_bias": getattr(vlm, "logit_bias", 0.0),
         },

@@ -40,7 +40,7 @@ def run_fakeddit(vlm, task_config: dict, config: dict) -> dict:
 
     df = load_dataframe(task_config["data_path"], max_samples=task_config.get("max_samples"),
                         text_col=task_config.get("text_col", "clean_title"),
-                        min_text_length=task_config.get("min_text_length", 20))
+                        min_text_length=task_config.get("min_text_length", 5))
 
     id_col = task_config.get("id_col", "id")
     text_col = task_config.get("text_col", "clean_title")

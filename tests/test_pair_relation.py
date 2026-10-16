@@ -34,6 +34,101 @@ class PairRelationTests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 validate_relation_options({**opts, "class_policies": policies})
 
+    def test_agreement_fusion_only_for_crisismmd(self):
+        opts = {"enabled": True, "mode": "agreement_fusion", "weight": .25}
+        for task in ("informativeness", "humanitarian"):
+            relation, metadata = relation_settings({"task": task, "image_text_relation": opts}, "crisismmd")
+            self.assertEqual(relation["mode"], "agreement_fusion")
+            self.assertEqual(metadata["relation_algorithm"], "cosine_js_consensus_product_v1")
+        for dataset, task in (("fakeddit", "6way"), ("fakeddit", "2way"), ("mmimdb", "genres")):
+            with self.subTest(dataset=dataset), self.assertRaises(ValueError):
+                relation_settings({"task": task, "image_text_relation": opts}, dataset)
+        with self.assertRaises(ValueError):
+            validate_relation_options({**opts, "class_policies": {0: "match"}})
+
+    def test_direct_pair_is_a_fixed_third_branch(self):
+        opts = {"enabled": True, "mode": "direct_pair_fusion", "weight": .25}
+        relation, metadata = relation_settings({"task": "informativeness", "image_text_relation": opts}, "crisismmd")
+        self.assertEqual(metadata["relation_algorithm"], "direct_pair_consensus_v1")
+        for dataset, task in (("fakeddit", "2way"), ("mmimdb", "genres")):
+            with self.assertRaises(ValueError):
+                relation_settings({"task": task, "image_text_relation": opts}, dataset)
+        image = np.array([[.8, .2], [.8, .2], [.8, .2], [.8, .2]])
+        text = np.array([[.7, .3], [.7, .3], [.7, .3], [.7, .3]])
+        baseline = (image + text) / 2
+        scores = {"image_text_similarity": [1., 0., -1., None],
+                  "relation_applied": [False] * 4}
+        actual = apply_class_relation(baseline, ["a", "b"], scores, relation, .5,
+                                      p_image=image, p_text=text)
+        consensus = image[0] * text[0] / np.dot(image[0], text[0])
+        expected = np.array([.75 * baseline[0] + .25 * consensus,
+                             .75 * baseline[1] + .25 * (.5 * np.array([.5, .5]) + .5 * consensus),
+                             .75 * baseline[2] + .25 * np.array([.5, .5]),
+                             baseline[3]])
+        np.testing.assert_allclose(actual, expected)
+        self.assertEqual(scores["image_text_fusion_gate"], [.25, .25, .25, 0.])
+        self.assertEqual(scores["image_text_pair_match_weight"], [1., .5, 0., None])
+        self.assertEqual(scores["relation_applied"], [True, True, True, False])
+        np.testing.assert_array_equal(apply_class_relation(image[:1], ["a", "b"], {}, relation, 1), image[:1])
+
+    def test_direct_pair_missing_text_preserves_image(self):
+        args = ([None, None], ["text", ""], np.eye(2), ["informative", "not_informative"])
+        baseline = predict_single_label(FakeVLM(), *args, show_progress=False)
+        scores = {}
+        actual = predict_single_label(FakeVLM(), *args, show_progress=False,
+            image_text_relation={"enabled": True, "mode": "direct_pair_fusion", "weight": .25},
+            relation_scores=scores)
+        np.testing.assert_array_equal(actual[1][1], baseline[1][1])
+        self.assertIsNone(scores["image_text_pair_match_weight"][1])
+        self.assertFalse(scores["relation_applied"][1])
+
+    def test_agreement_fusion_uses_pair_as_gate_without_mapping_to_label(self):
+        image = np.array([[.8, .2], [.8, .2], [.8, .2]])
+        text = np.array([[.7, .3], [.7, .3], [.7, .3]])
+        baseline = (image + text) / 2
+        scores = {"image_text_similarity": [1., -1., None],
+                  "image_text_js_divergence": [0., 0., None],
+                  "image_text_reliability": [1., 1., None],
+                  "relation_applied": [False] * 3}
+        opts = validate_relation_options({"enabled": True, "mode": "agreement_fusion", "weight": .25})
+        changed = apply_class_relation(baseline, ["informative", "not_informative"], scores,
+                                       opts, .5, p_image=image, p_text=text)
+        consensus = image[0] * text[0] / np.dot(image[0], text[0])
+        np.testing.assert_allclose(changed[0], .75 * baseline[0] + .25 * consensus)
+        np.testing.assert_array_equal(changed[1:], baseline[1:])
+        self.assertEqual(scores["image_text_fusion_gate"], [.25, 0., 0.])
+        self.assertEqual(scores["relation_applied"], [True, False, False])
+        empty_scores = {"image_text_similarity": [None], "image_text_js_divergence": [None],
+                        "image_text_reliability": [None], "relation_applied": [False]}
+        np.testing.assert_array_equal(
+            apply_class_relation(image[:1], ["informative", "not_informative"], empty_scores,
+                                 opts, .5, p_image=image[:1], p_text=np.array([[.5, .5]])),
+            image[:1])
+        disjoint_image, disjoint_text = np.array([[1., 0.]]), np.array([[0., 1.]])
+        disjoint_scores = {"image_text_similarity": [1.], "image_text_js_divergence": [0.],
+                           "image_text_reliability": [1.], "relation_applied": [False]}
+        np.testing.assert_array_equal(
+            apply_class_relation(np.array([[.5, .5]]), ["a", "b"], disjoint_scores,
+                                 opts, .5, p_image=disjoint_image, p_text=disjoint_text),
+            np.array([[.5, .5]]))
+        self.assertEqual(disjoint_scores["image_text_fusion_gate"], [0.])
+
+    def test_agreement_fusion_is_label_agnostic_and_keeps_single_modality(self):
+        image = np.array([[.8, .1, .1]])
+        text = np.array([[.6, .2, .2]])
+        scores = {"image_text_similarity": [.8], "image_text_js_divergence": [.2],
+                  "image_text_reliability": [.5], "relation_applied": [False]}
+        opts = validate_relation_options({"enabled": True, "mode": "agreement_fusion"})
+        baseline = (image + text) / 2
+        actual = apply_class_relation(baseline, ["a", "b", "c"], scores, opts, .5,
+                                      p_image=image, p_text=text)
+        np.testing.assert_allclose(actual[:, 1], actual[:, 2])
+        self.assertAlmostEqual(scores["image_text_fusion_gate"][0], .08)
+        np.testing.assert_array_equal(apply_class_relation(image, ["a", "b", "c"], {}, opts, 1), image)
+        with self.assertRaises(ValueError):
+            apply_class_relation(baseline, ["a", "b", "c"], {}, opts, .5,
+                                 p_image=image, p_text=np.array([[1., 0., 0.]]))
+
     def test_invalid_configuration(self):
         for config in (False, {"enabled": "true"}, {"mode": "mismatch"}, {"unknown": True},
                        {"weight": -1}, {"weight": 2}, {"weight": float("nan")}, {"weight": True}):
@@ -126,6 +221,19 @@ class PairRelationTests(unittest.TestCase):
         np.testing.assert_array_equal(result[2],baseline[2])
         self.assertEqual(audit["image_text_relation"]["class_policies"], {0:"match",2:"mismatch"})
 
+    def test_agreement_inference_preserves_missing_text_and_logs_gate(self):
+        args = ([None, None], ["text", ""], np.eye(2), ["informative", "not_informative"])
+        baseline = predict_single_label(FakeVLM(), *args, show_progress=False)
+        buffer = {}
+        result = predict_single_label(FakeVLM(), *args, show_progress=False,
+            image_text_relation={"enabled": True, "mode": "agreement_fusion", "weight": .25},
+            relation_scores=buffer)
+        self.assertEqual(len(buffer["image_text_fusion_gate"]), 2)
+        self.assertFalse(buffer["relation_applied"][1])
+        np.testing.assert_array_equal(result[1][1], baseline[1][1])
+        np.testing.assert_array_equal(result[2], baseline[2])
+        np.testing.assert_array_equal(result[3], baseline[3])
+
     def test_multilabel_chunk_modes_reuse_encoding_and_preserve_predictions(self):
         texts = ['Long plot. Another part. The final scene.', '']
         for mode in ("relative_z","fixed_threshold"):
@@ -181,6 +289,29 @@ class PairRelationTests(unittest.TestCase):
             rows=pd.read_csv(Path(result["prediction_log_dir"])/"raw_predictions.tsv",sep="\t",nrows=2)
             self.assertTrue(np.isfinite(rows.image_text_similarity).all())
             self.assertEqual(manifest["relation_algorithm"],"cosine_js_confidence_bounded_v1")
+
+    def test_crisismmd_runner_logs_agreement_gate(self):
+        from run import run_crisismmd as module
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "synthetic.tsv"
+            pd.DataFrame({"tweet_id": ["one", "two"], "clean_text": ["report about a flood", ""],
+                          "label_informative": ["informative", "not_informative"]}).to_csv(
+                              path, sep="\t", index=False)
+            task = {"task": "informativeness", "data_path": str(path), "max_samples": 2,
+                    "id_col": "tweet_id", "text_col": "clean_text", "label_col_info": "label_informative",
+                    "image_text_relation": {"enabled": True, "mode": "agreement_fusion", "weight": .25}}
+            cfg = {"output": {"raw_predictions_dir": directory},
+                   "evaluation": {"enabled": False}, "inference": {"image_weight": .5}}
+            with patch.object(module, "resolve_image_paths", return_value=["unused"] * 2), \
+                 patch.object(module, "load_images_safe", return_value=([None, None], [0, 1])):
+                result = module.run_crisismmd(FakeVLM(), task, cfg)
+            folder = Path(result["prediction_log_dir"])
+            manifest = json.loads((folder / "manifest.json").read_text())
+            self.assertEqual(manifest["relation_mode"], "agreement_fusion")
+            self.assertEqual(manifest["relation_algorithm"], "cosine_js_consensus_product_v1")
+            logged = pd.read_csv(folder / "raw_predictions.tsv", sep="\t", nrows=2)
+            self.assertIn("image_text_fusion_gate", logged.columns)
+            self.assertEqual(logged.relation_applied.iloc[1], False)
 
     def test_smoke_copies_only_first_five_before_filtering(self):
         with tempfile.TemporaryDirectory() as directory:

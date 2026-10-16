@@ -31,6 +31,42 @@ venv/bin/python -B scripts/launch_runs.py --job crisismmd_humanitarian --model s
 # ensemble: crisismmd_humanitarian (mặc định 1000 mẫu)
 venv/bin/python -B scripts/launch_runs.py --job crisismmd_humanitarian --ensemble true --use-kaggle true
 
+# uncertainty: crisismmd_info_margin_majority (mặc định 1000 mẫu)
+venv/bin/python -B scripts/launch_runs.py --job crisismmd_info_margin_majority --use-kaggle true
+
+# uncertainty: crisismmd_humanitarian_margin_majority (mặc định 1000 mẫu)
+venv/bin/python -B scripts/launch_runs.py --job crisismmd_humanitarian_margin_majority --use-kaggle true
+
+# uncertainty: crisismmd_info_prompt_margin_gate (mặc định 1000 mẫu)
+venv/bin/python -B scripts/launch_runs.py --job crisismmd_info_prompt_margin_gate --use-kaggle true
+
+# uncertainty: crisismmd_humanitarian_prompt_margin_gate (mặc định 1000 mẫu)
+venv/bin/python -B scripts/launch_runs.py --job crisismmd_humanitarian_prompt_margin_gate --use-kaggle true
+
+# standard: crisismmd_info_image_only (mặc định 1000 mẫu)
+venv/bin/python -B scripts/launch_runs.py --job crisismmd_info_image_only --model metaclip2_vith14 --ensemble false --use-kaggle true
+
+# standard: crisismmd_humanitarian_image_only (mặc định 1000 mẫu)
+venv/bin/python -B scripts/launch_runs.py --job crisismmd_humanitarian_image_only --model metaclip2_vith14 --ensemble false --use-kaggle true
+
+# standard: crisismmd_info_agreement (mặc định 1000 mẫu)
+venv/bin/python -B scripts/launch_runs.py --job crisismmd_info_agreement --model metaclip2_vith14 --ensemble false --use-kaggle true
+
+# standard: crisismmd_humanitarian_agreement (mặc định 1000 mẫu)
+venv/bin/python -B scripts/launch_runs.py --job crisismmd_humanitarian_agreement --model metaclip2_vith14 --ensemble false --use-kaggle true
+
+# standard: crisismmd_info_direct_pair (mặc định 1000 mẫu)
+venv/bin/python -B scripts/launch_runs.py --job crisismmd_info_direct_pair --model metaclip2_vith14 --ensemble false --use-kaggle true
+
+# standard: crisismmd_humanitarian_direct_pair (mặc định 1000 mẫu)
+venv/bin/python -B scripts/launch_runs.py --job crisismmd_humanitarian_direct_pair --model metaclip2_vith14 --ensemble false --use-kaggle true
+
+# standard: crisismmd_info_entropy (mặc định 1000 mẫu)
+venv/bin/python -B scripts/launch_runs.py --job crisismmd_info_entropy --model metaclip2_vith14 --ensemble false --use-kaggle true
+
+# standard: crisismmd_humanitarian_entropy (mặc định 1000 mẫu)
+venv/bin/python -B scripts/launch_runs.py --job crisismmd_humanitarian_entropy --model metaclip2_vith14 --ensemble false --use-kaggle true
+
 # standard: mmimdb_genres (mặc định 1000 mẫu)
 venv/bin/python -B scripts/launch_runs.py --job mmimdb_genres --model metaclip2_vith14 --ensemble false --use-kaggle true
 venv/bin/python -B scripts/launch_runs.py --job mmimdb_genres --model dfn5b_vith14 --ensemble false --use-kaggle true
@@ -180,6 +216,68 @@ venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_humanitarian -
 venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_humanitarian --model siglip2_so400m --method waffle --seed 4 --use-kaggle true
 venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_humanitarian --model siglip2_so400m --method dclip --use-kaggle true
 
+# adapted: adapted_crisismmd_info_image_only (mặc định 1000 mẫu)
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_info_image_only --model metaclip2_vith14 --method baseline --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_info_image_only --model metaclip2_vith14 --method waffle --seed 0 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_info_image_only --model metaclip2_vith14 --method waffle --seed 1 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_info_image_only --model metaclip2_vith14 --method waffle --seed 2 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_info_image_only --model metaclip2_vith14 --method waffle --seed 3 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_info_image_only --model metaclip2_vith14 --method waffle --seed 4 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_info_image_only --model metaclip2_vith14 --method dclip --use-kaggle true
+
+# adapted: adapted_crisismmd_humanitarian_image_only (mặc định 1000 mẫu)
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_humanitarian_image_only --model metaclip2_vith14 --method baseline --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_humanitarian_image_only --model metaclip2_vith14 --method waffle --seed 0 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_humanitarian_image_only --model metaclip2_vith14 --method waffle --seed 1 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_humanitarian_image_only --model metaclip2_vith14 --method waffle --seed 2 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_humanitarian_image_only --model metaclip2_vith14 --method waffle --seed 3 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_humanitarian_image_only --model metaclip2_vith14 --method waffle --seed 4 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_humanitarian_image_only --model metaclip2_vith14 --method dclip --use-kaggle true
+
+# adapted: adapted_crisismmd_info_agreement (mặc định 1000 mẫu)
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_info_agreement --model metaclip2_vith14 --method baseline --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_info_agreement --model metaclip2_vith14 --method current_mean_sim --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_info_agreement --model metaclip2_vith14 --method class_name --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_info_agreement --model metaclip2_vith14 --method waffle --seed 0 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_info_agreement --model metaclip2_vith14 --method waffle --seed 1 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_info_agreement --model metaclip2_vith14 --method waffle --seed 2 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_info_agreement --model metaclip2_vith14 --method waffle --seed 3 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_info_agreement --model metaclip2_vith14 --method waffle --seed 4 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_info_agreement --model metaclip2_vith14 --method dclip --use-kaggle true
+
+# adapted: adapted_crisismmd_humanitarian_agreement (mặc định 1000 mẫu)
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_humanitarian_agreement --model metaclip2_vith14 --method baseline --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_humanitarian_agreement --model metaclip2_vith14 --method current_mean_sim --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_humanitarian_agreement --model metaclip2_vith14 --method class_name --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_humanitarian_agreement --model metaclip2_vith14 --method waffle --seed 0 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_humanitarian_agreement --model metaclip2_vith14 --method waffle --seed 1 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_humanitarian_agreement --model metaclip2_vith14 --method waffle --seed 2 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_humanitarian_agreement --model metaclip2_vith14 --method waffle --seed 3 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_humanitarian_agreement --model metaclip2_vith14 --method waffle --seed 4 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_humanitarian_agreement --model metaclip2_vith14 --method dclip --use-kaggle true
+
+# adapted: adapted_crisismmd_info_entropy (mặc định 1000 mẫu)
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_info_entropy --model metaclip2_vith14 --method baseline --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_info_entropy --model metaclip2_vith14 --method current_mean_sim --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_info_entropy --model metaclip2_vith14 --method class_name --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_info_entropy --model metaclip2_vith14 --method waffle --seed 0 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_info_entropy --model metaclip2_vith14 --method waffle --seed 1 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_info_entropy --model metaclip2_vith14 --method waffle --seed 2 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_info_entropy --model metaclip2_vith14 --method waffle --seed 3 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_info_entropy --model metaclip2_vith14 --method waffle --seed 4 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_info_entropy --model metaclip2_vith14 --method dclip --use-kaggle true
+
+# adapted: adapted_crisismmd_humanitarian_entropy (mặc định 1000 mẫu)
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_humanitarian_entropy --model metaclip2_vith14 --method baseline --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_humanitarian_entropy --model metaclip2_vith14 --method current_mean_sim --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_humanitarian_entropy --model metaclip2_vith14 --method class_name --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_humanitarian_entropy --model metaclip2_vith14 --method waffle --seed 0 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_humanitarian_entropy --model metaclip2_vith14 --method waffle --seed 1 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_humanitarian_entropy --model metaclip2_vith14 --method waffle --seed 2 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_humanitarian_entropy --model metaclip2_vith14 --method waffle --seed 3 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_humanitarian_entropy --model metaclip2_vith14 --method waffle --seed 4 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job adapted_crisismmd_humanitarian_entropy --model metaclip2_vith14 --method dclip --use-kaggle true
+
 # adapted: adapted_mmimdb_genres (mặc định 30 mẫu)
 venv/bin/python -B scripts/launch_runs.py --job adapted_mmimdb_genres --model metaclip2_vith14 --method baseline --use-kaggle true
 venv/bin/python -B scripts/launch_runs.py --job adapted_mmimdb_genres --model metaclip2_vith14 --method current_mean_sim --use-kaggle true
@@ -313,6 +411,18 @@ venv/bin/python -B scripts/launch_runs.py --job upstream_crisismmd_humanitarian 
 venv/bin/python -B scripts/launch_runs.py --job upstream_crisismmd_humanitarian --backbone ViT-L/14 --method dclip --output original_image --use-kaggle true
 venv/bin/python -B scripts/launch_runs.py --job upstream_crisismmd_humanitarian --backbone ViT-L/14 --method dclip --output multimodal --use-kaggle true
 
+# upstream: upstream_crisismmd_info_image_only (mặc định 1000 mẫu)
+venv/bin/python -B scripts/launch_runs.py --job upstream_crisismmd_info_image_only --backbone ViT-B/32 --method clip --output original_image --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_crisismmd_info_image_only --backbone ViT-B/32 --method waffle --output original_image --seed 0 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_crisismmd_info_image_only --backbone ViT-B/32 --method dclip_labels --output original_image --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_crisismmd_info_image_only --backbone ViT-B/32 --method dclip --output original_image --use-kaggle true
+
+# upstream: upstream_crisismmd_humanitarian_image_only (mặc định 1000 mẫu)
+venv/bin/python -B scripts/launch_runs.py --job upstream_crisismmd_humanitarian_image_only --backbone ViT-B/32 --method clip --output original_image --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_crisismmd_humanitarian_image_only --backbone ViT-B/32 --method waffle --output original_image --seed 0 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_crisismmd_humanitarian_image_only --backbone ViT-B/32 --method dclip_labels --output original_image --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --job upstream_crisismmd_humanitarian_image_only --backbone ViT-B/32 --method dclip --output original_image --use-kaggle true
+
 # upstream: upstream_mmimdb_genres (mặc định 30 mẫu)
 venv/bin/python -B scripts/launch_runs.py --job upstream_mmimdb_genres --backbone RN50 --method clip --output original_image --use-kaggle true
 venv/bin/python -B scripts/launch_runs.py --job upstream_mmimdb_genres --backbone RN50 --method clip --output multimodal --use-kaggle true
@@ -344,4 +454,4 @@ venv/bin/python -B scripts/launch_runs.py --job relation_fakeddit_6way --model m
 venv/bin/python -B scripts/launch_runs.py --job relation_fakeddit_6way --model dfn5b_vith14 --use-kaggle true
 venv/bin/python -B scripts/launch_runs.py --job relation_fakeddit_6way --model siglip2_so400m --use-kaggle true
 
-# Tổng cộng: 293 lệnh độc lập. Chỉ chạy một lệnh mỗi lần.
+# Tổng cộng: 363 lệnh độc lập. Chỉ chạy một lệnh mỗi lần.

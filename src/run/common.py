@@ -362,6 +362,8 @@ def run_all_models_for_dataset(dataset_name: str, runner_fn, config: dict) -> pd
     `runner_fn(vlm, task_config, config)` cho dataset hiện tại, unload trước
     khi sang model tiếp theo — giữ đúng nguyên tắc gốc của run_experiment.py,
     chỉ khác là mỗi lần chỉ chạy 1 dataset thay vì lặp qua cả 3."""
+    from results_layout import standalone_config
+    config = standalone_config(config, dataset_name)
     task_config = config["datasets"].get(dataset_name)
     if task_config is None:
         raise KeyError(f"Không tìm thấy cấu hình cho dataset '{dataset_name}' trong config['datasets'].")

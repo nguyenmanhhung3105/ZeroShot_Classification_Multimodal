@@ -54,9 +54,9 @@ Các lượt công thức cuối có entropy:
 
 | Model | Thư mục |
 |---|---|
-| MetaCLIP2 | [smoke5_31gx_uv5](../results/relation_ablation/smoke5_31gx_uv5/) |
-| DFN5B | [smoke5_0s35r8rk](../results/relation_ablation/smoke5_0s35r8rk/) |
-| SigLIP2 | [smoke5_wte6_1ml](../results/relation_ablation/smoke5_wte6_1ml/) |
+| MetaCLIP2 | [smoke5_31gx_uv5](../results/relation_ablation/fakeddit/6way/samples_5/metaclip2_vith14/6way_smoke5_31gx_uv5/) |
+| DFN5B | [smoke5_0s35r8rk](../results/relation_ablation/fakeddit/6way/samples_5/dfn5b_vith14/6way_smoke5_0s35r8rk/) |
+| SigLIP2 | [smoke5_wte6_1ml](../results/relation_ablation/fakeddit/6way/samples_5/siglip2_so400m/6way_smoke5_wte6_1ml/) |
 
 Mỗi thư mục có frozen_plan.json, source hash, bản sao input giới hạn, baseline_log với TSV/JSON/audit, summary.tsv và comparison.tsv. `final_formula_recheck.json` ghi hash module cuối và kiểm tra tính lại metric từ cùng log với công thức cuối; kết quả khớp trong dung sai 1e-12. Không nạp lại checkpoint để kiểm tra lại một thay đổi xử lý sai số số học.
 

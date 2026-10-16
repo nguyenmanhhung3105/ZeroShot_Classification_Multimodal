@@ -3,6 +3,7 @@ models:
   - metaclip2_vith14
   # - dfn5b_vith14
   # - siglip2_so400m
+  # - openai_clip_vit_b_32  # OpenAI CLIP ViT-B/32 trong pipeline fusion của dự án
 
 inference:
   image_text_relation:
@@ -76,16 +77,16 @@ evaluation:
   split: val               # tên do người dùng khai báo, không tự xác minh nguồn split
   measure_truncation: true
   sample_lock_mode: "off"   # off | create_or_verify | verify
-  sample_lock_dir: results/sample_locks
+  sample_lock_dir: results/_system/sample_locks
 
 demo:
   n_samples: 10
   batch_size: 4
   prompt_version: v1
-  log_dir: results/demo_logs
-  visualization_dir: results/demo
+  log_dir: auto
+  visualization_dir: auto
 
 output:
-  results_dir: results/
-  raw_predictions_dir: results/raw_predictions/
-  summary_table: results/summary_table.tsv
+  results_dir: auto             # runner trực tiếp tạo results/<method>/<dataset>/<task>/samples_N/<model>/<task>_<run>
+  raw_predictions_dir: auto
+  summary_table: auto

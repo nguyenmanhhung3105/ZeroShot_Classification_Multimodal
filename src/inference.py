@@ -3,7 +3,8 @@ Suy luận zero-shot cho ảnh và text, kết hợp điểm của hai nhánh.
 
 Single-label: tính cosine → scale/bias → softmax riêng mỗi nhánh → fusion → argmax.
 Quan hệ tùy chọn: cosine ảnh–text + JS/entropy; Fakeddit 6way hiệu chỉnh nhẹ
-theo policy của lớp trước argmax, task khác chỉ ghi chẩn đoán.
+theo policy của lớp, CrisisMMD có mode đồng thuận riêng khi bật tường minh.
+Các task khác mặc định chỉ ghi chẩn đoán.
 Multi-label: runner MM-IMDb mặc định chuẩn hóa cosine qua các nhãn của từng mẫu
 (relative_z) rồi fusion; fixed_threshold giữ cách sigmoid khi chủ động chọn.
 Text rỗng dùng ảnh làm dự phòng. mean_sim giữ trung bình cosine từng prompt,
@@ -103,6 +104,25 @@ def _weighted_fuse(p_img: np.ndarray, p_text: np.ndarray, image_weight: float,
         w[text_empty_mask] = 1.0
     w = w[:, None]
     return w * p_img + (1.0 - w) * p_text
+
+
+def _entropy_weighted_fuse(p_img: np.ndarray, p_text: np.ndarray,
+                           text_empty_mask: np.ndarray = None) -> np.ndarray:
+    """Trọng số từng mẫu theo entropy chuẩn hóa của hai phân phối lớp."""
+    if p_img.shape != p_text.shape or p_img.ndim != 2 or p_img.shape[1] < 2:
+        raise ValueError("Entropy fusion cần hai ma trận điểm lớp cùng kích thước")
+    if not np.isfinite(p_img).all() or not np.isfinite(p_text).all():
+        raise ValueError("Entropy fusion cần điểm hữu hạn")
+    log_classes = np.log(p_img.shape[1])
+    def concentration(prob):
+        entropy = -np.sum(prob * np.log(np.maximum(prob, 1e-300)), axis=1) / log_classes
+        return np.clip(1.0 - np.clip(entropy, 0.0, 1.0), 0.0, 1.0)
+    ci, ct = concentration(p_img), concentration(p_text)
+    total = ci + ct
+    weights = np.divide(ci, total, out=np.full(len(ci), 0.5), where=total > 1e-12)
+    if text_empty_mask is not None:
+        weights[text_empty_mask] = 1.0
+    return weights[:, None] * p_img + (1.0 - weights[:, None]) * p_text
 
 
 def prompt_aggregation_settings(task_config, dataset):
@@ -253,7 +273,8 @@ def predict_single_label(vlm, images: list, texts: list, class_embeds: np.ndarra
                           batch_size: int = 16, image_weight: float = 0.5,
                           text_logit_scale: float = None, show_progress: bool = True,
                           diagnostics=None, image_class_embeds=None,
-                          image_text_relation=None, relation_scores=None) -> tuple:
+                          image_text_relation=None, relation_scores=None,
+                          fusion_mode: str = "fixed") -> tuple:
     """
     Suy luận đa phương thức, một nhãn cho Fakeddit / CrisisMMD.
 
@@ -269,6 +290,8 @@ def predict_single_label(vlm, images: list, texts: list, class_embeds: np.ndarra
         text_empty_mask: np.ndarray[bool] (N,)
     """
     validate_text_scale(text_logit_scale)
+    if fusion_mode not in ("fixed", "entropy_weighted"):
+        raise ValueError("fusion_mode phải là fixed hoặc entropy_weighted")
     relation = validate_relation_options(image_text_relation)
     if relation["enabled"] and relation["mode"] == "class_aware" and set(label_order) != set(range(6)):
         raise ValueError("class_aware chỉ nhận sáu ID Fakeddit 0..5")
@@ -294,7 +317,9 @@ def predict_single_label(vlm, images: list, texts: list, class_embeds: np.ndarra
     p_img = _softmax(logits_image, axis=-1)
     p_text = _softmax(logits_text, axis=-1)
 
-    p = _weighted_fuse(p_img, p_text, image_weight, text_empty_mask)
+    p = (_entropy_weighted_fuse(p_img, p_text, text_empty_mask)
+         if fusion_mode == "entropy_weighted" else
+         _weighted_fuse(p_img, p_text, image_weight, text_empty_mask))
     if relation_embeddings is not None:
         # Điểm JS cần phân phối cả hai nhánh, kể cả nhánh chỉ encode cho chẩn đoán.
         ri = relation_embeddings["image"] @ image_classes.T
@@ -302,7 +327,8 @@ def predict_single_label(vlm, images: list, texts: list, class_embeds: np.ndarra
         scores = relation_evidence(relation_embeddings["image"], relation_embeddings["text"],
             _softmax(_calibrated_logits(vlm, ri)),
             _softmax(rt * scale_text + getattr(vlm, "logit_bias", 0.0)), text_empty_mask)
-        p = apply_class_relation(p, label_order, scores, relation, image_weight)
+        p = apply_class_relation(p, label_order, scores, relation, image_weight,
+                                 p_image=p_img, p_text=p_text)
         if relation_scores is not None:
             relation_scores.update(scores)
         if diagnostics is not None:

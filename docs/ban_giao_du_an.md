@@ -104,7 +104,8 @@ configs/
 tests/                             test tự động bằng dữ liệu giả
 docs/                              README chi tiết và tài liệu bàn giao này
 third_party/                       checkout nghiên cứu, Git bỏ qua
-results/, results1/                kết quả sẵn có; không xóa hoặc di chuyển
+results/<method>/<dataset>/<task>/samples_N/<model>/<task>_<lượt>/  kết quả theo cấu trúc mới
+results1/                          kết quả lịch sử nằm ngoài lần sắp xếp này
 backup/20261010_cleanup/           bản sao trước đợt dọn gần nhất
 ```
 
@@ -129,7 +130,7 @@ có bước nào tự chạy chúng khi gọi model.
    chỉ có tác dụng ở chế độ `fixed_threshold`.
 7. `evaluate.py` tính metric; `evaluation_audit.py` ghi kết quả theo nhánh, độ dài
    token, split khai báo/cohort; `logging_utils.py` lưu TSV theo từng mẫu và manifest.
-8. Summary có số thứ tự; log chi tiết ở dưới `results/raw_predictions/`.
+8. Summary và log chi tiết của lượt mới nằm cùng `results/<method>/<dataset>/<task>/samples_N/<model>/<task>_<lượt>/`.
 
 ```mermaid
 flowchart LR
@@ -218,7 +219,7 @@ và đóng băng trước thí nghiệm. Chúng không phải GPT-3 descriptor c
 paper. Riêng Fakeddit, ảnh không thể tự xác thực tính đúng/sai của claim; phân lớp
 ảnh có thể cho một đối chứng hạn chế.
 
-Kết quả được ghi vào một thư mục duy nhất dưới `results/upstream_projects/` với
+Kết quả được ghi vào một thư mục duy nhất dưới `results/upstream_<method>/<dataset>/<task>/samples_N/<model>/<task>_<lượt>/` (hoặc `upstream_suite` nếu chạy nhiều phương pháp) với
 `frozen_plan.json`, `summary.tsv`, `seed_summary.tsv`, `raw_predictions/`, và
 `failure.json` nếu có lỗi. Dòng method/seed/output ghi rõ model/backbone/metric;
 snapshot từng mẫu có cùng cohort hash. Lỗi giữ lại plan/log đã ghi và không tạo
@@ -283,7 +284,7 @@ nhưng chỉ chạy runner tương ứng.
 
 Các file mã/config/docs/tests có nhiều thay đổi cục bộ, một phần được kế thừa từ
 trước lượt dọn; chưa commit hoặc push. Backup dọn dự án ở `backup/20261010_cleanup/`.
-Không xóa/move/ghi đè các thư mục `results/`/`results1/`; có thể có thư mục
-`results/upstream_projects/experiment_*/` tạo từ bước `--prepare-only`. File thống
+kết quả lịch sử trong `results/` đã được chuyển theo [cấu trúc mới](experiments/results_layout.md), có bảng đường dẫn cũ → mới; `results1/` giữ nguyên. Các lượt
+`results/upstream_suite/...` có thể được tạo từ bước `--prepare-only`. File thống
 kê nhãn đã bỏ khỏi code đang dùng có bản sao trong backup. Không có thay đổi thật
 trên dataset trong lượt triển khai này.

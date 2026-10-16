@@ -48,9 +48,8 @@ docs/                          # hướng dẫn chi tiết và sơ đồ hệ th
 ├── so_do_he_thong/             # bản đồ input → xử lý → output của model/phương pháp
 │   └── so_do/                  # SVG, nguồn DOT và script dựng sơ đồ
 third_party/                   # checkout repo tác giả, Git bỏ qua
-results/runs/                  # kết quả job chuẩn từ launcher chung
-results/experiments/           # kết quả ensemble và runner nghiên cứu
-results/launches/              # gói và trạng thái Kaggle, Git bỏ qua
+results/<method>/<dataset>/<task>/samples_N/<model>/<task>_<run_id>/  kết quả từng lượt
+results/_system/              # staging/cache Kaggle và bảng đường dẫn cũ → mới
 results1/                      # kết quả lịch sử, được giữ nguyên
 backup/, backups/              # bản sao trước sửa và file đã loại bỏ
 ```
@@ -161,7 +160,7 @@ Các runner dùng chung bộ lọc, ánh xạ, công thức suy luận và metri
 Xem [giải thích các chỉ số output](docs/giai_thich_chi_so_output.md) để hiểu công thức,
 ý nghĩa và cách dùng từng metric, điểm dự đoán, cột log và metadata.
 
-Summary tự tăng số: `results/summary_table_<dataset>_<task>_<số>.tsv`.
+Summary của lượt mới nằm trong `results/<method>/<dataset>/<task>/samples_N/<model>/<task>_<run_id>/summary.tsv`; xem [cấu trúc kết quả](docs/experiments/results_layout.md).
 Demo lưu `demo_summary_...tsv` trong thư mục visualization_dir.
 Dự đoán mỗi lần chạy nằm dưới raw_predictions_dir:
 
@@ -209,7 +208,7 @@ venv/bin/python -B src/research/run_relation_ablation.py --offline --device cpu
 ```
 
 Runner encode một lần/model, so baseline/heuristic cũ/class_aware và lưu plan,
-hash source, summary, điểm từng mẫu dưới `results/relation_ablation/`.
+hash source, summary, điểm từng mẫu dưới `results/relation_ablation/fakeddit/6way/samples_N/<model>/`.
 Ngày 12-10-2026 đã thử MetaCLIP2/DFN5B/SigLIP2; chưa thấy cải thiện nhãn trên
 nhóm năm mẫu này. Xem [báo cáo](docs/quan_he_anh_text_20261012.md).
 Hai file `configs/research/adapted.yaml` và `upstream.yaml` có flag riêng

@@ -11,7 +11,7 @@ from launch_runs import ADAPTED_METHODS, UPSTREAM_BACKBONES
 ROOT = Path(__file__).resolve().parents[1]
 LAUNCHER = ROOT / "configs/launcher.yaml"
 BASE = "venv/bin/python -B scripts/launch_runs.py"
-KINDS = ("standard", "ensemble", "adapted", "upstream", "demo", "relation_ablation")
+KINDS = ("standard", "ensemble", "uncertainty", "adapted", "upstream", "demo", "relation_ablation")
 ADAPTED_ORDER = ("baseline", "current_mean_sim", "class_name", "waffle", "dclip")
 UPSTREAM_ORDER = ("clip", "waffle", "dclip_labels", "dclip")
 BACKBONE_ORDER = ("RN50", "ViT-B/32", "ViT-L/14")
@@ -26,6 +26,10 @@ def commands(config, *, kind_filter=None, job_filter=None):
             continue
         job_kind = job["kind"]
         if job_kind == "standard":
+            if job.get("result_method") in ("margin_majority", "prompt_margin_gate"):
+                if not kind_filter or kind_filter == "uncertainty":
+                    yield "uncertainty", name, f"{BASE} --job {name} --use-kaggle true"
+                continue
             if not kind_filter or kind_filter == "standard":
                 for model in job["models"]:
                     yield "standard", name, f"{BASE} --job {name} --model {model} --ensemble false --use-kaggle true"
@@ -33,21 +37,23 @@ def commands(config, *, kind_filter=None, job_filter=None):
                 yield "ensemble", name, f"{BASE} --job {name} --ensemble true --use-kaggle true"
         elif job_kind == "adapted" and (not kind_filter or kind_filter == "adapted"):
             for model in job["models"]:
-                for method in ADAPTED_ORDER:
+                methods = job["methods"] if job.get("result_protocol") == "image_only" else ADAPTED_ORDER
+                for method in methods:
                     if method not in ADAPTED_METHODS:
                         continue
-                    seeds = adapted["seeds"] if method == "waffle" else (None,)
+                    seeds = job.get("seeds", adapted["seeds"]) if method == "waffle" else (None,)
                     for seed in seeds:
                         suffix = f" --seed {seed}" if seed is not None else ""
                         yield "adapted", name, (f"{BASE} --job {name} --model {model} "
                                                 f"--method {method}{suffix} --use-kaggle true")
         elif job_kind == "upstream" and (not kind_filter or kind_filter == "upstream"):
-            for backbone in BACKBONE_ORDER:
+            image_only = job.get("result_protocol") == "image_only"
+            for backbone in (job.get("backbones", BACKBONE_ORDER) if image_only else BACKBONE_ORDER):
                 if backbone not in UPSTREAM_BACKBONES:
                     continue
-                for method in UPSTREAM_ORDER:
-                    for output in ("original_image", "multimodal"):
-                        seeds = upstream["seeds"] if method == "waffle" else (None,)
+                for method in (job["methods"] if image_only else UPSTREAM_ORDER):
+                    for output in (job["outputs"] if image_only else ("original_image", "multimodal")):
+                        seeds = job.get("seeds", upstream["seeds"]) if method == "waffle" else (None,)
                         for seed in seeds:
                             suffix = f" --seed {seed}" if seed is not None else ""
                             yield "upstream", name, (f"{BASE} --job {name} --backbone {backbone} "

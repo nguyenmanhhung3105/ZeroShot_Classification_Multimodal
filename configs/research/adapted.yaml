@@ -12,6 +12,6 @@ seeds: [0, 1, 2, 3, 4]         # chỉ lặp seed cho waffle
 waffle_pairs: 15               # mỗi lớp nhận 15 prompt từ và 15 prompt ký tự
 descriptor_file: configs/research/descriptors/crisismmd_humanitarian.json
 # Thêm dclip vào methods để dùng descriptor_file cho nhánh ảnh.
-output_dir: results/paper_methods
+output_dir: auto                 # results/adapted_<method>/<dataset>/<task>/samples_N/<model>/
 # Model, fusion, scale, chunking/ngưỡng lấy từ base_config; quan hệ theo flag riêng ở trên.
 # Đây là bản thích nghi, không tái lập toàn bộ thí nghiệm của paper.

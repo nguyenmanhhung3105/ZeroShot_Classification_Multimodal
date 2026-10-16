@@ -69,7 +69,7 @@ của paper. Vì thế không diễn giải đây là tái lập toàn bộ kế
 CLIP, chuyển loader sang schema và filter của dự án, chuẩn bị prompt trước inference,
 ghi log từng mẫu và metric theo code chung. Ảnh và text được mã hóa một lần cho mỗi
 model/cohort; kết quả được tái sử dụng giữa phương pháp/seed. Các output được ghi
-vào thư mục mới dưới `results/upstream_projects/`.
+vào thư mục mới dưới `results/upstream_<method>/<dataset>/<task>/samples_N/<model>/` (hoặc `upstream_suite` khi chạy nhiều phương pháp).
 
 Ngày 11-10-2026 đã chạy checkpoint thật trên 5 mẫu đầu cho cả năm task, kiểm tra
 log/bộ mẫu và đối chiếu scoring humanitarian với CLIP trực tiếp. Xem
@@ -209,7 +209,7 @@ Tham khảo: [WaffleCLIP ICCV 2023](https://arxiv.org/abs/2306.07282),
 
 ## Đầu ra và cách đọc
 
-Mỗi lần tạo thư mục mới `results/paper_methods/<dataset>_<unique>/`, không ghi đè:
+Mỗi lần tạo thư mục mới `results/adapted_<method>/<dataset>/<task>/samples_N/<model>/<task>_<unique>/` (hoặc `adapted_suite` khi chạy nhiều phương pháp), không ghi đè:
 
 - `frozen_plan.json`: tất cả prompt đã render, config, seed, commit nguồn và hash code;
   lưu **trước** khi load model/đọc data. Prepare-only cũng tạo file này; lệnh chạy thật

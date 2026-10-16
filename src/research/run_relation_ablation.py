@@ -91,7 +91,7 @@ def main(argv=None):
     parser.add_argument("--device", default=None)
     parser.add_argument("--offline", action="store_true")
     parser.add_argument("--max-samples", type=int, default=5)
-    parser.add_argument("--output-dir", default="results/relation_ablation")
+    parser.add_argument("--output-dir", help="Mặc định results/relation_ablation/fakeddit/6way/samples_N/<model>/<lượt>")
     args = parser.parse_args(argv)
     if not 1 <= args.max_samples <= 5:
         parser.error("--max-samples phải trong [1, 5] cho ablation này")
@@ -105,7 +105,11 @@ def main(argv=None):
     options.update(enabled=True, mode="class_aware")
     if not options["class_policies"]:
         options["class_policies"] = {0: "match", 2: "mismatch"}
-    root_parent = Path(args.output_dir)
+    model = args.model or base["models"][0]
+    from results_layout import run_path
+    root_parent = (Path(args.output_dir) if args.output_dir else
+                   Path(run_path("relation_ablation", "fakeddit", "6way", args.max_samples,
+                                 model, "placeholder")).parent)
     root_parent.mkdir(parents=True, exist_ok=True)
     root = Path(tempfile.mkdtemp(prefix=f"smoke{args.max_samples}_", dir=root_parent))
     bounded = root / "input_bounded.tsv"
@@ -117,7 +121,6 @@ def main(argv=None):
     cfg.setdefault("evaluation", {}).update(enabled=True, sample_lock_mode="off")
     cfg["output"]["raw_predictions_dir"] = str(root / "baseline_log")
     cfg["inference"]["batch_size"] = min(selected, 5)
-    model = args.model or base["models"][0]
     from run.common import get_image_weight
     weight = get_image_weight(cfg, "fakeddit")
     if not 0 < weight < 1:

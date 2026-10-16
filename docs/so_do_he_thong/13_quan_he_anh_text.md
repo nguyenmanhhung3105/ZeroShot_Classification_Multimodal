@@ -16,7 +16,7 @@ Fakeddit định nghĩa False Connection là ảnh không hỗ trợ đúng chú
 | Fakeddit 6way `2=False Connection` | `mismatch`: ưu tiên nhẹ khi cosine thấp đi cùng bất đồng có thông tin |
 | Fakeddit 6way 1/3/4/5 | `neutral`: giữ điểm nền; châm biếm/mạo danh/chỉnh sửa/gây hiểu lầm vẫn có thể rất khớp |
 | Fakeddit 2way | Diagnostic; fake không đồng nhất với mismatch |
-| CrisisMMD hai task | Diagnostic; nhãn nhân đạo/liên quan không phải nhãn khớp cặp |
+| CrisisMMD hai task | `auto`: diagnostic; tùy chọn thử `agreement_fusion` tăng đồng thuận nhãn khi ảnh–text khớp, không gán mismatch thành một lớp |
 | MM-IMDb | Diagnostic; poster không cần mô tả chính xác toàn bộ plot |
 
 Paper CrisisMMD chú thích ảnh và text riêng; schema processed đang xem chỉ có cột nhãn task chung, không có annotation khớp cặp. Không quy cặp khác nội dung thành not_humanitarian/not_informative. [Paper CrisisMMD](https://arxiv.org/html/1805.00713)
@@ -65,7 +65,7 @@ y_hat = label_order[argmax_c P'_c]
 
 λ hiện cố định **0.25**. Hệ số tăng trước chuẩn hóa nằm trong [1,1.25]. Không ép lớp quan hệ thắng, không xóa lớp neutral; tỷ lệ điểm giữa hai lớp neutral giữ nguyên. B_c=0 thì không tự tạo lớp đó từ số 0. Đây là heuristic của dự án, không là công thức đã được paper Fakeddit kiểm chứng.
 
-Text rỗng/vector zero, λ=0, chế độ chỉ ảnh/text: giữ quyết định nền. `diagnostic` giữ nguyên tất cả đầu ra phân loại. Các lớp được tính đồng thời theo taxonomy, không chọn policy bằng y_true của mẫu.
+Text rỗng/vector zero, λ=0, chế độ chỉ ảnh/text: giữ quyết định nền. `diagnostic` giữ nguyên tất cả đầu ra phân loại. Các lớp được tính đồng thời theo taxonomy, không chọn policy bằng y_true của mẫu. Riêng CrisisMMD có mode `agreement_fusion` chỉ bật qua job thí nghiệm; công thức và lệnh chạy nằm trong [thử fusion ba tín hiệu](../experiments/crisismmd_agreement_fusion.md).
 
 ## Plot dài, batch và đầu ra
 
@@ -73,7 +73,7 @@ Text rỗng/vector zero, λ=0, chế độ chỉ ảnh/text: giữ quyết đị
 
 Các buffer quan hệ riêng giữ điểm nhánh phân loại không đổi kể cả khi phải encode thêm nhánh chỉ để diagnostic. Quan hệ là tích vô hướng theo từng cặp N mẫu, không tạo ma trận N×N.
 
-Log có `image_text_similarity`, `image_text_js_divergence`, `image_text_reliability`, `image_text_match_evidence`, `image_text_mismatch_evidence`, `relation_applied` tùy task. Text rỗng ghi ô trống. Single-label `score_<label>` là P'; score_image/text vẫn là điểm nền. Manifest/summary ghi mode/weight/policy/thuật toán/biểu diễn text; tắt audit vẫn ghi cột quan hệ.
+Log có `image_text_similarity`, `image_text_js_divergence`, `image_text_reliability`, `image_text_match_evidence`, `image_text_mismatch_evidence`, `relation_applied` tùy task. Mode CrisisMMD mới ghi thêm `image_text_fusion_gate`. Text rỗng ghi ô trống. Single-label `score_<label>` là điểm cuối; score_image/text vẫn là điểm hai nhánh. Manifest/summary ghi mode/weight/policy/thuật toán/biểu diễn text; tắt audit vẫn ghi cột quan hệ.
 
 ## Cấu hình và phạm vi runner
 

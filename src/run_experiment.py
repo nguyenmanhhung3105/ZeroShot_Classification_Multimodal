@@ -6,6 +6,7 @@ import argparse
 import os
 
 import pandas as pd
+from results_layout import standalone_config
 
 from run import common as shared
 from run.common import (load_config, load_dataframe, resolve_override, resolve_image_paths,
@@ -29,7 +30,10 @@ def main(argv=None):
     parser.add_argument("--config", default="configs/experiment_config.yaml")
     args = parser.parse_args(argv if argv is not None else [])
     config = load_config(args.config)
-    os.makedirs(config["output"]["results_dir"], exist_ok=True)
+    active_configs = {dataset: standalone_config(config, dataset)
+                      for dataset, settings in config["datasets"].items() if settings.get("enabled", False)}
+    for active in active_configs.values():
+        os.makedirs(active["output"]["results_dir"], exist_ok=True)
     rows = []
     for model_name in config["models"]:
         vlm = load_model(model_name, device=config.get("device"))
@@ -37,12 +41,15 @@ def main(argv=None):
             for dataset, settings in config["datasets"].items():
                 if settings.get("enabled", False):
                     rows.extend(shared.run_prompt_trials(
-                        lambda active, name=dataset: RUNNERS[name](vlm, active, config),
+                        lambda active, name=dataset: RUNNERS[name](vlm, active, active_configs[name]),
                         model_name, dataset, settings))
         finally:
             vlm.unload()
             del vlm
-    paths = shared.save_summary_tables(rows, config["output"]["summary_table"])
+    paths = []
+    for dataset, active in active_configs.items():
+        selected = [row for row in rows if row.get("dataset") == dataset]
+        paths.extend(shared.save_summary_tables(selected, active["output"]["summary_table"]))
     print("Đã lưu summary:", ", ".join(paths))
     print(shared.compact_summary(pd.DataFrame(rows)).to_string(index=False))
     return rows

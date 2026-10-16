@@ -53,6 +53,19 @@ class EnsembleTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "Cohort không khớp"):
             combine_runs(runs, ["a", "b"])
 
+    def test_margin_majority_uses_two_votes_only_on_uncertain_rows(self):
+        truths = ["b", "a", "a"]
+        runs = {
+            "metaclip2_vith14": self.rows([(0.52, 0.48), (0.9, 0.1), (0.48, 0.52)], truths),
+            "dfn5b_vith14": self.rows([(0.1, 0.9), (0.1, 0.9), (0.9, 0.1)], truths),
+            "siglip2_so400m": self.rows([(0.2, 0.8), (0.2, 0.8), (0.2, 0.8)], truths),
+        }
+        summary, comparison, _ = combine_runs(runs, ["a", "b"], methods=("margin_majority",))
+        self.assertEqual([row["majority_gated_pred"] for row in comparison], ["b", "a", "b"])
+        row = next(item for item in summary if item["method"] == "margin_majority")
+        self.assertEqual((row["wrong_to_right"], row["right_to_wrong"]), (1, 0))
+        self.assertNotIn("auroc", row)  # Bỏ phiếu nhãn không tạo điểm ranking AUROC.
+
     def test_fakeddit_numeric_labels_are_compared_as_strings(self):
         runs = {"metaclip2_vith14": self.rows([(0.6, 0.4), (0.4, 0.6)], ["0", "1"]),
                 "dfn5b_vith14": self.rows([(0.7, 0.3), (0.2, 0.8)], ["0", "1"])}

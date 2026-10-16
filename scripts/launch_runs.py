@@ -24,10 +24,15 @@ import yaml
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 from config import TASKS, load_config
+from pair_relation import relation_settings
 from models.model_registry import MODEL_CONFIGS
-from list_results import write_index
+from results_layout import job_path, model_folder, run_path
 
 DEFAULT_CONFIG = ROOT / "configs/launcher.yaml"
+
+
+def launch_root():
+    return ROOT / "results/_system/launches"
 SLUG = re.compile(r"^[a-z0-9][a-z0-9-]{2,48}[a-z0-9]$")
 JOB_ID = re.compile(r"^[a-z][a-z0-9_]{1,48}$")
 KINDS = {"standard", "demo", "adapted", "upstream", "relation_ablation"}
@@ -129,15 +134,37 @@ def validate(config, selected=None):
         ensemble = job.get("ensemble", {"enabled": False})
         if not isinstance(ensemble, dict) or type(ensemble.get("enabled")) is not bool:
             raise ValueError(f"{name}.ensemble.enabled phải là true hoặc false")
+        if job.get("result_method") == "margin_majority" and not ensemble["enabled"]:
+            raise ValueError(f"{name}: margin_majority cần ensemble.enabled=true")
         if ensemble["enabled"]:
             if kind != "standard" or len(models) < 2:
                 raise ValueError(f"{name}: ensemble cần kind=standard và ít nhất 2 model")
-            valid_choice_list(ensemble.get("methods"), {"equal_mean", "margin_gate"}, f"{name}.ensemble.methods")
-            if dataset == "mmimdb" and "margin_gate" in ensemble["methods"]:
-                raise ValueError(f"{name}: MM-IMDb không hỗ trợ margin_gate")
+            valid_choice_list(ensemble.get("methods"), {"equal_mean", "margin_gate", "margin_majority"}, f"{name}.ensemble.methods")
+            if dataset == "mmimdb" and any(method != "equal_mean" for method in ensemble["methods"]):
+                raise ValueError(f"{name}: MM-IMDb chỉ hỗ trợ equal_mean")
+            if "margin_majority" in ensemble["methods"] and (
+                    dataset != "crisismmd" or models != ["metaclip2_vith14", "dfn5b_vith14", "siglip2_so400m"]):
+                raise ValueError(f"{name}: margin_majority chỉ dùng ba model CrisisMMD theo đúng thứ tự")
+            if "margin_majority" in ensemble["methods"] and (
+                    job.get("result_method") != "margin_majority"
+                    or job.get("image_text_relation", {}).get("enabled") is not False):
+                raise ValueError(f"{name}: margin_majority cần output riêng và tắt image_text_relation")
             margin = ensemble.get("margin_threshold", 0.1)
             if type(margin) not in (float, int) or not 0 <= margin <= 1:
                 raise ValueError(f"{name}: margin_threshold phải trong [0, 1]")
+        prompt_gate = job.get("prompt_gate")
+        if prompt_gate is not None:
+            if (not isinstance(prompt_gate, dict) or prompt_gate.get("enabled") is not True
+                    or prompt_gate.get("method") != "dclip_adapted"
+                    or dataset != "crisismmd" or kind != "standard" or ensemble["enabled"]
+                    or models != ["metaclip2_vith14"]
+                    or job.get("result_method") != "prompt_margin_gate"
+                    or job.get("image_text_relation", {}).get("enabled") is not False
+                    or job.get("prompt_aggregations", ["mean_embed"]) != ["mean_embed"]):
+                raise ValueError(f"{name}: prompt_gate chỉ dùng MetaCLIP2 CrisisMMD, mean_embed, quan hệ tắt")
+            margin = prompt_gate.get("margin_threshold")
+            if type(margin) not in (float, int) or not 0 <= margin <= 1:
+                raise ValueError(f"{name}: prompt_gate.margin_threshold phải trong [0, 1]")
         if kind in ("adapted", "upstream"):
             valid_choice_list(job.get("methods"), ADAPTED_METHODS if kind == "adapted" else UPSTREAM_METHODS,
                               f"{name}.methods")
@@ -160,6 +187,28 @@ def validate(config, selected=None):
                     raise ValueError(f"{name}.{field} phải là danh sách không rỗng")
                 if ensemble["enabled"] and len(job.get(field, ["current"])) != 1:
                     raise ValueError(f"{name}: ensemble cần đúng một {field}")
+        if "image_text_relation" in job and not isinstance(job["image_text_relation"], dict):
+            raise ValueError(f"{name}.image_text_relation phải là ánh xạ")
+        if "image_weight" in job and (type(job["image_weight"]) not in (int, float)
+                                      or not 0 <= job["image_weight"] <= 1):
+            raise ValueError(f"{name}.image_weight phải trong [0, 1]")
+        if "fusion_mode" in job:
+            if dataset != "crisismmd" or kind not in ("standard", "adapted") or job["fusion_mode"] != "entropy_weighted":
+                raise ValueError(f"{name}.fusion_mode chỉ hỗ trợ entropy_weighted cho CrisisMMD standard/adapted")
+            if job.get("image_text_relation", {}).get("enabled") is not False:
+                raise ValueError(f"{name}: entropy_weighted cần tắt image_text_relation")
+        if "result_protocol" in job:
+            if job["result_protocol"] != "image_only" or job.get("result_method"):
+                raise ValueError(f"{name}.result_protocol không hợp lệ")
+            if kind not in ("standard", "adapted", "upstream") or ensemble["enabled"]:
+                raise ValueError(f"{name}: image_only chỉ dùng cho lượt phân loại một phương pháp")
+            if job.get("image_text_relation", {}).get("enabled") is not False:
+                raise ValueError(f"{name}: image_only phải tắt image_text_relation")
+            if kind == "upstream":
+                if job.get("outputs") != ["original_image"]:
+                    raise ValueError(f"{name}: image_only upstream cần outputs: [original_image]")
+            elif job.get("image_weight") != 1:
+                raise ValueError(f"{name}: image_only cần image_weight: 1.0")
     if config["use_kaggle"]:
         kaggle = config.get("kaggle", {})
         data_mode = kaggle.get("data_mode", "bounded")
@@ -218,6 +267,11 @@ def job_plan(config, name, stage):
     job = deepcopy(config["jobs"][name])
     experiment = load_config(project_path(config["experiment_config"]))
     dataset, kind = job["dataset"], job["kind"]
+    if kind == "upstream" and "backbones" not in job:
+        source = project_path(job.get("research_config", "configs/research/upstream.yaml"))
+        if not source.is_file() or not source.is_relative_to((ROOT / "configs/research").resolve()):
+            raise ValueError(f"{name}: research_config phải nằm trong configs/research/")
+        job["backbones"] = yaml.safe_load(source.read_text(encoding="utf-8"))["backbones"]
     for settings in experiment["datasets"].values():
         settings["enabled"] = False
     task = experiment["datasets"][dataset]
@@ -225,14 +279,24 @@ def job_plan(config, name, stage):
     for key in ("prompt_variants", "prompt_aggregations"):
         if key in job:
             task[key] = job[key]
+    if "image_weight" in job:
+        task.setdefault("inference", {})["image_weight"] = job["image_weight"]
+    if "fusion_mode" in job:
+        task.setdefault("inference", {})["fusion_mode"] = job["fusion_mode"]
+    if "image_text_relation" in job:
+        task["image_text_relation"] = {**task.get("image_text_relation", {}),
+                                       **job["image_text_relation"]}
+    if kind == "standard" and not job.get("ensemble", {}).get("enabled"):
+        relation, _ = relation_settings(task, dataset, experiment)
+        if relation["enabled"] and relation["mode"] != "diagnostic":
+            job["result_method"] = relation["mode"]
     # Upstream chọn OpenAI CLIP qua research.backbones; giữ danh sách model nền
     # hợp lệ vì load_config vẫn kiểm tra trường này trước khi chạy runner.
     if kind != "upstream":
         experiment["models"] = job["models"]
     run_id = stage.name.split("_", 1)[0]
-    family = "experiments" if job.get("ensemble", {}).get("enabled") or kind != "standard" else "runs"
-    output = Path("results") / family / name / run_id
-    if family == "runs":
+    output = job_path(job, run_id)
+    if kind == "standard" and not job.get("ensemble", {}).get("enabled"):
         experiment["output"].update(results_dir=str(output), raw_predictions_dir=str(output / "raw_predictions"),
                                     summary_table=str(output / "summary_table.tsv"))
     else:
@@ -252,6 +316,9 @@ def job_plan(config, name, stage):
     if job.get("ensemble", {}).get("enabled"):
         command = ["experiments/ensemble/run_ensemble.py", "--config", remote_config,
                    "--job-config", "configs/job.yaml"]
+    elif job.get("prompt_gate", {}).get("enabled"):
+        command = ["experiments/uncertainty/run_crisismmd_prompt_gate.py", "--config", remote_config,
+                   "--job-config", "configs/job.yaml"]
     elif kind == "standard":
         command = ["src/run_experiment.py", "--config", remote_config]
     elif kind == "demo":
@@ -268,6 +335,9 @@ def job_plan(config, name, stage):
         research["base_config"] = remote_config
         research["output_dir"] = str(output)
         research["methods"] = job["methods"]
+        if "image_text_relation" in job:
+            research["image_text_relation"] = {**research.get("image_text_relation", {}),
+                                               **job["image_text_relation"]}
         if "seeds" in job:
             research["seeds"] = job["seeds"]
         if kind == "upstream" and "outputs" in job:
@@ -419,7 +489,7 @@ def archive_full_data(destination, experiment, dataset, limit, scan_limit=None):
     for path in files:
         fingerprint.update(path.relative_to(root).as_posix().encode("utf-8") + b"\0")
         fingerprint.update(bytes.fromhex(sha256(path)))
-    cache = ROOT / "results/launches/full_data_cache" / dataset
+    cache = launch_root() / "full_data_cache" / dataset
     cache.mkdir(parents=True, exist_ok=True)
     archive_path, manifest_path = cache / "data_bundle.zip", cache / "manifest.json"
     manifest = json.loads(manifest_path.read_text(encoding="utf-8")) if manifest_path.is_file() else {}
@@ -632,10 +702,14 @@ def await_kernel(kaggle_bin, kernel_id, interval, timeout):
 
 def staged_run(stage):
     """Đọc metadata của lượt đã gửi, không thực thi worker.py hay tạo job mới."""
-    stage = Path(stage).resolve()
-    staging_root = (ROOT / "results/launches/staging").resolve()
+    stage = Path(stage)
+    legacy_staging = ROOT / "results/launches/staging"
+    if not stage.exists() and stage.absolute().parent == legacy_staging:
+        stage = launch_root() / "staging" / stage.name
+    stage = stage.resolve()
+    staging_root = (launch_root() / "staging").resolve()
     if not stage.is_dir() or not stage.is_relative_to(staging_root):
-        raise ValueError("--resume-stage phải là thư mục lượt chạy trong results/launches/staging/")
+        raise ValueError("--resume-stage phải là thư mục lượt chạy trong results/_system/launches/staging/")
     worker = stage / "kernel/worker.py"
     metadata_file = stage / "kernel/kernel-metadata.json"
     if not worker.is_file() or not metadata_file.is_file():
@@ -656,14 +730,37 @@ def staged_run(stage):
             or not isinstance(job_id, str) or not JOB_ID.fullmatch(job_id)
             or not stage.name.startswith(f"{run_id}_{job_id}_")
             or output_relative.is_absolute() or not output.is_relative_to((ROOT / "results").resolve())
-            or output.name != run_id or output.parent.name != job_id
+            or not (output.name == run_id or output.name.endswith("_" + run_id))
             or not all(isinstance(settings.get(key), str) and re.fullmatch(r"[0-9a-f]{64}", settings[key])
                        for key in ("code_sha256", "data_sha256"))):
         raise ValueError("Metadata staging không hợp lệ")
+    job = yaml.safe_load(settings.get("job_yaml") or "")
+    if not isinstance(job, dict) or job.get("id") != job_id:
+        raise ValueError("Job trong staging không hợp lệ")
+    if job.get("kind") == "upstream" and not job.get("backbones"):
+        research_file = stage / "research.yaml"
+        if not research_file.is_file():
+            raise ValueError("Staging upstream thiếu research.yaml để xác định backbone")
+        job["backbones"] = yaml.safe_load(research_file.read_text(encoding="utf-8"))["backbones"]
+    if job.get("kind") in ("adapted", "upstream") and len(job.get("methods") or []) != 1:
+        expected = (ROOT / run_path(job["kind"] + "_suite", job["dataset"], job["task"],
+                                    job["max_samples"],
+                                    model_folder(backbones=job["backbones"]) if job["kind"] == "upstream"
+                                    else model_folder(models=job["models"]), run_id)).resolve()
+    else:
+        expected = (ROOT / job_path(job, run_id)).resolve()
+    # Hai phiên bản staging cũ chưa có cấp model, hoặc cả task lẫn model.
+    relative = expected.relative_to(ROOT.resolve()).parts
+    previous = ROOT.joinpath(*relative[:5], *relative[6:]).resolve()
+    older = ROOT.joinpath(*relative[:3], *relative[4:5], *relative[6:]).resolve()
+    legacy = ((ROOT / "results") / ("experiments" if job.get("ensemble", {}).get("enabled")
+                                     or job["kind"] != "standard" else "runs") / job_id / run_id).resolve()
+    if output not in (expected, previous, older, legacy):
+        raise ValueError("Đường dẫn output trong staging không khớp job")
     kernel_id = metadata_value.get("id")
     if not isinstance(kernel_id, str) or not re.fullmatch(r"[a-zA-Z0-9_-]+/[a-z0-9-]+", kernel_id):
         raise ValueError("ID kernel trong staging không hợp lệ")
-    return settings, kernel_id, output
+    return settings, kernel_id, expected
 
 
 def verify_result(directory, settings):
@@ -675,22 +772,27 @@ def verify_result(directory, settings):
         raise RuntimeError("Kết quả tải về không khớp lượt chạy vừa gửi")
 
 
-def update_result_index():
-    """Bảng tra cứu là tiện ích phụ; lỗi ghi bảng không làm mất kết quả model."""
-    try:
-        path = write_index(ROOT)
-    except (OSError, UnicodeError, csv.Error, ValueError) as exc:
-        print(f"[INDEX] Không cập nhật được: {exc}", flush=True)
-    else:
-        print(f"[INDEX] {path.relative_to(ROOT)}", flush=True)
-
-
 def collect_result(kaggle_bin, kernel_id, settings, output):
+    output = Path(output)
+    if not output.is_absolute():
+        output = (ROOT / output).resolve()
+    if not output.exists():
+        results_dir = ROOT / "results"
+        results_root = results_dir.resolve()
+        mapping_file = results_dir / "_system/migration_map.json"
+        resolved_output = output.resolve()
+        if resolved_output.is_relative_to(results_root) and mapping_file.is_file():
+            old = resolved_output.relative_to(results_root).as_posix()
+            matches = [row["to"] for row in json.loads(mapping_file.read_text(encoding="utf-8"))
+                       if row["from"] == old]
+            if len(matches) == 1:
+                migrated = results_dir / matches[0]
+                if migrated.resolve().is_relative_to(results_root) and migrated.is_dir():
+                    output = migrated
     if output.exists():
         if not output.is_dir():
             raise RuntimeError(f"Đường dẫn kết quả đã tồn tại và không phải thư mục: {output}")
         verify_result(output, settings)
-        update_result_index()
         print(f"[RESULT] {output / 'summary.tsv'}", flush=True)
         return output
     output.parent.mkdir(parents=True, exist_ok=True)
@@ -702,7 +804,6 @@ def collect_result(kaggle_bin, kernel_id, settings, output):
     finally:
         if temporary.exists():
             shutil.rmtree(temporary)
-    update_result_index()
     print(f"[RESULT] {output / 'summary.tsv'}", flush=True)
     return output
 
@@ -734,7 +835,7 @@ def sync_full_data(config, datasets):
     if kaggle_bin is None:
         raise RuntimeError("Chưa cài Kaggle CLI")
     experiment = load_config(project_path(config["experiment_config"]))
-    state_path = ROOT / "results/launches/dataset_state.json"
+    state_path = launch_root() / "dataset_state.json"
     state_path.parent.mkdir(parents=True, exist_ok=True)
     state = json.loads(state_path.read_text(encoding="utf-8")) if state_path.is_file() else {}
     for dataset in datasets:
@@ -749,7 +850,7 @@ def sync_full_data(config, datasets):
 
 
 def run_one(config, name, dry_run=False):
-    staging = ROOT / "results/launches/staging"
+    staging = launch_root() / "staging"
     staging.mkdir(parents=True, exist_ok=True)
     run_id = uuid.uuid4().hex[:12]
     stage = Path(tempfile.mkdtemp(prefix=f"{run_id}_{name}_", dir=staging))
@@ -762,7 +863,6 @@ def run_one(config, name, dry_run=False):
         print("[LOCAL]", " ".join(local), flush=True)
         if not dry_run:
             subprocess.run(local, cwd=ROOT, check=True)
-            update_result_index()
         return output
 
     code_dir, data_dir, kernel_dir = (stage / part for part in ("code", "data", "kernel"))
@@ -803,7 +903,7 @@ def run_one(config, name, dry_run=False):
         raise RuntimeError("Chưa cài Kaggle CLI: pip install kaggle; sau đó kaggle auth login")
     quota = run_cli([kaggle_bin, "quota"])
     print(f"[KAGGLE QUOTA]\n{quota.stdout.strip()}", flush=True)
-    state_path = ROOT / "results/launches/dataset_state.json"
+    state_path = launch_root() / "dataset_state.json"
     state = json.loads(state_path.read_text(encoding="utf-8")) if state_path.is_file() else {}
     for directory, dataset_id, digest in ((code_dir, code_id, code_sha), (data_dir, data_id, data_sha)):
         sync_dataset(directory, dataset_id, digest, state, kaggle_bin)

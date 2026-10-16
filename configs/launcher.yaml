@@ -59,6 +59,162 @@ jobs:
     prompt_aggregations: [mean_embed]
     ensemble: *ensemble_binary
 
+  # Bỏ phiếu 2/3 chỉ khi Meta có margin thấp; ba model chạy tuần tự.
+  crisismmd_info_margin_majority:
+    enabled: false
+    kind: standard
+    dataset: crisismmd
+    task: informativeness
+    max_samples: 1000
+    models: *vlm_models
+    prompt_aggregations: [mean_embed]
+    image_text_relation: &uncertainty_no_relation
+      enabled: false
+    ensemble: &crisismmd_margin_majority
+      enabled: true
+      methods: [margin_majority]
+      margin_threshold: 0.10
+    result_method: margin_majority
+
+  crisismmd_humanitarian_margin_majority:
+    enabled: false
+    kind: standard
+    dataset: crisismmd
+    task: humanitarian
+    max_samples: 1000
+    models: *vlm_models
+    prompt_aggregations: [mean_embed]
+    image_text_relation: *uncertainty_no_relation
+    ensemble: *crisismmd_margin_majority
+    result_method: margin_majority
+
+  # Cùng một MetaCLIP2 chạy prompt baseline và DCLIP adapted, rồi áp cổng margin.
+  crisismmd_info_prompt_margin_gate:
+    enabled: false
+    kind: standard
+    dataset: crisismmd
+    task: informativeness
+    max_samples: 1000
+    models: [metaclip2_vith14]
+    prompt_aggregations: [mean_embed]
+    image_text_relation: *uncertainty_no_relation
+    prompt_gate: &crisismmd_prompt_gate
+      enabled: true
+      method: dclip_adapted
+      margin_threshold: 0.10
+    result_method: prompt_margin_gate
+
+  crisismmd_humanitarian_prompt_margin_gate:
+    enabled: false
+    kind: standard
+    dataset: crisismmd
+    task: humanitarian
+    max_samples: 1000
+    models: [metaclip2_vith14]
+    prompt_aggregations: [mean_embed]
+    image_text_relation: *uncertainty_no_relation
+    prompt_gate: *crisismmd_prompt_gate
+    result_method: prompt_margin_gate
+
+  # Đối chứng ảnh-only: caption của mẫu không tham gia điểm hoặc quan hệ ảnh–text.
+  crisismmd_info_image_only:
+    enabled: false
+    kind: standard
+    dataset: crisismmd
+    task: informativeness
+    max_samples: 1000
+    models: [metaclip2_vith14]
+    prompt_aggregations: [mean_embed]
+    image_weight: 1.0
+    image_text_relation: &image_only_relation
+      enabled: false
+    result_protocol: image_only
+
+  crisismmd_humanitarian_image_only:
+    enabled: false
+    kind: standard
+    dataset: crisismmd
+    task: humanitarian
+    max_samples: 1000
+    models: [metaclip2_vith14]
+    prompt_aggregations: [mean_embed]
+    image_weight: 1.0
+    image_text_relation: *image_only_relation
+    result_protocol: image_only
+
+  # Thử 3 tín hiệu: ảnh–prompt, text–prompt, ảnh–text; chạy từng model.
+  crisismmd_info_agreement:
+    enabled: false
+    kind: standard
+    dataset: crisismmd
+    task: informativeness
+    max_samples: 1000
+    models: [metaclip2_vith14]
+    prompt_aggregations: [mean_embed]
+    image_text_relation: &crisismmd_agreement
+      enabled: true
+      mode: agreement_fusion
+      weight: 0.25
+
+  crisismmd_humanitarian_agreement:
+    enabled: false
+    kind: standard
+    dataset: crisismmd
+    task: humanitarian
+    max_samples: 1000
+    models: [metaclip2_vith14]
+    prompt_aggregations: [mean_embed]
+    image_text_relation: *crisismmd_agreement
+
+  # Nhánh ảnh–text tham gia trực tiếp với 25% trọng số; mặc định tắt.
+  crisismmd_info_direct_pair:
+    enabled: false
+    kind: standard
+    dataset: crisismmd
+    task: informativeness
+    max_samples: 1000
+    models: [metaclip2_vith14]
+    prompt_aggregations: [mean_embed]
+    image_text_relation: &crisismmd_direct_pair
+      enabled: true
+      mode: direct_pair_fusion
+      weight: 0.25
+
+  crisismmd_humanitarian_direct_pair:
+    enabled: false
+    kind: standard
+    dataset: crisismmd
+    task: humanitarian
+    max_samples: 1000
+    models: [metaclip2_vith14]
+    prompt_aggregations: [mean_embed]
+    image_text_relation: *crisismmd_direct_pair
+
+  # Fusion động theo entropy; mỗi lệnh chỉ chạy một model/task.
+  crisismmd_info_entropy:
+    enabled: false
+    kind: standard
+    dataset: crisismmd
+    task: informativeness
+    max_samples: 1000
+    models: [metaclip2_vith14]
+    prompt_aggregations: [mean_embed]
+    fusion_mode: entropy_weighted
+    image_text_relation: *image_only_relation
+    result_method: entropy_weighted_fusion
+
+  crisismmd_humanitarian_entropy:
+    enabled: false
+    kind: standard
+    dataset: crisismmd
+    task: humanitarian
+    max_samples: 1000
+    models: [metaclip2_vith14]
+    prompt_aggregations: [mean_embed]
+    fusion_mode: entropy_weighted
+    image_text_relation: *image_only_relation
+    result_method: entropy_weighted_fusion
+
   mmimdb_genres:
     enabled: false
     kind: standard
@@ -144,6 +300,82 @@ jobs:
     models: *vlm_models
     methods: *adapted_methods
     research_config: configs/research/adapted.yaml
+
+  # Đối chứng prompt trên cùng backbone của dự án; đây là bản adapted.
+  adapted_crisismmd_info_image_only:
+    enabled: false
+    kind: adapted
+    dataset: crisismmd
+    task: informativeness
+    max_samples: 1000
+    models: [metaclip2_vith14]
+    methods: [baseline, waffle, dclip]
+    research_config: configs/research/adapted.yaml
+    image_weight: 1.0
+    image_text_relation: *image_only_relation
+    result_protocol: image_only
+
+  adapted_crisismmd_humanitarian_image_only:
+    enabled: false
+    kind: adapted
+    dataset: crisismmd
+    task: humanitarian
+    max_samples: 1000
+    models: [metaclip2_vith14]
+    methods: [baseline, waffle, dclip]
+    research_config: configs/research/adapted.yaml
+    image_weight: 1.0
+    image_text_relation: *image_only_relation
+    result_protocol: image_only
+
+  # Cùng cơ chế quan hệ, dùng descriptor DCLIP ở nhánh ảnh.
+  adapted_crisismmd_info_agreement:
+    enabled: false
+    kind: adapted
+    dataset: crisismmd
+    task: informativeness
+    max_samples: 1000
+    models: [metaclip2_vith14]
+    methods: [dclip]
+    research_config: configs/research/adapted.yaml
+    image_text_relation: *crisismmd_agreement
+
+  adapted_crisismmd_humanitarian_agreement:
+    enabled: false
+    kind: adapted
+    dataset: crisismmd
+    task: humanitarian
+    max_samples: 1000
+    models: [metaclip2_vith14]
+    methods: [dclip]
+    research_config: configs/research/adapted.yaml
+    image_text_relation: *crisismmd_agreement
+
+  adapted_crisismmd_info_entropy:
+    enabled: false
+    kind: adapted
+    dataset: crisismmd
+    task: informativeness
+    max_samples: 1000
+    models: [metaclip2_vith14]
+    methods: [dclip]
+    research_config: configs/research/adapted.yaml
+    fusion_mode: entropy_weighted
+    image_text_relation: *image_only_relation
+    result_method: adapted_dclip_entropy_weighted_fusion
+
+  adapted_crisismmd_humanitarian_entropy:
+    enabled: false
+    kind: adapted
+    dataset: crisismmd
+    task: humanitarian
+    max_samples: 1000
+    models: [metaclip2_vith14]
+    methods: [dclip]
+    research_config: configs/research/adapted.yaml
+    fusion_mode: entropy_weighted
+    image_text_relation: *image_only_relation
+    result_method: adapted_dclip_entropy_weighted_fusion
   adapted_mmimdb_genres:
     enabled: false
     kind: adapted
@@ -187,6 +419,35 @@ jobs:
     methods: *upstream_methods
     outputs: [original_image]
     research_config: configs/research/upstream.yaml
+
+  # Hàm tác giả + OpenAI CLIP, chỉ original_image; một --method mỗi lượt Kaggle.
+  upstream_crisismmd_info_image_only:
+    enabled: false
+    kind: upstream
+    dataset: crisismmd
+    task: informativeness
+    max_samples: 1000
+    methods: *upstream_methods
+    backbones: [ViT-B/32]
+    outputs: [original_image]
+    seeds: [0]
+    research_config: configs/research/upstream.yaml
+    image_text_relation: *image_only_relation
+    result_protocol: image_only
+
+  upstream_crisismmd_humanitarian_image_only:
+    enabled: false
+    kind: upstream
+    dataset: crisismmd
+    task: humanitarian
+    max_samples: 1000
+    methods: *upstream_methods
+    backbones: [ViT-B/32]
+    outputs: [original_image]
+    seeds: [0]
+    research_config: configs/research/upstream.yaml
+    image_text_relation: *image_only_relation
+    result_protocol: image_only
   upstream_mmimdb_genres:
     enabled: false
     kind: upstream

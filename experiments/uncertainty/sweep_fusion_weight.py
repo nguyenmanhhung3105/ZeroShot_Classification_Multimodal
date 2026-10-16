@@ -18,7 +18,7 @@ import zipfile
 import numpy as np
 from sklearn.metrics import accuracy_score, f1_score
 
-from analyze_review import ROOT, _prediction_member
+from analyze_review import ROOT, _prediction_member, analysis_path
 
 
 POLICY = "fusion_weight_group_cv_v2"
@@ -189,7 +189,7 @@ def analyze(run_dir, output_dir=None):
                "source_split_verified": manifest.get("split_verified", False),
                "independent_test": False}
     target = (Path(output_dir).resolve() if output_dir else
-              ROOT / "results/analysis/uncertainty" / f"{run_dir.name}_{POLICY}")
+              ROOT / analysis_path(POLICY, run_dir, f"{run_dir.name}_{POLICY}"))
     if target.exists():
         raise FileExistsError(f"Kết quả đã tồn tại: {target}")
     target.parent.mkdir(parents=True, exist_ok=True)

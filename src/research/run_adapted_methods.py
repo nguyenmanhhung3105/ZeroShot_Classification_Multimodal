@@ -155,8 +155,18 @@ def main(argv=None):
         if subprocess.check_output(["git", "-C", str(source), "status", "--porcelain"], text=True).strip():
             raise ValueError(f"{name}: upstream checkout modified; keep reference code unchanged")
     output = Path(settings.get("output_dir", "results/paper_methods"))
+    managed_output = output in (Path("auto"), Path("results/paper_methods"))
+    if managed_output:
+        from results_layout import dataset_folder, model_folder, sample_folder, task_folder
+        method = (f"adapted_{settings['methods'][0]}" if len(settings["methods"]) == 1
+                  else "adapted_suite")
+        output = (Path("results") / method / dataset_folder(settings["dataset"], settings["task"])
+                  / task_folder(settings["dataset"], settings["task"])
+                  / sample_folder(settings["max_samples"])
+                  / model_folder(models=base["models"]))
     output.mkdir(parents=True, exist_ok=True)
-    root = Path(tempfile.mkdtemp(prefix=f"{settings['dataset']}_", dir=output))
+    run_prefix = settings["task"] if managed_output else settings["dataset"]
+    root = Path(tempfile.mkdtemp(prefix=f"{run_prefix}_", dir=output))
     source_files = sorted((ROOT / "src").rglob("*.py"))
     write_json(root / "frozen_plan.json", {"settings": settings, "base_config": base,
                "trials": trials, "sources": sources, "git_hash": git_revision(ROOT),

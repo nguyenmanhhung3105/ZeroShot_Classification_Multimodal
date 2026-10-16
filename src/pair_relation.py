@@ -1,4 +1,4 @@
-"""Quan hệ ảnh–text và hiệu chỉnh nhẹ theo ngữ nghĩa nhãn, không fit nhãn thật."""
+"""Quan hệ ảnh–text: policy Fakeddit hoặc đồng thuận CrisisMMD, không fit nhãn thật."""
 import math
 from numbers import Real
 
@@ -7,11 +7,11 @@ import numpy as np
 RELATION_COLUMNS = ("image_text_similarity", "image_text_js_divergence",
                     "image_text_reliability",
                     "image_text_match_evidence", "image_text_mismatch_evidence",
-                    "relation_applied")
+                    "image_text_fusion_gate", "image_text_pair_match_weight", "relation_applied")
 
 
 def validate_relation_options(options=None):
-    """Chuẩn hóa cấu hình; chỉ hai lớp 0/2 của Fakeddit 6way có policy định sẵn."""
+    """Chuẩn hóa cấu hình; policy lớp chỉ áp dụng cho Fakeddit 6way."""
     if options is None:
         options = {}
     if not isinstance(options, dict):
@@ -22,8 +22,8 @@ def validate_relation_options(options=None):
     enabled = options.get("enabled", False)
     mode = options.get("mode", "diagnostic")
     weight = options.get("weight", 0.25)
-    if not isinstance(enabled, bool) or mode not in ("diagnostic", "class_aware"):
-        raise ValueError("enabled phải true/false; mode phải diagnostic/class_aware")
+    if not isinstance(enabled, bool) or mode not in ("diagnostic", "class_aware", "agreement_fusion", "direct_pair_fusion"):
+        raise ValueError("enabled phải true/false; mode phải diagnostic/class_aware/agreement_fusion/direct_pair_fusion")
     if (isinstance(weight, bool) or not isinstance(weight, Real)
             or not math.isfinite(weight) or not 0 <= weight <= 1):
         raise ValueError("Trọng số quan hệ phải hữu hạn trong [0, 1]")
@@ -40,6 +40,8 @@ def validate_relation_options(options=None):
         if value != "neutral" and (label, value) not in ((0, "match"), (2, "mismatch")):
             raise ValueError("Chỉ True=0 dùng match, False Connection=2 dùng mismatch; lớp khác neutral")
         normalized[label] = value
+    if mode in ("agreement_fusion", "direct_pair_fusion") and normalized:
+        raise ValueError(f"{mode} không nhận class_policies")
     return {"enabled": enabled, "mode": mode, "weight": float(weight), "class_policies": normalized}
 
 
@@ -61,10 +63,15 @@ def relation_settings(task_config, dataset, config=None):
     if options["enabled"] and options["mode"] == "class_aware":
         if dataset != "fakeddit" or task_config.get("task") != "6way":
             raise ValueError("class_aware chỉ dùng Fakeddit 6way; task khác chọn diagnostic")
+    if options["enabled"] and options["mode"] in ("agreement_fusion", "direct_pair_fusion"):
+        if dataset != "crisismmd" or task_config.get("task") not in ("informativeness", "humanitarian"):
+            raise ValueError(f"{options['mode']} chỉ dùng cho hai task CrisisMMD")
     return options, {"relation_enabled": options["enabled"], "relation_mode": options["mode"],
                      "relation_mode_requested": requested_mode,
                      "relation_weight": options["weight"], "relation_class_policies": options["class_policies"],
-                     "relation_algorithm": "cosine_js_confidence_bounded_v1",
+                     "relation_algorithm": ({"agreement_fusion": "cosine_js_consensus_product_v1",
+                                             "direct_pair_fusion": "direct_pair_consensus_v1"}
+                                            .get(options["mode"], "cosine_js_confidence_bounded_v1")),
                      "relation_text_representation": ("normalized_mean_chunks" if task_config.get("chunk_long_text", False)
                                                        else "single_text_embedding") if options["enabled"] else None}
 
@@ -121,11 +128,90 @@ def relation_evidence(image, text, p_image, p_text, empty, *, single_label=True)
     return result
 
 
-def apply_class_relation(probabilities, labels, scores, options, image_weight):
-    """P'_c ∝ P_c (1 + λ e_c); không cộng scalar giống nhau vào mọi lớp."""
+def apply_class_relation(probabilities, labels, scores, options, image_weight,
+                         *, p_image=None, p_text=None):
+    """Fakeddit: hiệu chỉnh theo lớp; CrisisMMD: đồng thuận có điều tiết bởi cặp."""
     result = np.asarray(probabilities).copy()
-    if not options["enabled"] or options["mode"] != "class_aware":
+    if not options["enabled"] or options["mode"] == "diagnostic":
         return result
+    if options["mode"] in ("agreement_fusion", "direct_pair_fusion"):
+        if not 0 < image_weight < 1 or options["weight"] == 0:
+            scores["image_text_fusion_gate"] = [0.0] * len(result)
+            if options["mode"] == "direct_pair_fusion":
+                scores["image_text_pair_match_weight"] = [None] * len(result)
+            return result
+        image, text = np.asarray(p_image), np.asarray(p_text)
+        if (result.ndim != 2 or result.shape[1] < 2 or image.shape != result.shape
+                or text.shape != result.shape or not np.isfinite(result).all()
+                or not np.isfinite(image).all() or not np.isfinite(text).all()
+                or np.any(result < 0) or np.any(image < 0) or np.any(text < 0)
+                or not np.allclose(result.sum(axis=1), 1)
+                or not np.allclose(image.sum(axis=1), 1)
+                or not np.allclose(text.sum(axis=1), 1)):
+            raise ValueError("Fusion quan hệ cần ba phân phối single-label hợp lệ")
+        required = (("image_text_similarity", "image_text_js_divergence", "image_text_reliability")
+                    if options["mode"] == "agreement_fusion" else ("image_text_similarity",))
+        if any(key not in scores for key in required):
+            raise ValueError("Fusion quan hệ thiếu điểm ảnh–text")
+        similarity = scores["image_text_similarity"]
+        if options["mode"] == "direct_pair_fusion":
+            if len(similarity) != len(result):
+                raise ValueError("Evidence quan hệ không cùng số mẫu")
+            valid = np.array([value is not None for value in similarity])
+            expected = image_weight * image + (1 - image_weight) * text
+            if not np.allclose(result[valid], expected[valid]):
+                raise ValueError("Điểm nền phải là fusion của đúng hai nhánh khi có text")
+            product = image * text
+            normalizer = product.sum(axis=1)
+            active = valid & (normalizer > 1e-15)
+            match_weight = [None] * len(result)
+            for i, cosine in enumerate(similarity):
+                if cosine is None:
+                    continue
+                if not np.isfinite(cosine) or not -1 <= cosine <= 1:
+                    raise ValueError("Cosine ảnh–text ngoài miền hợp lệ")
+                match_weight[i] = float((1 + cosine) / 2)
+            if np.any(active):
+                consensus = product[active] / normalizer[active, None]
+                strength = np.asarray(match_weight, dtype=object)[active].astype(float)[:, None]
+                pair = (1 - strength) / result.shape[1] + strength * consensus
+                result[active] = ((1 - options["weight"]) * result[active]
+                                  + options["weight"] * pair)
+            scores["image_text_fusion_gate"] = np.where(active, options["weight"], 0.0).tolist()
+            scores["image_text_pair_match_weight"] = match_weight
+            scores["relation_applied"] = active.tolist()
+            return result
+        disagreement = scores["image_text_js_divergence"]
+        reliability = scores["image_text_reliability"]
+        if any(len(values) != len(result) for values in (similarity, disagreement, reliability)):
+            raise ValueError("Evidence quan hệ không cùng số mẫu")
+        valid_relation = np.array([all(value is not None for value in values)
+                                   for values in zip(similarity, disagreement, reliability)])
+        expected = image_weight * image + (1 - image_weight) * text
+        if not np.allclose(result[valid_relation], expected[valid_relation]):
+            raise ValueError("Điểm nền phải là fusion của đúng hai nhánh khi có text")
+        product = image * text
+        normalizer = product.sum(axis=1)
+        valid_product = normalizer > 1e-15
+        gate = np.zeros(len(result))
+        for i, (cosine, js, confidence) in enumerate(zip(similarity, disagreement, reliability)):
+            if cosine is None or js is None or confidence is None or not valid_product[i]:
+                continue
+            if (not np.isfinite(cosine) or not -1 <= cosine <= 1
+                    or not np.isfinite(js) or not 0 <= js <= 1
+                    or not np.isfinite(confidence) or not 0 <= confidence <= 1):
+                raise ValueError("Evidence quan hệ ngoài miền hợp lệ")
+            gate[i] = options["weight"] * max(0.0, cosine) * (1 - js) * confidence
+        active = gate > 0
+        if np.any(active):
+            consensus = product[active] / normalizer[active, None]
+            result[active] = ((1 - gate[active, None]) * result[active]
+                              + gate[active, None] * consensus)
+        scores["image_text_fusion_gate"] = gate.tolist()
+        scores["relation_applied"] = active.tolist()
+        return result
+    if options["mode"] != "class_aware":
+        raise ValueError("Mode quan hệ không hợp lệ")
     if len(labels) != 6 or set(labels) != set(range(6)):
         raise ValueError("class_aware cần đủ sáu ID Fakeddit 0..5")
     if not 0 < image_weight < 1 or options["weight"] == 0:

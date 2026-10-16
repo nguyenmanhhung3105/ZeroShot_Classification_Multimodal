@@ -27,6 +27,9 @@ def load_config(path=DEFAULT_CONFIG):
         if limit is not None and (type(limit) is not int or limit < 1):
             raise ValueError(f"{dataset}: max_samples phải là số nguyên dương hoặc null")
         options = settings.get("inference", {})
+        if "fusion_mode" in options and (dataset != "crisismmd" or
+                                         options["fusion_mode"] not in ("fixed", "entropy_weighted")):
+            raise ValueError("fusion_mode chỉ hỗ trợ fixed/entropy_weighted cho CrisisMMD")
         if "image_weight" in options and (isinstance(options["image_weight"], bool)
                 or not isinstance(options["image_weight"], (int, float))
                 or not 0 <= options["image_weight"] <= 1):

@@ -18,6 +18,13 @@ import open_clip
 # ============================================================
 # Phiên bản yêu cầu trong requirements.txt có đủ tên model/pretrained bên dưới.
 MODEL_CONFIGS = {
+    # Cùng checkpoint OpenAI CLIP ViT-B/32 dùng ở nhánh upstream; ở đây nạp
+    # qua OpenCLIP để chạy cùng prompt, fusion và định dạng log của pipeline chính.
+    "openai_clip_vit_b_32": {
+        "arch": "ViT-B-32",
+        "pretrained": "openai",
+        "family": "clip_softmax",
+    },
     # MetaCLIP2 dùng chung cho ba dataset; không mặc định kết luận tốt hơn model khác.
     "metaclip2_vith14": {
         "arch": "ViT-H-14-worldwide-quickgelu",   # giữ đúng hậu tố của kiến trúc pretrained

@@ -98,6 +98,14 @@ def combine_runs(runs, labels, baseline_model=DEFAULT_MODELS[0], margin_threshol
     margins = np.sort(base_scores, axis=1)[:, -1] - np.sort(base_scores, axis=1)[:, -2]
     uncertain = margins <= margin_threshold
     gated = np.where(uncertain, ensemble, predictions[baseline_model])
+    majority = predictions[baseline_model].copy()
+    if "margin_majority" in methods:
+        if len(names) != 3:
+            raise ValueError("margin_majority cần đúng ba model")
+        auxiliary = [name for name in names if name != baseline_model]
+        two_aux_agree = predictions[auxiliary[0]] == predictions[auxiliary[1]]
+        majority = np.where(two_aux_agree, predictions[auxiliary[0]], majority)
+    majority_gated = np.where(uncertain, majority, predictions[baseline_model])
     truth = np.asarray([row["y_true"] for row in reference], dtype=object)
 
     string_labels = [str(label) for label in labels]
@@ -109,7 +117,7 @@ def combine_runs(runs, labels, baseline_model=DEFAULT_MODELS[0], margin_threshol
                 "changed_vs_baseline": int(np.sum(pred != predictions[baseline_model])),
                 "wrong_to_right": int(np.sum((pred == truth) & (predictions[baseline_model] != truth))),
                 "right_to_wrong": int(np.sum((pred != truth) & (predictions[baseline_model] == truth)))}
-        if len(labels) == 2:
+        if len(labels) == 2 and scores is not None:
             positive = string_labels[1]
             item["auroc"] = (float(roc_auc_score(truth == positive, scores[:, 1]))
                              if len(set(truth)) == 2 else None)
@@ -120,12 +128,15 @@ def combine_runs(runs, labels, baseline_model=DEFAULT_MODELS[0], margin_threshol
         summary.append(metrics("equal_mean", ensemble, avg))
     if "margin_gate" in methods:
         summary.append(metrics("margin_gate", gated, np.where(uncertain[:, None], avg, base_scores)))
+    if "margin_majority" in methods:
+        summary.append(metrics("margin_majority", majority_gated, None))
     comparison = []
     for i, row in enumerate(reference):
         comparison.append({"id": row["id"], "y_true": truth[i],
                            "baseline_pred": predictions[baseline_model][i],
                            "baseline_margin": float(margins[i]), "uncertain": bool(uncertain[i]),
                            "ensemble_pred": ensemble[i], "gated_pred": gated[i],
+                           "majority_gated_pred": majority_gated[i] if "margin_majority" in methods else "",
                            **{f"pred_{name}": predictions[name][i] for name in names},
                            **{f"ensemble_score_{label}": float(avg[i, j]) for j, label in enumerate(labels)}})
     return summary, comparison, {"class_support": dict(Counter(truth)),
@@ -230,8 +241,11 @@ def main(argv=None):
         parser.error("max_samples phải là số nguyên dương")
     if len(models) < 2 or len(models) != len(set(models)) or any(name not in MODEL_CONFIGS for name in models):
         parser.error("Ensemble cần ít nhất hai model hợp lệ, không trùng tên")
-    if (not methods or any(method not in ("equal_mean", "margin_gate") for method in methods)
-            or len(methods) != len(set(methods)) or (dataset == "mmimdb" and "margin_gate" in methods)):
+    if (not methods or any(method not in ("equal_mean", "margin_gate", "margin_majority") for method in methods)
+            or len(methods) != len(set(methods)) or (dataset == "mmimdb" and
+                                                    any(m != "equal_mean" for m in methods))
+            or ("margin_majority" in methods and
+                (dataset != "crisismmd" or tuple(models) != DEFAULT_MODELS))):
         parser.error("Phương pháp ensemble không hợp lệ cho dataset")
     if not isinstance(margin_threshold, (int, float)) or not 0 <= margin_threshold <= 1:
         parser.error("margin_threshold phải trong [0, 1]")

@@ -111,12 +111,11 @@ Các runner chính bổ sung cột cosine ảnh–text và, với single-label, 
 Single-label dùng `score_<label>` cho điểm fusion. Multi-label dùng `zscore_<label>` khi relative_z và `prob_<label>` khi fixed_threshold. Cả hai logger dùng `score_image_<label>`/`score_text_<label>` cho điểm nhánh sau biến đổi. Tên biến `sim_*` của logger không bảo đảm đó là cosine thô. `relative_z` chứa điểm z, các mode khác chứa điểm softmax/sigmoid của luồng đang dùng. Đọc manifest trước khi so giá trị giữa lượt.
 
 ```text
-Chính:    results/summary_table_<dataset>_<task>_<số>.tsv
-          results/raw_predictions/<run_id>/...
-Upstream: results/upstream_projects/<lượt>/summary.tsv + seed_summary.tsv
-          results/upstream_projects/<lượt>/raw_predictions/<trial>/...
-Adapted:  results/paper_methods/<lượt>/summary.tsv + seed_summary.tsv
-          results/paper_methods/<lượt>/raw_predictions/<trial>/...
+Chung:    results/<phương_pháp>/<dataset>/<task>/samples_N/<model>/<task>_<lượt>/
+          ├── summary.tsv (Kaggle) hoặc summary_table_*.tsv (runner local)
+          └── run_artifacts.zip / raw_predictions/<trial>/... tùy runner
+Upstream: results/upstream_<method>/... hoặc results/upstream_suite/...
+Adapted:  results/adapted_<method>/... hoặc results/adapted_suite/...
 ```
 
 Main MM-IMDb log dùng task_name `multi_label` dù khóa YAML là `genres`; summary/task theo runner vẫn cần đọc trong ngữ cảnh. Các tên thư mục/path output có thể đổi trong YAML.

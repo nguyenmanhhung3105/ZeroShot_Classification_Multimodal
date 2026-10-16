@@ -43,11 +43,11 @@ runner đã bỏ phần còn lại của plot khi bật chunking.
 
 Kết quả và cấu hình đã khóa:
 
-- [Humanitarian sau sửa](../results/upstream_projects/experiment_djym_cbk/summary.tsv).
-- [Informativeness, Fakeddit 6way, MM-IMDb](../results/upstream_projects/smoke_suite_ua4bjvve/experiment_62_d5hs1/summary.tsv).
-- [Fakeddit 2way](../results/upstream_projects/smoke_suite_ua4bjvve/experiment_yo4gy0ph/summary.tsv).
-- [Báo cáo kiểm tra cả năm tác vụ](../results/upstream_projects/smoke_suite_ua4bjvve/validation_report.json).
-- [Thời gian suite và cấu hình chạy thêm](../results/upstream_projects/smoke_suite_ua4bjvve/suite_report.json).
+- [Humanitarian sau sửa](../results/upstream_suite/crisismmd/humanitarian/samples_5/openai_clip_vit_b_32/humanitarian_experiment_djym_cbk/summary.tsv).
+- [Informativeness, Fakeddit 6way, MM-IMDb](../results/upstream_suite/mixed/dataset/samples_5/openai_clip_vit_b_32/dataset_smoke_suite_ua4bjvve/experiment_62_d5hs1/summary.tsv).
+- [Fakeddit 2way](../results/upstream_suite/mixed/dataset/samples_5/openai_clip_vit_b_32/dataset_smoke_suite_ua4bjvve/experiment_yo4gy0ph/summary.tsv).
+- [Báo cáo kiểm tra cả năm tác vụ](../results/upstream_suite/mixed/dataset/samples_5/openai_clip_vit_b_32/dataset_smoke_suite_ua4bjvve/validation_report.json).
+- [Thời gian suite và cấu hình chạy thêm](../results/upstream_suite/mixed/dataset/samples_5/openai_clip_vit_b_32/dataset_smoke_suite_ua4bjvve/suite_report.json).
 
 Lượt humanitarian sau sửa mất khoảng 7,4 giây trên CPU, tính từ lúc nạp runner
 đến khi ghi xong kết quả, không tính tải checkpoint. Suite ba tác vụ mất khoảng
@@ -64,14 +64,15 @@ Riêng humanitarian, nạp lại checkpoint trên CPU và đối chiếu toàn b
 với mã hóa CLIP trực tiếp rồi lấy mean cosine. Các hàm tác giả cho cosine khớp
 phép tính trực tiếp; nhãn dự đoán của tất cả mẫu khớp log. Sai số điểm đầu ra
 lớn nhất khoảng `2.48e-6`.
-[Báo cáo đối chiếu](../results/upstream_projects/verification_k_8bp_ms/parity_report.json)
-ghi nguồn/commit, bộ mẫu, thiết bị và sai số từng output. Đây là kiểm tra phép
+Báo cáo đối chiếu `parity_report.json` được nhắc trong ghi chú cũ không có trong
+workspace hiện tại; không còn tệp để kiểm tra nguồn/commit, bộ mẫu, thiết bị và
+sai số từng output. Đây là kiểm tra phép
 chấm điểm trên cùng prompt đã khóa, không tái lập benchmark hoặc GPT-3 descriptor
 gốc của paper. Script kiểm tra được lưu cạnh báo cáo để chạy lại:
 
 ```sh
 venv/bin/python -B results/upstream_projects/verification_k_8bp_ms/verify_smoke.py \
-  results/upstream_projects/experiment_qzll_j5j
+  results/upstream_suite/crisismmd/humanitarian/samples_5/openai_clip_vit_b_32/humanitarian_experiment_qzll_j5j
 ```
 
 Hai thay đổi nhỏ trong `src/research/run_upstream.py`:

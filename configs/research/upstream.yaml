@@ -11,7 +11,7 @@ methods: [clip, waffle, dclip_labels, dclip]  # hai baseline theo template riên
 seeds: [0]                    # chạy nhỏ; dùng [0, 1, 2, 3, 4, 5, 6] để đối chứng nhiều seed
 waffle_pairs: 15
 outputs: [original_image, multimodal]
-output_dir: results/upstream_projects
+output_dir: auto                 # results/upstream_<method>/<dataset>/<task>/samples_N/<model>/
 
 # Chỉ bật dataset cần chạy. Giới hạn riêng cho phép chạy thử nhỏ độc lập với code chính.
 datasets:

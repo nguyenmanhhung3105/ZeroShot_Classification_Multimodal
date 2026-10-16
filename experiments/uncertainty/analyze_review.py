@@ -12,11 +12,14 @@ import json
 import math
 from pathlib import Path
 import shutil
+import sys
 import tempfile
 import zipfile
 
 
 ROOT = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(ROOT / "src"))
+from results_layout import analysis_path
 POLICY = "branch_disagreement_v1"
 FLAG_FIELDS = ("id", "y_true", "y_pred", "correct", "image_pred", "text_pred",
                "margin", "needs_review", "review_reason")
@@ -60,7 +63,7 @@ def analyze(run_dir, output_dir=None, model=None):
     if receipt.get("run_id") != run_dir.name:
         raise ValueError("run_receipt.json không khớp thư mục lượt chạy")
     target = (Path(output_dir).resolve() if output_dir else
-              ROOT / "results/analysis/uncertainty" / f"{run_dir.name}_{POLICY}")
+              ROOT / analysis_path(POLICY, run_dir, f"{run_dir.name}_{POLICY}", model=model))
     if target.exists():
         raise FileExistsError(f"Kết quả phân tích đã tồn tại: {target}")
     target.parent.mkdir(parents=True, exist_ok=True)
@@ -158,7 +161,7 @@ def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--run-dir", required=True, help="Thư mục kết quả Kaggle đã tải về")
     parser.add_argument("--model", help="Chọn model nếu archive có nhiều kết quả")
-    parser.add_argument("--output-dir", help="Thư mục kết quả phân tích; mặc định dưới results/analysis/")
+    parser.add_argument("--output-dir", help="Thư mục kết quả phân tích; mặc định dưới results/analysis/<policy>/<dataset>/<task>/samples_N/<model>/")
     args = parser.parse_args(argv)
     target, summary = analyze(args.run_dir, args.output_dir, args.model)
     print(f"[RESULT] {target}")
