@@ -1,0 +1,45 @@
+[
+  {
+    "file": "clip_overview.png",
+    "title": "OpenAI CLIP",
+    "source_url": "https://raw.githubusercontent.com/openai/CLIP/d05afc436d78f1c48dc0dbf8e5980a9d471f35f6/CLIP.png",
+    "repository": "https://github.com/openai/CLIP",
+    "downloaded_date": "2026-10-21",
+    "sha256": "308a3ca4503f1c7a07803916c369d78c4ef501e5ab7fc727da9b5e1d2f9ec85b",
+    "bytes": 252444,
+    "license_note": "MIT",
+    "modifications": "Không thay đổi nội dung; chỉ co giãn khi chèn LaTeX."
+  },
+  {
+    "file": "vit_overview.png",
+    "title": "Vision Transformer",
+    "source_url": "https://raw.githubusercontent.com/google-research/vision_transformer/main/vit_figure.png",
+    "repository": "https://github.com/google-research/vision_transformer",
+    "downloaded_date": "2026-10-21",
+    "sha256": "4614d5404f0feb77c6d1dfc6b9db00969acf08387f3ec886f9fd06bb81d51b26",
+    "bytes": 129676,
+    "license_note": "Apache-2.0",
+    "modifications": "Không thay đổi nội dung; chỉ co giãn khi chèn LaTeX."
+  },
+  {
+    "file": "dclip_descriptors.png",
+    "title": "Menon và Vondrick: classification by description",
+    "source_url": "https://raw.githubusercontent.com/sachit-menon/classify_by_description_release/d1a3d8920af89bd0d6a692ed3afeb277df46e082/figs/latent-points.png",
+    "repository": "https://github.com/sachit-menon/classify_by_description_release",
+    "downloaded_date": "2026-10-21",
+    "sha256": "b2cada4dc6fe0f247918682bbe0de5f875dad3452b84314f36778f2cb257abb5",
+    "bytes": 20752,
+    "license_note": "Ghi nguồn tác giả; repo không khai báo LICENSE ở thư mục gốc",
+    "modifications": "Không thay đổi nội dung; chỉ co giãn khi chèn LaTeX."
+  },
+  {
+    "file": "../tdtu_logo.png",
+    "title": "Logo Đại học Tôn Đức Thắng",
+    "source_url": "https://www.tdtu.edu.vn/sites/www/files/logo_2.png",
+    "repository": "https://www.tdtu.edu.vn/",
+    "sha256": "44d29b0c8e4374cb839b3e31454ac1eeb9ab21bf0dfbde85f73f1908d6253321",
+    "downloaded_date": "2026-10-21",
+    "bytes": 46394,
+    "modifications": "Không chỉnh sửa; dùng trên bìa báo cáo học phần."
+  }
+]
