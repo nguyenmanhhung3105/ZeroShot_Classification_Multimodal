@@ -1,0 +1,235 @@
+{
+  "date": "2026-10-22",
+  "scope": "schema_and_first_five_records_only",
+  "rows_per_file_limit": 5,
+  "population_statistics_computed": false,
+  "inference_run": false,
+  "files": [
+    {
+      "dataset": "crisismmd",
+      "path": "data/processed/pro_crisismmd/pre_crisismmd.tsv",
+      "columns": [
+        "tweet_id",
+        "image_id",
+        "clean_text",
+        "event",
+        "source_file",
+        "source_row",
+        "label_informative",
+        "label_humanitarian",
+        "y_true",
+        "y_true_informative",
+        "y_true_humanitarian",
+        "source_file_humanitarian",
+        "source_row_humanitarian",
+        "label_text_informative",
+        "label_image_informative",
+        "label_official_informative",
+        "text_image_agree_informative",
+        "label_text_humanitarian",
+        "label_image_humanitarian",
+        "label_official_humanitarian",
+        "text_image_agree_humanitarian",
+        "image_path",
+        "source_split",
+        "label_source"
+      ],
+      "records": [
+        {
+          "id": "919806240183631872_1",
+          "labels": {
+            "label_informative": "informative",
+            "label_humanitarian": "rescue_volunteering_or_donation_effort"
+          },
+          "source_split": "train",
+          "label_source": "image",
+          "text_characters": 107
+        },
+        {
+          "id": "910691545577345026_0",
+          "labels": {
+            "label_informative": "not_informative",
+            "label_humanitarian": "not_humanitarian"
+          },
+          "source_split": "train",
+          "label_source": "image",
+          "text_characters": 136
+        },
+        {
+          "id": "910695323273641984_2",
+          "labels": {
+            "label_informative": "informative",
+            "label_humanitarian": "rescue_volunteering_or_donation_effort"
+          },
+          "source_split": "train",
+          "label_source": "image",
+          "text_characters": 131
+        },
+        {
+          "id": "907020688095154176_0",
+          "labels": {
+            "label_informative": "informative",
+            "label_humanitarian": "infrastructure_and_utility_damage"
+          },
+          "source_split": "train",
+          "label_source": "image",
+          "text_characters": 114
+        },
+        {
+          "id": "915995090316750848_0",
+          "labels": {
+            "label_informative": "informative",
+            "label_humanitarian": "infrastructure_and_utility_damage"
+          },
+          "source_split": "train",
+          "label_source": "image",
+          "text_characters": 133
+        }
+      ],
+      "records_read": 5
+    },
+    {
+      "dataset": "fakeddit",
+      "path": "data/processed/pro_fakeddit/fakeddit_sample.tsv",
+      "columns": [
+        "id",
+        "clean_title",
+        "image_url",
+        "hasImage",
+        "2_way_label",
+        "6_way_label",
+        "y_true",
+        "source_file",
+        "source_row",
+        "image_path",
+        "source_split",
+        "label_source"
+      ],
+      "records": [
+        {
+          "id": "916c8j",
+          "labels": {
+            "2_way_label": "0",
+            "6_way_label": "2"
+          },
+          "source_split": "validate",
+          "label_source": "6_way_label",
+          "text_characters": 128
+        },
+        {
+          "id": "3psxmz",
+          "labels": {
+            "2_way_label": "1",
+            "6_way_label": "0"
+          },
+          "source_split": "validate",
+          "label_source": "6_way_label",
+          "text_characters": 28
+        },
+        {
+          "id": "8tlelb",
+          "labels": {
+            "2_way_label": "1",
+            "6_way_label": "0"
+          },
+          "source_split": "validate",
+          "label_source": "6_way_label",
+          "text_characters": 68
+        },
+        {
+          "id": "985n3f",
+          "labels": {
+            "2_way_label": "1",
+            "6_way_label": "0"
+          },
+          "source_split": "validate",
+          "label_source": "6_way_label",
+          "text_characters": 26
+        },
+        {
+          "id": "74fyax",
+          "labels": {
+            "2_way_label": "0",
+            "6_way_label": "2"
+          },
+          "source_split": "validate",
+          "label_source": "6_way_label",
+          "text_characters": 37
+        }
+      ],
+      "records_read": 5
+    },
+    {
+      "dataset": "mmimdb",
+      "path": "data/processed/pro_mmimdb/mmimdb_sample.tsv",
+      "columns": [
+        "id",
+        "plot",
+        "genres",
+        "n_genres",
+        "y_true",
+        "source_file",
+        "source_row",
+        "image_path",
+        "source_split",
+        "label_source"
+      ],
+      "records": [
+        {
+          "id": "0443335",
+          "labels": {
+            "genres": "Documentary"
+          },
+          "source_split": "test",
+          "label_source": "genres",
+          "text_characters": 1935
+        },
+        {
+          "id": "0069895",
+          "labels": {
+            "genres": "Action|Horror|Sci-Fi"
+          },
+          "source_split": "test",
+          "label_source": "genres",
+          "text_characters": 245
+        },
+        {
+          "id": "0092563",
+          "labels": {
+            "genres": "Horror|Mystery|Thriller"
+          },
+          "source_split": "test",
+          "label_source": "genres",
+          "text_characters": 244
+        },
+        {
+          "id": "0462590",
+          "labels": {
+            "genres": "Crime|Drama|Music|Romance"
+          },
+          "source_split": "test",
+          "label_source": "genres",
+          "text_characters": 1069
+        },
+        {
+          "id": "0076804",
+          "labels": {
+            "genres": "Action|Crime|Drama|Thriller"
+          },
+          "source_split": "test",
+          "label_source": "genres",
+          "text_characters": 1496
+        }
+      ],
+      "records_read": 5
+    }
+  ],
+  "crisismmd_admission_check": {
+    "samples": 5,
+    "images_verified": 5,
+    "rows_replaced": 0,
+    "visually_inspected_images": 3,
+    "cohort_preview_fingerprint": "9cb326a2d5c788a15d27563f22af52f1d7231d5967f1e542783581950bc2c7e6",
+    "label_source_column_is_image": true
+  }
+}

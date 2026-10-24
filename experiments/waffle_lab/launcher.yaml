@@ -1,0 +1,30 @@
+# Mặc định local và 5 mẫu. Mỗi lệnh chọn một job/method/seed.
+use_kaggle: false
+experiment_config: configs/experiment_config.yaml
+kaggle:
+  username: nguyenhung3105
+  code_dataset_slug: vlm-runs-code
+  data_dataset_slug: vlm-runs-data
+  # bounded tránh quét cả dataset khi smoke test 5 mẫu.
+  # Có thể đổi full_dataset khi chính thức chạy lại cohort đã sync.
+  data_mode: bounded
+  kernel_slug: vlm-runs
+  accelerator: NvidiaTeslaT4
+  timeout_seconds: 7200
+  poll_seconds: 20
+jobs:
+  waffle_info: &trial
+    enabled: false
+    kind: waffle_lab
+    dataset: crisismmd
+    task: informativeness
+    max_samples: 5
+    backbones: [ViT-B/32]
+    seeds: [0]
+    variant: stable_anchor
+    lab_config: experiments/waffle_lab/config.yaml
+    image_text_relation:
+      enabled: false
+  waffle_humanitarian:
+    <<: *trial
+    task: humanitarian

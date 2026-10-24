@@ -1,0 +1,12 @@
+{
+  "Informative": [
+    "a view showing the effects of a disaster or an ongoing emergency",
+    "a scene of damaged property, affected people, or emergency response",
+    "a map, weather chart, or public warning about a disaster"
+  ],
+  "Not Informative": [
+    "an everyday scene unrelated to a disaster or emergency",
+    "a personal portrait, advertisement, or entertainment image",
+    "a generic illustration with no concrete disaster information"
+  ]
+}

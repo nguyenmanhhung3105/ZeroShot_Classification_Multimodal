@@ -1,0 +1,29 @@
+{
+  "date": "2026-10-22",
+  "inference_run": false,
+  "kaggle_submitted": false,
+  "lab_unit_and_integration_tests": {
+    "passed": 18,
+    "failed": 0
+  },
+  "existing_related_tests": {
+    "passed": 67,
+    "failed": 0,
+    "suites": [
+      "test_launch_runs.py",
+      "test_results_layout.py",
+      "test_upstream_projects.py"
+    ]
+  },
+  "cloud_dry_run": {
+    "status": "passed",
+    "staged_rows": 5,
+    "images": 5,
+    "resume_metadata_valid": true,
+    "source_bundle_includes_lab": true,
+    "stage": "results/_system/launches/staging/0adacb32c81e_waffle_info_f9mnv2do",
+    "kernel": "nguyenhung3105/vlm-runs",
+    "output": "/Users/hung/Documents/MyProject/Python/DA_CNTT/vlm-zeroshot-content-classification/results/waffle_lab_stable_anchor/crisismmd/informativeness/samples_5/openai_clip_vit_b_32/informativeness_0adacb32c81e"
+  },
+  "known_warning": "Author Waffle function opens word_list.pkl without a context manager; ResourceWarning, tests pass."
+}

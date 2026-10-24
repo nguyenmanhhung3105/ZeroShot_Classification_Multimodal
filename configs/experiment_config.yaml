@@ -39,18 +39,21 @@ datasets:
       mode: auto             # kế thừa flag; hai task chỉ diagnostic
     enabled: true
     task: informativeness   # informativeness | humanitarian
-    data_path: data/processed/pro_crisismmd/pre_crisismmd.tsv
-    image_dir: data/processed/pro_crisismmd/images
-    id_col: tweet_id
+    data_path: "data/processed/pro_crisismmd/pre_crisismmd.tsv"
+    image_dir: "data/processed/pro_crisismmd/images"
+    id_col: "image_id"
     text_col: clean_text
-    label_col_info: label_informative
-    label_col_human: label_humanitarian
-    max_samples: 1000
+    label_col_info: "label_informative"
+    label_col_human: "label_humanitarian"
+    max_samples: 3000
     prompt_aggregation: mean_embed
     inference:
       image_weight: 0.5
       text_logit_scale: null
 
+    cohort_manifest: "data/processed/pro_crisismmd/manifest.json"
+    source_split: "train"
+    label_source: "image"
   mmimdb:
     image_text_relation:
       mode: auto             # kế thừa flag; genres chỉ diagnostic

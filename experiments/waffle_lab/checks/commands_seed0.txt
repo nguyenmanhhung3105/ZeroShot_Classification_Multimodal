@@ -1,0 +1,14 @@
+python -B scripts/launch_runs.py --launcher-config experiments/waffle_lab/launcher.yaml --job waffle_info --method clip --seed 0 --max-samples 3000 --use-kaggle true
+python -B scripts/launch_runs.py --launcher-config experiments/waffle_lab/launcher.yaml --job waffle_info --method waffle --seed 0 --max-samples 3000 --use-kaggle true
+python -B scripts/launch_runs.py --launcher-config experiments/waffle_lab/launcher.yaml --job waffle_info --method waffle_unit --seed 0 --max-samples 3000 --use-kaggle true
+python -B scripts/launch_runs.py --launcher-config experiments/waffle_lab/launcher.yaml --job waffle_info --method semantic --seed 0 --max-samples 3000 --use-kaggle true
+python -B scripts/launch_runs.py --launcher-config experiments/waffle_lab/launcher.yaml --job waffle_info --method semantic_waffle --seed 0 --max-samples 3000 --use-kaggle true
+python -B scripts/launch_runs.py --launcher-config experiments/waffle_lab/launcher.yaml --job waffle_info --method anchor_mix --seed 0 --max-samples 3000 --use-kaggle true
+python -B scripts/launch_runs.py --launcher-config experiments/waffle_lab/launcher.yaml --job waffle_info --method stable_anchor --seed 0 --max-samples 3000 --use-kaggle true
+python -B scripts/launch_runs.py --launcher-config experiments/waffle_lab/launcher.yaml --job waffle_humanitarian --method clip --seed 0 --max-samples 3000 --use-kaggle true
+python -B scripts/launch_runs.py --launcher-config experiments/waffle_lab/launcher.yaml --job waffle_humanitarian --method waffle --seed 0 --max-samples 3000 --use-kaggle true
+python -B scripts/launch_runs.py --launcher-config experiments/waffle_lab/launcher.yaml --job waffle_humanitarian --method waffle_unit --seed 0 --max-samples 3000 --use-kaggle true
+python -B scripts/launch_runs.py --launcher-config experiments/waffle_lab/launcher.yaml --job waffle_humanitarian --method semantic --seed 0 --max-samples 3000 --use-kaggle true
+python -B scripts/launch_runs.py --launcher-config experiments/waffle_lab/launcher.yaml --job waffle_humanitarian --method semantic_waffle --seed 0 --max-samples 3000 --use-kaggle true
+python -B scripts/launch_runs.py --launcher-config experiments/waffle_lab/launcher.yaml --job waffle_humanitarian --method anchor_mix --seed 0 --max-samples 3000 --use-kaggle true
+python -B scripts/launch_runs.py --launcher-config experiments/waffle_lab/launcher.yaml --job waffle_humanitarian --method stable_anchor --seed 0 --max-samples 3000 --use-kaggle true

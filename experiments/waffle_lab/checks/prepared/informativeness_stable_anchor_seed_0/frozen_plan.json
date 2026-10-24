@@ -1,0 +1,270 @@
+{
+  "settings": {
+    "base_config": "configs/experiment_config.yaml",
+    "dataset": "crisismmd",
+    "task": "informativeness",
+    "backbone": "ViT-B/32",
+    "variant": "stable_anchor",
+    "seed": 0,
+    "waffle_pairs": 15,
+    "noise_cap": 0.5,
+    "batch_size": 16,
+    "max_samples": 5,
+    "device": "auto",
+    "output_dir": "auto",
+    "descriptor_files": {
+      "informativeness": "configs/research/descriptors/crisismmd_info.json",
+      "humanitarian": "configs/research/descriptors/crisismmd_humanitarian.json"
+    }
+  },
+  "protocol": {
+    "dataset": "crisismmd",
+    "task": "informativeness",
+    "backbone": "ViT-B/32",
+    "waffle_pairs": 15,
+    "noise_cap": 0.5,
+    "sources": {
+      "WaffleCLIP": {
+        "url": "https://github.com/ExplainableML/WaffleCLIP.git",
+        "commit": "7a1b8ee48e31285f62ecd839fecb6b89cbef81f1",
+        "paper": "https://arxiv.org/abs/2306.07282"
+      },
+      "DCLIP": {
+        "url": "https://github.com/sachit-menon/classify_by_description_release.git",
+        "commit": "d1a3d8920af89bd0d6a692ed3afeb277df46e082",
+        "paper": "https://arxiv.org/abs/2210.07183"
+      },
+      "OpenAI_CLIP": {
+        "url": "https://github.com/openai/CLIP.git",
+        "commit": "d05afc436d78f1c48dc0dbf8e5980a9d471f35f6",
+        "paper": "https://arxiv.org/abs/2103.00020"
+      }
+    },
+    "source_hashes": {
+      "experiments/waffle_lab/core.py": "fa87521e9164626b0f81daa4cfb3b0144d2f1499a3ad86982022545d2b91aeee",
+      "experiments/waffle_lab/run.py": "b8e16c749173bd9063e72f31fcb4572ba2292b1ce155808220d1e3f86c1d2568",
+      "src/research/upstream.py": "8216a82d0ebe70204f1a2b5f7977210cb80b8632bc891cfde1333044bb990861",
+      "src/prompts/crisismmd_prompts.py": "1b4105bee5a11a4cd36b2cb75bd9c2cdad102b0b80431c142ec2d4ef225d82c7"
+    },
+    "labels": {
+      "informative": "Informative",
+      "not_informative": "Not Informative"
+    },
+    "label_order": [
+      "informative",
+      "not_informative"
+    ],
+    "dataset_config": {
+      "image_text_relation": {
+        "mode": "auto"
+      },
+      "enabled": true,
+      "task": "informativeness",
+      "data_path": "data/processed/pro_crisismmd/pre_crisismmd.tsv",
+      "image_dir": "data/processed/pro_crisismmd/images",
+      "id_col": "image_id",
+      "text_col": "clean_text",
+      "label_col_info": "label_informative",
+      "label_col_human": "label_humanitarian",
+      "max_samples": 3000,
+      "prompt_aggregation": "mean_embed",
+      "inference": {
+        "image_weight": 0.5,
+        "text_logit_scale": null
+      },
+      "cohort_manifest": "data/processed/pro_crisismmd/manifest.json",
+      "source_split": "train",
+      "label_source": "image"
+    },
+    "descriptor_sha256": "df765ec22af17043b64940d1a71659e6f3b573658dbdd908dc8847266a364686",
+    "word_list_sha256": "4bda32e4c7e57ce842fe81bad1b05b454dc6293c6d3c392476b7589ccdc16468",
+    "aggregation": "mean_cosine_except_explicit_waffle_unit",
+    "target": "image_labels",
+    "inference": "image_only_frozen_no_fit"
+  },
+  "protocol_fingerprint": "15bb241a1bfacf53e4435d7495e14dd5ec7617d7015cc733a1e07210e89133c8",
+  "prompt_banks": {
+    "clip": {
+      "informative": [
+        "A photo of a Informative."
+      ],
+      "not_informative": [
+        "A photo of a Not Informative."
+      ]
+    },
+    "waffle": {
+      "informative": [
+        "A photo of a Informative, which has wheelbase very.",
+        "A photo of a Informative, which has iccuwgcnmhla.",
+        "A photo of a Informative, which has plant weeds.",
+        "A photo of a Informative, which has tfggebvrennl.",
+        "A photo of a Informative, which has slope basketbal.",
+        "A photo of a Informative, which has halpmarowpdy.",
+        "A photo of a Informative, which has ribs measureme.",
+        "A photo of a Informative, which has uvuhgutapces.",
+        "A photo of a Informative, which has garnished dry.",
+        "A photo of a Informative, which is aspcpdslatlb.",
+        "A photo of a Informative, which has slide stretches.",
+        "A photo of a Informative, which has heehltrdvupr.",
+        "A photo of a Informative, which has circular rattan.",
+        "A photo of a Informative, which has ohpdobdspdfs.",
+        "A photo of a Informative, which has geometric breaking.",
+        "A photo of a Informative, which has pwlbuetvndmm.",
+        "A photo of a Informative, which has sriracha insulatio.",
+        "A photo of a Informative, which has muuwhdyfvbtm.",
+        "A photo of a Informative, which has socializi sleeve.",
+        "A photo of a Informative, which has wromdgclottb.",
+        "A photo of a Informative, which has hay points.",
+        "A photo of a Informative, which has gfweoeehfoui.",
+        "A photo of a Informative, which has dryer bank.",
+        "A photo of a Informative, which has ovvohggrvivv.",
+        "A photo of a Informative, which has roofline moisture.",
+        "A photo of a Informative, which has lcstawycuhem.",
+        "A photo of a Informative, which has firing taillight.",
+        "A photo of a Informative, which has vneadwdteuuv.",
+        "A photo of a Informative, which has toppings band.",
+        "A photo of a Informative, which has fvlpffucfaor."
+      ],
+      "not_informative": [
+        "A photo of a Not Informative, which has wheelbase very.",
+        "A photo of a Not Informative, which has iccuwgcnmhla.",
+        "A photo of a Not Informative, which has plant weeds.",
+        "A photo of a Not Informative, which has tfggebvrennl.",
+        "A photo of a Not Informative, which has slope basketbal.",
+        "A photo of a Not Informative, which has halpmarowpdy.",
+        "A photo of a Not Informative, which has ribs measureme.",
+        "A photo of a Not Informative, which has uvuhgutapces.",
+        "A photo of a Not Informative, which has garnished dry.",
+        "A photo of a Not Informative, which is aspcpdslatlb.",
+        "A photo of a Not Informative, which has slide stretches.",
+        "A photo of a Not Informative, which has heehltrdvupr.",
+        "A photo of a Not Informative, which has circular rattan.",
+        "A photo of a Not Informative, which has ohpdobdspdfs.",
+        "A photo of a Not Informative, which has geometric breaking.",
+        "A photo of a Not Informative, which has pwlbuetvndmm.",
+        "A photo of a Not Informative, which has sriracha insulatio.",
+        "A photo of a Not Informative, which has muuwhdyfvbtm.",
+        "A photo of a Not Informative, which has socializi sleeve.",
+        "A photo of a Not Informative, which has wromdgclottb.",
+        "A photo of a Not Informative, which has hay points.",
+        "A photo of a Not Informative, which has gfweoeehfoui.",
+        "A photo of a Not Informative, which has dryer bank.",
+        "A photo of a Not Informative, which has ovvohggrvivv.",
+        "A photo of a Not Informative, which has roofline moisture.",
+        "A photo of a Not Informative, which has lcstawycuhem.",
+        "A photo of a Not Informative, which has firing taillight.",
+        "A photo of a Not Informative, which has vneadwdteuuv.",
+        "A photo of a Not Informative, which has toppings band.",
+        "A photo of a Not Informative, which has fvlpffucfaor."
+      ]
+    },
+    "semantic": {
+      "informative": [
+        "Informative: a view showing the effects of a disaster or an ongoing emergency.",
+        "Informative: a scene of damaged property, affected people, or emergency response.",
+        "Informative: a map, weather chart, or public warning about a disaster."
+      ],
+      "not_informative": [
+        "Not Informative: an everyday scene unrelated to a disaster or emergency.",
+        "Not Informative: a personal portrait, advertisement, or entertainment image.",
+        "Not Informative: a generic illustration with no concrete disaster information."
+      ]
+    },
+    "semantic_waffle": {
+      "informative": [
+        "Informative: a view showing the effects of a disaster or an ongoing emergency, which has wheelbase very.",
+        "Informative: a view showing the effects of a disaster or an ongoing emergency, which has iccuwgcnmhla.",
+        "Informative: a scene of damaged property, affected people, or emergency response, which has plant weeds.",
+        "Informative: a scene of damaged property, affected people, or emergency response, which has tfggebvrennl.",
+        "Informative: a map, weather chart, or public warning about a disaster, which has slope basketbal.",
+        "Informative: a map, weather chart, or public warning about a disaster, which has halpmarowpdy.",
+        "Informative: a view showing the effects of a disaster or an ongoing emergency, which has ribs measureme.",
+        "Informative: a view showing the effects of a disaster or an ongoing emergency, which has uvuhgutapces.",
+        "Informative: a scene of damaged property, affected people, or emergency response, which has garnished dry.",
+        "Informative: a scene of damaged property, affected people, or emergency response, which is aspcpdslatlb.",
+        "Informative: a map, weather chart, or public warning about a disaster, which has slide stretches.",
+        "Informative: a map, weather chart, or public warning about a disaster, which has heehltrdvupr.",
+        "Informative: a view showing the effects of a disaster or an ongoing emergency, which has circular rattan.",
+        "Informative: a view showing the effects of a disaster or an ongoing emergency, which has ohpdobdspdfs.",
+        "Informative: a scene of damaged property, affected people, or emergency response, which has geometric breaking.",
+        "Informative: a scene of damaged property, affected people, or emergency response, which has pwlbuetvndmm.",
+        "Informative: a map, weather chart, or public warning about a disaster, which has sriracha insulatio.",
+        "Informative: a map, weather chart, or public warning about a disaster, which has muuwhdyfvbtm.",
+        "Informative: a view showing the effects of a disaster or an ongoing emergency, which has socializi sleeve.",
+        "Informative: a view showing the effects of a disaster or an ongoing emergency, which has wromdgclottb.",
+        "Informative: a scene of damaged property, affected people, or emergency response, which has hay points.",
+        "Informative: a scene of damaged property, affected people, or emergency response, which has gfweoeehfoui.",
+        "Informative: a map, weather chart, or public warning about a disaster, which has dryer bank.",
+        "Informative: a map, weather chart, or public warning about a disaster, which has ovvohggrvivv.",
+        "Informative: a view showing the effects of a disaster or an ongoing emergency, which has roofline moisture.",
+        "Informative: a view showing the effects of a disaster or an ongoing emergency, which has lcstawycuhem.",
+        "Informative: a scene of damaged property, affected people, or emergency response, which has firing taillight.",
+        "Informative: a scene of damaged property, affected people, or emergency response, which has vneadwdteuuv.",
+        "Informative: a map, weather chart, or public warning about a disaster, which has toppings band.",
+        "Informative: a map, weather chart, or public warning about a disaster, which has fvlpffucfaor."
+      ],
+      "not_informative": [
+        "Not Informative: an everyday scene unrelated to a disaster or emergency, which has wheelbase very.",
+        "Not Informative: an everyday scene unrelated to a disaster or emergency, which has iccuwgcnmhla.",
+        "Not Informative: a personal portrait, advertisement, or entertainment image, which has plant weeds.",
+        "Not Informative: a personal portrait, advertisement, or entertainment image, which has tfggebvrennl.",
+        "Not Informative: a generic illustration with no concrete disaster information, which has slope basketbal.",
+        "Not Informative: a generic illustration with no concrete disaster information, which has halpmarowpdy.",
+        "Not Informative: an everyday scene unrelated to a disaster or emergency, which has ribs measureme.",
+        "Not Informative: an everyday scene unrelated to a disaster or emergency, which has uvuhgutapces.",
+        "Not Informative: a personal portrait, advertisement, or entertainment image, which has garnished dry.",
+        "Not Informative: a personal portrait, advertisement, or entertainment image, which is aspcpdslatlb.",
+        "Not Informative: a generic illustration with no concrete disaster information, which has slide stretches.",
+        "Not Informative: a generic illustration with no concrete disaster information, which has heehltrdvupr.",
+        "Not Informative: an everyday scene unrelated to a disaster or emergency, which has circular rattan.",
+        "Not Informative: an everyday scene unrelated to a disaster or emergency, which has ohpdobdspdfs.",
+        "Not Informative: a personal portrait, advertisement, or entertainment image, which has geometric breaking.",
+        "Not Informative: a personal portrait, advertisement, or entertainment image, which has pwlbuetvndmm.",
+        "Not Informative: a generic illustration with no concrete disaster information, which has sriracha insulatio.",
+        "Not Informative: a generic illustration with no concrete disaster information, which has muuwhdyfvbtm.",
+        "Not Informative: an everyday scene unrelated to a disaster or emergency, which has socializi sleeve.",
+        "Not Informative: an everyday scene unrelated to a disaster or emergency, which has wromdgclottb.",
+        "Not Informative: a personal portrait, advertisement, or entertainment image, which has hay points.",
+        "Not Informative: a personal portrait, advertisement, or entertainment image, which has gfweoeehfoui.",
+        "Not Informative: a generic illustration with no concrete disaster information, which has dryer bank.",
+        "Not Informative: a generic illustration with no concrete disaster information, which has ovvohggrvivv.",
+        "Not Informative: an everyday scene unrelated to a disaster or emergency, which has roofline moisture.",
+        "Not Informative: an everyday scene unrelated to a disaster or emergency, which has lcstawycuhem.",
+        "Not Informative: a personal portrait, advertisement, or entertainment image, which has firing taillight.",
+        "Not Informative: a personal portrait, advertisement, or entertainment image, which has vneadwdteuuv.",
+        "Not Informative: a generic illustration with no concrete disaster information, which has toppings band.",
+        "Not Informative: a generic illustration with no concrete disaster information, which has fvlpffucfaor."
+      ]
+    }
+  },
+  "prompt_fingerprint": "1910a0f53ade48e8fc8e65b9615236a9908076c106a1d42eb826c52df836d466",
+  "label_order": [
+    "informative",
+    "not_informative"
+  ],
+  "descriptor_provenance": "Assistant tạo từ định nghĩa lớp, cố định ngày 2026-10-10; không lấy từ dòng dữ liệu hoặc lỗi validation. Mô tả dùng cho nhánh ảnh, không phải đầu ra GPT-3 gốc của paper.",
+  "dataset_config": {
+    "image_text_relation": {
+      "mode": "auto"
+    },
+    "enabled": true,
+    "task": "informativeness",
+    "data_path": "data/processed/pro_crisismmd/pre_crisismmd.tsv",
+    "image_dir": "data/processed/pro_crisismmd/images",
+    "id_col": "image_id",
+    "text_col": "clean_text",
+    "label_col_info": "label_informative",
+    "label_col_human": "label_humanitarian",
+    "max_samples": 3000,
+    "prompt_aggregation": "mean_embed",
+    "inference": {
+      "image_weight": 0.5,
+      "text_logit_scale": null
+    },
+    "cohort_manifest": "data/processed/pro_crisismmd/manifest.json",
+    "source_split": "train",
+    "label_source": "image"
+  },
+  "scope": "exploratory_zero_shot_no_label_fit",
+  "status": "prepared_no_inference"
+}

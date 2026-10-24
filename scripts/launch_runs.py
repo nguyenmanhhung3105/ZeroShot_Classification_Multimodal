@@ -27,6 +27,8 @@ from config import TASKS, load_config
 from pair_relation import relation_settings
 from models.model_registry import MODEL_CONFIGS
 from results_layout import job_path, model_folder, run_path
+sys.path.insert(0, str(ROOT))
+from experiments.waffle_lab.core import VARIANTS as WAFFLE_LAB_VARIANTS
 
 DEFAULT_CONFIG = ROOT / "configs/launcher.yaml"
 
@@ -35,7 +37,7 @@ def launch_root():
     return ROOT / "results/_system/launches"
 SLUG = re.compile(r"^[a-z0-9][a-z0-9-]{2,48}[a-z0-9]$")
 JOB_ID = re.compile(r"^[a-z][a-z0-9_]{1,48}$")
-KINDS = {"standard", "demo", "adapted", "upstream", "relation_ablation"}
+KINDS = {"standard", "demo", "adapted", "upstream", "relation_ablation", "waffle_lab"}
 ADAPTED_METHODS = {"baseline", "current_mean_sim", "class_name", "waffle", "dclip"}
 UPSTREAM_METHODS = {"clip", "waffle", "dclip_labels", "dclip"}
 UPSTREAM_BACKBONES = {"RN50", "ViT-B/32", "ViT-L/14"}
@@ -126,7 +128,7 @@ def validate(config, selected=None):
         if kind == "relation_ablation" and limit > 5:
             raise ValueError(f"{name}: relation_ablation tối đa 5 mẫu")
         models = job.get("models")
-        if kind == "upstream":
+        if kind in ("upstream", "waffle_lab"):
             if models is not None:
                 raise ValueError(f"{name}.models không dùng cho upstream; chọn CLIP trong research.backbones")
         else:
@@ -168,13 +170,24 @@ def validate(config, selected=None):
         if kind in ("adapted", "upstream"):
             valid_choice_list(job.get("methods"), ADAPTED_METHODS if kind == "adapted" else UPSTREAM_METHODS,
                               f"{name}.methods")
+        if kind == "waffle_lab":
+            if dataset != "crisismmd" or job.get("variant") not in WAFFLE_LAB_VARIANTS:
+                raise ValueError(f"{name}: waffle_lab chỉ dùng CrisisMMD và biến thể đã định nghĩa")
+            if job.get("image_text_relation", {}).get("enabled") is not False or job.get("result_method") or job.get("result_protocol"):
+                raise ValueError(f"{name}: waffle_lab chỉ nhánh ảnh, giữ output riêng theo variant")
+            valid_choice_list(job.get("backbones"), UPSTREAM_BACKBONES, f"{name}.backbones")
+            if len(job["backbones"]) != 1 or len(job.get("seeds", [])) != 1:
+                raise ValueError(f"{name}: waffle_lab cần đúng một backbone và một seed")
+            lab_path = project_path(job.get("lab_config", "experiments/waffle_lab/config.yaml"))
+            if not lab_path.is_file() or not lab_path.is_relative_to((ROOT / "experiments/waffle_lab").resolve()):
+                raise ValueError(f"{name}: lab_config phải nằm trong experiments/waffle_lab/")
         if "backbones" in job:
-            if kind != "upstream":
+            if kind not in ("upstream", "waffle_lab"):
                 raise ValueError(f"{name}.backbones chỉ áp dụng cho upstream")
             valid_choice_list(job["backbones"], UPSTREAM_BACKBONES, f"{name}.backbones")
         if "seeds" in job:
             seeds = job["seeds"]
-            if kind not in ("adapted", "upstream") or not isinstance(seeds, list) or not seeds or any(
+            if kind not in ("adapted", "upstream", "waffle_lab") or not isinstance(seeds, list) or not seeds or any(
                     type(seed) is not int or not 0 <= seed < 2**32 for seed in seeds) or len(seeds) != len(set(seeds)):
                 raise ValueError(f"{name}.seeds phải là danh sách seed nguyên không lặp")
         if "outputs" in job:
@@ -244,7 +257,7 @@ def validate_single_cloud_trial(config, names):
     kind = job["kind"]
     if job.get("ensemble", {}).get("enabled"):
         return
-    if kind != "upstream" and len(job["models"]) != 1:
+    if kind not in ("upstream", "waffle_lab") and len(job["models"]) != 1:
         raise ValueError(f"{name}: chọn đúng một --model cho mỗi lượt Kaggle")
     if kind not in ("adapted", "upstream"):
         return
@@ -292,7 +305,7 @@ def job_plan(config, name, stage):
             job["result_method"] = relation["mode"]
     # Upstream chọn OpenAI CLIP qua research.backbones; giữ danh sách model nền
     # hợp lệ vì load_config vẫn kiểm tra trường này trước khi chạy runner.
-    if kind != "upstream":
+    if kind not in ("upstream", "waffle_lab"):
         experiment["models"] = job["models"]
     run_id = stage.name.split("_", 1)[0]
     output = job_path(job, run_id)
@@ -327,6 +340,17 @@ def job_plan(config, name, stage):
         command = ["src/research/run_relation_ablation.py", "--config", remote_config,
                    "--model", job["models"][0], "--max-samples", str(job["max_samples"]),
                    "--output-dir", str(output)]
+    elif kind == "waffle_lab":
+        source = project_path(job.get("lab_config", "experiments/waffle_lab/config.yaml"))
+        research = yaml.safe_load(source.read_text(encoding="utf-8"))
+        research.update(base_config=remote_config, dataset=dataset, task=job["task"],
+                        backbone=job["backbones"][0], seed=job["seeds"][0],
+                        variant=job["variant"], max_samples=job["max_samples"], output_dir=str(output))
+        from experiments.waffle_lab.run import validate as validate_lab
+        validate_lab(research)
+        research_file = stage / "research.yaml"
+        research_file.write_text(yaml.safe_dump(research, sort_keys=False, allow_unicode=True), encoding="utf-8")
+        command = ["experiments/waffle_lab/run.py", "--config", "configs/research/active.yaml"]
     else:
         source = project_path(job.get("research_config", f"configs/research/{kind}.yaml"))
         if not source.is_file() or not source.is_relative_to((ROOT / "configs/research").resolve()):
@@ -936,8 +960,8 @@ def main(argv=None):
     parser.add_argument("--use-kaggle", choices=("true", "false"))
     parser.add_argument("--ensemble", choices=("true", "false"), help="Ghi đè ensemble.enabled của job đã chọn")
     parser.add_argument("--model", choices=sorted(MODEL_CONFIGS), help="Chạy riêng một model của job không phải upstream")
-    parser.add_argument("--method", choices=sorted(ADAPTED_METHODS | UPSTREAM_METHODS),
-                        help="Chạy riêng một phương pháp adapted/upstream")
+    parser.add_argument("--method", choices=sorted(ADAPTED_METHODS | UPSTREAM_METHODS | set(WAFFLE_LAB_VARIANTS)),
+                        help="Chạy riêng một phương pháp adapted/upstream/waffle_lab")
     parser.add_argument("--backbone", choices=sorted(UPSTREAM_BACKBONES), help="Chạy riêng một backbone upstream")
     parser.add_argument("--output", choices=("original_image", "multimodal"),
                         help="Chạy riêng một kiểu output upstream")
@@ -974,16 +998,20 @@ def main(argv=None):
             job.setdefault("ensemble", {})["enabled"] = args.ensemble == "true"
         kind = job["kind"]
         if args.model is not None:
-            if kind == "upstream":
+            if kind in ("upstream", "waffle_lab"):
                 parser.error("--model không dùng cho upstream; dùng --backbone")
             job["models"] = [args.model]
         if args.method is not None:
-            allowed = ADAPTED_METHODS if kind == "adapted" else UPSTREAM_METHODS if kind == "upstream" else set()
+            allowed = (ADAPTED_METHODS if kind == "adapted" else UPSTREAM_METHODS if kind == "upstream"
+                       else set(WAFFLE_LAB_VARIANTS) if kind == "waffle_lab" else set())
             if args.method not in allowed:
                 parser.error(f"--method {args.method} không áp dụng cho job {name}")
-            job["methods"] = [args.method]
+            if kind == "waffle_lab":
+                job["variant"] = args.method
+            else:
+                job["methods"] = [args.method]
         if args.backbone is not None:
-            if kind != "upstream":
+            if kind not in ("upstream", "waffle_lab"):
                 parser.error("--backbone chỉ dùng cho upstream")
             job["backbones"] = [args.backbone]
         if args.output is not None:
@@ -991,7 +1019,7 @@ def main(argv=None):
                 parser.error("--output chỉ dùng cho upstream")
             job["outputs"] = [args.output]
         if args.seed is not None:
-            if kind not in ("adapted", "upstream"):
+            if kind not in ("adapted", "upstream", "waffle_lab"):
                 parser.error("--seed chỉ dùng cho adapted/upstream")
             job["seeds"] = [args.seed]
     validate(config, names)

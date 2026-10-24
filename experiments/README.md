@@ -1,5 +1,9 @@
 # Mã thí nghiệm
 
+`waffle_lab/` là khu thí nghiệm cải tiến Waffle độc lập trên CrisisMMD: đối chứng
+gốc, neo ngữ nghĩa và trộn theo độ đồng thuận. Xem [pipeline, công thức và lệnh
+Kaggle](waffle_lab/README.md). Mặc định 5 mẫu; không thay scoring/fusion chính.
+
 `ensemble/run_ensemble.py` là phép đối chứng tùy chọn trên dự đoán của nhiều model. Chạy qua `scripts/launch_runs.py` với `kind: standard` và `ensemble.enabled: true` trong `configs/launcher.yaml`.
 
 Các runner nghiên cứu dùng chung code xử lý của dự án vẫn nằm trong `src/research/`: `run_adapted_methods.py`, `run_upstream.py` và `run_relation_ablation.py`. Launcher tạo cấu hình cho từng job và lưu đầu ra mới vào `results/<phương_pháp>/<dataset>/<task>/samples_N/<model>/<task>_<run_id>/`. Xem [quy tắc đặt thư mục](../docs/experiments/results_layout.md). Báo cáo cũ ở `docs/experiments/`; kết quả lịch sử đã được chuyển theo cùng cấu trúc.

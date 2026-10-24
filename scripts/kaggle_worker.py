@@ -91,7 +91,7 @@ def run(settings):
     print("[WORKER] Cài thư viện chính", flush=True)
     subprocess.run([sys.executable, "-m", "pip", "install", "-r", "requirements.txt"],
                    cwd=root, check=True)
-    if settings["kind"] in ("adapted", "upstream"):
+    if settings["kind"] in ("adapted", "upstream", "waffle_lab"):
         print("[WORKER] Cài thư viện và nguồn nghiên cứu", flush=True)
         subprocess.run([sys.executable, "-m", "pip", "install", "-r", "requirements/research.txt"],
                        cwd=root, check=True)

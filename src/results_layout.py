@@ -53,6 +53,8 @@ def method_for_job(job):
         base.pop("result_protocol")
         return "image_only_" + method_for_job(base)
     kind = job["kind"]
+    if kind == "waffle_lab":
+        return "waffle_lab_" + _slug(job["variant"])
     if job.get("ensemble", {}).get("enabled"):
         return "ensemble"
     if kind == "standard":
@@ -85,7 +87,7 @@ def run_path(method, dataset, task, samples, model, run_id):
 
 
 def job_path(job, run_id):
-    model = (model_folder(backbones=job.get("backbones")) if job["kind"] == "upstream"
+    model = (model_folder(backbones=job.get("backbones")) if job["kind"] in ("upstream", "waffle_lab")
              else model_folder(models=job.get("models")))
     return run_path(method_for_job(job), job["dataset"], job["task"], job["max_samples"], model, run_id)
 

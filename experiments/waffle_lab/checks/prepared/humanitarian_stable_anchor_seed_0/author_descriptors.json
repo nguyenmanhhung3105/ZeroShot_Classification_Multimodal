@@ -1,0 +1,42 @@
+{
+  "Not Humanitarian": [
+    "an everyday scene unrelated to disaster impacts or relief",
+    "a personal portrait or entertainment image without visible crisis information",
+    "an advertisement unrelated to humanitarian assistance"
+  ],
+  "Other Relevant Information": [
+    "a map showing a storm path or an affected geographical area",
+    "a weather chart or an official disaster warning graphic",
+    "a wide view of a hazard without a specific damaged object or victim"
+  ],
+  "Rescue/Volunteering/Donation": [
+    "rescue workers helping people reach safety",
+    "volunteers distributing food, water, or emergency supplies",
+    "a donation appeal or an organized relief collection"
+  ],
+  "Infrastructure/Utility Damage": [
+    "collapsed buildings or broken walls surrounded by rubble",
+    "damaged roads, bridges, or power lines",
+    "houses or public facilities visibly damaged by flooding or fire"
+  ],
+  "Affected Individuals": [
+    "displaced families carrying belongings away from their homes",
+    "survivors staying in a temporary shelter",
+    "people stranded or waiting for assistance in a disaster area"
+  ],
+  "Vehicle Damage": [
+    "cars or buses submerged in floodwater",
+    "burned or crushed vehicles",
+    "overturned vehicles or wrecked boats after a disaster"
+  ],
+  "Injured or Dead People": [
+    "injured people receiving emergency medical treatment",
+    "wounded victims carried on stretchers",
+    "covered bodies or visibly deceased victims in a disaster setting"
+  ],
+  "Missing or Found People": [
+    "a missing person notice with a portrait and contact information",
+    "a list of people reported missing or located",
+    "a public announcement that a previously missing person has been found"
+  ]
+}

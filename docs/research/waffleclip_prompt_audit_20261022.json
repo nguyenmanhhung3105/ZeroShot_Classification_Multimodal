@@ -1,0 +1,254 @@
+{
+  "date": "2026-10-22",
+  "scope": "prompt_generation_and_tokenization_only",
+  "dataset_rows_read": 0,
+  "images_read": 0,
+  "model_weights_loaded": false,
+  "inference_run": false,
+  "waffle_commit": "7a1b8ee48e31285f62ecd839fecb6b89cbef81f1",
+  "pairs": 15,
+  "prompts_per_class": 30,
+  "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+  ],
+  "word_list_sha256": "4bda32e4c7e57ce842fe81bad1b05b454dc6293c6d3c392476b7589ccdc16468",
+  "source_sha256": "9e084d8064d78ad018ed4f829e9364b1e2d5c825c779f23e444e006ff455b5fa",
+  "tasks": {
+    "informativeness": {
+      "label_names": {
+        "informative": "Informative",
+        "not_informative": "Not Informative"
+      },
+      "descriptor_sha256": "df765ec22af17043b64940d1a71659e6f3b573658dbdd908dc8847266a364686",
+      "baseline": {
+        "prompts_per_class": 1,
+        "prompt_sha256": "af1e5e49550c8d699eed64d92ed26452af4edc79c2511aa20b58e2338fdac893",
+        "max_tokens_with_special": 9
+      },
+      "trials": [
+        {
+          "seed": 0,
+          "author_prompt_sha256": "22abc395e109b00019339eea4aebb3787fee65261c9a97b64468fc42535b80d7",
+          "adapted_prompt_sha256": "e9b4573275c6a7191841f65911078677f93bfd42e7991c429a88858a8f949ed2",
+          "author_equals_adapted": false,
+          "author_tokens_min_with_special": 13,
+          "author_tokens_max_with_special": 19,
+          "adapted_tokens_max_with_special": 21,
+          "prompts_checked": 60,
+          "shared_suffixes_verified": true,
+          "label_order_verified": true,
+          "repeatability_verified": true,
+          "rng_restoration_verified": true
+        },
+        {
+          "seed": 1,
+          "author_prompt_sha256": "0b815870a89729cb3b8562643d361dcfb4e9357de7324bdb8dcd355324806a51",
+          "adapted_prompt_sha256": "b334837e0f11f0c73d2f2f116f7429efe17668784985a073e2d98866774dffbd",
+          "author_equals_adapted": false,
+          "author_tokens_min_with_special": 13,
+          "author_tokens_max_with_special": 19,
+          "adapted_tokens_max_with_special": 20,
+          "prompts_checked": 60,
+          "shared_suffixes_verified": true,
+          "label_order_verified": true,
+          "repeatability_verified": true,
+          "rng_restoration_verified": true
+        },
+        {
+          "seed": 2,
+          "author_prompt_sha256": "a5989cd3eed77475b3a632e098731395a7687714ee6d36333ebcf24349280ae1",
+          "adapted_prompt_sha256": "5134e7e8af0a1ffb554a6aaa78e7b9f4aa0d25e244834359666d956e374aa3c4",
+          "author_equals_adapted": false,
+          "author_tokens_min_with_special": 13,
+          "author_tokens_max_with_special": 20,
+          "adapted_tokens_max_with_special": 21,
+          "prompts_checked": 60,
+          "shared_suffixes_verified": true,
+          "label_order_verified": true,
+          "repeatability_verified": true,
+          "rng_restoration_verified": true
+        },
+        {
+          "seed": 3,
+          "author_prompt_sha256": "8b865ad197a9a9f2cd8243d1dc1c47d579abb7c6037572dc937c2fe891c9af89",
+          "adapted_prompt_sha256": "6c355dab1773bae7e96b5e3416dcb6c3e2e0b9d1db257db96be997a265b2c6ec",
+          "author_equals_adapted": false,
+          "author_tokens_min_with_special": 13,
+          "author_tokens_max_with_special": 19,
+          "adapted_tokens_max_with_special": 20,
+          "prompts_checked": 60,
+          "shared_suffixes_verified": true,
+          "label_order_verified": true,
+          "repeatability_verified": true,
+          "rng_restoration_verified": true
+        },
+        {
+          "seed": 4,
+          "author_prompt_sha256": "2bdc66e3fbfa88b4244ceec7b546986ae6532e244392542889e19469c1f88ea6",
+          "adapted_prompt_sha256": "529e0a1c0d07c8067392e66c93653c848a9b56c1f321e4d0a8a08faf68429200",
+          "author_equals_adapted": false,
+          "author_tokens_min_with_special": 13,
+          "author_tokens_max_with_special": 19,
+          "adapted_tokens_max_with_special": 21,
+          "prompts_checked": 60,
+          "shared_suffixes_verified": true,
+          "label_order_verified": true,
+          "repeatability_verified": true,
+          "rng_restoration_verified": true
+        },
+        {
+          "seed": 5,
+          "author_prompt_sha256": "1896837e974507957ef0b9522d0d39139803efacc3a399921afd9eae668dc987",
+          "adapted_prompt_sha256": "743f72b207f45ea7b488441bc8f611e16865577337030f80c9c30ab1140a6d6d",
+          "author_equals_adapted": false,
+          "author_tokens_min_with_special": 13,
+          "author_tokens_max_with_special": 20,
+          "adapted_tokens_max_with_special": 20,
+          "prompts_checked": 60,
+          "shared_suffixes_verified": true,
+          "label_order_verified": true,
+          "repeatability_verified": true,
+          "rng_restoration_verified": true
+        },
+        {
+          "seed": 6,
+          "author_prompt_sha256": "d7fa2b14fe9fe0e846d42e3411144c867cdf80b2accf9ef0d1af3e7f714ca03f",
+          "adapted_prompt_sha256": "d71fbb54e73434a27bca612b1864547683dce12051cbb52c11e3aee7cabb318d",
+          "author_equals_adapted": false,
+          "author_tokens_min_with_special": 13,
+          "author_tokens_max_with_special": 19,
+          "adapted_tokens_max_with_special": 20,
+          "prompts_checked": 60,
+          "shared_suffixes_verified": true,
+          "label_order_verified": true,
+          "repeatability_verified": true,
+          "rng_restoration_verified": true
+        }
+      ]
+    },
+    "humanitarian": {
+      "label_names": {
+        "not_humanitarian": "Not Humanitarian",
+        "other_relevant_information": "Other Relevant Information",
+        "rescue_volunteering_or_donation_effort": "Rescue/Volunteering/Donation",
+        "infrastructure_and_utility_damage": "Infrastructure/Utility Damage",
+        "affected_individuals": "Affected Individuals",
+        "vehicle_damage": "Vehicle Damage",
+        "injured_or_dead_people": "Injured or Dead People",
+        "missing_or_found_people": "Missing or Found People"
+      },
+      "descriptor_sha256": "245e39848b513c706b1d590f40ca27d48d50008d6dabe49d5d09a8e6cfef83dd",
+      "baseline": {
+        "prompts_per_class": 1,
+        "prompt_sha256": "d0a0796ebe859045de2f30bd243fed40ac3390030a3f6aa07330e9cdd5760fb9",
+        "max_tokens_with_special": 12
+      },
+      "trials": [
+        {
+          "seed": 0,
+          "author_prompt_sha256": "abe7eed2099b5cf09a23645552f0ce4ff80aef7fc9972de69a7fc4844f232344",
+          "adapted_prompt_sha256": "f754d4646c1575a6c4d5f52df92d22df04dd891dd68dd5b968b9b5d7d5af39a6",
+          "author_equals_adapted": false,
+          "author_tokens_min_with_special": 14,
+          "author_tokens_max_with_special": 27,
+          "adapted_tokens_max_with_special": 27,
+          "prompts_checked": 240,
+          "shared_suffixes_verified": true,
+          "label_order_verified": true,
+          "repeatability_verified": true,
+          "rng_restoration_verified": true
+        },
+        {
+          "seed": 1,
+          "author_prompt_sha256": "bc6571972090b0f9be3f60c223786bd3396c7d2ccb471c715c4152c1b9fbd514",
+          "adapted_prompt_sha256": "2f637476a389e151656ae8ccc1f6cfeff15798edff0bc24b030801fc2116fe58",
+          "author_equals_adapted": false,
+          "author_tokens_min_with_special": 14,
+          "author_tokens_max_with_special": 26,
+          "adapted_tokens_max_with_special": 27,
+          "prompts_checked": 240,
+          "shared_suffixes_verified": true,
+          "label_order_verified": true,
+          "repeatability_verified": true,
+          "rng_restoration_verified": true
+        },
+        {
+          "seed": 2,
+          "author_prompt_sha256": "16c20e397628495f22d7935995665c2dbbcea6098aae79e354ae47a0665eeca3",
+          "adapted_prompt_sha256": "b44107e16293dba31aa2cdfe6076f13e12db6a5130cb50155009d1923c9b2d7d",
+          "author_equals_adapted": false,
+          "author_tokens_min_with_special": 14,
+          "author_tokens_max_with_special": 26,
+          "adapted_tokens_max_with_special": 27,
+          "prompts_checked": 240,
+          "shared_suffixes_verified": true,
+          "label_order_verified": true,
+          "repeatability_verified": true,
+          "rng_restoration_verified": true
+        },
+        {
+          "seed": 3,
+          "author_prompt_sha256": "0542d9eae45cc3d3e191431cd2b64e68164ee06a0f6412c54fb34eb3ed6c7d3e",
+          "adapted_prompt_sha256": "1614745bd602f80d01c540d90711733c8ebac197a776fb2767ffbd13c07d34f1",
+          "author_equals_adapted": false,
+          "author_tokens_min_with_special": 14,
+          "author_tokens_max_with_special": 27,
+          "adapted_tokens_max_with_special": 27,
+          "prompts_checked": 240,
+          "shared_suffixes_verified": true,
+          "label_order_verified": true,
+          "repeatability_verified": true,
+          "rng_restoration_verified": true
+        },
+        {
+          "seed": 4,
+          "author_prompt_sha256": "add2d3c0a6e09e7111065d6c1195c4f5cd72d73b7a4189a4cbbfa7d6bed5ab66",
+          "adapted_prompt_sha256": "e0b10b0b019134d21e59c7098d8a3188af586e277e2769e1c08d9a32c808edd5",
+          "author_equals_adapted": false,
+          "author_tokens_min_with_special": 14,
+          "author_tokens_max_with_special": 27,
+          "adapted_tokens_max_with_special": 27,
+          "prompts_checked": 240,
+          "shared_suffixes_verified": true,
+          "label_order_verified": true,
+          "repeatability_verified": true,
+          "rng_restoration_verified": true
+        },
+        {
+          "seed": 5,
+          "author_prompt_sha256": "063d8525f43fc36d571d3c4394236093da0f70dcae50a34703a1fc32e9942136",
+          "adapted_prompt_sha256": "c65beee4b4dd564d72b4a1b3ea4905a9ae49fa9911fe241e4800ec8b983b7b5b",
+          "author_equals_adapted": false,
+          "author_tokens_min_with_special": 14,
+          "author_tokens_max_with_special": 27,
+          "adapted_tokens_max_with_special": 27,
+          "prompts_checked": 240,
+          "shared_suffixes_verified": true,
+          "label_order_verified": true,
+          "repeatability_verified": true,
+          "rng_restoration_verified": true
+        },
+        {
+          "seed": 6,
+          "author_prompt_sha256": "2731e53fe68d13c32f5078a4f96ced01ce2a9b089d3c819440eff607125b142c",
+          "adapted_prompt_sha256": "c6e3a90bd427462da9c698bdfdd3f97a518002f2546ac60b42d476af59f9a2d2",
+          "author_equals_adapted": false,
+          "author_tokens_min_with_special": 14,
+          "author_tokens_max_with_special": 27,
+          "adapted_tokens_max_with_special": 27,
+          "prompts_checked": 240,
+          "shared_suffixes_verified": true,
+          "label_order_verified": true,
+          "repeatability_verified": true,
+          "rng_restoration_verified": true
+        }
+      ]
+    }
+  }
+}

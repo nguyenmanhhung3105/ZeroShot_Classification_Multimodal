@@ -1,0 +1,464 @@
+{
+  "date": "2026-10-22",
+  "scope": "prompt_banks_only_no_dataset_or_model",
+  "inference_run": false,
+  "model_weights_loaded": false,
+  "dataset_rows_read": 0,
+  "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+  ],
+  "tasks": {
+    "informativeness": {
+      "trials": [
+        {
+          "seed": 0,
+          "prompt_fingerprint": "1910a0f53ade48e8fc8e65b9615236a9908076c106a1d42eb826c52df836d466",
+          "banks": {
+            "clip": {
+              "prompts": 2,
+              "tokens_min": 8,
+              "tokens_max": 9,
+              "sha256": "4a1b0d9b8c085dcfaaade57c313a0322e671686e1e4f1f403ed8521f82453b97"
+            },
+            "waffle": {
+              "prompts": 60,
+              "tokens_min": 13,
+              "tokens_max": 19,
+              "sha256": "5be238b5e18bd08babda7d169481d44951e397aaff1f62d458be7f55441a0a7a"
+            },
+            "semantic": {
+              "prompts": 6,
+              "tokens_min": 14,
+              "tokens_max": 17,
+              "sha256": "0ee1cbfc7bc6d61a012f0dca8de1b501c24865c85c3249b4ff115eee4d19dde4"
+            },
+            "semantic_waffle": {
+              "prompts": 60,
+              "tokens_min": 19,
+              "tokens_max": 27,
+              "sha256": "36775a3a9dbdc597ab76929ed3386234ce157f41750496c4758b02df0f701faf"
+            }
+          }
+        },
+        {
+          "seed": 1,
+          "prompt_fingerprint": "1d5c8a52fc7617ce34fd8cc1557a701f25811895a3478e90f255e920a4b83626",
+          "banks": {
+            "clip": {
+              "prompts": 2,
+              "tokens_min": 8,
+              "tokens_max": 9,
+              "sha256": "4a1b0d9b8c085dcfaaade57c313a0322e671686e1e4f1f403ed8521f82453b97"
+            },
+            "waffle": {
+              "prompts": 60,
+              "tokens_min": 13,
+              "tokens_max": 19,
+              "sha256": "f751392a11bae795bbcce0b8b529ede1ef4d8586b3ed930a87f37e9b7a014094"
+            },
+            "semantic": {
+              "prompts": 6,
+              "tokens_min": 14,
+              "tokens_max": 17,
+              "sha256": "0ee1cbfc7bc6d61a012f0dca8de1b501c24865c85c3249b4ff115eee4d19dde4"
+            },
+            "semantic_waffle": {
+              "prompts": 60,
+              "tokens_min": 19,
+              "tokens_max": 27,
+              "sha256": "8c50f362fb33053e91981dc7957c46a62e7f9b87c099f7781c9f3a79bd9a21cf"
+            }
+          }
+        },
+        {
+          "seed": 2,
+          "prompt_fingerprint": "9dc562a320caafcc4e09bc14aef73ee53fa1799462cf5ac73598236ccc79a7cf",
+          "banks": {
+            "clip": {
+              "prompts": 2,
+              "tokens_min": 8,
+              "tokens_max": 9,
+              "sha256": "4a1b0d9b8c085dcfaaade57c313a0322e671686e1e4f1f403ed8521f82453b97"
+            },
+            "waffle": {
+              "prompts": 60,
+              "tokens_min": 13,
+              "tokens_max": 20,
+              "sha256": "ab7bfab4f7f56ba65eb17a5b67dfef22d9f222631f801d0d7e962fcbedce6f62"
+            },
+            "semantic": {
+              "prompts": 6,
+              "tokens_min": 14,
+              "tokens_max": 17,
+              "sha256": "0ee1cbfc7bc6d61a012f0dca8de1b501c24865c85c3249b4ff115eee4d19dde4"
+            },
+            "semantic_waffle": {
+              "prompts": 60,
+              "tokens_min": 19,
+              "tokens_max": 28,
+              "sha256": "c92dac99e071277006fbf6d4826d3bb6a005b0d1838c281e978b80d6e2fcae9a"
+            }
+          }
+        },
+        {
+          "seed": 3,
+          "prompt_fingerprint": "29babc15307907ab201684e13608cb4429d602522e59dfeaefb8168fce0550ad",
+          "banks": {
+            "clip": {
+              "prompts": 2,
+              "tokens_min": 8,
+              "tokens_max": 9,
+              "sha256": "4a1b0d9b8c085dcfaaade57c313a0322e671686e1e4f1f403ed8521f82453b97"
+            },
+            "waffle": {
+              "prompts": 60,
+              "tokens_min": 13,
+              "tokens_max": 19,
+              "sha256": "928994e16a24bab5e6741fa2c2fb8c3338dd5337f478778912cba52aa3dfacb8"
+            },
+            "semantic": {
+              "prompts": 6,
+              "tokens_min": 14,
+              "tokens_max": 17,
+              "sha256": "0ee1cbfc7bc6d61a012f0dca8de1b501c24865c85c3249b4ff115eee4d19dde4"
+            },
+            "semantic_waffle": {
+              "prompts": 60,
+              "tokens_min": 19,
+              "tokens_max": 27,
+              "sha256": "3dd4ac2daf5407a107a21647b65b25ea606d4fe5ed1df8a5aef35103fecf3f6e"
+            }
+          }
+        },
+        {
+          "seed": 4,
+          "prompt_fingerprint": "31cf6a66577d05d53475baa0565225fcc92c2bd2a476368c18c2f382f0ae9a52",
+          "banks": {
+            "clip": {
+              "prompts": 2,
+              "tokens_min": 8,
+              "tokens_max": 9,
+              "sha256": "4a1b0d9b8c085dcfaaade57c313a0322e671686e1e4f1f403ed8521f82453b97"
+            },
+            "waffle": {
+              "prompts": 60,
+              "tokens_min": 13,
+              "tokens_max": 19,
+              "sha256": "f621aeea3cc9388db6bd7d8279975c090560325dc36fefbe03efbf3e156ce18d"
+            },
+            "semantic": {
+              "prompts": 6,
+              "tokens_min": 14,
+              "tokens_max": 17,
+              "sha256": "0ee1cbfc7bc6d61a012f0dca8de1b501c24865c85c3249b4ff115eee4d19dde4"
+            },
+            "semantic_waffle": {
+              "prompts": 60,
+              "tokens_min": 19,
+              "tokens_max": 27,
+              "sha256": "6ce595dd19cff3eefab5e410ef209d068ed9af290cdcfc50d352ceeac59253a4"
+            }
+          }
+        },
+        {
+          "seed": 5,
+          "prompt_fingerprint": "8a9217c3a5ccf6ea2bdda24850045f67122a3a69274115a97992aaf3123b7219",
+          "banks": {
+            "clip": {
+              "prompts": 2,
+              "tokens_min": 8,
+              "tokens_max": 9,
+              "sha256": "4a1b0d9b8c085dcfaaade57c313a0322e671686e1e4f1f403ed8521f82453b97"
+            },
+            "waffle": {
+              "prompts": 60,
+              "tokens_min": 13,
+              "tokens_max": 20,
+              "sha256": "1e8945f82b26431301164c19b9b39323f74b4f31f41b96d7264d67e69e88f5af"
+            },
+            "semantic": {
+              "prompts": 6,
+              "tokens_min": 14,
+              "tokens_max": 17,
+              "sha256": "0ee1cbfc7bc6d61a012f0dca8de1b501c24865c85c3249b4ff115eee4d19dde4"
+            },
+            "semantic_waffle": {
+              "prompts": 60,
+              "tokens_min": 19,
+              "tokens_max": 28,
+              "sha256": "841ddbc07e4b5f5705f5daf3fa299560c4fa02ad2d07b1e5bd4b5caf9ac96d76"
+            }
+          }
+        },
+        {
+          "seed": 6,
+          "prompt_fingerprint": "81d7994b49923b9b96e71ed7420a339b4e6a4a720db1587d2b926bc9f1d72759",
+          "banks": {
+            "clip": {
+              "prompts": 2,
+              "tokens_min": 8,
+              "tokens_max": 9,
+              "sha256": "4a1b0d9b8c085dcfaaade57c313a0322e671686e1e4f1f403ed8521f82453b97"
+            },
+            "waffle": {
+              "prompts": 60,
+              "tokens_min": 13,
+              "tokens_max": 19,
+              "sha256": "e8979e70e67596bb99c96ddcba692b08ea06f09de3e29f4f7096ae0fcc865258"
+            },
+            "semantic": {
+              "prompts": 6,
+              "tokens_min": 14,
+              "tokens_max": 17,
+              "sha256": "0ee1cbfc7bc6d61a012f0dca8de1b501c24865c85c3249b4ff115eee4d19dde4"
+            },
+            "semantic_waffle": {
+              "prompts": 60,
+              "tokens_min": 19,
+              "tokens_max": 27,
+              "sha256": "ecad75fe072f4ec22178fe35296c2256098d3c1791dd62a30fa2342688362517"
+            }
+          }
+        }
+      ],
+      "label_order": [
+        "informative",
+        "not_informative"
+      ],
+      "protocol_fingerprint": "15bb241a1bfacf53e4435d7495e14dd5ec7617d7015cc733a1e07210e89133c8"
+    },
+    "humanitarian": {
+      "trials": [
+        {
+          "seed": 0,
+          "prompt_fingerprint": "3851959a8d031d57a51fd5ad19f5727cc96394b93516f3639709d12d974de011",
+          "banks": {
+            "clip": {
+              "prompts": 8,
+              "tokens_min": 9,
+              "tokens_max": 12,
+              "sha256": "f36210be616123c6c7b91ec2b89573c7b778181466bd80bc9cf45f0bc0c7aa4d"
+            },
+            "waffle": {
+              "prompts": 240,
+              "tokens_min": 14,
+              "tokens_max": 27,
+              "sha256": "8d1e5f6daefd9408866a00a17ed5a14c5bad5fb948b6d949848ef6c7ef9aa34f"
+            },
+            "semantic": {
+              "prompts": 24,
+              "tokens_min": 10,
+              "tokens_max": 20,
+              "sha256": "0780f789eddd77b9fda39f48dfa0927258ac89af654dc2e5132f7a3cf93f8f53"
+            },
+            "semantic_waffle": {
+              "prompts": 240,
+              "tokens_min": 15,
+              "tokens_max": 35,
+              "sha256": "8d04371591e0e5172cc8ea01d1e75e80585925732691cc379214e14baa7b68ac"
+            }
+          }
+        },
+        {
+          "seed": 1,
+          "prompt_fingerprint": "83347edb04d2ef6d5455744cda56cf1194eab507a1665346c01e391fb3151303",
+          "banks": {
+            "clip": {
+              "prompts": 8,
+              "tokens_min": 9,
+              "tokens_max": 12,
+              "sha256": "f36210be616123c6c7b91ec2b89573c7b778181466bd80bc9cf45f0bc0c7aa4d"
+            },
+            "waffle": {
+              "prompts": 240,
+              "tokens_min": 14,
+              "tokens_max": 26,
+              "sha256": "e0853faf70a37df45d0387ad1d604a0c0dc529f342301305d11133d021e34b90"
+            },
+            "semantic": {
+              "prompts": 24,
+              "tokens_min": 10,
+              "tokens_max": 20,
+              "sha256": "0780f789eddd77b9fda39f48dfa0927258ac89af654dc2e5132f7a3cf93f8f53"
+            },
+            "semantic_waffle": {
+              "prompts": 240,
+              "tokens_min": 15,
+              "tokens_max": 34,
+              "sha256": "197ec3fc4768c3f730a9743d50327fc8bfdc4abd13a68e5abbb1f785da25f51d"
+            }
+          }
+        },
+        {
+          "seed": 2,
+          "prompt_fingerprint": "f15eeb674dd38ca42cb56b4fd60ac137d9ae586fefb88a08aab900351f550d53",
+          "banks": {
+            "clip": {
+              "prompts": 8,
+              "tokens_min": 9,
+              "tokens_max": 12,
+              "sha256": "f36210be616123c6c7b91ec2b89573c7b778181466bd80bc9cf45f0bc0c7aa4d"
+            },
+            "waffle": {
+              "prompts": 240,
+              "tokens_min": 14,
+              "tokens_max": 26,
+              "sha256": "6e07cf59fb6fc3fae347c19cd83c452e3fcb330ec0c010d574a0b44f955730be"
+            },
+            "semantic": {
+              "prompts": 24,
+              "tokens_min": 10,
+              "tokens_max": 20,
+              "sha256": "0780f789eddd77b9fda39f48dfa0927258ac89af654dc2e5132f7a3cf93f8f53"
+            },
+            "semantic_waffle": {
+              "prompts": 240,
+              "tokens_min": 15,
+              "tokens_max": 34,
+              "sha256": "101aae32dfc97b3315259446899625709d96c18e8ad8fec301965b4bac0eb152"
+            }
+          }
+        },
+        {
+          "seed": 3,
+          "prompt_fingerprint": "b9fea3b32b4ea22094dd3e42ed7dd6204321c2f036f520557b46eb877277cf26",
+          "banks": {
+            "clip": {
+              "prompts": 8,
+              "tokens_min": 9,
+              "tokens_max": 12,
+              "sha256": "f36210be616123c6c7b91ec2b89573c7b778181466bd80bc9cf45f0bc0c7aa4d"
+            },
+            "waffle": {
+              "prompts": 240,
+              "tokens_min": 14,
+              "tokens_max": 27,
+              "sha256": "168b0d5f2430ad33254ba818c07d8877b4263f19f12c3d7f0e80fcf5060b288f"
+            },
+            "semantic": {
+              "prompts": 24,
+              "tokens_min": 10,
+              "tokens_max": 20,
+              "sha256": "0780f789eddd77b9fda39f48dfa0927258ac89af654dc2e5132f7a3cf93f8f53"
+            },
+            "semantic_waffle": {
+              "prompts": 240,
+              "tokens_min": 15,
+              "tokens_max": 34,
+              "sha256": "240d33b0908466c9cf587a1755a288779bb7fb820fcba1eccb6bda25d522fefd"
+            }
+          }
+        },
+        {
+          "seed": 4,
+          "prompt_fingerprint": "dcab0fcc0c8a6ee8d6da1551989a9aa20aee22315c7d0c276d766d8882bcd3d9",
+          "banks": {
+            "clip": {
+              "prompts": 8,
+              "tokens_min": 9,
+              "tokens_max": 12,
+              "sha256": "f36210be616123c6c7b91ec2b89573c7b778181466bd80bc9cf45f0bc0c7aa4d"
+            },
+            "waffle": {
+              "prompts": 240,
+              "tokens_min": 14,
+              "tokens_max": 27,
+              "sha256": "774159c22351ddf7c47c828bdd30d798e899cdbde4bb47c347029a4375aa6945"
+            },
+            "semantic": {
+              "prompts": 24,
+              "tokens_min": 10,
+              "tokens_max": 20,
+              "sha256": "0780f789eddd77b9fda39f48dfa0927258ac89af654dc2e5132f7a3cf93f8f53"
+            },
+            "semantic_waffle": {
+              "prompts": 240,
+              "tokens_min": 15,
+              "tokens_max": 34,
+              "sha256": "57ef28ab189ca9f216dfb1cc70d406e64c3686f70ca131f0594ca23546e255bf"
+            }
+          }
+        },
+        {
+          "seed": 5,
+          "prompt_fingerprint": "a4614cba883867c1da1ad8c78cf91bd8f1616621687b97cb2bbe81344807c455",
+          "banks": {
+            "clip": {
+              "prompts": 8,
+              "tokens_min": 9,
+              "tokens_max": 12,
+              "sha256": "f36210be616123c6c7b91ec2b89573c7b778181466bd80bc9cf45f0bc0c7aa4d"
+            },
+            "waffle": {
+              "prompts": 240,
+              "tokens_min": 14,
+              "tokens_max": 27,
+              "sha256": "df8b23e32aa2f744dddb196e2963e428a4b1322aeb05c9a48ec9e601a0c56c3b"
+            },
+            "semantic": {
+              "prompts": 24,
+              "tokens_min": 10,
+              "tokens_max": 20,
+              "sha256": "0780f789eddd77b9fda39f48dfa0927258ac89af654dc2e5132f7a3cf93f8f53"
+            },
+            "semantic_waffle": {
+              "prompts": 240,
+              "tokens_min": 15,
+              "tokens_max": 34,
+              "sha256": "c8c6f58978fe78cacd25c40862cff2986749ed30475c66d3318f1b2e77c8a390"
+            }
+          }
+        },
+        {
+          "seed": 6,
+          "prompt_fingerprint": "a476ba63f09377d1838b4c6711d59af00de0db5c69bc0c9123da25f7ee8c1721",
+          "banks": {
+            "clip": {
+              "prompts": 8,
+              "tokens_min": 9,
+              "tokens_max": 12,
+              "sha256": "f36210be616123c6c7b91ec2b89573c7b778181466bd80bc9cf45f0bc0c7aa4d"
+            },
+            "waffle": {
+              "prompts": 240,
+              "tokens_min": 14,
+              "tokens_max": 27,
+              "sha256": "ea4f02fbc2923eb67c014a6397b5e340f104e0e7872c7d52217b354d3637e2d7"
+            },
+            "semantic": {
+              "prompts": 24,
+              "tokens_min": 10,
+              "tokens_max": 20,
+              "sha256": "0780f789eddd77b9fda39f48dfa0927258ac89af654dc2e5132f7a3cf93f8f53"
+            },
+            "semantic_waffle": {
+              "prompts": 240,
+              "tokens_min": 15,
+              "tokens_max": 34,
+              "sha256": "ef28f13ed9d4a100fdb299d93b60d59430de7d46eecbad8e0e8a4228909f4c12"
+            }
+          }
+        }
+      ],
+      "label_order": [
+        "not_humanitarian",
+        "other_relevant_information",
+        "rescue_volunteering_or_donation_effort",
+        "infrastructure_and_utility_damage",
+        "affected_individuals",
+        "vehicle_damage",
+        "injured_or_dead_people",
+        "missing_or_found_people"
+      ],
+      "protocol_fingerprint": "f9e7391b9e9a9b9d3f5b9614541758f6f7a0edfc2cdf9b2df23a3eb521ebcebe"
+    }
+  },
+  "prompts_checked": 4480,
+  "max_tokens": 35
+}

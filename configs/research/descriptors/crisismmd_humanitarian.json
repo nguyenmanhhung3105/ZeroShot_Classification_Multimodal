@@ -1,5 +1,5 @@
 {
-  "provenance": "Assistant tạo từ định nghĩa lớp, cố định ngày 2026-10-10; không lấy từ dòng dữ liệu hoặc lỗi validation. Mô tả dùng cho nhánh ảnh, không phải đầu ra GPT-3 gốc của paper.",
+  "provenance": "Assistant tạo từ định nghĩa lớp, không lấy từ dòng dữ liệu hoặc lỗi validation. Mô tả dùng cho nhánh ảnh, không phải đầu ra GPT-3 gốc của paper.",
   "descriptors": {
     "not_humanitarian": [
       "an everyday scene unrelated to disaster impacts or relief",
