@@ -44,7 +44,29 @@ Kết quả gốc, Accuracy trung bình trên tám benchmark chính với ViT-B/
 
 **2. Áp dụng phần nào vào CrisisMMD?**
 
-Bài toán là phân loại ảnh khủng hoảng thành tám nhóm: không liên quan nhân đạo, thông tin liên quan khác, cứu trợ, hư hại hạ tầng, người bị ảnh hưởng, hư hại phương tiện, người bị thương/tử vong và người mất tích/được tìm thấy.
+CrisisMMD có ảnh và tweet về khủng hoảng. Phạm vi triển khai hiện tại sử dụng **hai task với nhãn ảnh**:
+
+**Task 1 — Informativeness (`informativeness`): xác định ảnh có cung cấp thông tin hữu ích về khủng hoảng hay không.**
+
+| Lớp tiếng Anh | Tiếng Việt | Ví dụ minh họa |
+|---|---|---|
+| Informative | Có thông tin hữu ích | Ảnh nhà sập, xe bị ngập hoặc hoạt động cứu hộ |
+| Not informative | Không có thông tin hữu ích | Ảnh chân dung/sinh hoạt không thể hiện thông tin khủng hoảng |
+
+**Task 2 — Humanitarian categorization (`humanitarian`): phân loại nội dung nhân đạo thành tám lớp.**
+
+| Lớp tiếng Anh | Tiếng Việt |
+|---|---|
+| Not humanitarian | Không có thông tin nhân đạo liên quan |
+| Other relevant information | Thông tin liên quan khác |
+| Rescue, volunteering or donation effort | Cứu hộ, tình nguyện hoặc quyên góp |
+| Infrastructure and utility damage | Thiệt hại hạ tầng và tiện ích công cộng |
+| Affected individuals | Người bị ảnh hưởng |
+| Vehicle damage | Thiệt hại phương tiện |
+| Injured or dead people | Người bị thương hoặc tử vong |
+| Missing or found people | Người mất tích hoặc được tìm thấy |
+
+Ví dụ: ảnh ô tô ngập nước có thể được phân loại **Informative** ở task 1 và **Vehicle damage** ở task 2. [Nguồn task và nhãn CrisisMMD](https://crisisnlp.qcri.org/crisismmd.html).
 
 Dự án giữ **MetaCLIP2 ViT-H/14** làm backbone, không huấn luyện lại trọng số. Đầu vào hiện tại là **ảnh**; text encoder mã hóa prompt lớp, không nhận tweet của từng mẫu. Có 3.000 ảnh phát triển và 2.219 ảnh dev để so sánh các cấu hình.
 
@@ -79,13 +101,51 @@ Tầng 1 dùng **semantic sạch: ba prompt/lớp, tổng sáu prompt**. Tầng 
 
 **Majority — ba cách suy luận cùng bỏ phiếu ở tầng 1**
 
-| Thành phần | Cách hoạt động | Vai trò cần kiểm tra |
-|---|---|---|
-| Normalized CLIP | So cosine giữa vector ảnh và vector lớp đã chuẩn hóa; chọn điểm cao nhất | Cung cấp dự đoán trực tiếp từ CLIP |
-| EM-Dirichlet | Từ mean cosine tạo vector xác suất bằng softmax; ước lượng phân phối Dirichlet trên nhóm ảnh không nhãn, cập nhật mức gán cụm rồi ghép cụm với lớp | Bổ sung thông tin phân phối của nhóm thay vì xét từng ảnh riêng |
-| StatA | Dùng embedding ảnh để ước lượng phân phối Gaussian, có prior và điểm neo từ prototype text để hạn chế trôi khi ít dữ liệu | Thích nghi theo dữ liệu ảnh nhưng giữ liên hệ với kiến thức CLIP |
+**Normalized CLIP:** mã hóa ba prompt semantic của mỗi lớp, chuẩn hóa từng vector, lấy trung bình rồi chuẩn hóa lại thành vector đại diện lớp. Ảnh được so cosine với hai vector lớp; lớp có điểm cao hơn là dự đoán. Mỗi ảnh được xét độc lập.
 
-EM và StatA dùng cùng các nhóm tối đa 75 ảnh, chia theo seed, không dùng nhãn thật. Mỗi ảnh vẫn có nhãn riêng. Nguồn: [EM-Dirichlet, CVPR 2024](https://arxiv.org/abs/2405.18437), [StatA, CVPR 2025](https://arxiv.org/abs/2501.03729).
+**EM-Dirichlet — suy luận từ phân phối điểm của nhóm ảnh**
+
+EM sử dụng thông tin từ **một nhóm ảnh không nhãn**, thay vì chỉ chốt nhãn ngay từ score của từng ảnh:
+
+1. **Tạo probability features:** từ mean cosine với hai lớp, tính `q = softmax(30 × score)`. Ví dụ `q = [0,52; 0,48]` thể hiện ảnh chỉ hơi nghiêng về Informative. Hai phần tử là điểm của hai lớp, không phải tọa độ vùng ảnh.
+2. **Ước lượng phân phối:** dùng các vector `q` trong nhóm để ước lượng hai phân phối Dirichlet. Dirichlet mô tả những vector xác suất không âm, có tổng bằng 1.
+3. **Lặp cập nhật:** tính mức phù hợp của từng ảnh với mỗi cụm; dùng các mức gán đó cập nhật tham số phân phối; tiếp tục tính lại mức gán. Đây là quá trình cập nhật luân phiên của EM, không phải chỉ đổi tên nhãn.
+4. **Ghép cụm với lớp:** Hungarian chọn cách ghép cụm với Informative/Not informative dựa trên bằng chứng CLIP, không dựa vào nhãn thật; từ đó có nhãn cuối cho từng ảnh.
+
+```text
+Score CLIP từng ảnh → vector xác suất q
+                              ↓
+              Ước lượng phân phối theo nhóm
+                              ↕
+                Cập nhật mức gán từng ảnh
+                              ↓
+               Ghép cụm–lớp → dự đoán EM
+```
+
+**Ví dụ:** ảnh B có điểm `[0,52; 0,48]`, nên quyết định CLIP ban đầu khá mơ hồ. EM dùng thêm cấu trúc phân phối của những ảnh trong nhóm để tính lại mức phù hợp của B; nhãn có thể giữ hoặc đổi. Các ảnh cùng nhóm **không bị gán chung một nhãn**. Lợi ích cần kiểm tra là giảm quyết định mơ hồ; phân phối ước lượng sai cũng có thể làm dự đoán kém hơn. [EM-Dirichlet, CVPR 2024](https://arxiv.org/abs/2405.18437).
+
+**StatA — thích nghi phân phối embedding, có điểm neo từ prompt**
+
+Khác EM ở trên, StatA mô hình hóa **embedding ảnh**, không dùng vector probability features hai chiều làm dữ liệu phân phối:
+
+1. **Khởi tạo:** prototype text là vector đại diện hai lớp, tạo dự đoán tham chiếu CLIP và tâm phân phối ban đầu.
+2. **Ước lượng Gaussian:** từ embedding và mức gán lớp hiện tại, ước lượng tâm và mức phân tán của từng lớp. Gaussian giúp đánh giá ảnh mới phù hợp với vùng phân phối nào.
+3. **Giữ statistical anchor:** ràng buộc tham số về prototype text; khi bằng chứng trong nhóm ít, phân phối không được tự do trôi khỏi kiến thức CLIP. Quan hệ láng giềng giữa ảnh cũng hỗ trợ tính nhất quán của mức gán.
+4. **Cập nhật luân phiên:** điều chỉnh phân phối và mức gán ảnh, sau đó chọn lớp có điểm đầu ra cao nhất.
+
+```text
+Embedding ảnh + prototype text
+               ↓
+Gaussian từng lớp + điểm neo + quan hệ lân cận
+               ↕
+       Cập nhật mức gán từng ảnh
+               ↓
+          Dự đoán StatA
+```
+
+**Ví dụ:** một ảnh xe ngập bị CLIP phân loại mơ hồ. Nếu embedding phù hợp với phân phối Informative được ước lượng từ nhóm, StatA có thể bổ sung bằng chứng cho lớp này; điểm neo text hạn chế phân phối bị kéo lệch theo một nhóm ảnh không đại diện. Đây là cơ chế cần đánh giá, không bảo đảm StatA luôn sửa đúng. [StatA, CVPR 2025](https://arxiv.org/abs/2501.03729).
+
+EM và StatA dùng cùng nhóm tối đa 75 ảnh, xáo trộn theo seed rồi chia nhóm; bước chia nhóm không dựa trên nhãn thật hoặc độ giống ảnh. Cả hai đều giữ backbone cố định.
 
 **Quy tắc majority:** ít nhất hai trong ba nhánh chọn informative thì ảnh đi tiếp. Ba nhánh chia sẻ vector ảnh, không cần mã hóa ảnh ba lần. Đây là ensemble ba cách suy luận dùng chung backbone, không phải ba model ảnh được huấn luyện riêng.
 
@@ -108,18 +168,19 @@ Lợi ích kỳ vọng là giảm tác động của một nhánh sai khi hai nh
 
 CLIP cơ bản so một vector toàn ảnh với các lớp. CALIP bổ sung **attention hai chiều giữa đặc trưng vùng ảnh và vector prompt**. [CALIP, AAAI 2023](https://arxiv.org/abs/2209.14169).
 
-Trong bản MetaCLIP2:
+**Các bước trong bản MetaCLIP2:**
 
-- Một forward tạo vector toàn ảnh và **256 vector vùng ảnh**.
-- Mỗi prototype lớp tổng hợp bằng chứng từ các vùng để tạo text feature thích nghi theo ảnh.
-- Các vùng cũng nhận thông tin từ prototype để tạo visual feature thích nghi theo text.
-- Kết hợp ba nguồn điểm: điểm CLIP gốc và hai điểm từ feature đã tương tác.
+1. **Lấy đặc trưng:** một forward tạo vector toàn ảnh và **256 vector vùng ảnh**, cùng các prototype text của tám lớp.
+2. **Tính attention:** so từng vector vùng với từng prototype bằng dot product, nhân hệ số 2. Softmax tạo trọng số tương tác.
+3. **Ảnh hướng dẫn text:** chuẩn hóa trọng số theo các vùng; mỗi lớp lấy tổng có trọng số của vector vùng để tạo đại diện thích nghi với ảnh hiện tại.
+4. **Text hướng dẫn ảnh:** chuẩn hóa theo các lớp; từng vùng nhận tổng có trọng số của prototype. Gộp các vùng đã tương tác bằng mean + max để tạo visual feature mới.
+5. **Tính ba điểm:** global ảnh–text gốc; global ảnh–text đã thích nghi; visual đã thích nghi–text gốc. Kết hợp thành điểm cuối:
 
 ```text
 L = L_global + 1.12 × L_text_adapted + 0.02 × L_visual_adapted
 ```
 
-Các hệ số được khóa trước khi đo; không chọn bằng nhãn dev. CALIP không thêm trọng số attention được học.
+Các hệ số được khóa trước khi đo; không chọn bằng nhãn dev. CALIP không thêm trọng số attention được học; nó tính lại trọng số tương tác từ chính feature của từng ảnh và các lớp.
 
 Ví dụ minh họa: một ảnh có nhiều người chưa đủ phân biệt “người bị ảnh hưởng” với “cứu trợ”. Các vùng có cảnh trao nhu yếu phẩm có thể bổ sung bằng chứng cho lớp cứu trợ. Đây là giải thích giả thuyết về cơ chế; chưa chứng minh attention định vị đúng vùng trên mọi ảnh.
 
@@ -162,18 +223,34 @@ Các ví dụ trên minh họa cách hoạt động, không phải dự đoán �
 
 **5. Kết quả so sánh trên CrisisMMD**
 
-Cùng **2.219 ảnh dev, nhãn ảnh và backbone MetaCLIP2**. Các hàng majority là trung bình ba grouping seed, không lấy seed tốt nhất.
+**Thiết lập chung:** MetaCLIP2 ViT-H/14, chỉ ảnh, nhãn ảnh thật. `Semantic` = ba mô tả sạch/lớp; `Semantic + Waffle` = 30 prompt/lớp. Baseline xác định dùng seed 0; các hàng majority là trung bình ba grouping seed 0/1/2, prompt seed giữ 0.
 
-| Phương án | Accuracy | Macro-F1 |
-|---|---:|---:|
-| Baseline một tầng: semantic + Waffle, CLIP toàn ảnh | 56,60% | 43,80% |
-| Baseline hai tầng: semantic → semantic + Waffle | 66,20% | 48,06% |
-| **Hai tầng + majority + CALIP** | **70,36%** | **51,14%** |
+**Task 1 — Informativeness, 2 lớp; cùng 3.000 ảnh train dùng phát triển**
 
-So với baseline hai tầng, cấu hình hiện tại tăng **4,16 điểm Accuracy** và **3,08 điểm Macro-F1**. Đối chứng cùng cổng majority và cùng prototype chuẩn hóa cho thấy CALIP tăng thêm khoảng **0,74 điểm Macro-F1**; không quy toàn bộ mức tăng cho attention.
+| Phương pháp | Prompt | Accuracy | Macro-F1 |
+|---|---|---:|---:|
+| Baseline CLIP — mean cosine, argmax | Semantic: 6 prompt | 79,93% | 79,58% |
+| **Majority: Normalized CLIP + EM-Dirichlet + StatA** | **Cùng Semantic: 6 prompt** | **80,86%** | **80,83%** |
+
+Majority tăng **0,92 điểm Accuracy** và **1,24 điểm Macro-F1**, tính từ số chưa làm tròn. CALIP không tham gia cổng này; cải thiện binary đến từ thay cách suy luận trên cùng prompt semantic.
+
+**Task 2 — Humanitarian categorization, 8 lớp**
+
+| Tập đánh giá | Phương pháp | Prompt cổng 2 lớp | Prompt 8 lớp | Accuracy | Macro-F1 |
+|---|---|---|---|---:|---:|
+| Train phát triển, 3.000 ảnh | Baseline CLIP một tầng | — | Semantic + Waffle: 240 | 57,60% | 44,99% |
+| Train phát triển, 3.000 ảnh | Baseline hai tầng | Semantic: 6 | Semantic + Waffle: 240 | 68,03% | 49,88% |
+| Train phát triển, 3.000 ảnh | Majority + CALIP hai tầng | Semantic: 6 | Semantic + Waffle: 240 | 69,76% | 47,63% |
+| Dev, 2.219 ảnh | Baseline CLIP một tầng | — | Semantic + Waffle: 240 | 56,60% | 43,80% |
+| Dev, 2.219 ảnh | Baseline hai tầng | Semantic: 6 | Semantic + Waffle: 240 | 66,20% | 48,06% |
+| **Dev, 2.219 ảnh** | **Majority + CALIP hai tầng** | **Semantic: 6** | **Semantic + Waffle: 240** | **70,36%** | **51,14%** |
+
+Trên **cùng dev**, cấu hình hiện tại tăng **4,16 điểm Accuracy** và **3,08 điểm Macro-F1** so với baseline hai tầng. Đối chứng cùng cổng majority và cùng prototype chuẩn hóa cho thấy CALIP tăng thêm khoảng **0,74 điểm Macro-F1**; không quy toàn bộ mức tăng cho attention.
+
+Task 1 chưa có kết quả trên toàn cohort dev 2.219 vì không có nhãn informative thật tương ứng; không suy nhãn đó từ humanitarian. Không so điểm train với dev như thể cùng một bộ ảnh.
 
 **Ý nghĩa:** Waffle bổ sung nhiều cách biểu diễn lớp; semantic làm rõ nội dung lớp; majority cải thiện quyết định cổng; CALIP bổ sung tương tác giữa vùng ảnh và prompt. Các thành phần giải quyết những phần khác nhau của bài toán.
 
 **Giới hạn:** đây là kết quả dev, chưa xác nhận bằng test độc lập. Macro-F1 train của cấu hình mới giảm từ 49,88% xuống 47,63%, và mức tăng dev chưa chứng minh có ý nghĩa thống kê. Vì vậy giữ phương án này là ứng viên theo Macro-F1 dev, không kết luận cải thiện mọi lớp hoặc mọi tập dữ liệu.
 
-[Chi tiết đối chiếu kết quả và giới hạn](../../experiments/clip_calip/README.md).
+[Bảng đối chứng binary](../../experiments/clip_tda/README.md), [chi tiết đối chiếu cả hai task và giới hạn](../../experiments/clip_calip/README.md).
