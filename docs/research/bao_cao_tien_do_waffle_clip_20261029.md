@@ -4,7 +4,33 @@
 
 WaffleCLIP đặt câu hỏi: **CLIP tốt hơn khi thêm mô tả từ AI vì có thêm kiến thức, hay vì được tổng hợp nhiều cách diễn đạt?** DCLIP dùng LLM tạo đặc điểm từng lớp; WaffleCLIP kiểm tra bằng cách thay các mô tả đó bằng từ và ký tự ngẫu nhiên, trong khi vẫn giữ tên lớp. [WaffleCLIP, ICCV 2023](https://arxiv.org/abs/2306.07282), [DCLIP, ICLR 2023](https://arxiv.org/abs/2210.07183).
 
-**Dữ liệu và mô hình:** nghiên cứu dùng CLIP ViT-B/32, ViT-L/14 và ResNet-50; đánh giá trên 11 benchmark chuẩn, gồm ImageNet, ImageNetV2, CUB200, EuroSAT, Places365, Food101, Oxford Pets, DTD, Flowers102, FGVC-Aircraft và Stanford Cars. Có thêm ba bộ dịch chuyển phân phối: ImageNet-A, ImageNet-R, ImageNet-Sketch. Đây là dữ liệu đánh giá, không phải dữ liệu dùng để huấn luyện lại CLIP trong phương pháp Waffle.
+**Mô hình:** CLIP ViT-B/32, ViT-L/14 và ResNet-50, giữ nguyên trọng số khi áp dụng Waffle.
+
+**Dữ liệu:** 11 benchmark chuẩn, gồm tám bộ trong bảng so sánh chính và ba bộ mở rộng:
+
+| Nhóm | Dataset | Nội dung ảnh và mục tiêu phân loại |
+|---|---|---|
+| Chính | ImageNet | Ảnh đồ vật, động vật và nhiều đối tượng đời thường; nhận diện đối tượng trong ảnh |
+| Chính | ImageNetV2 | Bộ ảnh tự nhiên mới cùng hệ lớp ImageNet; kiểm tra khả năng nhận diện khi đổi tập ảnh |
+| Chính | CUB200-2011 | Ảnh các loài chim; phân biệt những loài có hình dáng gần giống nhau |
+| Chính | EuroSAT | Ảnh vệ tinh có rừng, sông, đồng ruộng, khu dân cư…; phân loại lớp phủ/sử dụng đất |
+| Chính | Places365 | Ảnh phòng, đường phố, sân bay và các địa điểm khác; phân loại loại cảnh |
+| Chính | Food101 | Ảnh món ăn như pizza, sushi…; nhận diện món ăn |
+| Chính | Oxford-IIIT Pets | Ảnh chó và mèo; phân biệt giống vật nuôi |
+| Chính | DTD | Ảnh bề mặt có sọc, chấm, nếp nhăn và các dạng kết cấu; phân loại texture |
+| Mở rộng | Flowers102 | Ảnh hoa; phân biệt loại hoa |
+| Mở rộng | FGVC-Aircraft | Ảnh máy bay; phân biệt biến thể máy bay |
+| Mở rộng | Stanford Cars | Ảnh ô tô; phân biệt các dòng/phiên bản xe |
+
+Ba bộ bổ sung kiểm tra **dịch chuyển phân phối (OOD)** — nội dung hoặc cách thể hiện ảnh khác ảnh tự nhiên thông thường:
+
+| Dataset | Nội dung ảnh | Mục đích kiểm tra |
+|---|---|---|
+| ImageNet-A | Ảnh tự nhiên được chọn vì gây khó cho mô hình nhận dạng | Khả năng nhận diện các ảnh khó |
+| ImageNet-R | Đối tượng được thể hiện bằng tranh vẽ, hoạt hình, điêu khắc… | Khả năng nhận diện khi thay đổi cách thể hiện |
+| ImageNet-Sketch | Bản phác họa đen trắng của các đối tượng | Khả năng nhận diện khi thiếu màu sắc và texture ảnh chụp |
+
+Các bộ trên là dữ liệu đánh giá, không dùng để huấn luyện lại CLIP trong phương pháp Waffle. Chúng bao phủ đồ vật, cảnh, ảnh vệ tinh và phân loại chi tiết, giúp kiểm tra phương pháp có hữu ích ở nhiều loại nội dung ảnh hay không. [Nguồn: phần thực nghiệm WaffleCLIP](https://arxiv.org/html/2306.07282v2#S4).
 
 **Cách hoạt động:**
 
