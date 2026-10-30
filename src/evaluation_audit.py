@@ -79,7 +79,7 @@ def prepare_audit(frame, task_config, config, dataset, task, id_col, text_col, l
     audit = {"sample_set_id": fingerprint, "cohort": cohort,
              "sample_lock_path": str(lock_path) if lock_path else None,
              "config": config, "effective_dataset": task_config, "prompts": prompts,
-             "prompt_id": digest(prompts), "split": settings.get("split", "unverified"),
+             "prompt_id": digest(prompts), "split": task_config.get("source_split", settings.get("split", "unverified")),
              "split_verified": False, "truncate_enabled": settings.get("measure_truncation", True)}
     return audit
 

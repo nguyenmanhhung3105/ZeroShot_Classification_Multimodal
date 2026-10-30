@@ -1,0 +1,4278 @@
+{
+  "date": "2026-10-25",
+  "reference_model": "metaclip2_vith14",
+  "reference_method": "baseline",
+  "selection": "per-dataset",
+  "selection_rule": "first available image in saved cohort order; reference correct/wrong on all shown tasks",
+  "source_audit_sha256": "431295d80c8428ecaa9cc24d9a537cfecd71c444a1872034a88c2bc890e6d201",
+  "source_tsv_read": false,
+  "new_model_inference_run": false,
+  "source_runs_are_saved_inference_results": true,
+  "verification": "text hash equals snapshot; current image size equals snapshot; copied image SHA-256 equals current image; scores reconstruct fusion",
+  "image_historical_hash_limit": "snapshot has image size/stat, not per-image SHA-256; current image hash is recorded for reproducibility",
+  "samples": [
+    {
+      "dataset": "fakeddit",
+      "tasks": [
+        "2way",
+        "6way"
+      ],
+      "id": "3psxmz",
+      "reference_correct": true,
+      "text": "relay runner finishes a race",
+      "image_path": "data/processed/pro_fakeddit/images/3psxmz.jpg",
+      "image_sha256": "d68472604f4fc05fa336f7b77af05aab0608f20b4f0f21e2f03f4c040c8236ed",
+      "tasks_data": {
+        "2way": [
+          {
+            "model": "metaclip2_vith14",
+            "method": "baseline",
+            "run_id": "16ead71cd477",
+            "summary_path": "results/baseline/fakeddit/2way/samples_3000/metaclip2_vith14/2way_16ead71cd477/summary.tsv",
+            "image_weight": 0.75,
+            "label_order": [
+              "0",
+              "1"
+            ],
+            "y_true": [
+              "1"
+            ],
+            "y_pred": [
+              "1"
+            ],
+            "metrics": {
+              "correct": true,
+              "confidence": 0.6125460565090179,
+              "margin": 0.2250920981168747,
+              "normalized_entropy": 0.9631368165829141
+            },
+            "scores": {
+              "image": [
+                0.36546245217323303,
+                0.6345375776290894
+              ],
+              "text": [
+                0.4534284770488739,
+                0.5465714931488037
+              ],
+              "fusion": [
+                0.38745395839214325,
+                0.6125460565090179
+              ]
+            },
+            "source_archive_sha256": "2d688f50d716613e36c30ee256847debb488533e89f4d190fb119cd5ad996f21"
+          },
+          {
+            "model": "dfn5b_vith14",
+            "method": "baseline",
+            "run_id": "5cbdd8e2e5cf",
+            "summary_path": "results/baseline/fakeddit/2way/samples_3000/dfn5b_vith14/2way_5cbdd8e2e5cf/summary.tsv",
+            "image_weight": 0.75,
+            "label_order": [
+              "0",
+              "1"
+            ],
+            "y_true": [
+              "1"
+            ],
+            "y_pred": [
+              "1"
+            ],
+            "metrics": {
+              "correct": true,
+              "confidence": 0.5709142535924911,
+              "margin": 0.14182855933904648,
+              "normalized_entropy": 0.9854408297278126
+            },
+            "scores": {
+              "image": [
+                0.4306844472885132,
+                0.569315493106842
+              ],
+              "text": [
+                0.42428943514823914,
+                0.5757105350494385
+              ],
+              "fusion": [
+                0.42908569425344467,
+                0.5709142535924911
+              ]
+            },
+            "source_archive_sha256": "c2f600f14285049eb574346576bb3eb107d8acb23d206ca0814ef57b23bc3bbb"
+          },
+          {
+            "model": "siglip2_so400m",
+            "method": "baseline",
+            "run_id": "0e323fb32f4f",
+            "summary_path": "results/baseline/fakeddit/2way/samples_3000/siglip2_so400m/2way_0e323fb32f4f/summary.tsv",
+            "image_weight": 0.75,
+            "label_order": [
+              "0",
+              "1"
+            ],
+            "y_true": [
+              "1"
+            ],
+            "y_pred": [
+              "1"
+            ],
+            "metrics": {
+              "correct": true,
+              "confidence": 0.845599815249443,
+              "margin": 0.691199654713273,
+              "normalized_entropy": 0.6207430662489578
+            },
+            "scores": {
+              "image": [
+                0.06824395805597305,
+                0.9317560195922852
+              ],
+              "text": [
+                0.41286876797676086,
+                0.5871312022209167
+              ],
+              "fusion": [
+                0.15440016053617,
+                0.845599815249443
+              ]
+            },
+            "source_archive_sha256": "e8c67098cb716be45c2ed70364c475ee971170b2a9beeab42aec4ab6fd295ee2"
+          },
+          {
+            "model": "openai_clip_vit_b_32",
+            "method": "baseline",
+            "run_id": "d3d1f2f79b7c",
+            "summary_path": "results/baseline/fakeddit/2way/samples_3000/openai_clip_vit_b_32/2way_d3d1f2f79b7c/summary.tsv",
+            "image_weight": 0.75,
+            "label_order": [
+              "0",
+              "1"
+            ],
+            "y_true": [
+              "1"
+            ],
+            "y_pred": [
+              "0"
+            ],
+            "metrics": {
+              "correct": false,
+              "confidence": 0.7182071730494499,
+              "margin": 0.43641431629657745,
+              "normalized_entropy": 0.8578821884516039
+            },
+            "scores": {
+              "image": [
+                0.8040284514427185,
+                0.19597157835960388
+              ],
+              "text": [
+                0.46074333786964417,
+                0.5392566919326782
+              ],
+              "fusion": [
+                0.7182071730494499,
+                0.28179285675287247
+              ]
+            },
+            "source_archive_sha256": "4689184457638d3bc4a95ddc9ef6610c806af983a41c0c61454aca62e9429625"
+          }
+        ],
+        "6way": [
+          {
+            "model": "metaclip2_vith14",
+            "method": "baseline",
+            "run_id": "c66fec810255",
+            "summary_path": "results/baseline/fakeddit/6way/samples_3000/metaclip2_vith14/6way_c66fec810255/summary.tsv",
+            "image_weight": 0.75,
+            "label_order": [
+              "0",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5"
+            ],
+            "y_true": [
+              "0"
+            ],
+            "y_pred": [
+              "0"
+            ],
+            "metrics": {
+              "correct": true,
+              "confidence": 0.5140387080609798,
+              "margin": 0.25642672553658485,
+              "normalized_entropy": 0.7484234379873038
+            },
+            "scores": {
+              "image": [
+                0.6216101050376892,
+                0.014220397919416428,
+                0.27601149678230286,
+                0.021241625770926476,
+                0.04505102336406708,
+                0.021865302696824074
+              ],
+              "text": [
+                0.19132451713085175,
+                0.2077448070049286,
+                0.2024134397506714,
+                0.09260757267475128,
+                0.1311032474040985,
+                0.1748064160346985
+              ],
+              "fusion": [
+                0.5140387080609798,
+                0.06260150019079447,
+                0.257611982524395,
+                0.03908311249688268,
+                0.06656407937407494,
+                0.06010058103129268
+              ]
+            },
+            "source_archive_sha256": "eb2cba3c045adf72074e2b6d1710def0e2663972db7e34c57a08fc1cde06e544"
+          },
+          {
+            "model": "dfn5b_vith14",
+            "method": "baseline",
+            "run_id": "428af87d7a4a",
+            "summary_path": "results/baseline/fakeddit/6way/samples_3000/dfn5b_vith14/6way_428af87d7a4a/summary.tsv",
+            "image_weight": 0.75,
+            "label_order": [
+              "0",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5"
+            ],
+            "y_true": [
+              "0"
+            ],
+            "y_pred": [
+              "0"
+            ],
+            "metrics": {
+              "correct": true,
+              "confidence": 0.272084005177021,
+              "margin": 0.06565462425351143,
+              "normalized_entropy": 0.9653086344363271
+            },
+            "scores": {
+              "image": [
+                0.29454758763313293,
+                0.16794656217098236,
+                0.18026801943778992,
+                0.10483933985233307,
+                0.14933568239212036,
+                0.10306283086538315
+              ],
+              "text": [
+                0.2046932578086853,
+                0.3218778371810913,
+                0.17704607546329498,
+                0.1492048054933548,
+                0.051007356494665146,
+                0.09617064893245697
+              ],
+              "fusion": [
+                0.272084005177021,
+                0.2064293809235096,
+                0.17946253344416618,
+                0.1159307062625885,
+                0.12475360091775656,
+                0.1013397853821516
+              ]
+            },
+            "source_archive_sha256": "84a3fb752faa20ed63c4ca32bbd012aec4d654d8987a8a2d95ea36321c927fc9"
+          },
+          {
+            "model": "siglip2_so400m",
+            "method": "baseline",
+            "run_id": "d3347aa759bd",
+            "summary_path": "results/baseline/fakeddit/6way/samples_3000/siglip2_so400m/6way_d3347aa759bd/summary.tsv",
+            "image_weight": 0.75,
+            "label_order": [
+              "0",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5"
+            ],
+            "y_true": [
+              "0"
+            ],
+            "y_pred": [
+              "0"
+            ],
+            "metrics": {
+              "correct": true,
+              "confidence": 0.47537681087851524,
+              "margin": 0.10943112894892693,
+              "normalized_entropy": 0.6827775310373594
+            },
+            "scores": {
+              "image": [
+                0.5515172481536865,
+                0.004670958034694195,
+                0.42207083106040955,
+                0.006188999395817518,
+                0.010996634140610695,
+                0.0045553469099104404
+              ],
+              "text": [
+                0.2469554990530014,
+                0.22716502845287323,
+                0.19757023453712463,
+                0.15617306530475616,
+                0.055748820304870605,
+                0.1163872703909874
+              ],
+              "fusion": [
+                0.47537681087851524,
+                0.060294475639238954,
+                0.3659456819295883,
+                0.04368501587305218,
+                0.022184680681675673,
+                0.03251332778017968
+              ]
+            },
+            "source_archive_sha256": "457633752f7cabf7cb52a6b6d034d52949291b4becf3e182bdb70cf6ca4418aa"
+          },
+          {
+            "model": "openai_clip_vit_b_32",
+            "method": "baseline",
+            "run_id": "93b00ff28e11",
+            "summary_path": "results/baseline/fakeddit/6way/samples_3000/openai_clip_vit_b_32/6way_93b00ff28e11/summary.tsv",
+            "image_weight": 0.75,
+            "label_order": [
+              "0",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5"
+            ],
+            "y_true": [
+              "0"
+            ],
+            "y_pred": [
+              "1"
+            ],
+            "metrics": {
+              "correct": false,
+              "confidence": 0.3215327337384224,
+              "margin": 0.07550151646137238,
+              "normalized_entropy": 0.9083660857160288
+            },
+            "scores": {
+              "image": [
+                0.06539274752140045,
+                0.36605075001716614,
+                0.2685275971889496,
+                0.029415123164653778,
+                0.06437352299690247,
+                0.2062402069568634
+              ],
+              "text": [
+                0.18922333419322968,
+                0.18797868490219116,
+                0.17854207754135132,
+                0.22477513551712036,
+                0.05916602537035942,
+                0.16031476855278015
+              ],
+              "fusion": [
+                0.09635039418935776,
+                0.3215327337384224,
+                0.24603121727705002,
+                0.07825512625277042,
+                0.0630716485902667,
+                0.1947588473558426
+              ]
+            },
+            "source_archive_sha256": "15b02c0617af12dc964c8e48653734b937133c9398d3141bcba95661a7904bd5"
+          }
+        ]
+      }
+    },
+    {
+      "dataset": "fakeddit",
+      "tasks": [
+        "2way",
+        "6way"
+      ],
+      "id": "8tlelb",
+      "reference_correct": false,
+      "text": "assad pledges to regain control of northern syria by force if needed",
+      "image_path": "data/processed/pro_fakeddit/images/8tlelb.jpg",
+      "image_sha256": "85721f6e447b08c272a75136d60c2f4c42ac4e103136c70faefffcc732f178aa",
+      "tasks_data": {
+        "2way": [
+          {
+            "model": "metaclip2_vith14",
+            "method": "baseline",
+            "run_id": "16ead71cd477",
+            "summary_path": "results/baseline/fakeddit/2way/samples_3000/metaclip2_vith14/2way_16ead71cd477/summary.tsv",
+            "image_weight": 0.75,
+            "label_order": [
+              "0",
+              "1"
+            ],
+            "y_true": [
+              "1"
+            ],
+            "y_pred": [
+              "0"
+            ],
+            "metrics": {
+              "correct": false,
+              "confidence": 0.6075724139809608,
+              "margin": 0.21514485776424408,
+              "normalized_entropy": 0.9663483021138927
+            },
+            "scores": {
+              "image": [
+                0.6495686173439026,
+                0.350431352853775
+              ],
+              "text": [
+                0.4815838038921356,
+                0.518416166305542
+              ],
+              "fusion": [
+                0.6075724139809608,
+                0.39242755621671677
+              ]
+            },
+            "source_archive_sha256": "2d688f50d716613e36c30ee256847debb488533e89f4d190fb119cd5ad996f21"
+          },
+          {
+            "model": "dfn5b_vith14",
+            "method": "baseline",
+            "run_id": "5cbdd8e2e5cf",
+            "summary_path": "results/baseline/fakeddit/2way/samples_3000/dfn5b_vith14/2way_5cbdd8e2e5cf/summary.tsv",
+            "image_weight": 0.75,
+            "label_order": [
+              "0",
+              "1"
+            ],
+            "y_true": [
+              "1"
+            ],
+            "y_pred": [
+              "1"
+            ],
+            "metrics": {
+              "correct": true,
+              "confidence": 0.525650754570961,
+              "margin": 0.05130153149366379,
+              "normalized_entropy": 0.9981006998206535
+            },
+            "scores": {
+              "image": [
+                0.4704086482524872,
+                0.5295913219451904
+              ],
+              "text": [
+                0.4861709475517273,
+                0.5138290524482727
+              ],
+              "fusion": [
+                0.4743492230772972,
+                0.525650754570961
+              ]
+            },
+            "source_archive_sha256": "c2f600f14285049eb574346576bb3eb107d8acb23d206ca0814ef57b23bc3bbb"
+          },
+          {
+            "model": "siglip2_so400m",
+            "method": "baseline",
+            "run_id": "0e323fb32f4f",
+            "summary_path": "results/baseline/fakeddit/2way/samples_3000/siglip2_so400m/2way_0e323fb32f4f/summary.tsv",
+            "image_weight": 0.75,
+            "label_order": [
+              "0",
+              "1"
+            ],
+            "y_true": [
+              "1"
+            ],
+            "y_pred": [
+              "1"
+            ],
+            "metrics": {
+              "correct": true,
+              "confidence": 0.6259137690067291,
+              "margin": 0.25182754546403885,
+              "normalized_entropy": 0.9537580161088443
+            },
+            "scores": {
+              "image": [
+                0.3437125086784363,
+                0.6562874913215637
+              ],
+              "text": [
+                0.46520736813545227,
+                0.5347926020622253
+              ],
+              "fusion": [
+                0.3740862235426903,
+                0.6259137690067291
+              ]
+            },
+            "source_archive_sha256": "e8c67098cb716be45c2ed70364c475ee971170b2a9beeab42aec4ab6fd295ee2"
+          },
+          {
+            "model": "openai_clip_vit_b_32",
+            "method": "baseline",
+            "run_id": "d3d1f2f79b7c",
+            "summary_path": "results/baseline/fakeddit/2way/samples_3000/openai_clip_vit_b_32/2way_d3d1f2f79b7c/summary.tsv",
+            "image_weight": 0.75,
+            "label_order": [
+              "0",
+              "1"
+            ],
+            "y_true": [
+              "1"
+            ],
+            "y_pred": [
+              "0"
+            ],
+            "metrics": {
+              "correct": false,
+              "confidence": 0.7728652581572533,
+              "margin": 0.5457305535674095,
+              "normalized_entropy": 0.7729829520835324
+            },
+            "scores": {
+              "image": [
+                0.8654547333717346,
+                0.1345452070236206
+              ],
+              "text": [
+                0.4950968325138092,
+                0.5049031972885132
+              ],
+              "fusion": [
+                0.7728652581572533,
+                0.22713470458984375
+              ]
+            },
+            "source_archive_sha256": "4689184457638d3bc4a95ddc9ef6610c806af983a41c0c61454aca62e9429625"
+          }
+        ],
+        "6way": [
+          {
+            "model": "metaclip2_vith14",
+            "method": "baseline",
+            "run_id": "c66fec810255",
+            "summary_path": "results/baseline/fakeddit/6way/samples_3000/metaclip2_vith14/6way_c66fec810255/summary.tsv",
+            "image_weight": 0.75,
+            "label_order": [
+              "0",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5"
+            ],
+            "y_true": [
+              "0"
+            ],
+            "y_pred": [
+              "2"
+            ],
+            "metrics": {
+              "correct": false,
+              "confidence": 0.49703342840075493,
+              "margin": 0.33704906702041626,
+              "normalized_entropy": 0.8109138416977859
+            },
+            "scores": {
+              "image": [
+                0.08943862468004227,
+                0.07505688071250916,
+                0.6078567504882812,
+                0.16337962448596954,
+                0.012785207480192184,
+                0.051482927054166794
+              ],
+              "text": [
+                0.1354922652244568,
+                0.20645172894001007,
+                0.16456346213817596,
+                0.14979857206344604,
+                0.0809960663318634,
+                0.2626979351043701
+              ],
+              "fusion": [
+                0.1009520348161459,
+                0.10790559276938438,
+                0.49703342840075493,
+                0.15998436138033867,
+                0.02983792219310999,
+                0.10428667906671762
+              ]
+            },
+            "source_archive_sha256": "eb2cba3c045adf72074e2b6d1710def0e2663972db7e34c57a08fc1cde06e544"
+          },
+          {
+            "model": "dfn5b_vith14",
+            "method": "baseline",
+            "run_id": "428af87d7a4a",
+            "summary_path": "results/baseline/fakeddit/6way/samples_3000/dfn5b_vith14/6way_428af87d7a4a/summary.tsv",
+            "image_weight": 0.75,
+            "label_order": [
+              "0",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5"
+            ],
+            "y_true": [
+              "0"
+            ],
+            "y_pred": [
+              "3"
+            ],
+            "metrics": {
+              "correct": false,
+              "confidence": 0.22739427164196968,
+              "margin": 0.03377322852611542,
+              "normalized_entropy": 0.9734242416235678
+            },
+            "scores": {
+              "image": [
+                0.15634462237358093,
+                0.19300679862499237,
+                0.153126522898674,
+                0.22274020314216614,
+                0.09233994781970978,
+                0.18244196474552155
+              ],
+              "text": [
+                0.11871900409460068,
+                0.1729758083820343,
+                0.22310376167297363,
+                0.2413564771413803,
+                0.016686616465449333,
+                0.22715827822685242
+              ],
+              "fusion": [
+                0.14693821780383587,
+                0.18799905106425285,
+                0.17062083259224892,
+                0.22739427164196968,
+                0.07342661498114467,
+                0.19362104311585426
+              ]
+            },
+            "source_archive_sha256": "84a3fb752faa20ed63c4ca32bbd012aec4d654d8987a8a2d95ea36321c927fc9"
+          },
+          {
+            "model": "siglip2_so400m",
+            "method": "baseline",
+            "run_id": "d3347aa759bd",
+            "summary_path": "results/baseline/fakeddit/6way/samples_3000/siglip2_so400m/6way_d3347aa759bd/summary.tsv",
+            "image_weight": 0.75,
+            "label_order": [
+              "0",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5"
+            ],
+            "y_true": [
+              "0"
+            ],
+            "y_pred": [
+              "0"
+            ],
+            "metrics": {
+              "correct": true,
+              "confidence": 0.44105084612965584,
+              "margin": 0.256622314453125,
+              "normalized_entropy": 0.8271189482390029
+            },
+            "scores": {
+              "image": [
+                0.5108833312988281,
+                0.019003061577677727,
+                0.1887982189655304,
+                0.19232559204101562,
+                0.013819761574268341,
+                0.07516997307538986
+              ],
+              "text": [
+                0.23155339062213898,
+                0.1839321106672287,
+                0.16373106837272644,
+                0.16073735058307648,
+                0.05431809276342392,
+                0.20572799444198608
+              ],
+              "fusion": [
+                0.44105084612965584,
+                0.06023532385006547,
+                0.1825314313173294,
+                0.18442853167653084,
+                0.023944344371557236,
+                0.10780947841703892
+              ]
+            },
+            "source_archive_sha256": "457633752f7cabf7cb52a6b6d034d52949291b4becf3e182bdb70cf6ca4418aa"
+          },
+          {
+            "model": "openai_clip_vit_b_32",
+            "method": "baseline",
+            "run_id": "93b00ff28e11",
+            "summary_path": "results/baseline/fakeddit/6way/samples_3000/openai_clip_vit_b_32/6way_93b00ff28e11/summary.tsv",
+            "image_weight": 0.75,
+            "label_order": [
+              "0",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5"
+            ],
+            "y_true": [
+              "0"
+            ],
+            "y_pred": [
+              "1"
+            ],
+            "metrics": {
+              "correct": false,
+              "confidence": 0.36981726437807083,
+              "margin": 0.08461985364556313,
+              "normalized_entropy": 0.8364559018121861
+            },
+            "scores": {
+              "image": [
+                0.016595374792814255,
+                0.42617401480674744,
+                0.17912359535694122,
+                0.052355822175741196,
+                0.010773386806249619,
+                0.31497788429260254
+              ],
+              "text": [
+                0.15137580037117004,
+                0.20074701309204102,
+                0.15642963349819183,
+                0.22395844757556915,
+                0.07163318246603012,
+                0.1958559900522232
+              ],
+              "fusion": [
+                0.0502904811874032,
+                0.36981726437807083,
+                0.17345010489225388,
+                0.09525647852569818,
+                0.025988335721194744,
+                0.2851974107325077
+              ]
+            },
+            "source_archive_sha256": "15b02c0617af12dc964c8e48653734b937133c9398d3141bcba95661a7904bd5"
+          }
+        ]
+      }
+    },
+    {
+      "dataset": "crisismmd",
+      "tasks": [
+        "informativeness",
+        "humanitarian"
+      ],
+      "id": "919806240183631872_1",
+      "reference_correct": true,
+      "text": "Scottsdale fire crew helps battle Northern California fires https://t.co/Ufnv07ocNP https://t.co/yR4KY0IlGE",
+      "image_path": "data/processed/pro_crisismmd/images/919806240183631872_1.jpg",
+      "image_sha256": "15ba760fcc24a067f194c02407d088d18e4d10f2ea9cd14ef2f26cc72edda039",
+      "tasks_data": {
+        "informativeness": [
+          {
+            "model": "metaclip2_vith14",
+            "method": "baseline",
+            "run_id": "788bb9578b84",
+            "summary_path": "results/baseline/crisismmd/informativeness/samples_3000/metaclip2_vith14/informativeness_788bb9578b84/summary.tsv",
+            "image_weight": 0.5,
+            "label_order": [
+              "informative",
+              "not_informative"
+            ],
+            "y_true": [
+              "informative"
+            ],
+            "y_pred": [
+              "informative"
+            ],
+            "metrics": {
+              "correct": true,
+              "confidence": 0.6736005395650864,
+              "margin": 0.347201120108366,
+              "normalized_entropy": 0.9112053382978742
+            },
+            "scores": {
+              "image": [
+                0.44992032647132874,
+                0.5500796437263489
+              ],
+              "text": [
+                0.897280752658844,
+                0.10271919518709183
+              ],
+              "fusion": [
+                0.6736005395650864,
+                0.32639941945672035
+              ]
+            },
+            "source_archive_sha256": "4f8270c1e01fc9f2ac9d62c20af37189444c258982e92c1da67f4ab304b5167e"
+          },
+          {
+            "model": "dfn5b_vith14",
+            "method": "baseline",
+            "run_id": "15d72b19b3b7",
+            "summary_path": "results/baseline/crisismmd/informativeness/samples_3000/dfn5b_vith14/informativeness_15d72b19b3b7/summary.tsv",
+            "image_weight": 0.5,
+            "label_order": [
+              "informative",
+              "not_informative"
+            ],
+            "y_true": [
+              "informative"
+            ],
+            "y_pred": [
+              "not_informative"
+            ],
+            "metrics": {
+              "correct": false,
+              "confidence": 0.5189988613128662,
+              "margin": 0.03799775242805481,
+              "normalized_entropy": 0.99895825978626
+            },
+            "scores": {
+              "image": [
+                0.5180022120475769,
+                0.4819977283477783
+              ],
+              "text": [
+                0.4440000057220459,
+                0.5559999942779541
+              ],
+              "fusion": [
+                0.4810011088848114,
+                0.5189988613128662
+              ]
+            },
+            "source_archive_sha256": "566dad6c4be81e355f394e9d0b60f423a986d8b1d84041f2166590161305f301"
+          },
+          {
+            "model": "siglip2_so400m",
+            "method": "baseline",
+            "run_id": "2b51d19b28d3",
+            "summary_path": "results/baseline/crisismmd/informativeness/samples_3000/siglip2_so400m/informativeness_2b51d19b28d3/summary.tsv",
+            "image_weight": 0.5,
+            "label_order": [
+              "informative",
+              "not_informative"
+            ],
+            "y_true": [
+              "informative"
+            ],
+            "y_pred": [
+              "not_informative"
+            ],
+            "metrics": {
+              "correct": false,
+              "confidence": 0.7163245379924774,
+              "margin": 0.43264906853437424,
+              "normalized_entropy": 0.8604106793133293
+            },
+            "scores": {
+              "image": [
+                0.4019443392753601,
+                0.5980557203292847
+              ],
+              "text": [
+                0.16540659964084625,
+                0.8345933556556702
+              ],
+              "fusion": [
+                0.2836754694581032,
+                0.7163245379924774
+              ]
+            },
+            "source_archive_sha256": "d2ae4a52d6c0fec3e3078e31614475176ef0e75ca2a2dd34559c4fbb835636e4"
+          },
+          {
+            "model": "openai_clip_vit_b_32",
+            "method": "baseline",
+            "run_id": "7c507a3ac2e9",
+            "summary_path": "results/baseline/crisismmd/informativeness/samples_3000/openai_clip_vit_b_32/informativeness_7c507a3ac2e9/summary.tsv",
+            "image_weight": 0.5,
+            "label_order": [
+              "informative",
+              "not_informative"
+            ],
+            "y_true": [
+              "informative"
+            ],
+            "y_pred": [
+              "informative"
+            ],
+            "metrics": {
+              "correct": true,
+              "confidence": 0.836433619260788,
+              "margin": 0.6728672571480274,
+              "normalized_entropy": 0.6427735881102167
+            },
+            "scores": {
+              "image": [
+                0.9380350112915039,
+                0.06196495145559311
+              ],
+              "text": [
+                0.734832227230072,
+                0.265167772769928
+              ],
+              "fusion": [
+                0.836433619260788,
+                0.16356636211276054
+              ]
+            },
+            "source_archive_sha256": "79e19264f98a4a7ee328a73b972ecd1e9948e730035b81d6d7198b3ec68abfe1"
+          },
+          {
+            "model": "metaclip2_vith14",
+            "method": "adapted_dclip",
+            "run_id": "44618e680cf2",
+            "summary_path": "results/adapted_dclip/crisismmd/informativeness/samples_3000/metaclip2_vith14/informativeness_44618e680cf2/summary.tsv",
+            "image_weight": 0.5,
+            "label_order": [
+              "informative",
+              "not_informative"
+            ],
+            "y_true": [
+              "informative"
+            ],
+            "y_pred": [
+              "informative"
+            ],
+            "metrics": {
+              "correct": true,
+              "confidence": 0.7923600077629089,
+              "margin": 0.58472004160285,
+              "normalized_entropy": 0.7369473658497391
+            },
+            "scores": {
+              "image": [
+                0.6874392628669739,
+                0.3125607371330261
+              ],
+              "text": [
+                0.897280752658844,
+                0.10271919518709183
+              ],
+              "fusion": [
+                0.7923600077629089,
+                0.20763996616005898
+              ]
+            },
+            "source_archive_sha256": "ec01ee7190f9a10085878e6c7a92fed9167c1e36c055d0dfb0f1ca150f16fb67"
+          },
+          {
+            "model": "dfn5b_vith14",
+            "method": "adapted_dclip",
+            "run_id": "d06d06ceb255",
+            "summary_path": "results/adapted_dclip/crisismmd/informativeness/samples_3000/dfn5b_vith14/informativeness_d06d06ceb255/summary.tsv",
+            "image_weight": 0.5,
+            "label_order": [
+              "informative",
+              "not_informative"
+            ],
+            "y_true": [
+              "informative"
+            ],
+            "y_pred": [
+              "not_informative"
+            ],
+            "metrics": {
+              "correct": false,
+              "confidence": 0.519901379942894,
+              "margin": 0.03980277478694916,
+              "normalized_entropy": 0.9988569019805948
+            },
+            "scores": {
+              "image": [
+                0.5161972045898438,
+                0.48380276560783386
+              ],
+              "text": [
+                0.4440000057220459,
+                0.5559999942779541
+              ],
+              "fusion": [
+                0.4800986051559448,
+                0.519901379942894
+              ]
+            },
+            "source_archive_sha256": "59f049404af4b42d28651ba22cd31f92952517584a98b260a6efc9a0a7182df7"
+          },
+          {
+            "model": "siglip2_so400m",
+            "method": "adapted_dclip",
+            "run_id": "33e59b9ea845",
+            "summary_path": "results/adapted_dclip/crisismmd/informativeness/samples_3000/siglip2_so400m/informativeness_33e59b9ea845/summary.tsv",
+            "image_weight": 0.5,
+            "label_order": [
+              "informative",
+              "not_informative"
+            ],
+            "y_true": [
+              "informative"
+            ],
+            "y_pred": [
+              "not_informative"
+            ],
+            "metrics": {
+              "correct": false,
+              "confidence": 0.7512167990207672,
+              "margin": 0.5024336203932762,
+              "normalized_entropy": 0.8093438287035549
+            },
+            "scores": {
+              "image": [
+                0.33215975761413574,
+                0.6678402423858643
+              ],
+              "text": [
+                0.16540659964084625,
+                0.8345933556556702
+              ],
+              "fusion": [
+                0.248783178627491,
+                0.7512167990207672
+              ]
+            },
+            "source_archive_sha256": "7d4b325c81cabc4acc8b53003d7ee6f2b94bd76139391e54b9dec74ce3e95302"
+          },
+          {
+            "model": "openai_clip_vit_b_32",
+            "method": "adapted_dclip",
+            "run_id": "6f2ffe1d181c",
+            "summary_path": "results/adapted_dclip/crisismmd/informativeness/samples_3000/openai_clip_vit_b_32/informativeness_6f2ffe1d181c/summary.tsv",
+            "image_weight": 0.5,
+            "label_order": [
+              "informative",
+              "not_informative"
+            ],
+            "y_true": [
+              "informative"
+            ],
+            "y_pred": [
+              "informative"
+            ],
+            "metrics": {
+              "correct": true,
+              "confidence": 0.8424411118030548,
+              "margin": 0.684882216155529,
+              "normalized_entropy": 0.6284375336212799
+            },
+            "scores": {
+              "image": [
+                0.9500499963760376,
+                0.049950018525123596
+              ],
+              "text": [
+                0.734832227230072,
+                0.265167772769928
+              ],
+              "fusion": [
+                0.8424411118030548,
+                0.1575588956475258
+              ]
+            },
+            "source_archive_sha256": "e2ce7c1b01f0f3ca99700d84c0baface72d991beff25c55554cce696947decd6"
+          },
+          {
+            "model": "metaclip2_vith14",
+            "method": "adapted_waffle",
+            "run_id": "39f6734476ad",
+            "summary_path": "results/adapted_waffle/crisismmd/informativeness/samples_3000/metaclip2_vith14/informativeness_39f6734476ad/summary.tsv",
+            "image_weight": 0.5,
+            "label_order": [
+              "informative",
+              "not_informative"
+            ],
+            "y_true": [
+              "informative"
+            ],
+            "y_pred": [
+              "informative"
+            ],
+            "metrics": {
+              "correct": true,
+              "confidence": 0.6653261631727219,
+              "margin": 0.3306523375213146,
+              "normalized_entropy": 0.9196305069078222
+            },
+            "scores": {
+              "image": [
+                0.43337157368659973,
+                0.5666284561157227
+              ],
+              "text": [
+                0.897280752658844,
+                0.10271919518709183
+              ],
+              "fusion": [
+                0.6653261631727219,
+                0.33467382565140724
+              ]
+            },
+            "source_archive_sha256": "0281a4a4be03b2cdfd9d0a9a756778239fc7c2830e8a3b7611878c6d49663566"
+          },
+          {
+            "model": "dfn5b_vith14",
+            "method": "adapted_waffle",
+            "run_id": "19f905e6ad58",
+            "summary_path": "results/adapted_waffle/crisismmd/informativeness/samples_3000/dfn5b_vith14/informativeness_19f905e6ad58/summary.tsv",
+            "image_weight": 0.5,
+            "label_order": [
+              "informative",
+              "not_informative"
+            ],
+            "y_true": [
+              "informative"
+            ],
+            "y_pred": [
+              "not_informative"
+            ],
+            "metrics": {
+              "correct": false,
+              "confidence": 0.5895692408084869,
+              "margin": 0.17913849651813507,
+              "normalized_entropy": 0.9767261056419466
+            },
+            "scores": {
+              "image": [
+                0.37686148285865784,
+                0.6231384873390198
+              ],
+              "text": [
+                0.4440000057220459,
+                0.5559999942779541
+              ],
+              "fusion": [
+                0.41043074429035187,
+                0.5895692408084869
+              ]
+            },
+            "source_archive_sha256": "cf5a93ad50f28fa3b6d4c81510ee2d117941b8269ce6ecdb21dd6cd827471bfd"
+          },
+          {
+            "model": "siglip2_so400m",
+            "method": "adapted_waffle",
+            "run_id": "c874a93229ad",
+            "summary_path": "results/adapted_waffle/crisismmd/informativeness/samples_3000/siglip2_so400m/informativeness_c874a93229ad/summary.tsv",
+            "image_weight": 0.5,
+            "label_order": [
+              "informative",
+              "not_informative"
+            ],
+            "y_true": [
+              "informative"
+            ],
+            "y_pred": [
+              "not_informative"
+            ],
+            "metrics": {
+              "correct": false,
+              "confidence": 0.8310502469539642,
+              "margin": 0.6621005088090897,
+              "normalized_entropy": 0.6552965934279222
+            },
+            "scores": {
+              "image": [
+                0.1724928766489029,
+                0.8275071382522583
+              ],
+              "text": [
+                0.16540659964084625,
+                0.8345933556556702
+              ],
+              "fusion": [
+                0.16894973814487457,
+                0.8310502469539642
+              ]
+            },
+            "source_archive_sha256": "cbba5295ccdf141cc990312719c8a0b8253c3630935f7815aaba3a12200a3a04"
+          },
+          {
+            "model": "openai_clip_vit_b_32",
+            "method": "adapted_waffle",
+            "run_id": "273c7b6138cf",
+            "summary_path": "results/adapted_waffle/crisismmd/informativeness/samples_3000/openai_clip_vit_b_32/informativeness_273c7b6138cf/summary.tsv",
+            "image_weight": 0.5,
+            "label_order": [
+              "informative",
+              "not_informative"
+            ],
+            "y_true": [
+              "informative"
+            ],
+            "y_pred": [
+              "informative"
+            ],
+            "metrics": {
+              "correct": true,
+              "confidence": 0.6572515666484833,
+              "margin": 0.31450313329696655,
+              "normalized_entropy": 0.9274245159108726
+            },
+            "scores": {
+              "image": [
+                0.5796709060668945,
+                0.42032909393310547
+              ],
+              "text": [
+                0.734832227230072,
+                0.265167772769928
+              ],
+              "fusion": [
+                0.6572515666484833,
+                0.3427484333515167
+              ]
+            },
+            "source_archive_sha256": "0d49caf61e198f1ce6bb307cbe73c80fa4f08d4c4a8bf19bb3ef39db0842c3fc"
+          }
+        ],
+        "humanitarian": [
+          {
+            "model": "metaclip2_vith14",
+            "method": "baseline",
+            "run_id": "520ebf75825a",
+            "summary_path": "results/baseline/crisismmd/humanitarian/samples_3000/metaclip2_vith14/humanitarian_520ebf75825a/summary.tsv",
+            "image_weight": 0.5,
+            "label_order": [
+              "not_humanitarian",
+              "other_relevant_information",
+              "rescue_volunteering_or_donation_effort",
+              "infrastructure_and_utility_damage",
+              "affected_individuals",
+              "vehicle_damage",
+              "injured_or_dead_people",
+              "missing_or_found_people"
+            ],
+            "y_true": [
+              "rescue_volunteering_or_donation_effort"
+            ],
+            "y_pred": [
+              "rescue_volunteering_or_donation_effort"
+            ],
+            "metrics": {
+              "correct": true,
+              "confidence": 0.5080220028758049,
+              "margin": 0.16185373370535672,
+              "normalized_entropy": 0.5595258596241812
+            },
+            "scores": {
+              "image": [
+                0.6867038607597351,
+                0.16082003712654114,
+                0.062446579337120056,
+                0.024321559816598892,
+                0.013115443289279938,
+                0.02816659025847912,
+                0.023078106343746185,
+                0.001347798272036016
+              ],
+              "text": [
+                0.005632677581161261,
+                0.025361472740769386,
+                0.9535974264144897,
+                0.001284638768993318,
+                0.0007038272451609373,
+                0.0003292988403700292,
+                0.010876297019422054,
+                0.0022143032401800156
+              ],
+              "fusion": [
+                0.3461682691704482,
+                0.09309075493365526,
+                0.5080220028758049,
+                0.012803099292796105,
+                0.0069096352672204375,
+                0.014247944549424574,
+                0.01697720168158412,
+                0.0017810507561080158
+              ]
+            },
+            "source_archive_sha256": "9f245a14a11e30c36bb620fbc7479b51ea7a7f055f039b34ff4d686b5d0f7298"
+          },
+          {
+            "model": "dfn5b_vith14",
+            "method": "baseline",
+            "run_id": "ab76540ca808",
+            "summary_path": "results/baseline/crisismmd/humanitarian/samples_3000/dfn5b_vith14/humanitarian_ab76540ca808/summary.tsv",
+            "image_weight": 0.5,
+            "label_order": [
+              "not_humanitarian",
+              "other_relevant_information",
+              "rescue_volunteering_or_donation_effort",
+              "infrastructure_and_utility_damage",
+              "affected_individuals",
+              "vehicle_damage",
+              "injured_or_dead_people",
+              "missing_or_found_people"
+            ],
+            "y_true": [
+              "rescue_volunteering_or_donation_effort"
+            ],
+            "y_pred": [
+              "rescue_volunteering_or_donation_effort"
+            ],
+            "metrics": {
+              "correct": true,
+              "confidence": 0.20418308302760124,
+              "margin": 0.04533911868929863,
+              "normalized_entropy": 0.9780553215794623
+            },
+            "scores": {
+              "image": [
+                0.11140407621860504,
+                0.12386202812194824,
+                0.11546888202428818,
+                0.11773017048835754,
+                0.10749297589063644,
+                0.21899296343326569,
+                0.13499048352241516,
+                0.07005833089351654
+              ],
+              "text": [
+                0.20628385245800018,
+                0.10358808189630508,
+                0.2928972840309143,
+                0.05042114481329918,
+                0.07058177888393402,
+                0.04793047159910202,
+                0.12286598980426788,
+                0.10543135553598404
+              ],
+              "fusion": [
+                0.1588439643383026,
+                0.11372505500912666,
+                0.20418308302760124,
+                0.08407565765082836,
+                0.08903737738728523,
+                0.13346171751618385,
+                0.12892823666334152,
+                0.08774484321475029
+              ]
+            },
+            "source_archive_sha256": "3b56330f3befab195a41568ed4ce15159a853b67038607e153148e1323f91b90"
+          },
+          {
+            "model": "siglip2_so400m",
+            "method": "baseline",
+            "run_id": "908c56201581",
+            "summary_path": "results/baseline/crisismmd/humanitarian/samples_3000/siglip2_so400m/humanitarian_908c56201581/summary.tsv",
+            "image_weight": 0.5,
+            "label_order": [
+              "not_humanitarian",
+              "other_relevant_information",
+              "rescue_volunteering_or_donation_effort",
+              "infrastructure_and_utility_damage",
+              "affected_individuals",
+              "vehicle_damage",
+              "injured_or_dead_people",
+              "missing_or_found_people"
+            ],
+            "y_true": [
+              "rescue_volunteering_or_donation_effort"
+            ],
+            "y_pred": [
+              "not_humanitarian"
+            ],
+            "metrics": {
+              "correct": false,
+              "confidence": 0.7802270650863647,
+              "margin": 0.6962204165756702,
+              "normalized_entropy": 0.4146644452066664
+            },
+            "scores": {
+              "image": [
+                0.7791215777397156,
+                0.03852977603673935,
+                0.04003044590353966,
+                0.006101879291236401,
+                0.008380847983062267,
+                0.05055966228246689,
+                0.055609267204999924,
+                0.02166661247611046
+              ],
+              "text": [
+                0.7813325524330139,
+                0.12948352098464966,
+                0.08723275363445282,
+                0.0004324297478888184,
+                1.182390496978769e-05,
+                6.581094567081891e-06,
+                0.0013467841781675816,
+                0.0001535407645860687
+              ],
+              "fusion": [
+                0.7802270650863647,
+                0.0840066485106945,
+                0.06363159976899624,
+                0.0032671545195626095,
+                0.0041963359440160275,
+                0.025283121688516985,
+                0.028478025691583753,
+                0.010910076620348264
+              ]
+            },
+            "source_archive_sha256": "868cdae04e83a0f83ae0b9d703013369da496e10fd81aa12055ad995d40371e8"
+          },
+          {
+            "model": "openai_clip_vit_b_32",
+            "method": "baseline",
+            "run_id": "3388e0f5d4ff",
+            "summary_path": "results/baseline/crisismmd/humanitarian/samples_3000/openai_clip_vit_b_32/humanitarian_3388e0f5d4ff/summary.tsv",
+            "image_weight": 0.5,
+            "label_order": [
+              "not_humanitarian",
+              "other_relevant_information",
+              "rescue_volunteering_or_donation_effort",
+              "infrastructure_and_utility_damage",
+              "affected_individuals",
+              "vehicle_damage",
+              "injured_or_dead_people",
+              "missing_or_found_people"
+            ],
+            "y_true": [
+              "rescue_volunteering_or_donation_effort"
+            ],
+            "y_pred": [
+              "rescue_volunteering_or_donation_effort"
+            ],
+            "metrics": {
+              "correct": true,
+              "confidence": 0.5409611612558365,
+              "margin": 0.4137879400514066,
+              "normalized_entropy": 0.7371670457832289
+            },
+            "scores": {
+              "image": [
+                0.0696989968419075,
+                0.06545580178499222,
+                0.26507148146629333,
+                0.06030427664518356,
+                0.12604910135269165,
+                0.1402415931224823,
+                0.24182216823101044,
+                0.031356535851955414
+              ],
+              "text": [
+                0.06272788345813751,
+                0.05729464069008827,
+                0.8168508410453796,
+                0.02101089060306549,
+                0.015793200582265854,
+                0.004324675537645817,
+                0.012524274177849293,
+                0.009473602287471294
+              ],
+              "fusion": [
+                0.0662134401500225,
+                0.061375221237540245,
+                0.5409611612558365,
+                0.04065758362412453,
+                0.07092115096747875,
+                0.07228313433006406,
+                0.12717322120442986,
+                0.020415069069713354
+              ]
+            },
+            "source_archive_sha256": "bc9bf22e8975f809ce7aa9b981be132473833fb8e980f093c2c974474b8a5d20"
+          },
+          {
+            "model": "metaclip2_vith14",
+            "method": "adapted_dclip",
+            "run_id": "360029407f84",
+            "summary_path": "results/adapted_dclip/crisismmd/humanitarian/samples_3000/metaclip2_vith14/humanitarian_360029407f84/summary.tsv",
+            "image_weight": 0.5,
+            "label_order": [
+              "not_humanitarian",
+              "other_relevant_information",
+              "rescue_volunteering_or_donation_effort",
+              "infrastructure_and_utility_damage",
+              "affected_individuals",
+              "vehicle_damage",
+              "injured_or_dead_people",
+              "missing_or_found_people"
+            ],
+            "y_true": [
+              "rescue_volunteering_or_donation_effort"
+            ],
+            "y_pred": [
+              "rescue_volunteering_or_donation_effort"
+            ],
+            "metrics": {
+              "correct": true,
+              "confidence": 0.6858925223350525,
+              "margin": 0.5863747457333375,
+              "normalized_entropy": 0.5577732414937597
+            },
+            "scores": {
+              "image": [
+                0.10175691545009613,
+                0.09842387586832047,
+                0.41818761825561523,
+                0.06934039294719696,
+                0.04811618849635124,
+                0.19870625436306,
+                0.06457553803920746,
+                0.0008932389318943024
+              ],
+              "text": [
+                0.005632677581161261,
+                0.025361472740769386,
+                0.9535974264144897,
+                0.001284638768993318,
+                0.0007038272451609373,
+                0.0003292988403700292,
+                0.010876297019422054,
+                0.0022143032401800156
+              ],
+              "fusion": [
+                0.053694796515628695,
+                0.061892674304544926,
+                0.6858925223350525,
+                0.03531251585809514,
+                0.02441000787075609,
+                0.09951777660171501,
+                0.037725917529314756,
+                0.001553771086037159
+              ]
+            },
+            "source_archive_sha256": "fe5d41710a5c24ea0c8ba8cfcfa10e4fbb48ef656381fa7ce661f44f06bb2ea4"
+          },
+          {
+            "model": "dfn5b_vith14",
+            "method": "adapted_dclip",
+            "run_id": "cdfb0ec9fbed",
+            "summary_path": "results/adapted_dclip/crisismmd/humanitarian/samples_3000/dfn5b_vith14/humanitarian_cdfb0ec9fbed/summary.tsv",
+            "image_weight": 0.5,
+            "label_order": [
+              "not_humanitarian",
+              "other_relevant_information",
+              "rescue_volunteering_or_donation_effort",
+              "infrastructure_and_utility_damage",
+              "affected_individuals",
+              "vehicle_damage",
+              "injured_or_dead_people",
+              "missing_or_found_people"
+            ],
+            "y_true": [
+              "rescue_volunteering_or_donation_effort"
+            ],
+            "y_pred": [
+              "rescue_volunteering_or_donation_effort"
+            ],
+            "metrics": {
+              "correct": true,
+              "confidence": 0.19453353062272072,
+              "margin": 0.029174350202083588,
+              "normalized_entropy": 0.9821170384514007
+            },
+            "scores": {
+              "image": [
+                0.12443450838327408,
+                0.12381575256586075,
+                0.09616977721452713,
+                0.1389806568622589,
+                0.13142266869544983,
+                0.18111279606819153,
+                0.13923890888690948,
+                0.06482494622468948
+              ],
+              "text": [
+                0.20628385245800018,
+                0.10358808189630508,
+                0.2928972840309143,
+                0.05042114481329918,
+                0.07058177888393402,
+                0.04793047159910202,
+                0.12286598980426788,
+                0.10543135553598404
+              ],
+              "fusion": [
+                0.16535918042063713,
+                0.11370191723108292,
+                0.19453353062272072,
+                0.09470090083777905,
+                0.10100222378969193,
+                0.11452163383364677,
+                0.13105244934558868,
+                0.08512815088033676
+              ]
+            },
+            "source_archive_sha256": "a7635a7e1c37212764010e96bb95f3fe9b152bf26fb0bb8d586cc6d18212f2f1"
+          },
+          {
+            "model": "siglip2_so400m",
+            "method": "adapted_dclip",
+            "run_id": "192b5b63ad16",
+            "summary_path": "results/adapted_dclip/crisismmd/humanitarian/samples_3000/siglip2_so400m/humanitarian_192b5b63ad16/summary.tsv",
+            "image_weight": 0.5,
+            "label_order": [
+              "not_humanitarian",
+              "other_relevant_information",
+              "rescue_volunteering_or_donation_effort",
+              "infrastructure_and_utility_damage",
+              "affected_individuals",
+              "vehicle_damage",
+              "injured_or_dead_people",
+              "missing_or_found_people"
+            ],
+            "y_true": [
+              "rescue_volunteering_or_donation_effort"
+            ],
+            "y_pred": [
+              "not_humanitarian"
+            ],
+            "metrics": {
+              "correct": false,
+              "confidence": 0.6014636904001236,
+              "margin": 0.4239792674779892,
+              "normalized_entropy": 0.6214802653219507
+            },
+            "scores": {
+              "image": [
+                0.4215948283672333,
+                0.22548532485961914,
+                0.07219628244638443,
+                0.053127191960811615,
+                0.0659518614411354,
+                0.03156760707497597,
+                0.1144946813583374,
+                0.01558221597224474
+              ],
+              "text": [
+                0.7813325524330139,
+                0.12948352098464966,
+                0.08723275363445282,
+                0.0004324297478888184,
+                1.182390496978769e-05,
+                6.581094567081891e-06,
+                0.0013467841781675816,
+                0.0001535407645860687
+              ],
+              "fusion": [
+                0.6014636904001236,
+                0.1774844229221344,
+                0.07971451804041862,
+                0.026779810854350217,
+                0.0329818426730526,
+                0.015787094084771525,
+                0.05792073276825249,
+                0.007867878368415404
+              ]
+            },
+            "source_archive_sha256": "ec69914d0efcce69f27927d0440635390b6f443fa876bfab132bfd73bfe2d5ef"
+          },
+          {
+            "model": "openai_clip_vit_b_32",
+            "method": "adapted_dclip",
+            "run_id": "bf574f3316ba",
+            "summary_path": "results/adapted_dclip/crisismmd/humanitarian/samples_3000/openai_clip_vit_b_32/humanitarian_bf574f3316ba/summary.tsv",
+            "image_weight": 0.5,
+            "label_order": [
+              "not_humanitarian",
+              "other_relevant_information",
+              "rescue_volunteering_or_donation_effort",
+              "infrastructure_and_utility_damage",
+              "affected_individuals",
+              "vehicle_damage",
+              "injured_or_dead_people",
+              "missing_or_found_people"
+            ],
+            "y_true": [
+              "rescue_volunteering_or_donation_effort"
+            ],
+            "y_pred": [
+              "rescue_volunteering_or_donation_effort"
+            ],
+            "metrics": {
+              "correct": true,
+              "confidence": 0.5481144338846207,
+              "margin": 0.41691868752241135,
+              "normalized_entropy": 0.7113263240283908
+            },
+            "scores": {
+              "image": [
+                0.19966360926628113,
+                0.03522021323442459,
+                0.2793780267238617,
+                0.11360032111406326,
+                0.177902489900589,
+                0.050124697387218475,
+                0.13561706244945526,
+                0.0084935761988163
+              ],
+              "text": [
+                0.06272788345813751,
+                0.05729464069008827,
+                0.8168508410453796,
+                0.02101089060306549,
+                0.015793200582265854,
+                0.004324675537645817,
+                0.012524274177849293,
+                0.009473602287471294
+              ],
+              "fusion": [
+                0.13119574636220932,
+                0.04625742696225643,
+                0.5481144338846207,
+                0.06730560585856438,
+                0.09684784524142742,
+                0.027224686462432146,
+                0.07407066831365228,
+                0.008983589243143797
+              ]
+            },
+            "source_archive_sha256": "ade521a629b862156cf8425c670214b9c39cfefd7a3b4cbd95052f8d44cdafe1"
+          },
+          {
+            "model": "metaclip2_vith14",
+            "method": "adapted_waffle",
+            "run_id": "a9722c05f361",
+            "summary_path": "results/adapted_waffle/crisismmd/humanitarian/samples_3000/metaclip2_vith14/humanitarian_a9722c05f361/summary.tsv",
+            "image_weight": 0.5,
+            "label_order": [
+              "not_humanitarian",
+              "other_relevant_information",
+              "rescue_volunteering_or_donation_effort",
+              "infrastructure_and_utility_damage",
+              "affected_individuals",
+              "vehicle_damage",
+              "injured_or_dead_people",
+              "missing_or_found_people"
+            ],
+            "y_true": [
+              "rescue_volunteering_or_donation_effort"
+            ],
+            "y_pred": [
+              "rescue_volunteering_or_donation_effort"
+            ],
+            "metrics": {
+              "correct": true,
+              "confidence": 0.6310451030731201,
+              "margin": 0.4426681619370356,
+              "normalized_entropy": 0.5593221170715327
+            },
+            "scores": {
+              "image": [
+                0.027223052456974983,
+                0.014078903943300247,
+                0.3084927797317505,
+                0.1936531811952591,
+                0.37605005502700806,
+                0.044714003801345825,
+                0.030923698097467422,
+                0.00486433319747448
+              ],
+              "text": [
+                0.005632677581161261,
+                0.025361472740769386,
+                0.9535974264144897,
+                0.001284638768993318,
+                0.0007038272451609373,
+                0.0003292988403700292,
+                0.010876297019422054,
+                0.0022143032401800156
+              ],
+              "fusion": [
+                0.016427865019068122,
+                0.019720188342034817,
+                0.6310451030731201,
+                0.0974689099821262,
+                0.1883769411360845,
+                0.022521651320857927,
+                0.02089999755844474,
+                0.0035393182188272476
+              ]
+            },
+            "source_archive_sha256": "5a2147f6a541e5b6c04dc1c3ce4ec252e0c166175f3b8bd7d10ee92ad4ca5628"
+          },
+          {
+            "model": "dfn5b_vith14",
+            "method": "adapted_waffle",
+            "run_id": "c3053205ec6a",
+            "summary_path": "results/adapted_waffle/crisismmd/humanitarian/samples_3000/dfn5b_vith14/humanitarian_c3053205ec6a/summary.tsv",
+            "image_weight": 0.5,
+            "label_order": [
+              "not_humanitarian",
+              "other_relevant_information",
+              "rescue_volunteering_or_donation_effort",
+              "infrastructure_and_utility_damage",
+              "affected_individuals",
+              "vehicle_damage",
+              "injured_or_dead_people",
+              "missing_or_found_people"
+            ],
+            "y_true": [
+              "rescue_volunteering_or_donation_effort"
+            ],
+            "y_pred": [
+              "rescue_volunteering_or_donation_effort"
+            ],
+            "metrics": {
+              "correct": true,
+              "confidence": 0.20498667284846306,
+              "margin": 0.04319490119814873,
+              "normalized_entropy": 0.9819012940988336
+            },
+            "scores": {
+              "image": [
+                0.11729969084262848,
+                0.07711457461118698,
+                0.11707606166601181,
+                0.16420690715312958,
+                0.14403720200061798,
+                0.16456393897533417,
+                0.10892721265554428,
+                0.10677443444728851
+              ],
+              "text": [
+                0.20628385245800018,
+                0.10358808189630508,
+                0.2928972840309143,
+                0.05042114481329918,
+                0.07058177888393402,
+                0.04793047159910202,
+                0.12286598980426788,
+                0.10543135553598404
+              ],
+              "fusion": [
+                0.16179177165031433,
+                0.09035132825374603,
+                0.20498667284846306,
+                0.10731402598321438,
+                0.107309490442276,
+                0.1062472052872181,
+                0.11589660122990608,
+                0.10610289499163628
+              ]
+            },
+            "source_archive_sha256": "a1d6e23ac1c0baabfb138698a68bac15c3ed94b3ebb311deb0a1ad867bfaafa1"
+          },
+          {
+            "model": "siglip2_so400m",
+            "method": "adapted_waffle",
+            "run_id": "36e2ce0dfbee",
+            "summary_path": "results/adapted_waffle/crisismmd/humanitarian/samples_3000/siglip2_so400m/humanitarian_36e2ce0dfbee/summary.tsv",
+            "image_weight": 0.5,
+            "label_order": [
+              "not_humanitarian",
+              "other_relevant_information",
+              "rescue_volunteering_or_donation_effort",
+              "infrastructure_and_utility_damage",
+              "affected_individuals",
+              "vehicle_damage",
+              "injured_or_dead_people",
+              "missing_or_found_people"
+            ],
+            "y_true": [
+              "rescue_volunteering_or_donation_effort"
+            ],
+            "y_pred": [
+              "not_humanitarian"
+            ],
+            "metrics": {
+              "correct": false,
+              "confidence": 0.5016880482435226,
+              "margin": 0.3847634419798851,
+              "normalized_entropy": 0.7857913843268806
+            },
+            "scores": {
+              "image": [
+                0.22204354405403137,
+                0.10436569154262543,
+                0.07951347529888153,
+                0.13804520666599274,
+                0.15135933458805084,
+                0.10401792079210281,
+                0.1337713599205017,
+                0.06688354164361954
+              ],
+              "text": [
+                0.7813325524330139,
+                0.12948352098464966,
+                0.08723275363445282,
+                0.0004324297478888184,
+                1.182390496978769e-05,
+                6.581094567081891e-06,
+                0.0013467841781675816,
+                0.0001535407645860687
+              ],
+              "fusion": [
+                0.5016880482435226,
+                0.11692460626363754,
+                0.08337311446666718,
+                0.06923881820694078,
+                0.07568557924651031,
+                0.05201225094333495,
+                0.06755907204933465,
+                0.0335185412041028
+              ]
+            },
+            "source_archive_sha256": "17489d74e0dfd50d3b40cc2a2ab5991168ca87a09c211b35051649006ea88967"
+          },
+          {
+            "model": "openai_clip_vit_b_32",
+            "method": "adapted_waffle",
+            "run_id": "1b1480e95e3d",
+            "summary_path": "results/adapted_waffle/crisismmd/humanitarian/samples_3000/openai_clip_vit_b_32/humanitarian_1b1480e95e3d/summary.tsv",
+            "image_weight": 0.5,
+            "label_order": [
+              "not_humanitarian",
+              "other_relevant_information",
+              "rescue_volunteering_or_donation_effort",
+              "infrastructure_and_utility_damage",
+              "affected_individuals",
+              "vehicle_damage",
+              "injured_or_dead_people",
+              "missing_or_found_people"
+            ],
+            "y_true": [
+              "rescue_volunteering_or_donation_effort"
+            ],
+            "y_pred": [
+              "rescue_volunteering_or_donation_effort"
+            ],
+            "metrics": {
+              "correct": true,
+              "confidence": 0.5442887842655182,
+              "margin": 0.4001063331961632,
+              "normalized_entropy": 0.7205288408475232
+            },
+            "scores": {
+              "image": [
+                0.2256370186805725,
+                0.02916201762855053,
+                0.27172672748565674,
+                0.1507430523633957,
+                0.052997905761003494,
+                0.08918564766645432,
+                0.1499653160572052,
+                0.030582290142774582
+              ],
+              "text": [
+                0.06272788345813751,
+                0.05729464069008827,
+                0.8168508410453796,
+                0.02101089060306549,
+                0.015793200582265854,
+                0.004324675537645817,
+                0.012524274177849293,
+                0.009473602287471294
+              ],
+              "fusion": [
+                0.144182451069355,
+                0.0432283291593194,
+                0.5442887842655182,
+                0.08587697148323059,
+                0.034395553171634674,
+                0.046755161602050066,
+                0.08124479511752725,
+                0.020027946215122938
+              ]
+            },
+            "source_archive_sha256": "9ca6206db8f2f05d35379f72e6fc5e8e3ff055761e178eedf6b89e8dd2b4b5f0"
+          }
+        ]
+      }
+    },
+    {
+      "dataset": "crisismmd",
+      "tasks": [
+        "informativeness",
+        "humanitarian"
+      ],
+      "id": "910691545577345026_0",
+      "reference_correct": false,
+      "text": "Maria destroys homes, knocks out power in PR: The strongest hurricane to hi.. #usa #news https://t.co/Fz5mm7aKTM https://t.co/138OeLH9ey",
+      "image_path": "data/processed/pro_crisismmd/images/910691545577345026_0.jpg",
+      "image_sha256": "90ceeb2da925effe45e11230c85da26d0ec97b5347b2c546df7ed3331eb83106",
+      "tasks_data": {
+        "informativeness": [
+          {
+            "model": "metaclip2_vith14",
+            "method": "baseline",
+            "run_id": "788bb9578b84",
+            "summary_path": "results/baseline/crisismmd/informativeness/samples_3000/metaclip2_vith14/informativeness_788bb9578b84/summary.tsv",
+            "image_weight": 0.5,
+            "label_order": [
+              "informative",
+              "not_informative"
+            ],
+            "y_true": [
+              "not_informative"
+            ],
+            "y_pred": [
+              "informative"
+            ],
+            "metrics": {
+              "correct": false,
+              "confidence": 0.8523172438144684,
+              "margin": 0.704634502530098,
+              "normalized_entropy": 0.6040108724845591
+            },
+            "scores": {
+              "image": [
+                0.7237257361412048,
+                0.27627426385879517
+              ],
+              "text": [
+                0.9809087514877319,
+                0.01909121870994568
+              ],
+              "fusion": [
+                0.8523172438144684,
+                0.14768274128437042
+              ]
+            },
+            "source_archive_sha256": "4f8270c1e01fc9f2ac9d62c20af37189444c258982e92c1da67f4ab304b5167e"
+          },
+          {
+            "model": "dfn5b_vith14",
+            "method": "baseline",
+            "run_id": "15d72b19b3b7",
+            "summary_path": "results/baseline/crisismmd/informativeness/samples_3000/dfn5b_vith14/informativeness_15d72b19b3b7/summary.tsv",
+            "image_weight": 0.5,
+            "label_order": [
+              "informative",
+              "not_informative"
+            ],
+            "y_true": [
+              "not_informative"
+            ],
+            "y_pred": [
+              "informative"
+            ],
+            "metrics": {
+              "correct": false,
+              "confidence": 0.5933279693126678,
+              "margin": 0.18665596842765808,
+              "normalized_entropy": 0.9747199317749238
+            },
+            "scores": {
+              "image": [
+                0.5071862936019897,
+                0.4928136467933655
+              ],
+              "text": [
+                0.679469645023346,
+                0.32053035497665405
+              ],
+              "fusion": [
+                0.5933279693126678,
+                0.40667200088500977
+              ]
+            },
+            "source_archive_sha256": "566dad6c4be81e355f394e9d0b60f423a986d8b1d84041f2166590161305f301"
+          },
+          {
+            "model": "siglip2_so400m",
+            "method": "baseline",
+            "run_id": "2b51d19b28d3",
+            "summary_path": "results/baseline/crisismmd/informativeness/samples_3000/siglip2_so400m/informativeness_2b51d19b28d3/summary.tsv",
+            "image_weight": 0.5,
+            "label_order": [
+              "informative",
+              "not_informative"
+            ],
+            "y_true": [
+              "not_informative"
+            ],
+            "y_pred": [
+              "informative"
+            ],
+            "metrics": {
+              "correct": false,
+              "confidence": 0.7755351364612579,
+              "margin": 0.5510703101754189,
+              "normalized_entropy": 0.7682367885114267
+            },
+            "scores": {
+              "image": [
+                0.7047315835952759,
+                0.2952684164047241
+              ],
+              "text": [
+                0.84633868932724,
+                0.15366123616695404
+              ],
+              "fusion": [
+                0.7755351364612579,
+                0.22446482628583908
+              ]
+            },
+            "source_archive_sha256": "d2ae4a52d6c0fec3e3078e31614475176ef0e75ca2a2dd34559c4fbb835636e4"
+          },
+          {
+            "model": "openai_clip_vit_b_32",
+            "method": "baseline",
+            "run_id": "7c507a3ac2e9",
+            "summary_path": "results/baseline/crisismmd/informativeness/samples_3000/openai_clip_vit_b_32/informativeness_7c507a3ac2e9/summary.tsv",
+            "image_weight": 0.5,
+            "label_order": [
+              "informative",
+              "not_informative"
+            ],
+            "y_true": [
+              "not_informative"
+            ],
+            "y_pred": [
+              "informative"
+            ],
+            "metrics": {
+              "correct": false,
+              "confidence": 0.8358748555183411,
+              "margin": 0.6717497408390045,
+              "normalized_entropy": 0.6440874697957655
+            },
+            "scores": {
+              "image": [
+                0.7930673956871033,
+                0.20693255960941315
+              ],
+              "text": [
+                0.8786823153495789,
+                0.12131766974925995
+              ],
+              "fusion": [
+                0.8358748555183411,
+                0.16412511467933655
+              ]
+            },
+            "source_archive_sha256": "79e19264f98a4a7ee328a73b972ecd1e9948e730035b81d6d7198b3ec68abfe1"
+          },
+          {
+            "model": "metaclip2_vith14",
+            "method": "adapted_dclip",
+            "run_id": "44618e680cf2",
+            "summary_path": "results/adapted_dclip/crisismmd/informativeness/samples_3000/metaclip2_vith14/informativeness_44618e680cf2/summary.tsv",
+            "image_weight": 0.5,
+            "label_order": [
+              "informative",
+              "not_informative"
+            ],
+            "y_true": [
+              "not_informative"
+            ],
+            "y_pred": [
+              "informative"
+            ],
+            "metrics": {
+              "correct": false,
+              "confidence": 0.8799116015434265,
+              "margin": 0.759823240339756,
+              "normalized_entropy": 0.5296148503847032
+            },
+            "scores": {
+              "image": [
+                0.7789144515991211,
+                0.22108550369739532
+              ],
+              "text": [
+                0.9809087514877319,
+                0.01909121870994568
+              ],
+              "fusion": [
+                0.8799116015434265,
+                0.1200883612036705
+              ]
+            },
+            "source_archive_sha256": "ec01ee7190f9a10085878e6c7a92fed9167c1e36c055d0dfb0f1ca150f16fb67"
+          },
+          {
+            "model": "dfn5b_vith14",
+            "method": "adapted_dclip",
+            "run_id": "d06d06ceb255",
+            "summary_path": "results/adapted_dclip/crisismmd/informativeness/samples_3000/dfn5b_vith14/informativeness_d06d06ceb255/summary.tsv",
+            "image_weight": 0.5,
+            "label_order": [
+              "informative",
+              "not_informative"
+            ],
+            "y_true": [
+              "not_informative"
+            ],
+            "y_pred": [
+              "informative"
+            ],
+            "metrics": {
+              "correct": false,
+              "confidence": 0.6378075480461121,
+              "margin": 0.2756150811910629,
+              "normalized_entropy": 0.9444880529333115
+            },
+            "scores": {
+              "image": [
+                0.5961454510688782,
+                0.4038545787334442
+              ],
+              "text": [
+                0.679469645023346,
+                0.32053035497665405
+              ],
+              "fusion": [
+                0.6378075480461121,
+                0.36219246685504913
+              ]
+            },
+            "source_archive_sha256": "59f049404af4b42d28651ba22cd31f92952517584a98b260a6efc9a0a7182df7"
+          },
+          {
+            "model": "siglip2_so400m",
+            "method": "adapted_dclip",
+            "run_id": "33e59b9ea845",
+            "summary_path": "results/adapted_dclip/crisismmd/informativeness/samples_3000/siglip2_so400m/informativeness_33e59b9ea845/summary.tsv",
+            "image_weight": 0.5,
+            "label_order": [
+              "informative",
+              "not_informative"
+            ],
+            "y_true": [
+              "not_informative"
+            ],
+            "y_pred": [
+              "informative"
+            ],
+            "metrics": {
+              "correct": false,
+              "confidence": 0.7606709003448486,
+              "margin": 0.5213418379426003,
+              "normalized_entropy": 0.7939227912771691
+            },
+            "scores": {
+              "image": [
+                0.6750031113624573,
+                0.3249968886375427
+              ],
+              "text": [
+                0.84633868932724,
+                0.15366123616695404
+              ],
+              "fusion": [
+                0.7606709003448486,
+                0.23932906240224838
+              ]
+            },
+            "source_archive_sha256": "7d4b325c81cabc4acc8b53003d7ee6f2b94bd76139391e54b9dec74ce3e95302"
+          },
+          {
+            "model": "openai_clip_vit_b_32",
+            "method": "adapted_dclip",
+            "run_id": "6f2ffe1d181c",
+            "summary_path": "results/adapted_dclip/crisismmd/informativeness/samples_3000/openai_clip_vit_b_32/informativeness_6f2ffe1d181c/summary.tsv",
+            "image_weight": 0.5,
+            "label_order": [
+              "informative",
+              "not_informative"
+            ],
+            "y_true": [
+              "not_informative"
+            ],
+            "y_pred": [
+              "informative"
+            ],
+            "metrics": {
+              "correct": false,
+              "confidence": 0.7093938291072845,
+              "margin": 0.4187876507639885,
+              "normalized_entropy": 0.8695029931327036
+            },
+            "scores": {
+              "image": [
+                0.5401053428649902,
+                0.45989468693733215
+              ],
+              "text": [
+                0.8786823153495789,
+                0.12131766974925995
+              ],
+              "fusion": [
+                0.7093938291072845,
+                0.29060617834329605
+              ]
+            },
+            "source_archive_sha256": "e2ce7c1b01f0f3ca99700d84c0baface72d991beff25c55554cce696947decd6"
+          },
+          {
+            "model": "metaclip2_vith14",
+            "method": "adapted_waffle",
+            "run_id": "39f6734476ad",
+            "summary_path": "results/adapted_waffle/crisismmd/informativeness/samples_3000/metaclip2_vith14/informativeness_39f6734476ad/summary.tsv",
+            "image_weight": 0.5,
+            "label_order": [
+              "informative",
+              "not_informative"
+            ],
+            "y_true": [
+              "not_informative"
+            ],
+            "y_pred": [
+              "informative"
+            ],
+            "metrics": {
+              "correct": false,
+              "confidence": 0.5987440124154091,
+              "margin": 0.19748806208372116,
+              "normalized_entropy": 0.9716805650369726
+            },
+            "scores": {
+              "image": [
+                0.21657927334308624,
+                0.7834206819534302
+              ],
+              "text": [
+                0.9809087514877319,
+                0.01909121870994568
+              ],
+              "fusion": [
+                0.5987440124154091,
+                0.4012559503316879
+              ]
+            },
+            "source_archive_sha256": "0281a4a4be03b2cdfd9d0a9a756778239fc7c2830e8a3b7611878c6d49663566"
+          },
+          {
+            "model": "dfn5b_vith14",
+            "method": "adapted_waffle",
+            "run_id": "19f905e6ad58",
+            "summary_path": "results/adapted_waffle/crisismmd/informativeness/samples_3000/dfn5b_vith14/informativeness_19f905e6ad58/summary.tsv",
+            "image_weight": 0.5,
+            "label_order": [
+              "informative",
+              "not_informative"
+            ],
+            "y_true": [
+              "not_informative"
+            ],
+            "y_pred": [
+              "informative"
+            ],
+            "metrics": {
+              "correct": false,
+              "confidence": 0.5423309803009033,
+              "margin": 0.08466199040412903,
+              "normalized_entropy": 0.994823450250051
+            },
+            "scores": {
+              "image": [
+                0.4051923155784607,
+                0.5948076248168945
+              ],
+              "text": [
+                0.679469645023346,
+                0.32053035497665405
+              ],
+              "fusion": [
+                0.5423309803009033,
+                0.4576689898967743
+              ]
+            },
+            "source_archive_sha256": "cf5a93ad50f28fa3b6d4c81510ee2d117941b8269ce6ecdb21dd6cd827471bfd"
+          },
+          {
+            "model": "siglip2_so400m",
+            "method": "adapted_waffle",
+            "run_id": "c874a93229ad",
+            "summary_path": "results/adapted_waffle/crisismmd/informativeness/samples_3000/siglip2_so400m/informativeness_c874a93229ad/summary.tsv",
+            "image_weight": 0.5,
+            "label_order": [
+              "informative",
+              "not_informative"
+            ],
+            "y_true": [
+              "not_informative"
+            ],
+            "y_pred": [
+              "not_informative"
+            ],
+            "metrics": {
+              "correct": true,
+              "confidence": 0.5242794677615166,
+              "margin": 0.04855896532535553,
+              "normalized_entropy": 0.9982984259994624
+            },
+            "scores": {
+              "image": [
+                0.10510231554508209,
+                0.8948976993560791
+              ],
+              "text": [
+                0.84633868932724,
+                0.15366123616695404
+              ],
+              "fusion": [
+                0.47572050243616104,
+                0.5242794677615166
+              ]
+            },
+            "source_archive_sha256": "cbba5295ccdf141cc990312719c8a0b8253c3630935f7815aaba3a12200a3a04"
+          },
+          {
+            "model": "openai_clip_vit_b_32",
+            "method": "adapted_waffle",
+            "run_id": "273c7b6138cf",
+            "summary_path": "results/adapted_waffle/crisismmd/informativeness/samples_3000/openai_clip_vit_b_32/informativeness_273c7b6138cf/summary.tsv",
+            "image_weight": 0.5,
+            "label_order": [
+              "informative",
+              "not_informative"
+            ],
+            "y_true": [
+              "not_informative"
+            ],
+            "y_pred": [
+              "informative"
+            ],
+            "metrics": {
+              "correct": false,
+              "confidence": 0.6003435850143433,
+              "margin": 0.20068714767694473,
+              "normalized_entropy": 0.970749252585127
+            },
+            "scores": {
+              "image": [
+                0.32200485467910767,
+                0.6779952049255371
+              ],
+              "text": [
+                0.8786823153495789,
+                0.12131766974925995
+              ],
+              "fusion": [
+                0.6003435850143433,
+                0.39965643733739853
+              ]
+            },
+            "source_archive_sha256": "0d49caf61e198f1ce6bb307cbe73c80fa4f08d4c4a8bf19bb3ef39db0842c3fc"
+          }
+        ],
+        "humanitarian": [
+          {
+            "model": "metaclip2_vith14",
+            "method": "baseline",
+            "run_id": "520ebf75825a",
+            "summary_path": "results/baseline/crisismmd/humanitarian/samples_3000/metaclip2_vith14/humanitarian_520ebf75825a/summary.tsv",
+            "image_weight": 0.5,
+            "label_order": [
+              "not_humanitarian",
+              "other_relevant_information",
+              "rescue_volunteering_or_donation_effort",
+              "infrastructure_and_utility_damage",
+              "affected_individuals",
+              "vehicle_damage",
+              "injured_or_dead_people",
+              "missing_or_found_people"
+            ],
+            "y_true": [
+              "not_humanitarian"
+            ],
+            "y_pred": [
+              "infrastructure_and_utility_damage"
+            ],
+            "metrics": {
+              "correct": false,
+              "confidence": 0.4538494944572449,
+              "margin": 0.03623806592077017,
+              "normalized_entropy": 0.5470537648485476
+            },
+            "scores": {
+              "image": [
+                0.058549292385578156,
+                0.021524624899029732,
+                0.006974240764975548,
+                0.7739603519439697,
+                0.01539575308561325,
+                0.12149444222450256,
+                0.0014214084949344397,
+                0.0006798763643018901
+              ],
+              "text": [
+                0.021544812247157097,
+                0.8136982321739197,
+                0.014063774608075619,
+                0.13373863697052002,
+                0.001174417557194829,
+                0.01283440925180912,
+                0.0023851199075579643,
+                0.0005606015329249203
+              ],
+              "fusion": [
+                0.040047052316367626,
+                0.4176114285364747,
+                0.010519007686525583,
+                0.4538494944572449,
+                0.00828508532140404,
+                0.06716442573815584,
+                0.001903264201246202,
+                0.0006202389486134052
+              ]
+            },
+            "source_archive_sha256": "9f245a14a11e30c36bb620fbc7479b51ea7a7f055f039b34ff4d686b5d0f7298"
+          },
+          {
+            "model": "dfn5b_vith14",
+            "method": "baseline",
+            "run_id": "ab76540ca808",
+            "summary_path": "results/baseline/crisismmd/humanitarian/samples_3000/dfn5b_vith14/humanitarian_ab76540ca808/summary.tsv",
+            "image_weight": 0.5,
+            "label_order": [
+              "not_humanitarian",
+              "other_relevant_information",
+              "rescue_volunteering_or_donation_effort",
+              "infrastructure_and_utility_damage",
+              "affected_individuals",
+              "vehicle_damage",
+              "injured_or_dead_people",
+              "missing_or_found_people"
+            ],
+            "y_true": [
+              "not_humanitarian"
+            ],
+            "y_pred": [
+              "infrastructure_and_utility_damage"
+            ],
+            "metrics": {
+              "correct": false,
+              "confidence": 0.2525423839688301,
+              "margin": 0.10568082332611084,
+              "normalized_entropy": 0.9582385091681651
+            },
+            "scores": {
+              "image": [
+                0.12944228947162628,
+                0.1302746683359146,
+                0.08425355702638626,
+                0.26094895601272583,
+                0.11837970465421677,
+                0.13358822464942932,
+                0.06126461923122406,
+                0.08184804767370224
+              ],
+              "text": [
+                0.13607078790664673,
+                0.16344845294952393,
+                0.11663934588432312,
+                0.2441358119249344,
+                0.1070016399025917,
+                0.10319989919662476,
+                0.06560501456260681,
+                0.06389907747507095
+              ],
+              "fusion": [
+                0.1327565386891365,
+                0.14686156064271927,
+                0.10044645145535469,
+                0.2525423839688301,
+                0.11269067227840424,
+                0.11839406192302704,
+                0.06343481689691544,
+                0.0728735625743866
+              ]
+            },
+            "source_archive_sha256": "3b56330f3befab195a41568ed4ce15159a853b67038607e153148e1323f91b90"
+          },
+          {
+            "model": "siglip2_so400m",
+            "method": "baseline",
+            "run_id": "908c56201581",
+            "summary_path": "results/baseline/crisismmd/humanitarian/samples_3000/siglip2_so400m/humanitarian_908c56201581/summary.tsv",
+            "image_weight": 0.5,
+            "label_order": [
+              "not_humanitarian",
+              "other_relevant_information",
+              "rescue_volunteering_or_donation_effort",
+              "infrastructure_and_utility_damage",
+              "affected_individuals",
+              "vehicle_damage",
+              "injured_or_dead_people",
+              "missing_or_found_people"
+            ],
+            "y_true": [
+              "not_humanitarian"
+            ],
+            "y_pred": [
+              "infrastructure_and_utility_damage"
+            ],
+            "metrics": {
+              "correct": false,
+              "confidence": 0.45379435643553734,
+              "margin": 0.19406403601169586,
+              "normalized_entropy": 0.5777376509512444
+            },
+            "scores": {
+              "image": [
+                0.08608614653348923,
+                0.03647022321820259,
+                0.011484075337648392,
+                0.8173969388008118,
+                0.005807682406157255,
+                0.039023615419864655,
+                0.0012551252730190754,
+                0.002476226771250367
+              ],
+              "text": [
+                0.4333744943141937,
+                0.4725242555141449,
+                0.003535072784870863,
+                0.09019177407026291,
+                8.124020678224042e-05,
+                7.699182606302202e-05,
+                0.00018888770136982203,
+                2.7274205422145315e-05
+              ],
+              "fusion": [
+                0.2597303204238415,
+                0.25449723936617374,
+                0.007509574061259627,
+                0.45379435643553734,
+                0.002944461306469748,
+                0.01955030362296384,
+                0.0007220064871944487,
+                0.0012517504883362562
+              ]
+            },
+            "source_archive_sha256": "868cdae04e83a0f83ae0b9d703013369da496e10fd81aa12055ad995d40371e8"
+          },
+          {
+            "model": "openai_clip_vit_b_32",
+            "method": "baseline",
+            "run_id": "3388e0f5d4ff",
+            "summary_path": "results/baseline/crisismmd/humanitarian/samples_3000/openai_clip_vit_b_32/humanitarian_3388e0f5d4ff/summary.tsv",
+            "image_weight": 0.5,
+            "label_order": [
+              "not_humanitarian",
+              "other_relevant_information",
+              "rescue_volunteering_or_donation_effort",
+              "infrastructure_and_utility_damage",
+              "affected_individuals",
+              "vehicle_damage",
+              "injured_or_dead_people",
+              "missing_or_found_people"
+            ],
+            "y_true": [
+              "not_humanitarian"
+            ],
+            "y_pred": [
+              "infrastructure_and_utility_damage"
+            ],
+            "metrics": {
+              "correct": false,
+              "confidence": 0.4146987646818161,
+              "margin": 0.17909475788474083,
+              "normalized_entropy": 0.7822851404518351
+            },
+            "scores": {
+              "image": [
+                0.13406668603420258,
+                0.07340029627084732,
+                0.06035199388861656,
+                0.4885629415512085,
+                0.05589989572763443,
+                0.1286953091621399,
+                0.013675102032721043,
+                0.04534775763750076
+              ],
+              "text": [
+                0.10480313003063202,
+                0.3978077173233032,
+                0.09344809502363205,
+                0.3408345878124237,
+                0.04399785026907921,
+                0.00969251524657011,
+                0.005013317801058292,
+                0.0044027878902852535
+              ],
+              "fusion": [
+                0.1194349080324173,
+                0.23560400679707527,
+                0.0769000444561243,
+                0.4146987646818161,
+                0.04994887299835682,
+                0.069193912204355,
+                0.009344209916889668,
+                0.024875272763893008
+              ]
+            },
+            "source_archive_sha256": "bc9bf22e8975f809ce7aa9b981be132473833fb8e980f093c2c974474b8a5d20"
+          },
+          {
+            "model": "metaclip2_vith14",
+            "method": "adapted_dclip",
+            "run_id": "360029407f84",
+            "summary_path": "results/adapted_dclip/crisismmd/humanitarian/samples_3000/metaclip2_vith14/humanitarian_360029407f84/summary.tsv",
+            "image_weight": 0.5,
+            "label_order": [
+              "not_humanitarian",
+              "other_relevant_information",
+              "rescue_volunteering_or_donation_effort",
+              "infrastructure_and_utility_damage",
+              "affected_individuals",
+              "vehicle_damage",
+              "injured_or_dead_people",
+              "missing_or_found_people"
+            ],
+            "y_true": [
+              "not_humanitarian"
+            ],
+            "y_pred": [
+              "other_relevant_information"
+            ],
+            "metrics": {
+              "correct": false,
+              "confidence": 0.5299205705523491,
+              "margin": 0.11075400561094284,
+              "normalized_entropy": 0.4459236906333862
+            },
+            "scores": {
+              "image": [
+                0.02060176432132721,
+                0.2461429089307785,
+                0.0025950386188924313,
+                0.7045944929122925,
+                0.016212232410907745,
+                0.0072446297854185104,
+                0.0022004470229148865,
+                0.00040850788354873657
+              ],
+              "text": [
+                0.021544812247157097,
+                0.8136982321739197,
+                0.014063774608075619,
+                0.13373863697052002,
+                0.001174417557194829,
+                0.01283440925180912,
+                0.0023851199075579643,
+                0.0005606015329249203
+              ],
+              "fusion": [
+                0.021073288284242153,
+                0.5299205705523491,
+                0.008329406613484025,
+                0.41916656494140625,
+                0.008693324984051287,
+                0.010039519518613815,
+                0.0022927834652364254,
+                0.00048455470823682845
+              ]
+            },
+            "source_archive_sha256": "fe5d41710a5c24ea0c8ba8cfcfa10e4fbb48ef656381fa7ce661f44f06bb2ea4"
+          },
+          {
+            "model": "dfn5b_vith14",
+            "method": "adapted_dclip",
+            "run_id": "cdfb0ec9fbed",
+            "summary_path": "results/adapted_dclip/crisismmd/humanitarian/samples_3000/dfn5b_vith14/humanitarian_cdfb0ec9fbed/summary.tsv",
+            "image_weight": 0.5,
+            "label_order": [
+              "not_humanitarian",
+              "other_relevant_information",
+              "rescue_volunteering_or_donation_effort",
+              "infrastructure_and_utility_damage",
+              "affected_individuals",
+              "vehicle_damage",
+              "injured_or_dead_people",
+              "missing_or_found_people"
+            ],
+            "y_true": [
+              "not_humanitarian"
+            ],
+            "y_pred": [
+              "infrastructure_and_utility_damage"
+            ],
+            "metrics": {
+              "correct": false,
+              "confidence": 0.24398888647556305,
+              "margin": 0.0745854377746582,
+              "normalized_entropy": 0.9520214426073599
+            },
+            "scores": {
+              "image": [
+                0.18433213233947754,
+                0.17535844445228577,
+                0.06794554740190506,
+                0.2438419610261917,
+                0.1033247634768486,
+                0.09103544801473618,
+                0.056114066392183304,
+                0.07804755866527557
+              ],
+              "text": [
+                0.13607078790664673,
+                0.16344845294952393,
+                0.11663934588432312,
+                0.2441358119249344,
+                0.1070016399025917,
+                0.10319989919662476,
+                0.06560501456260681,
+                0.06389907747507095
+              ],
+              "fusion": [
+                0.16020146012306213,
+                0.16940344870090485,
+                0.09229244664311409,
+                0.24398888647556305,
+                0.10516320168972015,
+                0.09711767360568047,
+                0.06085954047739506,
+                0.07097331807017326
+              ]
+            },
+            "source_archive_sha256": "a7635a7e1c37212764010e96bb95f3fe9b152bf26fb0bb8d586cc6d18212f2f1"
+          },
+          {
+            "model": "siglip2_so400m",
+            "method": "adapted_dclip",
+            "run_id": "192b5b63ad16",
+            "summary_path": "results/adapted_dclip/crisismmd/humanitarian/samples_3000/siglip2_so400m/humanitarian_192b5b63ad16/summary.tsv",
+            "image_weight": 0.5,
+            "label_order": [
+              "not_humanitarian",
+              "other_relevant_information",
+              "rescue_volunteering_or_donation_effort",
+              "infrastructure_and_utility_damage",
+              "affected_individuals",
+              "vehicle_damage",
+              "injured_or_dead_people",
+              "missing_or_found_people"
+            ],
+            "y_true": [
+              "not_humanitarian"
+            ],
+            "y_pred": [
+              "infrastructure_and_utility_damage"
+            ],
+            "metrics": {
+              "correct": false,
+              "confidence": 0.506287869066,
+              "margin": 0.2440366316586733,
+              "normalized_entropy": 0.5132369345502218
+            },
+            "scores": {
+              "image": [
+                0.018522752448916435,
+                0.0519782193005085,
+                0.0007250441703945398,
+                0.9223839640617371,
+                0.0033847796730697155,
+                0.0026643078308552504,
+                0.00029714577249251306,
+                4.376030119601637e-05
+              ],
+              "text": [
+                0.4333744943141937,
+                0.4725242555141449,
+                0.003535072784870863,
+                0.09019177407026291,
+                8.124020678224042e-05,
+                7.699182606302202e-05,
+                0.00018888770136982203,
+                2.7274205422145315e-05
+              ],
+              "fusion": [
+                0.22594862338155508,
+                0.2622512374073267,
+                0.0021300584776327014,
+                0.506287869066,
+                0.001733009939925978,
+                0.0013706498284591362,
+                0.00024301673693116754,
+                3.551725330908084e-05
+              ]
+            },
+            "source_archive_sha256": "ec69914d0efcce69f27927d0440635390b6f443fa876bfab132bfd73bfe2d5ef"
+          },
+          {
+            "model": "openai_clip_vit_b_32",
+            "method": "adapted_dclip",
+            "run_id": "bf574f3316ba",
+            "summary_path": "results/adapted_dclip/crisismmd/humanitarian/samples_3000/openai_clip_vit_b_32/humanitarian_bf574f3316ba/summary.tsv",
+            "image_weight": 0.5,
+            "label_order": [
+              "not_humanitarian",
+              "other_relevant_information",
+              "rescue_volunteering_or_donation_effort",
+              "infrastructure_and_utility_damage",
+              "affected_individuals",
+              "vehicle_damage",
+              "injured_or_dead_people",
+              "missing_or_found_people"
+            ],
+            "y_true": [
+              "not_humanitarian"
+            ],
+            "y_pred": [
+              "infrastructure_and_utility_damage"
+            ],
+            "metrics": {
+              "correct": false,
+              "confidence": 0.5900693982839584,
+              "margin": 0.36847951635718346,
+              "normalized_entropy": 0.5755912913446443
+            },
+            "scores": {
+              "image": [
+                0.08572658151388168,
+                0.045372046530246735,
+                0.010894236154854298,
+                0.8393042087554932,
+                0.007316387724131346,
+                0.004133629612624645,
+                0.0008326951647177339,
+                0.006420180667191744
+              ],
+              "text": [
+                0.10480313003063202,
+                0.3978077173233032,
+                0.09344809502363205,
+                0.3408345878124237,
+                0.04399785026907921,
+                0.00969251524657011,
+                0.005013317801058292,
+                0.0044027878902852535
+              ],
+              "fusion": [
+                0.09526485577225685,
+                0.22158988192677498,
+                0.052171165589243174,
+                0.5900693982839584,
+                0.025657118996605277,
+                0.006913072429597378,
+                0.002923006482888013,
+                0.005411484278738499
+              ]
+            },
+            "source_archive_sha256": "ade521a629b862156cf8425c670214b9c39cfefd7a3b4cbd95052f8d44cdafe1"
+          },
+          {
+            "model": "metaclip2_vith14",
+            "method": "adapted_waffle",
+            "run_id": "a9722c05f361",
+            "summary_path": "results/adapted_waffle/crisismmd/humanitarian/samples_3000/metaclip2_vith14/humanitarian_a9722c05f361/summary.tsv",
+            "image_weight": 0.5,
+            "label_order": [
+              "not_humanitarian",
+              "other_relevant_information",
+              "rescue_volunteering_or_donation_effort",
+              "infrastructure_and_utility_damage",
+              "affected_individuals",
+              "vehicle_damage",
+              "injured_or_dead_people",
+              "missing_or_found_people"
+            ],
+            "y_true": [
+              "not_humanitarian"
+            ],
+            "y_pred": [
+              "infrastructure_and_utility_damage"
+            ],
+            "metrics": {
+              "correct": false,
+              "confidence": 0.5608313381671906,
+              "margin": 0.15339191124076024,
+              "normalized_entropy": 0.406573581314174
+            },
+            "scores": {
+              "image": [
+                0.0019450685940682888,
+                0.0011806216789409518,
+                0.0014453419717028737,
+                0.9879240393638611,
+                0.0012148073874413967,
+                0.003989788703620434,
+                0.0013640652177855372,
+                0.0009361939737573266
+              ],
+              "text": [
+                0.021544812247157097,
+                0.8136982321739197,
+                0.014063774608075619,
+                0.13373863697052002,
+                0.001174417557194829,
+                0.01283440925180912,
+                0.0023851199075579643,
+                0.0005606015329249203
+              ],
+              "fusion": [
+                0.011744940420612693,
+                0.4074394269264303,
+                0.007754558289889246,
+                0.5608313381671906,
+                0.0011946124723181129,
+                0.008412098977714777,
+                0.0018745925626717508,
+                0.0007483977533411235
+              ]
+            },
+            "source_archive_sha256": "5a2147f6a541e5b6c04dc1c3ce4ec252e0c166175f3b8bd7d10ee92ad4ca5628"
+          },
+          {
+            "model": "dfn5b_vith14",
+            "method": "adapted_waffle",
+            "run_id": "c3053205ec6a",
+            "summary_path": "results/adapted_waffle/crisismmd/humanitarian/samples_3000/dfn5b_vith14/humanitarian_c3053205ec6a/summary.tsv",
+            "image_weight": 0.5,
+            "label_order": [
+              "not_humanitarian",
+              "other_relevant_information",
+              "rescue_volunteering_or_donation_effort",
+              "infrastructure_and_utility_damage",
+              "affected_individuals",
+              "vehicle_damage",
+              "injured_or_dead_people",
+              "missing_or_found_people"
+            ],
+            "y_true": [
+              "not_humanitarian"
+            ],
+            "y_pred": [
+              "infrastructure_and_utility_damage"
+            ],
+            "metrics": {
+              "correct": false,
+              "confidence": 0.2692144736647606,
+              "margin": 0.11938244849443436,
+              "normalized_entropy": 0.9535908619452668
+            },
+            "scores": {
+              "image": [
+                0.16359326243400574,
+                0.08521003276109695,
+                0.07935240119695663,
+                0.2942931354045868,
+                0.08411855250597,
+                0.1156018078327179,
+                0.061160918325185776,
+                0.11666988581418991
+              ],
+              "text": [
+                0.13607078790664673,
+                0.16344845294952393,
+                0.11663934588432312,
+                0.2441358119249344,
+                0.1070016399025917,
+                0.10319989919662476,
+                0.06560501456260681,
+                0.06389907747507095
+              ],
+              "fusion": [
+                0.14983202517032623,
+                0.12432924285531044,
+                0.09799587354063988,
+                0.2692144736647606,
+                0.09556009620428085,
+                0.10940085351467133,
+                0.0633829664438963,
+                0.09028448164463043
+              ]
+            },
+            "source_archive_sha256": "a1d6e23ac1c0baabfb138698a68bac15c3ed94b3ebb311deb0a1ad867bfaafa1"
+          },
+          {
+            "model": "siglip2_so400m",
+            "method": "adapted_waffle",
+            "run_id": "36e2ce0dfbee",
+            "summary_path": "results/adapted_waffle/crisismmd/humanitarian/samples_3000/siglip2_so400m/humanitarian_36e2ce0dfbee/summary.tsv",
+            "image_weight": 0.5,
+            "label_order": [
+              "not_humanitarian",
+              "other_relevant_information",
+              "rescue_volunteering_or_donation_effort",
+              "infrastructure_and_utility_damage",
+              "affected_individuals",
+              "vehicle_damage",
+              "injured_or_dead_people",
+              "missing_or_found_people"
+            ],
+            "y_true": [
+              "not_humanitarian"
+            ],
+            "y_pred": [
+              "infrastructure_and_utility_damage"
+            ],
+            "metrics": {
+              "correct": false,
+              "confidence": 0.5377255342900753,
+              "margin": 0.30115931591717526,
+              "normalized_entropy": 0.5034109589381689
+            },
+            "scores": {
+              "image": [
+                0.005293530412018299,
+                0.0006081812316551805,
+                0.0005575973773375154,
+                0.9852592945098877,
+                0.0010380218736827374,
+                0.0066396757028996944,
+                0.0004172635672148317,
+                0.0001864698569988832
+              ],
+              "text": [
+                0.4333744943141937,
+                0.4725242555141449,
+                0.003535072784870863,
+                0.09019177407026291,
+                8.124020678224042e-05,
+                7.699182606302202e-05,
+                0.00018888770136982203,
+                2.7274205422145315e-05
+              ],
+              "fusion": [
+                0.219334012363106,
+                0.23656621837290004,
+                0.002046335081104189,
+                0.5377255342900753,
+                0.0005596310402324889,
+                0.0033583337644813582,
+                0.00030307563429232687,
+                0.00010687203121051425
+              ]
+            },
+            "source_archive_sha256": "17489d74e0dfd50d3b40cc2a2ab5991168ca87a09c211b35051649006ea88967"
+          },
+          {
+            "model": "openai_clip_vit_b_32",
+            "method": "adapted_waffle",
+            "run_id": "1b1480e95e3d",
+            "summary_path": "results/adapted_waffle/crisismmd/humanitarian/samples_3000/openai_clip_vit_b_32/humanitarian_1b1480e95e3d/summary.tsv",
+            "image_weight": 0.5,
+            "label_order": [
+              "not_humanitarian",
+              "other_relevant_information",
+              "rescue_volunteering_or_donation_effort",
+              "infrastructure_and_utility_damage",
+              "affected_individuals",
+              "vehicle_damage",
+              "injured_or_dead_people",
+              "missing_or_found_people"
+            ],
+            "y_true": [
+              "not_humanitarian"
+            ],
+            "y_pred": [
+              "infrastructure_and_utility_damage"
+            ],
+            "metrics": {
+              "correct": false,
+              "confidence": 0.5844280868768692,
+              "margin": 0.3667130023241043,
+              "normalized_entropy": 0.6060433090127688
+            },
+            "scores": {
+              "image": [
+                0.05214590206742287,
+                0.03762245178222656,
+                0.02035129815340042,
+                0.8280215859413147,
+                0.013083790428936481,
+                0.019712893292307854,
+                0.007218614220619202,
+                0.02184342034161091
+              ],
+              "text": [
+                0.10480313003063202,
+                0.3978077173233032,
+                0.09344809502363205,
+                0.3408345878124237,
+                0.04399785026907921,
+                0.00969251524657011,
+                0.005013317801058292,
+                0.0044027878902852535
+              ],
+              "fusion": [
+                0.07847451604902744,
+                0.2177150845527649,
+                0.056899696588516235,
+                0.5844280868768692,
+                0.028540820349007845,
+                0.014702704269438982,
+                0.006115966010838747,
+                0.013123104115948081
+              ]
+            },
+            "source_archive_sha256": "9ca6206db8f2f05d35379f72e6fc5e8e3ff055761e178eedf6b89e8dd2b4b5f0"
+          }
+        ]
+      }
+    },
+    {
+      "dataset": "mmimdb",
+      "tasks": [
+        "genres"
+      ],
+      "id": "0164538",
+      "reference_correct": true,
+      "text": "Amar Varma, a producer for Indian news radio, meets an enigmatic woman at a railroad station and then again at a hill station. He falls in love with her, but the woman, who calls herself Meghna, rejects and leaves him although she seems to be interested. Later, Varma agrees to marry his family's choice, Preeti. But suddenly Meghna is back, and what is the secret that she holds?",
+      "image_path": "data/processed/pro_mmimdb/images/0164538.jpeg",
+      "image_sha256": "91592afdc9bda3ff120bb1b35424916ddd7d82cc12a54e246740ab764722826a",
+      "tasks_data": {
+        "genres": [
+          {
+            "model": "metaclip2_vith14",
+            "method": "baseline",
+            "run_id": "3aae524797f3",
+            "summary_path": "results/baseline/mmimdb/genres/samples_3000/metaclip2_vith14/genres_3aae524797f3/summary.tsv",
+            "image_weight": 0.5,
+            "label_order": [
+              "Action",
+              "Adventure",
+              "Animation",
+              "Biography",
+              "Comedy",
+              "Crime",
+              "Documentary",
+              "Drama",
+              "Family",
+              "Fantasy",
+              "Film-Noir",
+              "History",
+              "Horror",
+              "Music",
+              "Musical",
+              "Mystery",
+              "Short",
+              "Romance",
+              "Sci-Fi",
+              "Sport",
+              "Thriller",
+              "War",
+              "Western"
+            ],
+            "y_true": [
+              "Drama",
+              "Romance"
+            ],
+            "y_pred": [
+              "Drama",
+              "Romance"
+            ],
+            "metrics": {
+              "exact_match": true,
+              "sample_f1": 1.0,
+              "tp": 2,
+              "fp": 0,
+              "fn": 0,
+              "n_predicted": 2,
+              "used_top1_fallback": false,
+              "threshold": 1.0
+            },
+            "scores": {
+              "image": [
+                0.9758099426823302,
+                0.17572497469505968,
+                -0.8259977030280116,
+                1.372637241280484,
+                0.052493413402797555,
+                -0.23431887395664064,
+                -0.9246470137231515,
+                1.5003797439895936,
+                -0.9032718803021998,
+                -0.4840496253621687,
+                -0.459700546303138,
+                -0.20989718092380982,
+                -0.925845951112784,
+                0.6152686536140102,
+                1.9760093405994619,
+                -0.09817170719113671,
+                0.34091692415866653,
+                1.6908929929392214,
+                -1.340316024878565,
+                -0.49850948801155903,
+                -0.4464702802767625,
+                0.6859914368075686,
+                -2.034928389099281
+              ],
+              "text": [
+                -0.6648943126920008,
+                -0.25290799266979064,
+                -1.4417526460780232,
+                0.33235244575584094,
+                0.13816194728914205,
+                -0.05022248948547814,
+                -0.985437301942177,
+                1.9108690456551127,
+                -0.02499009896083244,
+                -0.03652300985140315,
+                1.4855750267103505,
+                -0.3868327696645078,
+                0.3183168482435741,
+                -1.2631905585081438,
+                -0.04268659820372412,
+                1.276725935173717,
+                0.6152159785972471,
+                2.1441005990689894,
+                -0.5379273898636758,
+                -0.8815704549462742,
+                0.8296249308323792,
+                -0.9557668708984757,
+                -1.52624026356187
+              ],
+              "fusion": [
+                0.1554578149951647,
+                -0.03859150898736548,
+                -1.1338751745530173,
+                0.8524948435181624,
+                0.0953276803459698,
+                -0.1422706817210594,
+                -0.9550421578326642,
+                1.7056243948223533,
+                -0.46413098963151617,
+                -0.26028631760678594,
+                0.5129372402036062,
+                -0.29836497529415884,
+                -0.30376455143460496,
+                -0.3239609524470668,
+                0.9666613711978689,
+                0.5892771139912901,
+                0.4780664513779568,
+                1.9174967960041054,
+                -0.9391217073711204,
+                -0.6900399714789166,
+                0.19157732527780835,
+                -0.13488771704545355,
+                -1.7805843263305756
+              ]
+            },
+            "source_archive_sha256": "652052ad52369f61322cad2cf3b98d2bb80027fe27913d58c099f9f313ff1cc7"
+          },
+          {
+            "model": "dfn5b_vith14",
+            "method": "baseline",
+            "run_id": "5932aaddb554",
+            "summary_path": "results/baseline/mmimdb/genres/samples_3000/dfn5b_vith14/genres_5932aaddb554/summary.tsv",
+            "image_weight": 0.5,
+            "label_order": [
+              "Action",
+              "Adventure",
+              "Animation",
+              "Biography",
+              "Comedy",
+              "Crime",
+              "Documentary",
+              "Drama",
+              "Family",
+              "Fantasy",
+              "Film-Noir",
+              "History",
+              "Horror",
+              "Music",
+              "Musical",
+              "Mystery",
+              "Short",
+              "Romance",
+              "Sci-Fi",
+              "Sport",
+              "Thriller",
+              "War",
+              "Western"
+            ],
+            "y_true": [
+              "Drama",
+              "Romance"
+            ],
+            "y_pred": [
+              "Biography",
+              "Drama",
+              "Romance"
+            ],
+            "metrics": {
+              "exact_match": false,
+              "sample_f1": 0.8,
+              "tp": 2,
+              "fp": 1,
+              "fn": 0,
+              "n_predicted": 3,
+              "used_top1_fallback": false,
+              "threshold": 1.0
+            },
+            "scores": {
+              "image": [
+                0.8561095886679311,
+                0.6032543127159131,
+                -0.5778603433893874,
+                1.6223103803050556,
+                -0.24446714886166362,
+                -0.48844340393930247,
+                -0.5684849088044496,
+                1.1581534848762118,
+                -0.4762883212700719,
+                -0.1596213803186864,
+                -0.15523157842626187,
+                0.15578067968955678,
+                0.029706375423634298,
+                -0.4534647101149215,
+                0.477667689578361,
+                -0.30463665535135626,
+                0.5082585967215917,
+                2.535128539937885,
+                -0.9401227828950345,
+                -0.8421935910224854,
+                0.022598725259327667,
+                0.04636948571337915,
+                -2.804523034495221
+              ],
+              "text": [
+                -0.562842387641383,
+                0.16817986869554957,
+                -0.8057812113735824,
+                1.2053633741777459,
+                0.4901532054432675,
+                0.14493162785800223,
+                -0.4207885283540258,
+                1.186178876581108,
+                -0.7365161013008563,
+                -0.15704273431177912,
+                0.5754939739187619,
+                -0.11041662765292336,
+                1.0614493963734175,
+                -1.3842759097352637,
+                -0.1287434399403422,
+                0.5618379818795335,
+                0.39136168448616643,
+                2.3486341267863953,
+                -0.31749253921122766,
+                -2.164760899459023,
+                1.001471916387172,
+                -0.8493179225861327,
+                -1.49707773102054
+              ],
+              "fusion": [
+                0.14663360051327406,
+                0.38571709070573135,
+                -0.6918207773814848,
+                1.4138368772414007,
+                0.12284302829080194,
+                -0.17175588804065012,
+                -0.4946367185792377,
+                1.1721661807286599,
+                -0.6064022112854641,
+                -0.15833205731523275,
+                0.21013119774625,
+                0.02268202601831671,
+                0.5455778858985258,
+                -0.9188703099250926,
+                0.17446212481900938,
+                0.12860066326408862,
+                0.449810140603879,
+                2.44188133336214,
+                -0.628807661053131,
+                -1.503477245240754,
+                0.5120353208232498,
+                -0.40147421843637676,
+                -2.1508003827578808
+              ]
+            },
+            "source_archive_sha256": "6700060298a44c32ce69eb64693a2e88d621787fea8f72c0e8e26a36264e60a4"
+          },
+          {
+            "model": "siglip2_so400m",
+            "method": "baseline",
+            "run_id": "e17746c1e744",
+            "summary_path": "results/baseline/mmimdb/genres/samples_3000/siglip2_so400m/genres_e17746c1e744/summary.tsv",
+            "image_weight": 0.5,
+            "label_order": [
+              "Action",
+              "Adventure",
+              "Animation",
+              "Biography",
+              "Comedy",
+              "Crime",
+              "Documentary",
+              "Drama",
+              "Family",
+              "Fantasy",
+              "Film-Noir",
+              "History",
+              "Horror",
+              "Music",
+              "Musical",
+              "Mystery",
+              "Short",
+              "Romance",
+              "Sci-Fi",
+              "Sport",
+              "Thriller",
+              "War",
+              "Western"
+            ],
+            "y_true": [
+              "Drama",
+              "Romance"
+            ],
+            "y_pred": [
+              "Drama",
+              "Romance",
+              "Short"
+            ],
+            "metrics": {
+              "exact_match": false,
+              "sample_f1": 0.8,
+              "tp": 2,
+              "fp": 1,
+              "fn": 0,
+              "n_predicted": 3,
+              "used_top1_fallback": false,
+              "threshold": 1.0
+            },
+            "scores": {
+              "image": [
+                0.7458293152869719,
+                -0.003116421339928041,
+                -0.0874821130935826,
+                0.8576466692128972,
+                -0.4413269492403424,
+                -0.17791161684369122,
+                -0.09529279222852778,
+                0.6905045642675683,
+                -0.6368291944123324,
+                -0.30232846763893284,
+                -1.2417295971504112,
+                0.10826700596738921,
+                -0.20897085206634447,
+                0.07813142730224634,
+                1.064004669101649,
+                -0.4514014574729846,
+                0.9862978759520663,
+                2.4995218694899135,
+                -0.3936811815199895,
+                -0.3506269109934472,
+                0.2735100123164644,
+                0.23701687297683852,
+                -3.150032727873484
+              ],
+              "text": [
+                -0.6385961808164196,
+                -0.36149271856346316,
+                -0.07384235728517381,
+                0.9030859111198521,
+                0.6202767939560262,
+                -0.7214491401700663,
+                -0.7934643452933001,
+                1.419340308772234,
+                0.3275568536359208,
+                0.06910889860225836,
+                0.24036553066257518,
+                -0.3709930825050969,
+                0.41001022686670063,
+                -1.547518696691605,
+                -0.1907335304520216,
+                0.9036132560711188,
+                1.5187611417236657,
+                1.7795277835791345,
+                -0.6973299043319788,
+                -1.718691062290637,
+                1.4741787471580763,
+                -1.1629238491144818,
+                -1.3887905846332882
+              ],
+              "fusion": [
+                0.05361656723527619,
+                -0.1823045699516956,
+                -0.0806622351893782,
+                0.8803662901663747,
+                0.08947492235784191,
+                -0.4496803785068788,
+                -0.444378568760914,
+                1.0549224365199013,
+                -0.15463617038820582,
+                -0.11660978451833724,
+                -0.500682033243918,
+                -0.13136303826885384,
+                0.10051968740017808,
+                -0.7346936346946793,
+                0.4366355693248137,
+                0.22610589929906708,
+                1.252529508837866,
+                2.139524826534524,
+                -0.5455055429259842,
+                -1.0346589866420421,
+                0.8738443797372704,
+                -0.46295348806882164,
+                -2.269411656253386
+              ]
+            },
+            "source_archive_sha256": "566c8852a5775c4ea2b078689149d57d93abdd815b0e8c7aa263318068b614a0"
+          },
+          {
+            "model": "openai_clip_vit_b_32",
+            "method": "baseline",
+            "run_id": "955d550a8310",
+            "summary_path": "results/baseline/mmimdb/genres/samples_3000/openai_clip_vit_b_32/genres_955d550a8310/summary.tsv",
+            "image_weight": 0.5,
+            "label_order": [
+              "Action",
+              "Adventure",
+              "Animation",
+              "Biography",
+              "Comedy",
+              "Crime",
+              "Documentary",
+              "Drama",
+              "Family",
+              "Fantasy",
+              "Film-Noir",
+              "History",
+              "Horror",
+              "Music",
+              "Musical",
+              "Mystery",
+              "Short",
+              "Romance",
+              "Sci-Fi",
+              "Sport",
+              "Thriller",
+              "War",
+              "Western"
+            ],
+            "y_true": [
+              "Drama",
+              "Romance"
+            ],
+            "y_pred": [
+              "Drama",
+              "Romance"
+            ],
+            "metrics": {
+              "exact_match": true,
+              "sample_f1": 1.0,
+              "tp": 2,
+              "fp": 0,
+              "fn": 0,
+              "n_predicted": 2,
+              "used_top1_fallback": false,
+              "threshold": 1.0
+            },
+            "scores": {
+              "image": [
+                0.8247890213335591,
+                -0.19786888470712707,
+                -0.32626392885069433,
+                0.5254124725326047,
+                -0.42144315717797365,
+                -0.489779820731943,
+                -0.48445003429888633,
+                1.2553761106341854,
+                0.9902265701581026,
+                -0.34920645907445746,
+                -1.2729718892490907,
+                0.48761401832635287,
+                -0.3425877444728194,
+                -0.5488534132595064,
+                1.8490615103835988,
+                -0.03083728966499055,
+                -0.07970507463009902,
+                2.460056491759637,
+                -1.3083499358550097,
+                -0.6086976244493172,
+                -0.4041198843568423,
+                0.5401950508302349,
+                -2.0675961051795286
+              ],
+              "text": [
+                -0.33595281060292687,
+                0.08127152483650411,
+                -2.329829952722046,
+                0.8148997130198109,
+                0.3668312291596387,
+                -0.07139639020822354,
+                -0.37562305811269425,
+                1.7922037534856008,
+                0.0066886276146904036,
+                0.3384838756148841,
+                0.7293290304080223,
+                0.4386388609994485,
+                0.26543492609570857,
+                -1.3238906485273136,
+                -0.47889785713247063,
+                1.4306735192496505,
+                -0.034468369206864816,
+                1.6285716522463236,
+                0.4025698507115672,
+                -2.1461526948886003,
+                0.13844293567360255,
+                -0.5644307810315788,
+                -0.7733969366826724
+              ],
+              "fusion": [
+                0.24441810536531614,
+                -0.05829867993531148,
+                -1.3280469407863702,
+                0.6701560927762078,
+                -0.02730596400916746,
+                -0.2805881054700833,
+                -0.4300365462057903,
+                1.523789932059893,
+                0.49845759888639646,
+                -0.0053612917297866935,
+                -0.27182142942053417,
+                0.4631264396629007,
+                -0.03857640918855543,
+                -0.93637203089341,
+                0.685081826625564,
+                0.69991811479233,
+                -0.057086721918481916,
+                2.0443140720029804,
+                -0.4528900425717213,
+                -1.3774251596689586,
+                -0.13283847434161988,
+                -0.012117865100671976,
+                -1.4204965209311005
+              ]
+            },
+            "source_archive_sha256": "5b4c4444705b3f9025da305044f40da289570fe1e9a55f272c816dbe88e5be1a"
+          }
+        ]
+      }
+    },
+    {
+      "dataset": "mmimdb",
+      "tasks": [
+        "genres"
+      ],
+      "id": "0443335",
+      "reference_correct": false,
+      "text": "Like a warped fun-house mirror, the song-poem industry has run parallel to the mainstream music business for close to a century; it's estimated that over 200,000 song-poems have been recorded since 1900. The genre's durability can be traced to three of our deepest American desires - to be in show business, to get rich quick, and to share and express our deepest feelings. We meet several of the \"songwriters\" - from an elderly woman to a young African-American man to a small-town Iowan with big-time dreams - each of whom has been in the \"business\" for awhile, churning out odd compositions that cover the waterfront of American obsessions, from Jesus to genitalia, from politics to Elvis. We also meet the producers (often known as song-sharks) who hold out the tantalizing promise of fame to their eager customers, and the has-been musicians who sit in studios, day after day and year after year, interpreting some of the weirdest lyrics ever written. Through fellow musicians and his son, Ellery Eskelin, one of the most eloquent fans of song-poem records, we learn about the life and tragic death of the man aficionados consider the greatest song-poem interpreter of all time, Rodney Keith Eskelin. Using a variety of stage names, this would-be classical composer brought an eerie beauty to many of the song-poems he recorded before ending his career and life by jumping onto a Hollywood freeway. As filmmaker Meltzer says, \"The beauty of song-poems is that they are a result of the intersection, or collision, of ordinary people's expressions and the desires of musicians/businesses to make a quick buck, making the music as fast as they can, usually in one take. When those two forces combine, they create strangely compelling songs that are unlike anything you've ever heard.\" Shocking, funny and heart-wrenching all at once, OFF THE CHARTS is a fascinating look at one of the strangest subcultures in our American landscape.",
+      "image_path": "data/processed/pro_mmimdb/images/0443335.jpeg",
+      "image_sha256": "2f158c76a7b0483b544d95434c3acb4eb7940795614a9c534537d36986f03f62",
+      "tasks_data": {
+        "genres": [
+          {
+            "model": "metaclip2_vith14",
+            "method": "baseline",
+            "run_id": "3aae524797f3",
+            "summary_path": "results/baseline/mmimdb/genres/samples_3000/metaclip2_vith14/genres_3aae524797f3/summary.tsv",
+            "image_weight": 0.5,
+            "label_order": [
+              "Action",
+              "Adventure",
+              "Animation",
+              "Biography",
+              "Comedy",
+              "Crime",
+              "Documentary",
+              "Drama",
+              "Family",
+              "Fantasy",
+              "Film-Noir",
+              "History",
+              "Horror",
+              "Music",
+              "Musical",
+              "Mystery",
+              "Short",
+              "Romance",
+              "Sci-Fi",
+              "Sport",
+              "Thriller",
+              "War",
+              "Western"
+            ],
+            "y_true": [
+              "Documentary"
+            ],
+            "y_pred": [
+              "Biography",
+              "Music",
+              "Musical"
+            ],
+            "metrics": {
+              "exact_match": false,
+              "sample_f1": 0.0,
+              "tp": 0,
+              "fp": 3,
+              "fn": 1,
+              "n_predicted": 3,
+              "used_top1_fallback": false,
+              "threshold": 1.0
+            },
+            "scores": {
+              "image": [
+                -1.1582062999425078,
+                -0.32318795164601083,
+                -1.1468862774642223,
+                1.5900429380376329,
+                -0.18774564853021916,
+                -0.43579981301531234,
+                1.0903954687371862,
+                0.6523656272330931,
+                -0.27166956691022665,
+                -0.6336519439043363,
+                -0.15638095067088661,
+                0.761212112086466,
+                -0.7287263942868976,
+                2.112020590852233,
+                1.3906945123760686,
+                -0.26995450249279895,
+                0.8467301369232468,
+                0.316171935442961,
+                -2.0877122285161684,
+                -1.2967994832679404,
+                -0.36093504856506137,
+                -0.4679089249905245,
+                0.7659317125142243
+              ],
+              "text": [
+                -0.8283532352587968,
+                -1.0858529216603654,
+                -1.82905956370893,
+                0.7360677229813418,
+                0.3519838400201151,
+                -0.307324458033921,
+                0.7877518997709071,
+                1.112790349646723,
+                -0.26163361467783736,
+                -0.19530184196449946,
+                1.0249491691665569,
+                0.3588789481600233,
+                0.16063002200779036,
+                1.4131062991094276,
+                1.6216632038289678,
+                0.5150691020045186,
+                0.6957042871216863,
+                0.9034676300995712,
+                -1.3396844660253309,
+                -1.46633248048729,
+                0.261101597760738,
+                -1.0018713369237051,
+                -1.6277501529376552
+              ],
+              "fusion": [
+                -0.9932797676006523,
+                -0.7045204366531881,
+                -1.4879729205865762,
+                1.1630553305094873,
+                0.08211909574494798,
+                -0.3715621355246167,
+                0.9390736842540466,
+                0.8825779884399081,
+                -0.266651590794032,
+                -0.4144768929344179,
+                0.4342841092478351,
+                0.5600455301232447,
+                -0.2840481861395536,
+                1.7625634449808305,
+                1.5061788581025182,
+                0.12255729975585983,
+                0.7712172120224665,
+                0.6098197827712661,
+                -1.7136983472707497,
+                -1.3815659818776151,
+                -0.04991672540216169,
+                -0.7348901309571148,
+                -0.43090922021171546
+              ]
+            },
+            "source_archive_sha256": "652052ad52369f61322cad2cf3b98d2bb80027fe27913d58c099f9f313ff1cc7"
+          },
+          {
+            "model": "dfn5b_vith14",
+            "method": "baseline",
+            "run_id": "5932aaddb554",
+            "summary_path": "results/baseline/mmimdb/genres/samples_3000/dfn5b_vith14/genres_5932aaddb554/summary.tsv",
+            "image_weight": 0.5,
+            "label_order": [
+              "Action",
+              "Adventure",
+              "Animation",
+              "Biography",
+              "Comedy",
+              "Crime",
+              "Documentary",
+              "Drama",
+              "Family",
+              "Fantasy",
+              "Film-Noir",
+              "History",
+              "Horror",
+              "Music",
+              "Musical",
+              "Mystery",
+              "Short",
+              "Romance",
+              "Sci-Fi",
+              "Sport",
+              "Thriller",
+              "War",
+              "Western"
+            ],
+            "y_true": [
+              "Documentary"
+            ],
+            "y_pred": [
+              "Biography",
+              "Music",
+              "Musical"
+            ],
+            "metrics": {
+              "exact_match": false,
+              "sample_f1": 0.0,
+              "tp": 0,
+              "fp": 3,
+              "fn": 1,
+              "n_predicted": 3,
+              "used_top1_fallback": false,
+              "threshold": 1.0
+            },
+            "scores": {
+              "image": [
+                -1.3490586275615706,
+                0.5684688628866088,
+                0.22185690887560217,
+                2.2840380499940363,
+                0.6901569143988252,
+                -0.25970178675382005,
+                -0.21786754461900584,
+                0.3307973234944627,
+                0.322504922879993,
+                -1.1767158191301972,
+                -0.5567128856912756,
+                1.0762991058475928,
+                -0.34212869865051615,
+                1.4917520214733453,
+                0.4471546014329518,
+                -0.8813743674875095,
+                1.3523671045330734,
+                -0.1524473048887103,
+                -1.9475577756606781,
+                -1.5550906221421812,
+                0.07017957239544814,
+                -0.6873936125542252,
+                0.2704736569277597
+              ],
+              "text": [
+                -0.7002712846471365,
+                -0.46641197486921426,
+                -0.9134427653392594,
+                1.214851975308154,
+                1.128158206589266,
+                -0.32885923105237835,
+                0.19984238484929367,
+                0.4068948044079131,
+                -1.2642138706522326,
+                -0.03257924693885255,
+                -0.49093063536876486,
+                0.6236761070091476,
+                0.4214256212331498,
+                2.71113097010227,
+                1.7440916042463726,
+                -0.5324536332101234,
+                -0.12370660026596306,
+                0.018172572035633733,
+                -0.22163836743288326,
+                -1.7637355346837758,
+                0.369959428102253,
+                -1.0181476924766464,
+                -0.9818128369462189
+              ],
+              "fusion": [
+                -1.0246649561043535,
+                0.05102844400869727,
+                -0.3457929282318286,
+                1.749445012651095,
+                0.9091575604940456,
+                -0.2942805089030992,
+                -0.009012579884856084,
+                0.3688460639511879,
+                -0.4708544738861198,
+                -0.6046475330345249,
+                -0.5238217605300203,
+                0.8499876064283702,
+                0.03964846129131683,
+                2.1014414957878076,
+                1.0956231028396621,
+                -0.7069140003488165,
+                0.6143302521335552,
+                -0.06713736642653828,
+                -1.0845980715467807,
+                -1.6594130784129786,
+                0.22006950024885058,
+                -0.8527706525154357,
+                -0.3556695900092296
+              ]
+            },
+            "source_archive_sha256": "6700060298a44c32ce69eb64693a2e88d621787fea8f72c0e8e26a36264e60a4"
+          },
+          {
+            "model": "siglip2_so400m",
+            "method": "baseline",
+            "run_id": "e17746c1e744",
+            "summary_path": "results/baseline/mmimdb/genres/samples_3000/siglip2_so400m/genres_e17746c1e744/summary.tsv",
+            "image_weight": 0.5,
+            "label_order": [
+              "Action",
+              "Adventure",
+              "Animation",
+              "Biography",
+              "Comedy",
+              "Crime",
+              "Documentary",
+              "Drama",
+              "Family",
+              "Fantasy",
+              "Film-Noir",
+              "History",
+              "Horror",
+              "Music",
+              "Musical",
+              "Mystery",
+              "Short",
+              "Romance",
+              "Sci-Fi",
+              "Sport",
+              "Thriller",
+              "War",
+              "Western"
+            ],
+            "y_true": [
+              "Documentary"
+            ],
+            "y_pred": [
+              "Documentary",
+              "Music",
+              "Musical",
+              "Short"
+            ],
+            "metrics": {
+              "exact_match": false,
+              "sample_f1": 0.4,
+              "tp": 1,
+              "fp": 3,
+              "fn": 0,
+              "n_predicted": 4,
+              "used_top1_fallback": false,
+              "threshold": 1.0
+            },
+            "scores": {
+              "image": [
+                -1.459646322195854,
+                -0.20672867143617538,
+                -0.8587273077637472,
+                1.1030376898494565,
+                -0.19137454122587444,
+                -0.5979726216383938,
+                2.166323799383839,
+                0.9484429624101861,
+                -0.9834479174332638,
+                -0.945700031476197,
+                0.3756774565578354,
+                1.02424399319134,
+                -1.454838169372928,
+                1.3404318224080995,
+                0.5648411223503939,
+                0.15875694502339166,
+                1.5937241667707513,
+                0.7577747134394972,
+                -0.9072560858266214,
+                -0.7410827983744078,
+                -0.46766551416852026,
+                -0.8630232943937136,
+                -0.3557913960790872
+              ],
+              "text": [
+                -0.6583546029888738,
+                -0.9698435490788697,
+                -0.4116854046332156,
+                0.6116054667575037,
+                0.20906772763019407,
+                -1.5206845173730272,
+                -0.08697478649144004,
+                0.8545272558240139,
+                -0.09483898852863633,
+                -0.010038697360962981,
+                0.21392610701710307,
+                0.09573185933221368,
+                0.27499280602017223,
+                2.064788191281571,
+                1.7426660770731575,
+                -0.0496050232791911,
+                1.4595266065234882,
+                0.8971445199294942,
+                -0.8929892318591416,
+                -1.8485250258917436,
+                0.5872176993069083,
+                -1.2932768335803262,
+                -1.1743776556303602
+              ],
+              "fusion": [
+                -1.059000462592364,
+                -0.5882861102575225,
+                -0.6352063561984814,
+                0.8573215783034801,
+                0.008846593202159816,
+                -1.0593285695057104,
+                1.0396745064461994,
+                0.9014851091171,
+                -0.53914345298095,
+                -0.47786936441857997,
+                0.29480178178746924,
+                0.5599879262617768,
+                -0.5899226816763778,
+                1.7026100068448353,
+                1.1537535997117756,
+                0.05457596087210028,
+                1.5266253866471198,
+                0.8274596166844956,
+                -0.9001226588428815,
+                -1.2948039121330757,
+                0.059776092569194,
+                -1.0781500639870198,
+                -0.7650845258547238
+              ]
+            },
+            "source_archive_sha256": "566c8852a5775c4ea2b078689149d57d93abdd815b0e8c7aa263318068b614a0"
+          },
+          {
+            "model": "openai_clip_vit_b_32",
+            "method": "baseline",
+            "run_id": "955d550a8310",
+            "summary_path": "results/baseline/mmimdb/genres/samples_3000/openai_clip_vit_b_32/genres_955d550a8310/summary.tsv",
+            "image_weight": 0.5,
+            "label_order": [
+              "Action",
+              "Adventure",
+              "Animation",
+              "Biography",
+              "Comedy",
+              "Crime",
+              "Documentary",
+              "Drama",
+              "Family",
+              "Fantasy",
+              "Film-Noir",
+              "History",
+              "Horror",
+              "Music",
+              "Musical",
+              "Mystery",
+              "Short",
+              "Romance",
+              "Sci-Fi",
+              "Sport",
+              "Thriller",
+              "War",
+              "Western"
+            ],
+            "y_true": [
+              "Documentary"
+            ],
+            "y_pred": [
+              "Music"
+            ],
+            "metrics": {
+              "exact_match": false,
+              "sample_f1": 0.0,
+              "tp": 0,
+              "fp": 1,
+              "fn": 1,
+              "n_predicted": 1,
+              "used_top1_fallback": false,
+              "threshold": 1.0
+            },
+            "scores": {
+              "image": [
+                -0.6834098081522805,
+                0.6851693266857412,
+                -2.1519634865840946,
+                1.2612013247779201,
+                0.9560560585540765,
+                0.4955658863263978,
+                0.08774013791177906,
+                1.139003540791887,
+                0.1417099705854555,
+                -0.8377008749800474,
+                -0.34004347214367464,
+                -0.1277737283655729,
+                -1.4094011184542075,
+                0.9960769154352591,
+                0.29941913098785683,
+                0.5768028689879854,
+                -0.7622775300534202,
+                1.329170196862906,
+                -1.912315201266217,
+                0.20291900253986628,
+                0.0880154878152648,
+                -1.2555981719098925,
+                1.2216335436470185
+              ],
+              "text": [
+                -0.8084500748891735,
+                -0.16226479035751085,
+                -2.872577871230661,
+                0.7204227546998018,
+                0.6264762510909764,
+                0.16215783874217132,
+                0.35185162459326613,
+                0.8498551902029654,
+                -0.07070167023412609,
+                0.5422633679387406,
+                0.5064125723997175,
+                0.5946213009510006,
+                0.3573010396735576,
+                1.8004191429666294,
+                0.6443310300905489,
+                0.8088668791508815,
+                0.2542682543325832,
+                -0.026341312917455714,
+                -0.06532875882126855,
+                -2.37678702707905,
+                -0.3628574063691885,
+                -0.7475531556117916,
+                -0.7263851793225818
+              ],
+              "fusion": [
+                -0.745929941520727,
+                0.26145226816411515,
+                -2.512270678907378,
+                0.9908120397388609,
+                0.7912661548225264,
+                0.32886186253428457,
+                0.21979588125252258,
+                0.9944293654974262,
+                0.03550415017566471,
+                -0.1477187535206534,
+                0.08318455012802142,
+                0.23342378629271388,
+                -0.5260500393903249,
+                1.3982480292009443,
+                0.4718750805392029,
+                0.6928348740694334,
+                -0.2540046378604185,
+                0.6514144419727251,
+                -0.9888219800437428,
+                -1.0869340122695919,
+                -0.13742095927696185,
+                -1.0015756637608422,
+                0.24762418216221832
+              ]
+            },
+            "source_archive_sha256": "5b4c4444705b3f9025da305044f40da289570fe1e9a55f272c816dbe88e5be1a"
+          }
+        ]
+      }
+    }
+  ]
+}

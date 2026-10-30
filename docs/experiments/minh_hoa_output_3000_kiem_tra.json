@@ -1,0 +1,24 @@
+{
+  "date": "2026-10-25",
+  "samples": 6,
+  "task_panels": 10,
+  "model_outputs": 72,
+  "checked_runs": 36,
+  "prediction_rows_checked": 108000,
+  "copied_images_sha256_match": true,
+  "reference_status_verified_all_tasks": true,
+  "fusion_max_absolute_error": 2.220446049250313e-16,
+  "source_processed_tsv_read": false,
+  "latex_assets_resolve": true,
+  "duplicate_latex_labels": false,
+  "bibliography_keys_resolve": true,
+  "latex_environments_balanced": true,
+  "waffle_tables_match_audit": true,
+  "waffle_main_cohort_results_available": true,
+  "local_pdf_compile": {
+    "verified": false,
+    "reason": "TeX Live Basic thiếu t5enc.def"
+  },
+  "new_model_inference_run": false,
+  "source_runs_are_saved_inference_results": true
+}

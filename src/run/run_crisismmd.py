@@ -35,6 +35,30 @@ from run.common import (
 )
 
 
+def prepare_prompt_embeddings(vlm, task_config):
+    task = task_config["task"]
+    variant = task_config.get("prompt_variant", "current")
+    aggregation = prompt_aggregation_settings(task_config, "crisismmd")
+    if variant == "modality_split":
+        if task_config.get("_research_image_prompts") is not None:
+            raise ValueError("Không kết hợp modality_split với research override trong cùng phép thử")
+        image_prompts, text_prompts = crisismmd_prompts.get_branch_prompt_sets(task)
+        text_classes, labels = build_class_embeddings(vlm, text_prompts, aggregation=aggregation)
+        image_classes, image_labels = build_class_embeddings(vlm, image_prompts, aggregation=aggregation)
+        if labels != image_labels:
+            raise ValueError("Hai nhánh khác thứ tự lớp")
+        return text_classes, labels, image_classes, {"prompt_variant": variant,
+            "image_prompt_aggregation": aggregation, "text_prompt_aggregation": aggregation,
+            "image_prompt_counts": {k: len(v) for k,v in image_prompts.items()},
+            "text_prompt_counts": {k: len(v) for k,v in text_prompts.items()}}, {"image":image_prompts,"text":text_prompts}
+    if variant != "current":
+        raise ValueError(f"Unknown CrisisMMD prompt variant: {variant}")
+    prompts = crisismmd_prompts.get_prompt_set(task)
+    classes, labels = build_class_embeddings(vlm, prompts, aggregation=aggregation)
+    images, metadata, audit_prompts = research_embeddings(vlm, task_config, prompts, labels)
+    return classes, labels, images, {"prompt_variant": variant, **metadata}, audit_prompts
+
+
 def run_crisismmd(vlm, task_config: dict, config: dict) -> dict:
     task = task_config["task"]
     relation, relation_meta = relation_settings(task_config, "crisismmd", config)
@@ -49,11 +73,9 @@ def run_crisismmd(vlm, task_config: dict, config: dict) -> dict:
 
     validate_columns(df, [id_col, text_col, label_col], "CrisisMMD")
 
-    prompt_set = crisismmd_prompts.get_prompt_set(task)
     label_names = crisismmd_prompts.get_label_names(task)
     aggregation = prompt_aggregation_settings(task_config, "crisismmd")
-    class_embeds, label_order = build_class_embeddings(vlm, prompt_set, aggregation=aggregation)
-    image_classes, research_meta, audit_prompts = research_embeddings(vlm, task_config, prompt_set, label_order)
+    class_embeds, label_order, image_classes, research_meta, audit_prompts = prepare_prompt_embeddings(vlm, task_config)
 
     image_paths = resolve_image_paths(df, task_config)
     images, valid_idx = load_images_safe(image_paths)

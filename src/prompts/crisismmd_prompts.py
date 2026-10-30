@@ -252,6 +252,21 @@ def get_prompt_set(task: str = "informativeness") -> dict:
         raise ValueError(f"task phải là 'informativeness' hoặc 'humanitarian', nhận được: {task}")
 
 
+def get_branch_prompt_sets(task: str):
+    """Tách đúng các khối tweet/photo hiện có, không biên tập hay thêm câu.
+
+    Ranh giới là khai báo của bộ prompt v1, không suy ra bằng keyword hoặc data.
+    """
+    original = get_prompt_set(task)
+    boundary = ({"informative": 12, "not_informative": 11} if task == "informativeness"
+                else {label: 6 for label in original})
+    text = {label: list(values[:boundary[label]]) for label, values in original.items()}
+    image = {label: list(values[boundary[label]:]) for label, values in original.items()}
+    if any(not text[label] or not image[label] for label in original):
+        raise ValueError("Prompt branch rỗng; kiểm tra ranh giới bộ prompt v1")
+    return image, text
+
+
 def get_label_names(task: str = "informativeness") -> dict:
     if task == "informativeness":
         return LABEL_NAMES_INFORMATIVENESS

@@ -1,0 +1,37 @@
+# Đối chứng tách modality: giữ nguyên câu, mean_embed và fusion ảnh/text 0.5/0.5.
+use_kaggle: false
+experiment_config: configs/experiment_config.yaml
+kaggle:
+  username: nguyenhung3105
+  code_dataset_slug: vlm-runs-code
+  data_dataset_slug: vlm-runs-data
+  data_mode: bounded
+  kernel_slug: vlm-runs
+  accelerator: NvidiaTeslaT4
+  timeout_seconds: 7200
+  poll_seconds: 20
+jobs:
+  split_info: &split
+    enabled: false
+    kind: standard
+    dataset: crisismmd
+    task: informativeness
+    max_samples: 5
+    models: [metaclip2_vith14]
+    prompt_variants: [modality_split]
+    prompt_aggregations: [mean_embed]
+    image_weight: 0.5
+    image_text_relation:
+      enabled: false
+    ensemble:
+      enabled: false
+  split_humanitarian:
+    <<: *split
+    task: humanitarian
+  baseline_info:
+    <<: *split
+    prompt_variants: [current]
+  baseline_humanitarian:
+    <<: *split
+    prompt_variants: [current]
+    task: humanitarian

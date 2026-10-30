@@ -1,0 +1,8 @@
+{
+  "train_run": "results/clip_two_stage_features/crisismmd/humanitarian/samples_3000/metaclip2_vith14/humanitarian_471dc4a07814",
+  "dev_run": "results/clip_two_stage_stata_heldout/crisismmd/humanitarian/samples_2219/metaclip2_vith14/humanitarian_ca2d96c17e89",
+  "methods": ["soft_mean_three", "protected_majority"],
+  "grouping_seeds": [0, 1, 2],
+  "weights": "equal_thirds",
+  "label_fit": false
+}

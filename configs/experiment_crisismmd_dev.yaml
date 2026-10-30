@@ -1,0 +1,91 @@
+models:
+- metaclip2_vith14
+inference:
+  image_text_relation:
+    enabled: false
+    mode: auto
+    weight: 0.25
+  batch_size: 16
+  image_weight: 0.5
+  text_logit_scale: null
+datasets:
+  fakeddit:
+    image_text_relation:
+      mode: auto
+    enabled: false
+    task: 6way
+    data_path: data/processed/pro_fakeddit/fakeddit_sample.tsv
+    image_dir: data/processed/pro_fakeddit/images
+    id_col: id
+    text_col: clean_title
+    label_col_2way: 2_way_label
+    label_col_6way: 6_way_label
+    min_text_length: 20
+    max_samples: 3000
+    prompt_aggregation: mean_sim
+    prompt_variants:
+    - current
+    inference:
+      image_weight: 0.75
+      text_logit_scale: 25
+    cohort_manifest: data/processed/pro_fakeddit/manifest.json
+    source_split: validate
+    label_source: 6_way_label
+  crisismmd:
+    image_text_relation:
+      mode: auto
+    enabled: true
+    task: humanitarian
+    data_path: data/processed/pro_crisismmd_dev/pre_crisismmd.tsv
+    image_dir: data/processed/pro_crisismmd_dev/images
+    id_col: image_id
+    text_col: clean_text
+    label_col_info: label_informative
+    label_col_human: label_humanitarian
+    max_samples: 341
+    prompt_aggregation: mean_embed
+    inference:
+      image_weight: 0.5
+      text_logit_scale: null
+    cohort_manifest: data/processed/pro_crisismmd_dev/manifest.json
+    source_split: dev
+    label_source: image
+  mmimdb:
+    image_text_relation:
+      mode: auto
+    enabled: false
+    task: genres
+    data_path: data/processed/pro_mmimdb/mmimdb_sample.tsv
+    image_dir: data/processed/pro_mmimdb/images
+    id_col: id
+    text_col: plot
+    label_col: genres
+    max_samples: 3000
+    prompt_aggregation: mean_sim
+    decision_mode: relative_z
+    relative_z_threshold: 1.0
+    threshold: 0.22
+    chunk_long_text: true
+    chunk_aggregation: mean_embed
+    inference:
+      image_weight: 0.5
+      text_logit_scale: null
+    cohort_manifest: data/processed/pro_mmimdb/manifest.json
+    source_split: test
+    label_source: genres
+evaluation:
+  enabled: true
+  split: per_dataset
+  measure_truncation: true
+  sample_lock_mode: create_or_verify
+  sample_lock_dir: results/_system/sample_locks/processed_v2
+demo:
+  n_samples: 10
+  batch_size: 4
+  prompt_version: v1
+  log_dir: auto
+  visualization_dir: auto
+output:
+  results_dir: auto
+  raw_predictions_dir: auto
+  summary_table: auto

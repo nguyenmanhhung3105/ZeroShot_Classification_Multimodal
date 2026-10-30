@@ -32,6 +32,7 @@ experiments/ensemble/           # mã thử nghiệm ensemble tùy chọn, 3 dat
 configs/
 ├── experiment_config.yaml     # cấu hình hệ thống chính
 ├── launcher.yaml              # job, số mẫu, phương pháp, ensemble và local/Kaggle
+├── launcher_3000.yaml          # CrisisMMD 3.000 mẫu: baseline/DCLIP, chọn job/model tường minh
 ├── crisismmd_launcher.yaml    # cấu hình tương thích launcher CrisisMMD cũ
 ├── prompts/                   # prompt/descriptor cố định
 └── research/
@@ -190,7 +191,24 @@ Launcher chung chạy Fakeddit 2way/6way, CrisisMMD informativeness/humanitarian
 MM-IMDb genres và các runner nghiên cứu. Cấu hình số mẫu, model, phương pháp và
 flag ensemble trong `configs/launcher.yaml`; chi tiết ở
 [hướng dẫn launcher](docs/experiments/launcher_kaggle.md). Mặc định chạy local;
-`--use-kaggle true` gửi job lên Kaggle. Xem trước không tải model hoặc upload:
+`--use-kaggle true` gửi job lên Kaggle.
+
+Hồ sơ 3.000 mẫu cho cả ba bộ dữ liệu nằm ở `configs/launcher_3000.yaml`;
+[kiểm tra cohort trước khi mở rộng](docs/experiments/kiem_tra_cohort_3000.md)
+ghi phân bố nhãn/sự kiện, các lượt đã có và giới hạn cần giải quyết trước khi chạy.
+Đối chiếu tiếp với nguồn raw phát hiện cohort trộn split và lỗi định danh;
+xem [rà soát preprocessing và phương án chọn lại mẫu](docs/experiments/ra_soat_raw_preprocessing_3000.md).
+Để tạo bộ mẫu mới có nhãn thật, dùng
+[hướng dẫn tạo cohort có y_true](docs/experiments/tao_cohort_co_y_true.md).
+Các bộ chính 3.000 mẫu dùng tên `data/processed/pro_*`; bản cũ giữ ở `pro_*_v1`.
+CrisisMMD chính dùng chung ảnh và hai cột nhãn cho cả hai task; xem
+[dữ liệu chính và cách bổ sung ảnh Fakeddit](docs/experiments/du_lieu_chinh_3000.md).
+Chọn hồ sơ bằng `--launcher-config configs/launcher_3000.yaml`; giữ `--job` và
+`--model` tường minh. Các job trong hồ sơ này đều tắt mặc định.
+Xem [kiểm tra Kaggle, lệnh chạy và báo cáo 3.000 mẫu](docs/experiments/chay_kaggle_3000.md)
+và [28 lệnh riêng đã kiểm tra](docs/experiments/lenh_kaggle_3000.sh).
+
+Ví dụ xem trước local dưới đây không tải model hoặc upload:
 
 ```sh
 venv/bin/python -B scripts/launch_runs.py --job crisismmd_info --dry-run

@@ -33,7 +33,16 @@ Cần ít nhất hai model và đúng một biến thể prompt/cách tổng h�
 
 `max_samples` là số mẫu hợp lệ tối đa mà runner xử lý. Với Fakeddit, launcher quét tuần tự và dừng ngay khi có đủ mẫu đạt `min_text_length`; `max_source_rows` tùy chọn chặn số dòng phải quét nếu file nhiều dòng ngắn. `kaggle.data_mode: full_dataset` đóng gói file dữ liệu đã xử lý cùng toàn bộ ảnh của mỗi dataset vào một Kaggle Dataset riêng (`vlm-runs-data-crisismmd`, `-fakeddit`, `-mmimdb`). Gói được cache trong `results/_system/launches/full_data_cache/`; launcher đối chiếu SHA nội dung file local và chỉ upload khi dữ liệu thay đổi. Đổi job, task hoặc `max_samples` sẽ dùng lại dataset đã upload. Lần đầu phải upload toàn bộ ảnh và mỗi phiên Kaggle vẫn mount/copy dataset đã chọn. `data_mode: bounded` giữ cách cũ: mỗi lượt chỉ upload các dòng đã quét và ảnh tương ứng vào dataset chung `vlm-runs-data`, nên đổi job thường tạo phiên bản dữ liệu mới. Cả hai chế độ chỉ đọc `data/processed/`, không đọc `dataraw/`.
 
-Muốn upload trước cả ba dataset mà chưa chạy GPU, dùng `venv/bin/python -B scripts/launch_runs.py --sync-data all`. Có thể thay `all` bằng `fakeddit`, `crisismmd` hoặc `mmimdb`. Lệnh này đối chiếu SHA cây tệp khi endpoint download sẵn sàng. Nếu Kaggle vừa tạo dataset nhưng endpoint download trả 403/404, launcher đối chiếu danh sách tên/kích thước tệp; worker vẫn kiểm tra SHA cây tệp ngay sau khi mount và trước khi suy luận. Các job sau dùng lại dataset khi dữ liệu không đổi.
+Muốn upload trước cả ba dataset mà chưa chạy GPU, dùng `venv/bin/python -B scripts/launch_runs.py --sync-data all`. Có thể thay `all` bằng `fakeddit`, `crisismmd` hoặc `mmimdb`. Lệnh bulk sync đối chiếu danh sách tên/kích thước tệp, tránh tải lại ZIP lớn còn trỏ đến version cũ trong lúc Kaggle xử lý bản mới. Đây là kiểm tra `file_manifest`; notebook audit CPU đối chiếu SHA cây file mount, và worker cũng kiểm tra SHA ngay trước suy luận. Các job sau dùng lại dataset khi dữ liệu không đổi.
+
+Với cohort chính mới, dùng `--launcher-config configs/launcher_3000.yaml`.
+`--sync-data` luôn đối chiếu lại từ xa, không bỏ qua chỉ vì state local trùng.
+`--sync-code` đồng bộ riêng gói mã mà không tạo kernel. Biên nhận kiểm tra nằm
+ở `results/_system/launches/dataset_verification.json`; `sha256` và
+`file_manifest` là hai mức xác nhận khác nhau. Gói full dataset có thêm
+manifest cohort; worker kiểm tra ID, nhãn thật, split và số mẫu trước khi nạp
+model, đồng thời lưu cohort ID trong receipt kết quả. Xem
+[quy trình chạy 3.000 mẫu](chay_kaggle_3000.md).
 
 ## Chạy
 

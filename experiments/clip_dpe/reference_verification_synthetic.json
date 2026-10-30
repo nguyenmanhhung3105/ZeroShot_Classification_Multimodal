@@ -1,0 +1,35 @@
+{
+  "status": "passed",
+  "reference_commit": "fecae5a50d7dc39fb944221be390201a56948416",
+  "source_sha256": {
+    "main_dpe.py": "e5ced464c8529084e269b15527e8d4cc470932b0c2a26509b7164f13a392835e",
+    "utils.py": "349c2fa7b08ffdfb59a6a3ba7f8f473a285afa4c2e858debe25a5eb67bb754b0"
+  },
+  "local_core_sha256": "987d7981b87e1560f0ca433cc1d33042706458f5cc96ca5b930b47918f971182",
+  "cases": [
+    {
+      "images": 43,
+      "classes": 2,
+      "max_logit_abs_error": 0.0,
+      "all_predictions_identical": true,
+      "final_memory_identical": true,
+      "text_updates_identical": true,
+      "scope": "synthetic"
+    },
+    {
+      "images": 43,
+      "classes": 8,
+      "max_logit_abs_error": 0.0,
+      "all_predictions_identical": true,
+      "final_memory_identical": true,
+      "text_updates_identical": true,
+      "scope": "synthetic"
+    }
+  ],
+  "scope": "Official single-view branch, CPU FP32; no datasets/model weights, no actual GT.",
+  "adaptations": [
+    "CUDA/half/autocast removed; logging and accuracy replaced by output observer.",
+    "InfoNCE default expressed as normalized dot-product / .01 and cross entropy.",
+    "Cached features through identity encoder; no full multi-view benchmark reproduction."
+  ]
+}

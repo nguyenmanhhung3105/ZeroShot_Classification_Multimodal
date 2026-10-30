@@ -1,0 +1,10 @@
+{
+  "train_run": "results/clip_two_stage_features/crisismmd/humanitarian/samples_3000/metaclip2_vith14/humanitarian_471dc4a07814",
+  "dev_run": "results/clip_two_stage_stata_heldout/crisismmd/humanitarian/samples_2219/metaclip2_vith14/humanitarian_ca2d96c17e89",
+  "text_prototype_run": "results/clip_two_stage_features/crisismmd/humanitarian/samples_3000/metaclip2_vith14/humanitarian_471dc4a07814",
+  "majority_run": "results/analysis/clip_gate_fusion/74ed4f8f37f4",
+  "methods": ["zlap_gate", "majority_zlap_leaf", "zlap_two_stage", "zlap_flat"],
+  "parameters": {"k": 5, "gamma": 5.0, "alpha": 0.3, "tol": 1e-6, "maxiter": 50},
+  "label_fit": false,
+  "protocol": "separate_full_cohort_graphs_train_dev_no_labels"
+}

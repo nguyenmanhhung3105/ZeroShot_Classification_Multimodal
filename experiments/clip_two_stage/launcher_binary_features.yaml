@@ -1,0 +1,25 @@
+use_kaggle: false
+experiment_config: configs/experiment_config.yaml
+kaggle:
+  username: nguyenhung3105
+  code_dataset_slug: vlm-runs-code
+  data_dataset_slug: vlm-runs-data
+  data_mode: bounded
+  kernel_slug: vlm-runs
+  accelerator: NvidiaTeslaT4
+  timeout_seconds: 7200
+  poll_seconds: 20
+jobs:
+  binary_features_train:
+    enabled: false
+    kind: clip_two_stage
+    dataset: crisismmd
+    task: humanitarian
+    max_samples: 3000
+    backbones: [metaclip2_vith14]
+    seeds: [0]
+    image_text_relation:
+      enabled: false
+    evaluation_scope: exploratory
+    export_features: true
+    tda_evaluate: true

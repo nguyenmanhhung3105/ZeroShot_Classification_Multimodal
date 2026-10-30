@@ -1,0 +1,124 @@
+{
+  "status": "passed",
+  "reference_commit": "5a6f7c94fac040401a5afdf06adc0a31b734534e",
+  "cases": [
+    {
+      "samples": 41,
+      "classes": 2,
+      "balanced_sinkhorn": false,
+      "iterations": 100,
+      "max_proxy_abs_error": 0.0,
+      "predictions_identical": true
+    },
+    {
+      "samples": 41,
+      "classes": 2,
+      "balanced_sinkhorn": true,
+      "iterations": 100,
+      "max_proxy_abs_error": 0.0,
+      "predictions_identical": true
+    },
+    {
+      "samples": 41,
+      "classes": 8,
+      "balanced_sinkhorn": false,
+      "iterations": 100,
+      "max_proxy_abs_error": 0.0,
+      "predictions_identical": true
+    },
+    {
+      "samples": 41,
+      "classes": 8,
+      "balanced_sinkhorn": true,
+      "iterations": 100,
+      "max_proxy_abs_error": 0.0,
+      "predictions_identical": true
+    },
+    {
+      "samples": 3000,
+      "classes": 2,
+      "balanced_sinkhorn": false,
+      "iterations": 2000,
+      "max_proxy_abs_error": 0.0,
+      "predictions_identical": true,
+      "split": "train",
+      "task": "informativeness"
+    },
+    {
+      "samples": 3000,
+      "classes": 2,
+      "balanced_sinkhorn": true,
+      "iterations": 2000,
+      "max_proxy_abs_error": 0.0,
+      "predictions_identical": true,
+      "split": "train",
+      "task": "informativeness"
+    },
+    {
+      "samples": 3000,
+      "classes": 8,
+      "balanced_sinkhorn": false,
+      "iterations": 2000,
+      "max_proxy_abs_error": 0.0,
+      "predictions_identical": true,
+      "split": "train",
+      "task": "humanitarian"
+    },
+    {
+      "samples": 3000,
+      "classes": 8,
+      "balanced_sinkhorn": true,
+      "iterations": 2000,
+      "max_proxy_abs_error": 0.0,
+      "predictions_identical": true,
+      "split": "train",
+      "task": "humanitarian"
+    },
+    {
+      "samples": 2219,
+      "classes": 2,
+      "balanced_sinkhorn": false,
+      "iterations": 2000,
+      "max_proxy_abs_error": 0.0,
+      "predictions_identical": true,
+      "split": "dev",
+      "task": "informativeness"
+    },
+    {
+      "samples": 2219,
+      "classes": 2,
+      "balanced_sinkhorn": true,
+      "iterations": 2000,
+      "max_proxy_abs_error": 0.0,
+      "predictions_identical": true,
+      "split": "dev",
+      "task": "informativeness"
+    },
+    {
+      "samples": 2219,
+      "classes": 8,
+      "balanced_sinkhorn": false,
+      "iterations": 2000,
+      "max_proxy_abs_error": 0.0,
+      "predictions_identical": true,
+      "split": "dev",
+      "task": "humanitarian"
+    },
+    {
+      "samples": 2219,
+      "classes": 8,
+      "balanced_sinkhorn": true,
+      "iterations": 2000,
+      "max_proxy_abs_error": 0.0,
+      "predictions_identical": true,
+      "split": "dev",
+      "task": "humanitarian"
+    }
+  ],
+  "adaptations": [
+    "Only original image_opt/sinkhorn functions executed, no main/dataset/model code.",
+    "Both use torch CPU FP32 and one thread. Local core clones pseudo labels to avoid mutating caller data."
+  ],
+  "reference_sha256": "964f6e2c5c3bbb80fd015ac92f82dd68b05bb65c890266b326b4680853c51224",
+  "local_core_sha256": "45777768494381257398eced0809ab9f5af417f37dc25c632afe4ebbb44e954c"
+}

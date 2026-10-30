@@ -1,0 +1,178 @@
+{
+  "scope": "first_at_most_3000_source_rows_metadata_only",
+  "text_read": false,
+  "images_opened": false,
+  "datasets": {
+    "fakeddit": {
+      "path": "data/processed/pro_fakeddit/fakeddit_sample.tsv",
+      "source_bytes": 305002,
+      "schema": [
+        "id",
+        "clean_title",
+        "image_path",
+        "hasImage",
+        "2_way_label",
+        "6_way_label"
+      ],
+      "selected_columns": [
+        "id",
+        "image_path",
+        "hasImage",
+        "2_way_label",
+        "6_way_label"
+      ],
+      "n_source_rows_read": 2841,
+      "reached_3000_source_rows": false,
+      "counts_before_text_and_image_filter": true,
+      "2_way_label": {
+        "0": 1441,
+        "1": 1400
+      },
+      "2_way_label_largest_to_smallest_observed": 1.0292857142857144,
+      "6_way_label": {
+        "0": 1400,
+        "4": 744,
+        "2": 430,
+        "1": 134,
+        "5": 79,
+        "3": 54
+      },
+      "6_way_label_largest_to_smallest_observed": 25.925925925925927,
+      "unique_ids": 2841,
+      "duplicate_id_rows": 0,
+      "duplicate_id_image_rows": 0,
+      "unique_image_paths": 2841,
+      "blank_image_paths": 0,
+      "rows_with_existing_image_file": 2841,
+      "image_readability_checked": false,
+      "hasImage_counts": {
+        "True": 2841
+      },
+      "binary_sixway_inconsistent": 0,
+      "runtime_text_filter_not_checked": "clean_title not read; runner drops non-space length <=20, so final evaluated count can be lower"
+    },
+    "crisismmd": {
+      "path": "data/processed/pro_crisismmd/pre_crisismmd.tsv",
+      "source_bytes": 2074901,
+      "schema": [
+        "tweet_id",
+        "image_id",
+        "clean_text",
+        "image_path",
+        "image_url",
+        "label_informative",
+        "label_humanitarian",
+        "event"
+      ],
+      "selected_columns": [
+        "tweet_id",
+        "image_id",
+        "image_path",
+        "label_informative",
+        "label_humanitarian",
+        "event"
+      ],
+      "n_source_rows_read": 3000,
+      "reached_3000_source_rows": true,
+      "counts_before_text_and_image_filter": true,
+      "label_informative": {
+        "informative": 1622,
+        "not_informative": 1378
+      },
+      "label_informative_largest_to_smallest_observed": 1.1770682148040639,
+      "label_humanitarian": {
+        "not_humanitarian": 1378,
+        "other_relevant_information": 789,
+        "rescue_volunteering_or_donation_effort": 465,
+        "infrastructure_and_utility_damage": 337,
+        "affected_individuals": 17,
+        "vehicle_damage": 11,
+        "injured_or_dead_people": 2,
+        "missing_or_found_people": 1
+      },
+      "label_humanitarian_largest_to_smallest_observed": 1378.0,
+      "event": {
+        "hurricane_harvey": 1745,
+        "hurricane_irma": 785,
+        "california_wildfires": 470
+      },
+      "event_largest_to_smallest_observed": 3.7127659574468086,
+      "unique_ids": 2679,
+      "duplicate_id_rows": 321,
+      "duplicate_id_image_rows": 0,
+      "unique_image_paths": 3000,
+      "blank_image_paths": 0,
+      "rows_with_existing_image_file": 3000,
+      "image_readability_checked": false
+    },
+    "mmimdb": {
+      "path": "data/processed/pro_mmimdb/mmimdb_sample.tsv",
+      "source_bytes": 1655865,
+      "schema": [
+        "id",
+        "plot",
+        "genres",
+        "n_genres",
+        "image_path"
+      ],
+      "selected_columns": [
+        "id",
+        "image_path",
+        "genres",
+        "n_genres"
+      ],
+      "n_source_rows_read": 3000,
+      "reached_3000_source_rows": true,
+      "counts_before_text_and_image_filter": true,
+      "unique_ids": 3000,
+      "duplicate_id_rows": 0,
+      "duplicate_id_image_rows": 0,
+      "unique_image_paths": 3000,
+      "blank_image_paths": 0,
+      "rows_with_existing_image_file": 3000,
+      "image_readability_checked": false,
+      "genre_support": {
+        "Drama": 1640,
+        "Comedy": 1009,
+        "Romance": 657,
+        "Thriller": 590,
+        "Crime": 438,
+        "Action": 395,
+        "Horror": 304,
+        "Adventure": 296,
+        "Mystery": 219,
+        "Fantasy": 210,
+        "Documentary": 209,
+        "Sci-Fi": 204,
+        "Family": 183,
+        "Biography": 160,
+        "War": 155,
+        "History": 126,
+        "Music": 125,
+        "Animation": 112,
+        "Musical": 90,
+        "Western": 67,
+        "Sport": 62,
+        "Short": 51,
+        "Film-Noir": 47
+      },
+      "label_cardinality": 2.449666666666667,
+      "empty_label_rows": 0,
+      "rows_per_label_count": {
+        "5": 132,
+        "2": 986,
+        "3": 792,
+        "1": 698,
+        "4": 359,
+        "6": 27,
+        "7": 5,
+        "10": 1
+      },
+      "genre_largest_to_smallest_observed": 34.8936170212766,
+      "n_genres_mismatch": 0
+    }
+  },
+  "audit_date": "2026-10-20",
+  "authorization_scope": "Yêu cầu kiểm tra cohort 3.000 mẫu; tối đa 3.000 dòng mỗi tệp, chỉ ID/nhãn/event/đường dẫn ảnh; không đọc text, không mở ảnh, không truy cập dữ liệu thô.",
+  "note": "Nhãn và số dòng trước bộ lọc text/kiểm tra nội dung ảnh; không phải kết quả inference 3.000 mẫu."
+}

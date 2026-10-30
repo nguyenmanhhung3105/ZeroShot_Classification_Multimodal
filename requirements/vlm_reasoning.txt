@@ -1,0 +1,3 @@
+# Môi trường riêng cho ứng viên generative VLM; không thay requirements chính.
+transformers>=4.49.0,<5
+accelerate>=1.2.0,<2

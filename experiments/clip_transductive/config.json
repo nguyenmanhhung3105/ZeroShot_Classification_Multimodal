@@ -1,0 +1,13 @@
+{
+  "algorithm": "EM_DIRICHLET",
+  "reference_commit": "9066ad371757c794e4b8255e852f837ac9a1d3b1",
+  "source_run": "results/clip_two_stage_heldout/crisismmd/humanitarian/samples_2219/metaclip2_vith14/humanitarian_77187aa56f13",
+  "query_size": 75,
+  "temperature": 30.0,
+  "iterations": 20,
+  "mm_iterations": 1000,
+  "grouping_seeds": [0, 1, 2],
+  "protocol": "fixed_image_gate_then_seven_class_transductive",
+  "label_fit": false,
+  "support_samples": 0
+}

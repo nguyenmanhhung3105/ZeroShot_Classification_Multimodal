@@ -1,5 +1,28 @@
 # Waffle lab — thử cải tiến trên CrisisMMD
 
+## Cập nhật 28/10/2026: đối chứng MetaCLIP2
+
+Lab hỗ trợ thêm `--backbone metaclip2_vith14` qua `VLMWrapper` hiện có.
+Checkpoint, preprocess và tokenizer lấy từ model registry; model eval, không gradient,
+chỉ ảnh và mean cosine. Kết quả lưu dưới model `metaclip2_vith14`; analysis nhận
+`metaclip2_real` và vẫn từ chối gộp khác model/cohort/protocol. Không đổi mặc định
+OpenAI CLIP hoặc tự gửi job. Đã kiểm tra chuẩn bị prompt; chưa chạy MetaCLIP2 thật.
+
+Chạy thử 5 mẫu trước, rồi 3.000 mẫu; mỗi lần một lệnh và đợi hoàn tất:
+
+```sh
+venv/bin/python -B scripts/launch_runs.py --launcher-config experiments/waffle_lab/launcher.yaml --job waffle_info --method waffle --backbone metaclip2_vith14 --seed 0 --max-samples 5 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --launcher-config experiments/waffle_lab/launcher.yaml --job waffle_info --method clip --backbone metaclip2_vith14 --seed 0 --max-samples 3000 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --launcher-config experiments/waffle_lab/launcher.yaml --job waffle_info --method waffle --backbone metaclip2_vith14 --seed 0 --max-samples 3000 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --launcher-config experiments/waffle_lab/launcher.yaml --job waffle_humanitarian --method clip --backbone metaclip2_vith14 --seed 0 --max-samples 3000 --use-kaggle true
+venv/bin/python -B scripts/launch_runs.py --launcher-config experiments/waffle_lab/launcher.yaml --job waffle_humanitarian --method waffle --backbone metaclip2_vith14 --seed 0 --max-samples 3000 --use-kaggle true
+```
+
+`clip` ở đây là tên phép đối chứng một prompt, vẫn chạy bằng MetaCLIP2.
+Chưa cần lặp seed đến khi có kết quả ban đầu. Thay code runner làm đổi protocol
+fingerprint; không gộp các lượt OpenAI cũ với lượt mới như cùng phiên bản giao thức.
+Các mục trạng thái 22/10 bên dưới là lịch sử trước các lượt Waffle gốc đã chạy thật.
+
 Trạng thái ngày 22/10/2026: đã triển khai runner và đối chứng riêng. Kiểm thử kỹ thuật
 dùng dữ liệu giả; chuẩn bị prompt không cần checkpoint. **Chưa có kết quả phân loại
 model thật cho các biến thể mới.** Không lấy số liệu giả hoặc phép kiểm tra năm mẫu

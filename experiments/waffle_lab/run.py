@@ -26,7 +26,16 @@ from research.upstream import (author_api, generate_prompts, verify_sources,
                                OpenAIClipBackend, choose_device)
 from results_layout import run_path, model_folder
 
-BACKBONES = ("ViT-B/32", "ViT-L/14", "RN50")
+BACKBONES = ("ViT-B/32", "ViT-L/14", "RN50", "metaclip2_vith14")
+
+
+def load_backend(api, backbone, device):
+    if backbone == "metaclip2_vith14":
+        from models.model_registry import load_model
+        backend = load_model(backbone, device=device)
+        backend.model.requires_grad_(False)
+        return backend
+    return OpenAIClipBackend(api, backbone, device)
 
 
 def digest(value):
@@ -105,6 +114,8 @@ def freeze_plan(settings, directory, api, sources):
                     LAB.parents[1] / "src/research/upstream.py",
                     LAB.parents[1] / "src/prompts/crisismmd_prompts.py"]
     hashes = {str(path.relative_to(LAB.parents[1])): file_hash(path) for path in source_files}
+    if settings["backbone"] == "metaclip2_vith14":
+        hashes["src/models/model_registry.py"] = file_hash(ROOT / "src/models/model_registry.py")
     common = {key: settings[key] for key in ("dataset", "task", "backbone", "waffle_pairs", "noise_cap")}
     common.update(sources=sources, source_hashes=hashes, labels=names, label_order=list(names), dataset_config=dataset_config,
                   descriptor_sha256=file_hash(descriptor_file),
@@ -240,11 +251,13 @@ def run(settings, prepare_only=False):
         print(f"[COHORT] {len(rows)} ảnh; {cohort['cohort_fingerprint']}", flush=True)
         device = choose_device(api.torch, settings.get("device", "auto"))
         print(f"[MODEL] Nạp duy nhất {settings['backbone']} trên {device}", flush=True)
-        backend = OpenAIClipBackend(api, settings["backbone"], device)
+        backend = load_backend(api, settings["backbone"], device)
         backend_type = type(backend)
         manifest["inference_backend"] = ("openai_clip_real" if
             (backend_type.__module__, backend_type.__name__) == ("research.upstream", "OpenAIClipBackend")
-            else "synthetic_or_custom")
+            else "metaclip2_real" if
+            (backend_type.__module__, backend_type.__name__) == ("models.model_registry", "VLMWrapper")
+            and backend.model_name == "metaclip2_vith14" else "synthetic_or_custom")
         manifest.update(device=device, batch_size=settings["batch_size"],
                         compute_dtype=str(getattr(backend.model, "dtype", "synthetic_or_unspecified")))
         manifest["logit_scale"] = backend.logit_scale

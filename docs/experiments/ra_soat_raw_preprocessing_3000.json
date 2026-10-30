@@ -1,0 +1,416 @@
+{
+  "mmimdb": {
+    "official_split_sizes": {
+      "train": 15552,
+      "dev": 2608,
+      "test": 7799
+    },
+    "official_split_intersections": {
+      "dev:train": 0,
+      "dev:test": 0,
+      "test:train": 0
+    },
+    "raw_paired_files": 25959,
+    "raw_pair_count_by_official_split": {
+      "train": 15552,
+      "dev": 2608,
+      "test": 7799
+    },
+    "processed_first_3000_membership": {
+      "train": 1819,
+      "dev": 284,
+      "test": 897
+    },
+    "processed_unknown_ids": 0,
+    "not_verified": "JSON eligibility and image readability in the complete raw pool"
+  },
+  "crisismmd": {
+    "official_splits": {
+      "informative/train": {
+        "rows": 13608,
+        "unique_image_ids": 13608,
+        "unique_tweet_ids": 11584,
+        "events": {
+          "california_wildfires": 1139,
+          "hurricane_harvey": 3285,
+          "hurricane_irma": 3421,
+          "hurricane_maria": 3462,
+          "iraq_iran_earthquake": 452,
+          "mexico_earthquake": 1044,
+          "srilanka_floods": 805
+        },
+        "labels": {
+          "label": {
+            "informative": 8341,
+            "not_informative": 5267
+          },
+          "label_text": {
+            "informative": 9638,
+            "not_informative": 3970
+          },
+          "label_image": {
+            "informative": 7059,
+            "not_informative": 6549
+          }
+        },
+        "text_image_disagree": 4007,
+        "image_file_exists": 13608,
+        "tweet_id_not_digits": 0,
+        "tweet_id_not_image_prefix": 0
+      },
+      "informative/dev": {
+        "rows": 2237,
+        "unique_image_ids": 2237,
+        "unique_tweet_ids": 2237,
+        "events": {
+          "california_wildfires": 210,
+          "hurricane_harvey": 581,
+          "hurricane_irma": 535,
+          "hurricane_maria": 552,
+          "iraq_iran_earthquake": 72,
+          "mexico_earthquake": 177,
+          "srilanka_floods": 110
+        },
+        "labels": {
+          "label": {
+            "informative": 1407,
+            "not_informative": 830
+          },
+          "label_text": {
+            "informative": 1612,
+            "not_informative": 625
+          },
+          "label_image": {
+            "informative": 1164,
+            "not_informative": 1073
+          }
+        },
+        "text_image_disagree": 664,
+        "image_file_exists": 2237,
+        "tweet_id_not_digits": 0,
+        "tweet_id_not_image_prefix": 0
+      },
+      "informative/test": {
+        "rows": 2237,
+        "unique_image_ids": 2237,
+        "unique_tweet_ids": 2237,
+        "events": {
+          "california_wildfires": 240,
+          "hurricane_harvey": 568,
+          "hurricane_irma": 548,
+          "hurricane_maria": 542,
+          "iraq_iran_earthquake": 73,
+          "mexico_earthquake": 159,
+          "srilanka_floods": 107
+        },
+        "labels": {
+          "label": {
+            "informative": 1373,
+            "not_informative": 864
+          },
+          "label_text": {
+            "informative": 1612,
+            "not_informative": 625
+          },
+          "label_image": {
+            "informative": 1151,
+            "not_informative": 1086
+          }
+        },
+        "text_image_disagree": 703,
+        "image_file_exists": 2237,
+        "tweet_id_not_digits": 0,
+        "tweet_id_not_image_prefix": 0
+      },
+      "humanitarian/train": {
+        "rows": 13608,
+        "unique_image_ids": 13608,
+        "unique_tweet_ids": 11584,
+        "events": {
+          "california_wildfires": 1156,
+          "hurricane_harvey": 3337,
+          "hurricane_irma": 3390,
+          "hurricane_maria": 3453,
+          "iraq_iran_earthquake": 457,
+          "mexico_earthquake": 1027,
+          "srilanka_floods": 788
+        },
+        "labels": {
+          "label": {
+            "affected_individuals": 424,
+            "infrastructure_and_utility_damage": 1905,
+            "injured_or_dead_people": 244,
+            "missing_or_found_people": 24,
+            "not_humanitarian": 5260,
+            "other_relevant_information": 3294,
+            "rescue_volunteering_or_donation_effort": 2323,
+            "vehicle_damage": 134
+          },
+          "label_text": {
+            "affected_individuals": 384,
+            "infrastructure_and_utility_damage": 1102,
+            "injured_or_dead_people": 393,
+            "missing_or_found_people": 29,
+            "not_humanitarian": 3970,
+            "other_relevant_information": 4817,
+            "rescue_volunteering_or_donation_effort": 2867,
+            "vehicle_damage": 46
+          },
+          "label_image": {
+            "affected_individuals": 397,
+            "infrastructure_and_utility_damage": 2761,
+            "injured_or_dead_people": 92,
+            "missing_or_found_people": 9,
+            "not_humanitarian": 6565,
+            "other_relevant_information": 1860,
+            "rescue_volunteering_or_donation_effort": 1694,
+            "vehicle_damage": 230
+          }
+        },
+        "text_image_disagree": 7482,
+        "image_file_exists": 13608,
+        "tweet_id_not_digits": 0,
+        "tweet_id_not_image_prefix": 0
+      },
+      "humanitarian/dev": {
+        "rows": 2237,
+        "unique_image_ids": 2237,
+        "unique_tweet_ids": 2237,
+        "events": {
+          "california_wildfires": 217,
+          "hurricane_harvey": 525,
+          "hurricane_irma": 555,
+          "hurricane_maria": 585,
+          "iraq_iran_earthquake": 67,
+          "mexico_earthquake": 177,
+          "srilanka_floods": 111
+        },
+        "labels": {
+          "label": {
+            "affected_individuals": 71,
+            "infrastructure_and_utility_damage": 251,
+            "injured_or_dead_people": 42,
+            "missing_or_found_people": 4,
+            "not_humanitarian": 889,
+            "other_relevant_information": 605,
+            "rescue_volunteering_or_donation_effort": 353,
+            "vehicle_damage": 22
+          },
+          "label_text": {
+            "affected_individuals": 67,
+            "infrastructure_and_utility_damage": 164,
+            "injured_or_dead_people": 70,
+            "missing_or_found_people": 6,
+            "not_humanitarian": 625,
+            "other_relevant_information": 844,
+            "rescue_volunteering_or_donation_effort": 453,
+            "vehicle_damage": 8
+          },
+          "label_image": {
+            "affected_individuals": 77,
+            "infrastructure_and_utility_damage": 405,
+            "injured_or_dead_people": 8,
+            "missing_or_found_people": 2,
+            "not_humanitarian": 1088,
+            "other_relevant_information": 338,
+            "rescue_volunteering_or_donation_effort": 281,
+            "vehicle_damage": 38
+          }
+        },
+        "text_image_disagree": 1239,
+        "image_file_exists": 2237,
+        "tweet_id_not_digits": 0,
+        "tweet_id_not_image_prefix": 0
+      },
+      "humanitarian/test": {
+        "rows": 2237,
+        "unique_image_ids": 2237,
+        "unique_tweet_ids": 2237,
+        "events": {
+          "california_wildfires": 216,
+          "hurricane_harvey": 572,
+          "hurricane_irma": 559,
+          "hurricane_maria": 518,
+          "iraq_iran_earthquake": 73,
+          "mexico_earthquake": 176,
+          "srilanka_floods": 123
+        },
+        "labels": {
+          "label": {
+            "affected_individuals": 86,
+            "infrastructure_and_utility_damage": 319,
+            "injured_or_dead_people": 41,
+            "missing_or_found_people": 5,
+            "not_humanitarian": 849,
+            "other_relevant_information": 578,
+            "rescue_volunteering_or_donation_effort": 340,
+            "vehicle_damage": 19
+          },
+          "label_text": {
+            "affected_individuals": 67,
+            "infrastructure_and_utility_damage": 164,
+            "injured_or_dead_people": 70,
+            "missing_or_found_people": 6,
+            "not_humanitarian": 625,
+            "other_relevant_information": 844,
+            "rescue_volunteering_or_donation_effort": 454,
+            "vehicle_damage": 7
+          },
+          "label_image": {
+            "affected_individuals": 88,
+            "infrastructure_and_utility_damage": 458,
+            "injured_or_dead_people": 10,
+            "missing_or_found_people": 3,
+            "not_humanitarian": 1055,
+            "other_relevant_information": 331,
+            "rescue_volunteering_or_donation_effort": 256,
+            "vehicle_damage": 36
+          }
+        },
+        "text_image_disagree": 1282,
+        "image_file_exists": 2237,
+        "tweet_id_not_digits": 0,
+        "tweet_id_not_image_prefix": 0
+      }
+    },
+    "official_split_intersections": {
+      "informative/train:dev": {
+        "image_id": 0,
+        "tweet_id": 0
+      },
+      "informative/train:test": {
+        "image_id": 0,
+        "tweet_id": 0
+      },
+      "informative/dev:test": {
+        "image_id": 0,
+        "tweet_id": 0
+      },
+      "humanitarian/train:dev": {
+        "image_id": 0,
+        "tweet_id": 0
+      },
+      "humanitarian/train:test": {
+        "image_id": 0,
+        "tweet_id": 0
+      },
+      "humanitarian/dev:test": {
+        "image_id": 0,
+        "tweet_id": 0
+      }
+    },
+    "cross_task_split_image_intersections": {
+      "informative/train:humanitarian/train": 10433,
+      "informative/train:humanitarian/dev": 1588,
+      "informative/train:humanitarian/test": 1587,
+      "informative/dev:humanitarian/train": 1572,
+      "informative/dev:humanitarian/dev": 344,
+      "informative/dev:humanitarian/test": 321,
+      "informative/test:humanitarian/train": 1603,
+      "informative/test:humanitarian/dev": 305,
+      "informative/test:humanitarian/test": 329
+    },
+    "processed_first_3000": {
+      "tweet_id_not_digits": 470,
+      "unique_stored_tweet_ids": 2679,
+      "unique_image_prefix_tweet_ids": 2730,
+      "tweet_id_not_image_prefix": 470,
+      "source_comparison": {
+        "informative": {
+          "matched_rows_by_image_id": 3000,
+          "official_duplicate_image_ids": 0,
+          "membership": {
+            "dev": 386,
+            "test": 341,
+            "train": 2273
+          },
+          "matches_by_label_source": {
+            "label": 2994,
+            "label_text": 2984,
+            "label_image": 3000
+          },
+          "text_image_disagree_in_current_cohort": 16,
+          "event_mismatch": 0
+        },
+        "humanitarian": {
+          "matched_rows_by_image_id": 3000,
+          "official_duplicate_image_ids": 0,
+          "membership": {
+            "dev": 346,
+            "test": 394,
+            "train": 2260
+          },
+          "matches_by_label_source": {
+            "label": 2989,
+            "label_text": 2984,
+            "label_image": 3000
+          },
+          "text_image_disagree_in_current_cohort": 16,
+          "event_mismatch": 0
+        }
+      }
+    }
+  },
+  "fakeddit": {
+    "validate": {
+      "raw_rows": 59342,
+      "eligible_before_image_check": 59059,
+      "local_images_eligible_preprocess": 2841,
+      "local_images_eligible_runner": 1973,
+      "local_image_files": 2841,
+      "processed_ids_in_source": 2841,
+      "processed_ids_eligible_runner_in_source": 1973,
+      "eligible_before_image_check_runner_6way": {
+        "0": 19977,
+        "1": 2653,
+        "2": 7830,
+        "3": 1200,
+        "4": 5284,
+        "5": 2061
+      },
+      "local_preprocess_6way": {
+        "0": 1400,
+        "1": 134,
+        "2": 430,
+        "3": 54,
+        "4": 744,
+        "5": 79
+      },
+      "local_runner_6way": {
+        "0": 1198,
+        "1": 101,
+        "2": 297,
+        "3": 53,
+        "4": 249,
+        "5": 75
+      },
+      "unique_source_ids": 59342
+    },
+    "test_public": {
+      "raw_rows": 59319,
+      "eligible_before_image_check": 59055,
+      "local_images_eligible_preprocess": 0,
+      "local_images_eligible_runner": 0,
+      "local_image_files": 2841,
+      "processed_ids_in_source": 0,
+      "processed_ids_eligible_runner_in_source": 0,
+      "eligible_before_image_check_runner_6way": {
+        "0": 20130,
+        "1": 2629,
+        "2": 7854,
+        "3": 1193,
+        "4": 5237,
+        "5": 2182
+      },
+      "local_preprocess_6way": {},
+      "local_runner_6way": {},
+      "unique_source_ids": 59319
+    }
+  },
+  "scope": {
+    "processed_read_limit": "first <=3000 metadata-only rows/file; no text/plot/image decoding",
+    "raw_reads": "official split metadata and filenames; Fakeddit title length only in chunks of 1000",
+    "no_dataset_writes": true,
+    "no_inference_or_preprocessing_run": true
+  }
+}

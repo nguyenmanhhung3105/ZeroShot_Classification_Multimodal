@@ -1,7 +1,7 @@
 {
-  "scope": "28 lượt cohort chính, 3000 mẫu/lượt; không chạy lại model",
-  "checked_runs": 28,
-  "prediction_rows_checked": 84000,
+  "scope": "36 lượt cohort chính, 3000 mẫu/lượt; không chạy lại model",
+  "checked_runs": 36,
+  "prediction_rows_checked": 108000,
   "excluded_runs": [
     {
       "summary": "results/adapted_dclip/crisismmd/informativeness/samples_3000/metaclip2_vith14/informativeness_03f1882357bb/summary.tsv",
@@ -143,7 +143,12 @@
         "chunk_aggregation": null,
         "batch_size": 16,
         "logit_scale": 14.284856796264648,
-        "logit_bias": 0.0
+        "logit_bias": 0.0,
+        "image_method": "dclip",
+        "research_seed": null,
+        "waffle_pairs": null,
+        "waffle_alphabet": null,
+        "vocabulary_sha256": null
       },
       "truncation": {
         "status": "measured",
@@ -374,7 +379,12 @@
         "chunk_aggregation": null,
         "batch_size": 16,
         "logit_scale": 100.0,
-        "logit_bias": 0.0
+        "logit_bias": 0.0,
+        "image_method": "dclip",
+        "research_seed": null,
+        "waffle_pairs": null,
+        "waffle_alphabet": null,
+        "vocabulary_sha256": null
       },
       "truncation": {
         "status": "measured",
@@ -605,7 +615,12 @@
         "chunk_aggregation": null,
         "batch_size": 16,
         "logit_scale": 100.0,
-        "logit_bias": 0.0
+        "logit_bias": 0.0,
+        "image_method": "dclip",
+        "research_seed": null,
+        "waffle_pairs": null,
+        "waffle_alphabet": null,
+        "vocabulary_sha256": null
       },
       "truncation": {
         "status": "measured",
@@ -836,7 +851,12 @@
         "chunk_aggregation": null,
         "batch_size": 16,
         "logit_scale": 109.8812255859375,
-        "logit_bias": -15.932409286499023
+        "logit_bias": -15.932409286499023,
+        "image_method": "dclip",
+        "research_seed": null,
+        "waffle_pairs": null,
+        "waffle_alphabet": null,
+        "vocabulary_sha256": null
       },
       "truncation": {
         "status": "measured",
@@ -1019,7 +1039,12 @@
         "chunk_aggregation": null,
         "batch_size": 16,
         "logit_scale": 14.284856796264648,
-        "logit_bias": 0.0
+        "logit_bias": 0.0,
+        "image_method": "dclip",
+        "research_seed": null,
+        "waffle_pairs": null,
+        "waffle_alphabet": null,
+        "vocabulary_sha256": null
       },
       "truncation": {
         "status": "measured",
@@ -1130,7 +1155,12 @@
         "chunk_aggregation": null,
         "batch_size": 16,
         "logit_scale": 100.0,
-        "logit_bias": 0.0
+        "logit_bias": 0.0,
+        "image_method": "dclip",
+        "research_seed": null,
+        "waffle_pairs": null,
+        "waffle_alphabet": null,
+        "vocabulary_sha256": null
       },
       "truncation": {
         "status": "measured",
@@ -1241,7 +1271,12 @@
         "chunk_aggregation": null,
         "batch_size": 16,
         "logit_scale": 100.0,
-        "logit_bias": 0.0
+        "logit_bias": 0.0,
+        "image_method": "dclip",
+        "research_seed": null,
+        "waffle_pairs": null,
+        "waffle_alphabet": null,
+        "vocabulary_sha256": null
       },
       "truncation": {
         "status": "measured",
@@ -1352,7 +1387,12 @@
         "chunk_aggregation": null,
         "batch_size": 16,
         "logit_scale": 109.8812255859375,
-        "logit_bias": -15.932409286499023
+        "logit_bias": -15.932409286499023,
+        "image_method": "dclip",
+        "research_seed": null,
+        "waffle_pairs": null,
+        "waffle_alphabet": null,
+        "vocabulary_sha256": null
       },
       "truncation": {
         "status": "measured",
@@ -1372,6 +1412,1414 @@
         [
           123,
           1326
+        ]
+      ],
+      "majority_baseline": {
+        "accuracy": 0.517,
+        "macro_f1": 0.34080421885299933,
+        "micro_f1": 0.517,
+        "balanced_accuracy": 0.5
+      }
+    },
+    {
+      "dataset": "crisismmd",
+      "task": "humanitarian",
+      "model": "dfn5b_vith14",
+      "method": "adapted_waffle",
+      "run_id": "c3053205ec6a",
+      "summary_path": "results/adapted_waffle/crisismmd/humanitarian/samples_3000/dfn5b_vith14/humanitarian_c3053205ec6a/summary.tsv",
+      "receipt": {
+        "run_id": "c3053205ec6a",
+        "job_id": "adapted_crisismmd_humanitarian",
+        "kind": "adapted",
+        "code_sha256": "6e34c520cc1c2ad8b3e7aa097b91e17c8c7ff52ae41e52a82f0e97834d6425de",
+        "data_sha256": "8ffe42f27fe7cb93fb598ce441eb7b6cd807746a0e15dc9e70536c06df421341",
+        "gpu": "Tesla T4",
+        "cohort": {
+          "cohort_id": "0451b45a4274038830ed",
+          "cohort_samples": 3000,
+          "requested_samples": 3000,
+          "source_split": "train",
+          "label_source": "image",
+          "task": "humanitarian"
+        }
+      },
+      "n_samples": 3000,
+      "labels": [
+        "not_humanitarian",
+        "other_relevant_information",
+        "rescue_volunteering_or_donation_effort",
+        "infrastructure_and_utility_damage",
+        "affected_individuals",
+        "vehicle_damage",
+        "injured_or_dead_people",
+        "missing_or_found_people"
+      ],
+      "support": {
+        "rescue_volunteering_or_donation_effort": 382,
+        "not_humanitarian": 1449,
+        "infrastructure_and_utility_damage": 603,
+        "other_relevant_information": 404,
+        "affected_individuals": 86,
+        "injured_or_dead_people": 22,
+        "vehicle_damage": 52,
+        "missing_or_found_people": 2
+      },
+      "metrics": {
+        "accuracy": 0.5356666666666666,
+        "macro_f1": 0.38392719190976377,
+        "micro_f1": 0.5356666666666666,
+        "balanced_accuracy": 0.4159908708423155
+      },
+      "branch_metrics": {
+        "image": {
+          "accuracy": 0.42433333333333334,
+          "macro_f1": 0.36204658195245454,
+          "micro_f1": 0.42433333333333334,
+          "balanced_accuracy": 0.5287749681729828
+        },
+        "text": {
+          "accuracy": 0.477,
+          "macro_f1": 0.2648679357866917,
+          "micro_f1": 0.477,
+          "balanced_accuracy": 0.2881960402688211
+        }
+      },
+      "per_class": {
+        "not_humanitarian": {
+          "precision": 0.6148092744951383,
+          "recall": 0.567287784679089,
+          "f1-score": 0.5900933237616655,
+          "support": 1449.0
+        },
+        "other_relevant_information": {
+          "precision": 0.6550522648083623,
+          "recall": 0.46534653465346537,
+          "f1-score": 0.5441389290882779,
+          "support": 404.0
+        },
+        "rescue_volunteering_or_donation_effort": {
+          "precision": 0.3864265927977839,
+          "recall": 0.7303664921465969,
+          "f1-score": 0.5054347826086957,
+          "support": 382.0
+        },
+        "infrastructure_and_utility_damage": {
+          "precision": 0.6878172588832487,
+          "recall": 0.4494195688225539,
+          "f1-score": 0.5436308926780341,
+          "support": 603.0
+        },
+        "affected_individuals": {
+          "precision": 0.2125,
+          "recall": 0.19767441860465115,
+          "f1-score": 0.20481927710843373,
+          "support": 86.0
+        },
+        "vehicle_damage": {
+          "precision": 0.3469387755102041,
+          "recall": 0.3269230769230769,
+          "f1-score": 0.33663366336633666,
+          "support": 52.0
+        },
+        "injured_or_dead_people": {
+          "precision": 0.24528301886792453,
+          "recall": 0.5909090909090909,
+          "f1-score": 0.3466666666666667,
+          "support": 22.0
+        },
+        "missing_or_found_people": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1-score": 0.0,
+          "support": 2.0
+        }
+      },
+      "cohort_content_sha256": "027c8e63a9e1bd24b2174cb1bb0b6cac214e224f71959467f4c4de2501792bb0",
+      "shared_input_sha256": "8eb0473cde6f714f5d5e1e60bc00de4a2d26aa0012d4b3af8fb5cb533dd1371f",
+      "config": {
+        "image_weight": 0.5,
+        "text_logit_scale_effective": 14.284856796264648,
+        "prompt_aggregation": "mean_embed",
+        "image_prompt_aggregation": "mean_sim",
+        "descriptor_sha256": null,
+        "descriptor_provenance": null,
+        "decision_mode": null,
+        "relative_z_threshold": null,
+        "fallback_top1": null,
+        "chunk_long_text": null,
+        "chunk_aggregation": null,
+        "batch_size": 16,
+        "logit_scale": 14.284856796264648,
+        "logit_bias": 0.0,
+        "image_method": "waffle",
+        "research_seed": 0,
+        "waffle_pairs": 15,
+        "waffle_alphabet": "ascii_lowercase",
+        "vocabulary_sha256": "4bda32e4c7e57ce842fe81bad1b05b454dc6293c6d3c392476b7589ccdc16468"
+      },
+      "truncation": {
+        "status": "measured",
+        "context_length": 77,
+        "n_nonempty": 3000,
+        "n_measured": 3000,
+        "n_truncated": 2,
+        "truncated_rate": 0.0006666666666666666
+      },
+      "chunking": null,
+      "empty_texts": 0,
+      "confusion_matrix": [
+        [
+          822,
+          89,
+          326,
+          73,
+          46,
+          12,
+          7,
+          74
+        ],
+        [
+          164,
+          188,
+          28,
+          15,
+          2,
+          4,
+          3,
+          0
+        ],
+        [
+          56,
+          1,
+          279,
+          22,
+          4,
+          2,
+          18,
+          0
+        ],
+        [
+          239,
+          5,
+          58,
+          271,
+          9,
+          12,
+          5,
+          4
+        ],
+        [
+          36,
+          0,
+          21,
+          4,
+          17,
+          2,
+          6,
+          0
+        ],
+        [
+          19,
+          3,
+          4,
+          9,
+          0,
+          17,
+          0,
+          0
+        ],
+        [
+          1,
+          1,
+          5,
+          0,
+          2,
+          0,
+          13,
+          0
+        ],
+        [
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          1,
+          0
+        ]
+      ],
+      "majority_baseline": {
+        "accuracy": 0.483,
+        "macro_f1": 0.08142279163857047,
+        "micro_f1": 0.483,
+        "balanced_accuracy": 0.125
+      }
+    },
+    {
+      "dataset": "crisismmd",
+      "task": "humanitarian",
+      "model": "metaclip2_vith14",
+      "method": "adapted_waffle",
+      "run_id": "a9722c05f361",
+      "summary_path": "results/adapted_waffle/crisismmd/humanitarian/samples_3000/metaclip2_vith14/humanitarian_a9722c05f361/summary.tsv",
+      "receipt": {
+        "run_id": "a9722c05f361",
+        "job_id": "adapted_crisismmd_humanitarian",
+        "kind": "adapted",
+        "code_sha256": "6e34c520cc1c2ad8b3e7aa097b91e17c8c7ff52ae41e52a82f0e97834d6425de",
+        "data_sha256": "8ffe42f27fe7cb93fb598ce441eb7b6cd807746a0e15dc9e70536c06df421341",
+        "gpu": "Tesla T4",
+        "cohort": {
+          "cohort_id": "0451b45a4274038830ed",
+          "cohort_samples": 3000,
+          "requested_samples": 3000,
+          "source_split": "train",
+          "label_source": "image",
+          "task": "humanitarian"
+        }
+      },
+      "n_samples": 3000,
+      "labels": [
+        "not_humanitarian",
+        "other_relevant_information",
+        "rescue_volunteering_or_donation_effort",
+        "infrastructure_and_utility_damage",
+        "affected_individuals",
+        "vehicle_damage",
+        "injured_or_dead_people",
+        "missing_or_found_people"
+      ],
+      "support": {
+        "rescue_volunteering_or_donation_effort": 382,
+        "not_humanitarian": 1449,
+        "infrastructure_and_utility_damage": 603,
+        "other_relevant_information": 404,
+        "affected_individuals": 86,
+        "injured_or_dead_people": 22,
+        "vehicle_damage": 52,
+        "missing_or_found_people": 2
+      },
+      "metrics": {
+        "accuracy": 0.488,
+        "macro_f1": 0.3391675397590387,
+        "micro_f1": 0.488,
+        "balanced_accuracy": 0.41431272696904264
+      },
+      "branch_metrics": {
+        "image": {
+          "accuracy": 0.376,
+          "macro_f1": 0.2733202865383608,
+          "micro_f1": 0.376,
+          "balanced_accuracy": 0.3906436201920051
+        },
+        "text": {
+          "accuracy": 0.43133333333333335,
+          "macro_f1": 0.25853791981518903,
+          "micro_f1": 0.43133333333333335,
+          "balanced_accuracy": 0.3151075711669904
+        }
+      },
+      "per_class": {
+        "not_humanitarian": {
+          "precision": 0.7307206068268015,
+          "recall": 0.39889579020013805,
+          "f1-score": 0.5160714285714286,
+          "support": 1449.0
+        },
+        "other_relevant_information": {
+          "precision": 0.36194563662374823,
+          "recall": 0.6262376237623762,
+          "f1-score": 0.4587488667271079,
+          "support": 404.0
+        },
+        "rescue_volunteering_or_donation_effort": {
+          "precision": 0.34414831981460026,
+          "recall": 0.7774869109947644,
+          "f1-score": 0.4771084337349398,
+          "support": 382.0
+        },
+        "infrastructure_and_utility_damage": {
+          "precision": 0.6696629213483146,
+          "recall": 0.494195688225539,
+          "f1-score": 0.5687022900763359,
+          "support": 603.0
+        },
+        "affected_individuals": {
+          "precision": 0.2153846153846154,
+          "recall": 0.16279069767441862,
+          "f1-score": 0.18543046357615894,
+          "support": 86.0
+        },
+        "vehicle_damage": {
+          "precision": 0.21428571428571427,
+          "recall": 0.17307692307692307,
+          "f1-score": 0.19148936170212766,
+          "support": 52.0
+        },
+        "injured_or_dead_people": {
+          "precision": 0.2054794520547945,
+          "recall": 0.6818181818181818,
+          "f1-score": 0.3157894736842105,
+          "support": 22.0
+        },
+        "missing_or_found_people": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1-score": 0.0,
+          "support": 2.0
+        }
+      },
+      "cohort_content_sha256": "027c8e63a9e1bd24b2174cb1bb0b6cac214e224f71959467f4c4de2501792bb0",
+      "shared_input_sha256": "8eb0473cde6f714f5d5e1e60bc00de4a2d26aa0012d4b3af8fb5cb533dd1371f",
+      "config": {
+        "image_weight": 0.5,
+        "text_logit_scale_effective": 100.0,
+        "prompt_aggregation": "mean_embed",
+        "image_prompt_aggregation": "mean_sim",
+        "descriptor_sha256": null,
+        "descriptor_provenance": null,
+        "decision_mode": null,
+        "relative_z_threshold": null,
+        "fallback_top1": null,
+        "chunk_long_text": null,
+        "chunk_aggregation": null,
+        "batch_size": 16,
+        "logit_scale": 100.0,
+        "logit_bias": 0.0,
+        "image_method": "waffle",
+        "research_seed": 0,
+        "waffle_pairs": 15,
+        "waffle_alphabet": "ascii_lowercase",
+        "vocabulary_sha256": "4bda32e4c7e57ce842fe81bad1b05b454dc6293c6d3c392476b7589ccdc16468"
+      },
+      "truncation": {
+        "status": "measured",
+        "context_length": 77,
+        "n_nonempty": 3000,
+        "n_measured": 3000,
+        "n_truncated": 0,
+        "truncated_rate": 0.0
+      },
+      "chunking": null,
+      "empty_texts": 0,
+      "confusion_matrix": [
+        [
+          578,
+          311,
+          372,
+          95,
+          36,
+          21,
+          15,
+          21
+        ],
+        [
+          71,
+          253,
+          54,
+          14,
+          4,
+          3,
+          4,
+          1
+        ],
+        [
+          30,
+          14,
+          297,
+          21,
+          3,
+          3,
+          14,
+          0
+        ],
+        [
+          92,
+          90,
+          97,
+          298,
+          7,
+          5,
+          14,
+          0
+        ],
+        [
+          12,
+          15,
+          30,
+          4,
+          14,
+          1,
+          10,
+          0
+        ],
+        [
+          6,
+          16,
+          8,
+          13,
+          0,
+          9,
+          0,
+          0
+        ],
+        [
+          2,
+          0,
+          4,
+          0,
+          1,
+          0,
+          15,
+          0
+        ],
+        [
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          1,
+          0
+        ]
+      ],
+      "majority_baseline": {
+        "accuracy": 0.483,
+        "macro_f1": 0.08142279163857047,
+        "micro_f1": 0.483,
+        "balanced_accuracy": 0.125
+      }
+    },
+    {
+      "dataset": "crisismmd",
+      "task": "humanitarian",
+      "model": "openai_clip_vit_b_32",
+      "method": "adapted_waffle",
+      "run_id": "1b1480e95e3d",
+      "summary_path": "results/adapted_waffle/crisismmd/humanitarian/samples_3000/openai_clip_vit_b_32/humanitarian_1b1480e95e3d/summary.tsv",
+      "receipt": {
+        "run_id": "1b1480e95e3d",
+        "job_id": "adapted_crisismmd_humanitarian",
+        "kind": "adapted",
+        "code_sha256": "6e34c520cc1c2ad8b3e7aa097b91e17c8c7ff52ae41e52a82f0e97834d6425de",
+        "data_sha256": "8ffe42f27fe7cb93fb598ce441eb7b6cd807746a0e15dc9e70536c06df421341",
+        "gpu": "Tesla T4",
+        "cohort": {
+          "cohort_id": "0451b45a4274038830ed",
+          "cohort_samples": 3000,
+          "requested_samples": 3000,
+          "source_split": "train",
+          "label_source": "image",
+          "task": "humanitarian"
+        }
+      },
+      "n_samples": 3000,
+      "labels": [
+        "not_humanitarian",
+        "other_relevant_information",
+        "rescue_volunteering_or_donation_effort",
+        "infrastructure_and_utility_damage",
+        "affected_individuals",
+        "vehicle_damage",
+        "injured_or_dead_people",
+        "missing_or_found_people"
+      ],
+      "support": {
+        "rescue_volunteering_or_donation_effort": 382,
+        "not_humanitarian": 1449,
+        "infrastructure_and_utility_damage": 603,
+        "other_relevant_information": 404,
+        "affected_individuals": 86,
+        "injured_or_dead_people": 22,
+        "vehicle_damage": 52,
+        "missing_or_found_people": 2
+      },
+      "metrics": {
+        "accuracy": 0.49933333333333335,
+        "macro_f1": 0.3313700781003638,
+        "micro_f1": 0.49933333333333335,
+        "balanced_accuracy": 0.3739628573926916
+      },
+      "branch_metrics": {
+        "image": {
+          "accuracy": 0.341,
+          "macro_f1": 0.2566587977249102,
+          "micro_f1": 0.341,
+          "balanced_accuracy": 0.35262163625440723
+        },
+        "text": {
+          "accuracy": 0.48233333333333334,
+          "macro_f1": 0.24823835419419732,
+          "micro_f1": 0.48233333333333334,
+          "balanced_accuracy": 0.26577520421098455
+        }
+      },
+      "per_class": {
+        "not_humanitarian": {
+          "precision": 0.6614391143911439,
+          "recall": 0.494824016563147,
+          "f1-score": 0.5661271219897355,
+          "support": 1449.0
+        },
+        "other_relevant_information": {
+          "precision": 0.4279475982532751,
+          "recall": 0.48514851485148514,
+          "f1-score": 0.4547563805104408,
+          "support": 404.0
+        },
+        "rescue_volunteering_or_donation_effort": {
+          "precision": 0.3694029850746269,
+          "recall": 0.7774869109947644,
+          "f1-score": 0.5008431703204047,
+          "support": 382.0
+        },
+        "infrastructure_and_utility_damage": {
+          "precision": 0.5407098121085595,
+          "recall": 0.4295190713101161,
+          "f1-score": 0.4787430683918669,
+          "support": 603.0
+        },
+        "affected_individuals": {
+          "precision": 0.05263157894736842,
+          "recall": 0.023255813953488372,
+          "f1-score": 0.03225806451612903,
+          "support": 86.0
+        },
+        "vehicle_damage": {
+          "precision": 0.2698412698412698,
+          "recall": 0.3269230769230769,
+          "f1-score": 0.2956521739130435,
+          "support": 52.0
+        },
+        "injured_or_dead_people": {
+          "precision": 0.25,
+          "recall": 0.45454545454545453,
+          "f1-score": 0.3225806451612903,
+          "support": 22.0
+        },
+        "missing_or_found_people": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1-score": 0.0,
+          "support": 2.0
+        }
+      },
+      "cohort_content_sha256": "027c8e63a9e1bd24b2174cb1bb0b6cac214e224f71959467f4c4de2501792bb0",
+      "shared_input_sha256": "8eb0473cde6f714f5d5e1e60bc00de4a2d26aa0012d4b3af8fb5cb533dd1371f",
+      "config": {
+        "image_weight": 0.5,
+        "text_logit_scale_effective": 100.0,
+        "prompt_aggregation": "mean_embed",
+        "image_prompt_aggregation": "mean_sim",
+        "descriptor_sha256": null,
+        "descriptor_provenance": null,
+        "decision_mode": null,
+        "relative_z_threshold": null,
+        "fallback_top1": null,
+        "chunk_long_text": null,
+        "chunk_aggregation": null,
+        "batch_size": 16,
+        "logit_scale": 100.0,
+        "logit_bias": 0.0,
+        "image_method": "waffle",
+        "research_seed": 0,
+        "waffle_pairs": 15,
+        "waffle_alphabet": "ascii_lowercase",
+        "vocabulary_sha256": "4bda32e4c7e57ce842fe81bad1b05b454dc6293c6d3c392476b7589ccdc16468"
+      },
+      "truncation": {
+        "status": "measured",
+        "context_length": 77,
+        "n_nonempty": 3000,
+        "n_measured": 3000,
+        "n_truncated": 2,
+        "truncated_rate": 0.0006666666666666666
+      },
+      "chunking": null,
+      "empty_texts": 0,
+      "confusion_matrix": [
+        [
+          717,
+          215,
+          309,
+          117,
+          30,
+          19,
+          12,
+          30
+        ],
+        [
+          99,
+          196,
+          42,
+          59,
+          1,
+          5,
+          1,
+          1
+        ],
+        [
+          51,
+          2,
+          297,
+          19,
+          0,
+          4,
+          9,
+          0
+        ],
+        [
+          173,
+          35,
+          111,
+          259,
+          4,
+          15,
+          4,
+          2
+        ],
+        [
+          31,
+          6,
+          33,
+          7,
+          2,
+          3,
+          3,
+          1
+        ],
+        [
+          10,
+          2,
+          6,
+          17,
+          0,
+          17,
+          0,
+          0
+        ],
+        [
+          3,
+          2,
+          5,
+          1,
+          1,
+          0,
+          10,
+          0
+        ],
+        [
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          1,
+          0
+        ]
+      ],
+      "majority_baseline": {
+        "accuracy": 0.483,
+        "macro_f1": 0.08142279163857047,
+        "micro_f1": 0.483,
+        "balanced_accuracy": 0.125
+      }
+    },
+    {
+      "dataset": "crisismmd",
+      "task": "humanitarian",
+      "model": "siglip2_so400m",
+      "method": "adapted_waffle",
+      "run_id": "36e2ce0dfbee",
+      "summary_path": "results/adapted_waffle/crisismmd/humanitarian/samples_3000/siglip2_so400m/humanitarian_36e2ce0dfbee/summary.tsv",
+      "receipt": {
+        "run_id": "36e2ce0dfbee",
+        "job_id": "adapted_crisismmd_humanitarian",
+        "kind": "adapted",
+        "code_sha256": "6e34c520cc1c2ad8b3e7aa097b91e17c8c7ff52ae41e52a82f0e97834d6425de",
+        "data_sha256": "8ffe42f27fe7cb93fb598ce441eb7b6cd807746a0e15dc9e70536c06df421341",
+        "gpu": "Tesla T4",
+        "cohort": {
+          "cohort_id": "0451b45a4274038830ed",
+          "cohort_samples": 3000,
+          "requested_samples": 3000,
+          "source_split": "train",
+          "label_source": "image",
+          "task": "humanitarian"
+        }
+      },
+      "n_samples": 3000,
+      "labels": [
+        "not_humanitarian",
+        "other_relevant_information",
+        "rescue_volunteering_or_donation_effort",
+        "infrastructure_and_utility_damage",
+        "affected_individuals",
+        "vehicle_damage",
+        "injured_or_dead_people",
+        "missing_or_found_people"
+      ],
+      "support": {
+        "rescue_volunteering_or_donation_effort": 382,
+        "not_humanitarian": 1449,
+        "infrastructure_and_utility_damage": 603,
+        "other_relevant_information": 404,
+        "affected_individuals": 86,
+        "injured_or_dead_people": 22,
+        "vehicle_damage": 52,
+        "missing_or_found_people": 2
+      },
+      "metrics": {
+        "accuracy": 0.5496666666666666,
+        "macro_f1": 0.33856307174440936,
+        "micro_f1": 0.5496666666666666,
+        "balanced_accuracy": 0.3817674281422732
+      },
+      "branch_metrics": {
+        "image": {
+          "accuracy": 0.414,
+          "macro_f1": 0.3108111889865476,
+          "micro_f1": 0.414,
+          "balanced_accuracy": 0.4694068957000682
+        },
+        "text": {
+          "accuracy": 0.48033333333333333,
+          "macro_f1": 0.1985941352701951,
+          "micro_f1": 0.48033333333333333,
+          "balanced_accuracy": 0.20563820629550877
+        }
+      },
+      "per_class": {
+        "not_humanitarian": {
+          "precision": 0.577007700770077,
+          "recall": 0.7239475500345065,
+          "f1-score": 0.6421793694520967,
+          "support": 1449.0
+        },
+        "other_relevant_information": {
+          "precision": 0.45864661654135336,
+          "recall": 0.452970297029703,
+          "f1-score": 0.45579078455790784,
+          "support": 404.0
+        },
+        "rescue_volunteering_or_donation_effort": {
+          "precision": 0.4224137931034483,
+          "recall": 0.38481675392670156,
+          "f1-score": 0.40273972602739727,
+          "support": 382.0
+        },
+        "infrastructure_and_utility_damage": {
+          "precision": 0.7477203647416414,
+          "recall": 0.4079601990049751,
+          "f1-score": 0.5278969957081545,
+          "support": 603.0
+        },
+        "affected_individuals": {
+          "precision": 0.14285714285714285,
+          "recall": 0.023255813953488372,
+          "f1-score": 0.04,
+          "support": 86.0
+        },
+        "vehicle_damage": {
+          "precision": 0.45454545454545453,
+          "recall": 0.28846153846153844,
+          "f1-score": 0.35294117647058826,
+          "support": 52.0
+        },
+        "injured_or_dead_people": {
+          "precision": 0.15789473684210525,
+          "recall": 0.2727272727272727,
+          "f1-score": 0.2,
+          "support": 22.0
+        },
+        "missing_or_found_people": {
+          "precision": 0.047619047619047616,
+          "recall": 0.5,
+          "f1-score": 0.08695652173913043,
+          "support": 2.0
+        }
+      },
+      "cohort_content_sha256": "027c8e63a9e1bd24b2174cb1bb0b6cac214e224f71959467f4c4de2501792bb0",
+      "shared_input_sha256": "8eb0473cde6f714f5d5e1e60bc00de4a2d26aa0012d4b3af8fb5cb533dd1371f",
+      "config": {
+        "image_weight": 0.5,
+        "text_logit_scale_effective": 109.8812255859375,
+        "prompt_aggregation": "mean_embed",
+        "image_prompt_aggregation": "mean_sim",
+        "descriptor_sha256": null,
+        "descriptor_provenance": null,
+        "decision_mode": null,
+        "relative_z_threshold": null,
+        "fallback_top1": null,
+        "chunk_long_text": null,
+        "chunk_aggregation": null,
+        "batch_size": 16,
+        "logit_scale": 109.8812255859375,
+        "logit_bias": -15.932409286499023,
+        "image_method": "waffle",
+        "research_seed": 0,
+        "waffle_pairs": 15,
+        "waffle_alphabet": "ascii_lowercase",
+        "vocabulary_sha256": "4bda32e4c7e57ce842fe81bad1b05b454dc6293c6d3c392476b7589ccdc16468"
+      },
+      "truncation": {
+        "status": "measured",
+        "context_length": 64,
+        "n_nonempty": 3000,
+        "n_measured": 3000,
+        "n_truncated": 1,
+        "truncated_rate": 0.0003333333333333333
+      },
+      "chunking": null,
+      "empty_texts": 0,
+      "confusion_matrix": [
+        [
+          1049,
+          161,
+          149,
+          50,
+          10,
+          8,
+          4,
+          18
+        ],
+        [
+          182,
+          183,
+          21,
+          13,
+          0,
+          2,
+          3,
+          0
+        ],
+        [
+          189,
+          12,
+          147,
+          12,
+          2,
+          2,
+          17,
+          1
+        ],
+        [
+          302,
+          26,
+          21,
+          246,
+          0,
+          5,
+          2,
+          1
+        ],
+        [
+          58,
+          11,
+          8,
+          1,
+          2,
+          1,
+          5,
+          0
+        ],
+        [
+          25,
+          4,
+          1,
+          7,
+          0,
+          15,
+          0,
+          0
+        ],
+        [
+          13,
+          2,
+          1,
+          0,
+          0,
+          0,
+          6,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1
+        ]
+      ],
+      "majority_baseline": {
+        "accuracy": 0.483,
+        "macro_f1": 0.08142279163857047,
+        "micro_f1": 0.483,
+        "balanced_accuracy": 0.125
+      }
+    },
+    {
+      "dataset": "crisismmd",
+      "task": "informativeness",
+      "model": "dfn5b_vith14",
+      "method": "adapted_waffle",
+      "run_id": "19f905e6ad58",
+      "summary_path": "results/adapted_waffle/crisismmd/informativeness/samples_3000/dfn5b_vith14/informativeness_19f905e6ad58/summary.tsv",
+      "receipt": {
+        "run_id": "19f905e6ad58",
+        "job_id": "adapted_crisismmd_info",
+        "kind": "adapted",
+        "code_sha256": "6e34c520cc1c2ad8b3e7aa097b91e17c8c7ff52ae41e52a82f0e97834d6425de",
+        "data_sha256": "8ffe42f27fe7cb93fb598ce441eb7b6cd807746a0e15dc9e70536c06df421341",
+        "gpu": "Tesla T4",
+        "cohort": {
+          "cohort_id": "0451b45a4274038830ed",
+          "cohort_samples": 3000,
+          "requested_samples": 3000,
+          "source_split": "train",
+          "label_source": "image",
+          "task": "informativeness"
+        }
+      },
+      "n_samples": 3000,
+      "labels": [
+        "informative",
+        "not_informative"
+      ],
+      "support": {
+        "informative": 1551,
+        "not_informative": 1449
+      },
+      "metrics": {
+        "accuracy": 0.5816666666666667,
+        "macro_f1": 0.5679254972729959,
+        "micro_f1": 0.5816666666666667,
+        "balanced_accuracy": 0.588410202193736
+      },
+      "branch_metrics": {
+        "image": {
+          "accuracy": 0.45566666666666666,
+          "macro_f1": 0.4222985677509113,
+          "micro_f1": 0.45566666666666666,
+          "balanced_accuracy": 0.4643748172887858
+        },
+        "text": {
+          "accuracy": 0.641,
+          "macro_f1": 0.6393158051903471,
+          "micro_f1": 0.641,
+          "balanced_accuracy": 0.6440678757977556
+        }
+      },
+      "per_class": {
+        "informative": {
+          "precision": 0.661925601750547,
+          "recall": 0.3900709219858156,
+          "f1-score": 0.4908722109533469,
+          "support": 1551.0
+        },
+        "not_informative": {
+          "precision": 0.5465004793863855,
+          "recall": 0.7867494824016563,
+          "f1-score": 0.6449787835926449,
+          "support": 1449.0
+        }
+      },
+      "cohort_content_sha256": "ab68ad818a2a1ceb9e12f9fd38b84bb5572d1cc5ff2f4f606219a2d21ac5e9ed",
+      "shared_input_sha256": "8eb0473cde6f714f5d5e1e60bc00de4a2d26aa0012d4b3af8fb5cb533dd1371f",
+      "config": {
+        "image_weight": 0.5,
+        "text_logit_scale_effective": 14.284856796264648,
+        "prompt_aggregation": "mean_embed",
+        "image_prompt_aggregation": "mean_sim",
+        "descriptor_sha256": null,
+        "descriptor_provenance": null,
+        "decision_mode": null,
+        "relative_z_threshold": null,
+        "fallback_top1": null,
+        "chunk_long_text": null,
+        "chunk_aggregation": null,
+        "batch_size": 16,
+        "logit_scale": 14.284856796264648,
+        "logit_bias": 0.0,
+        "image_method": "waffle",
+        "research_seed": 0,
+        "waffle_pairs": 15,
+        "waffle_alphabet": "ascii_lowercase",
+        "vocabulary_sha256": "4bda32e4c7e57ce842fe81bad1b05b454dc6293c6d3c392476b7589ccdc16468"
+      },
+      "truncation": {
+        "status": "measured",
+        "context_length": 77,
+        "n_nonempty": 3000,
+        "n_measured": 3000,
+        "n_truncated": 2,
+        "truncated_rate": 0.0006666666666666666
+      },
+      "chunking": null,
+      "empty_texts": 0,
+      "confusion_matrix": [
+        [
+          605,
+          946
+        ],
+        [
+          309,
+          1140
+        ]
+      ],
+      "majority_baseline": {
+        "accuracy": 0.517,
+        "macro_f1": 0.34080421885299933,
+        "micro_f1": 0.517,
+        "balanced_accuracy": 0.5
+      }
+    },
+    {
+      "dataset": "crisismmd",
+      "task": "informativeness",
+      "model": "metaclip2_vith14",
+      "method": "adapted_waffle",
+      "run_id": "39f6734476ad",
+      "summary_path": "results/adapted_waffle/crisismmd/informativeness/samples_3000/metaclip2_vith14/informativeness_39f6734476ad/summary.tsv",
+      "receipt": {
+        "run_id": "39f6734476ad",
+        "job_id": "adapted_crisismmd_info",
+        "kind": "adapted",
+        "code_sha256": "6e34c520cc1c2ad8b3e7aa097b91e17c8c7ff52ae41e52a82f0e97834d6425de",
+        "data_sha256": "8ffe42f27fe7cb93fb598ce441eb7b6cd807746a0e15dc9e70536c06df421341",
+        "gpu": "Tesla T4",
+        "cohort": {
+          "cohort_id": "0451b45a4274038830ed",
+          "cohort_samples": 3000,
+          "requested_samples": 3000,
+          "source_split": "train",
+          "label_source": "image",
+          "task": "informativeness"
+        }
+      },
+      "n_samples": 3000,
+      "labels": [
+        "informative",
+        "not_informative"
+      ],
+      "support": {
+        "informative": 1551,
+        "not_informative": 1449
+      },
+      "metrics": {
+        "accuracy": 0.639,
+        "macro_f1": 0.6152741719188037,
+        "micro_f1": 0.639,
+        "balanced_accuracy": 0.6312864337841211
+      },
+      "branch_metrics": {
+        "image": {
+          "accuracy": 0.4846666666666667,
+          "macro_f1": 0.4842999466287138,
+          "micro_f1": 0.4846666666666667,
+          "balanced_accuracy": 0.4861353057467766
+        },
+        "text": {
+          "accuracy": 0.6393333333333333,
+          "macro_f1": 0.6112744306715252,
+          "micro_f1": 0.6393333333333333,
+          "balanced_accuracy": 0.6309280194571592
+        }
+      },
+      "per_class": {
+        "informative": {
+          "precision": 0.6066545123062899,
+          "recall": 0.8581560283687943,
+          "f1-score": 0.7108144192256342,
+          "support": 1551.0
+        },
+        "not_informative": {
+          "precision": 0.7270471464019851,
+          "recall": 0.4044168391994479,
+          "f1-score": 0.5197339246119734,
+          "support": 1449.0
+        }
+      },
+      "cohort_content_sha256": "ab68ad818a2a1ceb9e12f9fd38b84bb5572d1cc5ff2f4f606219a2d21ac5e9ed",
+      "shared_input_sha256": "8eb0473cde6f714f5d5e1e60bc00de4a2d26aa0012d4b3af8fb5cb533dd1371f",
+      "config": {
+        "image_weight": 0.5,
+        "text_logit_scale_effective": 100.0,
+        "prompt_aggregation": "mean_embed",
+        "image_prompt_aggregation": "mean_sim",
+        "descriptor_sha256": null,
+        "descriptor_provenance": null,
+        "decision_mode": null,
+        "relative_z_threshold": null,
+        "fallback_top1": null,
+        "chunk_long_text": null,
+        "chunk_aggregation": null,
+        "batch_size": 16,
+        "logit_scale": 100.0,
+        "logit_bias": 0.0,
+        "image_method": "waffle",
+        "research_seed": 0,
+        "waffle_pairs": 15,
+        "waffle_alphabet": "ascii_lowercase",
+        "vocabulary_sha256": "4bda32e4c7e57ce842fe81bad1b05b454dc6293c6d3c392476b7589ccdc16468"
+      },
+      "truncation": {
+        "status": "measured",
+        "context_length": 77,
+        "n_nonempty": 3000,
+        "n_measured": 3000,
+        "n_truncated": 0,
+        "truncated_rate": 0.0
+      },
+      "chunking": null,
+      "empty_texts": 0,
+      "confusion_matrix": [
+        [
+          1331,
+          220
+        ],
+        [
+          863,
+          586
+        ]
+      ],
+      "majority_baseline": {
+        "accuracy": 0.517,
+        "macro_f1": 0.34080421885299933,
+        "micro_f1": 0.517,
+        "balanced_accuracy": 0.5
+      }
+    },
+    {
+      "dataset": "crisismmd",
+      "task": "informativeness",
+      "model": "openai_clip_vit_b_32",
+      "method": "adapted_waffle",
+      "run_id": "273c7b6138cf",
+      "summary_path": "results/adapted_waffle/crisismmd/informativeness/samples_3000/openai_clip_vit_b_32/informativeness_273c7b6138cf/summary.tsv",
+      "receipt": {
+        "run_id": "273c7b6138cf",
+        "job_id": "adapted_crisismmd_info",
+        "kind": "adapted",
+        "code_sha256": "6e34c520cc1c2ad8b3e7aa097b91e17c8c7ff52ae41e52a82f0e97834d6425de",
+        "data_sha256": "8ffe42f27fe7cb93fb598ce441eb7b6cd807746a0e15dc9e70536c06df421341",
+        "gpu": "Tesla T4",
+        "cohort": {
+          "cohort_id": "0451b45a4274038830ed",
+          "cohort_samples": 3000,
+          "requested_samples": 3000,
+          "source_split": "train",
+          "label_source": "image",
+          "task": "informativeness"
+        }
+      },
+      "n_samples": 3000,
+      "labels": [
+        "informative",
+        "not_informative"
+      ],
+      "support": {
+        "informative": 1551,
+        "not_informative": 1449
+      },
+      "metrics": {
+        "accuracy": 0.6153333333333333,
+        "macro_f1": 0.5700086097640586,
+        "micro_f1": 0.6153333333333333,
+        "balanced_accuracy": 0.6049940397766485
+      },
+      "branch_metrics": {
+        "image": {
+          "accuracy": 0.5293333333333333,
+          "macro_f1": 0.47953117505052334,
+          "micro_f1": 0.5293333333333333,
+          "balanced_accuracy": 0.519416445410895
+        },
+        "text": {
+          "accuracy": 0.6626666666666666,
+          "macro_f1": 0.6484151351030852,
+          "micro_f1": 0.6626666666666666,
+          "balanced_accuracy": 0.6565803402066122
+        }
+      },
+      "per_class": {
+        "informative": {
+          "precision": 0.5819232356582749,
+          "recall": 0.9090909090909091,
+          "f1-score": 0.7096124811273277,
+          "support": 1551.0
+        },
+        "not_informative": {
+          "precision": 0.755632582322357,
+          "recall": 0.30089717046238784,
+          "f1-score": 0.43040473840078974,
+          "support": 1449.0
+        }
+      },
+      "cohort_content_sha256": "ab68ad818a2a1ceb9e12f9fd38b84bb5572d1cc5ff2f4f606219a2d21ac5e9ed",
+      "shared_input_sha256": "8eb0473cde6f714f5d5e1e60bc00de4a2d26aa0012d4b3af8fb5cb533dd1371f",
+      "config": {
+        "image_weight": 0.5,
+        "text_logit_scale_effective": 100.0,
+        "prompt_aggregation": "mean_embed",
+        "image_prompt_aggregation": "mean_sim",
+        "descriptor_sha256": null,
+        "descriptor_provenance": null,
+        "decision_mode": null,
+        "relative_z_threshold": null,
+        "fallback_top1": null,
+        "chunk_long_text": null,
+        "chunk_aggregation": null,
+        "batch_size": 16,
+        "logit_scale": 100.0,
+        "logit_bias": 0.0,
+        "image_method": "waffle",
+        "research_seed": 0,
+        "waffle_pairs": 15,
+        "waffle_alphabet": "ascii_lowercase",
+        "vocabulary_sha256": "4bda32e4c7e57ce842fe81bad1b05b454dc6293c6d3c392476b7589ccdc16468"
+      },
+      "truncation": {
+        "status": "measured",
+        "context_length": 77,
+        "n_nonempty": 3000,
+        "n_measured": 3000,
+        "n_truncated": 2,
+        "truncated_rate": 0.0006666666666666666
+      },
+      "chunking": null,
+      "empty_texts": 0,
+      "confusion_matrix": [
+        [
+          1410,
+          141
+        ],
+        [
+          1013,
+          436
+        ]
+      ],
+      "majority_baseline": {
+        "accuracy": 0.517,
+        "macro_f1": 0.34080421885299933,
+        "micro_f1": 0.517,
+        "balanced_accuracy": 0.5
+      }
+    },
+    {
+      "dataset": "crisismmd",
+      "task": "informativeness",
+      "model": "siglip2_so400m",
+      "method": "adapted_waffle",
+      "run_id": "c874a93229ad",
+      "summary_path": "results/adapted_waffle/crisismmd/informativeness/samples_3000/siglip2_so400m/informativeness_c874a93229ad/summary.tsv",
+      "receipt": {
+        "run_id": "c874a93229ad",
+        "job_id": "adapted_crisismmd_info",
+        "kind": "adapted",
+        "code_sha256": "6e34c520cc1c2ad8b3e7aa097b91e17c8c7ff52ae41e52a82f0e97834d6425de",
+        "data_sha256": "8ffe42f27fe7cb93fb598ce441eb7b6cd807746a0e15dc9e70536c06df421341",
+        "gpu": "Tesla T4",
+        "cohort": {
+          "cohort_id": "0451b45a4274038830ed",
+          "cohort_samples": 3000,
+          "requested_samples": 3000,
+          "source_split": "train",
+          "label_source": "image",
+          "task": "informativeness"
+        }
+      },
+      "n_samples": 3000,
+      "labels": [
+        "informative",
+        "not_informative"
+      ],
+      "support": {
+        "informative": 1551,
+        "not_informative": 1449
+      },
+      "metrics": {
+        "accuracy": 0.5366666666666666,
+        "macro_f1": 0.4792696888505272,
+        "micro_f1": 0.5366666666666666,
+        "balanced_accuracy": 0.5485888353603432
+      },
+      "branch_metrics": {
+        "image": {
+          "accuracy": 0.4736666666666667,
+          "macro_f1": 0.38824998298542013,
+          "micro_f1": 0.4736666666666667,
+          "balanced_accuracy": 0.48693422930240693
+        },
+        "text": {
+          "accuracy": 0.596,
+          "macro_f1": 0.5848336868412831,
+          "micro_f1": 0.596,
+          "balanced_accuracy": 0.6022722266940583
+        }
+      },
+      "per_class": {
+        "informative": {
+          "precision": 0.6777041942604857,
+          "recall": 0.19793681495809157,
+          "f1-score": 0.3063872255489022,
+          "support": 1551.0
+        },
+        "not_informative": {
+          "precision": 0.5115822536317236,
+          "recall": 0.8992408557625949,
+          "f1-score": 0.6521521521521522,
+          "support": 1449.0
+        }
+      },
+      "cohort_content_sha256": "ab68ad818a2a1ceb9e12f9fd38b84bb5572d1cc5ff2f4f606219a2d21ac5e9ed",
+      "shared_input_sha256": "8eb0473cde6f714f5d5e1e60bc00de4a2d26aa0012d4b3af8fb5cb533dd1371f",
+      "config": {
+        "image_weight": 0.5,
+        "text_logit_scale_effective": 109.8812255859375,
+        "prompt_aggregation": "mean_embed",
+        "image_prompt_aggregation": "mean_sim",
+        "descriptor_sha256": null,
+        "descriptor_provenance": null,
+        "decision_mode": null,
+        "relative_z_threshold": null,
+        "fallback_top1": null,
+        "chunk_long_text": null,
+        "chunk_aggregation": null,
+        "batch_size": 16,
+        "logit_scale": 109.8812255859375,
+        "logit_bias": -15.932409286499023,
+        "image_method": "waffle",
+        "research_seed": 0,
+        "waffle_pairs": 15,
+        "waffle_alphabet": "ascii_lowercase",
+        "vocabulary_sha256": "4bda32e4c7e57ce842fe81bad1b05b454dc6293c6d3c392476b7589ccdc16468"
+      },
+      "truncation": {
+        "status": "measured",
+        "context_length": 64,
+        "n_nonempty": 3000,
+        "n_measured": 3000,
+        "n_truncated": 1,
+        "truncated_rate": 0.0003333333333333333
+      },
+      "chunking": null,
+      "empty_texts": 0,
+      "confusion_matrix": [
+        [
+          307,
+          1244
+        ],
+        [
+          146,
+          1303
         ]
       ],
       "majority_baseline": {
@@ -1511,7 +2959,12 @@
         "chunk_aggregation": null,
         "batch_size": 16,
         "logit_scale": 14.284856796264648,
-        "logit_bias": 0.0
+        "logit_bias": 0.0,
+        "image_method": null,
+        "research_seed": null,
+        "waffle_pairs": null,
+        "waffle_alphabet": null,
+        "vocabulary_sha256": null
       },
       "truncation": {
         "status": "measured",
@@ -1742,7 +3195,12 @@
         "chunk_aggregation": null,
         "batch_size": 16,
         "logit_scale": 100.0,
-        "logit_bias": 0.0
+        "logit_bias": 0.0,
+        "image_method": null,
+        "research_seed": null,
+        "waffle_pairs": null,
+        "waffle_alphabet": null,
+        "vocabulary_sha256": null
       },
       "truncation": {
         "status": "measured",
@@ -1973,7 +3431,12 @@
         "chunk_aggregation": null,
         "batch_size": 16,
         "logit_scale": 100.0,
-        "logit_bias": 0.0
+        "logit_bias": 0.0,
+        "image_method": null,
+        "research_seed": null,
+        "waffle_pairs": null,
+        "waffle_alphabet": null,
+        "vocabulary_sha256": null
       },
       "truncation": {
         "status": "measured",
@@ -2204,7 +3667,12 @@
         "chunk_aggregation": null,
         "batch_size": 16,
         "logit_scale": 109.8812255859375,
-        "logit_bias": -15.932409286499023
+        "logit_bias": -15.932409286499023,
+        "image_method": null,
+        "research_seed": null,
+        "waffle_pairs": null,
+        "waffle_alphabet": null,
+        "vocabulary_sha256": null
       },
       "truncation": {
         "status": "measured",
@@ -2387,7 +3855,12 @@
         "chunk_aggregation": null,
         "batch_size": 16,
         "logit_scale": 14.284856796264648,
-        "logit_bias": 0.0
+        "logit_bias": 0.0,
+        "image_method": null,
+        "research_seed": null,
+        "waffle_pairs": null,
+        "waffle_alphabet": null,
+        "vocabulary_sha256": null
       },
       "truncation": {
         "status": "measured",
@@ -2498,7 +3971,12 @@
         "chunk_aggregation": null,
         "batch_size": 16,
         "logit_scale": 100.0,
-        "logit_bias": 0.0
+        "logit_bias": 0.0,
+        "image_method": null,
+        "research_seed": null,
+        "waffle_pairs": null,
+        "waffle_alphabet": null,
+        "vocabulary_sha256": null
       },
       "truncation": {
         "status": "measured",
@@ -2609,7 +4087,12 @@
         "chunk_aggregation": null,
         "batch_size": 16,
         "logit_scale": 100.0,
-        "logit_bias": 0.0
+        "logit_bias": 0.0,
+        "image_method": null,
+        "research_seed": null,
+        "waffle_pairs": null,
+        "waffle_alphabet": null,
+        "vocabulary_sha256": null
       },
       "truncation": {
         "status": "measured",
@@ -2720,7 +4203,12 @@
         "chunk_aggregation": null,
         "batch_size": 16,
         "logit_scale": 109.8812255859375,
-        "logit_bias": -15.932409286499023
+        "logit_bias": -15.932409286499023,
+        "image_method": null,
+        "research_seed": null,
+        "waffle_pairs": null,
+        "waffle_alphabet": null,
+        "vocabulary_sha256": null
       },
       "truncation": {
         "status": "measured",
@@ -2831,7 +4319,12 @@
         "chunk_aggregation": null,
         "batch_size": 16,
         "logit_scale": 14.284856796264648,
-        "logit_bias": 0.0
+        "logit_bias": 0.0,
+        "image_method": null,
+        "research_seed": null,
+        "waffle_pairs": null,
+        "waffle_alphabet": null,
+        "vocabulary_sha256": null
       },
       "truncation": {
         "status": "measured",
@@ -2942,7 +4435,12 @@
         "chunk_aggregation": null,
         "batch_size": 16,
         "logit_scale": 100.0,
-        "logit_bias": 0.0
+        "logit_bias": 0.0,
+        "image_method": null,
+        "research_seed": null,
+        "waffle_pairs": null,
+        "waffle_alphabet": null,
+        "vocabulary_sha256": null
       },
       "truncation": {
         "status": "measured",
@@ -3053,7 +4551,12 @@
         "chunk_aggregation": null,
         "batch_size": 16,
         "logit_scale": 100.0,
-        "logit_bias": 0.0
+        "logit_bias": 0.0,
+        "image_method": null,
+        "research_seed": null,
+        "waffle_pairs": null,
+        "waffle_alphabet": null,
+        "vocabulary_sha256": null
       },
       "truncation": {
         "status": "measured",
@@ -3164,7 +4667,12 @@
         "chunk_aggregation": null,
         "batch_size": 16,
         "logit_scale": 109.8812255859375,
-        "logit_bias": -15.932409286499023
+        "logit_bias": -15.932409286499023,
+        "image_method": null,
+        "research_seed": null,
+        "waffle_pairs": null,
+        "waffle_alphabet": null,
+        "vocabulary_sha256": null
       },
       "truncation": {
         "status": "measured",
@@ -3307,7 +4815,12 @@
         "chunk_aggregation": null,
         "batch_size": 16,
         "logit_scale": 14.284856796264648,
-        "logit_bias": 0.0
+        "logit_bias": 0.0,
+        "image_method": null,
+        "research_seed": null,
+        "waffle_pairs": null,
+        "waffle_alphabet": null,
+        "vocabulary_sha256": null
       },
       "truncation": {
         "status": "measured",
@@ -3490,7 +5003,12 @@
         "chunk_aggregation": null,
         "batch_size": 16,
         "logit_scale": 100.0,
-        "logit_bias": 0.0
+        "logit_bias": 0.0,
+        "image_method": null,
+        "research_seed": null,
+        "waffle_pairs": null,
+        "waffle_alphabet": null,
+        "vocabulary_sha256": null
       },
       "truncation": {
         "status": "measured",
@@ -3673,7 +5191,12 @@
         "chunk_aggregation": null,
         "batch_size": 16,
         "logit_scale": 100.0,
-        "logit_bias": 0.0
+        "logit_bias": 0.0,
+        "image_method": null,
+        "research_seed": null,
+        "waffle_pairs": null,
+        "waffle_alphabet": null,
+        "vocabulary_sha256": null
       },
       "truncation": {
         "status": "measured",
@@ -3856,7 +5379,12 @@
         "chunk_aggregation": null,
         "batch_size": 16,
         "logit_scale": 109.8812255859375,
-        "logit_bias": -15.932409286499023
+        "logit_bias": -15.932409286499023,
+        "image_method": null,
+        "research_seed": null,
+        "waffle_pairs": null,
+        "waffle_alphabet": null,
+        "vocabulary_sha256": null
       },
       "truncation": {
         "status": "measured",
@@ -4178,7 +5706,12 @@
         "chunk_aggregation": "mean_embed",
         "batch_size": 16,
         "logit_scale": 14.284856796264648,
-        "logit_bias": 0.0
+        "logit_bias": 0.0,
+        "image_method": null,
+        "research_seed": null,
+        "waffle_pairs": null,
+        "waffle_alphabet": null,
+        "vocabulary_sha256": null
       },
       "truncation": {
         "status": "measured",
@@ -7454,7 +8987,12 @@
         "chunk_aggregation": "mean_embed",
         "batch_size": 16,
         "logit_scale": 100.0,
-        "logit_bias": 0.0
+        "logit_bias": 0.0,
+        "image_method": null,
+        "research_seed": null,
+        "waffle_pairs": null,
+        "waffle_alphabet": null,
+        "vocabulary_sha256": null
       },
       "truncation": {
         "status": "measured",
@@ -10730,7 +12268,12 @@
         "chunk_aggregation": "mean_embed",
         "batch_size": 16,
         "logit_scale": 100.0,
-        "logit_bias": 0.0
+        "logit_bias": 0.0,
+        "image_method": null,
+        "research_seed": null,
+        "waffle_pairs": null,
+        "waffle_alphabet": null,
+        "vocabulary_sha256": null
       },
       "truncation": {
         "status": "measured",
@@ -14006,7 +15549,12 @@
         "chunk_aggregation": "mean_embed",
         "batch_size": 16,
         "logit_scale": 109.8812255859375,
-        "logit_bias": -15.932409286499023
+        "logit_bias": -15.932409286499023,
+        "image_method": null,
+        "research_seed": null,
+        "waffle_pairs": null,
+        "waffle_alphabet": null,
+        "vocabulary_sha256": null
       },
       "truncation": {
         "status": "measured",
@@ -17034,7 +18582,9 @@
     {
       "task": "humanitarian",
       "model": "dfn5b_vith14",
+      "method": "adapted_dclip",
       "baseline_run": "ab76540ca808",
+      "adapted_run": "cdfb0ec9fbed",
       "dclip_run": "cdfb0ec9fbed",
       "delta_accuracy": 0.014333333333333309,
       "delta_macro_f1": 0.016103190709297333,
@@ -17045,7 +18595,9 @@
     {
       "task": "humanitarian",
       "model": "metaclip2_vith14",
+      "method": "adapted_dclip",
       "baseline_run": "520ebf75825a",
+      "adapted_run": "360029407f84",
       "dclip_run": "360029407f84",
       "delta_accuracy": -0.014000000000000012,
       "delta_macro_f1": 0.000952320446927335,
@@ -17056,7 +18608,9 @@
     {
       "task": "humanitarian",
       "model": "openai_clip_vit_b_32",
+      "method": "adapted_dclip",
       "baseline_run": "3388e0f5d4ff",
+      "adapted_run": "bf574f3316ba",
       "dclip_run": "bf574f3316ba",
       "delta_accuracy": 0.05366666666666675,
       "delta_macro_f1": 0.03771565944694888,
@@ -17067,7 +18621,9 @@
     {
       "task": "humanitarian",
       "model": "siglip2_so400m",
+      "method": "adapted_dclip",
       "baseline_run": "908c56201581",
+      "adapted_run": "192b5b63ad16",
       "dclip_run": "192b5b63ad16",
       "delta_accuracy": 0.014666666666666606,
       "delta_macro_f1": 0.0376295691777882,
@@ -17078,7 +18634,9 @@
     {
       "task": "informativeness",
       "model": "dfn5b_vith14",
+      "method": "adapted_dclip",
       "baseline_run": "15d72b19b3b7",
+      "adapted_run": "d06d06ceb255",
       "dclip_run": "d06d06ceb255",
       "delta_accuracy": 0.0030000000000000027,
       "delta_macro_f1": 0.006630061267770548,
@@ -17089,7 +18647,9 @@
     {
       "task": "informativeness",
       "model": "metaclip2_vith14",
+      "method": "adapted_dclip",
       "baseline_run": "788bb9578b84",
+      "adapted_run": "44618e680cf2",
       "dclip_run": "44618e680cf2",
       "delta_accuracy": 0.009333333333333305,
       "delta_macro_f1": 0.005646364514631852,
@@ -17100,7 +18660,9 @@
     {
       "task": "informativeness",
       "model": "openai_clip_vit_b_32",
+      "method": "adapted_dclip",
       "baseline_run": "7c507a3ac2e9",
+      "adapted_run": "6f2ffe1d181c",
       "dclip_run": "6f2ffe1d181c",
       "delta_accuracy": 0.039999999999999925,
       "delta_macro_f1": 0.05109240130324655,
@@ -17111,19 +18673,209 @@
     {
       "task": "informativeness",
       "model": "siglip2_so400m",
+      "method": "adapted_dclip",
       "baseline_run": "2b51d19b28d3",
+      "adapted_run": "33e59b9ea845",
       "dclip_run": "33e59b9ea845",
       "delta_accuracy": -0.016000000000000014,
       "delta_macro_f1": -0.018331983013059716,
       "corrected": 166,
       "introduced_errors": 214,
       "text_branch_max_difference": 0.0
+    },
+    {
+      "task": "humanitarian",
+      "model": "dfn5b_vith14",
+      "method": "adapted_waffle",
+      "baseline_run": "ab76540ca808",
+      "adapted_run": "c3053205ec6a",
+      "waffle_run": "c3053205ec6a",
+      "delta_accuracy": -0.04066666666666674,
+      "delta_macro_f1": -0.022179187524846156,
+      "corrected": 203,
+      "introduced_errors": 325,
+      "text_branch_max_difference": 0.0
+    },
+    {
+      "task": "humanitarian",
+      "model": "metaclip2_vith14",
+      "method": "adapted_waffle",
+      "baseline_run": "520ebf75825a",
+      "adapted_run": "a9722c05f361",
+      "waffle_run": "a9722c05f361",
+      "delta_accuracy": -0.06633333333333336,
+      "delta_macro_f1": -0.03884756125477007,
+      "corrected": 241,
+      "introduced_errors": 440,
+      "text_branch_max_difference": 0.0
+    },
+    {
+      "task": "humanitarian",
+      "model": "openai_clip_vit_b_32",
+      "method": "adapted_waffle",
+      "baseline_run": "3388e0f5d4ff",
+      "adapted_run": "1b1480e95e3d",
+      "waffle_run": "1b1480e95e3d",
+      "delta_accuracy": -0.03133333333333327,
+      "delta_macro_f1": -0.039505054380053584,
+      "corrected": 286,
+      "introduced_errors": 380,
+      "text_branch_max_difference": 0.0
+    },
+    {
+      "task": "humanitarian",
+      "model": "siglip2_so400m",
+      "method": "adapted_waffle",
+      "baseline_run": "908c56201581",
+      "adapted_run": "36e2ce0dfbee",
+      "waffle_run": "36e2ce0dfbee",
+      "delta_accuracy": -0.025666666666666726,
+      "delta_macro_f1": 1.3553016439404875e-05,
+      "corrected": 272,
+      "introduced_errors": 349,
+      "text_branch_max_difference": 0.0
+    },
+    {
+      "task": "informativeness",
+      "model": "dfn5b_vith14",
+      "method": "adapted_waffle",
+      "baseline_run": "15d72b19b3b7",
+      "adapted_run": "19f905e6ad58",
+      "waffle_run": "19f905e6ad58",
+      "delta_accuracy": -0.132,
+      "delta_macro_f1": -0.1394756194623772,
+      "corrected": 157,
+      "introduced_errors": 553,
+      "text_branch_max_difference": 0.0
+    },
+    {
+      "task": "informativeness",
+      "model": "metaclip2_vith14",
+      "method": "adapted_waffle",
+      "baseline_run": "788bb9578b84",
+      "adapted_run": "39f6734476ad",
+      "waffle_run": "39f6734476ad",
+      "delta_accuracy": -0.09199999999999997,
+      "delta_macro_f1": -0.10539270619953633,
+      "corrected": 63,
+      "introduced_errors": 339,
+      "text_branch_max_difference": 0.0
+    },
+    {
+      "task": "informativeness",
+      "model": "openai_clip_vit_b_32",
+      "method": "adapted_waffle",
+      "baseline_run": "7c507a3ac2e9",
+      "adapted_run": "273c7b6138cf",
+      "waffle_run": "273c7b6138cf",
+      "delta_accuracy": -0.1193333333333334,
+      "delta_macro_f1": -0.14456342039855397,
+      "corrected": 99,
+      "introduced_errors": 457,
+      "text_branch_max_difference": 0.0
+    },
+    {
+      "task": "informativeness",
+      "model": "siglip2_so400m",
+      "method": "adapted_waffle",
+      "baseline_run": "2b51d19b28d3",
+      "adapted_run": "c874a93229ad",
+      "waffle_run": "c874a93229ad",
+      "delta_accuracy": -0.15600000000000003,
+      "delta_macro_f1": -0.20120547207863165,
+      "corrected": 61,
+      "introduced_errors": 529,
+      "text_branch_max_difference": 0.0
+    }
+  ],
+  "waffle_dclip_comparisons": [
+    {
+      "task": "humanitarian",
+      "model": "dfn5b_vith14",
+      "dclip_run": "cdfb0ec9fbed",
+      "waffle_run": "c3053205ec6a",
+      "delta_macro_f1": -0.03828237823414349,
+      "delta_accuracy": -0.05500000000000005,
+      "corrected": 125,
+      "introduced_errors": 290
+    },
+    {
+      "task": "humanitarian",
+      "model": "metaclip2_vith14",
+      "dclip_run": "360029407f84",
+      "waffle_run": "a9722c05f361",
+      "delta_macro_f1": -0.039799881701697404,
+      "delta_accuracy": -0.05233333333333334,
+      "corrected": 150,
+      "introduced_errors": 307
+    },
+    {
+      "task": "humanitarian",
+      "model": "openai_clip_vit_b_32",
+      "dclip_run": "bf574f3316ba",
+      "waffle_run": "1b1480e95e3d",
+      "delta_macro_f1": -0.07722071382700246,
+      "delta_accuracy": -0.08500000000000002,
+      "corrected": 118,
+      "introduced_errors": 373
+    },
+    {
+      "task": "humanitarian",
+      "model": "siglip2_so400m",
+      "dclip_run": "192b5b63ad16",
+      "waffle_run": "36e2ce0dfbee",
+      "delta_macro_f1": -0.0376160161613488,
+      "delta_accuracy": -0.04033333333333333,
+      "corrected": 141,
+      "introduced_errors": 262
+    },
+    {
+      "task": "informativeness",
+      "model": "dfn5b_vith14",
+      "dclip_run": "d06d06ceb255",
+      "waffle_run": "19f905e6ad58",
+      "delta_macro_f1": -0.14610568073014774,
+      "delta_accuracy": -0.135,
+      "corrected": 79,
+      "introduced_errors": 484
+    },
+    {
+      "task": "informativeness",
+      "model": "metaclip2_vith14",
+      "dclip_run": "44618e680cf2",
+      "waffle_run": "39f6734476ad",
+      "delta_macro_f1": -0.11103907071416819,
+      "delta_accuracy": -0.10133333333333328,
+      "corrected": 48,
+      "introduced_errors": 352
+    },
+    {
+      "task": "informativeness",
+      "model": "openai_clip_vit_b_32",
+      "dclip_run": "6f2ffe1d181c",
+      "waffle_run": "273c7b6138cf",
+      "delta_macro_f1": -0.19565582170180051,
+      "delta_accuracy": -0.15933333333333333,
+      "corrected": 83,
+      "introduced_errors": 561
+    },
+    {
+      "task": "informativeness",
+      "model": "siglip2_so400m",
+      "dclip_run": "33e59b9ea845",
+      "waffle_run": "c874a93229ad",
+      "delta_macro_f1": -0.18287348906557194,
+      "delta_accuracy": -0.14,
+      "corrected": 57,
+      "introduced_errors": 477
     }
   ],
   "checks": {
     "matrix_complete": true,
     "metrics_recomputed": true,
     "predictions_match_scores": true,
+    "fusion_reconstructed": true,
+    "waffle_prompt_protocol_verified": true,
     "cohort_content_equal_per_task": true,
     "inputs_equal_across_tasks_per_dataset": true,
     "paired_text_scores_equal_within_1e_5": true

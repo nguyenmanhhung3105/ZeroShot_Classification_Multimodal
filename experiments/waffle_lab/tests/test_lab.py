@@ -30,6 +30,14 @@ import launch_runs as launcher
 
 
 class CombiningTests(unittest.TestCase):
+    def test_metaclip_backend_uses_registry_and_freezes_weights(self):
+        from unittest.mock import Mock
+        backend = Mock()
+        with patch("models.model_registry.load_model", return_value=backend) as load:
+            self.assertIs(runner.load_backend(None, "metaclip2_vith14", "cpu"), backend)
+        load.assert_called_once_with("metaclip2_vith14", device="cpu")
+        backend.model.requires_grad_.assert_called_once_with(False)
+
     def test_stability_can_change_prediction_and_does_not_just_mark_review(self):
         anchor = np.array([[[.2, .1]], [[.2, .1]]])
         # Hai phiếu A yếu và hai phiếu B mạnh: mean nghiêng B nhưng không đồng thuận.
@@ -273,6 +281,18 @@ class LauncherIntegrationTests(unittest.TestCase):
             active["jobs"]["waffle_info"][key] = value
             with self.assertRaises(ValueError):
                 launcher.validate(active, ["waffle_info"])
+
+    def test_metaclip_launcher_preserves_model_and_method(self):
+        config = yaml.safe_load((REPO / "experiments/waffle_lab/launcher.yaml").read_text())
+        config["jobs"]["waffle_info"]["backbones"] = ["metaclip2_vith14"]
+        config["jobs"]["waffle_info"]["variant"] = "waffle"
+        launcher.validate(config, ["waffle_info"])
+        with tempfile.TemporaryDirectory() as temporary:
+            _, _, output, _, _, _, research_file = launcher.job_plan(config, "waffle_info", Path(temporary))
+            self.assertEqual(output.parts[-2], "metaclip2_vith14")
+            research = yaml.safe_load(research_file.read_text())
+            self.assertEqual(research["backbone"], "metaclip2_vith14")
+            self.assertEqual(research["variant"], "waffle")
 
 
 if __name__ == "__main__":

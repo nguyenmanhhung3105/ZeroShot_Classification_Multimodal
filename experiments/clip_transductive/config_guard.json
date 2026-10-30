@@ -1,0 +1,7 @@
+{
+  "method": "confidence_guarded_transductive_gate",
+  "gate_run": "results/analysis/clip_transductive_gate/c3fa825bc57b",
+  "threshold_rule": "median_strictly_positive_train_cosine_margin",
+  "grouping_seeds": [0, 1, 2],
+  "label_fit": false
+}

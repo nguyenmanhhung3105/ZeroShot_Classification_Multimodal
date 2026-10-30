@@ -1,0 +1,132 @@
+{
+  "status": "passed",
+  "reference_commit": "d2e5f63090bc1c8129bf7cbd781029a5955e1a67",
+  "cases": [
+    {
+      "scope": "synthetic",
+      "classes": 2,
+      "affinity": "rbf",
+      "max_posterior_abs_error": 0.0
+    },
+    {
+      "scope": "synthetic",
+      "classes": 2,
+      "affinity": "knn",
+      "max_posterior_abs_error": 0.0
+    },
+    {
+      "scope": "synthetic",
+      "classes": 8,
+      "affinity": "rbf",
+      "max_posterior_abs_error": 0.0
+    },
+    {
+      "scope": "synthetic",
+      "classes": 8,
+      "affinity": "knn",
+      "max_posterior_abs_error": 0.0
+    },
+    {
+      "scope": "train",
+      "affinity": "rbf",
+      "seed": 0,
+      "batches_tasks": 80,
+      "all_predictions_identical": true,
+      "max_posterior_abs_error": 0.0
+    },
+    {
+      "scope": "train",
+      "affinity": "rbf",
+      "seed": 1,
+      "batches_tasks": 80,
+      "all_predictions_identical": true,
+      "max_posterior_abs_error": 0.0
+    },
+    {
+      "scope": "train",
+      "affinity": "rbf",
+      "seed": 2,
+      "batches_tasks": 80,
+      "all_predictions_identical": true,
+      "max_posterior_abs_error": 0.0
+    },
+    {
+      "scope": "train",
+      "affinity": "knn",
+      "seed": 0,
+      "batches_tasks": 80,
+      "all_predictions_identical": true,
+      "max_posterior_abs_error": 0.0
+    },
+    {
+      "scope": "train",
+      "affinity": "knn",
+      "seed": 1,
+      "batches_tasks": 80,
+      "all_predictions_identical": true,
+      "max_posterior_abs_error": 0.0
+    },
+    {
+      "scope": "train",
+      "affinity": "knn",
+      "seed": 2,
+      "batches_tasks": 80,
+      "all_predictions_identical": true,
+      "max_posterior_abs_error": 0.0
+    },
+    {
+      "scope": "dev",
+      "affinity": "rbf",
+      "seed": 0,
+      "batches_tasks": 60,
+      "all_predictions_identical": true,
+      "max_posterior_abs_error": 0.0
+    },
+    {
+      "scope": "dev",
+      "affinity": "rbf",
+      "seed": 1,
+      "batches_tasks": 60,
+      "all_predictions_identical": true,
+      "max_posterior_abs_error": 0.0
+    },
+    {
+      "scope": "dev",
+      "affinity": "rbf",
+      "seed": 2,
+      "batches_tasks": 60,
+      "all_predictions_identical": true,
+      "max_posterior_abs_error": 0.0
+    },
+    {
+      "scope": "dev",
+      "affinity": "knn",
+      "seed": 0,
+      "batches_tasks": 60,
+      "all_predictions_identical": true,
+      "max_posterior_abs_error": 0.0
+    },
+    {
+      "scope": "dev",
+      "affinity": "knn",
+      "seed": 1,
+      "batches_tasks": 60,
+      "all_predictions_identical": true,
+      "max_posterior_abs_error": 0.0
+    },
+    {
+      "scope": "dev",
+      "affinity": "knn",
+      "seed": 2,
+      "batches_tasks": 60,
+      "all_predictions_identical": true,
+      "max_posterior_abs_error": 0.0
+    }
+  ],
+  "reference_sha256": "f16ed39c95e88f5803340e4b8ad982013170cf7a4406bf5967b2ff921d743123",
+  "local_core_sha256": "ba734aa7a34ef89073ec422a383e26e1ec71da0b3a744f5dfcc04c846ac5fd6f",
+  "adaptations": [
+    "Only pure functions/classes; do not import model, dataset or Detectron2.",
+    "CPU FP32 same backend. Singleton/zero-sigma fallback only in local core, tested separately; not needed on real groups."
+  ]
+}

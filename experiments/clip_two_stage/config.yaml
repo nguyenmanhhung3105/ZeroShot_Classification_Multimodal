@@ -1,0 +1,15 @@
+base_config: configs/experiment_config.yaml
+dataset: crisismmd
+task: humanitarian
+backbone: metaclip2_vith14
+variant: semantic_waffle
+seed: 0
+waffle_pairs: 15
+noise_cap: 0.5
+batch_size: 16
+max_samples: 5
+device: auto
+output_dir: auto
+descriptor_files:
+  informativeness: configs/research/descriptors/crisismmd_info.json
+  humanitarian: configs/research/descriptors/crisismmd_humanitarian.json

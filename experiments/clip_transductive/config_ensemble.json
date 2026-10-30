@@ -1,0 +1,8 @@
+{
+  "original_run": "results/clip_two_stage_heldout/crisismmd/humanitarian/samples_2219/metaclip2_vith14/humanitarian_77187aa56f13",
+  "em_run": "results/analysis/clip_transductive_gate/c3fa825bc57b",
+  "stata_run": "results/clip_two_stage_stata_heldout/crisismmd/humanitarian/samples_2219/metaclip2_vith14/humanitarian_ca2d96c17e89",
+  "methods": ["majority", "recall_or"],
+  "grouping_seeds": [0, 1, 2],
+  "label_fit": false
+}

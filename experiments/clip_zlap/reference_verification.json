@@ -1,0 +1,65 @@
+{
+  "status": "passed",
+  "reference_commit": "89ab14bef8904a9397f8b6a7e5f3e6af2c288b93",
+  "cases": [
+    {
+      "case": "synthetic_2",
+      "images": 37,
+      "classes": 2,
+      "predictions_identical": true,
+      "max_score_abs_error": 0.0,
+      "all_cg_converged": true
+    },
+    {
+      "case": "synthetic_8",
+      "images": 37,
+      "classes": 8,
+      "predictions_identical": true,
+      "max_score_abs_error": 0.0,
+      "all_cg_converged": true
+    },
+    {
+      "case": "train_informativeness",
+      "images": 3000,
+      "classes": 2,
+      "predictions_identical": true,
+      "max_score_abs_error": 0.0,
+      "all_cg_converged": true
+    },
+    {
+      "case": "train_humanitarian",
+      "images": 3000,
+      "classes": 8,
+      "predictions_identical": true,
+      "max_score_abs_error": 0.0,
+      "all_cg_converged": true
+    },
+    {
+      "case": "dev_informativeness",
+      "images": 2219,
+      "classes": 2,
+      "predictions_identical": true,
+      "max_score_abs_error": 0.0,
+      "all_cg_converged": true
+    },
+    {
+      "case": "dev_humanitarian",
+      "images": 2219,
+      "classes": 8,
+      "predictions_identical": true,
+      "max_score_abs_error": 0.0,
+      "all_cg_converged": true
+    }
+  ],
+  "adaptations": [
+    "Extract only listed pure functions; do not import dataset/model functions.",
+    "cp aliases NumPy, CuPy sparse/CG aliases SciPy, array.get/asnumpy removed, tol renamed rtol.",
+    "FAISS GPU search replaced by exact CPU dot products in blocks of 256 with stable index tie handling. Both paths use the same numeric backend; full-batch FP32 GEMM may resolve near-tied neighbors differently.",
+    "This checks algorithm/control flow with a CPU backend; not a CUDA numeric reproduction."
+  ],
+  "reference_sha256": {
+    "zlap.py": "26a8f06eec9c017f22b5dad694006524fb188226ee8f89432fdb5fd874e19217",
+    "utils.py": "a427646d7975a5e048de7416f4d398b047a5458d99cc5eaf40ed80bb3558d5ed"
+  },
+  "local_core_sha256": "d4eddf1da543c66c160c2f750c6532a3e3457ec3be0c0d0f13d7a9403ebe6245"
+}

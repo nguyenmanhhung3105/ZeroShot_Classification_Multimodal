@@ -1,0 +1,24 @@
+use_kaggle: false
+experiment_config: configs/experiment_config.yaml
+kaggle:
+  username: nguyenhung3105
+  code_dataset_slug: vlm-runs-code
+  data_dataset_slug: vlm-runs-data
+  data_mode: bounded
+  kernel_slug: vlm-runs
+  accelerator: NvidiaTeslaT4
+  timeout_seconds: 7200
+  poll_seconds: 20
+jobs:
+  qwen_info: &trial
+    enabled: false
+    kind: vlm_reasoning
+    dataset: crisismmd
+    task: informativeness
+    models: [qwen2_5_vl_3b]
+    max_samples: 5
+    image_text_relation:
+      enabled: false
+  qwen_humanitarian:
+    <<: *trial
+    task: humanitarian

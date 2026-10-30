@@ -27,7 +27,7 @@ def load_run(directory, allow_synthetic=False):
     manifest = json.loads(artifact("run_manifest.json"))
     if manifest.get("status") != "complete":
         raise ValueError("Chỉ phân tích run đã hoàn tất")
-    if not allow_synthetic and manifest.get("inference_backend") != "openai_clip_real":
+    if not allow_synthetic and manifest.get("inference_backend") not in ("openai_clip_real", "metaclip2_real"):
         raise ValueError("Đầu ra giả/custom không được dùng làm kết quả model thật")
     cohort = json.loads(artifact("cohort.json"))
     if digest(cohort["rows"]) != manifest.get("cohort_fingerprint"):

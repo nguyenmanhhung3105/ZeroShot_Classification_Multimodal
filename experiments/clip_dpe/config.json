@@ -1,0 +1,13 @@
+{
+  "train_run": "results/clip_two_stage_features/crisismmd/humanitarian/samples_3000/metaclip2_vith14/humanitarian_471dc4a07814",
+  "dev_run": "results/clip_two_stage_stata_heldout/crisismmd/humanitarian/samples_2219/metaclip2_vith14/humanitarian_ca2d96c17e89",
+  "text_prototype_run": "results/clip_two_stage_features/crisismmd/humanitarian/samples_3000/metaclip2_vith14/humanitarian_471dc4a07814",
+  "majority_run": "results/analysis/clip_gate_fusion/74ed4f8f37f4",
+  "dn_run": "results/analysis/clip_dn_unit/d70959a0a21c",
+  "inmap_run": "results/analysis/clip_inmap/37d5a5db4a8a",
+  "parameters": {"memory_size": 3, "alpha": 6.0, "beta": 5.0, "learning_rate": 0.0006, "alignment_weight": 0.5, "logit_scale": 100.0, "text_update_entropy": 0.1},
+  "seeds": [0, 1, 2],
+  "methods": ["dpe_gate_raw_leaf", "dpe_gate_dn_leaf", "majority_dpe_leaf", "inmap_dpe_leaf", "dpe_both"],
+  "label_fit": false,
+  "protocol": "dpe_single_view_cpu_fp32_residual_and_evolution_train_dev_no_search"
+}

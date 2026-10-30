@@ -1,0 +1,10 @@
+{
+  "train_run": "results/clip_two_stage_features/crisismmd/humanitarian/samples_3000/metaclip2_vith14/humanitarian_471dc4a07814",
+  "dev_run": "results/clip_two_stage_stata_heldout/crisismmd/humanitarian/samples_2219/metaclip2_vith14/humanitarian_ca2d96c17e89",
+  "text_prototype_run": "results/clip_two_stage_features/crisismmd/humanitarian/samples_3000/metaclip2_vith14/humanitarian_471dc4a07814",
+  "majority_run": "results/analysis/clip_gate_fusion/74ed4f8f37f4",
+  "variants": ["unbalanced", "balanced_sinkhorn"],
+  "parameters": {"iterations": 2000, "sinkhorn_iterations": 20, "lr": 10.0, "tau_t": 0.01, "tau_i": 0.04, "alpha": 0.6, "gamma": 0.0},
+  "ground_truth_fit": false,
+  "scope": "independent_train_dev_transductive_proxy_optimization_no_test"
+}

@@ -20,20 +20,23 @@ datasets:
       mode: auto             # kế thừa flag toàn cục; 6way có policy 0=match, 2=mismatch
     enabled: true
     task: 6way              # 2way | 6way; cột nhãn tự chọn theo task
-    data_path: data/processed/pro_fakeddit/fakeddit_sample.tsv
-    image_dir: data/processed/pro_fakeddit/images
+    data_path: "data/processed/pro_fakeddit/fakeddit_sample.tsv"
+    image_dir: "data/processed/pro_fakeddit/images"
     id_col: id
     text_col: clean_title
-    label_col_2way: 2_way_label
-    label_col_6way: 6_way_label
+    label_col_2way: "2_way_label"
+    label_col_6way: "6_way_label"
     min_text_length: 20
-    max_samples: 1000
+    max_samples: 3000
     prompt_aggregation: mean_sim
     prompt_variants: [current]  # thêm class_name/descriptors chỉ khi chạy 6way
     inference:
       image_weight: 0.75
       text_logit_scale: 25
 
+    cohort_manifest: "data/processed/pro_fakeddit/manifest.json"
+    source_split: "validate"
+    label_source: "6_way_label"
   crisismmd:
     image_text_relation:
       mode: auto             # kế thừa flag; hai task chỉ diagnostic
@@ -59,12 +62,12 @@ datasets:
       mode: auto             # kế thừa flag; genres chỉ diagnostic
     enabled: true
     task: genres
-    data_path: data/processed/pro_mmimdb/mmimdb_sample.tsv
-    image_dir: data/processed/pro_mmimdb/images
+    data_path: "data/processed/pro_mmimdb/mmimdb_sample.tsv"
+    image_dir: "data/processed/pro_mmimdb/images"
     id_col: id
     text_col: plot
-    label_col: genres
-    max_samples: 1000
+    label_col: "genres"
+    max_samples: 3000
     prompt_aggregation: mean_sim
     decision_mode: relative_z
     relative_z_threshold: 1.0
@@ -75,12 +78,15 @@ datasets:
       image_weight: 0.5
       text_logit_scale: null       # relative_z bỏ qua scale
 
+    cohort_manifest: "data/processed/pro_mmimdb/manifest.json"
+    source_split: "test"
+    label_source: "genres"
 evaluation:
   enabled: true
-  split: val               # tên do người dùng khai báo, không tự xác minh nguồn split
+  split: "per_dataset"               # tên do người dùng khai báo, không tự xác minh nguồn split
   measure_truncation: true
-  sample_lock_mode: "off"   # off | create_or_verify | verify
-  sample_lock_dir: results/_system/sample_locks
+  sample_lock_mode: "create_or_verify"   # off | create_or_verify | verify
+  sample_lock_dir: "results/_system/sample_locks/processed_v2"
 
 demo:
   n_samples: 10

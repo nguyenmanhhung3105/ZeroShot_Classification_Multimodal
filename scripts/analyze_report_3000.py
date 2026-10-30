@@ -51,6 +51,8 @@ def analyze():
     profile = yaml.safe_load((ROOT / "configs/launcher_3000.yaml").read_text())
     wanted = {(job["dataset"], job["task"], model, "adapted_dclip" if job["kind"] == "adapted" else "baseline")
               for job in profile["jobs"].values() for model in job["models"]}
+    wanted |= {(dataset, task, model, "adapted_waffle")
+               for dataset, task, model, method in wanted if method == "adapted_dclip"}
     accepted, excluded, arrays = {}, [], {}
     for path in sorted((ROOT / "results").rglob("summary.tsv")):
         relative = path.relative_to(ROOT)
@@ -98,6 +100,14 @@ def analyze():
         image = np.array([[float(row["score_image_"+label]) for label in labels] for row in rows])
         text = np.array([[float(row["score_text_"+label]) for label in labels] for row in rows])
         assert np.isfinite(score).all() and np.isfinite(image).all() and np.isfinite(text).all()
+        np.testing.assert_allclose(score, manifest["image_weight"] * image +
+                                   (1-manifest["image_weight"]) * text, atol=1e-6, rtol=0)
+        if method == "adapted_waffle":
+            assert manifest["image_method"] == "waffle" and manifest["research_seed"] == 0
+            assert manifest["waffle_pairs"] == 15 and manifest["image_prompt_aggregation"] == "mean_sim"
+            assert manifest["waffle_alphabet"] == "ascii_lowercase"
+            prompts = manifest["research_image_prompts"]
+            assert set(prompts) == set(labels) and all(len(group) == 30 for group in prompts.values())
         def decode(values):
             if not multi:
                 return [labels[index] for index in values.argmax(axis=1)]
@@ -139,7 +149,8 @@ def analyze():
                   "shared_input_sha256":signature(sorted((item[0],item[1],item[3],item[4]) for item in content)),
                   "config":{k:manifest.get(k) for k in ("image_weight","text_logit_scale_effective","prompt_aggregation",
                     "image_prompt_aggregation","descriptor_sha256","descriptor_provenance","decision_mode",
-                    "relative_z_threshold","fallback_top1","chunk_long_text","chunk_aggregation","batch_size","logit_scale","logit_bias")},
+                    "relative_z_threshold","fallback_top1","chunk_long_text","chunk_aggregation","batch_size","logit_scale","logit_bias",
+                    "image_method","research_seed","waffle_pairs","waffle_alphabet","vocabulary_sha256")},
                   "truncation":snapshot["truncation"],"chunking":snapshot.get("chunking"),
                   "empty_texts":sum(row.get("_text_was_empty")=="True" for row in rows)}
         if not multi:
@@ -162,7 +173,7 @@ def analyze():
         assert len({value["receipt"]["data_sha256"] for value in group}) == 1, (dataset,task,"different data bundle")
     pairs = []
     for key, adapted in accepted.items():
-        if key[3] != "adapted_dclip": continue
+        if key[3] not in ("adapted_dclip", "adapted_waffle"): continue
         base_key = (*key[:3],"baseline")
         base = accepted[base_key]
         a,b = arrays[base_key],arrays[key]
@@ -171,15 +182,39 @@ def analyze():
         assert max_text_difference < 1e-5, (key,"text branch changed",max_text_difference)
         good_a = np.array([p==t for p,t in zip(a["pred"],a["truth"])])
         good_b = np.array([p==t for p,t in zip(b["pred"],b["truth"])])
-        pairs.append({"task":key[1],"model":key[2],"baseline_run":base["run_id"],"dclip_run":adapted["run_id"],
+        pairs.append({"task":key[1],"model":key[2],"method":key[3],
+                      "baseline_run":base["run_id"],"adapted_run":adapted["run_id"],
+                      **({"dclip_run":adapted["run_id"]} if key[3] == "adapted_dclip" else {"waffle_run":adapted["run_id"]}),
                       "delta_accuracy":adapted["metrics"]["accuracy"]-base["metrics"]["accuracy"],
                       "delta_macro_f1":adapted["metrics"]["macro_f1"]-base["metrics"]["macro_f1"],
                       "corrected":int(np.sum(~good_a & good_b)),"introduced_errors":int(np.sum(good_a & ~good_b)),
                       "text_branch_max_difference":max_text_difference})
-    return {"scope":"28 lượt cohort chính, 3000 mẫu/lượt; không chạy lại model",
+    waffle_dclip = []
+    for key, waffle in accepted.items():
+        if key[3] != "adapted_waffle":
+            continue
+        dclip_key = (*key[:3], "adapted_dclip")
+        dclip = accepted[dclip_key]
+        a, b = arrays[dclip_key], arrays[key]
+        assert a["ids"] == b["ids"] and a["truth"] == b["truth"]
+        assert np.array_equal(a["text"], b["text"])
+        for field in ("image_weight", "text_logit_scale_effective", "prompt_aggregation",
+                      "image_prompt_aggregation", "logit_scale", "logit_bias", "batch_size"):
+            assert waffle["config"][field] == dclip["config"][field], (key, field)
+        good_a = np.array([p == t for p, t in zip(a["pred"], a["truth"])])
+        good_b = np.array([p == t for p, t in zip(b["pred"], b["truth"])])
+        waffle_dclip.append({"task": key[1], "model": key[2], "dclip_run": dclip["run_id"],
+                            "waffle_run": waffle["run_id"],
+                            "delta_macro_f1": waffle["metrics"]["macro_f1"] - dclip["metrics"]["macro_f1"],
+                            "delta_accuracy": waffle["metrics"]["accuracy"] - dclip["metrics"]["accuracy"],
+                            "corrected": int(np.sum(~good_a & good_b)),
+                            "introduced_errors": int(np.sum(good_a & ~good_b))})
+    return {"scope":f"{len(accepted)} lượt cohort chính, 3000 mẫu/lượt; không chạy lại model",
             "checked_runs":len(accepted),"prediction_rows_checked":sum(x["n_samples"] for x in accepted.values()),
             "excluded_runs":excluded,"runs":list(accepted.values()),"paired_comparisons":pairs,
+            "waffle_dclip_comparisons":waffle_dclip,
             "checks":{"matrix_complete":True,"metrics_recomputed":True,"predictions_match_scores":True,
+                      "fusion_reconstructed":True,"waffle_prompt_protocol_verified":True,
                       "cohort_content_equal_per_task":True,"inputs_equal_across_tasks_per_dataset":True,
                       "paired_text_scores_equal_within_1e_5":True}}
 

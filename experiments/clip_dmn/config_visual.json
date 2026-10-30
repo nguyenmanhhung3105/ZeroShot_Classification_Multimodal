@@ -1,0 +1,10 @@
+{
+  "train_run": "results/clip_two_stage_features/crisismmd/humanitarian/samples_3000/metaclip2_vith14/humanitarian_471dc4a07814",
+  "dev_run": "results/clip_two_stage_stata_heldout/crisismmd/humanitarian/samples_2219/metaclip2_vith14/humanitarian_ca2d96c17e89",
+  "inmap_run": "results/analysis/clip_inmap/37d5a5db4a8a",
+  "dn_run": "results/analysis/clip_dn_unit/d70959a0a21c",
+  "parameters": {"memory_size": 50, "beta": 5.5, "logit_scale": 25.0, "selection_fraction": 0.1, "text_weight": 0.5},
+  "anchor": "unbalanced_inmap_visual_proxy",
+  "scale_reason": "1 / InMaP tau_i=0.04, fixed before metrics; not checkpoint text temperature",
+  "label_fit": false
+}

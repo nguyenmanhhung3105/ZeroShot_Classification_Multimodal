@@ -1,0 +1,72 @@
+{
+  "checked_at_utc": "2026-10-20T11:28:43.785148+00:00",
+  "dataset_sync": {
+    "nguyenhung3105/vlm-runs-data-fakeddit": {
+      "dataset": "nguyenhung3105/vlm-runs-data-fakeddit",
+      "verification": "file_manifest",
+      "archive_sha256": "8b38a5f46b3d71d9fb67eb018352248764becd0474b1a9effd4f8ee2770d4f7f",
+      "tree_sha256": "55e066462cd8bb2fb47595197ff40e6735554c5338e2cc615cb5f3f487c8787a",
+      "updated": false,
+      "checked_at_utc": "2026-10-20T10:53:05Z"
+    },
+    "nguyenhung3105/vlm-runs-code": {
+      "dataset": "nguyenhung3105/vlm-runs-code",
+      "verification": "file_manifest",
+      "archive_sha256": "626b68c7370809ccc210f177fc5ada00cbc965f5bb883a300eda4a182447f67b",
+      "tree_sha256": "61b0f17e14c7e4e8d229ddab8d621d8a306476b3b1f12d7f26392a8e5ec5d622",
+      "updated": true,
+      "checked_at_utc": "2026-10-20T10:51:57Z"
+    },
+    "nguyenhung3105/vlm-runs-data-crisismmd": {
+      "dataset": "nguyenhung3105/vlm-runs-data-crisismmd",
+      "verification": "file_manifest",
+      "archive_sha256": "8ffe42f27fe7cb93fb598ce441eb7b6cd807746a0e15dc9e70536c06df421341",
+      "tree_sha256": "38d8a5aab8cc9b84ce86cd3ee0c7d27a7ba384eb2e2a5ae92022a33cf8e0a2ae",
+      "updated": false,
+      "checked_at_utc": "2026-10-20T10:53:25Z"
+    },
+    "nguyenhung3105/vlm-runs-data-mmimdb": {
+      "dataset": "nguyenhung3105/vlm-runs-data-mmimdb",
+      "verification": "file_manifest",
+      "archive_sha256": "e1d5c3cfcd42d6beb6c83353ec193783f5798495708927a17adb535e969e66df",
+      "tree_sha256": "ae49580440221109cd4e0cdedde232e1b7339e18111b484024bb7b3981239e7e",
+      "updated": true,
+      "checked_at_utc": "2026-10-20T10:56:52Z"
+    }
+  },
+  "mounted_content_verified": false,
+  "gpu_inference_started": false,
+  "cpu_audit": {
+    "kernel": "nguyenhung3105/vlm-data-check-3000",
+    "attempts": [
+      {
+        "version": 1,
+        "stage": "results/_system/launches/cohort_checks/check_8v0xi7ii",
+        "last_status": "cancel_acknowledged",
+        "receipt_received": false
+      },
+      {
+        "version": 2,
+        "stage": "results/_system/launches/cohort_checks/check_wmq8l6mz",
+        "last_status": "running",
+        "receipt_received": false
+      }
+    ],
+    "local_polling": "stopped; remote version 2 was still running; use --resume-stage to collect without resubmitting"
+  },
+  "local_launcher_tests": {
+    "passed": 47,
+    "failed": 0
+  },
+  "cpu_health_check": {
+    "kernel": "nguyenhung3105/vlm-data-check-health",
+    "kernel_version": 1,
+    "receipt": {
+      "cpu_python_executed": true,
+      "checked_at_utc": "2026-10-20T11:25:45.222320+00:00"
+    },
+    "status": "complete",
+    "attached_datasets": 0,
+    "conclusion": "CPU Python thực thi được; không chứng minh nội dung dataset mount đã khớp."
+  }
+}

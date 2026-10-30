@@ -1,0 +1,100 @@
+{
+  "status": "passed",
+  "reference_commit": "9066ad371757c794e4b8255e852f837ac9a1d3b1",
+  "reference_source_sha256": {
+    "src/methods/zero_shot/em_dirichlet.py": "8c6ced4f0fb24debe8eea9e8db09c0cba67715a7d7927ba44906871500eaf410",
+    "src/utils.py": "1ea74a5c21f10714884ef4f16f992aee1720d2eb0071c8f866f95b430c28218f"
+  },
+  "precision": "float64 on both implementations; original explicit float casts retained",
+  "cases": [
+    {
+      "case": "synthetic",
+      "shape": [
+        2,
+        75,
+        7
+      ],
+      "predictions_identical": true,
+      "max_assignment_abs_error": 5.310196726782124e-13,
+      "objective_nonincreasing": true
+    },
+    {
+      "case": "saved_dev_scores",
+      "shape": [
+        1,
+        75,
+        7
+      ],
+      "predictions_identical": true,
+      "max_assignment_abs_error": 6.683542608243442e-14,
+      "objective_nonincreasing": true
+    },
+    {
+      "case": "dev_grouping_0_size_67",
+      "shape": [
+        1,
+        67,
+        7
+      ],
+      "predictions_identical": true,
+      "max_assignment_abs_error": 1.3502532425491154e-12,
+      "objective_nonincreasing": true
+    },
+    {
+      "case": "dev_grouping_0_size_75",
+      "shape": [
+        18,
+        75,
+        7
+      ],
+      "predictions_identical": true,
+      "max_assignment_abs_error": 1.131428284395497e-12,
+      "objective_nonincreasing": true
+    },
+    {
+      "case": "dev_grouping_1_size_67",
+      "shape": [
+        1,
+        67,
+        7
+      ],
+      "predictions_identical": true,
+      "max_assignment_abs_error": 7.716050021144838e-14,
+      "objective_nonincreasing": true
+    },
+    {
+      "case": "dev_grouping_1_size_75",
+      "shape": [
+        18,
+        75,
+        7
+      ],
+      "predictions_identical": true,
+      "max_assignment_abs_error": 7.464029394554927e-13,
+      "objective_nonincreasing": true
+    },
+    {
+      "case": "dev_grouping_2_size_67",
+      "shape": [
+        1,
+        67,
+        7
+      ],
+      "predictions_identical": true,
+      "max_assignment_abs_error": 4.0198400164115355e-13,
+      "objective_nonincreasing": true
+    },
+    {
+      "case": "dev_grouping_2_size_75",
+      "shape": [
+        18,
+        75,
+        7
+      ],
+      "predictions_identical": true,
+      "max_assignment_abs_error": 4.837241718291807e-13,
+      "objective_nonincreasing": true
+    }
+  ],
+  "reference_repo": "https://github.com/SegoleneMartin/transductive-CLIP"
+}

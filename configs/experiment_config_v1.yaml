@@ -1,0 +1,92 @@
+# Chạy từ thư mục gốc. Chỉ đổi model, task và lựa chọn trong từng dataset.
+models:
+  - metaclip2_vith14
+  # - dfn5b_vith14
+  # - siglip2_so400m
+  # - openai_clip_vit_b_32  # OpenAI CLIP ViT-B/32 trong pipeline fusion của dự án
+
+inference:
+  image_text_relation:
+    enabled: false           # bật true để dùng ảnh ↔ text cho mọi model/dataset
+    mode: auto               # 6way: class_aware; các task khác: diagnostic
+    weight: 0.25              # heuristic cố định, không fit nhãn thật
+  batch_size: 16
+  image_weight: 0.5          # mặc định khi dataset không khai báo trọng số riêng
+  text_logit_scale: null    # null: lấy scale gốc; số dương: scale tuyệt đối cho text
+
+datasets:
+  fakeddit:
+    image_text_relation:
+      mode: auto             # kế thừa flag toàn cục; 6way có policy 0=match, 2=mismatch
+    enabled: true
+    task: 6way              # 2way | 6way; cột nhãn tự chọn theo task
+    data_path: data/processed/pro_fakeddit_v1/fakeddit_sample.tsv
+    image_dir: data/processed/pro_fakeddit_v1/images
+    id_col: id
+    text_col: clean_title
+    label_col_2way: 2_way_label
+    label_col_6way: 6_way_label
+    min_text_length: 20
+    max_samples: 1000
+    prompt_aggregation: mean_sim
+    prompt_variants: [current]  # thêm class_name/descriptors chỉ khi chạy 6way
+    inference:
+      image_weight: 0.75
+      text_logit_scale: 25
+
+  crisismmd:
+    image_text_relation:
+      mode: auto             # kế thừa flag; hai task chỉ diagnostic
+    enabled: true
+    task: informativeness   # informativeness | humanitarian
+    data_path: data/processed/pro_crisismmd_v1/pre_crisismmd.tsv
+    image_dir: data/processed/pro_crisismmd_v1/images
+    id_col: tweet_id
+    text_col: clean_text
+    label_col_info: label_informative
+    label_col_human: label_humanitarian
+    max_samples: 1000
+    prompt_aggregation: mean_embed
+    inference:
+      image_weight: 0.5
+      text_logit_scale: null
+
+  mmimdb:
+    image_text_relation:
+      mode: auto             # kế thừa flag; genres chỉ diagnostic
+    enabled: true
+    task: genres
+    data_path: data/processed/pro_mmimdb_v1/mmimdb_sample.tsv
+    image_dir: data/processed/pro_mmimdb_v1/images
+    id_col: id
+    text_col: plot
+    label_col: genres
+    max_samples: 1000
+    prompt_aggregation: mean_sim
+    decision_mode: relative_z
+    relative_z_threshold: 1.0
+    threshold: 0.22         # chỉ có tác dụng với decision_mode: fixed_threshold
+    chunk_long_text: true
+    chunk_aggregation: mean_embed  # mean_embed | max_sim
+    inference:
+      image_weight: 0.5
+      text_logit_scale: null       # relative_z bỏ qua scale
+
+evaluation:
+  enabled: true
+  split: val               # tên do người dùng khai báo, không tự xác minh nguồn split
+  measure_truncation: true
+  sample_lock_mode: "off"   # off | create_or_verify | verify
+  sample_lock_dir: results/_system/sample_locks
+
+demo:
+  n_samples: 10
+  batch_size: 4
+  prompt_version: v1
+  log_dir: auto
+  visualization_dir: auto
+
+output:
+  results_dir: auto             # runner trực tiếp tạo results/<method>/<dataset>/<task>/samples_N/<model>/<task>_<run>
+  raw_predictions_dir: auto
+  summary_table: auto

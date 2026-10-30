@@ -1,0 +1,23 @@
+{
+  "status": "passed",
+  "reference_commit": "2635f9355f9389756064becb5d9ed54c2756809c",
+  "reference_source_sha256": "9fcd2eb8a22cabc2c7eb43823625cb04557476c637a24c8a12eb3115ede2b962",
+  "local_source_sha256": "b559124eb27ab64adf5e7e36723460084587eb439c475f78ac6e38e5cb91dfd6",
+  "reference_modification": "AST replaces .cuda() with .cpu(); formulas unchanged",
+  "cases": [
+    {
+      "classes": 2,
+      "represented_synthetic_classes": 2,
+      "samples": 75,
+      "max_abs_error": 0.0,
+      "predictions_identical": true
+    },
+    {
+      "classes": 8,
+      "represented_synthetic_classes": 2,
+      "samples": 75,
+      "max_abs_error": 2.5849394142282115e-26,
+      "predictions_identical": true
+    }
+  ]
+}

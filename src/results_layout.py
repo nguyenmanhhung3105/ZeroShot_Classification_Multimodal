@@ -36,7 +36,8 @@ def task_folder(dataset, task):
 def model_folder(models=None, backbones=None):
     """Một model giữ tên riêng; một lượt dùng nhiều model giữ nguyên dưới multi_model."""
     if backbones is not None:
-        names = ["openai_clip_" + _slug(name.replace("/", "_")) for name in backbones]
+        names = [name if name == "metaclip2_vith14" else
+                 "openai_clip_" + _slug(name.replace("/", "_")) for name in backbones]
     else:
         names = [_slug(name) for name in (models or [])]
     if not names:
@@ -53,11 +54,27 @@ def method_for_job(job):
         base.pop("result_protocol")
         return "image_only_" + method_for_job(base)
     kind = job["kind"]
+    if kind == "clip_two_stage":
+        if job.get("calip"):
+            return "clip_calip_heldout" if job.get("evaluation_scope") == "heldout" else "clip_calip"
+        if job.get("stata_gate"):
+            return "clip_two_stage_stata_heldout" if job.get("evaluation_scope") == "heldout" else "clip_two_stage_stata"
+        if job.get("export_features"):
+            return "clip_two_stage_features_heldout" if job.get("evaluation_scope") == "heldout" else "clip_two_stage_features"
+        if job.get("full_frame_view"):
+            return "clip_two_stage_views_heldout" if job.get("evaluation_scope") == "heldout" else "clip_two_stage_views"
+        if job.get("multimodal"):
+            return "clip_two_stage_mm_heldout" if job.get("evaluation_scope") == "heldout" else "clip_two_stage_mm"
+        return "clip_two_stage_heldout" if job.get("evaluation_scope") == "heldout" else "clip_two_stage"
+    if kind == "vlm_reasoning":
+        return "qwen_direct_image"
     if kind == "waffle_lab":
         return "waffle_lab_" + _slug(job["variant"])
     if job.get("ensemble", {}).get("enabled"):
         return "ensemble"
     if kind == "standard":
+        if job["dataset"] == "crisismmd" and job.get("prompt_variants") == ["modality_split"]:
+            return "modality_split"
         relation = job.get("image_text_relation") or {}
         if relation.get("enabled") and relation.get("mode") not in (None, "auto", "diagnostic"):
             return _slug(relation["mode"])
@@ -87,13 +104,15 @@ def run_path(method, dataset, task, samples, model, run_id):
 
 
 def job_path(job, run_id):
-    model = (model_folder(backbones=job.get("backbones")) if job["kind"] in ("upstream", "waffle_lab")
+    model = (model_folder(backbones=job.get("backbones")) if job["kind"] in ("upstream", "waffle_lab", "clip_two_stage")
              else model_folder(models=job.get("models")))
     return run_path(method_for_job(job), job["dataset"], job["task"], job["max_samples"], model, run_id)
 
 
 def standalone_method(config, dataset):
     settings = config["datasets"][dataset]
+    if dataset == "crisismmd" and settings.get("prompt_variants", [settings.get("prompt_variant", "current")]) == ["modality_split"]:
+        return "modality_split"
     relation = {**(config.get("inference", {}).get("image_text_relation") or {}),
                 **(settings.get("image_text_relation") or {})}
     if not relation.get("enabled"):

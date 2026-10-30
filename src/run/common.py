@@ -412,6 +412,8 @@ def prompt_trial_configs(dataset_name, task_config):
         raise ValueError("Duplicate prompt variants")
     from prompts.fakeddit_prompts import PROMPT_VARIANTS
     for variant in variants:
+        if dataset_name == "crisismmd" and variant == "modality_split":
+            continue
         if variant not in PROMPT_VARIANTS:
             raise ValueError(f"Unknown prompt variant: {variant}")
         if variant != "current" and (dataset_name != "fakeddit" or task_config.get("task") != "6way"):
@@ -443,7 +445,7 @@ def run_prompt_trials(run_one, model_name, dataset_name, task_config):
         row = {"model": model_name, "dataset": dataset_name,
                "task": active.get("task", "-"),
                "task_type": "multi_label" if dataset_name == "mmimdb" else "single_label"}
-        if dataset_name == "fakeddit":
+        if dataset_name in ("fakeddit", "crisismmd"):
             row["prompt_variant"] = variant
         row["prompt_aggregation"] = aggregation
         row.update(metrics or {})

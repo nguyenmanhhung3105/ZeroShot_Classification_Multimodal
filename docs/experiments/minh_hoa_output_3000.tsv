@@ -1,0 +1,73 @@
+dataset	task	id	reference_correct	model	method	run_id	y_true	y_pred	confidence	margin	normalized_entropy	sample_f1	exact_match	tp	fp	fn
+fakeddit	2way	3psxmz	True	metaclip2_vith14	baseline	16ead71cd477	1	1	0.6125460565090179	0.2250920981168747	0.9631368165829141					
+fakeddit	2way	3psxmz	True	dfn5b_vith14	baseline	5cbdd8e2e5cf	1	1	0.5709142535924911	0.14182855933904648	0.9854408297278126					
+fakeddit	2way	3psxmz	True	siglip2_so400m	baseline	0e323fb32f4f	1	1	0.845599815249443	0.691199654713273	0.6207430662489578					
+fakeddit	2way	3psxmz	True	openai_clip_vit_b_32	baseline	d3d1f2f79b7c	1	0	0.7182071730494499	0.43641431629657745	0.8578821884516039					
+fakeddit	6way	3psxmz	True	metaclip2_vith14	baseline	c66fec810255	0	0	0.5140387080609798	0.25642672553658485	0.7484234379873038					
+fakeddit	6way	3psxmz	True	dfn5b_vith14	baseline	428af87d7a4a	0	0	0.272084005177021	0.06565462425351143	0.9653086344363271					
+fakeddit	6way	3psxmz	True	siglip2_so400m	baseline	d3347aa759bd	0	0	0.47537681087851524	0.10943112894892693	0.6827775310373594					
+fakeddit	6way	3psxmz	True	openai_clip_vit_b_32	baseline	93b00ff28e11	0	1	0.3215327337384224	0.07550151646137238	0.9083660857160288					
+fakeddit	2way	8tlelb	False	metaclip2_vith14	baseline	16ead71cd477	1	0	0.6075724139809608	0.21514485776424408	0.9663483021138927					
+fakeddit	2way	8tlelb	False	dfn5b_vith14	baseline	5cbdd8e2e5cf	1	1	0.525650754570961	0.05130153149366379	0.9981006998206535					
+fakeddit	2way	8tlelb	False	siglip2_so400m	baseline	0e323fb32f4f	1	1	0.6259137690067291	0.25182754546403885	0.9537580161088443					
+fakeddit	2way	8tlelb	False	openai_clip_vit_b_32	baseline	d3d1f2f79b7c	1	0	0.7728652581572533	0.5457305535674095	0.7729829520835324					
+fakeddit	6way	8tlelb	False	metaclip2_vith14	baseline	c66fec810255	0	2	0.49703342840075493	0.33704906702041626	0.8109138416977859					
+fakeddit	6way	8tlelb	False	dfn5b_vith14	baseline	428af87d7a4a	0	3	0.22739427164196968	0.03377322852611542	0.9734242416235678					
+fakeddit	6way	8tlelb	False	siglip2_so400m	baseline	d3347aa759bd	0	0	0.44105084612965584	0.256622314453125	0.8271189482390029					
+fakeddit	6way	8tlelb	False	openai_clip_vit_b_32	baseline	93b00ff28e11	0	1	0.36981726437807083	0.08461985364556313	0.8364559018121861					
+crisismmd	informativeness	919806240183631872_1	True	metaclip2_vith14	baseline	788bb9578b84	informative	informative	0.6736005395650864	0.347201120108366	0.9112053382978742					
+crisismmd	informativeness	919806240183631872_1	True	dfn5b_vith14	baseline	15d72b19b3b7	informative	not_informative	0.5189988613128662	0.03799775242805481	0.99895825978626					
+crisismmd	informativeness	919806240183631872_1	True	siglip2_so400m	baseline	2b51d19b28d3	informative	not_informative	0.7163245379924774	0.43264906853437424	0.8604106793133293					
+crisismmd	informativeness	919806240183631872_1	True	openai_clip_vit_b_32	baseline	7c507a3ac2e9	informative	informative	0.836433619260788	0.6728672571480274	0.6427735881102167					
+crisismmd	informativeness	919806240183631872_1	True	metaclip2_vith14	adapted_dclip	44618e680cf2	informative	informative	0.7923600077629089	0.58472004160285	0.7369473658497391					
+crisismmd	informativeness	919806240183631872_1	True	dfn5b_vith14	adapted_dclip	d06d06ceb255	informative	not_informative	0.519901379942894	0.03980277478694916	0.9988569019805948					
+crisismmd	informativeness	919806240183631872_1	True	siglip2_so400m	adapted_dclip	33e59b9ea845	informative	not_informative	0.7512167990207672	0.5024336203932762	0.8093438287035549					
+crisismmd	informativeness	919806240183631872_1	True	openai_clip_vit_b_32	adapted_dclip	6f2ffe1d181c	informative	informative	0.8424411118030548	0.684882216155529	0.6284375336212799					
+crisismmd	informativeness	919806240183631872_1	True	metaclip2_vith14	adapted_waffle	39f6734476ad	informative	informative	0.6653261631727219	0.3306523375213146	0.9196305069078222					
+crisismmd	informativeness	919806240183631872_1	True	dfn5b_vith14	adapted_waffle	19f905e6ad58	informative	not_informative	0.5895692408084869	0.17913849651813507	0.9767261056419466					
+crisismmd	informativeness	919806240183631872_1	True	siglip2_so400m	adapted_waffle	c874a93229ad	informative	not_informative	0.8310502469539642	0.6621005088090897	0.6552965934279222					
+crisismmd	informativeness	919806240183631872_1	True	openai_clip_vit_b_32	adapted_waffle	273c7b6138cf	informative	informative	0.6572515666484833	0.31450313329696655	0.9274245159108726					
+crisismmd	humanitarian	919806240183631872_1	True	metaclip2_vith14	baseline	520ebf75825a	rescue_volunteering_or_donation_effort	rescue_volunteering_or_donation_effort	0.5080220028758049	0.16185373370535672	0.5595258596241812					
+crisismmd	humanitarian	919806240183631872_1	True	dfn5b_vith14	baseline	ab76540ca808	rescue_volunteering_or_donation_effort	rescue_volunteering_or_donation_effort	0.20418308302760124	0.04533911868929863	0.9780553215794623					
+crisismmd	humanitarian	919806240183631872_1	True	siglip2_so400m	baseline	908c56201581	rescue_volunteering_or_donation_effort	not_humanitarian	0.7802270650863647	0.6962204165756702	0.4146644452066664					
+crisismmd	humanitarian	919806240183631872_1	True	openai_clip_vit_b_32	baseline	3388e0f5d4ff	rescue_volunteering_or_donation_effort	rescue_volunteering_or_donation_effort	0.5409611612558365	0.4137879400514066	0.7371670457832289					
+crisismmd	humanitarian	919806240183631872_1	True	metaclip2_vith14	adapted_dclip	360029407f84	rescue_volunteering_or_donation_effort	rescue_volunteering_or_donation_effort	0.6858925223350525	0.5863747457333375	0.5577732414937597					
+crisismmd	humanitarian	919806240183631872_1	True	dfn5b_vith14	adapted_dclip	cdfb0ec9fbed	rescue_volunteering_or_donation_effort	rescue_volunteering_or_donation_effort	0.19453353062272072	0.029174350202083588	0.9821170384514007					
+crisismmd	humanitarian	919806240183631872_1	True	siglip2_so400m	adapted_dclip	192b5b63ad16	rescue_volunteering_or_donation_effort	not_humanitarian	0.6014636904001236	0.4239792674779892	0.6214802653219507					
+crisismmd	humanitarian	919806240183631872_1	True	openai_clip_vit_b_32	adapted_dclip	bf574f3316ba	rescue_volunteering_or_donation_effort	rescue_volunteering_or_donation_effort	0.5481144338846207	0.41691868752241135	0.7113263240283908					
+crisismmd	humanitarian	919806240183631872_1	True	metaclip2_vith14	adapted_waffle	a9722c05f361	rescue_volunteering_or_donation_effort	rescue_volunteering_or_donation_effort	0.6310451030731201	0.4426681619370356	0.5593221170715327					
+crisismmd	humanitarian	919806240183631872_1	True	dfn5b_vith14	adapted_waffle	c3053205ec6a	rescue_volunteering_or_donation_effort	rescue_volunteering_or_donation_effort	0.20498667284846306	0.04319490119814873	0.9819012940988336					
+crisismmd	humanitarian	919806240183631872_1	True	siglip2_so400m	adapted_waffle	36e2ce0dfbee	rescue_volunteering_or_donation_effort	not_humanitarian	0.5016880482435226	0.3847634419798851	0.7857913843268806					
+crisismmd	humanitarian	919806240183631872_1	True	openai_clip_vit_b_32	adapted_waffle	1b1480e95e3d	rescue_volunteering_or_donation_effort	rescue_volunteering_or_donation_effort	0.5442887842655182	0.4001063331961632	0.7205288408475232					
+crisismmd	informativeness	910691545577345026_0	False	metaclip2_vith14	baseline	788bb9578b84	not_informative	informative	0.8523172438144684	0.704634502530098	0.6040108724845591					
+crisismmd	informativeness	910691545577345026_0	False	dfn5b_vith14	baseline	15d72b19b3b7	not_informative	informative	0.5933279693126678	0.18665596842765808	0.9747199317749238					
+crisismmd	informativeness	910691545577345026_0	False	siglip2_so400m	baseline	2b51d19b28d3	not_informative	informative	0.7755351364612579	0.5510703101754189	0.7682367885114267					
+crisismmd	informativeness	910691545577345026_0	False	openai_clip_vit_b_32	baseline	7c507a3ac2e9	not_informative	informative	0.8358748555183411	0.6717497408390045	0.6440874697957655					
+crisismmd	informativeness	910691545577345026_0	False	metaclip2_vith14	adapted_dclip	44618e680cf2	not_informative	informative	0.8799116015434265	0.759823240339756	0.5296148503847032					
+crisismmd	informativeness	910691545577345026_0	False	dfn5b_vith14	adapted_dclip	d06d06ceb255	not_informative	informative	0.6378075480461121	0.2756150811910629	0.9444880529333115					
+crisismmd	informativeness	910691545577345026_0	False	siglip2_so400m	adapted_dclip	33e59b9ea845	not_informative	informative	0.7606709003448486	0.5213418379426003	0.7939227912771691					
+crisismmd	informativeness	910691545577345026_0	False	openai_clip_vit_b_32	adapted_dclip	6f2ffe1d181c	not_informative	informative	0.7093938291072845	0.4187876507639885	0.8695029931327036					
+crisismmd	informativeness	910691545577345026_0	False	metaclip2_vith14	adapted_waffle	39f6734476ad	not_informative	informative	0.5987440124154091	0.19748806208372116	0.9716805650369726					
+crisismmd	informativeness	910691545577345026_0	False	dfn5b_vith14	adapted_waffle	19f905e6ad58	not_informative	informative	0.5423309803009033	0.08466199040412903	0.994823450250051					
+crisismmd	informativeness	910691545577345026_0	False	siglip2_so400m	adapted_waffle	c874a93229ad	not_informative	not_informative	0.5242794677615166	0.04855896532535553	0.9982984259994624					
+crisismmd	informativeness	910691545577345026_0	False	openai_clip_vit_b_32	adapted_waffle	273c7b6138cf	not_informative	informative	0.6003435850143433	0.20068714767694473	0.970749252585127					
+crisismmd	humanitarian	910691545577345026_0	False	metaclip2_vith14	baseline	520ebf75825a	not_humanitarian	infrastructure_and_utility_damage	0.4538494944572449	0.03623806592077017	0.5470537648485476					
+crisismmd	humanitarian	910691545577345026_0	False	dfn5b_vith14	baseline	ab76540ca808	not_humanitarian	infrastructure_and_utility_damage	0.2525423839688301	0.10568082332611084	0.9582385091681651					
+crisismmd	humanitarian	910691545577345026_0	False	siglip2_so400m	baseline	908c56201581	not_humanitarian	infrastructure_and_utility_damage	0.45379435643553734	0.19406403601169586	0.5777376509512444					
+crisismmd	humanitarian	910691545577345026_0	False	openai_clip_vit_b_32	baseline	3388e0f5d4ff	not_humanitarian	infrastructure_and_utility_damage	0.4146987646818161	0.17909475788474083	0.7822851404518351					
+crisismmd	humanitarian	910691545577345026_0	False	metaclip2_vith14	adapted_dclip	360029407f84	not_humanitarian	other_relevant_information	0.5299205705523491	0.11075400561094284	0.4459236906333862					
+crisismmd	humanitarian	910691545577345026_0	False	dfn5b_vith14	adapted_dclip	cdfb0ec9fbed	not_humanitarian	infrastructure_and_utility_damage	0.24398888647556305	0.0745854377746582	0.9520214426073599					
+crisismmd	humanitarian	910691545577345026_0	False	siglip2_so400m	adapted_dclip	192b5b63ad16	not_humanitarian	infrastructure_and_utility_damage	0.506287869066	0.2440366316586733	0.5132369345502218					
+crisismmd	humanitarian	910691545577345026_0	False	openai_clip_vit_b_32	adapted_dclip	bf574f3316ba	not_humanitarian	infrastructure_and_utility_damage	0.5900693982839584	0.36847951635718346	0.5755912913446443					
+crisismmd	humanitarian	910691545577345026_0	False	metaclip2_vith14	adapted_waffle	a9722c05f361	not_humanitarian	infrastructure_and_utility_damage	0.5608313381671906	0.15339191124076024	0.406573581314174					
+crisismmd	humanitarian	910691545577345026_0	False	dfn5b_vith14	adapted_waffle	c3053205ec6a	not_humanitarian	infrastructure_and_utility_damage	0.2692144736647606	0.11938244849443436	0.9535908619452668					
+crisismmd	humanitarian	910691545577345026_0	False	siglip2_so400m	adapted_waffle	36e2ce0dfbee	not_humanitarian	infrastructure_and_utility_damage	0.5377255342900753	0.30115931591717526	0.5034109589381689					
+crisismmd	humanitarian	910691545577345026_0	False	openai_clip_vit_b_32	adapted_waffle	1b1480e95e3d	not_humanitarian	infrastructure_and_utility_damage	0.5844280868768692	0.3667130023241043	0.6060433090127688					
+mmimdb	genres	0164538	True	metaclip2_vith14	baseline	3aae524797f3	Drama|Romance	Drama|Romance				1.0	True	2	0	0
+mmimdb	genres	0164538	True	dfn5b_vith14	baseline	5932aaddb554	Drama|Romance	Biography|Drama|Romance				0.8	False	2	1	0
+mmimdb	genres	0164538	True	siglip2_so400m	baseline	e17746c1e744	Drama|Romance	Drama|Romance|Short				0.8	False	2	1	0
+mmimdb	genres	0164538	True	openai_clip_vit_b_32	baseline	955d550a8310	Drama|Romance	Drama|Romance				1.0	True	2	0	0
+mmimdb	genres	0443335	False	metaclip2_vith14	baseline	3aae524797f3	Documentary	Biography|Music|Musical				0.0	False	0	3	1
+mmimdb	genres	0443335	False	dfn5b_vith14	baseline	5932aaddb554	Documentary	Biography|Music|Musical				0.0	False	0	3	1
+mmimdb	genres	0443335	False	siglip2_so400m	baseline	e17746c1e744	Documentary	Documentary|Music|Musical|Short				0.4	False	1	3	0
+mmimdb	genres	0443335	False	openai_clip_vit_b_32	baseline	955d550a8310	Documentary	Music				0.0	False	0	1	1

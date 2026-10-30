@@ -89,6 +89,12 @@ class AuditTests(unittest.TestCase):
         self.assertIsNone(self.prepare(config=off)["sample_lock_path"])
         self.assertFalse((self.root / "locks").exists())
 
+    def test_dataset_source_split_overrides_global_split_name(self):
+        audit = self.prepare(task={**self.task, "source_split": "train"})
+        self.assertEqual(audit["split"], "train")
+        self.assertFalse(audit["split_verified"])
+        self.assertEqual(self.prepare()["split"], "val")
+
     def test_single_label_metrics_truncation_and_output_files(self):
         audit = self.prepare()
         image = np.array([[0.9, 0.1], [0.1, 0.9], [0.1, 0.9]])

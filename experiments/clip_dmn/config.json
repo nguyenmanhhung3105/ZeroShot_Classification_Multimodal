@@ -1,0 +1,13 @@
+{
+  "train_run": "results/clip_two_stage_features/crisismmd/humanitarian/samples_3000/metaclip2_vith14/humanitarian_471dc4a07814",
+  "dev_run": "results/clip_two_stage_stata_heldout/crisismmd/humanitarian/samples_2219/metaclip2_vith14/humanitarian_ca2d96c17e89",
+  "text_prototype_run": "results/clip_two_stage_features/crisismmd/humanitarian/samples_3000/metaclip2_vith14/humanitarian_471dc4a07814",
+  "majority_run": "results/analysis/clip_gate_fusion/74ed4f8f37f4",
+  "dn_run": "results/analysis/clip_dn_unit/d70959a0a21c",
+  "inmap_run": "results/analysis/clip_inmap/37d5a5db4a8a",
+  "parameters": {"memory_size": 50, "beta": 5.5, "logit_scale": 100.0, "selection_fraction": 0.1, "text_weight": 0.5},
+  "stream_orders": ["source_order", "shuffle_0", "shuffle_1", "shuffle_2"],
+  "methods": ["dmn_gate_raw_leaf", "dmn_gate_dn_leaf", "majority_dmn_leaf", "inmap_dmn_leaf", "dmn_both"],
+  "label_fit": false,
+  "protocol": "single_view_dmn_zs_adaptation_fixed_equal_weights_no_search_train_dev"
+}

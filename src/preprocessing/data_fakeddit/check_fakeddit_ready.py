@@ -34,6 +34,7 @@ CONFIG_PATH = "configs/experiment_config.yaml"
 DEFAULT_CONFIG = {
     "task": "2way",
     "data_path": "data/processed/pro_fakeddit/fakeddit_sample.tsv",
+    "min_text_length": 5,
 }
 
 
@@ -45,6 +46,7 @@ def load_fakeddit_config():
         fk_cfg = (full_cfg.get("datasets", {}) or {}).get("fakeddit", {}) or {}
         cfg["task"] = fk_cfg.get("task", cfg["task"])
         cfg["data_path"] = fk_cfg.get("data_path", cfg["data_path"])
+        cfg["min_text_length"] = fk_cfg.get("min_text_length", cfg["min_text_length"])
     return cfg
 
 
@@ -143,11 +145,16 @@ print("\n6_way_label:")
 print(df["6_way_label"].value_counts().sort_index())
 
 label_counts = df[LABEL_COL].value_counts()
+expected_labels = {"0", "1"} if TASK == "2way" else set("012345")
+observed_labels = set(df[LABEL_COL].astype(str))
+if observed_labels != expected_labels:
+    ready = False
+    print(f"❌ Thiếu nhãn {expected_labels - observed_labels}; nhãn lạ {observed_labels - expected_labels}")
 ratio = label_counts.max() / label_counts.min()
 print(f"\nTỷ lệ lớp nhiều nhất / lớp ít nhất (trên '{LABEL_COL}'): {ratio:.2f}x")
 if ratio > 3:
-    ready = False
-    print("❌ Lệch lớp khá nhiều, cân nhắc chạy lại preprocess_fakeddit.py với MIN_PER_CLASS lớn hơn")
+    print("Lưu ý: phân bố lớp không đều; báo Macro-F1 và support từng lớp. "
+          "Đây không phải lỗi định dạng hay điều kiện bắt buộc lấy lại mẫu.")
 else:
     print("✅ Phân bố nhãn tương đối cân bằng")
 
@@ -157,8 +164,10 @@ else:
 print("\n" + "=" * 60)
 print("BƯỚC 6: KIỂM TRA TEXT (clean_title)")
 print("=" * 60)
-too_short = (df["clean_title"].astype(str).str.len() < 3).sum()
-print(f"Số dòng text quá ngắn (<3 ký tự): {too_short}")
+minimum = CFG.get("min_text_length", 5)
+lengths = df["clean_title"].astype(str).str.replace(" ", "", regex=False).str.len()
+too_short = (lengths <= minimum).sum()
+print(f"Số dòng không qua bộ lọc runner (độ dài bỏ dấu cách <= {minimum}): {too_short}")
 if too_short != 0:
     ready = False
     print("❌ VẪN CÒN TEXT QUÁ NGẮN")

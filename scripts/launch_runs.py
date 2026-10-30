@@ -37,10 +37,11 @@ def launch_root():
     return ROOT / "results/_system/launches"
 SLUG = re.compile(r"^[a-z0-9][a-z0-9-]{2,48}[a-z0-9]$")
 JOB_ID = re.compile(r"^[a-z][a-z0-9_]{1,48}$")
-KINDS = {"standard", "demo", "adapted", "upstream", "relation_ablation", "waffle_lab"}
+KINDS = {"standard", "demo", "adapted", "upstream", "relation_ablation", "waffle_lab", "vlm_reasoning", "clip_two_stage"}
 ADAPTED_METHODS = {"baseline", "current_mean_sim", "class_name", "waffle", "dclip"}
 UPSTREAM_METHODS = {"clip", "waffle", "dclip_labels", "dclip"}
 UPSTREAM_BACKBONES = {"RN50", "ViT-B/32", "ViT-L/14"}
+WAFFLE_LAB_BACKBONES = UPSTREAM_BACKBONES | {"metaclip2_vith14"}
 
 
 class KernelExecutionError(RuntimeError):
@@ -128,11 +129,18 @@ def validate(config, selected=None):
         if kind == "relation_ablation" and limit > 5:
             raise ValueError(f"{name}: relation_ablation tối đa 5 mẫu")
         models = job.get("models")
-        if kind in ("upstream", "waffle_lab"):
+        if job.get("fakeddit_calip") is not None:
+            from experiments.fakeddit_calip.run import validate as validate_fakeddit_calip
+            validate_fakeddit_calip(job)
+        if kind in ("upstream", "waffle_lab", "clip_two_stage"):
             if models is not None:
                 raise ValueError(f"{name}.models không dùng cho upstream; chọn CLIP trong research.backbones")
         else:
-            valid_choice_list(models, MODEL_CONFIGS, f"{name}.models")
+            valid_choice_list(models, {"qwen2_5_vl_3b"} if kind == "vlm_reasoning" else MODEL_CONFIGS, f"{name}.models")
+        if kind == "vlm_reasoning" and (dataset != "crisismmd" or limit > 3000 or
+                job.get("image_text_relation", {}).get("enabled") is not False or
+                job.get("result_method") or job.get("result_protocol")):
+            raise ValueError(f"{name}: VLM reasoning chỉ CrisisMMD, nhãn ảnh, tối đa 3000, quan hệ tắt")
         ensemble = job.get("ensemble", {"enabled": False})
         if not isinstance(ensemble, dict) or type(ensemble.get("enabled")) is not bool:
             raise ValueError(f"{name}.ensemble.enabled phải là true hoặc false")
@@ -170,24 +178,72 @@ def validate(config, selected=None):
         if kind in ("adapted", "upstream"):
             valid_choice_list(job.get("methods"), ADAPTED_METHODS if kind == "adapted" else UPSTREAM_METHODS,
                               f"{name}.methods")
+        if kind == "clip_two_stage":
+            if type(job.get("calip", False)) is not bool:
+                raise ValueError("calip phải là boolean")
+            if job.get("calip") and (any(job.get(flag) for flag in
+                    ["tda_evaluate", "export_features", "stata_gate", "full_frame_view", "multimodal"]) or
+                    job.get("backbones") != ["metaclip2_vith14"] or job.get("seeds") != [0]):
+                raise ValueError("CALIP chạy riêng, MetaCLIP2 seed 0, không ghép flags thí nghiệm khác")
+            if job.get("calip"):
+                from experiments.clip_calip.prepare import load_reference, ASSET
+                reference = load_reference(project_path(ASSET))["payload"]
+                calip_data = yaml.safe_load(experiment.read_text())["datasets"]["crisismmd"]
+                calip_split = calip_data.get("source_split")
+                if (calip_split not in ("train", "dev") or calip_data.get("final_dn_unit_plan") or
+                        limit not in (5, reference["cohorts"][calip_split]["samples"]) or
+                        job.get("evaluation_scope", "exploratory") != ("heldout" if calip_split == "dev" else "exploratory")):
+                    raise ValueError("CALIP chỉ smoke 5 hoặc đủ train/dev đã khóa, không dùng test")
+            if type(job.get("tda_evaluate",False)) is not bool or (job.get("tda_evaluate") and not (job.get("export_features") or job.get("stata_gate"))):
+                raise ValueError("tda_evaluate là boolean và cần export_features hoặc stata_gate")
+            if type(job.get("export_features",False)) is not bool or (job.get("export_features") and (job.get("multimodal") or job.get("full_frame_view"))):
+                raise ValueError("export_features là boolean và dùng với ảnh gốc image-only")
+            if type(job.get("stata_gate",False)) is not bool or (job.get("stata_gate") and (job.get("multimodal") or job.get("full_frame_view"))):
+                raise ValueError("stata_gate là boolean và thử riêng với multimodal/multi-view")
+            if type(job.get("full_frame_view",False)) is not bool or (job.get("full_frame_view") and job.get("multimodal")):
+                raise ValueError("full_frame_view là boolean và thử riêng với multimodal")
+            if type(job.get("multimodal",False)) is not bool:
+                raise ValueError("clip_two_stage.multimodal phải là boolean")
+            if job.get("evaluation_scope", "exploratory") not in ("exploratory", "heldout"):
+                raise ValueError("clip_two_stage.evaluation_scope chỉ exploratory/heldout")
+            if job.get("evaluation_scope") == "heldout":
+                dataset_config = yaml.safe_load(experiment.read_text())["datasets"]["crisismmd"]
+                if dataset_config.get("source_split") not in ("dev", "val", "validate", "validation", "test"):
+                    raise ValueError("Heldout cần cấu hình processed validation/test, không gửi lại cohort train")
+                if dataset_config.get("final_dn_unit_plan"):
+                    from experiments.clip_final.protocol import load_plan
+                    locked = load_plan(project_path(dataset_config["final_dn_unit_plan"]), ROOT)
+                    if (dataset_config.get("source_split") != "test" or not job.get("export_features") or
+                            any(job.get(flag) for flag in ["tda_evaluate","stata_gate","multimodal","full_frame_view","calip"]) or
+                            job.get("seeds") != [0] or job.get("backbones") != ["metaclip2_vith14"] or
+                            limit > locked["protocol"]["rules"]["max_test_samples"] or
+                            limit != dataset_config.get("max_samples")):
+                        raise ValueError("Final DN-unit cần đúng test/MetaCLIP2 seed 0/export feature và protocol đã khóa")
+            if (dataset, task) != ("crisismmd", "humanitarian") or job.get("image_text_relation", {}).get("enabled") is not False:
+                raise ValueError("clip_two_stage chỉ CrisisMMD humanitarian, quan hệ tắt")
+            valid_choice_list(job.get("backbones"), WAFFLE_LAB_BACKBONES, f"{name}.backbones")
+            if len(job["backbones"]) != 1 or len(job.get("seeds", [])) != 1:
+                raise ValueError("clip_two_stage cần một backbone và một seed")
+            if job.get("result_method") or job.get("result_protocol") or ensemble["enabled"]:
+                raise ValueError("Không override protocol hoặc ensemble cho clip_two_stage")
         if kind == "waffle_lab":
             if dataset != "crisismmd" or job.get("variant") not in WAFFLE_LAB_VARIANTS:
                 raise ValueError(f"{name}: waffle_lab chỉ dùng CrisisMMD và biến thể đã định nghĩa")
             if job.get("image_text_relation", {}).get("enabled") is not False or job.get("result_method") or job.get("result_protocol"):
                 raise ValueError(f"{name}: waffle_lab chỉ nhánh ảnh, giữ output riêng theo variant")
-            valid_choice_list(job.get("backbones"), UPSTREAM_BACKBONES, f"{name}.backbones")
+            valid_choice_list(job.get("backbones"), WAFFLE_LAB_BACKBONES, f"{name}.backbones")
             if len(job["backbones"]) != 1 or len(job.get("seeds", [])) != 1:
                 raise ValueError(f"{name}: waffle_lab cần đúng một backbone và một seed")
             lab_path = project_path(job.get("lab_config", "experiments/waffle_lab/config.yaml"))
             if not lab_path.is_file() or not lab_path.is_relative_to((ROOT / "experiments/waffle_lab").resolve()):
                 raise ValueError(f"{name}: lab_config phải nằm trong experiments/waffle_lab/")
         if "backbones" in job:
-            if kind not in ("upstream", "waffle_lab"):
+            if kind not in ("upstream", "waffle_lab", "clip_two_stage"):
                 raise ValueError(f"{name}.backbones chỉ áp dụng cho upstream")
-            valid_choice_list(job["backbones"], UPSTREAM_BACKBONES, f"{name}.backbones")
+            valid_choice_list(job["backbones"], WAFFLE_LAB_BACKBONES if kind in ("waffle_lab", "clip_two_stage") else UPSTREAM_BACKBONES, f"{name}.backbones")
         if "seeds" in job:
             seeds = job["seeds"]
-            if kind not in ("adapted", "upstream", "waffle_lab") or not isinstance(seeds, list) or not seeds or any(
+            if kind not in ("adapted", "upstream", "waffle_lab", "clip_two_stage") or not isinstance(seeds, list) or not seeds or any(
                     type(seed) is not int or not 0 <= seed < 2**32 for seed in seeds) or len(seeds) != len(set(seeds)):
                 raise ValueError(f"{name}.seeds phải là danh sách seed nguyên không lặp")
         if "outputs" in job:
@@ -257,7 +313,7 @@ def validate_single_cloud_trial(config, names):
     kind = job["kind"]
     if job.get("ensemble", {}).get("enabled"):
         return
-    if kind not in ("upstream", "waffle_lab") and len(job["models"]) != 1:
+    if kind not in ("upstream", "waffle_lab", "clip_two_stage") and len(job["models"]) != 1:
         raise ValueError(f"{name}: chọn đúng một --model cho mỗi lượt Kaggle")
     if kind not in ("adapted", "upstream"):
         return
@@ -305,7 +361,7 @@ def job_plan(config, name, stage):
             job["result_method"] = relation["mode"]
     # Upstream chọn OpenAI CLIP qua research.backbones; giữ danh sách model nền
     # hợp lệ vì load_config vẫn kiểm tra trường này trước khi chạy runner.
-    if kind not in ("upstream", "waffle_lab"):
+    if kind not in ("upstream", "waffle_lab", "vlm_reasoning", "clip_two_stage"):
         experiment["models"] = job["models"]
     run_id = stage.name.split("_", 1)[0]
     output = job_path(job, run_id)
@@ -332,14 +388,34 @@ def job_plan(config, name, stage):
     elif job.get("prompt_gate", {}).get("enabled"):
         command = ["experiments/uncertainty/run_crisismmd_prompt_gate.py", "--config", remote_config,
                    "--job-config", "configs/job.yaml"]
+    elif job.get("fakeddit_calip"):
+        command = ["experiments/fakeddit_calip/run.py", "--config", remote_config,
+                   "--job-config", "configs/job.yaml"]
     elif kind == "standard":
         command = ["src/run_experiment.py", "--config", remote_config]
     elif kind == "demo":
         command = ["src/demo.py", "--config", remote_config]
+    elif kind == "vlm_reasoning":
+        command = ["experiments/crisis_reasoning/run.py", "--config", remote_config,
+                   "--task", job["task"], "--max-samples", str(job["max_samples"]),
+                   "--output-dir", str(output)]
     elif kind == "relation_ablation":
         command = ["src/research/run_relation_ablation.py", "--config", remote_config,
                    "--model", job["models"][0], "--max-samples", str(job["max_samples"]),
                    "--output-dir", str(output)]
+    elif kind == "clip_two_stage":
+        research = yaml.safe_load((ROOT / "experiments/clip_two_stage/config.yaml").read_text())
+        research.update(base_config=remote_config, backbone=job["backbones"][0], seed=job["seeds"][0],
+                        max_samples=job["max_samples"], output_dir=str(output),
+                        evaluation_scope=job.get("evaluation_scope", "exploratory"),multimodal=job.get("multimodal",False),
+                        full_frame_view=job.get("full_frame_view",False),stata_gate=job.get("stata_gate",False),
+                        export_features=job.get("export_features",False),tda_evaluate=job.get("tda_evaluate",False))
+        if job.get("calip"):
+            research.update(calip=True, batch_size=8)
+        research_file = stage / "research.yaml"
+        research_file.write_text(yaml.safe_dump(research,sort_keys=False),encoding="utf-8")
+        entry = "experiments/clip_calip/run.py" if job.get("calip") else "experiments/clip_two_stage/run.py"
+        command = [entry, "--config", "configs/research/active.yaml"]
     elif kind == "waffle_lab":
         source = project_path(job.get("lab_config", "experiments/waffle_lab/config.yaml"))
         research = yaml.safe_load(source.read_text(encoding="utf-8"))
@@ -480,6 +556,9 @@ def archive_data(destination, experiment, dataset, limit, scan_limit=None):
                 add_file(archive, bounded, source.relative_to(root).as_posix())
         for relative, path in sorted(images.items()):
             add_file(archive, path, relative)
+        if task.get("final_dn_unit_plan"):
+            cohort_path = under_processed(task["cohort_manifest"])
+            add_file(archive, cohort_path, cohort_path.relative_to(root).as_posix())
     valid_rows = sum(not task.get("min_text_length", 0) or
                      len(str(row.get(task.get("text_col", "clean_title"), "")).replace(" ", "")) >
                      task.get("min_text_length", 0) for row in rows)
@@ -499,13 +578,23 @@ def archive_full_data(destination, experiment, dataset, limit, scan_limit=None):
     selected = sum(not minimum or len(str(row.get(text_col, "")).replace(" ", "")) > minimum
                    for row in rows)
     root = ROOT.resolve()
-    files = [source, *(path for path in image_root.rglob("*")
+    image_files = [path for path in image_root.rglob("*")
                        if path.is_file() and not any(part.startswith(".")
-                                                     for part in path.relative_to(image_root).parts))]
+                                                     for part in path.relative_to(image_root).parts)]
+    files = [source, *image_files]
+    if task.get("cohort_manifest"):
+        cohort_path = under_processed(task["cohort_manifest"])
+        cohort = json.loads(cohort_path.read_text(encoding="utf-8"))
+        if (cohort.get("status") != "ready" or cohort.get("dataset") != dataset or
+                cohort.get("samples_sha256") != sha256(source)):
+            raise ValueError(f"Cohort manifest không khớp TSV của {dataset}")
+        if len(image_files) != cohort["selected"]["samples"]:
+            raise ValueError(f"Số ảnh không khớp cohort manifest của {dataset}")
+        files.append(cohort_path)
     for path in files:
         if path.is_symlink() or not path.resolve().is_relative_to((ROOT / "data/processed").resolve()):
             raise ValueError(f"File dữ liệu ngoài data/processed/: {path}")
-    images = len(files) - 1
+    images = len(image_files)
     if not images:
         raise ValueError(f"{dataset}: không tìm được ảnh để đóng gói")
     files.sort(key=lambda path: path.relative_to(root).as_posix())
@@ -550,7 +639,8 @@ def archive_code(destination):
     for directory in ("configs/research/descriptors", "configs/prompts"):
         for path in (ROOT / directory).glob("*.json"):
             files[path] = path.relative_to(ROOT).as_posix()
-    for relative in ("configs/research/sources.json", "requirements.txt", "requirements/research.txt"):
+    for relative in ("configs/research/sources.json", "requirements.txt", "requirements/research.txt",
+                     "requirements/vlm_reasoning.txt"):
         files[ROOT / relative] = relative
     with zipfile.ZipFile(destination, "w", compression=zipfile.ZIP_DEFLATED) as archive:
         for source, target in sorted(files.items(), key=lambda item: item[1]):
@@ -576,10 +666,10 @@ def find_kaggle_cli():
     return str(candidate) if candidate.is_file() else shutil.which("kaggle")
 
 
-def sync_dataset(staged_dir, name, digest, state, kaggle_bin):
-    if state.get(name) == digest:
+def sync_dataset(staged_dir, name, digest, state, kaggle_bin, *, verify_remote=False, file_manifest_first=False):
+    if state.get(name) == digest and not verify_remote:
         print(f"[KAGGLE] Giữ dataset {name}: SHA-256 không đổi")
-        return
+        return {"dataset": name, "verification": "local_state_only", "archive_sha256": digest}
     source = next(staged_dir.glob("*.zip"))
     expected = archive_tree_sha256(source)
     with zipfile.ZipFile(source) as archive:
@@ -636,6 +726,11 @@ def sync_dataset(staged_dir, name, digest, state, kaggle_bin):
             token = next_token
 
     def verify_available():
+        # Explicit bulk sync can avoid downloading a stale, very large ZIP.
+        # This is only a file manifest check; CPU/GPU workers still verify the
+        # complete mounted tree hash before accepting the dataset.
+        if file_manifest_first:
+            return ("file_manifest", None) if remote_files_match() else (None, None)
         try:
             observed = remote_tree()
         except RuntimeError as exc:
@@ -652,10 +747,11 @@ def sync_dataset(staged_dir, name, digest, state, kaggle_bin):
     if matched:
         state[name] = digest
         print(f"[KAGGLE] Dataset {name} đã xác minh qua {matched}", flush=True)
-        return
+        return {"dataset": name, "verification": matched, "archive_sha256": digest,
+                "tree_sha256": expected, "updated": False}
     if not exists:
         run_cli([kaggle_bin, "datasets", "create", "-p", str(staged_dir), "-t"])
-    elif current is not None or name in state:
+    else:
         run_cli([kaggle_bin, "datasets", "version", "-p", str(staged_dir),
                  "-m", f"Update VLM bundle {digest[:12]}", "-t"])
     # Dataset vừa tạo có thể chưa sẵn sàng ở endpoint download; chờ thay vì tạo lại.
@@ -669,6 +765,8 @@ def sync_dataset(staged_dir, name, digest, state, kaggle_bin):
         time.sleep(10)
     state[name] = digest
     print(f"[KAGGLE] Dataset {name} đã xác minh qua {matched}", flush=True)
+    return {"dataset": name, "verification": matched, "archive_sha256": digest,
+            "tree_sha256": expected, "updated": True}
 
 
 def make_kernel(staged_dir, settings, kaggle):
@@ -712,14 +810,24 @@ def await_kernel(kaggle_bin, kernel_id, interval, timeout):
         print("[KAGGLE]", status.strip(), flush=True)
         if re.search(r"\b(complete|completed)\b", status):
             return
-        if re.search(r"\b(error|failed|cancelled|canceled)\b", status):
+        terminal = re.search(r"\b(error|failed|cancelled|canceled|cancel_acknowledged)\b", status)
+        if terminal:
             logs = run_cli([kaggle_bin, "kernels", "logs", kernel_id], check=False)
-            raw = logs.stdout or logs.stderr
+            raw = (logs.stdout or logs.stderr or "").strip()
             try:
-                raw = "".join(item.get("data", "") for item in json.loads(raw))
+                entries = json.loads(raw)
+                if isinstance(entries, list):
+                    raw = "".join(str(item.get("data") or "") for item in entries
+                                  if isinstance(item, dict)).strip()
             except (ValueError, TypeError):
                 pass
-            raise KernelExecutionError(f"Kaggle Kernel lỗi:\n{raw[-5000:]}")
+            if not raw:
+                raw = "Kaggle không trả log; chưa đủ thông tin để xác định nguyên nhân."
+            outcome = "bị hủy" if terminal.group(1).startswith("cancel") else "thất bại"
+            raise KernelExecutionError(
+                f"Kaggle Kernel {kernel_id} {outcome} (trạng thái {terminal.group(1)}).\n"
+                f"{raw[-5000:]}\n"
+                "--resume-stage chỉ chờ/tải kết quả; không khởi động lại lượt đã kết thúc.")
         time.sleep(interval)
     raise TimeoutError(f"Hết thời gian chờ Kaggle Kernel {kernel_id}")
 
@@ -794,6 +902,13 @@ def verify_result(directory, settings):
     receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
     if any(receipt.get(key) != settings[key] for key in ("run_id", "job_id", "code_sha256", "data_sha256")):
         raise RuntimeError("Kết quả tải về không khớp lượt chạy vừa gửi")
+    if settings.get("cohort"):
+        expected = settings["cohort"]
+        observed = receipt.get("cohort") or {}
+        if any(observed.get(key) != value for key, value in
+               (("cohort_id", expected["cohort_id"]), ("cohort_samples", expected["samples"]),
+                ("requested_samples", expected["limit"]), ("task", expected["task"]))):
+            raise RuntimeError("Kết quả Kaggle thiếu hoặc sai biên nhận cohort đã xác thực.")
 
 
 def collect_result(kaggle_bin, kernel_id, settings, output):
@@ -834,6 +949,15 @@ def collect_result(kaggle_bin, kernel_id, settings, output):
 
 def resume_run(stage, config):
     settings, kernel_id, output = staged_run(stage)
+    stage = Path(stage)
+    if not stage.exists() and stage.absolute().parent == ROOT / "results/launches/staging":
+        stage = launch_root() / "staging" / stage.name
+    version_file = stage / "kernel_version.txt"
+    if version_file.is_file():
+        version = version_file.read_text(encoding="utf-8").strip()
+        if not re.fullmatch(r"[1-9][0-9]*", version):
+            raise ValueError("kernel_version.txt phải chứa số version nguyên dương")
+        kernel_id = f"{kernel_id}/{version}"
     kaggle_bin = find_kaggle_cli()
     if kaggle_bin is None:
         raise RuntimeError("Chưa cài Kaggle CLI")
@@ -869,8 +993,39 @@ def sync_full_data(config, datasets):
             name = f"{config['kaggle']['username']}/{config['kaggle']['data_dataset_slug']}-{dataset}"
             metadata(stage / "dataset-metadata.json", name)
             print(f"[DATA] {dataset}: {images} ảnh; {name}", flush=True)
-            sync_dataset(stage, name, digest, state, kaggle_bin)
+            receipt = sync_dataset(stage, name, digest, state, kaggle_bin,
+                                   verify_remote=True, file_manifest_first=True)
             state_path.write_text(json.dumps(state, indent=2), encoding="utf-8")
+            save_verification(receipt)
+
+
+def save_verification(receipt):
+    if not receipt:
+        return
+    path = launch_root() / "dataset_verification.json"
+    receipts = json.loads(path.read_text(encoding="utf-8")) if path.is_file() else {}
+    receipts[receipt["dataset"]] = {**receipt, "checked_at_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())}
+    path.write_text(json.dumps(receipts, indent=2), encoding="utf-8")
+
+
+def sync_code(config):
+    config = deepcopy(config)
+    config["use_kaggle"] = True
+    validate(config, [next(iter(config["jobs"]))])
+    kaggle_bin = find_kaggle_cli()
+    if kaggle_bin is None:
+        raise RuntimeError("Chưa cài Kaggle CLI")
+    state_path = launch_root() / "dataset_state.json"
+    state_path.parent.mkdir(parents=True, exist_ok=True)
+    state = json.loads(state_path.read_text(encoding="utf-8")) if state_path.is_file() else {}
+    with tempfile.TemporaryDirectory(prefix="sync_code_", dir=state_path.parent) as folder:
+        stage = Path(folder)
+        digest = archive_code(stage / "code_bundle.zip")
+        name = f"{config['kaggle']['username']}/{config['kaggle']['code_dataset_slug']}"
+        metadata(stage / "dataset-metadata.json", name)
+        receipt = sync_dataset(stage, name, digest, state, kaggle_bin, verify_remote=True)
+        state_path.write_text(json.dumps(state, indent=2), encoding="utf-8")
+        save_verification(receipt)
 
 
 def run_one(config, name, dry_run=False):
@@ -916,6 +1071,24 @@ def run_one(config, name, dry_run=False):
                 "code_sha256": code_sha, "data_sha256": data_sha,
                 "code_tree_sha256": archive_tree_sha256(code_dir / "code_bundle.zip"),
                 "data_tree_sha256": archive_tree_sha256(data_dir / "data_bundle.zip")}
+    cohort_path = experiment["datasets"][job["dataset"]].get("cohort_manifest")
+    if cohort_path and (data_mode == "full_dataset" or experiment["datasets"][job["dataset"]].get("final_dn_unit_plan")):
+        cohort = json.loads(project_path(cohort_path).read_text(encoding="utf-8"))
+        task_settings = experiment["datasets"][job["dataset"]]
+        if job["dataset"] == "fakeddit":
+            label_column = {"2way": "label_col_2way", "6way": "label_col_6way"}[job["task"]]
+        elif job["dataset"] == "crisismmd":
+            label_column = "label_col_info" if job["task"] == "informativeness" else "label_col_human"
+        else:
+            label_column = "label_col"
+        settings["cohort"] = {"manifest_path": cohort_path, "cohort_id": cohort["cohort_id"],
+                              "samples_path": task_settings["data_path"], "samples": cohort["selected"]["samples"],
+                              "id_col": task_settings["id_col"], "label_col": task_settings[label_column],
+                              "task": job["task"], "dataset": job["dataset"], "limit": job["max_samples"]}
+        if task_settings.get("final_dn_unit_plan"):
+            final_plan = json.loads(project_path(task_settings["final_dn_unit_plan"]).read_text())
+            settings["cohort"].update(final_protocol_sha256=final_plan["protocol_sha256"],
+                                     secondary_task="informativeness", secondary_label_col=task_settings["label_col_info"])
     kernel_id = make_kernel(kernel_dir, settings, active_kaggle)
     print(f"[PLAN] {name}: {selected} mẫu từ {scanned} dòng, {images} ảnh; "
           f"stage={stage}; kernel={kernel_id}", flush=True)
@@ -941,12 +1114,12 @@ def run_one(config, name, dry_run=False):
                            f"Kiểm tra Kaggle trước khi chạy lại. Staging: {stage}")
     (stage / "kernel_version.txt").write_text(marker.group(1), encoding="utf-8")
     print(f"[KAGGLE] Kernel version {marker.group(1)} đã gửi", flush=True)
+    kernel_ref = f"{kernel_id}/{marker.group(1)}"
     try:
-        await_kernel(kaggle_bin, kernel_id, kaggle["poll_seconds"], kaggle["timeout_seconds"])
-        return collect_result(kaggle_bin, kernel_id, settings, output)
+        await_kernel(kaggle_bin, kernel_ref, kaggle["poll_seconds"], kaggle["timeout_seconds"])
+        return collect_result(kaggle_bin, kernel_ref, settings, output)
     except KernelExecutionError as exc:
-        raise RuntimeError(f"{exc}\nLượt Kaggle đã thất bại và không thể resume. "
-                           "Sau khi sửa lỗi, chạy lại lệnh để tạo lượt mới.") from exc
+        raise RuntimeError(f"{exc}\nKiểm tra chi tiết lượt trên Kaggle trước khi gửi lượt mới.") from exc
     except (RuntimeError, TimeoutError) as exc:
         raise RuntimeError(f"{exc}\nLượt Kaggle đã được gửi; đừng chạy lại job. "
                            f"Sau khi khôi phục quyền truy cập, dùng: "
@@ -962,7 +1135,7 @@ def main(argv=None):
     parser.add_argument("--model", choices=sorted(MODEL_CONFIGS), help="Chạy riêng một model của job không phải upstream")
     parser.add_argument("--method", choices=sorted(ADAPTED_METHODS | UPSTREAM_METHODS | set(WAFFLE_LAB_VARIANTS)),
                         help="Chạy riêng một phương pháp adapted/upstream/waffle_lab")
-    parser.add_argument("--backbone", choices=sorted(UPSTREAM_BACKBONES), help="Chạy riêng một backbone upstream")
+    parser.add_argument("--backbone", choices=sorted(WAFFLE_LAB_BACKBONES), help="Chọn backbone upstream hoặc Waffle lab")
     parser.add_argument("--output", choices=("original_image", "multimodal"),
                         help="Chạy riêng một kiểu output upstream")
     parser.add_argument("--seed", type=int, help="Chạy riêng một seed adapted/upstream")
@@ -971,8 +1144,14 @@ def main(argv=None):
     parser.add_argument("--resume-stage", help="Tiếp tục chờ/tải kết quả lượt Kaggle đã gửi; không chạy GPU mới")
     parser.add_argument("--sync-data", choices=("all", "fakeddit", "crisismmd", "mmimdb"),
                         help="Đồng bộ toàn bộ input/ảnh lên Kaggle theo dataset; không chạy GPU")
+    parser.add_argument("--sync-code", action="store_true", help="Đồng bộ và đối chiếu gói mã, không chạy GPU")
     args = parser.parse_args(argv)
     config = yaml.safe_load(Path(args.launcher_config).read_text(encoding="utf-8"))
+    if args.sync_code:
+        if args.sync_data or args.job or args.resume_stage or args.use_kaggle is not None or args.ensemble is not None or args.max_samples is not None or args.dry_run or any(getattr(args, key) is not None for key in ("model", "method", "backbone", "output", "seed")):
+            parser.error("--sync-code không dùng cùng các tùy chọn tạo job/sync-data")
+        sync_code(config)
+        return
     if args.sync_data:
         if args.job or args.resume_stage or args.use_kaggle is not None or args.ensemble is not None or args.max_samples is not None or args.dry_run or any(getattr(args, key) is not None for key in ("model", "method", "backbone", "output", "seed")):
             parser.error("--sync-data không dùng cùng các tùy chọn tạo job")
@@ -998,7 +1177,7 @@ def main(argv=None):
             job.setdefault("ensemble", {})["enabled"] = args.ensemble == "true"
         kind = job["kind"]
         if args.model is not None:
-            if kind in ("upstream", "waffle_lab"):
+            if kind in ("upstream", "waffle_lab", "clip_two_stage"):
                 parser.error("--model không dùng cho upstream; dùng --backbone")
             job["models"] = [args.model]
         if args.method is not None:
@@ -1011,7 +1190,7 @@ def main(argv=None):
             else:
                 job["methods"] = [args.method]
         if args.backbone is not None:
-            if kind not in ("upstream", "waffle_lab"):
+            if kind not in ("upstream", "waffle_lab", "clip_two_stage"):
                 parser.error("--backbone chỉ dùng cho upstream")
             job["backbones"] = [args.backbone]
         if args.output is not None:
@@ -1019,7 +1198,7 @@ def main(argv=None):
                 parser.error("--output chỉ dùng cho upstream")
             job["outputs"] = [args.output]
         if args.seed is not None:
-            if kind not in ("adapted", "upstream", "waffle_lab"):
+            if kind not in ("adapted", "upstream", "waffle_lab", "clip_two_stage"):
                 parser.error("--seed chỉ dùng cho adapted/upstream")
             job["seeds"] = [args.seed]
     validate(config, names)

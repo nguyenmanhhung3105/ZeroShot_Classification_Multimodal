@@ -1,0 +1,370 @@
+{
+  "matrix": [
+    {
+      "job": "fakeddit_2way",
+      "dataset": "fakeddit",
+      "task": "2way",
+      "model": "metaclip2_vith14",
+      "samples": 3000,
+      "kind": "standard",
+      "entry": "src/run_experiment.py"
+    },
+    {
+      "job": "fakeddit_2way",
+      "dataset": "fakeddit",
+      "task": "2way",
+      "model": "dfn5b_vith14",
+      "samples": 3000,
+      "kind": "standard",
+      "entry": "src/run_experiment.py"
+    },
+    {
+      "job": "fakeddit_2way",
+      "dataset": "fakeddit",
+      "task": "2way",
+      "model": "siglip2_so400m",
+      "samples": 3000,
+      "kind": "standard",
+      "entry": "src/run_experiment.py"
+    },
+    {
+      "job": "fakeddit_2way",
+      "dataset": "fakeddit",
+      "task": "2way",
+      "model": "openai_clip_vit_b_32",
+      "samples": 3000,
+      "kind": "standard",
+      "entry": "src/run_experiment.py"
+    },
+    {
+      "job": "fakeddit_6way",
+      "dataset": "fakeddit",
+      "task": "6way",
+      "model": "metaclip2_vith14",
+      "samples": 3000,
+      "kind": "standard",
+      "entry": "src/run_experiment.py"
+    },
+    {
+      "job": "fakeddit_6way",
+      "dataset": "fakeddit",
+      "task": "6way",
+      "model": "dfn5b_vith14",
+      "samples": 3000,
+      "kind": "standard",
+      "entry": "src/run_experiment.py"
+    },
+    {
+      "job": "fakeddit_6way",
+      "dataset": "fakeddit",
+      "task": "6way",
+      "model": "siglip2_so400m",
+      "samples": 3000,
+      "kind": "standard",
+      "entry": "src/run_experiment.py"
+    },
+    {
+      "job": "fakeddit_6way",
+      "dataset": "fakeddit",
+      "task": "6way",
+      "model": "openai_clip_vit_b_32",
+      "samples": 3000,
+      "kind": "standard",
+      "entry": "src/run_experiment.py"
+    },
+    {
+      "job": "mmimdb_genres",
+      "dataset": "mmimdb",
+      "task": "genres",
+      "model": "metaclip2_vith14",
+      "samples": 3000,
+      "kind": "standard",
+      "entry": "src/run_experiment.py"
+    },
+    {
+      "job": "mmimdb_genres",
+      "dataset": "mmimdb",
+      "task": "genres",
+      "model": "dfn5b_vith14",
+      "samples": 3000,
+      "kind": "standard",
+      "entry": "src/run_experiment.py"
+    },
+    {
+      "job": "mmimdb_genres",
+      "dataset": "mmimdb",
+      "task": "genres",
+      "model": "siglip2_so400m",
+      "samples": 3000,
+      "kind": "standard",
+      "entry": "src/run_experiment.py"
+    },
+    {
+      "job": "mmimdb_genres",
+      "dataset": "mmimdb",
+      "task": "genres",
+      "model": "openai_clip_vit_b_32",
+      "samples": 3000,
+      "kind": "standard",
+      "entry": "src/run_experiment.py"
+    },
+    {
+      "job": "crisismmd_info",
+      "dataset": "crisismmd",
+      "task": "informativeness",
+      "model": "metaclip2_vith14",
+      "samples": 3000,
+      "kind": "standard",
+      "entry": "src/run_experiment.py"
+    },
+    {
+      "job": "crisismmd_info",
+      "dataset": "crisismmd",
+      "task": "informativeness",
+      "model": "dfn5b_vith14",
+      "samples": 3000,
+      "kind": "standard",
+      "entry": "src/run_experiment.py"
+    },
+    {
+      "job": "crisismmd_info",
+      "dataset": "crisismmd",
+      "task": "informativeness",
+      "model": "siglip2_so400m",
+      "samples": 3000,
+      "kind": "standard",
+      "entry": "src/run_experiment.py"
+    },
+    {
+      "job": "crisismmd_info",
+      "dataset": "crisismmd",
+      "task": "informativeness",
+      "model": "openai_clip_vit_b_32",
+      "samples": 3000,
+      "kind": "standard",
+      "entry": "src/run_experiment.py"
+    },
+    {
+      "job": "crisismmd_humanitarian",
+      "dataset": "crisismmd",
+      "task": "humanitarian",
+      "model": "metaclip2_vith14",
+      "samples": 3000,
+      "kind": "standard",
+      "entry": "src/run_experiment.py"
+    },
+    {
+      "job": "crisismmd_humanitarian",
+      "dataset": "crisismmd",
+      "task": "humanitarian",
+      "model": "dfn5b_vith14",
+      "samples": 3000,
+      "kind": "standard",
+      "entry": "src/run_experiment.py"
+    },
+    {
+      "job": "crisismmd_humanitarian",
+      "dataset": "crisismmd",
+      "task": "humanitarian",
+      "model": "siglip2_so400m",
+      "samples": 3000,
+      "kind": "standard",
+      "entry": "src/run_experiment.py"
+    },
+    {
+      "job": "crisismmd_humanitarian",
+      "dataset": "crisismmd",
+      "task": "humanitarian",
+      "model": "openai_clip_vit_b_32",
+      "samples": 3000,
+      "kind": "standard",
+      "entry": "src/run_experiment.py"
+    },
+    {
+      "job": "adapted_crisismmd_info",
+      "dataset": "crisismmd",
+      "task": "informativeness",
+      "model": "metaclip2_vith14",
+      "samples": 3000,
+      "kind": "adapted",
+      "entry": "src/research/run_adapted_methods.py"
+    },
+    {
+      "job": "adapted_crisismmd_info",
+      "dataset": "crisismmd",
+      "task": "informativeness",
+      "model": "dfn5b_vith14",
+      "samples": 3000,
+      "kind": "adapted",
+      "entry": "src/research/run_adapted_methods.py"
+    },
+    {
+      "job": "adapted_crisismmd_info",
+      "dataset": "crisismmd",
+      "task": "informativeness",
+      "model": "siglip2_so400m",
+      "samples": 3000,
+      "kind": "adapted",
+      "entry": "src/research/run_adapted_methods.py"
+    },
+    {
+      "job": "adapted_crisismmd_info",
+      "dataset": "crisismmd",
+      "task": "informativeness",
+      "model": "openai_clip_vit_b_32",
+      "samples": 3000,
+      "kind": "adapted",
+      "entry": "src/research/run_adapted_methods.py"
+    },
+    {
+      "job": "adapted_crisismmd_humanitarian",
+      "dataset": "crisismmd",
+      "task": "humanitarian",
+      "model": "metaclip2_vith14",
+      "samples": 3000,
+      "kind": "adapted",
+      "entry": "src/research/run_adapted_methods.py"
+    },
+    {
+      "job": "adapted_crisismmd_humanitarian",
+      "dataset": "crisismmd",
+      "task": "humanitarian",
+      "model": "dfn5b_vith14",
+      "samples": 3000,
+      "kind": "adapted",
+      "entry": "src/research/run_adapted_methods.py"
+    },
+    {
+      "job": "adapted_crisismmd_humanitarian",
+      "dataset": "crisismmd",
+      "task": "humanitarian",
+      "model": "siglip2_so400m",
+      "samples": 3000,
+      "kind": "adapted",
+      "entry": "src/research/run_adapted_methods.py"
+    },
+    {
+      "job": "adapted_crisismmd_humanitarian",
+      "dataset": "crisismmd",
+      "task": "humanitarian",
+      "model": "openai_clip_vit_b_32",
+      "samples": 3000,
+      "kind": "adapted",
+      "entry": "src/research/run_adapted_methods.py"
+    }
+  ],
+  "bundles": [
+    {
+      "job": "fakeddit_2way",
+      "stage": "results/_system/launches/staging/7ca8b827a108_fakeddit_2way_8rd1a9xy",
+      "cohort": {
+        "cohort_id": "455fc8feb8733f1d394c",
+        "cohort_samples": 3000,
+        "requested_samples": 3000,
+        "source_split": "validate",
+        "label_source": "6_way_label",
+        "task": "2way"
+      },
+      "data_tree_sha256": "55e066462cd8bb2fb47595197ff40e6735554c5338e2cc615cb5f3f487c8787a",
+      "code_tree_sha256": "61b0f17e14c7e4e8d229ddab8d621d8a306476b3b1f12d7f26392a8e5ec5d622",
+      "archive_files": 3002,
+      "model_not_run": true
+    },
+    {
+      "job": "fakeddit_6way",
+      "stage": "results/_system/launches/staging/f6c5bc64c305_fakeddit_6way_yblfbx_b",
+      "cohort": {
+        "cohort_id": "455fc8feb8733f1d394c",
+        "cohort_samples": 3000,
+        "requested_samples": 3000,
+        "source_split": "validate",
+        "label_source": "6_way_label",
+        "task": "6way"
+      },
+      "data_tree_sha256": "55e066462cd8bb2fb47595197ff40e6735554c5338e2cc615cb5f3f487c8787a",
+      "code_tree_sha256": "61b0f17e14c7e4e8d229ddab8d621d8a306476b3b1f12d7f26392a8e5ec5d622",
+      "archive_files": 3002,
+      "model_not_run": true
+    },
+    {
+      "job": "mmimdb_genres",
+      "stage": "results/_system/launches/staging/a960afb06bfc_mmimdb_genres_142u04fz",
+      "cohort": {
+        "cohort_id": "c308fdf53c1f0b1ff369",
+        "cohort_samples": 3000,
+        "requested_samples": 3000,
+        "source_split": "test",
+        "label_source": "genres",
+        "task": "genres"
+      },
+      "data_tree_sha256": "ae49580440221109cd4e0cdedde232e1b7339e18111b484024bb7b3981239e7e",
+      "code_tree_sha256": "61b0f17e14c7e4e8d229ddab8d621d8a306476b3b1f12d7f26392a8e5ec5d622",
+      "archive_files": 3002,
+      "model_not_run": true
+    },
+    {
+      "job": "crisismmd_info",
+      "stage": "results/_system/launches/staging/2b8bf808acbb_crisismmd_info_40_7zhh_",
+      "cohort": {
+        "cohort_id": "0451b45a4274038830ed",
+        "cohort_samples": 3000,
+        "requested_samples": 3000,
+        "source_split": "train",
+        "label_source": "image",
+        "task": "informativeness"
+      },
+      "data_tree_sha256": "38d8a5aab8cc9b84ce86cd3ee0c7d27a7ba384eb2e2a5ae92022a33cf8e0a2ae",
+      "code_tree_sha256": "61b0f17e14c7e4e8d229ddab8d621d8a306476b3b1f12d7f26392a8e5ec5d622",
+      "archive_files": 3002,
+      "model_not_run": true
+    },
+    {
+      "job": "crisismmd_humanitarian",
+      "stage": "results/_system/launches/staging/7a00ba4faabd_crisismmd_humanitarian_vu8i4uqf",
+      "cohort": {
+        "cohort_id": "0451b45a4274038830ed",
+        "cohort_samples": 3000,
+        "requested_samples": 3000,
+        "source_split": "train",
+        "label_source": "image",
+        "task": "humanitarian"
+      },
+      "data_tree_sha256": "38d8a5aab8cc9b84ce86cd3ee0c7d27a7ba384eb2e2a5ae92022a33cf8e0a2ae",
+      "code_tree_sha256": "61b0f17e14c7e4e8d229ddab8d621d8a306476b3b1f12d7f26392a8e5ec5d622",
+      "archive_files": 3002,
+      "model_not_run": true
+    },
+    {
+      "job": "adapted_crisismmd_info",
+      "stage": "results/_system/launches/staging/a697fbb2dfa8_adapted_crisismmd_info_2tv0xfsw",
+      "cohort": {
+        "cohort_id": "0451b45a4274038830ed",
+        "cohort_samples": 3000,
+        "requested_samples": 3000,
+        "source_split": "train",
+        "label_source": "image",
+        "task": "informativeness"
+      },
+      "data_tree_sha256": "38d8a5aab8cc9b84ce86cd3ee0c7d27a7ba384eb2e2a5ae92022a33cf8e0a2ae",
+      "code_tree_sha256": "61b0f17e14c7e4e8d229ddab8d621d8a306476b3b1f12d7f26392a8e5ec5d622",
+      "archive_files": 3002,
+      "model_not_run": true
+    },
+    {
+      "job": "adapted_crisismmd_humanitarian",
+      "stage": "results/_system/launches/staging/b406df45b8a7_adapted_crisismmd_humanitarian__u08v5ja",
+      "cohort": {
+        "cohort_id": "0451b45a4274038830ed",
+        "cohort_samples": 3000,
+        "requested_samples": 3000,
+        "source_split": "train",
+        "label_source": "image",
+        "task": "humanitarian"
+      },
+      "data_tree_sha256": "38d8a5aab8cc9b84ce86cd3ee0c7d27a7ba384eb2e2a5ae92022a33cf8e0a2ae",
+      "code_tree_sha256": "61b0f17e14c7e4e8d229ddab8d621d8a306476b3b1f12d7f26392a8e5ec5d622",
+      "archive_files": 3002,
+      "model_not_run": true
+    }
+  ]
+}

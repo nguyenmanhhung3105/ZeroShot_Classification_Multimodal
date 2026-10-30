@@ -1,0 +1,22 @@
+use_kaggle: false
+experiment_config: configs/experiment_config.yaml
+kaggle:
+  username: nguyenhung3105
+  code_dataset_slug: vlm-runs-code
+  data_dataset_slug: vlm-runs-data
+  data_mode: bounded
+  kernel_slug: vlm-runs
+  accelerator: NvidiaTeslaT4
+  timeout_seconds: 14400
+  poll_seconds: 20
+jobs:
+  fakeddit_calip:
+    enabled: false
+    kind: standard
+    dataset: fakeddit
+    task: 6way
+    max_samples: 3000
+    models: [metaclip2_vith14]
+    fakeddit_calip: true
+    image_text_relation: {enabled: false}
+    result_method: fakeddit_calip

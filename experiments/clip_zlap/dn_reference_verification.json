@@ -1,0 +1,37 @@
+{
+  "status": "passed",
+  "reference_commit": "be4bdb6a158871a15ed60e4e4852b9de6db28da1",
+  "reference_sha256": "d7f6cb6a8d1c018bf5439e54f86c23479d1970ebdee17f08169fb35985604a05",
+  "local_source_sha256": "3667355c56dcc753e33b2798ebd0579e2c7933a9e667b9b4ac9ae15d621762a7",
+  "cases": [
+    {
+      "split": "train",
+      "task": "informativeness",
+      "samples": 3000,
+      "predictions_identical": true,
+      "max_cosine_abs_error": 1.4901161193847656e-07
+    },
+    {
+      "split": "train",
+      "task": "humanitarian",
+      "samples": 3000,
+      "predictions_identical": true,
+      "max_cosine_abs_error": 1.4901161193847656e-07
+    },
+    {
+      "split": "dev",
+      "task": "informativeness",
+      "samples": 2219,
+      "predictions_identical": true,
+      "max_cosine_abs_error": 1.043081283569336e-07
+    },
+    {
+      "split": "dev",
+      "task": "humanitarian",
+      "samples": 2219,
+      "predictions_identical": true,
+      "max_cosine_abs_error": 1.9371509552001953e-07
+    }
+  ],
+  "limitation": "Formula equivalence for chosen unit-vector inputs; original DN uses raw pre-normalization encoder outputs, so this is not full benchmark reproduction."
+}

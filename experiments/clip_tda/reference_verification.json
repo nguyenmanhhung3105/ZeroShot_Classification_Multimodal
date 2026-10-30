@@ -1,0 +1,27 @@
+{
+  "status": "passed",
+  "reference_commit": "e697fb0c8078cdeff93daa56bcf8860702542069",
+  "reference_modifications": "Selected pure functions only; .cuda to .cpu, .half to .float for float32 CPU cache operations.",
+  "source_sha256": {
+    "tda_runner.py": "b0048381b6036e68fb6c10cc65dc7c4ccce477646c7afc0d0bf8b877e0e90ae6",
+    "utils.py": "1c72070a39491b5e0d4517242ea7f4187a9975a04bc0fcf2765705b9f6a66df2",
+    "configs/imagenet.yaml": "14841eaf1921f0c898df8e7cc83ed68c608c8e3a51119cbe434fb883d1acc2d7"
+  },
+  "local_core_sha256": "191eff37fc88dfc9a3596b65a9cbddba1a3100cd1ef5f2b943dbd0488aaf637f",
+  "cases": [
+    {
+      "classes": 2,
+      "samples": 60,
+      "predictions_identical": true,
+      "max_logit_abs_error": 0.0,
+      "negative_logit_spread_max": 0.0
+    },
+    {
+      "classes": 8,
+      "samples": 60,
+      "predictions_identical": true,
+      "max_logit_abs_error": 7.62939453125e-06,
+      "negative_logit_spread_max": 0.6599940061569214
+    }
+  ]
+}

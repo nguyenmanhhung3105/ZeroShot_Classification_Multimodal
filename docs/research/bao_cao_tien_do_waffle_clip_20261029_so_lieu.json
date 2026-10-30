@@ -1,0 +1,3255 @@
+{
+  "date": "2026-10-29",
+  "source_type": "existing result summaries only, no dataset/model access",
+  "summaries": {
+    "results/waffle_lab_clip/crisismmd/informativeness/samples_3000/openai_clip_vit_b_32/informativeness_20fca1387c7e/summary.tsv": [
+      {
+        "task": "informativeness",
+        "variant": "clip",
+        "seed": "0",
+        "model": "openai_clip_vit_b_32",
+        "samples": "3000",
+        "accuracy": "0.49133333333333334",
+        "macro_f1": "0.4908119247442715",
+        "auroc": "0.49324107557225044",
+        "cohort_fingerprint": "6cf300e724ebcdd47203b1dbca3564853f7928ea008ffa47226af71371173d04"
+      }
+    ],
+    "results/waffle_lab_clip/crisismmd/informativeness/samples_3000/metaclip2_vith14/informativeness_0e25ae00b8d1/summary.tsv": [
+      {
+        "task": "informativeness",
+        "variant": "clip",
+        "seed": "0",
+        "model": "metaclip2_vith14",
+        "samples": "3000",
+        "accuracy": "0.4206666666666667",
+        "macro_f1": "0.37583676659024434",
+        "auroc": "0.36376206450212",
+        "cohort_fingerprint": "6cf300e724ebcdd47203b1dbca3564853f7928ea008ffa47226af71371173d04"
+      }
+    ],
+    "results/waffle_lab_clip/crisismmd/humanitarian/samples_3000/openai_clip_vit_b_32/humanitarian_3d976412a68f/summary.tsv": [
+      {
+        "task": "humanitarian",
+        "variant": "clip",
+        "seed": "0",
+        "model": "openai_clip_vit_b_32",
+        "samples": "3000",
+        "accuracy": "0.35433333333333333",
+        "macro_f1": "0.2865134080948111",
+        "auroc": "",
+        "cohort_fingerprint": "e9d15d86c41291636ac35026ce4e0adffab97e09963775f0e4a1014c0a5679ac"
+      }
+    ],
+    "results/waffle_lab_clip/crisismmd/humanitarian/samples_3000/metaclip2_vith14/humanitarian_5f729b9b396b/summary.tsv": [
+      {
+        "task": "humanitarian",
+        "variant": "clip",
+        "seed": "0",
+        "model": "metaclip2_vith14",
+        "samples": "3000",
+        "accuracy": "0.4116666666666667",
+        "macro_f1": "0.29786884459643775",
+        "auroc": "",
+        "cohort_fingerprint": "e9d15d86c41291636ac35026ce4e0adffab97e09963775f0e4a1014c0a5679ac"
+      }
+    ],
+    "results/waffle_lab_semantic_waffle/crisismmd/informativeness/samples_3000/metaclip2_vith14/informativeness_47dbd46c8d65/summary.tsv": [
+      {
+        "task": "informativeness",
+        "variant": "semantic_waffle",
+        "seed": "0",
+        "model": "metaclip2_vith14",
+        "samples": "3000",
+        "accuracy": "0.7683333333333333",
+        "macro_f1": "0.755590787472416",
+        "auroc": "0.88776203068525",
+        "cohort_fingerprint": "6cf300e724ebcdd47203b1dbca3564853f7928ea008ffa47226af71371173d04"
+      }
+    ],
+    "results/waffle_lab_semantic_waffle/crisismmd/humanitarian/samples_3000/metaclip2_vith14/humanitarian_bac701612fb9/summary.tsv": [
+      {
+        "task": "humanitarian",
+        "variant": "semantic_waffle",
+        "seed": "2",
+        "model": "metaclip2_vith14",
+        "samples": "3000",
+        "accuracy": "0.5696666666666667",
+        "macro_f1": "0.4534831876483699",
+        "auroc": "",
+        "cohort_fingerprint": "e9d15d86c41291636ac35026ce4e0adffab97e09963775f0e4a1014c0a5679ac"
+      }
+    ],
+    "results/waffle_lab_semantic_waffle/crisismmd/humanitarian/samples_3000/metaclip2_vith14/humanitarian_db23bf1ef83a/summary.tsv": [
+      {
+        "task": "humanitarian",
+        "variant": "semantic_waffle",
+        "seed": "0",
+        "model": "metaclip2_vith14",
+        "samples": "3000",
+        "accuracy": "0.576",
+        "macro_f1": "0.4498855817620437",
+        "auroc": "",
+        "cohort_fingerprint": "e9d15d86c41291636ac35026ce4e0adffab97e09963775f0e4a1014c0a5679ac"
+      }
+    ],
+    "results/waffle_lab_semantic_waffle/crisismmd/humanitarian/samples_3000/metaclip2_vith14/humanitarian_3493981716cb/summary.tsv": [
+      {
+        "task": "humanitarian",
+        "variant": "semantic_waffle",
+        "seed": "1",
+        "model": "metaclip2_vith14",
+        "samples": "3000",
+        "accuracy": "0.5853333333333334",
+        "macro_f1": "0.4496096620537062",
+        "auroc": "",
+        "cohort_fingerprint": "e9d15d86c41291636ac35026ce4e0adffab97e09963775f0e4a1014c0a5679ac"
+      }
+    ],
+    "results/waffle_lab_waffle/crisismmd/informativeness/samples_3000/openai_clip_vit_b_32/informativeness_dba006fce8e0/summary.tsv": [
+      {
+        "task": "informativeness",
+        "variant": "waffle",
+        "seed": "0",
+        "model": "openai_clip_vit_b_32",
+        "samples": "3000",
+        "accuracy": "0.538",
+        "macro_f1": "0.5129778860569715",
+        "auroc": "0.5201802172199952",
+        "cohort_fingerprint": "6cf300e724ebcdd47203b1dbca3564853f7928ea008ffa47226af71371173d04"
+      }
+    ],
+    "results/waffle_lab_waffle/crisismmd/informativeness/samples_3000/openai_clip_vit_b_32/informativeness_ec7216a01416/summary.tsv": [
+      {
+        "task": "informativeness",
+        "variant": "waffle",
+        "seed": "1",
+        "model": "openai_clip_vit_b_32",
+        "samples": "3000",
+        "accuracy": "0.5233333333333333",
+        "macro_f1": "0.5089175535531704",
+        "auroc": "0.5114550197806442",
+        "cohort_fingerprint": "6cf300e724ebcdd47203b1dbca3564853f7928ea008ffa47226af71371173d04"
+      }
+    ],
+    "results/waffle_lab_waffle/crisismmd/informativeness/samples_3000/openai_clip_vit_b_32/informativeness_88848257d8d0/summary.tsv": [
+      {
+        "task": "informativeness",
+        "variant": "waffle",
+        "seed": "2",
+        "model": "openai_clip_vit_b_32",
+        "samples": "3000",
+        "accuracy": "0.5183333333333333",
+        "macro_f1": "0.5055158086082683",
+        "auroc": "0.504664948235716",
+        "cohort_fingerprint": "6cf300e724ebcdd47203b1dbca3564853f7928ea008ffa47226af71371173d04"
+      }
+    ],
+    "results/waffle_lab_waffle/crisismmd/informativeness/samples_3000/metaclip2_vith14/informativeness_b233ab362e32/summary.tsv": [
+      {
+        "task": "informativeness",
+        "variant": "waffle",
+        "seed": "0",
+        "model": "metaclip2_vith14",
+        "samples": "3000",
+        "accuracy": "0.4736666666666667",
+        "macro_f1": "0.4730455044173738",
+        "auroc": "0.4887905974862497",
+        "cohort_fingerprint": "6cf300e724ebcdd47203b1dbca3564853f7928ea008ffa47226af71371173d04"
+      }
+    ],
+    "results/waffle_lab_waffle/crisismmd/humanitarian/samples_3000/openai_clip_vit_b_32/humanitarian_3e0569667cc5/summary.tsv": [
+      {
+        "task": "humanitarian",
+        "variant": "waffle",
+        "seed": "0",
+        "model": "openai_clip_vit_b_32",
+        "samples": "3000",
+        "accuracy": "0.39766666666666667",
+        "macro_f1": "0.31022881513316114",
+        "auroc": "",
+        "cohort_fingerprint": "e9d15d86c41291636ac35026ce4e0adffab97e09963775f0e4a1014c0a5679ac"
+      }
+    ],
+    "results/waffle_lab_waffle/crisismmd/humanitarian/samples_3000/openai_clip_vit_b_32/humanitarian_74dbbc67ac22/summary.tsv": [
+      {
+        "task": "humanitarian",
+        "variant": "waffle",
+        "seed": "1",
+        "model": "openai_clip_vit_b_32",
+        "samples": "3000",
+        "accuracy": "0.3953333333333333",
+        "macro_f1": "0.3051170555519175",
+        "auroc": "",
+        "cohort_fingerprint": "e9d15d86c41291636ac35026ce4e0adffab97e09963775f0e4a1014c0a5679ac"
+      }
+    ],
+    "results/waffle_lab_waffle/crisismmd/humanitarian/samples_3000/openai_clip_vit_b_32/humanitarian_b5cf6e8660d5/summary.tsv": [
+      {
+        "task": "humanitarian",
+        "variant": "waffle",
+        "seed": "2",
+        "model": "openai_clip_vit_b_32",
+        "samples": "3000",
+        "accuracy": "0.3963333333333333",
+        "macro_f1": "0.3056954692993968",
+        "auroc": "",
+        "cohort_fingerprint": "e9d15d86c41291636ac35026ce4e0adffab97e09963775f0e4a1014c0a5679ac"
+      }
+    ],
+    "results/waffle_lab_waffle/crisismmd/humanitarian/samples_3000/metaclip2_vith14/humanitarian_ecd14a12d0cb/summary.tsv": [
+      {
+        "task": "humanitarian",
+        "variant": "waffle",
+        "seed": "0",
+        "model": "metaclip2_vith14",
+        "samples": "3000",
+        "accuracy": "0.37666666666666665",
+        "macro_f1": "0.2747838497283546",
+        "auroc": "",
+        "cohort_fingerprint": "e9d15d86c41291636ac35026ce4e0adffab97e09963775f0e4a1014c0a5679ac"
+      }
+    ],
+    "results/waffle_lab_stable_anchor/crisismmd/humanitarian/samples_3000/metaclip2_vith14/humanitarian_db033fe39370/summary.tsv": [
+      {
+        "task": "humanitarian",
+        "variant": "stable_anchor",
+        "seed": "0",
+        "model": "metaclip2_vith14",
+        "samples": "3000",
+        "accuracy": "0.577",
+        "macro_f1": "0.43588145727906097",
+        "auroc": "",
+        "cohort_fingerprint": "e9d15d86c41291636ac35026ce4e0adffab97e09963775f0e4a1014c0a5679ac"
+      }
+    ],
+    "results/waffle_lab_anchor_mix/crisismmd/humanitarian/samples_3000/metaclip2_vith14/humanitarian_fea96fdfcfb0/summary.tsv": [
+      {
+        "task": "humanitarian",
+        "variant": "anchor_mix",
+        "seed": "0",
+        "model": "metaclip2_vith14",
+        "samples": "3000",
+        "accuracy": "0.5796666666666667",
+        "macro_f1": "0.4516280434989124",
+        "auroc": "",
+        "cohort_fingerprint": "e9d15d86c41291636ac35026ce4e0adffab97e09963775f0e4a1014c0a5679ac"
+      }
+    ],
+    "results/waffle_lab_semantic/crisismmd/informativeness/samples_3000/metaclip2_vith14/informativeness_44c15f5c695f/summary.tsv": [
+      {
+        "task": "informativeness",
+        "variant": "semantic",
+        "seed": "0",
+        "model": "metaclip2_vith14",
+        "samples": "3000",
+        "accuracy": "0.7993333333333333",
+        "macro_f1": "0.7958476820233823",
+        "auroc": "0.8749641251953925",
+        "cohort_fingerprint": "6cf300e724ebcdd47203b1dbca3564853f7928ea008ffa47226af71371173d04"
+      }
+    ],
+    "results/waffle_lab_semantic/crisismmd/humanitarian/samples_3000/metaclip2_vith14/humanitarian_bce2b106095f/summary.tsv": [
+      {
+        "task": "humanitarian",
+        "variant": "semantic",
+        "seed": "0",
+        "model": "metaclip2_vith14",
+        "samples": "3000",
+        "accuracy": "0.5693333333333334",
+        "macro_f1": "0.42130296996378896",
+        "auroc": "",
+        "cohort_fingerprint": "e9d15d86c41291636ac35026ce4e0adffab97e09963775f0e4a1014c0a5679ac"
+      }
+    ],
+    "results/clip_two_stage_heldout/crisismmd/humanitarian/samples_2219/metaclip2_vith14/humanitarian_77187aa56f13/summary.tsv": [
+      {
+        "method": "single_stage",
+        "model": "metaclip2_vith14",
+        "samples": "2219",
+        "seed": "0",
+        "accuracy": "0.566020730058585",
+        "macro_f1": "0.4380209559397771"
+      },
+      {
+        "method": "two_stage",
+        "model": "metaclip2_vith14",
+        "samples": "2219",
+        "seed": "0",
+        "accuracy": "0.662009914375845",
+        "macro_f1": "0.48056191204584137"
+      },
+      {
+        "method": "margin_pool",
+        "model": "metaclip2_vith14",
+        "samples": "2219",
+        "seed": "0",
+        "accuracy": "0.6273095989184317",
+        "macro_f1": "0.476067038301743"
+      }
+    ],
+    "results/clip_two_stage_views_heldout/crisismmd/humanitarian/samples_2219/metaclip2_vith14/humanitarian_598c93b1c49b/summary.tsv": [
+      {
+        "method": "single_stage",
+        "model": "metaclip2_vith14",
+        "samples": "2219",
+        "seed": "0",
+        "accuracy": "0.566020730058585",
+        "macro_f1": "0.4380209559397771"
+      },
+      {
+        "method": "two_stage",
+        "model": "metaclip2_vith14",
+        "samples": "2219",
+        "seed": "0",
+        "accuracy": "0.662009914375845",
+        "macro_f1": "0.48056191204584137"
+      },
+      {
+        "method": "margin_pool",
+        "model": "metaclip2_vith14",
+        "samples": "2219",
+        "seed": "0",
+        "accuracy": "0.6273095989184317",
+        "macro_f1": "0.476067038301743"
+      },
+      {
+        "method": "full_frame_two_stage",
+        "model": "metaclip2_vith14",
+        "samples": "2219",
+        "seed": "0",
+        "accuracy": "0.6665164488508337",
+        "macro_f1": "0.4729681638830885"
+      },
+      {
+        "method": "mean_view_two_stage",
+        "model": "metaclip2_vith14",
+        "samples": "2219",
+        "seed": "0",
+        "accuracy": "0.6710229833258224",
+        "macro_f1": "0.46737092408964254"
+      }
+    ],
+    "results/clip_two_stage_mm_heldout/crisismmd/humanitarian/samples_2219/metaclip2_vith14/humanitarian_4c1ed65a952f/summary.tsv": [
+      {
+        "method": "single_stage",
+        "model": "metaclip2_vith14",
+        "samples": "2219",
+        "seed": "0",
+        "accuracy": "0.566020730058585",
+        "macro_f1": "0.4380209559397771"
+      },
+      {
+        "method": "two_stage",
+        "model": "metaclip2_vith14",
+        "samples": "2219",
+        "seed": "0",
+        "accuracy": "0.662009914375845",
+        "macro_f1": "0.48056191204584137"
+      },
+      {
+        "method": "margin_pool",
+        "model": "metaclip2_vith14",
+        "samples": "2219",
+        "seed": "0",
+        "accuracy": "0.6273095989184317",
+        "macro_f1": "0.476067038301743"
+      },
+      {
+        "method": "text_only",
+        "model": "metaclip2_vith14",
+        "samples": "2219",
+        "seed": "0",
+        "accuracy": "0.42226228030644436",
+        "macro_f1": "0.2142621672278983"
+      },
+      {
+        "method": "single_stage_fixed",
+        "model": "metaclip2_vith14",
+        "samples": "2219",
+        "seed": "0",
+        "accuracy": "0.5813429472735466",
+        "macro_f1": "0.43554253161723183"
+      },
+      {
+        "method": "two_stage_fixed",
+        "model": "metaclip2_vith14",
+        "samples": "2219",
+        "seed": "0",
+        "accuracy": "0.6642631816133393",
+        "macro_f1": "0.4690938857067105"
+      },
+      {
+        "method": "two_stage_conditional",
+        "model": "metaclip2_vith14",
+        "samples": "2219",
+        "seed": "0",
+        "accuracy": "0.6642631816133393",
+        "macro_f1": "0.46924021167001134"
+      }
+    ],
+    "results/clip_two_stage_stata_heldout/crisismmd/humanitarian/samples_2219/metaclip2_vith14/humanitarian_ca2d96c17e89/summary.tsv": [
+      {
+        "method": "single_stage",
+        "model": "metaclip2_vith14",
+        "samples": "2219",
+        "seed": "0",
+        "accuracy": "0.566020730058585",
+        "macro_f1": "0.4380209559397771"
+      },
+      {
+        "method": "two_stage",
+        "model": "metaclip2_vith14",
+        "samples": "2219",
+        "seed": "0",
+        "accuracy": "0.662009914375845",
+        "macro_f1": "0.48056191204584137"
+      },
+      {
+        "method": "margin_pool",
+        "model": "metaclip2_vith14",
+        "samples": "2219",
+        "seed": "0",
+        "accuracy": "0.6273095989184317",
+        "macro_f1": "0.476067038301743"
+      },
+      {
+        "method": "normalized_gate_control",
+        "model": "metaclip2_vith14",
+        "samples": "2219",
+        "seed": "0",
+        "accuracy": "0.683190626408292",
+        "macro_f1": "0.4885128079241519"
+      },
+      {
+        "method": "stata_gate_seed_0",
+        "model": "metaclip2_vith14",
+        "samples": "2219",
+        "seed": "0",
+        "accuracy": "0.7120324470482199",
+        "macro_f1": "0.48005548946190935"
+      },
+      {
+        "method": "stata_gate_seed_1",
+        "model": "metaclip2_vith14",
+        "samples": "2219",
+        "seed": "0",
+        "accuracy": "0.7111311401532222",
+        "macro_f1": "0.4618317954958876"
+      },
+      {
+        "method": "stata_gate_seed_2",
+        "model": "metaclip2_vith14",
+        "samples": "2219",
+        "seed": "0",
+        "accuracy": "0.7120324470482199",
+        "macro_f1": "0.4744188383112932"
+      },
+      {
+        "method": "stata_gate_mean",
+        "model": "metaclip2_vith14",
+        "samples": "2219",
+        "seed": "0",
+        "accuracy": "0.711732011416554",
+        "macro_f1": "0.4721020410896967"
+      }
+    ],
+    "results/clip_calip_heldout/crisismmd/humanitarian/samples_2219/metaclip2_vith14/humanitarian_03a1f0babaaf/summary.tsv": [
+      {
+        "method": "two_stage_original",
+        "model": "metaclip2_vith14",
+        "samples": "2219",
+        "accuracy": "0.662009914375845",
+        "macro_f1": "0.48056191204584137",
+        "binary_macro_f1": ""
+      },
+      {
+        "method": "majority_raw_leaf",
+        "model": "metaclip2_vith14",
+        "samples": "2219",
+        "accuracy": "0.6983626258074208",
+        "macro_f1": "0.4923692698320437",
+        "binary_macro_f1": ""
+      },
+      {
+        "method": "majority_unit_leaf",
+        "model": "metaclip2_vith14",
+        "samples": "2219",
+        "accuracy": "0.6995643683340845",
+        "macro_f1": "0.5039693348169841",
+        "binary_macro_f1": ""
+      },
+      {
+        "method": "majority_dn_unit",
+        "model": "metaclip2_vith14",
+        "samples": "2219",
+        "accuracy": "0.7058735165990687",
+        "macro_f1": "0.5039468436648565",
+        "binary_macro_f1": ""
+      },
+      {
+        "method": "majority_calip_leaf",
+        "model": "metaclip2_vith14",
+        "samples": "2219",
+        "accuracy": "0.7036202493615743",
+        "macro_f1": "0.5114090324847679",
+        "binary_macro_f1": ""
+      },
+      {
+        "method": "calip_gate_dn_leaf",
+        "model": "metaclip2_vith14",
+        "samples": "2219",
+        "accuracy": "0.6908517350157729",
+        "macro_f1": "0.4977644357440048",
+        "binary_macro_f1": ""
+      }
+    ],
+    "results/clip_calip/crisismmd/humanitarian/samples_3000/metaclip2_vith14/humanitarian_2503caa2909f/summary.tsv": [
+      {
+        "method": "two_stage_original",
+        "model": "metaclip2_vith14",
+        "samples": "3000",
+        "accuracy": "0.6803333333333333",
+        "macro_f1": "0.49876969754107864",
+        "binary_macro_f1": "0.7958476820233823"
+      },
+      {
+        "method": "majority_raw_leaf",
+        "model": "metaclip2_vith14",
+        "samples": "3000",
+        "accuracy": "0.7034444444444444",
+        "macro_f1": "0.49339550766610335",
+        "binary_macro_f1": "0.8082698139056465"
+      },
+      {
+        "method": "majority_unit_leaf",
+        "model": "metaclip2_vith14",
+        "samples": "3000",
+        "accuracy": "0.6965555555555555",
+        "macro_f1": "0.47625819352539045",
+        "binary_macro_f1": "0.8082698139056465"
+      },
+      {
+        "method": "majority_dn_unit",
+        "model": "metaclip2_vith14",
+        "samples": "3000",
+        "accuracy": "0.7013333333333334",
+        "macro_f1": "0.49220822024713334",
+        "binary_macro_f1": "0.8082698139056465"
+      },
+      {
+        "method": "majority_calip_leaf",
+        "model": "metaclip2_vith14",
+        "samples": "3000",
+        "accuracy": "0.6975555555555556",
+        "macro_f1": "0.47630424618388784",
+        "binary_macro_f1": "0.8082698139056465"
+      },
+      {
+        "method": "calip_gate_dn_leaf",
+        "model": "metaclip2_vith14",
+        "samples": "3000",
+        "accuracy": "0.6923333333333334",
+        "macro_f1": "0.49218183959692735",
+        "binary_macro_f1": "0.8031458874537755"
+      }
+    ],
+    "results/fakeddit_calip/fakeddit/6way/samples_3000/metaclip2_vith14/6way_a3f7a8a3a561/summary.tsv": [
+      {
+        "task": "2way",
+        "method": "legacy_mean_cosine",
+        "samples": "3000",
+        "accuracy": "0.5573333333333333",
+        "macro_f1": "0.5293103546051027"
+      },
+      {
+        "task": "2way",
+        "method": "legacy_unit",
+        "samples": "3000",
+        "accuracy": "0.5563333333333333",
+        "macro_f1": "0.5206044633849503"
+      },
+      {
+        "task": "2way",
+        "method": "semantic_mean_cosine",
+        "samples": "3000",
+        "accuracy": "0.6176666666666667",
+        "macro_f1": "0.6173448536886188"
+      },
+      {
+        "task": "2way",
+        "method": "semantic_unit",
+        "samples": "3000",
+        "accuracy": "0.6173333333333333",
+        "macro_f1": "0.6172652916073968"
+      },
+      {
+        "task": "2way",
+        "method": "semantic_waffle_mean_cosine",
+        "samples": "3000",
+        "accuracy": "0.6096666666666667",
+        "macro_f1": "0.6092060073924919"
+      },
+      {
+        "task": "2way",
+        "method": "semantic_waffle_unit",
+        "samples": "3000",
+        "accuracy": "0.6143333333333333",
+        "macro_f1": "0.6143260912343799"
+      },
+      {
+        "task": "2way",
+        "method": "cached_multimodal_baseline",
+        "samples": "3000",
+        "accuracy": "0.542",
+        "macro_f1": "0.5036392562825398"
+      },
+      {
+        "task": "2way",
+        "method": "calip_flat",
+        "samples": "3000",
+        "accuracy": "0.6186666666666667",
+        "macro_f1": "0.6186422597712921"
+      },
+      {
+        "task": "2way",
+        "method": "majority_seed_0",
+        "samples": "3000",
+        "accuracy": "0.6266666666666667",
+        "macro_f1": "0.6261821987963068"
+      },
+      {
+        "task": "2way",
+        "method": "majority_seed_1",
+        "samples": "3000",
+        "accuracy": "0.6256666666666667",
+        "macro_f1": "0.6252248900954469"
+      },
+      {
+        "task": "2way",
+        "method": "majority_seed_2",
+        "samples": "3000",
+        "accuracy": "0.6266666666666667",
+        "macro_f1": "0.6262174631201229"
+      },
+      {
+        "task": "2way",
+        "method": "majority_mean",
+        "samples": "3000",
+        "accuracy": "0.6263333333333334",
+        "macro_f1": "0.6258748506706255"
+      },
+      {
+        "task": "6way",
+        "method": "legacy_mean_cosine",
+        "samples": "3000",
+        "accuracy": "0.357",
+        "macro_f1": "0.25606506992628186"
+      },
+      {
+        "task": "6way",
+        "method": "legacy_unit",
+        "samples": "3000",
+        "accuracy": "0.35633333333333334",
+        "macro_f1": "0.260578754670814"
+      },
+      {
+        "task": "6way",
+        "method": "semantic_mean_cosine",
+        "samples": "3000",
+        "accuracy": "0.225",
+        "macro_f1": "0.19364276521260204"
+      },
+      {
+        "task": "6way",
+        "method": "semantic_unit",
+        "samples": "3000",
+        "accuracy": "0.234",
+        "macro_f1": "0.1994008286420177"
+      },
+      {
+        "task": "6way",
+        "method": "semantic_waffle_mean_cosine",
+        "samples": "3000",
+        "accuracy": "0.31266666666666665",
+        "macro_f1": "0.22256492529891678"
+      },
+      {
+        "task": "6way",
+        "method": "semantic_waffle_unit",
+        "samples": "3000",
+        "accuracy": "0.2633333333333333",
+        "macro_f1": "0.21685652442079761"
+      },
+      {
+        "task": "6way",
+        "method": "cached_multimodal_baseline",
+        "samples": "3000",
+        "accuracy": "0.3486666666666667",
+        "macro_f1": "0.2520444213473861"
+      },
+      {
+        "task": "6way",
+        "method": "calip_flat",
+        "samples": "3000",
+        "accuracy": "0.25",
+        "macro_f1": "0.21579121965355366"
+      },
+      {
+        "task": "6way",
+        "method": "majority_calip_seed_0",
+        "samples": "3000",
+        "accuracy": "0.443",
+        "macro_f1": "0.27587316192772554"
+      },
+      {
+        "task": "6way",
+        "method": "majority_unit_seed_0",
+        "samples": "3000",
+        "accuracy": "0.44233333333333336",
+        "macro_f1": "0.2722322917081023"
+      },
+      {
+        "task": "6way",
+        "method": "majority_calip_seed_1",
+        "samples": "3000",
+        "accuracy": "0.442",
+        "macro_f1": "0.27566138696187165"
+      },
+      {
+        "task": "6way",
+        "method": "majority_unit_seed_1",
+        "samples": "3000",
+        "accuracy": "0.44166666666666665",
+        "macro_f1": "0.2722235098863013"
+      },
+      {
+        "task": "6way",
+        "method": "majority_calip_seed_2",
+        "samples": "3000",
+        "accuracy": "0.44166666666666665",
+        "macro_f1": "0.27450265946213875"
+      },
+      {
+        "task": "6way",
+        "method": "majority_unit_seed_2",
+        "samples": "3000",
+        "accuracy": "0.441",
+        "macro_f1": "0.27075344021114983"
+      },
+      {
+        "task": "6way",
+        "method": "majority_unit_mean",
+        "samples": "3000",
+        "accuracy": "0.44166666666666665",
+        "macro_f1": "0.2717364139351845"
+      },
+      {
+        "task": "6way",
+        "method": "majority_calip_mean",
+        "samples": "3000",
+        "accuracy": "0.44222222222222224",
+        "macro_f1": "0.27534573611724533"
+      }
+    ],
+    "results/fakeddit_multimodal/fakeddit/paired/samples_3000/metaclip2_vith14/f127102348e4/summary.tsv": [
+      {
+        "task": "2way",
+        "method": "text_only_legacy",
+        "samples": "3000",
+        "accuracy": "0.4726666666666667",
+        "macro_f1": "0.3851197422944336",
+        "accuracy_std": "",
+        "macro_f1_std": ""
+      },
+      {
+        "task": "2way",
+        "method": "legacy_image_flat",
+        "samples": "3000",
+        "accuracy": "0.5573333333333333",
+        "macro_f1": "0.5293103546051027",
+        "accuracy_std": "",
+        "macro_f1_std": ""
+      },
+      {
+        "task": "2way",
+        "method": "legacy_multimodal_flat",
+        "samples": "3000",
+        "accuracy": "0.542",
+        "macro_f1": "0.5036392562825398",
+        "accuracy_std": "",
+        "macro_f1_std": ""
+      },
+      {
+        "task": "2way",
+        "method": "semantic_image_flat",
+        "samples": "3000",
+        "accuracy": "0.6173333333333333",
+        "macro_f1": "0.6172652916073968",
+        "accuracy_std": "",
+        "macro_f1_std": ""
+      },
+      {
+        "task": "2way",
+        "method": "semantic_multimodal_flat",
+        "samples": "3000",
+        "accuracy": "0.6193333333333333",
+        "macro_f1": "0.6190624444049102",
+        "accuracy_std": "",
+        "macro_f1_std": ""
+      },
+      {
+        "task": "2way",
+        "method": "calip_image_flat",
+        "samples": "3000",
+        "accuracy": "0.6186666666666667",
+        "macro_f1": "0.6186422597712921",
+        "accuracy_std": "",
+        "macro_f1_std": ""
+      },
+      {
+        "task": "2way",
+        "method": "calip_multimodal_flat",
+        "samples": "3000",
+        "accuracy": "0.613",
+        "macro_f1": "0.6129844763773302",
+        "accuracy_std": "",
+        "macro_f1_std": ""
+      },
+      {
+        "task": "2way",
+        "method": "majority_image_seed_0",
+        "samples": "3000",
+        "accuracy": "0.6266666666666667",
+        "macro_f1": "0.6261821987963068",
+        "accuracy_std": "",
+        "macro_f1_std": ""
+      },
+      {
+        "task": "2way",
+        "method": "majority_clip_text_seed_0",
+        "samples": "3000",
+        "accuracy": "0.6266666666666667",
+        "macro_f1": "0.6258978451715882",
+        "accuracy_std": "",
+        "macro_f1_std": ""
+      },
+      {
+        "task": "2way",
+        "method": "majority_image_seed_1",
+        "samples": "3000",
+        "accuracy": "0.6256666666666667",
+        "macro_f1": "0.6252248900954469",
+        "accuracy_std": "",
+        "macro_f1_std": ""
+      },
+      {
+        "task": "2way",
+        "method": "majority_clip_text_seed_1",
+        "samples": "3000",
+        "accuracy": "0.6253333333333333",
+        "macro_f1": "0.6247126915222909",
+        "accuracy_std": "",
+        "macro_f1_std": ""
+      },
+      {
+        "task": "2way",
+        "method": "majority_image_seed_2",
+        "samples": "3000",
+        "accuracy": "0.6266666666666667",
+        "macro_f1": "0.6262174631201229",
+        "accuracy_std": "",
+        "macro_f1_std": ""
+      },
+      {
+        "task": "2way",
+        "method": "majority_clip_text_seed_2",
+        "samples": "3000",
+        "accuracy": "0.6266666666666667",
+        "macro_f1": "0.626006942913967",
+        "accuracy_std": "",
+        "macro_f1_std": ""
+      },
+      {
+        "task": "2way",
+        "method": "cached_multimodal_baseline",
+        "samples": "3000",
+        "accuracy": "0.542",
+        "macro_f1": "0.5036392562825398",
+        "accuracy_std": "",
+        "macro_f1_std": ""
+      },
+      {
+        "task": "2way",
+        "method": "majority_clip_text_mean",
+        "samples": "3000",
+        "accuracy": "0.6262222222222222",
+        "macro_f1": "0.625539159869282",
+        "accuracy_std": "0.0006285393610547444",
+        "macro_f1_std": "0.0005860961387472752"
+      },
+      {
+        "task": "2way",
+        "method": "majority_image_mean",
+        "samples": "3000",
+        "accuracy": "0.6263333333333334",
+        "macro_f1": "0.6258748506706255",
+        "accuracy_std": "0.00047140452079103207",
+        "macro_f1_std": "0.00045981696003116756"
+      },
+      {
+        "task": "6way",
+        "method": "text_only_legacy",
+        "samples": "3000",
+        "accuracy": "0.156",
+        "macro_f1": "0.10260541591506774",
+        "accuracy_std": "",
+        "macro_f1_std": ""
+      },
+      {
+        "task": "6way",
+        "method": "legacy_image_flat",
+        "samples": "3000",
+        "accuracy": "0.357",
+        "macro_f1": "0.25606506992628186",
+        "accuracy_std": "",
+        "macro_f1_std": ""
+      },
+      {
+        "task": "6way",
+        "method": "legacy_multimodal_flat",
+        "samples": "3000",
+        "accuracy": "0.3486666666666667",
+        "macro_f1": "0.2520444213473861",
+        "accuracy_std": "",
+        "macro_f1_std": ""
+      },
+      {
+        "task": "6way",
+        "method": "semantic_image_flat",
+        "samples": "3000",
+        "accuracy": "0.234",
+        "macro_f1": "0.1994008286420177",
+        "accuracy_std": "",
+        "macro_f1_std": ""
+      },
+      {
+        "task": "6way",
+        "method": "semantic_multimodal_flat",
+        "samples": "3000",
+        "accuracy": "0.22866666666666666",
+        "macro_f1": "0.1973574395611349",
+        "accuracy_std": "",
+        "macro_f1_std": ""
+      },
+      {
+        "task": "6way",
+        "method": "calip_image_flat",
+        "samples": "3000",
+        "accuracy": "0.25",
+        "macro_f1": "0.21579121965355366",
+        "accuracy_std": "",
+        "macro_f1_std": ""
+      },
+      {
+        "task": "6way",
+        "method": "calip_multimodal_flat",
+        "samples": "3000",
+        "accuracy": "0.247",
+        "macro_f1": "0.21607321845353933",
+        "accuracy_std": "",
+        "macro_f1_std": ""
+      },
+      {
+        "task": "6way",
+        "method": "image_gate_legacy_image_leaf_seed_0",
+        "samples": "3000",
+        "accuracy": "0.49433333333333335",
+        "macro_f1": "0.30067111288416704",
+        "accuracy_std": "",
+        "macro_f1_std": ""
+      },
+      {
+        "task": "6way",
+        "method": "image_gate_legacy_multimodal_leaf_seed_0",
+        "samples": "3000",
+        "accuracy": "0.49366666666666664",
+        "macro_f1": "0.3005186148888573",
+        "accuracy_std": "",
+        "macro_f1_std": ""
+      },
+      {
+        "task": "6way",
+        "method": "image_gate_calip_image_leaf_seed_0",
+        "samples": "3000",
+        "accuracy": "0.443",
+        "macro_f1": "0.27587316192772554",
+        "accuracy_std": "",
+        "macro_f1_std": ""
+      },
+      {
+        "task": "6way",
+        "method": "image_gate_calip_multimodal_leaf_seed_0",
+        "samples": "3000",
+        "accuracy": "0.44133333333333336",
+        "macro_f1": "0.2741001452792244",
+        "accuracy_std": "",
+        "macro_f1_std": ""
+      },
+      {
+        "task": "6way",
+        "method": "clip_text_gate_legacy_image_leaf_seed_0",
+        "samples": "3000",
+        "accuracy": "0.497",
+        "macro_f1": "0.3011174876854181",
+        "accuracy_std": "",
+        "macro_f1_std": ""
+      },
+      {
+        "task": "6way",
+        "method": "clip_text_gate_legacy_multimodal_leaf_seed_0",
+        "samples": "3000",
+        "accuracy": "0.49633333333333335",
+        "macro_f1": "0.3009712526639003",
+        "accuracy_std": "",
+        "macro_f1_std": ""
+      },
+      {
+        "task": "6way",
+        "method": "clip_text_gate_calip_image_leaf_seed_0",
+        "samples": "3000",
+        "accuracy": "0.44666666666666666",
+        "macro_f1": "0.2760876636217067",
+        "accuracy_std": "",
+        "macro_f1_std": ""
+      },
+      {
+        "task": "6way",
+        "method": "clip_text_gate_calip_multimodal_leaf_seed_0",
+        "samples": "3000",
+        "accuracy": "0.445",
+        "macro_f1": "0.274284811679438",
+        "accuracy_std": "",
+        "macro_f1_std": ""
+      },
+      {
+        "task": "6way",
+        "method": "image_gate_legacy_image_leaf_seed_1",
+        "samples": "3000",
+        "accuracy": "0.49366666666666664",
+        "macro_f1": "0.3009036350001378",
+        "accuracy_std": "",
+        "macro_f1_std": ""
+      },
+      {
+        "task": "6way",
+        "method": "image_gate_legacy_multimodal_leaf_seed_1",
+        "samples": "3000",
+        "accuracy": "0.493",
+        "macro_f1": "0.30073937165780734",
+        "accuracy_std": "",
+        "macro_f1_std": ""
+      },
+      {
+        "task": "6way",
+        "method": "image_gate_calip_image_leaf_seed_1",
+        "samples": "3000",
+        "accuracy": "0.442",
+        "macro_f1": "0.27566138696187165",
+        "accuracy_std": "",
+        "macro_f1_std": ""
+      },
+      {
+        "task": "6way",
+        "method": "image_gate_calip_multimodal_leaf_seed_1",
+        "samples": "3000",
+        "accuracy": "0.44066666666666665",
+        "macro_f1": "0.27444515361191485",
+        "accuracy_std": "",
+        "macro_f1_std": ""
+      },
+      {
+        "task": "6way",
+        "method": "clip_text_gate_legacy_image_leaf_seed_1",
+        "samples": "3000",
+        "accuracy": "0.49466666666666664",
+        "macro_f1": "0.30047566325219677",
+        "accuracy_std": "",
+        "macro_f1_std": ""
+      },
+      {
+        "task": "6way",
+        "method": "clip_text_gate_legacy_multimodal_leaf_seed_1",
+        "samples": "3000",
+        "accuracy": "0.494",
+        "macro_f1": "0.30031371013652264",
+        "accuracy_std": "",
+        "macro_f1_std": ""
+      },
+      {
+        "task": "6way",
+        "method": "clip_text_gate_calip_image_leaf_seed_1",
+        "samples": "3000",
+        "accuracy": "0.444",
+        "macro_f1": "0.2751340759380972",
+        "accuracy_std": "",
+        "macro_f1_std": ""
+      },
+      {
+        "task": "6way",
+        "method": "clip_text_gate_calip_multimodal_leaf_seed_1",
+        "samples": "3000",
+        "accuracy": "0.44233333333333336",
+        "macro_f1": "0.27348473251406735",
+        "accuracy_std": "",
+        "macro_f1_std": ""
+      },
+      {
+        "task": "6way",
+        "method": "image_gate_legacy_image_leaf_seed_2",
+        "samples": "3000",
+        "accuracy": "0.493",
+        "macro_f1": "0.29973186244123545",
+        "accuracy_std": "",
+        "macro_f1_std": ""
+      },
+      {
+        "task": "6way",
+        "method": "image_gate_legacy_multimodal_leaf_seed_2",
+        "samples": "3000",
+        "accuracy": "0.49266666666666664",
+        "macro_f1": "0.2999242598111182",
+        "accuracy_std": "",
+        "macro_f1_std": ""
+      },
+      {
+        "task": "6way",
+        "method": "image_gate_calip_image_leaf_seed_2",
+        "samples": "3000",
+        "accuracy": "0.44166666666666665",
+        "macro_f1": "0.27450265946213875",
+        "accuracy_std": "",
+        "macro_f1_std": ""
+      },
+      {
+        "task": "6way",
+        "method": "image_gate_calip_multimodal_leaf_seed_2",
+        "samples": "3000",
+        "accuracy": "0.43966666666666665",
+        "macro_f1": "0.2724332387801577",
+        "accuracy_std": "",
+        "macro_f1_std": ""
+      },
+      {
+        "task": "6way",
+        "method": "clip_text_gate_legacy_image_leaf_seed_2",
+        "samples": "3000",
+        "accuracy": "0.49533333333333335",
+        "macro_f1": "0.3001962073604385",
+        "accuracy_std": "",
+        "macro_f1_std": ""
+      },
+      {
+        "task": "6way",
+        "method": "clip_text_gate_legacy_multimodal_leaf_seed_2",
+        "samples": "3000",
+        "accuracy": "0.495",
+        "macro_f1": "0.30039508312001567",
+        "accuracy_std": "",
+        "macro_f1_std": ""
+      },
+      {
+        "task": "6way",
+        "method": "clip_text_gate_calip_image_leaf_seed_2",
+        "samples": "3000",
+        "accuracy": "0.44466666666666665",
+        "macro_f1": "0.2749260286126353",
+        "accuracy_std": "",
+        "macro_f1_std": ""
+      },
+      {
+        "task": "6way",
+        "method": "clip_text_gate_calip_multimodal_leaf_seed_2",
+        "samples": "3000",
+        "accuracy": "0.44266666666666665",
+        "macro_f1": "0.2728222581397938",
+        "accuracy_std": "",
+        "macro_f1_std": ""
+      },
+      {
+        "task": "6way",
+        "method": "cached_multimodal_baseline",
+        "samples": "3000",
+        "accuracy": "0.3486666666666667",
+        "macro_f1": "0.2520444213473861",
+        "accuracy_std": "",
+        "macro_f1_std": ""
+      },
+      {
+        "task": "6way",
+        "method": "clip_text_gate_calip_image_leaf_mean",
+        "samples": "3000",
+        "accuracy": "0.44511111111111107",
+        "macro_f1": "0.27538258939081306",
+        "accuracy_std": "0.0011331154474650581",
+        "macro_f1_std": "0.0005057457699349611"
+      },
+      {
+        "task": "6way",
+        "method": "clip_text_gate_calip_multimodal_leaf_mean",
+        "samples": "3000",
+        "accuracy": "0.44333333333333336",
+        "macro_f1": "0.2735306007777664",
+        "accuracy_std": "0.0011863420280034784",
+        "macro_f1_std": "0.0005979652371682464"
+      },
+      {
+        "task": "6way",
+        "method": "clip_text_gate_legacy_image_leaf_mean",
+        "samples": "3000",
+        "accuracy": "0.4956666666666667",
+        "macro_f1": "0.3005964527660178",
+        "accuracy_std": "0.0009813067629253214",
+        "macro_f1_std": "0.0003856872128944664"
+      },
+      {
+        "task": "6way",
+        "method": "clip_text_gate_legacy_multimodal_leaf_mean",
+        "samples": "3000",
+        "accuracy": "0.49511111111111106",
+        "macro_f1": "0.30056001530681287",
+        "accuracy_std": "0.0009558139185603005",
+        "macro_f1_std": "0.0002926801593421579"
+      },
+      {
+        "task": "6way",
+        "method": "image_gate_calip_image_leaf_mean",
+        "samples": "3000",
+        "accuracy": "0.44222222222222224",
+        "macro_f1": "0.27534573611724533",
+        "accuracy_std": "0.0005665577237325382",
+        "macro_f1_std": "0.000602381852222134"
+      },
+      {
+        "task": "6way",
+        "method": "image_gate_calip_multimodal_leaf_mean",
+        "samples": "3000",
+        "accuracy": "0.4405555555555556",
+        "macro_f1": "0.27365951255709897",
+        "accuracy_std": "0.0006849348892187897",
+        "macro_f1_std": "0.0008784714829053377"
+      },
+      {
+        "task": "6way",
+        "method": "image_gate_legacy_image_leaf_mean",
+        "samples": "3000",
+        "accuracy": "0.49366666666666664",
+        "macro_f1": "0.3004355367751801",
+        "accuracy_std": "0.0005443310539518253",
+        "macro_f1_std": "0.0005065470098573938"
+      },
+      {
+        "task": "6way",
+        "method": "image_gate_legacy_multimodal_leaf_mean",
+        "samples": "3000",
+        "accuracy": "0.49311111111111106",
+        "macro_f1": "0.30039408211926094",
+        "accuracy_std": "0.00041573970964154777",
+        "macro_f1_std": "0.00034422196199617843"
+      }
+    ],
+    "results/analysis/clip_gate_ensemble/8ee92bf95f2c/summary.tsv": [
+      {
+        "method": "two_stage",
+        "accuracy": "0.662009914375845",
+        "macro_f1": "0.48056191204584137"
+      },
+      {
+        "method": "normalized_gate",
+        "accuracy": "0.683190626408292",
+        "macro_f1": "0.4885128079241519"
+      },
+      {
+        "method": "em_mean",
+        "accuracy": "0.6914526062791047",
+        "macro_f1": "0.48714604141614837"
+      },
+      {
+        "method": "stata_mean",
+        "accuracy": "0.711732011416554",
+        "macro_f1": "0.4721020410896967"
+      },
+      {
+        "method": "majority_mean",
+        "accuracy": "0.6983626258074208",
+        "macro_f1": "0.4923692698320437"
+      },
+      {
+        "method": "recall_or_mean",
+        "accuracy": "0.6860447649091181",
+        "macro_f1": "0.48972065755537714"
+      }
+    ],
+    "results/analysis/clip_gate_fusion/74ed4f8f37f4/summary.tsv": [
+      {
+        "split": "train",
+        "task": "humanitarian",
+        "method": "baseline",
+        "samples": "3000",
+        "accuracy": "0.6803333333333333",
+        "macro_f1": "0.49876969754107864"
+      },
+      {
+        "split": "train",
+        "task": "binary",
+        "method": "baseline",
+        "samples": "3000",
+        "accuracy": "0.7993333333333333",
+        "macro_f1": "0.7958476820233823"
+      },
+      {
+        "split": "train",
+        "task": "binary",
+        "method": "majority_control",
+        "samples": "3000",
+        "accuracy": "0.8085555555555556",
+        "macro_f1": "0.8082698139056465"
+      },
+      {
+        "split": "train",
+        "task": "humanitarian",
+        "method": "majority_control",
+        "samples": "3000",
+        "accuracy": "0.7034444444444444",
+        "macro_f1": "0.49339550766610335"
+      },
+      {
+        "split": "train",
+        "task": "binary",
+        "method": "soft_mean_three",
+        "samples": "3000",
+        "accuracy": "0.8234444444444445",
+        "macro_f1": "0.8234218727436858"
+      },
+      {
+        "split": "train",
+        "task": "humanitarian",
+        "method": "soft_mean_three",
+        "samples": "3000",
+        "accuracy": "0.7192222222222222",
+        "macro_f1": "0.5080786432866327"
+      },
+      {
+        "split": "train",
+        "task": "binary",
+        "method": "protected_majority",
+        "samples": "3000",
+        "accuracy": "0.7993333333333333",
+        "macro_f1": "0.7958476820233823"
+      },
+      {
+        "split": "train",
+        "task": "humanitarian",
+        "method": "protected_majority",
+        "samples": "3000",
+        "accuracy": "0.6803333333333333",
+        "macro_f1": "0.49876969754107864"
+      },
+      {
+        "split": "dev",
+        "task": "humanitarian",
+        "method": "baseline",
+        "samples": "2219",
+        "accuracy": "0.662009914375845",
+        "macro_f1": "0.48056191204584137"
+      },
+      {
+        "split": "dev",
+        "task": "humanitarian",
+        "method": "majority_control",
+        "samples": "2219",
+        "accuracy": "0.6983626258074208",
+        "macro_f1": "0.4923692698320437"
+      },
+      {
+        "split": "dev",
+        "task": "humanitarian",
+        "method": "soft_mean_three",
+        "samples": "2219",
+        "accuracy": "0.7093285263632266",
+        "macro_f1": "0.47893983133718904"
+      },
+      {
+        "split": "dev",
+        "task": "humanitarian",
+        "method": "protected_majority",
+        "samples": "2219",
+        "accuracy": "0.662009914375845",
+        "macro_f1": "0.48056191204584137"
+      }
+    ],
+    "results/analysis/clip_transductive_drop_class/f41f8173dfd5/summary.tsv": [
+      {
+        "method": "two_stage",
+        "grouping_seed": "",
+        "samples": "2217",
+        "classes": "7",
+        "accuracy": "0.663509246729815",
+        "macro_f1": "0.5366250554703856"
+      },
+      {
+        "method": "transductive",
+        "grouping_seed": "0",
+        "samples": "2217",
+        "classes": "7",
+        "accuracy": "0.5999097880018043",
+        "macro_f1": "0.42982695205840027"
+      },
+      {
+        "method": "transductive",
+        "grouping_seed": "1",
+        "samples": "2217",
+        "classes": "7",
+        "accuracy": "0.6066756878664863",
+        "macro_f1": "0.4375501176252716"
+      },
+      {
+        "method": "transductive",
+        "grouping_seed": "2",
+        "samples": "2217",
+        "classes": "7",
+        "accuracy": "0.6012629679747407",
+        "macro_f1": "0.44386741243910416"
+      },
+      {
+        "method": "transductive_mean",
+        "grouping_seed": "",
+        "samples": "2217",
+        "classes": "7",
+        "accuracy": "0.602616147947677",
+        "macro_f1": "0.43708149404092533"
+      }
+    ],
+    "results/analysis/clip_transductive/f543d3f765b7/summary.tsv": [
+      {
+        "method": "two_stage",
+        "grouping_seed": "",
+        "samples": "2219",
+        "accuracy": "0.662009914375845",
+        "macro_f1": "0.48056191204584137"
+      },
+      {
+        "method": "transductive",
+        "grouping_seed": "0",
+        "samples": "2219",
+        "accuracy": "0.6043262730959892",
+        "macro_f1": "0.40139238435949054"
+      },
+      {
+        "method": "transductive",
+        "grouping_seed": "1",
+        "samples": "2219",
+        "accuracy": "0.6007210455159981",
+        "macro_f1": "0.4018696038833123"
+      },
+      {
+        "method": "transductive",
+        "grouping_seed": "2",
+        "samples": "2219",
+        "accuracy": "0.6088328075709779",
+        "macro_f1": "0.40917800215775857"
+      },
+      {
+        "method": "transductive_mean",
+        "grouping_seed": "",
+        "samples": "2219",
+        "accuracy": "0.6046267087276551",
+        "macro_f1": "0.4041466634668538"
+      }
+    ],
+    "results/analysis/clip_transductive_gate/c3fa825bc57b/summary.tsv": [
+      {
+        "task": "binary_train",
+        "method": "baseline",
+        "grouping_seed": "",
+        "samples": "3000",
+        "accuracy": "0.7993333333333333",
+        "macro_f1": "0.7958476820233823"
+      },
+      {
+        "task": "binary_train",
+        "method": "transductive_gate",
+        "grouping_seed": "0",
+        "samples": "3000",
+        "accuracy": "0.7996666666666666",
+        "macro_f1": "0.7994980445221098"
+      },
+      {
+        "task": "binary_train",
+        "method": "transductive_gate",
+        "grouping_seed": "1",
+        "samples": "3000",
+        "accuracy": "0.8003333333333333",
+        "macro_f1": "0.8002017106602783"
+      },
+      {
+        "task": "binary_train",
+        "method": "transductive_gate",
+        "grouping_seed": "2",
+        "samples": "3000",
+        "accuracy": "0.801",
+        "macro_f1": "0.8008619087969779"
+      },
+      {
+        "task": "binary_train",
+        "method": "transductive_gate_mean",
+        "grouping_seed": "",
+        "samples": "3000",
+        "accuracy": "0.8003333333333335",
+        "macro_f1": "0.8001872213264555"
+      },
+      {
+        "task": "humanitarian_dev",
+        "method": "baseline",
+        "grouping_seed": "",
+        "samples": "2219",
+        "accuracy": "0.662009914375845",
+        "macro_f1": "0.48056191204584137"
+      },
+      {
+        "task": "humanitarian_dev",
+        "method": "transductive_gate",
+        "grouping_seed": "0",
+        "samples": "2219",
+        "accuracy": "0.6899504281207751",
+        "macro_f1": "0.48521610797453374"
+      },
+      {
+        "task": "humanitarian_dev",
+        "method": "transductive_gate",
+        "grouping_seed": "1",
+        "samples": "2219",
+        "accuracy": "0.6926543488057684",
+        "macro_f1": "0.4834032092945145"
+      },
+      {
+        "task": "humanitarian_dev",
+        "method": "transductive_gate",
+        "grouping_seed": "2",
+        "samples": "2219",
+        "accuracy": "0.6917530419107706",
+        "macro_f1": "0.4928188069793969"
+      },
+      {
+        "task": "humanitarian_dev",
+        "method": "transductive_gate_mean",
+        "grouping_seed": "",
+        "samples": "2219",
+        "accuracy": "0.6914526062791047",
+        "macro_f1": "0.48714604141614837"
+      }
+    ],
+    "results/analysis/clip_zlap/a77b15f4471c/summary.tsv": [
+      {
+        "split": "train",
+        "task": "humanitarian",
+        "method": "baseline",
+        "samples": "3000",
+        "accuracy": "0.6803333333333333",
+        "macro_f1": "0.49876969754107864"
+      },
+      {
+        "split": "train",
+        "task": "binary",
+        "method": "baseline",
+        "samples": "3000",
+        "accuracy": "0.7993333333333333",
+        "macro_f1": "0.7958476820233823"
+      },
+      {
+        "split": "train",
+        "task": "humanitarian",
+        "method": "single_stage",
+        "samples": "3000",
+        "accuracy": "0.576",
+        "macro_f1": "0.4498855817620437"
+      },
+      {
+        "split": "train",
+        "task": "humanitarian",
+        "method": "normalized_gate_control",
+        "samples": "3000",
+        "accuracy": "0.694",
+        "macro_f1": "0.4935682915302534"
+      },
+      {
+        "split": "train",
+        "task": "binary",
+        "method": "normalized_gate_control",
+        "samples": "3000",
+        "accuracy": "0.8033333333333333",
+        "macro_f1": "0.802150103016082"
+      },
+      {
+        "split": "train",
+        "task": "humanitarian",
+        "method": "raw_gate_normalized_leaf",
+        "samples": "3000",
+        "accuracy": "0.6733333333333333",
+        "macro_f1": "0.47761258214469926"
+      },
+      {
+        "split": "train",
+        "task": "binary",
+        "method": "raw_gate_normalized_leaf",
+        "samples": "3000",
+        "accuracy": "0.7993333333333333",
+        "macro_f1": "0.7958476820233823"
+      },
+      {
+        "split": "train",
+        "task": "humanitarian",
+        "method": "normalized_both",
+        "samples": "3000",
+        "accuracy": "0.6873333333333334",
+        "macro_f1": "0.4766893820328705"
+      },
+      {
+        "split": "train",
+        "task": "binary",
+        "method": "normalized_both",
+        "samples": "3000",
+        "accuracy": "0.8033333333333333",
+        "macro_f1": "0.802150103016082"
+      },
+      {
+        "split": "train",
+        "task": "binary",
+        "method": "zlap_gate",
+        "samples": "3000",
+        "accuracy": "0.7983333333333333",
+        "macro_f1": "0.7983268573846427"
+      },
+      {
+        "split": "train",
+        "task": "humanitarian",
+        "method": "zlap_gate",
+        "samples": "3000",
+        "accuracy": "0.699",
+        "macro_f1": "0.48513456455211723"
+      },
+      {
+        "split": "train",
+        "task": "binary",
+        "method": "majority_zlap_leaf",
+        "samples": "3000",
+        "accuracy": "0.8085555555555556",
+        "macro_f1": "0.8082698139056465"
+      },
+      {
+        "split": "train",
+        "task": "humanitarian",
+        "method": "majority_zlap_leaf",
+        "samples": "3000",
+        "accuracy": "0.6762222222222222",
+        "macro_f1": "0.44973740007399704"
+      },
+      {
+        "split": "train",
+        "task": "binary",
+        "method": "zlap_two_stage",
+        "samples": "3000",
+        "accuracy": "0.7983333333333333",
+        "macro_f1": "0.7983268573846427"
+      },
+      {
+        "split": "train",
+        "task": "humanitarian",
+        "method": "zlap_two_stage",
+        "samples": "3000",
+        "accuracy": "0.676",
+        "macro_f1": "0.4474581140210237"
+      },
+      {
+        "split": "train",
+        "task": "humanitarian",
+        "method": "zlap_flat",
+        "samples": "3000",
+        "accuracy": "0.4533333333333333",
+        "macro_f1": "0.3914779759373544"
+      },
+      {
+        "split": "train",
+        "task": "binary",
+        "method": "majority_control",
+        "samples": "3000",
+        "accuracy": "0.8085555555555556",
+        "macro_f1": "0.8082698139056465"
+      },
+      {
+        "split": "train",
+        "task": "humanitarian",
+        "method": "majority_control",
+        "samples": "3000",
+        "accuracy": "0.7034444444444444",
+        "macro_f1": "0.49339550766610335"
+      },
+      {
+        "split": "train",
+        "task": "binary",
+        "method": "majority_normalized_leaf",
+        "samples": "3000",
+        "accuracy": "0.8085555555555556",
+        "macro_f1": "0.8082698139056465"
+      },
+      {
+        "split": "train",
+        "task": "humanitarian",
+        "method": "majority_normalized_leaf",
+        "samples": "3000",
+        "accuracy": "0.6965555555555555",
+        "macro_f1": "0.47625819352539045"
+      },
+      {
+        "split": "dev",
+        "task": "humanitarian",
+        "method": "baseline",
+        "samples": "2219",
+        "accuracy": "0.662009914375845",
+        "macro_f1": "0.48056191204584137"
+      },
+      {
+        "split": "dev",
+        "task": "humanitarian",
+        "method": "single_stage",
+        "samples": "2219",
+        "accuracy": "0.566020730058585",
+        "macro_f1": "0.4380209559397771"
+      },
+      {
+        "split": "dev",
+        "task": "humanitarian",
+        "method": "normalized_gate_control",
+        "samples": "2219",
+        "accuracy": "0.683190626408292",
+        "macro_f1": "0.4885128079241519"
+      },
+      {
+        "split": "dev",
+        "task": "humanitarian",
+        "method": "raw_gate_normalized_leaf",
+        "samples": "2219",
+        "accuracy": "0.6629112212708427",
+        "macro_f1": "0.4929009536837361"
+      },
+      {
+        "split": "dev",
+        "task": "humanitarian",
+        "method": "normalized_both",
+        "samples": "2219",
+        "accuracy": "0.6840919333032898",
+        "macro_f1": "0.4992781704875052"
+      },
+      {
+        "split": "dev",
+        "task": "humanitarian",
+        "method": "zlap_gate",
+        "samples": "2219",
+        "accuracy": "0.6894997746732763",
+        "macro_f1": "0.47925078425252104"
+      },
+      {
+        "split": "dev",
+        "task": "humanitarian",
+        "method": "majority_zlap_leaf",
+        "samples": "2219",
+        "accuracy": "0.6651644885083371",
+        "macro_f1": "0.4294707084875459"
+      },
+      {
+        "split": "dev",
+        "task": "humanitarian",
+        "method": "zlap_two_stage",
+        "samples": "2219",
+        "accuracy": "0.6597566471383506",
+        "macro_f1": "0.4177775863389224"
+      },
+      {
+        "split": "dev",
+        "task": "humanitarian",
+        "method": "zlap_flat",
+        "samples": "2219",
+        "accuracy": "0.4506534474988733",
+        "macro_f1": "0.3744869929314068"
+      },
+      {
+        "split": "dev",
+        "task": "humanitarian",
+        "method": "majority_control",
+        "samples": "2219",
+        "accuracy": "0.6983626258074208",
+        "macro_f1": "0.4923692698320437"
+      },
+      {
+        "split": "dev",
+        "task": "humanitarian",
+        "method": "majority_normalized_leaf",
+        "samples": "2219",
+        "accuracy": "0.6995643683340845",
+        "macro_f1": "0.5039693348169841"
+      }
+    ],
+    "results/analysis/clip_zlap/07ba79dff51f/summary.tsv": [
+      {
+        "split": "train",
+        "task": "humanitarian",
+        "method": "baseline",
+        "samples": "3000",
+        "accuracy": "0.6803333333333333",
+        "macro_f1": "0.49876969754107864"
+      },
+      {
+        "split": "train",
+        "task": "binary",
+        "method": "baseline",
+        "samples": "3000",
+        "accuracy": "0.7993333333333333",
+        "macro_f1": "0.7958476820233823"
+      },
+      {
+        "split": "train",
+        "task": "humanitarian",
+        "method": "single_stage",
+        "samples": "3000",
+        "accuracy": "0.576",
+        "macro_f1": "0.4498855817620437"
+      },
+      {
+        "split": "train",
+        "task": "humanitarian",
+        "method": "normalized_gate_control",
+        "samples": "3000",
+        "accuracy": "0.694",
+        "macro_f1": "0.4935682915302534"
+      },
+      {
+        "split": "train",
+        "task": "binary",
+        "method": "normalized_gate_control",
+        "samples": "3000",
+        "accuracy": "0.8033333333333333",
+        "macro_f1": "0.802150103016082"
+      },
+      {
+        "split": "train",
+        "task": "humanitarian",
+        "method": "raw_gate_normalized_leaf",
+        "samples": "3000",
+        "accuracy": "0.6733333333333333",
+        "macro_f1": "0.47761258214469926"
+      },
+      {
+        "split": "train",
+        "task": "binary",
+        "method": "raw_gate_normalized_leaf",
+        "samples": "3000",
+        "accuracy": "0.7993333333333333",
+        "macro_f1": "0.7958476820233823"
+      },
+      {
+        "split": "train",
+        "task": "humanitarian",
+        "method": "normalized_both",
+        "samples": "3000",
+        "accuracy": "0.6873333333333334",
+        "macro_f1": "0.4766893820328705"
+      },
+      {
+        "split": "train",
+        "task": "binary",
+        "method": "normalized_both",
+        "samples": "3000",
+        "accuracy": "0.8033333333333333",
+        "macro_f1": "0.802150103016082"
+      },
+      {
+        "split": "train",
+        "task": "binary",
+        "method": "zlap_gate",
+        "samples": "3000",
+        "accuracy": "0.7983333333333333",
+        "macro_f1": "0.7983268573846427"
+      },
+      {
+        "split": "train",
+        "task": "humanitarian",
+        "method": "zlap_gate",
+        "samples": "3000",
+        "accuracy": "0.699",
+        "macro_f1": "0.48513456455211723"
+      },
+      {
+        "split": "train",
+        "task": "binary",
+        "method": "majority_zlap_leaf",
+        "samples": "3000",
+        "accuracy": "0.8085555555555556",
+        "macro_f1": "0.8082698139056465"
+      },
+      {
+        "split": "train",
+        "task": "humanitarian",
+        "method": "majority_zlap_leaf",
+        "samples": "3000",
+        "accuracy": "0.6762222222222222",
+        "macro_f1": "0.44973740007399704"
+      },
+      {
+        "split": "train",
+        "task": "binary",
+        "method": "zlap_two_stage",
+        "samples": "3000",
+        "accuracy": "0.7983333333333333",
+        "macro_f1": "0.7983268573846427"
+      },
+      {
+        "split": "train",
+        "task": "humanitarian",
+        "method": "zlap_two_stage",
+        "samples": "3000",
+        "accuracy": "0.676",
+        "macro_f1": "0.4474581140210237"
+      },
+      {
+        "split": "train",
+        "task": "humanitarian",
+        "method": "zlap_flat",
+        "samples": "3000",
+        "accuracy": "0.4533333333333333",
+        "macro_f1": "0.3914779759373544"
+      },
+      {
+        "split": "train",
+        "task": "binary",
+        "method": "majority_control",
+        "samples": "3000",
+        "accuracy": "0.8085555555555556",
+        "macro_f1": "0.8082698139056465"
+      },
+      {
+        "split": "train",
+        "task": "humanitarian",
+        "method": "majority_control",
+        "samples": "3000",
+        "accuracy": "0.7034444444444444",
+        "macro_f1": "0.49339550766610335"
+      },
+      {
+        "split": "train",
+        "task": "binary",
+        "method": "majority_normalized_leaf",
+        "samples": "3000",
+        "accuracy": "0.8085555555555556",
+        "macro_f1": "0.8082698139056465"
+      },
+      {
+        "split": "train",
+        "task": "humanitarian",
+        "method": "majority_normalized_leaf",
+        "samples": "3000",
+        "accuracy": "0.6965555555555555",
+        "macro_f1": "0.47625819352539045"
+      },
+      {
+        "split": "dev",
+        "task": "humanitarian",
+        "method": "baseline",
+        "samples": "2219",
+        "accuracy": "0.662009914375845",
+        "macro_f1": "0.48056191204584137"
+      },
+      {
+        "split": "dev",
+        "task": "humanitarian",
+        "method": "single_stage",
+        "samples": "2219",
+        "accuracy": "0.566020730058585",
+        "macro_f1": "0.4380209559397771"
+      },
+      {
+        "split": "dev",
+        "task": "humanitarian",
+        "method": "normalized_gate_control",
+        "samples": "2219",
+        "accuracy": "0.683190626408292",
+        "macro_f1": "0.4885128079241519"
+      },
+      {
+        "split": "dev",
+        "task": "humanitarian",
+        "method": "raw_gate_normalized_leaf",
+        "samples": "2219",
+        "accuracy": "0.6629112212708427",
+        "macro_f1": "0.4929009536837361"
+      },
+      {
+        "split": "dev",
+        "task": "humanitarian",
+        "method": "normalized_both",
+        "samples": "2219",
+        "accuracy": "0.6840919333032898",
+        "macro_f1": "0.4992781704875052"
+      },
+      {
+        "split": "dev",
+        "task": "humanitarian",
+        "method": "zlap_gate",
+        "samples": "2219",
+        "accuracy": "0.6894997746732763",
+        "macro_f1": "0.47925078425252104"
+      },
+      {
+        "split": "dev",
+        "task": "humanitarian",
+        "method": "majority_zlap_leaf",
+        "samples": "2219",
+        "accuracy": "0.6651644885083371",
+        "macro_f1": "0.4294707084875459"
+      },
+      {
+        "split": "dev",
+        "task": "humanitarian",
+        "method": "zlap_two_stage",
+        "samples": "2219",
+        "accuracy": "0.6597566471383506",
+        "macro_f1": "0.4177775863389224"
+      },
+      {
+        "split": "dev",
+        "task": "humanitarian",
+        "method": "zlap_flat",
+        "samples": "2219",
+        "accuracy": "0.4506534474988733",
+        "macro_f1": "0.3744869929314068"
+      },
+      {
+        "split": "dev",
+        "task": "humanitarian",
+        "method": "majority_control",
+        "samples": "2219",
+        "accuracy": "0.6983626258074208",
+        "macro_f1": "0.4923692698320437"
+      },
+      {
+        "split": "dev",
+        "task": "humanitarian",
+        "method": "majority_normalized_leaf",
+        "samples": "2219",
+        "accuracy": "0.6995643683340845",
+        "macro_f1": "0.5039693348169841"
+      }
+    ],
+    "results/analysis/clip_inmap/1cd14c09bcc0/summary.tsv": [
+      {
+        "split": "train",
+        "task": "binary",
+        "variant": "unbalanced",
+        "method": "inmap_gate",
+        "samples": "3000",
+        "accuracy": "0.8183333333333334",
+        "macro_f1": "0.8175465738873328"
+      },
+      {
+        "split": "train",
+        "task": "humanitarian",
+        "variant": "unbalanced",
+        "method": "inmap_gate",
+        "samples": "3000",
+        "accuracy": "0.7056666666666667",
+        "macro_f1": "0.5067126155937602"
+      },
+      {
+        "split": "train",
+        "task": "binary",
+        "variant": "unbalanced",
+        "method": "majority_inmap_leaf",
+        "samples": "3000",
+        "accuracy": "0.8085555555555556",
+        "macro_f1": "0.8082698139056465"
+      },
+      {
+        "split": "train",
+        "task": "humanitarian",
+        "variant": "unbalanced",
+        "method": "majority_inmap_leaf",
+        "samples": "3000",
+        "accuracy": "0.7045555555555555",
+        "macro_f1": "0.4890415464979596"
+      },
+      {
+        "split": "train",
+        "task": "binary",
+        "variant": "unbalanced",
+        "method": "inmap_two_stage",
+        "samples": "3000",
+        "accuracy": "0.8183333333333334",
+        "macro_f1": "0.8175465738873328"
+      },
+      {
+        "split": "train",
+        "task": "humanitarian",
+        "variant": "unbalanced",
+        "method": "inmap_two_stage",
+        "samples": "3000",
+        "accuracy": "0.7073333333333333",
+        "macro_f1": "0.5021940695213015"
+      },
+      {
+        "split": "train",
+        "task": "humanitarian",
+        "variant": "unbalanced",
+        "method": "inmap_flat",
+        "samples": "3000",
+        "accuracy": "0.605",
+        "macro_f1": "0.4466201765577977"
+      },
+      {
+        "split": "train",
+        "task": "binary",
+        "variant": "unbalanced",
+        "method": "majority_control",
+        "samples": "3000",
+        "accuracy": "0.8085555555555556",
+        "macro_f1": "0.8082698139056465"
+      },
+      {
+        "split": "train",
+        "task": "humanitarian",
+        "variant": "unbalanced",
+        "method": "majority_control",
+        "samples": "3000",
+        "accuracy": "0.7034444444444444",
+        "macro_f1": "0.49339550766610335"
+      },
+      {
+        "split": "train",
+        "task": "binary",
+        "variant": "balanced_sinkhorn",
+        "method": "inmap_gate",
+        "samples": "3000",
+        "accuracy": "0.8116666666666666",
+        "macro_f1": "0.8115782131055967"
+      },
+      {
+        "split": "train",
+        "task": "humanitarian",
+        "variant": "balanced_sinkhorn",
+        "method": "inmap_gate",
+        "samples": "3000",
+        "accuracy": "0.7079999999999999",
+        "macro_f1": "0.48929780218971586"
+      },
+      {
+        "split": "train",
+        "task": "binary",
+        "variant": "balanced_sinkhorn",
+        "method": "majority_inmap_leaf",
+        "samples": "3000",
+        "accuracy": "0.8085555555555556",
+        "macro_f1": "0.8082698139056465"
+      },
+      {
+        "split": "train",
+        "task": "humanitarian",
+        "variant": "balanced_sinkhorn",
+        "method": "majority_inmap_leaf",
+        "samples": "3000",
+        "accuracy": "0.6648888888888888",
+        "macro_f1": "0.4327410782679378"
+      },
+      {
+        "split": "train",
+        "task": "binary",
+        "variant": "balanced_sinkhorn",
+        "method": "inmap_two_stage",
+        "samples": "3000",
+        "accuracy": "0.8116666666666666",
+        "macro_f1": "0.8115782131055967"
+      },
+      {
+        "split": "train",
+        "task": "humanitarian",
+        "variant": "balanced_sinkhorn",
+        "method": "inmap_two_stage",
+        "samples": "3000",
+        "accuracy": "0.673",
+        "macro_f1": "0.4361633237293807"
+      },
+      {
+        "split": "train",
+        "task": "humanitarian",
+        "variant": "balanced_sinkhorn",
+        "method": "inmap_flat",
+        "samples": "3000",
+        "accuracy": "0.41",
+        "macro_f1": "0.35849638628610947"
+      },
+      {
+        "split": "train",
+        "task": "binary",
+        "variant": "balanced_sinkhorn",
+        "method": "majority_control",
+        "samples": "3000",
+        "accuracy": "0.8085555555555556",
+        "macro_f1": "0.8082698139056465"
+      },
+      {
+        "split": "train",
+        "task": "humanitarian",
+        "variant": "balanced_sinkhorn",
+        "method": "majority_control",
+        "samples": "3000",
+        "accuracy": "0.7034444444444444",
+        "macro_f1": "0.49339550766610335"
+      },
+      {
+        "split": "dev",
+        "task": "humanitarian",
+        "variant": "unbalanced",
+        "method": "inmap_gate",
+        "samples": "2219",
+        "accuracy": "0.6994141505182515",
+        "macro_f1": "0.48635427339830245"
+      },
+      {
+        "split": "dev",
+        "task": "humanitarian",
+        "variant": "unbalanced",
+        "method": "majority_inmap_leaf",
+        "samples": "2219",
+        "accuracy": "0.7006158930449152",
+        "macro_f1": "0.4899038446736858"
+      },
+      {
+        "split": "dev",
+        "task": "humanitarian",
+        "variant": "unbalanced",
+        "method": "inmap_two_stage",
+        "samples": "2219",
+        "accuracy": "0.7016674177557457",
+        "macro_f1": "0.48436944619202255"
+      },
+      {
+        "split": "dev",
+        "task": "humanitarian",
+        "variant": "unbalanced",
+        "method": "inmap_flat",
+        "samples": "2219",
+        "accuracy": "0.5962145110410094",
+        "macro_f1": "0.46741988584234484"
+      },
+      {
+        "split": "dev",
+        "task": "humanitarian",
+        "variant": "unbalanced",
+        "method": "majority_control",
+        "samples": "2219",
+        "accuracy": "0.6983626258074208",
+        "macro_f1": "0.4923692698320437"
+      },
+      {
+        "split": "dev",
+        "task": "humanitarian",
+        "variant": "balanced_sinkhorn",
+        "method": "inmap_gate",
+        "samples": "2219",
+        "accuracy": "0.6985128436232536",
+        "macro_f1": "0.48769760547201807"
+      },
+      {
+        "split": "dev",
+        "task": "humanitarian",
+        "variant": "balanced_sinkhorn",
+        "method": "majority_inmap_leaf",
+        "samples": "2219",
+        "accuracy": "0.665765359771669",
+        "macro_f1": "0.4271179983219732"
+      },
+      {
+        "split": "dev",
+        "task": "humanitarian",
+        "variant": "balanced_sinkhorn",
+        "method": "inmap_two_stage",
+        "samples": "2219",
+        "accuracy": "0.6674177557458315",
+        "macro_f1": "0.42400404100118455"
+      },
+      {
+        "split": "dev",
+        "task": "humanitarian",
+        "variant": "balanced_sinkhorn",
+        "method": "inmap_flat",
+        "samples": "2219",
+        "accuracy": "0.40919333032897703",
+        "macro_f1": "0.35094055475509306"
+      },
+      {
+        "split": "dev",
+        "task": "humanitarian",
+        "variant": "balanced_sinkhorn",
+        "method": "majority_control",
+        "samples": "2219",
+        "accuracy": "0.6983626258074208",
+        "macro_f1": "0.4923692698320437"
+      }
+    ],
+    "results/analysis/clip_inmap/37d5a5db4a8a/summary.tsv": [
+      {
+        "split": "train",
+        "task": "binary",
+        "variant": "unbalanced",
+        "method": "inmap_gate",
+        "samples": "3000",
+        "accuracy": "0.8183333333333334",
+        "macro_f1": "0.8175465738873328"
+      },
+      {
+        "split": "train",
+        "task": "humanitarian",
+        "variant": "unbalanced",
+        "method": "inmap_gate",
+        "samples": "3000",
+        "accuracy": "0.7056666666666667",
+        "macro_f1": "0.5067126155937602"
+      },
+      {
+        "split": "train",
+        "task": "binary",
+        "variant": "unbalanced",
+        "method": "majority_inmap_leaf",
+        "samples": "3000",
+        "accuracy": "0.8085555555555556",
+        "macro_f1": "0.8082698139056465"
+      },
+      {
+        "split": "train",
+        "task": "humanitarian",
+        "variant": "unbalanced",
+        "method": "majority_inmap_leaf",
+        "samples": "3000",
+        "accuracy": "0.7045555555555555",
+        "macro_f1": "0.4890415464979596"
+      },
+      {
+        "split": "train",
+        "task": "binary",
+        "variant": "unbalanced",
+        "method": "inmap_two_stage",
+        "samples": "3000",
+        "accuracy": "0.8183333333333334",
+        "macro_f1": "0.8175465738873328"
+      },
+      {
+        "split": "train",
+        "task": "humanitarian",
+        "variant": "unbalanced",
+        "method": "inmap_two_stage",
+        "samples": "3000",
+        "accuracy": "0.7073333333333333",
+        "macro_f1": "0.5021940695213015"
+      },
+      {
+        "split": "train",
+        "task": "humanitarian",
+        "variant": "unbalanced",
+        "method": "inmap_flat",
+        "samples": "3000",
+        "accuracy": "0.605",
+        "macro_f1": "0.4466201765577977"
+      },
+      {
+        "split": "train",
+        "task": "binary",
+        "variant": "unbalanced",
+        "method": "majority_control",
+        "samples": "3000",
+        "accuracy": "0.8085555555555556",
+        "macro_f1": "0.8082698139056465"
+      },
+      {
+        "split": "train",
+        "task": "humanitarian",
+        "variant": "unbalanced",
+        "method": "majority_control",
+        "samples": "3000",
+        "accuracy": "0.7034444444444444",
+        "macro_f1": "0.49339550766610335"
+      },
+      {
+        "split": "train",
+        "task": "binary",
+        "variant": "balanced_sinkhorn",
+        "method": "inmap_gate",
+        "samples": "3000",
+        "accuracy": "0.8116666666666666",
+        "macro_f1": "0.8115782131055967"
+      },
+      {
+        "split": "train",
+        "task": "humanitarian",
+        "variant": "balanced_sinkhorn",
+        "method": "inmap_gate",
+        "samples": "3000",
+        "accuracy": "0.7079999999999999",
+        "macro_f1": "0.48929780218971586"
+      },
+      {
+        "split": "train",
+        "task": "binary",
+        "variant": "balanced_sinkhorn",
+        "method": "majority_inmap_leaf",
+        "samples": "3000",
+        "accuracy": "0.8085555555555556",
+        "macro_f1": "0.8082698139056465"
+      },
+      {
+        "split": "train",
+        "task": "humanitarian",
+        "variant": "balanced_sinkhorn",
+        "method": "majority_inmap_leaf",
+        "samples": "3000",
+        "accuracy": "0.6648888888888888",
+        "macro_f1": "0.4327410782679378"
+      },
+      {
+        "split": "train",
+        "task": "binary",
+        "variant": "balanced_sinkhorn",
+        "method": "inmap_two_stage",
+        "samples": "3000",
+        "accuracy": "0.8116666666666666",
+        "macro_f1": "0.8115782131055967"
+      },
+      {
+        "split": "train",
+        "task": "humanitarian",
+        "variant": "balanced_sinkhorn",
+        "method": "inmap_two_stage",
+        "samples": "3000",
+        "accuracy": "0.673",
+        "macro_f1": "0.4361633237293807"
+      },
+      {
+        "split": "train",
+        "task": "humanitarian",
+        "variant": "balanced_sinkhorn",
+        "method": "inmap_flat",
+        "samples": "3000",
+        "accuracy": "0.41",
+        "macro_f1": "0.35849638628610947"
+      },
+      {
+        "split": "train",
+        "task": "binary",
+        "variant": "balanced_sinkhorn",
+        "method": "majority_control",
+        "samples": "3000",
+        "accuracy": "0.8085555555555556",
+        "macro_f1": "0.8082698139056465"
+      },
+      {
+        "split": "train",
+        "task": "humanitarian",
+        "variant": "balanced_sinkhorn",
+        "method": "majority_control",
+        "samples": "3000",
+        "accuracy": "0.7034444444444444",
+        "macro_f1": "0.49339550766610335"
+      },
+      {
+        "split": "dev",
+        "task": "humanitarian",
+        "variant": "unbalanced",
+        "method": "inmap_gate",
+        "samples": "2219",
+        "accuracy": "0.6994141505182515",
+        "macro_f1": "0.48635427339830245"
+      },
+      {
+        "split": "dev",
+        "task": "humanitarian",
+        "variant": "unbalanced",
+        "method": "majority_inmap_leaf",
+        "samples": "2219",
+        "accuracy": "0.7006158930449152",
+        "macro_f1": "0.4899038446736858"
+      },
+      {
+        "split": "dev",
+        "task": "humanitarian",
+        "variant": "unbalanced",
+        "method": "inmap_two_stage",
+        "samples": "2219",
+        "accuracy": "0.7016674177557457",
+        "macro_f1": "0.48436944619202255"
+      },
+      {
+        "split": "dev",
+        "task": "humanitarian",
+        "variant": "unbalanced",
+        "method": "inmap_flat",
+        "samples": "2219",
+        "accuracy": "0.5962145110410094",
+        "macro_f1": "0.46741988584234484"
+      },
+      {
+        "split": "dev",
+        "task": "humanitarian",
+        "variant": "unbalanced",
+        "method": "majority_control",
+        "samples": "2219",
+        "accuracy": "0.6983626258074208",
+        "macro_f1": "0.4923692698320437"
+      },
+      {
+        "split": "dev",
+        "task": "humanitarian",
+        "variant": "balanced_sinkhorn",
+        "method": "inmap_gate",
+        "samples": "2219",
+        "accuracy": "0.6985128436232536",
+        "macro_f1": "0.48769760547201807"
+      },
+      {
+        "split": "dev",
+        "task": "humanitarian",
+        "variant": "balanced_sinkhorn",
+        "method": "majority_inmap_leaf",
+        "samples": "2219",
+        "accuracy": "0.665765359771669",
+        "macro_f1": "0.4271179983219732"
+      },
+      {
+        "split": "dev",
+        "task": "humanitarian",
+        "variant": "balanced_sinkhorn",
+        "method": "inmap_two_stage",
+        "samples": "2219",
+        "accuracy": "0.6674177557458315",
+        "macro_f1": "0.42400404100118455"
+      },
+      {
+        "split": "dev",
+        "task": "humanitarian",
+        "variant": "balanced_sinkhorn",
+        "method": "inmap_flat",
+        "samples": "2219",
+        "accuracy": "0.40919333032897703",
+        "macro_f1": "0.35094055475509306"
+      },
+      {
+        "split": "dev",
+        "task": "humanitarian",
+        "variant": "balanced_sinkhorn",
+        "method": "majority_control",
+        "samples": "2219",
+        "accuracy": "0.6983626258074208",
+        "macro_f1": "0.4923692698320437"
+      }
+    ],
+    "results/analysis/clip_lame/e257fe3950a8/summary.tsv": [
+      {
+        "split": "train",
+        "affinity": "rbf",
+        "method": "lame_gate",
+        "task": "binary",
+        "samples": "3000",
+        "accuracy": "0.5186666666666667",
+        "macro_f1": "0.35031610973359834"
+      },
+      {
+        "split": "train",
+        "affinity": "rbf",
+        "method": "lame_gate",
+        "task": "humanitarian",
+        "samples": "3000",
+        "accuracy": "0.38033333333333336",
+        "macro_f1": "0.3420279464559702"
+      },
+      {
+        "split": "train",
+        "affinity": "rbf",
+        "method": "majority_lame_dn_leaf",
+        "task": "binary",
+        "samples": "3000",
+        "accuracy": "0.8085555555555556",
+        "macro_f1": "0.8082698139056465"
+      },
+      {
+        "split": "train",
+        "affinity": "rbf",
+        "method": "majority_lame_dn_leaf",
+        "task": "humanitarian",
+        "samples": "3000",
+        "accuracy": "0.599888888888889",
+        "macro_f1": "0.37495918234553854"
+      },
+      {
+        "split": "train",
+        "affinity": "rbf",
+        "method": "lame_both",
+        "task": "binary",
+        "samples": "3000",
+        "accuracy": "0.5186666666666667",
+        "macro_f1": "0.35031610973359834"
+      },
+      {
+        "split": "train",
+        "affinity": "rbf",
+        "method": "lame_both",
+        "task": "humanitarian",
+        "samples": "3000",
+        "accuracy": "0.2692222222222222",
+        "macro_f1": "0.24606444563054777"
+      },
+      {
+        "split": "train",
+        "affinity": "rbf",
+        "method": "majority_dn_control",
+        "task": "binary",
+        "samples": "3000",
+        "accuracy": "0.8085555555555556",
+        "macro_f1": "0.8082698139056465"
+      },
+      {
+        "split": "train",
+        "affinity": "rbf",
+        "method": "majority_dn_control",
+        "task": "humanitarian",
+        "samples": "3000",
+        "accuracy": "0.7013333333333334",
+        "macro_f1": "0.49220822024713334"
+      },
+      {
+        "split": "train",
+        "affinity": "knn",
+        "method": "lame_gate",
+        "task": "binary",
+        "samples": "3000",
+        "accuracy": "0.5755555555555555",
+        "macro_f1": "0.46472190470610847"
+      },
+      {
+        "split": "train",
+        "affinity": "knn",
+        "method": "lame_gate",
+        "task": "humanitarian",
+        "samples": "3000",
+        "accuracy": "0.437",
+        "macro_f1": "0.3767058509387981"
+      },
+      {
+        "split": "train",
+        "affinity": "knn",
+        "method": "majority_lame_dn_leaf",
+        "task": "binary",
+        "samples": "3000",
+        "accuracy": "0.8085555555555556",
+        "macro_f1": "0.8082698139056465"
+      },
+      {
+        "split": "train",
+        "affinity": "knn",
+        "method": "majority_lame_dn_leaf",
+        "task": "humanitarian",
+        "samples": "3000",
+        "accuracy": "0.7065555555555555",
+        "macro_f1": "0.46092723356097326"
+      },
+      {
+        "split": "train",
+        "affinity": "knn",
+        "method": "lame_both",
+        "task": "binary",
+        "samples": "3000",
+        "accuracy": "0.5755555555555555",
+        "macro_f1": "0.46472190470610847"
+      },
+      {
+        "split": "train",
+        "affinity": "knn",
+        "method": "lame_both",
+        "task": "humanitarian",
+        "samples": "3000",
+        "accuracy": "0.44177777777777777",
+        "macro_f1": "0.34804793303833464"
+      },
+      {
+        "split": "train",
+        "affinity": "knn",
+        "method": "majority_dn_control",
+        "task": "binary",
+        "samples": "3000",
+        "accuracy": "0.8085555555555556",
+        "macro_f1": "0.8082698139056465"
+      },
+      {
+        "split": "train",
+        "affinity": "knn",
+        "method": "majority_dn_control",
+        "task": "humanitarian",
+        "samples": "3000",
+        "accuracy": "0.7013333333333334",
+        "macro_f1": "0.49220822024713334"
+      },
+      {
+        "split": "dev",
+        "affinity": "rbf",
+        "method": "lame_gate",
+        "task": "humanitarian",
+        "samples": "2219",
+        "accuracy": "0.3632266786840919",
+        "macro_f1": "0.33745620216916333"
+      },
+      {
+        "split": "dev",
+        "affinity": "rbf",
+        "method": "majority_lame_dn_leaf",
+        "task": "humanitarian",
+        "samples": "2219",
+        "accuracy": "0.5838966501427069",
+        "macro_f1": "0.36077509061184426"
+      },
+      {
+        "split": "dev",
+        "affinity": "rbf",
+        "method": "lame_both",
+        "task": "humanitarian",
+        "samples": "2219",
+        "accuracy": "0.23989785188523358",
+        "macro_f1": "0.22686098554250142"
+      },
+      {
+        "split": "dev",
+        "affinity": "rbf",
+        "method": "majority_dn_control",
+        "task": "humanitarian",
+        "samples": "2219",
+        "accuracy": "0.7058735165990687",
+        "macro_f1": "0.5039468436648565"
+      },
+      {
+        "split": "dev",
+        "affinity": "knn",
+        "method": "lame_gate",
+        "task": "humanitarian",
+        "samples": "2219",
+        "accuracy": "0.4255670722547695",
+        "macro_f1": "0.3748267056767893"
+      },
+      {
+        "split": "dev",
+        "affinity": "knn",
+        "method": "majority_lame_dn_leaf",
+        "task": "humanitarian",
+        "samples": "2219",
+        "accuracy": "0.7057232987832357",
+        "macro_f1": "0.47114245299727303"
+      },
+      {
+        "split": "dev",
+        "affinity": "knn",
+        "method": "lame_both",
+        "task": "humanitarian",
+        "samples": "2219",
+        "accuracy": "0.4345801412047468",
+        "macro_f1": "0.3586423095279523"
+      },
+      {
+        "split": "dev",
+        "affinity": "knn",
+        "method": "majority_dn_control",
+        "task": "humanitarian",
+        "samples": "2219",
+        "accuracy": "0.7058735165990687",
+        "macro_f1": "0.5039468436648565"
+      }
+    ],
+    "results/analysis/clip_dmn/00a26641fb2b/summary.tsv": [
+      {
+        "split": "train",
+        "method": "dmn_gate_raw_leaf",
+        "task": "binary",
+        "samples": "3000",
+        "accuracy": "0.8001111111111111",
+        "macro_f1": "0.7999937697534559"
+      },
+      {
+        "split": "train",
+        "method": "dmn_gate_raw_leaf",
+        "task": "humanitarian",
+        "samples": "3000",
+        "accuracy": "0.6994444444444444",
+        "macro_f1": "0.4670770695506876"
+      },
+      {
+        "split": "train",
+        "method": "dmn_gate_dn_leaf",
+        "task": "binary",
+        "samples": "3000",
+        "accuracy": "0.8001111111111111",
+        "macro_f1": "0.7999937697534559"
+      },
+      {
+        "split": "train",
+        "method": "dmn_gate_dn_leaf",
+        "task": "humanitarian",
+        "samples": "3000",
+        "accuracy": "0.6983333333333333",
+        "macro_f1": "0.46759320691045314"
+      },
+      {
+        "split": "train",
+        "method": "majority_dmn_leaf",
+        "task": "binary",
+        "samples": "3000",
+        "accuracy": "0.8085555555555556",
+        "macro_f1": "0.8082698139056465"
+      },
+      {
+        "split": "train",
+        "method": "majority_dmn_leaf",
+        "task": "humanitarian",
+        "samples": "3000",
+        "accuracy": "0.6752222222222223",
+        "macro_f1": "0.43388332677129365"
+      },
+      {
+        "split": "train",
+        "method": "inmap_dmn_leaf",
+        "task": "binary",
+        "samples": "3000",
+        "accuracy": "0.8183333333333334",
+        "macro_f1": "0.8175465738873328"
+      },
+      {
+        "split": "train",
+        "method": "inmap_dmn_leaf",
+        "task": "humanitarian",
+        "samples": "3000",
+        "accuracy": "0.6758888888888889",
+        "macro_f1": "0.4401084121720565"
+      },
+      {
+        "split": "train",
+        "method": "dmn_both",
+        "task": "binary",
+        "samples": "3000",
+        "accuracy": "0.8001111111111111",
+        "macro_f1": "0.7999937697534559"
+      },
+      {
+        "split": "train",
+        "method": "dmn_both",
+        "task": "humanitarian",
+        "samples": "3000",
+        "accuracy": "0.6739999999999999",
+        "macro_f1": "0.40868464898601903"
+      },
+      {
+        "split": "train",
+        "method": "majority_dn_control",
+        "task": "binary",
+        "samples": "3000",
+        "accuracy": "0.8085555555555556",
+        "macro_f1": "0.8082698139056465"
+      },
+      {
+        "split": "train",
+        "method": "majority_dn_control",
+        "task": "humanitarian",
+        "samples": "3000",
+        "accuracy": "0.7013333333333334",
+        "macro_f1": "0.49220822024713334"
+      },
+      {
+        "split": "dev",
+        "method": "dmn_gate_raw_leaf",
+        "task": "humanitarian",
+        "samples": "2219",
+        "accuracy": "0.6952080516749287",
+        "macro_f1": "0.46845836399249013"
+      },
+      {
+        "split": "dev",
+        "method": "dmn_gate_dn_leaf",
+        "task": "humanitarian",
+        "samples": "2219",
+        "accuracy": "0.701216764308247",
+        "macro_f1": "0.47889853588581527"
+      },
+      {
+        "split": "dev",
+        "method": "majority_dmn_leaf",
+        "task": "humanitarian",
+        "samples": "2219",
+        "accuracy": "0.6803364879074659",
+        "macro_f1": "0.4500613234227549"
+      },
+      {
+        "split": "dev",
+        "method": "inmap_dmn_leaf",
+        "task": "humanitarian",
+        "samples": "2219",
+        "accuracy": "0.6804867057232987",
+        "macro_f1": "0.448795338574004"
+      },
+      {
+        "split": "dev",
+        "method": "dmn_both",
+        "task": "humanitarian",
+        "samples": "2219",
+        "accuracy": "0.6801862700916329",
+        "macro_f1": "0.4308301164193103"
+      },
+      {
+        "split": "dev",
+        "method": "majority_dn_control",
+        "task": "humanitarian",
+        "samples": "2219",
+        "accuracy": "0.7058735165990687",
+        "macro_f1": "0.5039468436648565"
+      }
+    ],
+    "results/analysis/clip_dmn_visual/e1523f5e8972/summary.tsv": [
+      {
+        "split": "train",
+        "method": "visual_dmn_gate_dn_leaf",
+        "task": "binary",
+        "samples": "3000",
+        "accuracy": "0.8235555555555556",
+        "macro_f1": "0.8234438893180306"
+      },
+      {
+        "split": "train",
+        "method": "visual_dmn_gate_dn_leaf",
+        "task": "humanitarian",
+        "samples": "3000",
+        "accuracy": "0.7132222222222223",
+        "macro_f1": "0.5102980348040984"
+      },
+      {
+        "split": "train",
+        "method": "inmap_visual_dmn_leaf",
+        "task": "binary",
+        "samples": "3000",
+        "accuracy": "0.8183333333333334",
+        "macro_f1": "0.8175465738873328"
+      },
+      {
+        "split": "train",
+        "method": "inmap_visual_dmn_leaf",
+        "task": "humanitarian",
+        "samples": "3000",
+        "accuracy": "0.699",
+        "macro_f1": "0.4673023686107214"
+      },
+      {
+        "split": "train",
+        "method": "visual_dmn_both",
+        "task": "binary",
+        "samples": "3000",
+        "accuracy": "0.8235555555555556",
+        "macro_f1": "0.8234438893180306"
+      },
+      {
+        "split": "train",
+        "method": "visual_dmn_both",
+        "task": "humanitarian",
+        "samples": "3000",
+        "accuracy": "0.7081111111111111",
+        "macro_f1": "0.4664750752007327"
+      },
+      {
+        "split": "dev",
+        "method": "visual_dmn_gate_dn_leaf",
+        "task": "humanitarian",
+        "samples": "2219",
+        "accuracy": "0.711281357969055",
+        "macro_f1": "0.4991816072898369"
+      },
+      {
+        "split": "dev",
+        "method": "inmap_visual_dmn_leaf",
+        "task": "humanitarian",
+        "samples": "2219",
+        "accuracy": "0.6974613189124229",
+        "macro_f1": "0.46333471683061883"
+      },
+      {
+        "split": "dev",
+        "method": "visual_dmn_both",
+        "task": "humanitarian",
+        "samples": "2219",
+        "accuracy": "0.7031695959140754",
+        "macro_f1": "0.46371142119089165"
+      }
+    ],
+    "results/analysis/clip_dpe/cf917a0837db/summary.tsv": [
+      {
+        "split": "train",
+        "method": "dpe_gate_raw_leaf",
+        "task": "binary",
+        "accuracy": "0.8095555555555555",
+        "macro_f1": "0.8057568295727572"
+      },
+      {
+        "split": "train",
+        "method": "dpe_gate_raw_leaf",
+        "task": "humanitarian",
+        "accuracy": "0.6861111111111112",
+        "macro_f1": "0.4990602757542524"
+      },
+      {
+        "split": "train",
+        "method": "dpe_gate_dn_leaf",
+        "task": "binary",
+        "accuracy": "0.8095555555555555",
+        "macro_f1": "0.8057568295727572"
+      },
+      {
+        "split": "train",
+        "method": "dpe_gate_dn_leaf",
+        "task": "humanitarian",
+        "accuracy": "0.6834444444444445",
+        "macro_f1": "0.49284021260836375"
+      },
+      {
+        "split": "train",
+        "method": "majority_dpe_leaf",
+        "task": "binary",
+        "accuracy": "0.8085555555555556",
+        "macro_f1": "0.8082698139056465"
+      },
+      {
+        "split": "train",
+        "method": "majority_dpe_leaf",
+        "task": "humanitarian",
+        "accuracy": "0.7072222222222223",
+        "macro_f1": "0.48810746194494153"
+      },
+      {
+        "split": "train",
+        "method": "inmap_dpe_leaf",
+        "task": "binary",
+        "accuracy": "0.8183333333333334",
+        "macro_f1": "0.8175465738873328"
+      },
+      {
+        "split": "train",
+        "method": "inmap_dpe_leaf",
+        "task": "humanitarian",
+        "accuracy": "0.710111111111111",
+        "macro_f1": "0.5005193712561748"
+      },
+      {
+        "split": "train",
+        "method": "dpe_both",
+        "task": "binary",
+        "accuracy": "0.8095555555555555",
+        "macro_f1": "0.8057568295727572"
+      },
+      {
+        "split": "train",
+        "method": "dpe_both",
+        "task": "humanitarian",
+        "accuracy": "0.6897777777777777",
+        "macro_f1": "0.49068559134808837"
+      },
+      {
+        "split": "train",
+        "method": "majority_dn_control",
+        "task": "binary",
+        "accuracy": "0.8085555555555556",
+        "macro_f1": "0.8082698139056465"
+      },
+      {
+        "split": "train",
+        "method": "majority_dn_control",
+        "task": "humanitarian",
+        "accuracy": "0.7013333333333334",
+        "macro_f1": "0.49220822024713334"
+      },
+      {
+        "split": "dev",
+        "method": "dpe_gate_raw_leaf",
+        "task": "humanitarian",
+        "accuracy": "0.6531470632417006",
+        "macro_f1": "0.47878568015775175"
+      },
+      {
+        "split": "dev",
+        "method": "dpe_gate_dn_leaf",
+        "task": "humanitarian",
+        "accuracy": "0.6590055580591858",
+        "macro_f1": "0.4839916664098065"
+      },
+      {
+        "split": "dev",
+        "method": "majority_dpe_leaf",
+        "task": "humanitarian",
+        "accuracy": "0.7100796154423915",
+        "macro_f1": "0.49921595170939614"
+      },
+      {
+        "split": "dev",
+        "method": "inmap_dpe_leaf",
+        "task": "humanitarian",
+        "accuracy": "0.7112813579690552",
+        "macro_f1": "0.49470719442188665"
+      },
+      {
+        "split": "dev",
+        "method": "dpe_both",
+        "task": "humanitarian",
+        "accuracy": "0.6650142706925041",
+        "macro_f1": "0.4843850402640891"
+      },
+      {
+        "split": "dev",
+        "method": "majority_dn_control",
+        "task": "humanitarian",
+        "accuracy": "0.7058735165990687",
+        "macro_f1": "0.5039468436648565"
+      }
+    ],
+    "results/analysis/clip_dpe/6c5efeb4da87/summary.tsv": [
+      {
+        "split": "train",
+        "method": "dpe_gate_raw_leaf",
+        "task": "binary",
+        "accuracy": "0.8095555555555555",
+        "macro_f1": "0.8057568295727572"
+      },
+      {
+        "split": "train",
+        "method": "dpe_gate_raw_leaf",
+        "task": "humanitarian",
+        "accuracy": "0.6861111111111112",
+        "macro_f1": "0.4990602757542524"
+      },
+      {
+        "split": "train",
+        "method": "dpe_gate_dn_leaf",
+        "task": "binary",
+        "accuracy": "0.8095555555555555",
+        "macro_f1": "0.8057568295727572"
+      },
+      {
+        "split": "train",
+        "method": "dpe_gate_dn_leaf",
+        "task": "humanitarian",
+        "accuracy": "0.6834444444444445",
+        "macro_f1": "0.49284021260836375"
+      },
+      {
+        "split": "train",
+        "method": "majority_dpe_leaf",
+        "task": "binary",
+        "accuracy": "0.8085555555555556",
+        "macro_f1": "0.8082698139056465"
+      },
+      {
+        "split": "train",
+        "method": "majority_dpe_leaf",
+        "task": "humanitarian",
+        "accuracy": "0.7072222222222223",
+        "macro_f1": "0.48810746194494153"
+      },
+      {
+        "split": "train",
+        "method": "inmap_dpe_leaf",
+        "task": "binary",
+        "accuracy": "0.8183333333333334",
+        "macro_f1": "0.8175465738873328"
+      },
+      {
+        "split": "train",
+        "method": "inmap_dpe_leaf",
+        "task": "humanitarian",
+        "accuracy": "0.710111111111111",
+        "macro_f1": "0.5005193712561748"
+      },
+      {
+        "split": "train",
+        "method": "dpe_both",
+        "task": "binary",
+        "accuracy": "0.8095555555555555",
+        "macro_f1": "0.8057568295727572"
+      },
+      {
+        "split": "train",
+        "method": "dpe_both",
+        "task": "humanitarian",
+        "accuracy": "0.6897777777777777",
+        "macro_f1": "0.49068559134808837"
+      },
+      {
+        "split": "train",
+        "method": "majority_dn_control",
+        "task": "binary",
+        "accuracy": "0.8085555555555556",
+        "macro_f1": "0.8082698139056465"
+      },
+      {
+        "split": "train",
+        "method": "majority_dn_control",
+        "task": "humanitarian",
+        "accuracy": "0.7013333333333334",
+        "macro_f1": "0.49220822024713334"
+      },
+      {
+        "split": "dev",
+        "method": "dpe_gate_raw_leaf",
+        "task": "humanitarian",
+        "accuracy": "0.6531470632417006",
+        "macro_f1": "0.47878568015775175"
+      },
+      {
+        "split": "dev",
+        "method": "dpe_gate_dn_leaf",
+        "task": "humanitarian",
+        "accuracy": "0.6590055580591858",
+        "macro_f1": "0.4839916664098065"
+      },
+      {
+        "split": "dev",
+        "method": "majority_dpe_leaf",
+        "task": "humanitarian",
+        "accuracy": "0.7100796154423915",
+        "macro_f1": "0.49921595170939614"
+      },
+      {
+        "split": "dev",
+        "method": "inmap_dpe_leaf",
+        "task": "humanitarian",
+        "accuracy": "0.7112813579690552",
+        "macro_f1": "0.49470719442188665"
+      },
+      {
+        "split": "dev",
+        "method": "dpe_both",
+        "task": "humanitarian",
+        "accuracy": "0.6650142706925041",
+        "macro_f1": "0.4843850402640891"
+      },
+      {
+        "split": "dev",
+        "method": "majority_dn_control",
+        "task": "humanitarian",
+        "accuracy": "0.7058735165990687",
+        "macro_f1": "0.5039468436648565"
+      }
+    ]
+  }
+}

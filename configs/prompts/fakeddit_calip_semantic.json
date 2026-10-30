@@ -1,0 +1,48 @@
+{
+  "version": "fakeddit_calip_semantic_v1",
+  "provenance": "Reviewed against Fakeddit taxonomy on 2026-10-29; class-definition prompts, not derived from examples, predictions or validation errors. Image-only cues are hypotheses and cannot establish factuality or caption consistency.",
+  "2way": {
+    "0": [
+      "a satirical illustration, parody, or fictional presentation",
+      "a digitally manipulated photograph or fabricated visual scene",
+      "a misleading presentation of a person, object, or event"
+    ],
+    "1": [
+      "a documentary photograph of a person, object, or event",
+      "a natural photograph of an ordinary or unusual real scene",
+      "an authentic visual record of a real-life situation"
+    ]
+  },
+  "6way": {
+    "0": [
+      "a documentary photograph of a person, object, or event",
+      "a natural photograph of an ordinary or unusual real scene",
+      "an authentic visual record of a real-life situation"
+    ],
+    "1": [
+      "a satirical illustration mocking a public figure or event",
+      "a parody of a news story or public announcement",
+      "a fictional presentation using exaggeration for satire"
+    ],
+    "2": [
+      "a photograph paired with a headline about a different event",
+      "a picture paired with a caption about a different person or object",
+      "an image presented alongside an unrelated claim"
+    ],
+    "3": [
+      "a forged screenshot impersonating a person or organization",
+      "a fabricated announcement imitating an official source",
+      "a counterfeit news graphic using a trusted source's identity"
+    ],
+    "4": [
+      "a digitally edited photograph with objects added or removed",
+      "a photomontage combining separate images into an artificial scene",
+      "a photograph with the appearance of a person or object altered"
+    ],
+    "5": [
+      "a photograph cropped to hide important surrounding context",
+      "a selectively framed image suggesting a misleading interpretation",
+      "a graphic presenting selective information about a real event"
+    ]
+  }
+}

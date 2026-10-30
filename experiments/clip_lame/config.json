@@ -1,0 +1,11 @@
+{
+  "train_run": "results/clip_two_stage_features/crisismmd/humanitarian/samples_3000/metaclip2_vith14/humanitarian_471dc4a07814",
+  "dev_run": "results/clip_two_stage_stata_heldout/crisismmd/humanitarian/samples_2219/metaclip2_vith14/humanitarian_ca2d96c17e89",
+  "dn_run": "results/analysis/clip_dn_unit/d70959a0a21c",
+  "majority_run": "results/analysis/clip_gate_fusion/74ed4f8f37f4",
+  "affinities": ["rbf", "knn"],
+  "grouping_seeds": [0, 1, 2],
+  "query_size": 75,
+  "parameters": {"knn": 5, "bound_lambda": 1.0, "max_steps": 100, "logit_scale": 100.0, "force_symmetry": false},
+  "label_fit": false
+}

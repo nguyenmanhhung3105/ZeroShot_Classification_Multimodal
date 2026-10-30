@@ -1,0 +1,45 @@
+{
+  "status": "passed",
+  "reference_commit": "83e21b6b985934dce6e8414c26300671b4825841",
+  "source_sha256": "2b7327ec88e3547d6f78b4b0a0ce60caefba59dcf7de9edb3db7979d7d9d0e4e",
+  "core_sha256": "955a79b0e3868d64b92e3957d365f5f4be9c7491d9869d3e3ff85130391a0e88",
+  "cases": [
+    {
+      "images": 5,
+      "patches": 9,
+      "classes": 2,
+      "embedding_dim": 16,
+      "max_logit_abs_error": 3.814697265625e-06,
+      "all_predictions_identical": true,
+      "scope": "synthetic"
+    },
+    {
+      "images": 5,
+      "patches": 9,
+      "classes": 8,
+      "embedding_dim": 16,
+      "max_logit_abs_error": 7.62939453125e-06,
+      "all_predictions_identical": true,
+      "scope": "synthetic"
+    },
+    {
+      "images": 5,
+      "patches": 9,
+      "classes": 2,
+      "embedding_dim": 1024,
+      "max_logit_abs_error": 3.5762786865234375e-06,
+      "all_predictions_identical": true,
+      "scope": "synthetic"
+    },
+    {
+      "images": 5,
+      "patches": 9,
+      "classes": 8,
+      "embedding_dim": 1024,
+      "max_logit_abs_error": 7.152557373046875e-06,
+      "all_predictions_identical": true,
+      "scope": "synthetic"
+    }
+  ],
+  "scope": "get_logits only; no labels/search/dataset/model or original benchmark reproduction"
+}
