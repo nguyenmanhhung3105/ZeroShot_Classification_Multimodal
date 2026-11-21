@@ -1,0 +1,10 @@
+version: 1
+samples: 1880
+selection_seed: 0
+prompt_seeds: [0, 1, 2, 3, 4, 5, 6]
+grouping_seeds: [0, 1, 2]
+waffle_pairs: 15
+adaptation_batch_size: 75
+cpu_threads: 1
+timeout_seconds: 7200
+semantic_weight: 0.5

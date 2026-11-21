@@ -1,0 +1,8 @@
+{
+  "source": "archive/report_cleanup_20261116/experiments/fakeddit_fewshot/run.py",
+  "sha256": "a15e2c6886a6824b8506ee179d517ed14f94e93844f44fe967990d3acf6981f0",
+  "definitions": [
+    "select_support",
+    "probe"
+  ]
+}

@@ -1,0 +1,412 @@
+{
+  "version": 1,
+  "provenance": {
+    "author": "manually authored with assistant",
+    "basis": "class names and general visual characteristics only",
+    "sample_images_used": false,
+    "per_sample_errors_used": false,
+    "development_note": "Designed after viewing aggregate dev results; development artifact, not independent confirmation."
+  },
+  "descriptors": {
+    "apple": [
+      "a rounded fruit with a short stem and smooth skin",
+      "a red green or yellow fruit with a shallow indentation around its stem"
+    ],
+    "aquarium_fish": [
+      "a small fish with fins and scales swimming underwater",
+      "a colorful fish with a tail fin and a streamlined body"
+    ],
+    "baby": [
+      "a very young child with a small body and rounded face",
+      "an infant with short limbs and a large head relative to its body"
+    ],
+    "bear": [
+      "a large furry animal with rounded ears and a broad muzzle",
+      "a heavy four legged mammal with thick fur and large paws"
+    ],
+    "beaver": [
+      "a brown rodent with a broad flat tail and prominent front teeth",
+      "a stocky furry animal with small ears beside water"
+    ],
+    "bed": [
+      "a mattress resting on a frame with pillows or blankets",
+      "a horizontal sleeping surface often bordered by a headboard"
+    ],
+    "bee": [
+      "a flying insect with a fuzzy body and yellow and black bands",
+      "a small winged insect with antennae and a rounded striped abdomen"
+    ],
+    "beetle": [
+      "an insect with hard rounded wing covers and six legs",
+      "a shiny shelled insect with short antennae and a compact body"
+    ],
+    "bicycle": [
+      "a two wheeled vehicle with pedals handlebars and a saddle",
+      "two thin wheels joined by a triangular frame and a chain"
+    ],
+    "bottle": [
+      "a container with a narrow neck and a wider body",
+      "a tall vessel with a small opening at its top"
+    ],
+    "bowl": [
+      "a deep round open container with curved sides",
+      "a concave vessel with a wide opening and no handle"
+    ],
+    "boy": [
+      "a young child with youthful facial features",
+      "a child with a small body and a rounded youthful face"
+    ],
+    "bridge": [
+      "a structure spanning a river road or gap",
+      "a raised crossing supported by pillars arches or cables"
+    ],
+    "bus": [
+      "a long passenger vehicle with many windows and large wheels",
+      "a large road vehicle with rows of passenger windows"
+    ],
+    "butterfly": [
+      "an insect with two broad patterned pairs of wings",
+      "a slender insect with colorful wings and thin antennae"
+    ],
+    "camel": [
+      "a long legged animal with one or two humps on its back",
+      "a sandy colored mammal with a long curved neck and padded feet"
+    ],
+    "can": [
+      "a cylindrical metal container with a flat circular top",
+      "a short metal vessel with straight sides and a sealed lid"
+    ],
+    "castle": [
+      "a large stone building with towers and defensive walls",
+      "a fortress with battlements turrets and thick masonry"
+    ],
+    "caterpillar": [
+      "an elongated soft insect larva with many small legs",
+      "a segmented crawling larva with a rounded head"
+    ],
+    "cattle": [
+      "a large hoofed farm animal with a broad muzzle",
+      "a heavy grazing mammal with cloven hooves and sometimes horns"
+    ],
+    "chair": [
+      "a seat with a backrest and legs for one person",
+      "a raised sitting surface with a vertical back support"
+    ],
+    "chimpanzee": [
+      "a dark haired ape with long arms and a mostly bare face",
+      "a primate with prominent ears and no visible tail"
+    ],
+    "clock": [
+      "a timepiece with a numbered dial or digital display",
+      "a device showing the time with hands or illuminated digits"
+    ],
+    "cloud": [
+      "a soft white or gray mass suspended in the sky",
+      "a diffuse formation with irregular billowing edges above the ground"
+    ],
+    "cockroach": [
+      "a flattened brown insect with very long antennae",
+      "an oval crawling insect with six spiny legs"
+    ],
+    "couch": [
+      "a padded seat with a backrest for several people",
+      "a long upholstered piece of furniture with cushions and armrests"
+    ],
+    "crab": [
+      "a broad shelled animal with sideways legs and two claws",
+      "a crustacean with a flat body and a pair of pincers"
+    ],
+    "crocodile": [
+      "a long reptile with a broad snout and armored scales",
+      "a low lying animal with a long tail and visible rows of teeth"
+    ],
+    "cup": [
+      "a small drinking container often with a side handle",
+      "an upright open vessel with a narrow base and a rim"
+    ],
+    "dinosaur": [
+      "a prehistoric reptile with a long tail and large body",
+      "an extinct reptile often depicted with strong legs and a long neck"
+    ],
+    "dolphin": [
+      "a smooth gray aquatic mammal with a curved dorsal fin",
+      "a streamlined swimming animal with a pointed beak and flippers"
+    ],
+    "elephant": [
+      "a very large gray mammal with a long trunk and broad ears",
+      "a heavy animal with thick legs a trunk and sometimes tusks"
+    ],
+    "flatfish": [
+      "a flattened oval fish with both eyes on one side",
+      "a broad flat fish with fins extending around its body"
+    ],
+    "forest": [
+      "a dense landscape filled with many trees",
+      "woodland with overlapping trunks leafy canopies and undergrowth"
+    ],
+    "fox": [
+      "a slender canine with pointed ears and a bushy tail",
+      "a small dog shaped animal with a narrow muzzle and often reddish fur"
+    ],
+    "girl": [
+      "a young child with youthful facial features",
+      "a child with a small body and a rounded youthful face"
+    ],
+    "hamster": [
+      "a small round rodent with short ears and a very short tail",
+      "a compact furry pet with rounded cheeks and tiny paws"
+    ],
+    "house": [
+      "a residential building with walls windows and a roof",
+      "a dwelling with a door and a pitched or flat roof"
+    ],
+    "kangaroo": [
+      "a marsupial with powerful hind legs and a long thick tail",
+      "an upright animal with short forelimbs and large back feet"
+    ],
+    "keyboard": [
+      "rows of small keys arranged on a rectangular board",
+      "a computer input device with letter keys and a space bar"
+    ],
+    "lamp": [
+      "a light fixture with a bulb and a supporting base",
+      "a lighting device often topped by a shade"
+    ],
+    "lawn_mower": [
+      "a low machine with wheels a cutting deck and a push handle",
+      "a grass cutting machine with an engine above a wheeled platform"
+    ],
+    "leopard": [
+      "a large cat with dark rosette spots on yellowish fur",
+      "a spotted feline with a long tail and rounded ears"
+    ],
+    "lion": [
+      "a large tawny cat with a broad face and muscular body",
+      "a large feline sometimes surrounded by a thick mane"
+    ],
+    "lizard": [
+      "a small scaly reptile with four legs and a long tail",
+      "a low crawling reptile with clawed feet and an elongated body"
+    ],
+    "lobster": [
+      "a long crustacean with a segmented tail and large claws",
+      "a shelled animal with long antennae and a pair of heavy pincers"
+    ],
+    "man": [
+      "an adult person with mature facial features",
+      "a human figure with adult body proportions"
+    ],
+    "maple_tree": [
+      "a deciduous tree with broad lobed leaves",
+      "a branching tree whose leaves may turn red or orange"
+    ],
+    "motorcycle": [
+      "a motor powered two wheeled vehicle with a saddle",
+      "a vehicle with thick tires handlebars and a visible engine"
+    ],
+    "mountain": [
+      "a high landform with steep rocky slopes and a summit",
+      "a prominent peak rising above the surrounding landscape"
+    ],
+    "mouse": [
+      "a small rodent with round ears and a long thin tail",
+      "a tiny furry animal with a pointed nose and delicate paws"
+    ],
+    "mushroom": [
+      "a fungus with a cap supported by a short stalk",
+      "a rounded or umbrella shaped cap growing above the ground"
+    ],
+    "oak_tree": [
+      "a broad crowned tree with thick branches and lobed leaves",
+      "a large deciduous tree with a sturdy trunk and spreading canopy"
+    ],
+    "orange": [
+      "a round citrus fruit with orange colored dimpled skin",
+      "a spherical fruit with a textured rind and sometimes a small green stem"
+    ],
+    "orchid": [
+      "a flower with curved petals and a distinctive central lip",
+      "a delicate often patterned bloom with an asymmetric lower petal"
+    ],
+    "otter": [
+      "a sleek furry aquatic mammal with a long tapered tail",
+      "an elongated brown animal with small ears and short legs beside water"
+    ],
+    "palm_tree": [
+      "a tall trunk topped by a crown of large fronds",
+      "a tropical tree with long fan shaped or feather shaped leaves"
+    ],
+    "pear": [
+      "a fruit with a narrow neck and a rounded wider bottom",
+      "a green yellow or brown fruit with a tapered top and short stem"
+    ],
+    "pickup_truck": [
+      "a road vehicle with a passenger cab and an open cargo bed",
+      "a truck with a short cabin and a flat open rear compartment"
+    ],
+    "pine_tree": [
+      "an evergreen tree with needle like foliage and layered branches",
+      "a conifer with a pointed crown and dense green needles"
+    ],
+    "plain": [
+      "a broad mostly flat open landscape with low vegetation",
+      "an expansive grass covered area with a low horizon and few trees"
+    ],
+    "plate": [
+      "a shallow round dish with a broad flat center",
+      "a flat circular eating dish with a slightly raised rim"
+    ],
+    "poppy": [
+      "a flower with thin broad petals and a dark central disk",
+      "a delicate bloom often with bright red petals on a slender stem"
+    ],
+    "porcupine": [
+      "a stocky rodent covered in long pointed quills",
+      "a rounded animal with stiff spines projecting from its back"
+    ],
+    "possum": [
+      "a furry marsupial with a pointed face and a long tail",
+      "a small climbing mammal with prominent ears and grasping paws"
+    ],
+    "rabbit": [
+      "a furry animal with long upright ears and powerful back legs",
+      "a small mammal with a short fluffy tail and a twitching nose"
+    ],
+    "raccoon": [
+      "a gray furry mammal with a dark mask around its eyes",
+      "an animal with a ringed bushy tail and small dexterous front paws"
+    ],
+    "ray": [
+      "a flat aquatic animal with broad wing like fins",
+      "a diamond shaped fish with a thin extended tail"
+    ],
+    "road": [
+      "a paved route stretching across a landscape",
+      "a long strip of asphalt often marked by painted lane lines"
+    ],
+    "rocket": [
+      "a tall cylindrical vehicle with a pointed nose and stabilizing fins",
+      "a spacecraft shaped body sometimes rising on a plume of exhaust"
+    ],
+    "rose": [
+      "a flower with tightly layered overlapping petals",
+      "a rounded bloom on a leafy stem sometimes bearing thorns"
+    ],
+    "sea": [
+      "a large expanse of water with waves and a distant horizon",
+      "open blue or gray water extending beyond the shore"
+    ],
+    "seal": [
+      "a rounded aquatic mammal with short flippers and whiskers",
+      "a smooth bodied marine animal resting on a shore or swimming"
+    ],
+    "shark": [
+      "a streamlined fish with a triangular dorsal fin and a pointed snout",
+      "a large swimming predator with gill slits and a strong tail fin"
+    ],
+    "shrew": [
+      "a tiny mammal with a very long pointed snout",
+      "a small short furred animal with small eyes and delicate legs"
+    ],
+    "skunk": [
+      "a dark furry animal with contrasting white markings",
+      "a stocky mammal with a raised bushy tail and pale stripes"
+    ],
+    "skyscraper": [
+      "a very tall building with many repeated rows of windows",
+      "a high rise tower rising far above nearby buildings"
+    ],
+    "snail": [
+      "a small crawling animal carrying a spiral shell",
+      "a soft bodied animal with tentacles extending from its head"
+    ],
+    "snake": [
+      "a long legless reptile covered in scales",
+      "an elongated animal with a flexible coiled or winding body"
+    ],
+    "spider": [
+      "an animal with eight legs radiating from a small body",
+      "an arachnid with two main body sections sometimes sitting on a web"
+    ],
+    "squirrel": [
+      "a small climbing rodent with a large bushy tail",
+      "a furry animal with small ears and front paws held near its chest"
+    ],
+    "streetcar": [
+      "a passenger vehicle traveling on rails along a street",
+      "a tram with many windows and sometimes overhead electrical wires"
+    ],
+    "sunflower": [
+      "a large flower with yellow petals surrounding a dark circular center",
+      "a tall plant bearing a broad disk shaped yellow bloom"
+    ],
+    "sweet_pepper": [
+      "a glossy hollow vegetable with a lobed body and green stem",
+      "a red green or yellow bell shaped pepper with smooth skin"
+    ],
+    "table": [
+      "a horizontal flat surface supported by legs",
+      "a furniture top used for placing objects with open space underneath"
+    ],
+    "tank": [
+      "an armored vehicle with caterpillar tracks and a rotating gun turret",
+      "a heavy military vehicle with a long cannon above a low armored body"
+    ],
+    "telephone": [
+      "a communication device with a handset and dialing keys",
+      "a phone with a speaker and microphone often on a base"
+    ],
+    "television": [
+      "a rectangular electronic screen used for viewing video",
+      "a display with a surrounding frame and sometimes a stand"
+    ],
+    "tiger": [
+      "a large orange cat with dark vertical stripes",
+      "a muscular feline with striped fur and a long tail"
+    ],
+    "tractor": [
+      "a farm vehicle with very large rear tires and a smaller front end",
+      "an agricultural machine with deep tread wheels and a driver seat"
+    ],
+    "train": [
+      "a series of connected rail vehicles traveling on tracks",
+      "a locomotive pulling carriages along parallel steel rails"
+    ],
+    "trout": [
+      "a streamlined freshwater fish with small spots along its body",
+      "a silvery fish with a dorsal fin and a broad tail fin"
+    ],
+    "tulip": [
+      "a flower with a smooth cup shaped bloom and upright stem",
+      "a rounded closed or partly open blossom above long narrow leaves"
+    ],
+    "turtle": [
+      "a reptile with a hard rounded shell and four short limbs",
+      "a shelled animal with a small head extending from its protective body"
+    ],
+    "wardrobe": [
+      "a tall enclosed cabinet with large doors for storing clothes",
+      "a standing storage unit with vertical panels and sometimes a hanging rail"
+    ],
+    "whale": [
+      "a very large aquatic mammal with a broad body and horizontal tail flukes",
+      "a huge swimming animal with flippers and sometimes a visible blowhole"
+    ],
+    "willow_tree": [
+      "a tree with long drooping branches and narrow leaves",
+      "a leafy tree whose slender branches hang toward the ground"
+    ],
+    "wolf": [
+      "a large wild canine with a thick coat and pointed ears",
+      "a dog shaped animal with a long muzzle and a bushy tail"
+    ],
+    "woman": [
+      "an adult person with mature facial features",
+      "a human figure with adult body proportions"
+    ],
+    "worm": [
+      "a long soft segmented animal without visible legs",
+      "a slender flexible crawling animal with a cylindrical body"
+    ]
+  }
+}

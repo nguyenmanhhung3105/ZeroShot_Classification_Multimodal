@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "variant": "em_stata",
+  "model": "metaclip2_vith14",
+  "dataset_id": "nguyenhung3105/vlm-cifar100-sources-v1",
+  "seed": 0,
+  "dev_samples": 10000,
+  "batch_size": 8,
+  "logit_scale": 100.0,
+  "prompt_template": "a photo of {label}.",
+  "group_size": 75,
+  "grouping_seeds": [0, 1, 2],
+  "em_temperature": 30.0,
+  "em_iterations": 20,
+  "em_mm_iterations": 1000,
+  "stata_iterations": 10,
+  "stata_neighbors": 3,
+  "methods": ["flat_clip", "flat_em", "flat_stata", "flat_majority", "hierarchy_clip", "hierarchy_em", "hierarchy_stata", "hierarchy_majority"]
+}

@@ -1,0 +1,18 @@
+version: 1
+train_samples: 3000
+dev_samples: 3000
+shots_per_6way_class: 64
+seeds: [0, 1, 2, 3, 4]
+methods: [image, title, image_title]
+C: 1.0
+class_weight: balanced
+solver: lbfgs
+max_iter: 2000
+tol: 0.000001
+timeout_seconds: 7200
+dataset_slugs:
+  train: vlm-fakeddit-train-min5-v1
+  dev: vlm-fakeddit-dev-min5-v1
+manifest_sha256:
+  train: 20cacaff6b805a0b7402988f1bda3deac007910d5f4c0b2fd42c508a6aa702f3
+  dev: 5c3461c467f5934180e4c4b87b8bfb20dd040dde53b66e00497784434ef04b0a

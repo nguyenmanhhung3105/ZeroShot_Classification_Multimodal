@@ -1,0 +1,38 @@
+version: 1
+model: metaclip2_vith14
+device: auto
+batch_size: 8
+output_root: results/final/min5
+benchmark:
+  methods:
+  - clip
+  - dclip
+  - waffle
+  - waffle_unit_ablation
+  seeds:
+  - 0
+  - 1
+  - 2
+  - 3
+  - 4
+  - 5
+  - 6
+  waffle_pairs: 15
+fakeddit:
+  samples_per_split: 3000
+  prompt_file: configs/fakeddit_prompts.json
+  lock_file: configs/fakeddit_test_lock.json
+  methods:
+  - baseline_image
+  - baseline_text
+  - baseline_fusion
+  - semantic_text_fusion
+  - proposed
+  - dclip_image
+  - waffle_image
+kaggle:
+  benchmark_slug: vlm-public-benchmarks-eval-v1
+  fakeddit_slugs:
+    train: vlm-fakeddit-train-v2
+    dev: vlm-fakeddit-dev-min5-v1
+    test: vlm-fakeddit-test-v2

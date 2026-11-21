@@ -1,0 +1,67 @@
+{
+  "preserved_math": [
+    {
+      "source": "experiments/clip_transductive/core.py",
+      "sha256": "03a6aa2eb2b7614ba90c48ee73d25df0e56798016f5ac1e622006c2de8a0e5f7",
+      "definitions": [
+        "probability_features",
+        "_log_density",
+        "_objective",
+        "_estimate_alpha",
+        "match_clusters",
+        "em_dirichlet"
+      ]
+    },
+    {
+      "source": "experiments/clip_stata/core.py",
+      "sha256": "b559124eb27ab64adf5e7e36723460084587eb439c475f78ac6e38e5cb91dfd6",
+      "definitions": [
+        "stata"
+      ]
+    },
+    {
+      "source": "experiments/fakeddit_calip/core.py",
+      "sha256": "8bbc65fff9e0a894eb58ef74eb33c5c1b5b6a60e93d63c3eda757d94f47bf982",
+      "definitions": [
+        "majority",
+        "hierarchy"
+      ]
+    },
+    {
+      "source": "experiments/fakeddit_calip/multimodal.py",
+      "sha256": "4e49d3b864aa657bbcd0337b3d0a1f4714c7f96f056488e54f87d7aaee8b9ac7",
+      "definitions": [
+        "probabilities",
+        "fuse",
+        "replace_clip_vote"
+      ]
+    },
+    {
+      "source": "src/research/upstream.py",
+      "sha256": "9e1311fbc53b48a2941cac51433e4d4b2a01ddccad3a6c48e75d26571526a0e4",
+      "definitions": [
+        "verify_sources",
+        "load_functions",
+        "source_directory",
+        "author_api",
+        "generate_prompts"
+      ]
+    }
+  ],
+  "fakeddit_profile_sha256": "f4bfe4dc99eeede23b4f22b575b464eb39c2a873d153292ab64051fb466424c9",
+  "historical_selection": {
+    "selection_sha256": "3df5beb0854fce862d80fd70b1011b155e2ba7c28c50d9262975e12a0e8b8ba6",
+    "file_sha256": "0b1a34842ae90b4fab4b5e62ab7a28d8925d92cf3efda6dce1e1448736842cd3",
+    "dev_cohort_id": "124b9844b7b88986a3eb",
+    "selection_metric": "macro_f1_then_accuracy"
+  },
+  "retained_banks": {
+    "2way": [
+      "legacy",
+      "semantic_v1"
+    ],
+    "6way": [
+      "legacy"
+    ]
+  }
+}

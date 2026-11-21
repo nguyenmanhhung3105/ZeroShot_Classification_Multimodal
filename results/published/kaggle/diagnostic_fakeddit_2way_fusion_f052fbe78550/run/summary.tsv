@@ -1,0 +1,7 @@
+task	method	samples	seeds	std_ddof	accuracy_mean	accuracy_std	macro_f1_mean	macro_f1_std	balanced_accuracy_mean	balanced_accuracy_std	top5_mean	top5_std
+fakeddit_2way	clip	256	1	1	0.59765625	0.0	0.5976009889053367	0.0	0.5977099236641221	0.0	1.0	0.0
+fakeddit_2way	calip	256	1	1	0.6015625	0.0	0.6015625	0.0	0.6018931297709924	0.0	1.0	0.0
+fakeddit_2way	stata	256	1	1	0.65234375	0.0	0.6520836196497015	0.0	0.6533435114503816	0.0	1.0	0.0
+fakeddit_2way	fusion_clip_stata	256	1	1	0.65625	0.0	0.6560610687022901	0.0	0.6571603053435114	0.0	1.0	0.0
+fakeddit_2way	fusion_clip_calip	256	1	1	0.6015625	0.0	0.6015625	0.0	0.6018931297709924	0.0	1.0	0.0
+fakeddit_2way	fusion_three	256	1	1	0.64453125	0.0	0.6445258258945602	0.0	0.644793893129771	0.0	1.0	0.0

@@ -1,323 +1,88 @@
-# Phân loại nội dung đa phương thức zero-shot
+# Phân loại nội dung với MetaCLIP2
 
-Đầu vào của hệ thống chính là **ảnh + text**. Dự án dùng MetaCLIP2, DFN hoặc SigLIP2
-đã huấn luyện sẵn để so nội dung với prompt nhãn, sau đó kết hợp điểm hai nhánh.
-Không có bước huấn luyện hoặc fine-tune trong runner đánh giá.
+Mã nguồn phục vụ các thí nghiệm và báo cáo `report/main.tex`: benchmark CLIP/DCLIP/WaffleCLIP, kết hợp Waffle–semantic–StatA, Fakeddit Task 1 zero-shot/few-shot min5 và đối chứng phân cấp trên Fakeddit/CIFAR-100. Backbone chính là MetaCLIP2 ViT-H/14; nhánh OpenAI ViT-L/14 dùng kiểm chứng tham chiếu. Few-shot fit linear head trên feature của backbone đóng băng.
 
-## Bố trí mã nguồn
+Đọc [bản đồ code](docs/CODEX-NAVIGATION-GUIDE.md), [nguồn dữ liệu Fakeddit](src/preprocessing/data_fakeddit/README.md) và [kiểm tra/dọn dự án](docs/REPORT_CLEANUP_20261116.md).
+
+## Cài đặt và cập nhật cho thành viên
+
+Chạy tại thư mục gốc với Python 3.12 (phiên bản đã kiểm thử local):
+
+```sh
+python3 -m venv venv
+venv/bin/python -m pip install -r requirements.txt
+venv/bin/python -B run.py --help
+venv/bin/python -B -m unittest discover -s tests -q
+```
+
+Xem [hướng dẫn bàn giao GitHub](docs/GITHUB_HANDOFF.md) để cập nhật checkout cũ, cấu hình tài khoản Kaggle và lấy dữ liệu. GitHub chứa source, báo cáo, cấu hình, test và [summary đã xuất](results/README.md); dataset, weights, archive, backup và artifact đầy đủ được giữ ngoài Git. Máy mới chạy được test tổng hợp và prepare-only mà không cần các thư mục đó. Cần Internet và dung lượng cho thư viện khi cài đặt; chạy inference thật cần dữ liệu và model riêng.
+
+## Cấu trúc đang dùng
 
 ```text
-src/
-├── run_experiment.py          # chạy model × dataset
-├── demo.py                    # chạy nhóm mẫu nhỏ và vẽ kết quả
-├── config.py                  # đọc, kiểm tra YAML
-├── run/
-│   ├── common.py              # đọc dữ liệu, ánh xạ nhãn, ảnh, summary
-│   ├── run_fakeddit.py         # tác vụ 2way hoặc 6way
-│   ├── run_crisismmd.py        # informativeness hoặc humanitarian
-│   └── run_mmimdb.py           # phân loại nhiều thể loại
-├── inference.py               # chấm điểm ảnh/text và fusion
-├── pair_relation.py           # cosine ảnh–text, JS/entropy và policy theo nhãn
-├── text_scale.py              # chọn scale riêng cho text
-├── text_chunking.py           # chia plot dài và gộp các đoạn
-├── evaluate.py                # tính metric
-├── evaluation_audit.py        # báo cáo nhánh, độ dài và bộ mẫu
-├── logging_utils.py           # dự đoán từng mẫu, lỗi và manifest
-├── models/model_registry.py   # tải và mã hóa bằng model
-├── prompts/                   # prompt và taxonomy dùng ở code chính
-├── research/                  # runner paper và đối chứng quan hệ ảnh–text
-└── preprocessing/             # script chuẩn bị/kiểm tra dữ liệu, không tự chạy
-
-experiments/ensemble/           # mã thử nghiệm ensemble tùy chọn, 3 dataset
-configs/
-├── experiment_config.yaml     # cấu hình hệ thống chính
-├── launcher.yaml              # job, số mẫu, phương pháp, ensemble và local/Kaggle
-├── launcher_3000.yaml          # CrisisMMD 3.000 mẫu: baseline/DCLIP, chọn job/model tường minh
-├── crisismmd_launcher.yaml    # cấu hình tương thích launcher CrisisMMD cũ
-├── prompts/                   # prompt/descriptor cố định
-└── research/
-    ├── upstream.yaml          # model CLIP gốc, repo, task và chế độ đầu ra
-    ├── adapted.yaml           # đối chứng trên model hiện dùng
-    ├── sources.json           # URL và commit repo tác giả
-    └── descriptors/           # mô tả lớp cố định cho cả năm task
-
-tests/                         # chỉ kiểm thử tự động bằng dữ liệu giả
-scripts/                       # launcher chung, worker Kaggle và lệnh tương thích cũ
-requirements/kaggle_launcher.txt # CLI Kaggle tùy chọn cho máy gửi bài chạy
-docs/                          # hướng dẫn chi tiết và sơ đồ hệ thống
-├── experiments/               # tài liệu và báo cáo thử nghiệm
-├── so_do_he_thong/             # bản đồ input → xử lý → output của model/phương pháp
-│   └── so_do/                  # SVG, nguồn DOT và script dựng sơ đồ
-third_party/                   # checkout repo tác giả, Git bỏ qua
-results/<method>/<dataset>/<task>/samples_N/<model>/<task>_<run_id>/  kết quả từng lượt
-results/_system/              # staging/cache Kaggle và bảng đường dẫn cũ → mới
-results1/                      # kết quả lịch sử, được giữ nguyên
-backup/, backups/              # bản sao trước sửa và file đã loại bỏ
+run.py                         CLI local
+src/vlm_project/                backbone, prompt, adaptation, runner, metric, Kaggle
+src/preprocessing/data_fakeddit/ tạo và kiểm tra train/dev/test, giữ nguồn và dòng gốc
+scripts/                       entry point, chuẩn bị dữ liệu/job, kiểm tra kết quả
+configs/                       protocol/prompt/descriptor và cấu hình từng thí nghiệm
+results/final/                 artifact hiện tại, tách full / pilot / smoke
+results/published/             summary nhẹ và manifest checksum chia sẻ qua GitHub
+results/_system/               receipt, staging, sample lock đang có
+report/                        main.tex, sáu chương, tài liệu tham khảo và hình
+archive/                       code/kết quả lịch sử, có manifest khôi phục
+backups/                       snapshot trước khi thay đổi
 ```
 
-Mỗi lần thêm, chuyển hoặc bỏ module phải cập nhật cây thư mục, lệnh chạy và cấu hình
-trong README này cùng thay đổi mã nguồn. Comment/docstring của code do dự án quản lý
-viết bằng tiếng Việt. Prompt tiếng Anh là đầu vào model và được giữ nguyên. Repo
-tác giả và thông báo giấy phép giữ nguyên văn bản nguồn.
+Không thay đổi các tập dữ liệu, checkpoint, seed, prompt hoặc công thức thí nghiệm trong lần dọn ngày 16/11/2026. Các module phụ trợ vẫn được giữ khi runner của báo cáo gọi tới chúng. Kết quả giữa kỳ và nhánh cũ nằm tại `archive/report_cleanup_20261116/results/`; `results1` nằm cạnh đó. Các lần dọn trước ở `archive/legacy_20261103/`.
 
-## Cài đặt và chạy hệ thống chính
+## Thí nghiệm dùng cho báo cáo
 
-Để hình dung hệ thống trước khi chạy, mở [bản đồ hệ thống](docs/so_do_he_thong/README.md).
-Tài liệu có sơ đồ riêng cho MetaCLIP2, DFN5B, SigLIP2, OpenAI CLIP, WaffleCLIP,
-DCLIP, hai runner nghiên cứu và luồng dữ liệu/kết quả. Sơ đồ SVG được dựng sẵn để
-xem bố cục ổn định trong Markdown Preview hoặc trên GitHub.
-
-Chạy tại thư mục gốc, trong môi trường Python của dự án:
-
-```sh
-pip install -r requirements.txt
-
-# Các model × dataset có enabled: true
-python3 src/run_experiment.py
-
-# Chỉ một dataset
-python3 src/run/run_fakeddit.py
-python3 src/run/run_crisismmd.py
-python3 src/run/run_mmimdb.py
-
-# Nhóm mẫu nhỏ, cùng logic với chạy chính
-python3 src/demo.py
-```
-
-Các lệnh trên nhận `--config <đường_dẫn.yaml>`. Lần tải model đầu có thể cần mạng và
-dung lượng lưu trọng số. Không chạy module model_registry để tự tải toàn bộ model.
-
-## Cấu hình cần chỉnh
-
-Chọn model ở danh sách `models` trong `configs/experiment_config.yaml`.
-Các tên hợp lệ: `metaclip2_vith14`, `dfn5b_vith14`, `siglip2_so400m`.
-
-Với mỗi dataset, chỉnh `enabled`, `task`, `max_samples` và:
-```yaml
-inference:
-  image_weight: 0.5       # trọng số ảnh; text có trọng số 1 - giá trị này
-  text_logit_scale: null  # null lấy scale model; 25/50/... là scale tuyệt đối
-```
-
-`image_weight: 1` chỉ ảnh, `0` chỉ text, `0.5` chia đều; phạm vi hợp lệ [0, 1].
-Text rỗng luôn dùng ảnh dự phòng. Cấu hình riêng của dataset ưu tiên hơn mục
-`inference` toàn cục. Cấu hình cũ với `image_weight_overrides` và
-`text_logit_scale_overrides` vẫn đọc được nếu không có lựa chọn riêng mới.
-
-| Dataset | task | Nhãn/cột |
+| Nội dung | Code chính | Tài liệu |
 |---|---|---|
-| Fakeddit | 2way / 6way | label_col_2way / label_col_6way |
-| CrisisMMD | informativeness / humanitarian | label_col_info / label_col_human |
-| MM-IMDb | genres | label_col |
+| Prompt benchmark / tham chiếu paper | `benchmark.py`, `paper_reference.py` | [tiến độ](docs/BENCHMARK_PROGRESS.md), [tham chiếu](docs/PAPER_RESULTS.md) |
+| Waffle–semantic–StatA, DTD/EuroSAT | `waffle_stata.py`, `waffle_semantic_stata.py` | [giao thức](docs/WAFFLE_SEMANTIC_STATA.md), [EuroSAT](docs/WAFFLE_SEMANTIC_STATA_EUROSAT_REVIEW.md) |
+| Fakeddit Task 1 zero-shot min5 | `fakeddit_task1.py` | [protocol](docs/FAKEDDIT_TASK1.md), [kết quả](docs/FAKEDDIT_TASK1_MIN5_REVIEW.md) |
+| Few-shot Task 1 và ngân sách support | `fakeddit_fewshot_task1.py`, `fakeddit_fewshot_support.py` | [protocol](docs/FAKEDDIT_FEWSHOT_TASK1_MIN5.md), [kết quả](docs/FAKEDDIT_FEWSHOT_SUPPORT_MIN5_REVIEW.md) |
+| Few-shot hai tầng min5 / flat 6way | `fakeddit_fewshot_cascade.py` | [runner và job dev](docs/FAKEDDIT_FEWSHOT_CASCADE_MIN5.md), [full dev đã audit](docs/FAKEDDIT_FEWSHOT_CASCADE_MIN5_REVIEW.md) |
+| Protocol/test hai tầng min5 | `cascade_protocol.py`, `cascade_test_runner.py` | [protocol đã niêm phong và runtime đích](docs/CASCADE_TEST_PROTOCOL.md); chưa mở test |
+| Hierarchy, CALIP, CIFAR-100 | `fakeddit_hierarchy.py`, `fakeddit_calip_ablation.py`, `cifar100_*.py` | [Fakeddit](docs/FAKEDDIT_HIERARCHY_DEV_REVIEW.md), [CIFAR](docs/CIFAR100_EM_STATA_DEV_REVIEW.md) |
 
-Chỉ đổi task để chọn cột nhãn; loại tác vụ được suy ra theo dataset.
-Fakeddit 2way: 0 giả, 1 thật. Fakeddit 6way: 0 thật, 1 châm biếm, 2 liên kết sai,
-3 mạo danh, 4 chỉnh sửa, 5 gây hiểu lầm.
-[Nguồn ánh xạ Fakeddit](https://github.com/entitize/Fakeddit/issues/14#issuecomment-815355653).
+Min5 và cohort v2 cũ là hai tập khác nhau. Bảng min5 hiện dùng **dev**, đã có kết quả cascade few-shot cùng cohort; chưa xác nhận phương án trên test min5. Pilot/smoke chỉ phục vụ phát triển hoặc vận hành. Không lấy chúng thay số full, không chọn seed tốt nhất; độ lệch chuẩn giữa seed không phải khoảng tin cậy.
 
-`prompt_aggregation: mean_embed` lấy trung bình embedding rồi chuẩn hóa lại;
-`mean_sim` lấy trung bình cosine các prompt, không chuẩn hóa lại trung bình.
-Muốn quét cả hai, đặt `prompt_aggregations: [mean_embed, mean_sim]`.
-Fakeddit 6way hỗ trợ `prompt_variants: [current, class_name, descriptors]`;
-các task khác dùng current.
-
-MM-IMDb có `chunk_long_text: true/false`. Khi bật, `chunk_aggregation` chọn
-`mean_embed` hoặc `max_sim`. Plot được chia vừa context của tokenizer;
-max_sim lấy điểm cao nhất của từng nhãn qua các đoạn.
-
-MM-IMDb mặc định `decision_mode: relative_z`: chuẩn hóa cosine qua 23 nhãn
-của **từng mẫu và từng nhánh**, fusion rồi chọn điểm lớn hơn
-`relative_z_threshold: 1.0`. Điểm không phải xác suất; mode này bỏ scale/bias.
-`threshold: 0.22` chỉ dùng khi chủ động chọn `fixed_threshold`.
-
-Nhánh ảnh ↔ text có flag chung cho mọi model/dataset, **mặc định tắt**:
-
-```yaml
-inference:
-  image_text_relation:
-    enabled: false           # đổi true để bật
-    mode: auto
-    weight: 0.25
-```
-
-`auto` chọn class_aware cho Fakeddit 6way (True/False Connection); các task còn
-lại chỉ diagnostic. Cấu hình `datasets.<tên>.image_text_relation` ưu tiên hơn
-flag chung, nên có thể bật/tắt riêng từng dataset. Chuyển task không cần sửa
-mode nếu dùng auto. Xem [công thức và sơ đồ](docs/so_do_he_thong/13_quan_he_anh_text.md).
-
-## Luồng xử lý và giới hạn mẫu
-
-YAML → đọc TSV/CSV/Parquet → lọc text → chọn số mẫu → kiểm tra ảnh →
-mã hóa ảnh/text và prompt → chấm điểm từng nhánh → fusion → chọn nhãn →
-metric → TSV/manifest.
-
-Fakeddit mặc định bỏ text có không quá 20 ký tự sau khi bỏ dấu cách.
-`max_samples` là số dòng **sau lọc text, trước kiểm tra ảnh**. Ảnh lỗi bị bỏ;
-không tự bù bằng mẫu tiếp theo. Giữ ảnh dưới dạng đường dẫn và mở theo batch.
-Các runner dùng chung bộ lọc, ánh xạ, công thức suy luận và metric.
-
-## Kết quả và cách đối chiếu
-
-Xem [giải thích các chỉ số output](docs/giai_thich_chi_so_output.md) để hiểu công thức,
-ý nghĩa và cách dùng từng metric, điểm dự đoán, cột log và metadata.
-
-Summary của lượt mới nằm trong `results/<method>/<dataset>/<task>/samples_N/<model>/<task>_<run_id>/summary.tsv`; xem [cấu trúc kết quả](docs/experiments/results_layout.md).
-Demo lưu `demo_summary_...tsv` trong thư mục visualization_dir.
-Dự đoán mỗi lần chạy nằm dưới raw_predictions_dir:
-
-- `raw_predictions.tsv`: nhãn thật/dự đoán, điểm các lớp và các nhánh.
-- `error_analysis.tsv`: mẫu bị đoán sai.
-- `manifest.json`: cấu hình hiệu lực và thông tin lần chạy.
-- `diagnostics.tsv`: metric ảnh/text/fusion, độ nhọn, số nhãn và fallback.
-- `text_lengths.tsv`: độ dài text trước cắt.
-- `evaluation_snapshot.json`: cấu hình, prompt, mẫu, git hash và hash mã nguồn.
-
-Fakeddit/CrisisMMD: Macro-F1 và balanced accuracy giúp quan sát các lớp hiếm;
-accuracy/micro-F1 là thông tin bổ sung. MM-IMDb dùng macro/micro/samples-F1;
-không dùng Hamming accuracy làm bằng chứng chính cho chất lượng nhiều nhãn.
-
-`fusion_macro_f1_gain` so Macro-F1 fusion với nhánh đơn tốt nhất, chỉ tính khi
-hai nhánh được đánh giá trên cùng đầy đủ bộ mẫu. Không coi tăng nhỏ là cải thiện
-có ý nghĩa thống kê. Giữ cùng model, bộ mẫu, filter và trọng số khi đối chứng prompt.
-
-`evaluation.enabled` điều khiển báo cáo; `sample_lock_mode: "off"` mặc định không
-tạo khóa. `create_or_verify` và `verify` là lựa chọn chủ động. Split trong YAML do
-người dùng khai báo, chưa được xác minh từ nguồn. Thử nhiều lần trên val là đánh
-giá khám phá; kết quả đó không chứng minh hiệu quả trên test độc lập.
-
-## Thí nghiệm nghiên cứu
-
-Launcher chung chạy Fakeddit 2way/6way, CrisisMMD informativeness/humanitarian,
-MM-IMDb genres và các runner nghiên cứu. Cấu hình số mẫu, model, phương pháp và
-flag ensemble trong `configs/launcher.yaml`; chi tiết ở
-[hướng dẫn launcher](docs/experiments/launcher_kaggle.md). Mặc định chạy local;
-`--use-kaggle true` gửi job lên Kaggle.
-
-Hồ sơ 3.000 mẫu cho cả ba bộ dữ liệu nằm ở `configs/launcher_3000.yaml`;
-[kiểm tra cohort trước khi mở rộng](docs/experiments/kiem_tra_cohort_3000.md)
-ghi phân bố nhãn/sự kiện, các lượt đã có và giới hạn cần giải quyết trước khi chạy.
-Đối chiếu tiếp với nguồn raw phát hiện cohort trộn split và lỗi định danh;
-xem [rà soát preprocessing và phương án chọn lại mẫu](docs/experiments/ra_soat_raw_preprocessing_3000.md).
-Để tạo bộ mẫu mới có nhãn thật, dùng
-[hướng dẫn tạo cohort có y_true](docs/experiments/tao_cohort_co_y_true.md).
-Các bộ chính 3.000 mẫu dùng tên `data/processed/pro_*`; bản cũ giữ ở `pro_*_v1`.
-CrisisMMD chính dùng chung ảnh và hai cột nhãn cho cả hai task; xem
-[dữ liệu chính và cách bổ sung ảnh Fakeddit](docs/experiments/du_lieu_chinh_3000.md).
-Chọn hồ sơ bằng `--launcher-config configs/launcher_3000.yaml`; giữ `--job` và
-`--model` tường minh. Các job trong hồ sơ này đều tắt mặc định.
-Xem [kiểm tra Kaggle, lệnh chạy và báo cáo 3.000 mẫu](docs/experiments/chay_kaggle_3000.md)
-và [28 lệnh riêng đã kiểm tra](docs/experiments/lenh_kaggle_3000.sh).
-
-Ví dụ xem trước local dưới đây không tải model hoặc upload:
+## Kiểm tra local
 
 ```sh
-venv/bin/python -B scripts/launch_runs.py --job crisismmd_info --dry-run
-venv/bin/python -B scripts/launch_runs.py --job mmimdb_genres --ensemble true --use-kaggle true --dry-run
+venv/bin/python -B run.py --help
+venv/bin/python -B run.py benchmark --dataset dtd --prepare-only
+venv/bin/python -B scripts/prepare_fakeddit_splits.py --help
+venv/bin/python -B -m unittest discover -s tests -q
+venv/bin/python -B scripts/audit_report_results.py
 ```
 
-Ensemble chỉ chạy khi `ensemble.enabled: true` hoặc `--ensemble true`.
-Lệnh `scripts/launch_crisismmd_ensemble.py` cũ vẫn dùng được để chạy lại
-phép thử CrisisMMD, nhưng job mới nên dùng launcher chung.
+Help, prepare-only và unittest không train hoặc nạp model/dataset thật. Lệnh audit cuối chỉ chạy khi đã lấy artifact đầy đủ trong `results/final/` từ máy lưu kết quả; summary GitHub không đủ để tính lại prediction. Audit xác minh checksum và tính lại accuracy/Macro-F1/BA từ prediction, kiểm tra mean/sample std. Top-5 chỉ kiểm tra phép tổng hợp. Xem [audit bàn giao](docs/results_audit_20261121.json), [audit lịch sử](docs/results_audit_20261116.json) và [danh mục run](results/README.md).
 
-Đối chứng quan hệ ảnh–text trên đúng năm dòng đầu Fakeddit, giữ cùng điểm nền:
+## Chuẩn bị và chạy Kaggle
+
+Launcher vẫn là `scripts/launch_runs.py`. Dùng `--prepare-only` để tạo bundle/notebook offline. Ví dụ job few-shot support hiện tại:
 
 ```sh
-venv/bin/python -B src/research/run_relation_ablation.py --offline --device cpu
+venv/bin/python -B scripts/launch_runs.py \
+  --launcher-config configs/kaggle_launcher_fewshot_min5.yaml \
+  --job fakeddit_fewshot_support_min5 --max-samples 5 --prepare-only
 ```
 
-Runner encode một lần/model, so baseline/heuristic cũ/class_aware và lưu plan,
-hash source, summary, điểm từng mẫu dưới `results/relation_ablation/fakeddit/6way/samples_N/<model>/`.
-Ngày 12-10-2026 đã thử MetaCLIP2/DFN5B/SigLIP2; chưa thấy cải thiện nhãn trên
-nhóm năm mẫu này. Xem [báo cáo](docs/quan_he_anh_text_20261012.md).
-Hai file `configs/research/adapted.yaml` và `upstream.yaml` có flag riêng
-`image_text_relation.enabled: false` ở cấp gốc; đổi true để bật trên tất cả
-model/phương pháp/task của runner được chọn. Upstream giữ `original_image`
-chỉ diagnostic; `multimodal` có thể class_aware theo taxonomy. Khi flag tắt,
-không tính nhánh quan hệ hoặc mã hóa thêm text/ảnh dành riêng cho nó.
+Khi chủ động gửi job, thay `--prepare-only` bằng `--use-kaggle true --wait`; bỏ `--max-samples 5` để chạy đủ cohort theo cấu hình. Giữ nguyên dataset ảnh đã có trên Kaggle. Launcher tải kết quả vào `results/final/kaggle/`, lưu staging/receipt tại `results/_system/launches/final/`. Nếu gián đoạn sau khi gửi, dùng `--resume-stage <stage>` để theo dõi đúng job cũ. Không gửi lại chỉ vì lỗi đọc trạng thái.
 
-Có hai runner riêng trong `src/research/`. Chạy `run_upstream.py` để dùng OpenAI
-CLIP cùng các hàm tạo prompt và chấm điểm lấy từ repo WaffleCLIP/DCLIP đã ghim
-commit; chạy `run_adapted_methods.py` để áp dụng các prompt ảnh lên model hiện có.
-Code chính không tự kích hoạt cả hai thí nghiệm.
+Trước khi gửi job từ tài khoản khác, tạo bản sao launcher với `kaggle.username` của mình và cấu hình quyền đọc các dataset trong `configs/project*.yaml`. Kaggle CLI cài riêng theo [hướng dẫn bàn giao](docs/GITHUB_HANDOFF.md). Benchmark dùng prompt tác giả cần chạy `venv/bin/python -B run.py sources` một lần để lấy đúng commit; lệnh này cần mạng, không nằm trong kiểm thử offline.
 
-Để chuẩn bị trước prompt và lưu cấu hình đã khóa, không mở dataset hoặc tải model:
+Benchmark dùng `configs/kaggle_launcher.yaml`; zero-shot min5 dùng `configs/kaggle_launcher_min5.yaml`; few-shot dùng `configs/kaggle_launcher_fewshot_min5.yaml`. Lệnh riêng nằm trong tài liệu từng thí nghiệm ở bảng trên. `run.py package` xuất bundle code và notebook vào `bundles/final/`, gồm cả preprocessing; không kèm dữ liệu/model/secret.
 
-```sh
-python3 src/research/run_upstream.py --prepare-only
-```
+CLI `run.py fakeddit`, `freeze`, `report` vẫn giữ để tái hiện pipeline v2 cũ theo [PROTOCOL.md](docs/PROTOCOL.md). Lock đó không phải protocol cho min5/few-shot. Dọn code làm đổi code hash; không dùng lock của code cũ để xác nhận test của bản mới.
 
-Để chạy đối chứng bằng backbone ViT-B/32 của OpenAI CLIP:
+Few-shot min5 có [protocol và runner test riêng](docs/MIN5_TASK1_PROTOCOL.md): `scripts/prepare_min5_protocol.py` tạo draft/niêm phong, `scripts/run_min5_test.py --prepare-only` chỉ kiểm kế hoạch. Thực thi yêu cầu protocol sealed và đường dẫn train/test tường minh; không dùng slug test v2 trong cấu hình chung. Hiện mới kiểm bằng dữ liệu tổng hợp, chưa niêm phong hoặc chạy test min5 thật, chưa tích hợp launcher Kaggle.
 
-```sh
-python3 src/research/run_upstream.py
-```
+## Backup và nguồn dữ liệu
 
-Runner dùng `configs/research/upstream.yaml`. Hiện chỉ bật CrisisMMD humanitarian
-và `max_samples: 5` để chạy thử; Fakeddit và MM-IMDb đang tắt. Sau khi xem
-`frozen_plan.json`, có thể bật một dataset, chọn task và giới hạn mẫu trong YAML.
-Chỉ nên tăng lên 1000 và `seeds: [0, 1, 2, 3, 4, 5, 6]` sau khi đã chạy thử nhỏ;
-riêng WaffleCLIP chạy lặp cho từng seed. Lượt thực tế có thể tải trọng số CLIP.
+Snapshot trước lần dọn này: `backups/before_report_cleanup_20261116/source_before.tar.gz`, có manifest SHA256. Archive lịch sử: `archive/report_cleanup_20261116/manifest.json`. Cách khôi phục ở [báo cáo dọn dự án](docs/REPORT_CLEANUP_20261116.md). Bản báo cáo đã chuyển vào `report/`; bản trước khi biên tập được lưu tại `backups/report_revision_20261116/`.
 
-Các phương pháp cấu hình sẵn:
-
-| Tên | Cách tạo prompt ảnh |
-|---|---|
-| `clip` | Baseline kiểu WaffleCLIP: `A photo of a {class}.` |
-| `waffle` | Hàm gốc WaffleCLIP, từ điển chính thức và cách sinh prompt theo seed |
-| `dclip_labels` | Baseline tên lớp theo template mặc định DCLIP |
-| `dclip` | Mô tả lớp cố định, ghép theo template mặc định DCLIP |
-
-Mỗi phương pháp có thể xuất `original_image` và `multimodal`. Kết quả ảnh gốc dùng
-argmax cosine như bài phân loại ảnh một nhãn trong paper. Kết quả đa phương thức
-dùng ảnh và text sample so với prompt text cố định của dự án rồi fusion theo YAML;
-nhánh text giống nhau giữa các phương pháp để đo tác động nhánh ảnh. MM-IMDb là
-phần mở rộng nhiều nhãn: các paper ảnh gốc không định nghĩa cách chấm 23 thể loại,
-nên quyết định `relative_z`/`fixed_threshold` lấy từ cấu hình dự án.
-
-Các file `configs/research/descriptors/*.json` đủ taxonomy cho Fakeddit 2/6 lớp,
-CrisisMMD hai task và MM-IMDb 23 thể loại. Chúng được viết cố định từ định nghĩa
-lớp, không phải descriptor GPT-3 gốc được tác giả dùng trong paper. Đặc biệt,
-ảnh đơn lẻ không luôn cho biết một bài Fakeddit thật hay giả.
-
-Ba checkout tác giả nằm trong `third_party/` và bị Git của dự án bỏ qua. Nguồn
-được ghim tại `configs/research/sources.json`; cài thêm thư viện cần thiết bằng:
-
-```sh
-pip install -r requirements/research.txt
-```
-
-Đọc [tài liệu nghiên cứu](docs/research.md) về nguồn code, chế độ đầu ra và giới hạn
-so sánh. Đọc [tài liệu bàn giao dự án](docs/ban_giao_du_an.md) để biết luồng hiện
-tại, trạng thái triển khai và các bước tiếp tục ở tài khoản/môi trường khác.
-
-Ngày 11-10-2026 đã chạy thử OpenAI CLIP thật cho cả năm tác vụ, mỗi tác vụ 5 mẫu;
-đã đối chiếu scoring humanitarian và sửa báo cáo metric theo seed. Xem
-[báo cáo tiếp tục nghiên cứu](docs/zeroshot_smoke_20261011.md) để đọc kết quả,
-các file log và phần còn thiếu. Chưa có đánh giá quy mô lớn hoặc kết luận tốt hơn
-hệ thống chính. Summary/manifest upstream mới ghi thiết bị thực thi thực tế.
-
-Đối chứng thích nghi trên model hiện có:
-
-```sh
-python3 src/research/run_adapted_methods.py --prepare-only
-python3 src/research/run_adapted_methods.py
-```
-
-Runner thích nghi lấy model từ YAML chính. Cấu hình hiện giữ limit 1000 như lựa
-chọn trước đó; hãy giảm limit trước khi chạy thử. Không nhầm hai runner hoặc model
-OpenAI CLIP với MetaCLIP2/SigLIP2/DFN.
-
-## Kiểm thử và dữ liệu
-
-```sh
-python3 -B -m unittest discover -s tests -b
-```
-
-Test dùng ảnh/dữ liệu giả trong thư mục tạm; không tải checkpoint hoặc chạy toàn
-dataset. Công cụ thống kê nhãn đã hủy được bỏ khỏi src/tests/docs; bản sao nằm
-trong backup/20261010_cleanup. Kết quả thống kê cũ vẫn được giữ.
-
-Các script preprocessing chỉ chạy khi chủ động gọi; một số đọc dữ liệu thô và
-toàn bộ processed. Khi rà soát tuân thủ AGENTS.md: không đọc dữ liệu thô, chỉ
-schema/tối đa 5 bản ghi đầu processed, không chạy pipeline tiền xử lý.
-Quy trình tạo CrisisMMD từ annotation thô chưa được triển khai trong script hiện có.
+Fakeddit giữ mapping nguồn chính thức: train → `multimodal_train.tsv`, dev → `multimodal_validate.tsv`, test → `multimodal_test_public.tsv`. Code giữ `source_file`, `source_row`, `source_split`, checksum và cohort ID. Lần rà soát này không truy cập dữ liệu thô, không dựng lại split, không chạy inference hoặc gửi job.

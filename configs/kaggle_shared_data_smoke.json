@@ -1,0 +1,16 @@
+{
+  "id": "nguyenhung3105/vlm-shared-data-smoke-v1",
+  "title": "VLM Shared Data Smoke V1",
+  "code_file": "smoke_shared_datasets.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": "true",
+  "enable_gpu": "false",
+  "enable_internet": "false",
+  "dataset_sources": [
+    "nguyenhung3105/vlm-cifar100-sources-v1",
+    "nguyenhung3105/vlm-shared-benchmarks-v1"
+  ],
+  "competition_sources": [],
+  "kernel_sources": []
+}

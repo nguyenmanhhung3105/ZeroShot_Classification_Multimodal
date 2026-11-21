@@ -1,0 +1,161 @@
+{
+  "scope": "Final OpenAI CLIP ViT-L/14 paper reference runs; distinct full datasets. Near-match counts are numeric comparisons, not proof of identical experimental splits or full reproduction.",
+  "completed_datasets": 8,
+  "total_datasets": 8,
+  "completed_samples": 160093,
+  "completed_trials": 88,
+  "prediction_rows": 1761023,
+  "waffle_protocol_matches": 16,
+  "waffle_protocol_comparisons": 24,
+  "all_method_numeric_matches": 20,
+  "all_method_numeric_comparisons": 40,
+  "results": {
+    "dtd": {
+      "status": "collected_and_audited",
+      "samples": 1880,
+      "classes": 47,
+      "trials": 11,
+      "accuracy_percent": {
+        "clip_photo": 52.97872340425533,
+        "dclip_photo": 56.22340425531915,
+        "waffle": 53.82218844984802,
+        "clip_labels_original": 49.8936170212766,
+        "dclip_original": 54.734042553191486
+      },
+      "comparisons_within_0_10pp": 0,
+      "waffle_protocol_matches_within_0_10pp": 0,
+      "run": "results/final/kaggle/paper_reference_dtd_vitl14_4de91a58e03b/run",
+      "run_sha256": "39957b548f01e7189ba9aed99577b20e575e326a37910a61736ab49ea3091e7d",
+      "audit": "results/final/kaggle/paper_reference_dtd_vitl14_4de91a58e03b/review/audit_reference.json"
+    },
+    "imagenetv2": {
+      "status": "collected_and_audited",
+      "samples": 10000,
+      "classes": 1000,
+      "trials": 11,
+      "accuracy_percent": {
+        "clip_photo": 67.91,
+        "dclip_photo": 69.73,
+        "waffle": 69.49714285714286,
+        "clip_labels_original": 65.39,
+        "dclip_original": 69.33
+      },
+      "comparisons_within_0_10pp": 5,
+      "waffle_protocol_matches_within_0_10pp": 3,
+      "run": "results/final/kaggle/paper_reference_imagenetv2_vitl14_0e9e6407ce90/run",
+      "run_sha256": "66603b0d1788dcbe33f7e2976a8b5cbea51f8ee2d76ea41b4e6bc2c4b4dc4532",
+      "audit": "results/final/kaggle/paper_reference_imagenetv2_vitl14_0e9e6407ce90/review/audit_reference.json"
+    },
+    "imagenet": {
+      "status": "collected_and_audited",
+      "samples": 50000,
+      "classes": 1000,
+      "trials": 11,
+      "accuracy_percent": {
+        "clip_photo": 73.382,
+        "dclip_photo": 75.244,
+        "waffle": 75.27799999999999,
+        "clip_labels_original": 70.966,
+        "dclip_original": 74.878
+      },
+      "comparisons_within_0_10pp": 3,
+      "waffle_protocol_matches_within_0_10pp": 3,
+      "run": "results/final/kaggle/paper_reference_imagenet_vitl14_ac110d7d823a/run",
+      "run_sha256": "9083b9ca062991e254bb6e6c4a1fc03c319e48fc522974ad57d6d5a682ae572f",
+      "audit": "results/final/kaggle/paper_reference_imagenet_vitl14_ac110d7d823a/review/audit_reference.json"
+    },
+    "cub": {
+      "status": "collected_and_audited",
+      "samples": 5794,
+      "classes": 200,
+      "trials": 11,
+      "accuracy_percent": {
+        "clip_photo": 62.25405591991715,
+        "dclip_photo": 63.56575768035899,
+        "waffle": 64.16243404507127,
+        "clip_labels_original": 63.03072143596824,
+        "dclip_original": 64.32516396272005
+      },
+      "comparisons_within_0_10pp": 4,
+      "waffle_protocol_matches_within_0_10pp": 3,
+      "run": "results/final/kaggle/paper_reference_cub_vitl14_69338b83481b/run",
+      "run_sha256": "04977c06dfea234284540390c6a34b568324c8534d72c14436fbc21f1a95fe84",
+      "audit": "results/final/kaggle/paper_reference_cub_vitl14_69338b83481b/review/audit_reference.json"
+    },
+    "food101": {
+      "status": "collected_and_audited",
+      "samples": 25250,
+      "classes": 101,
+      "trials": 11,
+      "accuracy_percent": {
+        "clip_photo": 92.53861386138614,
+        "dclip_photo": 92.83960396039605,
+        "waffle": 93.27524752475249,
+        "clip_labels_original": 92.0990099009901,
+        "dclip_original": 92.58217821782179
+      },
+      "comparisons_within_0_10pp": 3,
+      "waffle_protocol_matches_within_0_10pp": 3,
+      "run": "results/final/kaggle/paper_reference_food101_vitl14_6f9a5c56259b/run",
+      "run_sha256": "8e7532eff85b0e724514916b96023e7b1111f90f71859fc99ffa2730e7bc12a1",
+      "audit": "results/final/kaggle/paper_reference_food101_vitl14_6f9a5c56259b/review/audit_reference.json"
+    },
+    "pets": {
+      "status": "collected_and_audited",
+      "samples": 3669,
+      "classes": 37,
+      "trials": 11,
+      "accuracy_percent": {
+        "clip_photo": 93.18615426546742,
+        "dclip_photo": 93.89479422185882,
+        "waffle": 91.92072577191138,
+        "clip_labels_original": 88.0348868901608,
+        "dclip_original": 92.09593894794223
+      },
+      "comparisons_within_0_10pp": 2,
+      "waffle_protocol_matches_within_0_10pp": 2,
+      "run": "results/final/kaggle/paper_reference_pets_vitl14_a706e908983e/run",
+      "run_sha256": "7c932c67b473635df56abfd5ec90cecad52805b19c8b5a2bb12a6d5b1c4662fa",
+      "audit": "results/final/kaggle/paper_reference_pets_vitl14_a706e908983e/review/audit_reference.json"
+    },
+    "eurosat": {
+      "status": "collected_and_audited",
+      "samples": 27000,
+      "classes": 10,
+      "trials": 11,
+      "accuracy_percent": {
+        "clip_photo": 56.048148148148144,
+        "dclip_photo": 58.53333333333334,
+        "waffle": 61.48148148148148,
+        "clip_labels_original": 36.737037037037034,
+        "dclip_original": 47.34444444444444
+      },
+      "comparisons_within_0_10pp": 1,
+      "waffle_protocol_matches_within_0_10pp": 1,
+      "run": "results/final/kaggle/paper_reference_eurosat_vitl14_748bccf4b96c/run",
+      "run_sha256": "5a4bb6c4169130beabb8181bf14dc34cb0d842b6138b34f463da5288daf97638",
+      "audit": "results/final/kaggle/paper_reference_eurosat_vitl14_748bccf4b96c/review/audit_reference.json"
+    },
+    "places365": {
+      "status": "collected_and_audited",
+      "samples": 36500,
+      "classes": 365,
+      "trials": 11,
+      "accuracy_percent": {
+        "clip_photo": 40.06301369863014,
+        "dclip_photo": 42.57260273972603,
+        "waffle": 42.12211350293543,
+        "clip_labels_original": 39.06301369863014,
+        "dclip_original": 40.846575342465755
+      },
+      "comparisons_within_0_10pp": 2,
+      "waffle_protocol_matches_within_0_10pp": 1,
+      "run": "results/final/kaggle/paper_reference_places365_vitl14_1a913aff262c/run",
+      "run_sha256": "dfaea3249d0d021563d8190dbd652707a57d945341b70994399ced9775b34ffd",
+      "audit": "results/final/kaggle/paper_reference_places365_vitl14_1a913aff262c/review/audit_reference.json"
+    }
+  },
+  "remaining": [],
+  "other_final_results": "MetaCLIP2 full DTD and ImageNetV2 collected separately (2/8). No final Fakeddit completed run found under results/final.",
+  "new_gpu_jobs_submitted": false
+}

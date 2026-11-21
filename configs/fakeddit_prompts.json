@@ -1,0 +1,194 @@
+{
+  "model": "metaclip2_vith14",
+  "selected_methods": {
+    "2way": "majority_v1_text",
+    "6way": "majority_v1_legacy_mean_mm"
+  },
+  "grouping_seeds": [
+    0,
+    1,
+    2
+  ],
+  "development_source": {
+    "selection_sha256": "3df5beb0854fce862d80fd70b1011b155e2ba7c28c50d9262975e12a0e8b8ba6",
+    "file_sha256": "0b1a34842ae90b4fab4b5e62ab7a28d8925d92cf3efda6dce1e1448736842cd3",
+    "dev_cohort_id": "124b9844b7b88986a3eb",
+    "selection_metric": "macro_f1_then_accuracy"
+  },
+  "rules": {
+    "image_logit_scale": 100.0,
+    "text_logit_scale": 25.0,
+    "image_weight": 0.75
+  },
+  "names": {
+    "2way": {
+      "0": "fake",
+      "1": "real"
+    },
+    "6way": {
+      "0": "True",
+      "1": "Satire/Parody",
+      "2": "False Connection",
+      "3": "Imposter Content",
+      "4": "Manipulated Content",
+      "5": "Misleading Content"
+    }
+  },
+  "image_prompts": {
+    "2way": {
+      "legacy": {
+        "0": [
+          "a Reddit post containing false or misleading information",
+          "a Reddit title presenting fabricated or deceptive information",
+          "a social media post spreading false or misleading claims",
+          "a Reddit post that distorts or misrepresents a real event",
+          "a Reddit title designed to create a misleading impression",
+          "a satirical or parody Reddit post that should not be interpreted as factual",
+          "a Reddit post containing exaggerated, deceptive, or manipulated information",
+          "a Reddit post misrepresenting the original source or meaning of the content",
+          "a Reddit title that does not accurately describe the associated content",
+          "a social media caption creating a false connection with the associated image",
+          "a misleading caption that gives the image a false or incorrect meaning",
+          "a Reddit post presenting content in a false or deceptive context",
+          "a photo containing manipulated, altered, or fabricated visual content",
+          "a photo digitally edited to create a false or misleading impression",
+          "an image containing visually manipulated or deceptive content",
+          "a manipulated image presented as if it were authentic",
+          "a photo used in a false or misleading context",
+          "an image used to support a misleading social media post",
+          "a photo that does not accurately support the accompanying Reddit title",
+          "an image whose meaning is misrepresented by the accompanying caption",
+          "a meme, parody, or altered image presented as factual content",
+          "a fabricated or edited image intended to mislead the viewer",
+          "an image creating a false impression about an event, object, or person",
+          "a misleading social media image associated with false or deceptive information"
+        ],
+        "1": [
+          "a Reddit post containing accurate and truthful information",
+          "a Reddit title accurately describing a real event, object, or scene",
+          "a factual social media post reporting genuine information",
+          "a Reddit post presenting information without misleading manipulation",
+          "a truthful Reddit title that accurately represents the original content",
+          "a social media post describing a real event or situation accurately",
+          "a Reddit post presenting authentic and correctly contextualized information",
+          "a factual post whose title accurately reflects the meaning of the content",
+          "a Reddit title that correctly describes the associated image",
+          "a social media caption that accurately matches the associated image",
+          "a truthful caption providing the correct context for an image",
+          "an unusual or surprising but genuine and factual Reddit post",
+          "a real and authentic photo showing an actual event, object, or scene",
+          "a genuine photo accurately representing what really happened",
+          "an authentic image that has not been misleadingly manipulated",
+          "a real photo presented in its correct context",
+          "a photo that accurately supports the accompanying Reddit title",
+          "an image whose content correctly matches the accompanying caption",
+          "a genuine image used to support accurate social media information",
+          "an authentic photo without deceptive visual manipulation",
+          "a real image accurately documenting an event, object, or situation",
+          "a factual social media image presented with the correct meaning",
+          "an unusual or surprising but genuine photograph",
+          "an authentic image associated with truthful and correctly contextualized information"
+        ]
+      },
+      "semantic_v1": {
+        "0": [
+          "fake: a satirical illustration, parody, or fictional presentation.",
+          "fake: a digitally manipulated photograph or fabricated visual scene.",
+          "fake: a misleading presentation of a person, object, or event."
+        ],
+        "1": [
+          "real: a documentary photograph of a person, object, or event.",
+          "real: a natural photograph of an ordinary or unusual real scene.",
+          "real: an authentic visual record of a real-life situation."
+        ]
+      }
+    },
+    "6way": {
+      "legacy": {
+        "0": [
+          "a factual Reddit post accurately describing a real person, object, or event",
+          "an authentic photograph of a real scene with an accurate description",
+          "a truthful social media caption presenting an event in its original context",
+          "a genuine photograph documenting an ordinary or unusual real-life situation"
+        ],
+        "1": [
+          "a satirical Reddit post using fictional events to mock real news or social issues",
+          "a parody headline exaggerating a situation for humor rather than factual reporting",
+          "a satirical illustration or parody image making fun of a public figure or event",
+          "a humorous imitation of a news story intended as satire"
+        ],
+        "2": [
+          "a Reddit caption claiming something that the attached photograph does not show",
+          "a social media title describing a different person, object, or event from the image",
+          "a photograph paired with an unrelated headline or an invented personal story",
+          "a real image given a caption that assigns it a different meaning"
+        ],
+        "3": [
+          "a social media post pretending to be an official statement from a trusted organization",
+          "a fabricated quotation or announcement falsely attributed to a real person",
+          "an image imitating a news outlet, official account, or organization to appear authentic",
+          "a forged screenshot presenting an impersonated source as a genuine author"
+        ],
+        "4": [
+          "a digitally edited photograph with objects or people added, removed, or altered",
+          "a photo montage combining parts of different images into an artificial scene",
+          "a Reddit post presenting a photoshopped scene or a visually altered object",
+          "a manipulated image changing the appearance of a person, animal, or place"
+        ],
+        "5": [
+          "a Reddit post using selective facts or distorted claims to support a misleading conclusion",
+          "a social media caption presenting real information in a deceptive context",
+          "an image or graphic framing a real topic through selective or misleading information",
+          "a misleading explanation that exaggerates or misrepresents the meaning of an event"
+        ]
+      }
+    }
+  },
+  "text_prompts": {
+    "2way": {
+      "0": [
+        "a satirical, figurative, fabricated, or misleading social media caption",
+        "a title giving an image a nonliteral or deceptive interpretation",
+        "a post misrepresenting an event, source, or visual scene"
+      ],
+      "1": [
+        "a factual description of a real person, animal, object, or place",
+        "a literal caption about an ordinary or unusual real situation",
+        "a post reporting a real event or describing an authentic scene"
+      ]
+    },
+    "6way": {
+      "0": [
+        "a factual description of a real person, animal, object, or place",
+        "a literal caption about an ordinary or unusual real situation",
+        "a post reporting a real event or describing an authentic scene"
+      ],
+      "1": [
+        "a satirical headline mocking a person or event",
+        "a fictional news story written as a joke or parody",
+        "an exaggerated humorous claim intended as satire"
+      ],
+      "2": [
+        "a figurative caption describing an object as a face or a person",
+        "a playful title personifying an everyday object or comparing its shape to something else",
+        "a caption making a nonliteral or unrelated connection to the pictured content"
+      ],
+      "3": [
+        "a fabricated statement attributed to an impersonated source",
+        "a counterfeit announcement claiming an organization's identity",
+        "a post imitating someone else's account or official message"
+      ],
+      "4": [
+        "a caption describing a photoshopped or digitally altered scene",
+        "a post about an image with people or objects added, removed, or changed",
+        "a description of a montage combining separate photographs"
+      ],
+      "5": [
+        "a claim distorting real information through selective context",
+        "a misleading interpretation exaggerating the meaning of an event",
+        "a title presenting selected facts to suggest a deceptive conclusion"
+      ]
+    }
+  },
+  "scope": "Công thức đã chọn ở dev cũ; mã rút gọn phải chạy lại dev và khóa trước test. Không tuyên bố CALIP/Waffle lọc cải thiện."
+}

@@ -1,0 +1,18 @@
+version: 1
+samples: 256
+selection_seed: 0
+grouping_seed: 0
+adaptation_batch_size: 75
+image_batch_size: 8
+cpu_threads: 1
+timeout_seconds: 3600
+clip_logit_scale: 100.0
+temperatures:
+  clip: 1.0
+  stata: 1.0
+  calip: 1.0
+fusion_weights:
+  clip: 0.3333333333333333
+  stata: 0.3333333333333333
+  calip: 0.3333333333333333
+calibration: unfitted_diagnostic_defaults

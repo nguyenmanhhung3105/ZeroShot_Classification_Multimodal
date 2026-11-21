@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "variant": "candidate_rerank",
+  "model": "metaclip2_vith14",
+  "dataset_id": "nguyenhung3105/vlm-cifar100-sources-v1",
+  "seed": 0,
+  "dev_samples": 10000,
+  "batch_size": 8,
+  "logit_scale": 100.0,
+  "prompt_template": "a photo of {label}.",
+  "description_template": "a photo of {label}, {description}.",
+  "descriptor_file": "configs/descriptors/cifar100_visual_v1.json",
+  "top_groups": 2,
+  "methods": ["flat_names", "flat_descriptions", "top2_names", "top2_descriptions"]
+}

@@ -1,0 +1,5 @@
+task	method	samples	seeds	std_ddof	accuracy_mean	accuracy_std	macro_f1_mean	macro_f1_std	balanced_accuracy_mean	balanced_accuracy_std	top5_mean	top5_std
+cifar100	flat_names	10000	1	1	0.8675	0.0	0.8644007464703232	0.0	0.8687708386972003	0.0	0.9704	0.0
+cifar100	flat_descriptions	10000	1	1	0.8838	0.0	0.8837134965467793	0.0	0.8839594902516186	0.0	0.9781	0.0
+cifar100	top2_names	10000	1	1	0.8676	0.0	0.864486591227442	0.0	0.8688311212349822	0.0	0.967	0.0
+cifar100	top2_descriptions	10000	1	1	0.881	0.0	0.8809181855807499	0.0	0.8815598462800709	0.0	0.9683	0.0

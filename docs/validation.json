@@ -1,0 +1,439 @@
+{
+  "status": "verified",
+  "data_scope": "Synthetic unit validation and audits of saved GPU outputs; no dataset image access, weight loading or inference in the current review.",
+  "numeric_functions_exact_ast_parity": 12,
+  "legacy_fixture": {
+    "samples": 77,
+    "grouping_seeds": [
+      0,
+      1,
+      2
+    ],
+    "tasks": [
+      "2way",
+      "6way"
+    ],
+    "selected_predictions_match": true
+  },
+  "backup_sha256": "4ba68e8e3ee857b65ac387179a034f3733aec42f9fb87cecbbb97d502d8359ba",
+  "unit_tests": {
+    "passed": 74,
+    "scope": "synthetic only, no weights or dataset inference",
+    "command": "venv/bin/python -B -m unittest discover -s tests -v",
+    "kaggle_bootstrap": "ZIP and auto-extracted Inputs simulated successfully, pip/network calls mocked"
+  },
+  "author_prompt_validation": {
+    "status": "passed",
+    "classes_only_no_images": true,
+    "waffle_seeds": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "waffle_pairs": 15,
+    "datasets": {
+      "imagenet": 1000,
+      "imagenetv2": "same descriptors as imagenet",
+      "pets": 37,
+      "dtd": 47,
+      "eurosat": 10,
+      "cub": 200,
+      "food101": 101,
+      "places365": 365,
+      "fakeddit_2way": 2,
+      "fakeddit_6way": 6
+    },
+    "scope": "actual pinned author generators and OpenAI compatibility tokenization; actual MetaCLIP2 XLM-V checked at inference"
+  },
+  "archive": {
+    "path": "archive/legacy_20261103",
+    "verified_files": 503,
+    "manifest": "archive/legacy_20261103/archive_manifest.json"
+  },
+  "launcher_cli_validation": {
+    "entrypoint": "scripts/launch_runs.py",
+    "style": "--launcher-config --job --max-samples --use-kaggle true",
+    "prepare_only": "passed, no remote calls or dataset reads",
+    "mocked_remote_tests": [
+      "create code-only private dataset",
+      "reuse existing code",
+      "refuse duplicate running kernel",
+      "wait/download/checksum metrics"
+    ],
+    "real_kaggle_submission": false
+  },
+  "launcher_permission_fix": {
+    "status": "verified",
+    "regression": "new kernel kernels.get denied resolved with successful owned-resource listing",
+    "preserves_existing_kernel_guard": true,
+    "new_code_dataset_403_guard": true,
+    "real_read_only_check": {
+      "kernel": "nguyenhung3105/vlm-final-dtd-metaclip2",
+      "owned_listing": "success",
+      "kernel_exists": false,
+      "job_submitted": false
+    },
+    "backup": "backups/kaggle_launcher_before_permission_fix_2085fc22"
+  },
+  "paper_reference": {
+    "status": "8/8 OpenAI ViT-L/14 benchmark datasets collected and audited; some paper comparisons remain outside the predeclared tolerance",
+    "model": "OpenAI CLIP ViT-L/14",
+    "dataset": "DTD test partition 1, 1880 images",
+    "trial_count": 11,
+    "waffle_seeds": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "waffle_pairs": 15,
+    "main_model_config": "unchanged",
+    "tests": "synthetic pipeline, prompts, separate kernel, returned kernel version",
+    "backup": "backups/before_paper_reference_1e4064e9",
+    "last_attempt": {
+      "code_upload": "completed",
+      "code_dataset": "nguyenhung3105/vlm-final-code-2af538d2e2bf",
+      "kernel_push": "not reached; status endpoint returned 403",
+      "gpu_job_submitted": false,
+      "local_process": "exited"
+    },
+    "dataset_readiness_fix": "status 403 checks archive/extracted file manifest; incomplete files are retried, no GPU push until verified",
+    "dtd_result_review": "results/final/kaggle/paper_reference_dtd_vitl14_4de91a58e03b/review/result_review.md",
+    "imagenetv2_result_review": "results/final/kaggle/paper_reference_imagenetv2_vitl14_0e9e6407ce90/review/result_review.md",
+    "imagenetv2_audit": {
+      "samples": 10000,
+      "classes": 1000,
+      "trials": 11,
+      "prediction_rows": 110000,
+      "all_artifact_sha256_match": true,
+      "accuracy_comparisons_within_predeclared_0_10pp": 5,
+      "metrics_recomputed": [
+        "accuracy",
+        "macro_f1",
+        "balanced_accuracy",
+        "top5",
+        "per_class",
+        "summary_mean_std"
+      ]
+    },
+    "imagenet_result_review": "results/final/kaggle/paper_reference_imagenet_vitl14_ac110d7d823a/review/result_review.md",
+    "imagenet_audit": {
+      "samples": 50000,
+      "classes": 1000,
+      "images_per_class": 50,
+      "trials": 11,
+      "prediction_rows": 550000,
+      "all_artifact_sha256_match": true,
+      "metrics_recomputed": [
+        "accuracy",
+        "macro_f1",
+        "balanced_accuracy",
+        "top5",
+        "per_class",
+        "summary_mean_std"
+      ],
+      "reference_values_match_saved_registry": true,
+      "waffle_protocol_comparisons_within_0_10pp": 3,
+      "original_dclip_controls_within_0_10pp": 0,
+      "original_control_delta_pp": {
+        "clip_labels_original": -0.614,
+        "dclip_original": -0.122
+      }
+    },
+    "cub_result_review": "results/final/kaggle/paper_reference_cub_vitl14_69338b83481b/review/result_review.md",
+    "cub_audit": {
+      "samples": 5794,
+      "classes": 200,
+      "images_per_class": {
+        "min": 11,
+        "max": 30
+      },
+      "trials": 11,
+      "prediction_rows": 63734,
+      "all_artifact_sha256_match": true,
+      "max_recomputed_error": 0.0,
+      "metrics_recomputed": [
+        "accuracy",
+        "macro_f1",
+        "balanced_accuracy",
+        "top5",
+        "per_class",
+        "summary_mean_std"
+      ],
+      "reference_values_match_saved_registry": true,
+      "comparisons_within_0_10pp": 4,
+      "original_dclip_delta_pp": 0.8651639627200538,
+      "gpu_inference_rerun": false
+    },
+    "food101_result_review": "results/final/kaggle/paper_reference_food101_vitl14_6f9a5c56259b/review/result_review.md",
+    "food101_audit": {
+      "samples": 25250,
+      "classes": 101,
+      "images_per_class": 250,
+      "trials": 11,
+      "prediction_rows": 277750,
+      "all_artifact_sha256_match": true,
+      "max_recomputed_error": 0.0,
+      "metrics_recomputed": [
+        "accuracy",
+        "macro_f1",
+        "balanced_accuracy",
+        "top5",
+        "per_class",
+        "summary_mean_std"
+      ],
+      "reference_values_match_saved_registry": true,
+      "comparisons_within_0_10pp": 3,
+      "original_control_delta_pp": {
+        "clip_labels_original": 0.30900990099009107,
+        "dclip_original": 0.14217821782179385
+      }
+    },
+    "next_datasets": [],
+    "remaining_jobs_validation": {
+      "backup": "backups/before_remaining_benchmarks_6d79c340",
+      "actual_author_prompts_and_tokenizer": "passed for all three datasets; no images or weights loaded",
+      "pets_alignment": "exact names, author RNG and prompt strings preserved; native labels unchanged; synthetic end-to-end mapping test passed",
+      "batch_execution": "sequential with --wait; stop loop on failure; resume existing stage",
+      "new_gpu_jobs_submitted": false,
+      "status": "all three collected; metrics, mapping and frozen prompts verified"
+    },
+    "completed_remaining_jobs": [
+      {
+        "dataset": "pets",
+        "status": "collected_and_audited",
+        "samples": 3669,
+        "classes": 37,
+        "trials": 11,
+        "prediction_rows": 40359,
+        "all_artifact_sha256_match": true,
+        "max_recomputed_error": 0.0,
+        "prompt_banks_match_frozen_gpu_plan": true,
+        "waffle_protocol_matches_within_0_10pp": 2,
+        "all_method_comparisons_within_0_10pp": 2,
+        "review": "results/final/kaggle/paper_reference_pets_vitl14_a706e908983e/review/result_review.md"
+      },
+      {
+        "dataset": "eurosat",
+        "status": "collected_and_audited",
+        "samples": 27000,
+        "classes": 10,
+        "trials": 11,
+        "prediction_rows": 297000,
+        "all_artifact_sha256_match": true,
+        "max_recomputed_error": 0.0,
+        "prompt_banks_match_frozen_gpu_plan": true,
+        "waffle_protocol_matches_within_0_10pp": 1,
+        "all_method_comparisons_within_0_10pp": 1,
+        "review": "results/final/kaggle/paper_reference_eurosat_vitl14_748bccf4b96c/review/result_review.md"
+      },
+      {
+        "dataset": "places365",
+        "status": "collected_and_audited",
+        "samples": 36500,
+        "classes": 365,
+        "trials": 11,
+        "prediction_rows": 401500,
+        "all_artifact_sha256_match": true,
+        "max_recomputed_error": 7.105427357601002e-15,
+        "prompt_banks_match_frozen_gpu_plan": true,
+        "waffle_protocol_matches_within_0_10pp": 1,
+        "all_method_comparisons_within_0_10pp": 2,
+        "review": "results/final/kaggle/paper_reference_places365_vitl14_1a913aff262c/review/result_review.md"
+      }
+    ]
+  },
+  "kaggle_wait_recovery": {
+    "status": "collected by user; local ImageNetV2 outputs verified",
+    "preserves_submitted_version": true,
+    "retry_window_seconds": 300,
+    "gpu_submission_performed": false,
+    "receipt": "results/_system/launches/final/paper_reference_imagenetv2_vitl14_0e9e6407ce90",
+    "observed_read_error": "kernels.get denied; owned-list probe returned Authentication required",
+    "backup": "backups/before_kaggle_wait_retry_c30d2309"
+  },
+  "paper_results_cache": {
+    "status": "verified",
+    "registry": "configs/paper_results/references.json",
+    "readable_table": "docs/PAPER_RESULTS.md",
+    "backbone": "OpenAI CLIP ViT-L/14, 224px",
+    "datasets": 8,
+    "waffle_dclip_paper_values": 40,
+    "waffle_csv_full_precision_values": 24,
+    "original_clip_table11_values": 5,
+    "original_clip_not_in_table11": 3,
+    "author_csv_snapshots": 3,
+    "offline_reference_loading": true,
+    "checks": [
+      "all 24 saved author targets and std exactly match pinned CSV",
+      "all snapshots SHA256 match",
+      "CUB CLIP paper/CSV difference preserved",
+      "original CLIP missing cells stay null, Pets metric documented",
+      "existing DTD/ImageNetV2 reference values unchanged",
+      "package includes registry and CSV; offline loader runs without third_party",
+      "modified CSV checksum rejected"
+    ],
+    "backup": "backups/before_paper_results_cache_fa60a3d7",
+    "new_gpu_submission": false
+  },
+  "benchmark_progress": {
+    "completed": 8,
+    "total": 8,
+    "samples": 160093,
+    "trials": 88,
+    "prediction_rows": 1761023,
+    "report": "docs/BENCHMARK_PROGRESS.md",
+    "json": "docs/benchmark_progress.json",
+    "comparison_tsv": "docs/benchmark_comparison.tsv",
+    "all_collected_run_checksums_reverified": true,
+    "all_targets_match_saved_registry": true,
+    "waffle_protocol_near_matches": 16,
+    "waffle_protocol_comparisons": 24,
+    "all_method_numeric_near_matches": 20,
+    "all_method_numeric_comparisons": 40,
+    "tolerance_pp_predeclared": 0.1,
+    "agent_submitted_new_gpu_jobs": false,
+    "backup": "backups/before_benchmark_final_review_35d91203"
+  },
+  "launcher_limits_display": {
+    "status": "verified",
+    "before_submit": [
+      "RUN LIMITS: job/model/dataset/mode/sample limit/accelerator/timeout",
+      "live kaggle quota output before any dataset upload or GPU push"
+    ],
+    "prepare_only": "local limits printed; no quota/API request",
+    "resume": "prints submitted job configuration; keeps existing wait/download behavior",
+    "regressions_checked": [
+      "quota output visible before dataset calls and push",
+      "quota API failure stops before upload/push",
+      "single-word quota command retains the real CLI error",
+      "prepare-only makes no API calls",
+      "reference smoke displays reference model and 5-sample limit"
+    ],
+    "backup": "backups/before_launcher_limits_b1e3308d",
+    "actual_new_gpu_job_submitted": false,
+    "live_quota_request_in_validation": false
+  },
+  "metaclip_text_encoding_optimization": {
+    "status": "GPU ImageNetV2 version 2 collected and audited; optimized smoke/model reuse confirmed",
+    "backup": "backups/before_metaclip_text_speed_86f912fe",
+    "observed_old_run": "ImageNetV2 MetaCLIP2 v1 screenshot: 5-image smoke encoding 1000-class Waffle banks; around 1360 seconds per seed; full would repeat the encoding",
+    "benchmark_smoke": "CLIP only, 5 images, all classes",
+    "full_metric_trials": 16,
+    "waffle_seeds": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "text_batch_size": 64,
+    "cuda_oom_fallback": [
+      32,
+      16
+    ],
+    "precision": "unchanged FP32; no autocast",
+    "cache": "in-memory exact ordered bank; notebook shares same model from smoke to full",
+    "tests": [
+      "uneven class prompt counts: old vs new ordered normalized means and predictions",
+      "cache hits preserve values, class order and prompt changes",
+      "CUDA OOM retries same texts with no omission",
+      "smoke CLIP-only, full all 7 seeds",
+      "notebook constructs one model, reuses CLIP cache, unloads after full",
+      "smoke error releases shared model"
+    ],
+    "live_gpu_speed_measured": true,
+    "new_gpu_job_submitted": false,
+    "existing_job_changed_or_canceled": false,
+    "real_gpu_validation": {
+      "kernel_reference": "nguyenhung3105/vlm-final-imagenetv2-metaclip2/2",
+      "samples": 10000,
+      "classes": 1000,
+      "trials": 16,
+      "prediction_rows": 160000,
+      "max_recomputed_metric_error": 0.0,
+      "smoke_seconds_after_model_load": 20.894980239000006,
+      "log_seconds_to_final_results": 6438.11730188,
+      "text_batch_size_effective": 64,
+      "dtype": "torch.float32",
+      "model_initializations": 1,
+      "clip_cache_reuse": true,
+      "top5_limitation": "Cannot independently recompute top5 classifications: no scores/top5 indices saved.",
+      "audit": "results/final/kaggle/benchmark_imagenetv2_83c64730123e/review/audit.json"
+    }
+  },
+  "fusion_diagnostic": {
+    "status": "GPU diagnostic collected and audited; default equal-weight fusion did not improve on CLIP in this subset",
+    "backup": "backups/before_fusion_diagnostic_689a889d",
+    "job": "diagnostic_imagenetv2_fusion",
+    "model": "metaclip2_vith14",
+    "samples": 256,
+    "classes": 1000,
+    "selection_seed": 0,
+    "grouping_seed": 0,
+    "image_batch_size": 8,
+    "stata_batch_size": 75,
+    "timeout_seconds": 3600,
+    "calibration": "unfitted_diagnostic_defaults",
+    "method_count": 6,
+    "new_tests_passed": 9,
+    "checks": [
+      "CALIP logits match independent formula and patch/class permutation tests",
+      "random tiny OpenCLIP ViT global parity and patch LayerNorm/projection in both pooling modes",
+      "one image forward except first-batch parity check; output_tokens restored on failure",
+      "random sample indices selected independently of labels; unselected images never opened",
+      "probability/weight validation, StatA grouping order and CPU thread restoration",
+      "end-to-end synthetic images through tiny random encoder and real StatA, artifact hashes and score replay",
+      "changing evaluation labels leaves all six posterior matrices unchanged",
+      "private diagnostic kernel uses existing benchmark Input and exactly one run call",
+      "existing benchmark, reference and Fakeddit regression suite remains passing"
+    ],
+    "prepare_only_stage": "results/_system/launches/final/diagnostic_imagenetv2_fusion_305f95363672",
+    "real_data_read": false,
+    "pretrained_weights_loaded": false,
+    "new_gpu_job_submitted": false,
+    "limitations": "256-image diagnostic, one grouping seed and unfitted calibration; no full benchmark or independent proof of improvement. StatA update iterations were not rerun in the result audit.",
+    "real_gpu_validation": {
+      "kernel_reference": "nguyenhung3105/vlm-final-imagenetv2-fusion-diagnostic/1",
+      "audit": "results/final/kaggle/diagnostic_imagenetv2_fusion_d0872294ac03/review/audit.json",
+      "review": "results/final/kaggle/diagnostic_imagenetv2_fusion_d0872294ac03/review/result_review.md",
+      "class_coverage": 233,
+      "prediction_rows": 1536,
+      "top5_rows": 7680,
+      "artifact_checksums_valid": true,
+      "source_hashes_match_submitted_bundle": true,
+      "max_recomputed_metric_error": 0.0,
+      "global_encoder_parity_max_abs_error": 0.0,
+      "calip_logits_replay_max_abs_error": 0.000033156810481216326,
+      "clip_correct": 188,
+      "stata_correct": 183,
+      "calip_correct": 187,
+      "fusion_three_correct": 183,
+      "fusion_three_disagreements_with_stata": 0,
+      "clip_wrong_to_correct": 4,
+      "clip_correct_to_wrong": 9,
+      "model_load_seconds": 97.96438287600006,
+      "encode_and_infer_seconds": 123.90593142099999,
+      "log_seconds_to_metrics_zip": 384.903435019,
+      "review_opened_dataset_images": false,
+      "review_loaded_weights": false,
+      "review_submitted_gpu_jobs": false
+    }
+  },
+  "metaclip2_progress": {
+    "completed": 2,
+    "total": 8,
+    "report": "docs/metaclip2_progress.json",
+    "review_backup": "backups/before_metaclip_imagenetv2_review_ddd81bdd",
+    "new_gpu_job_submitted": false
+  }
+}

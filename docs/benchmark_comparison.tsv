@@ -1,0 +1,41 @@
+dataset	model	samples	method	observed_accuracy_percent	paper_accuracy_percent	author_csv_accuracy_percent	target_accuracy_percent	delta_pp	approx_match_within_0_10pp	tolerance_pp	run
+dtd	openai_clip_vitl14	1880	clip_photo	52.97872340425533	52.87	52.8723418712616	52.8723418712616	0.10638153299372988	False	0.1	results/final/kaggle/paper_reference_dtd_vitl14_4de91a58e03b/run
+dtd	openai_clip_vitl14	1880	dclip_photo	56.22340425531915	56.6	56.59574270248413	56.59574270248413	-0.372338447164978	False	0.1	results/final/kaggle/paper_reference_dtd_vitl14_4de91a58e03b/run
+dtd	openai_clip_vitl14	1880	waffle	53.82218844984802	53.94	53.94376942089626	53.94376942089626	-0.12158097104823895	False	0.1	results/final/kaggle/paper_reference_dtd_vitl14_4de91a58e03b/run
+dtd	openai_clip_vitl14	1880	clip_labels_original	49.8936170212766	51.33		51.33	-1.436382978723401	False	0.1	results/final/kaggle/paper_reference_dtd_vitl14_4de91a58e03b/run
+dtd	openai_clip_vitl14	1880	dclip_original	54.734042553191486	54.36		54.36	0.3740425531914866	False	0.1	results/final/kaggle/paper_reference_dtd_vitl14_4de91a58e03b/run
+imagenetv2	openai_clip_vitl14	10000	clip_photo	67.91	67.9	67.90000200271606	67.90000200271606	0.009997997283932136	True	0.1	results/final/kaggle/paper_reference_imagenetv2_vitl14_0e9e6407ce90/run
+imagenetv2	openai_clip_vitl14	10000	dclip_photo	69.73	69.72	69.72000002861023	69.72000002861023	0.009999971389774487	True	0.1	results/final/kaggle/paper_reference_imagenetv2_vitl14_0e9e6407ce90/run
+imagenetv2	openai_clip_vitl14	10000	waffle	69.49714285714285	69.48	69.48428494589669	69.48428494589669	0.012857911246157983	True	0.1	results/final/kaggle/paper_reference_imagenetv2_vitl14_0e9e6407ce90/run
+imagenetv2	openai_clip_vitl14	10000	clip_labels_original	65.39	65.33		65.33	0.060000000000002274	True	0.1	results/final/kaggle/paper_reference_imagenetv2_vitl14_0e9e6407ce90/run
+imagenetv2	openai_clip_vitl14	10000	dclip_original	69.33	69.3		69.3	0.030000000000001137	True	0.1	results/final/kaggle/paper_reference_imagenetv2_vitl14_0e9e6407ce90/run
+imagenet	openai_clip_vitl14	50000	clip_photo	73.382	73.37	73.3739972114563	73.3739972114563	0.008002788543706174	True	0.1	results/final/kaggle/paper_reference_imagenet_vitl14_ac110d7d823a/run
+imagenet	openai_clip_vitl14	50000	dclip_photo	75.244	75.26	75.2560019493103	75.2560019493103	-0.012001949310302962	True	0.1	results/final/kaggle/paper_reference_imagenet_vitl14_ac110d7d823a/run
+imagenet	openai_clip_vitl14	50000	waffle	75.278	75.3	75.30342766216823	75.30342766216823	-0.02542766216822656	True	0.1	results/final/kaggle/paper_reference_imagenet_vitl14_ac110d7d823a/run
+imagenet	openai_clip_vitl14	50000	clip_labels_original	70.966	71.58		71.58	-0.6140000000000043	False	0.1	results/final/kaggle/paper_reference_imagenet_vitl14_ac110d7d823a/run
+imagenet	openai_clip_vitl14	50000	dclip_original	74.878	75.0		75.0	-0.12199999999999989	False	0.1	results/final/kaggle/paper_reference_imagenet_vitl14_ac110d7d823a/run
+cub	openai_clip_vitl14	5794	clip_photo	62.25405591991715	62.24	62.27131485939026	62.27131485939026	-0.01725893947310908	True	0.1	results/final/kaggle/paper_reference_cub_vitl14_69338b83481b/run
+cub	openai_clip_vitl14	5794	dclip_photo	63.56575768035899	63.53	63.531237840652466	63.531237840652466	0.034519839706526056	True	0.1	results/final/kaggle/paper_reference_cub_vitl14_69338b83481b/run
+cub	openai_clip_vitl14	5794	waffle	64.16243404507127	64.18	64.1821597303663	64.1821597303663	-0.01972568529502894	True	0.1	results/final/kaggle/paper_reference_cub_vitl14_69338b83481b/run
+cub	openai_clip_vitl14	5794	clip_labels_original	63.03072143596824	63.08		63.08	-0.04927856403175923	True	0.1	results/final/kaggle/paper_reference_cub_vitl14_69338b83481b/run
+cub	openai_clip_vitl14	5794	dclip_original	64.32516396272005	63.46		63.46	0.8651639627200538	False	0.1	results/final/kaggle/paper_reference_cub_vitl14_69338b83481b/run
+food101	openai_clip_vitl14	25250	clip_photo	92.53861386138614	92.55	92.55049228668213	92.55049228668213	-0.011878425295989814	True	0.1	results/final/kaggle/paper_reference_food101_vitl14_6f9a5c56259b/run
+food101	openai_clip_vitl14	25250	dclip_photo	92.83960396039605	92.81	92.80791878700256	92.80791878700256	0.03168517339348398	True	0.1	results/final/kaggle/paper_reference_food101_vitl14_6f9a5c56259b/run
+food101	openai_clip_vitl14	25250	waffle	93.27524752475249	93.31	93.31315415246146	93.31315415246146	-0.03790662770897768	True	0.1	results/final/kaggle/paper_reference_food101_vitl14_6f9a5c56259b/run
+food101	openai_clip_vitl14	25250	clip_labels_original	92.0990099009901	91.79		91.79	0.30900990099009107	False	0.1	results/final/kaggle/paper_reference_food101_vitl14_6f9a5c56259b/run
+food101	openai_clip_vitl14	25250	dclip_original	92.58217821782179	92.44		92.44	0.14217821782179385	False	0.1	results/final/kaggle/paper_reference_food101_vitl14_6f9a5c56259b/run
+pets	openai_clip_vitl14	3669	clip_photo	93.18615426546742	93.3	93.29517483711243	93.29517483711243	-0.10902057164500434	False	0.1	results/final/kaggle/paper_reference_pets_vitl14_a706e908983e/run
+pets	openai_clip_vitl14	3669	dclip_photo	93.89479422185882	93.89	93.89479160308838	93.89479160308838	2.618770437834428e-06	True	0.1	results/final/kaggle/paper_reference_pets_vitl14_a706e908983e/run
+pets	openai_clip_vitl14	3669	waffle	91.92072577191138	91.98	91.98302371161324	91.98302371161324	-0.062297939701863925	True	0.1	results/final/kaggle/paper_reference_pets_vitl14_a706e908983e/run
+pets	openai_clip_vitl14	3669	clip_labels_original	88.0348868901608	88.25		88.25	-0.2151131098391943	False	0.1	results/final/kaggle/paper_reference_pets_vitl14_a706e908983e/run
+pets	openai_clip_vitl14	3669	dclip_original	92.09593894794223	92.23		92.23	-0.13406105205777408	False	0.1	results/final/kaggle/paper_reference_pets_vitl14_a706e908983e/run
+eurosat	openai_clip_vitl14	27000	clip_photo	56.048148148148144	56.03	56.029629707336426	56.029629707336426	0.01851844081171805	True	0.1	results/final/kaggle/paper_reference_eurosat_vitl14_748bccf4b96c/run
+eurosat	openai_clip_vitl14	27000	dclip_photo	58.53333333333334	58.72	58.718520402908325	58.718520402908325	-0.18518706957498665	False	0.1	results/final/kaggle/paper_reference_eurosat_vitl14_748bccf4b96c/run
+eurosat	openai_clip_vitl14	27000	waffle	61.48148148148148	61.17	61.16772379193987	61.16772379193987	0.3137576895416103	False	0.1	results/final/kaggle/paper_reference_eurosat_vitl14_748bccf4b96c/run
+eurosat	openai_clip_vitl14	27000	clip_labels_original	36.737037037037034	41.48		41.48	-4.742962962962963	False	0.1	results/final/kaggle/paper_reference_eurosat_vitl14_748bccf4b96c/run
+eurosat	openai_clip_vitl14	27000	dclip_original	47.34444444444444	48.66		48.66	-1.3155555555555551	False	0.1	results/final/kaggle/paper_reference_eurosat_vitl14_748bccf4b96c/run
+places365	openai_clip_vitl14	36500	clip_photo	40.06301369863014	40.46	40.46301245689392	40.46301245689392	-0.3999987582637843	False	0.1	results/final/kaggle/paper_reference_places365_vitl14_1a913aff262c/run
+places365	openai_clip_vitl14	36500	dclip_photo	42.57260273972603	42.6	42.59726107120514	42.59726107120514	-0.024658331479109563	True	0.1	results/final/kaggle/paper_reference_places365_vitl14_1a913aff262c/run
+places365	openai_clip_vitl14	36500	waffle	42.12211350293542	42.26	42.262230600629536	42.262230600629536	-0.14011709769411596	False	0.1	results/final/kaggle/paper_reference_places365_vitl14_1a913aff262c/run
+places365	openai_clip_vitl14	36500	clip_labels_original	39.06301369863014	39.0		39.0	0.06301369863013662	True	0.1	results/final/kaggle/paper_reference_places365_vitl14_1a913aff262c/run
+places365	openai_clip_vitl14	36500	dclip_original	40.846575342465755	40.55		40.55	0.2965753424657578	False	0.1	results/final/kaggle/paper_reference_places365_vitl14_1a913aff262c/run

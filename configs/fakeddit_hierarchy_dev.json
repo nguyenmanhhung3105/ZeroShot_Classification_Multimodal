@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "samples": 3000,
+  "group_size": 75,
+  "grouping_seeds": [0, 1, 2],
+  "image_scale": 100.0,
+  "text_scale": 25.0,
+  "image_weight": 0.75,
+  "em_temperature": 30.0,
+  "em_iterations": 20,
+  "em_mm_iterations": 1000,
+  "stata_iterations": 10,
+  "stata_neighbors": 3
+}

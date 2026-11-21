@@ -18,6 +18,7 @@ results1/
 
 # File dữ liệu đã xử lý lớn, không đưa lên Git
 data/processed/pro_fakeddit/fakeddit_clean.tsv
+data/processed/.fakeddit_splits*_build/
 
 # File nén
 *.tar.gz
@@ -34,3 +35,38 @@ __pycache__/
 
 # Repo nghiên cứu được cố định phiên bản trong configs/research/sources.json
 third_party/
+
+# Benchmark công khai và output nhiều seed, quản lý ngoài Git
+data/benchmarks/
+results/public_benchmarks/
+
+# Bản cuối: bundle triển khai và metrics được sinh khi chạy
+/bundles/
+/results/final/
+
+# Chỉ chia sẻ source và bảng tổng hợp; dữ liệu/artifact giữ ngoài Git
+/data/
+/archive/
+/graphify-out/
+/.final_build_*/
+/results/_system/
+/overleaf_report.zip
+/tdtu_logo.png
+
+# Thông tin xác thực và cấu hình riêng trên từng máy
+.env
+.env.*
+!.env.example
+/.aws/
+/.kaggle/
+**/kaggle.json
+*.pem
+*.key
+
+# Sản phẩm biên dịch LaTeX
+/report/*.aux
+/report/*.log
+/report/*.out
+/report/*.toc
+/report/*.synctex.gz
+/report/*.pdf

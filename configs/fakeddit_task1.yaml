@@ -1,0 +1,10 @@
+version: 1
+samples: 3000
+grouping_seeds: [0, 1, 2]
+adaptation_batch_size: 75
+cpu_threads: 1
+image_logit_scale: 100.0
+text_logit_scale: 25.0
+clip_weight: 0.5
+image_weight: 0.75
+timeout_seconds: 7200

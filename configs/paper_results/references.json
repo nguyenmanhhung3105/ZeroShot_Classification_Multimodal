@@ -1,0 +1,452 @@
+{
+  "schema_version": 1,
+  "verified_on": "2026-11-03",
+  "backbone": {
+    "provider": "OpenAI CLIP",
+    "architecture": "ViT-L/14",
+    "image_size": 224
+  },
+  "units": "percent, 0..100; deltas in percentage points",
+  "scope": "Published reference values for the eight project benchmarks; not project inference results. Only the existing reference jobs are runnable.",
+  "publications": {
+    "waffle": {
+      "title": "Waffling around for Performance: Visual Classification with Random Words and Broad Concepts",
+      "url": "https://arxiv.org/html/2306.07282",
+      "version": "2306.07282v2",
+      "table": "10",
+      "protocol": "clip_photo uses A photo of a {class}.; dclip_photo adds GPT descriptors; waffle uses 15 random character/word pairs and 7 seeds; mean cosine aggregation; top-1 accuracy.",
+      "commit": "7a1b8ee48e31285f62ecd839fecb6b89cbef81f1"
+    },
+    "dclip": {
+      "title": "Visual Classification via Description from Large Language Models",
+      "url": "https://arxiv.org/html/2210.07183",
+      "version": "2210.07183v2",
+      "table": "1",
+      "protocol": "Original class-name CLIP and description prompts; period suffix for ImageNet per pinned load.py. Exact data split must be checked before claiming reproduction.",
+      "commit": "d1a3d8920af89bd0d6a692ed3afeb277df46e082"
+    },
+    "clip": {
+      "title": "Learning Transferable Visual Models From Natural Language Supervision",
+      "url": "https://arxiv.org/pdf/2103.00020",
+      "version": "2103.00020 PDF accessed 2026-11-03",
+      "table": "11",
+      "pdf_page": 43,
+      "protocol": "Original dataset-specific prompt engineering/ensembles; ImageNet uses 80 templates (section 3.1.4). Contextual reference, not a single-photo-prompt reproduction target. Oxford Pets metric is mean per class (table 9). EuroSAT uses a different subset (table 9)."
+    }
+  },
+  "author_csv_snapshots": {
+    "third_party/WaffleCLIP/results/baselines.csv": {
+      "file": "configs/paper_results/sources/baselines.csv",
+      "sha256": "2a28745922c6870166f4a03f4d06d9e2da1bed46d8d5a1508ace6e7ce4f8bb35",
+      "commit": "7a1b8ee48e31285f62ecd839fecb6b89cbef81f1",
+      "url": "https://github.com/ExplainableML/WaffleCLIP/blob/7a1b8ee48e31285f62ecd839fecb6b89cbef81f1/results/baselines.csv"
+    },
+    "third_party/WaffleCLIP/results/baselines_gpt.csv": {
+      "file": "configs/paper_results/sources/baselines_gpt.csv",
+      "sha256": "4f2b0a6217510427f40e7e9f8b30587f37595929864456ac6ed9b5ed782ae806",
+      "commit": "7a1b8ee48e31285f62ecd839fecb6b89cbef81f1",
+      "url": "https://github.com/ExplainableML/WaffleCLIP/blob/7a1b8ee48e31285f62ecd839fecb6b89cbef81f1/results/baselines_gpt.csv"
+    },
+    "third_party/WaffleCLIP/results/waffleclip.csv": {
+      "file": "configs/paper_results/sources/waffleclip.csv",
+      "sha256": "088f99de2b2b92407d67ea91a13d4d54b239b35d1964003c350bf9a22ea2e2f2",
+      "commit": "7a1b8ee48e31285f62ecd839fecb6b89cbef81f1",
+      "url": "https://github.com/ExplainableML/WaffleCLIP/blob/7a1b8ee48e31285f62ecd839fecb6b89cbef81f1/results/waffleclip.csv"
+    }
+  },
+  "datasets": {
+    "imagenetv2": {
+      "project_evaluation": {
+        "classes": 1000,
+        "samples": 10000,
+        "split": "matched-frequency",
+        "note": "Project protocol only; does not assert every paper used the same split."
+      },
+      "waffle": {
+        "paper_accuracy_percent": {
+          "clip_photo": 67.9,
+          "dclip_photo": 69.72,
+          "waffle": 69.48
+        },
+        "paper_waffle_std_percent": 0.08,
+        "author_csv": {
+          "clip_photo": {
+            "accuracy_percent": 67.90000200271606,
+            "std_percent_ddof0": 0.0,
+            "source_file": "third_party/WaffleCLIP/results/baselines.csv",
+            "row_tag": "savename=baselines; dataset=imagenetv2; mode=clip; model_size=ViT-L/14"
+          },
+          "dclip_photo": {
+            "accuracy_percent": 69.72000002861023,
+            "std_percent_ddof0": 0.0,
+            "source_file": "third_party/WaffleCLIP/results/baselines_gpt.csv",
+            "row_tag": "savename=baselines_gpt; dataset=imagenetv2; mode=gpt_descriptions; model_size=ViT-L/14"
+          },
+          "waffle": {
+            "accuracy_percent": 69.48428494589669,
+            "std_percent_ddof0": 0.08033205808711852,
+            "source_file": "third_party/WaffleCLIP/results/waffleclip.csv",
+            "row_tag": "savename=waffleclip; dataset=imagenetv2; mode=waffle; waffle_count=15; reps=7; model_size=ViT-L/14"
+          }
+        }
+      },
+      "dclip": {
+        "paper_accuracy_percent": {
+          "clip_labels_original": 65.33,
+          "dclip_original": 69.3
+        }
+      },
+      "clip": {
+        "paper_score_percent": null,
+        "metric": null,
+        "status": "not_in_table_11",
+        "comparison_scope": "context_only; original prompt ensemble; check split and metric"
+      }
+    },
+    "imagenet": {
+      "project_evaluation": {
+        "classes": 1000,
+        "samples": 50000,
+        "split": "val",
+        "note": "Project protocol only; does not assert every paper used the same split."
+      },
+      "waffle": {
+        "paper_accuracy_percent": {
+          "clip_photo": 73.37,
+          "dclip_photo": 75.26,
+          "waffle": 75.3
+        },
+        "paper_waffle_std_percent": 0.04,
+        "author_csv": {
+          "clip_photo": {
+            "accuracy_percent": 73.3739972114563,
+            "std_percent_ddof0": 0.0,
+            "source_file": "third_party/WaffleCLIP/results/baselines.csv",
+            "row_tag": "savename=baselines; dataset=imagenet; mode=clip; model_size=ViT-L/14"
+          },
+          "dclip_photo": {
+            "accuracy_percent": 75.2560019493103,
+            "std_percent_ddof0": 0.0,
+            "source_file": "third_party/WaffleCLIP/results/baselines_gpt.csv",
+            "row_tag": "savename=baselines_gpt; dataset=imagenet; mode=gpt_descriptions; model_size=ViT-L/14"
+          },
+          "waffle": {
+            "accuracy_percent": 75.30342766216823,
+            "std_percent_ddof0": 0.04338108945792614,
+            "source_file": "third_party/WaffleCLIP/results/waffleclip.csv",
+            "row_tag": "savename=waffleclip; dataset=imagenet; mode=waffle; waffle_count=15; reps=7; model_size=ViT-L/14"
+          }
+        }
+      },
+      "dclip": {
+        "paper_accuracy_percent": {
+          "clip_labels_original": 71.58,
+          "dclip_original": 75.0
+        }
+      },
+      "clip": {
+        "paper_score_percent": 75.3,
+        "metric": "top1_accuracy",
+        "status": "reported_in_table_11",
+        "comparison_scope": "context_only; original prompt ensemble; check split and metric"
+      }
+    },
+    "cub": {
+      "project_evaluation": {
+        "classes": 200,
+        "samples": 5794,
+        "split": "test",
+        "note": "Project protocol only; does not assert every paper used the same split."
+      },
+      "waffle": {
+        "paper_accuracy_percent": {
+          "clip_photo": 62.24,
+          "dclip_photo": 63.53,
+          "waffle": 64.18
+        },
+        "paper_waffle_std_percent": 0.13,
+        "author_csv": {
+          "clip_photo": {
+            "accuracy_percent": 62.27131485939026,
+            "std_percent_ddof0": 0.0,
+            "source_file": "third_party/WaffleCLIP/results/baselines.csv",
+            "row_tag": "savename=baselines; dataset=cub; mode=clip; model_size=ViT-L/14"
+          },
+          "dclip_photo": {
+            "accuracy_percent": 63.531237840652466,
+            "std_percent_ddof0": 0.0,
+            "source_file": "third_party/WaffleCLIP/results/baselines_gpt.csv",
+            "row_tag": "savename=baselines_gpt; dataset=cub; mode=gpt_descriptions; model_size=ViT-L/14"
+          },
+          "waffle": {
+            "accuracy_percent": 64.1821597303663,
+            "std_percent_ddof0": 0.12873121103498034,
+            "source_file": "third_party/WaffleCLIP/results/waffleclip.csv",
+            "row_tag": "savename=waffleclip; dataset=cub; mode=waffle; waffle_count=15; reps=7; model_size=ViT-L/14"
+          }
+        }
+      },
+      "dclip": {
+        "paper_accuracy_percent": {
+          "clip_labels_original": 63.08,
+          "dclip_original": 63.46
+        }
+      },
+      "clip": {
+        "paper_score_percent": null,
+        "metric": null,
+        "status": "not_in_table_11",
+        "comparison_scope": "context_only; original prompt ensemble; check split and metric"
+      }
+    },
+    "eurosat": {
+      "project_evaluation": {
+        "classes": 10,
+        "samples": 27000,
+        "split": "all-images-as-waffle-upstream",
+        "note": "Project protocol only; does not assert every paper used the same split."
+      },
+      "waffle": {
+        "paper_accuracy_percent": {
+          "clip_photo": 56.03,
+          "dclip_photo": 58.72,
+          "waffle": 61.17
+        },
+        "paper_waffle_std_percent": 0.35,
+        "author_csv": {
+          "clip_photo": {
+            "accuracy_percent": 56.029629707336426,
+            "std_percent_ddof0": 0.0,
+            "source_file": "third_party/WaffleCLIP/results/baselines.csv",
+            "row_tag": "savename=baselines; dataset=eurosat; mode=clip; model_size=ViT-L/14"
+          },
+          "dclip_photo": {
+            "accuracy_percent": 58.718520402908325,
+            "std_percent_ddof0": 0.0,
+            "source_file": "third_party/WaffleCLIP/results/baselines_gpt.csv",
+            "row_tag": "savename=baselines_gpt; dataset=eurosat; mode=gpt_descriptions; model_size=ViT-L/14"
+          },
+          "waffle": {
+            "accuracy_percent": 61.16772379193987,
+            "std_percent_ddof0": 0.3532880403272239,
+            "source_file": "third_party/WaffleCLIP/results/waffleclip.csv",
+            "row_tag": "savename=waffleclip; dataset=eurosat; mode=waffle; waffle_count=15; reps=7; model_size=ViT-L/14"
+          }
+        }
+      },
+      "dclip": {
+        "paper_accuracy_percent": {
+          "clip_labels_original": 41.48,
+          "dclip_original": 48.66
+        }
+      },
+      "clip": {
+        "paper_score_percent": 59.9,
+        "metric": "top1_accuracy",
+        "status": "reported_in_table_11",
+        "comparison_scope": "context_only; original prompt ensemble; check split and metric"
+      }
+    },
+    "places365": {
+      "project_evaluation": {
+        "classes": 365,
+        "samples": 36500,
+        "split": "val-small-256",
+        "note": "Project protocol only; does not assert every paper used the same split."
+      },
+      "waffle": {
+        "paper_accuracy_percent": {
+          "clip_photo": 40.46,
+          "dclip_photo": 42.6,
+          "waffle": 42.26
+        },
+        "paper_waffle_std_percent": 0.1,
+        "author_csv": {
+          "clip_photo": {
+            "accuracy_percent": 40.46301245689392,
+            "std_percent_ddof0": 0.0,
+            "source_file": "third_party/WaffleCLIP/results/baselines.csv",
+            "row_tag": "savename=baselines; dataset=places365; mode=clip; model_size=ViT-L/14"
+          },
+          "dclip_photo": {
+            "accuracy_percent": 42.59726107120514,
+            "std_percent_ddof0": 0.0,
+            "source_file": "third_party/WaffleCLIP/results/baselines_gpt.csv",
+            "row_tag": "savename=baselines_gpt; dataset=places365; mode=gpt_descriptions; model_size=ViT-L/14"
+          },
+          "waffle": {
+            "accuracy_percent": 42.262230600629536,
+            "std_percent_ddof0": 0.09535428249308145,
+            "source_file": "third_party/WaffleCLIP/results/waffleclip.csv",
+            "row_tag": "savename=waffleclip; dataset=places365; mode=waffle; waffle_count=15; reps=7; model_size=ViT-L/14"
+          }
+        }
+      },
+      "dclip": {
+        "paper_accuracy_percent": {
+          "clip_labels_original": 39.0,
+          "dclip_original": 40.55
+        }
+      },
+      "clip": {
+        "paper_score_percent": null,
+        "metric": null,
+        "status": "not_in_table_11",
+        "comparison_scope": "context_only; original prompt ensemble; check split and metric"
+      }
+    },
+    "food101": {
+      "project_evaluation": {
+        "classes": 101,
+        "samples": 25250,
+        "split": "test",
+        "note": "Project protocol only; does not assert every paper used the same split."
+      },
+      "waffle": {
+        "paper_accuracy_percent": {
+          "clip_photo": 92.55,
+          "dclip_photo": 92.81,
+          "waffle": 93.31
+        },
+        "paper_waffle_std_percent": 0.09,
+        "author_csv": {
+          "clip_photo": {
+            "accuracy_percent": 92.55049228668213,
+            "std_percent_ddof0": 0.0,
+            "source_file": "third_party/WaffleCLIP/results/baselines.csv",
+            "row_tag": "savename=baselines; dataset=food101; mode=clip; model_size=ViT-L/14"
+          },
+          "dclip_photo": {
+            "accuracy_percent": 92.80791878700256,
+            "std_percent_ddof0": 0.0,
+            "source_file": "third_party/WaffleCLIP/results/baselines_gpt.csv",
+            "row_tag": "savename=baselines_gpt; dataset=food101; mode=gpt_descriptions; model_size=ViT-L/14"
+          },
+          "waffle": {
+            "accuracy_percent": 93.31315415246146,
+            "std_percent_ddof0": 0.09476387930831631,
+            "source_file": "third_party/WaffleCLIP/results/waffleclip.csv",
+            "row_tag": "savename=waffleclip; dataset=food101; mode=waffle; waffle_count=15; reps=7; model_size=ViT-L/14"
+          }
+        }
+      },
+      "dclip": {
+        "paper_accuracy_percent": {
+          "clip_labels_original": 91.79,
+          "dclip_original": 92.44
+        }
+      },
+      "clip": {
+        "paper_score_percent": 92.9,
+        "metric": "top1_accuracy",
+        "status": "reported_in_table_11",
+        "comparison_scope": "context_only; original prompt ensemble; check split and metric"
+      }
+    },
+    "pets": {
+      "project_evaluation": {
+        "classes": 37,
+        "samples": 3669,
+        "split": "test",
+        "note": "Project protocol only; does not assert every paper used the same split."
+      },
+      "waffle": {
+        "paper_accuracy_percent": {
+          "clip_photo": 93.3,
+          "dclip_photo": 93.89,
+          "waffle": 91.98
+        },
+        "paper_waffle_std_percent": 0.11,
+        "author_csv": {
+          "clip_photo": {
+            "accuracy_percent": 93.29517483711243,
+            "std_percent_ddof0": 0.0,
+            "source_file": "third_party/WaffleCLIP/results/baselines.csv",
+            "row_tag": "savename=baselines; dataset=pets; mode=clip; model_size=ViT-L/14"
+          },
+          "dclip_photo": {
+            "accuracy_percent": 93.89479160308838,
+            "std_percent_ddof0": 0.0,
+            "source_file": "third_party/WaffleCLIP/results/baselines_gpt.csv",
+            "row_tag": "savename=baselines_gpt; dataset=pets; mode=gpt_descriptions; model_size=ViT-L/14"
+          },
+          "waffle": {
+            "accuracy_percent": 91.98302371161324,
+            "std_percent_ddof0": 0.11230897164209556,
+            "source_file": "third_party/WaffleCLIP/results/waffleclip.csv",
+            "row_tag": "savename=waffleclip; dataset=pets; mode=waffle; waffle_count=15; reps=7; model_size=ViT-L/14"
+          }
+        }
+      },
+      "dclip": {
+        "paper_accuracy_percent": {
+          "clip_labels_original": 88.25,
+          "dclip_original": 92.23
+        }
+      },
+      "clip": {
+        "paper_score_percent": 93.5,
+        "metric": "mean_per_class_accuracy",
+        "status": "reported_in_table_11",
+        "comparison_scope": "context_only; original prompt ensemble; check split and metric"
+      }
+    },
+    "dtd": {
+      "project_evaluation": {
+        "classes": 47,
+        "samples": 1880,
+        "split": "test-partition-1",
+        "note": "Project protocol only; does not assert every paper used the same split."
+      },
+      "waffle": {
+        "paper_accuracy_percent": {
+          "clip_photo": 52.87,
+          "dclip_photo": 56.6,
+          "waffle": 53.94
+        },
+        "paper_waffle_std_percent": 0.29,
+        "author_csv": {
+          "clip_photo": {
+            "accuracy_percent": 52.8723418712616,
+            "std_percent_ddof0": 0.0,
+            "source_file": "third_party/WaffleCLIP/results/baselines.csv",
+            "row_tag": "savename=baselines; dataset=dtd; mode=clip; model_size=ViT-L/14"
+          },
+          "dclip_photo": {
+            "accuracy_percent": 56.59574270248413,
+            "std_percent_ddof0": 0.0,
+            "source_file": "third_party/WaffleCLIP/results/baselines_gpt.csv",
+            "row_tag": "savename=baselines_gpt; dataset=dtd; mode=gpt_descriptions; model_size=ViT-L/14"
+          },
+          "waffle": {
+            "accuracy_percent": 53.94376942089626,
+            "std_percent_ddof0": 0.2905475444348964,
+            "source_file": "third_party/WaffleCLIP/results/waffleclip.csv",
+            "row_tag": "savename=waffleclip; dataset=dtd; mode=waffle; waffle_count=15; reps=7; model_size=ViT-L/14"
+          }
+        }
+      },
+      "dclip": {
+        "paper_accuracy_percent": {
+          "clip_labels_original": 51.33,
+          "dclip_original": 54.36
+        }
+      },
+      "clip": {
+        "paper_score_percent": 55.3,
+        "metric": "top1_accuracy",
+        "status": "reported_in_table_11",
+        "comparison_scope": "context_only; original prompt ensemble; check split and metric"
+      }
+    }
+  },
+  "known_differences": [
+    {
+      "dataset": "cub",
+      "method": "clip_photo",
+      "paper_accuracy_percent": 62.24,
+      "author_csv_accuracy_percent": 62.27131485939026,
+      "note": "Paper table and repo CSV disagree beyond rounding. Preserve both; do not silently overwrite either."
+    }
+  ]
+}

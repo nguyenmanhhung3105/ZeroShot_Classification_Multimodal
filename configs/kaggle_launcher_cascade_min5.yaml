@@ -1,0 +1,13 @@
+use_kaggle: true
+experiment_config: configs/project_min5.yaml
+kaggle:
+  username: nguyenhung3105
+  code_dataset_prefix: vlm-final-code
+  kernel_prefix: vlm-min5
+  accelerator: NvidiaTeslaT4
+  timeout_seconds: 7200
+  poll_seconds: 120
+jobs:
+  fakeddit_fewshot_cascade_min5:
+    kind: fakeddit_fewshot_cascade
+    split: dev

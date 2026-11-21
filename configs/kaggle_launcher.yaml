@@ -1,0 +1,139 @@
+use_kaggle: true
+experiment_config: configs/project.yaml
+kaggle:
+  username: nguyenhung3105
+  code_dataset_prefix: vlm-final-code
+  kernel_prefix: vlm-final
+  accelerator: NvidiaTeslaT4
+  timeout_seconds: 14400
+  poll_seconds: 20
+jobs:
+  fakeddit_stata_calip_dev:
+    kind: fakeddit_stata_calip
+    split: dev
+    poll_seconds: 30
+  fakeddit_stata_calip_smoke:
+    kind: fakeddit_stata_calip
+    split: dev
+    mode: smoke
+    poll_seconds: 30
+  fakeddit_hierarchy_dev:
+    kind: fakeddit_hierarchy
+    split: dev
+    poll_seconds: 30
+  fakeddit_hierarchy_smoke:
+    kind: fakeddit_hierarchy
+    split: dev
+    mode: smoke
+    poll_seconds: 30
+  cifar100_em_stata_dev:
+    kind: cifar100_em_stata
+    split: dev
+    poll_seconds: 30
+  cifar100_em_stata_smoke:
+    kind: cifar100_em_stata
+    split: dev
+    mode: smoke
+    poll_seconds: 30
+  cifar100_rerank_dev:
+    kind: cifar100_rerank
+    split: dev
+    poll_seconds: 30
+  cifar100_rerank_smoke:
+    kind: cifar100_rerank
+    split: dev
+    mode: smoke
+    poll_seconds: 30
+  cifar100_two_stage_dev:
+    kind: cifar100_two_stage
+    split: dev
+    poll_seconds: 120
+  cifar100_two_stage_smoke:
+    kind: cifar100_two_stage
+    split: dev
+    mode: smoke
+    poll_seconds: 120
+  waffle_semantic_stata_eurosat:
+    kind: waffle_semantic_stata
+    dataset: eurosat
+  waffle_semantic_stata_dtd:
+    kind: waffle_semantic_stata
+    dataset: dtd
+  waffle_stata_dtd_full:
+    kind: waffle_stata_full
+    dataset: dtd
+  dclip_stata_dtd:
+    kind: dclip_stata
+    dataset: dtd
+  waffle_stata_dtd:
+    kind: waffle_stata
+    dataset: dtd
+  waffle_stata_eurosat:
+    kind: waffle_stata
+    dataset: eurosat
+  fakeddit_task1_dev:
+    kind: fakeddit_task1
+    split: dev
+  diagnostic_fakeddit_2way_fusion:
+    kind: diagnostic
+    dataset: fakeddit_2way
+  diagnostic_dtd_fusion:
+    kind: diagnostic
+    dataset: dtd
+  diagnostic_pets_fusion:
+    kind: diagnostic
+    dataset: pets
+  diagnostic_eurosat_fusion:
+    kind: diagnostic
+    dataset: eurosat
+  diagnostic_cub_fusion:
+    kind: diagnostic
+    dataset: cub
+  diagnostic_food101_fusion:
+    kind: diagnostic
+    dataset: food101
+  diagnostic_places365_fusion:
+    kind: diagnostic
+    dataset: places365
+  diagnostic_imagenet_fusion:
+    kind: diagnostic
+    dataset: imagenet
+  diagnostic_imagenetv2_fusion:
+    kind: diagnostic
+    dataset: imagenetv2
+  paper_reference_pets_vitl14:
+    kind: paper_reference
+    dataset: pets
+  paper_reference_eurosat_vitl14:
+    kind: paper_reference
+    dataset: eurosat
+  paper_reference_places365_vitl14:
+    kind: paper_reference
+    dataset: places365
+  paper_reference_food101_vitl14:
+    kind: paper_reference
+    dataset: food101
+  paper_reference_cub_vitl14:
+    kind: paper_reference
+    dataset: cub
+  paper_reference_imagenet_vitl14:
+    kind: paper_reference
+    dataset: imagenet
+  paper_reference_imagenetv2_vitl14:
+    kind: paper_reference
+    dataset: imagenetv2
+  benchmark_imagenetv2:
+    kind: benchmark
+    dataset: imagenetv2
+  paper_reference_dtd_vitl14:
+    kind: paper_reference
+    dataset: dtd
+  benchmark_dtd:
+    kind: benchmark
+    dataset: dtd
+  fakeddit_dev:
+    kind: fakeddit
+    split: dev
+  fakeddit_test:
+    kind: fakeddit
+    split: test

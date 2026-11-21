@@ -1,0 +1,13 @@
+{
+  "id": "nguyenhung3105/vlm-recover-shared-benchmarks-v1",
+  "title": "VLM Recover Shared Benchmarks V1",
+  "code_file": "download_shared_benchmarks.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": "true",
+  "enable_gpu": "false",
+  "enable_internet": "true",
+  "dataset_sources": [],
+  "competition_sources": [],
+  "kernel_sources": ["nguyenhung3105/vlm-prepare-shared-benchmarks-v1"]
+}

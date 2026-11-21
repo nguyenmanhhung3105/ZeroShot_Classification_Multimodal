@@ -1,0 +1,153 @@
+{
+  "scope": "Main MetaCLIP2 full benchmark runs; separate from OpenAI paper reference runs.",
+  "completed_datasets": 2,
+  "total_datasets": 8,
+  "results": {
+    "dtd": {
+      "samples": 1880,
+      "classes": 47,
+      "summary": [
+        {
+          "task": "dtd",
+          "method": "clip",
+          "samples": 1880,
+          "seeds": 1,
+          "std_ddof": 1,
+          "accuracy_mean": 0.6675531914893617,
+          "accuracy_std": 0.0,
+          "macro_f1_mean": 0.6439251035722062,
+          "macro_f1_std": 0.0,
+          "balanced_accuracy_mean": 0.6675531914893617,
+          "balanced_accuracy_std": 0.0,
+          "top5_mean": 0.9058510638297872,
+          "top5_std": 0.0
+        },
+        {
+          "task": "dtd",
+          "method": "dclip",
+          "samples": 1880,
+          "seeds": 1,
+          "std_ddof": 1,
+          "accuracy_mean": 0.6478723404255319,
+          "accuracy_std": 0.0,
+          "macro_f1_mean": 0.6207537773658408,
+          "macro_f1_std": 0.0,
+          "balanced_accuracy_mean": 0.6478723404255319,
+          "balanced_accuracy_std": 0.0,
+          "top5_mean": 0.9276595744680851,
+          "top5_std": 0.0
+        },
+        {
+          "task": "dtd",
+          "method": "waffle",
+          "samples": 1880,
+          "seeds": 7,
+          "std_ddof": 1,
+          "accuracy_mean": 0.6893617021276596,
+          "accuracy_std": 0.0022567237697442887,
+          "macro_f1_mean": 0.669498685011701,
+          "macro_f1_std": 0.0024519779462505113,
+          "balanced_accuracy_mean": 0.6893617021276596,
+          "balanced_accuracy_std": 0.0022567237697442622,
+          "top5_mean": 0.9352583586626139,
+          "top5_std": 0.0025456872156539604
+        },
+        {
+          "task": "dtd",
+          "method": "waffle_unit_ablation",
+          "samples": 1880,
+          "seeds": 7,
+          "std_ddof": 1,
+          "accuracy_mean": 0.6958966565349545,
+          "accuracy_std": 0.0016167146299121435,
+          "macro_f1_mean": 0.677100633410998,
+          "macro_f1_std": 0.0018748168958629037,
+          "balanced_accuracy_mean": 0.6958966565349544,
+          "balanced_accuracy_std": 0.0016167146299121504,
+          "top5_mean": 0.9366261398176291,
+          "top5_std": 0.0011665226889229494
+        }
+      ],
+      "run": "results/final/kaggle/benchmark_dtd_57ebfa1029a0/run",
+      "review": "results/final/kaggle/benchmark_dtd_57ebfa1029a0/review"
+    },
+    "imagenetv2": {
+      "samples": 10000,
+      "classes": 1000,
+      "summary": [
+        {
+          "task": "imagenetv2",
+          "method": "clip",
+          "samples": 10000,
+          "seeds": 1,
+          "std_ddof": 1,
+          "accuracy_mean": 0.74,
+          "accuracy_std": 0.0,
+          "macro_f1_mean": 0.7353718202369101,
+          "macro_f1_std": 0.0,
+          "balanced_accuracy_mean": 0.7400000000000001,
+          "balanced_accuracy_std": 0.0,
+          "top5_mean": 0.9292,
+          "top5_std": 0.0
+        },
+        {
+          "task": "imagenetv2",
+          "method": "dclip",
+          "samples": 10000,
+          "seeds": 1,
+          "std_ddof": 1,
+          "accuracy_mean": 0.7376,
+          "accuracy_std": 0.0,
+          "macro_f1_mean": 0.7291813988368973,
+          "macro_f1_std": 0.0,
+          "balanced_accuracy_mean": 0.7376,
+          "balanced_accuracy_std": 0.0,
+          "top5_mean": 0.9277,
+          "top5_std": 0.0
+        },
+        {
+          "task": "imagenetv2",
+          "method": "waffle",
+          "samples": 10000,
+          "seeds": 7,
+          "std_ddof": 1,
+          "accuracy_mean": 0.7447571428571428,
+          "accuracy_std": 0.0011530497862294504,
+          "macro_f1_mean": 0.7394899886466796,
+          "macro_f1_std": 0.001180762474360536,
+          "balanced_accuracy_mean": 0.7447571428571428,
+          "balanced_accuracy_std": 0.00115304978622946,
+          "top5_mean": 0.9321428571428572,
+          "top5_std": 0.001050170054256509
+        },
+        {
+          "task": "imagenetv2",
+          "method": "waffle_unit_ablation",
+          "samples": 10000,
+          "seeds": 7,
+          "std_ddof": 1,
+          "accuracy_mean": 0.7428571428571429,
+          "accuracy_std": 0.0011702665549027053,
+          "macro_f1_mean": 0.7387219013429684,
+          "macro_f1_std": 0.0011511229644586194,
+          "balanced_accuracy_mean": 0.742857142857143,
+          "balanced_accuracy_std": 0.0011702665549026842,
+          "top5_mean": 0.9322714285714288,
+          "top5_std": 0.0011353623294118916
+        }
+      ],
+      "run": "results/final/kaggle/benchmark_imagenetv2_83c64730123e/run",
+      "review": "results/final/kaggle/benchmark_imagenetv2_83c64730123e/review"
+    }
+  },
+  "remaining": [
+    "imagenet",
+    "pets",
+    "eurosat",
+    "cub",
+    "food101",
+    "places365"
+  ],
+  "fakeddit_final_status": "No completed final dev/test run found under results/final.",
+  "agent_submitted_new_gpu_job": false
+}

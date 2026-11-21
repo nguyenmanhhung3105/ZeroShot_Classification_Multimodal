@@ -1,0 +1,13 @@
+{
+  "id": "nguyenhung3105/vlm-prepare-cifar100-v1",
+  "title": "VLM Prepare CIFAR100 V1",
+  "code_file": "download_cifar100.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": "true",
+  "enable_gpu": "false",
+  "enable_internet": "true",
+  "dataset_sources": [],
+  "competition_sources": [],
+  "kernel_sources": []
+}

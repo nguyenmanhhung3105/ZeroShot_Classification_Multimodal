@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "model": "metaclip2_vith14",
+  "dataset_id": "nguyenhung3105/vlm-cifar100-sources-v1",
+  "seed": 0,
+  "dev_samples": 10000,
+  "batch_size": 8,
+  "logit_scale": 100.0,
+  "prompt_template": "a photo of {label}.",
+  "methods": ["flat", "hierarchy_hard", "hierarchy_soft"]
+}
