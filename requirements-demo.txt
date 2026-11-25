@@ -1,0 +1,3 @@
+# Localhost interface and Kaggle CLI only. No torch, transformers, or model weights.
+pillow>=10.0
+kaggle==2.2.5

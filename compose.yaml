@@ -1,0 +1,35 @@
+name: vlm-demo
+services:
+  web:
+    build:
+      context: .
+      dockerfile: docker/demo/Dockerfile
+    init: true
+    ports:
+      - "127.0.0.1:8765:8765"
+    read_only: true
+    tmpfs:
+      - /tmp:size=16m,mode=1777
+    mem_limit: 512m
+    cpus: 1.0
+    restart: "no"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8765/api/health', timeout=3).close()"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+  tunnel:
+    image: cloudflare/cloudflared:2026.11.2
+    # Share web's network namespace: the gateway stays on loopback, never published.
+    network_mode: "service:web"
+    command: ["tunnel", "--no-autoupdate", "--url", "http://127.0.0.1:8766"]
+    depends_on:
+      web:
+        condition: service_healthy
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: ["no-new-privileges:true"]
+    mem_limit: 256m
+    cpus: 0.5
+    restart: "no"

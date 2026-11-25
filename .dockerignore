@@ -1,0 +1,11 @@
+# Allowlist: never send datasets, credentials, virtualenvs, artifacts or backbone weights.
+**
+!docker/
+!docker/demo/
+!docker/demo/Dockerfile
+!src/
+!src/vlm_project/
+!src/vlm_project/__init__.py
+!src/vlm_project/demo_service.py
+!src/vlm_project/demo_web/
+!src/vlm_project/demo_web/**

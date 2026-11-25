@@ -4,6 +4,31 @@ Mã nguồn phục vụ các thí nghiệm và báo cáo `report/main.tex`: benc
 
 Đọc [bản đồ code](docs/CODEX-NAVIGATION-GUIDE.md), [nguồn dữ liệu Fakeddit](src/preprocessing/data_fakeddit/README.md) và [kiểm tra/dọn dự án](docs/REPORT_CLEANUP_20261116.md).
 
+## Giao diện demo localhost
+
+Tài liệu gửi thành viên: [Dựng giao diện và bản đồ thành phần/element](docs/DEMO_HANDOFF.md).
+
+Với Docker Desktop đang chạy, bật/tắt web và HTTPS tunnel cùng nhau:
+
+```sh
+docker compose up -d --build
+docker compose logs -f tunnel
+docker compose down
+```
+
+Mở http://127.0.0.1:8765; cập nhật Kaggle Secrets từ URL tunnel và token phiên.
+Không chạy thêm server Python khi đang dùng Docker. Có thể chạy trực tiếp nếu cần:
+
+```sh
+venv/bin/python scripts/demo.py serve
+```
+
+Mở http://127.0.0.1:8765 để nhập ảnh/tiêu đề và so sánh phương pháp, pipeline,
+backbone. Model chạy trên GPU Kaggle qua worker; máy local không nạp backbone.
+Xem [cài đặt Kaggle CLI, tunnel và notebook demo](docs/LOCAL_DEMO.md).
+Lần đầu cần khởi động notebook và cấp hai Kaggle Secrets để kết nối; giao diện
+hiển thị trạng thái thật của GPU và các tài nguyên còn thiếu cho từng phương pháp.
+
 ## Cài đặt và cập nhật cho thành viên
 
 Chạy tại thư mục gốc với Python 3.12 (phiên bản đã kiểm thử local):

@@ -1,0 +1,495 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Thực nghiệm phân loại nội dung ảnh–tiêu đề trên Fakeddit: zero-shot, thích nghi không nhãn và few-shot.">
+<title>VLM Classifier · Phân loại nội dung đa phương thức</title>
+<link rel="stylesheet" href="/style.css">
+<script src="/analytics.js" defer></script>
+<script src="/app.js" defer>
+</script>
+</head>
+<body>
+<a class="skip" href="#workspace">Đến nội dung chính</a>
+<aside class="sidebar">
+<a class="brand" href="#view-overview" aria-label="VLM Classifier — Bài toán">
+<svg class="brand-mark" viewBox="0 0 48 48" aria-hidden="true">
+<rect x="3" y="5" width="18" height="16" rx="4"/>
+<path d="m6 17 4-5 4 3 4-4M8 9h1"/>
+<rect x="3" y="27" width="18" height="16" rx="4"/>
+<path d="M8 32h8m-4 0v7M23 13h6v22h-6m6-11h6"/>
+<rect x="36" y="18" width="9" height="12" rx="3"/>
+</svg>
+<span>VLM<span class="brand-second">Classifier</span>
+</span>
+</a>
+<p class="sidebar-caption">PHÂN LOẠI ẢNH–TIÊU ĐỀ</p>
+<nav aria-label="Điều hướng báo cáo">
+<a href="#view-overview" data-page="overview" aria-current="page">
+<span class="nav-icon" aria-hidden="true">▤</span>Bài toán</a>
+<a href="#view-setup" data-page="setup">
+<span class="nav-icon" aria-hidden="true">⊞</span>Cấu hình suy luận</a>
+<a href="#view-results" data-page="results">
+<span class="nav-icon" aria-hidden="true">▥</span>Kết quả suy luận</a>
+<a href="#view-experiments" data-page="experiments">
+<span class="nav-icon" aria-hidden="true">▦</span>Kết quả thực nghiệm</a>
+<a href="#view-history" data-page="history">
+<span class="nav-icon" aria-hidden="true">◷</span>Lịch sử</a>
+</nav>
+<div class="sidebar-bottom">
+<span class="sidebar-rule">
+</span>
+<strong>Phân loại nội dung</strong>
+<span>Demo Fakeddit · Biểu đồ benchmark</span>
+<span>Zero-shot · Thích nghi · Few-shot</span>
+</div>
+</aside>
+<div class="app-shell">
+<header class="topbar">
+<span class="breadcrumb">THỰC NGHIỆM <span>/</span> <strong id="current-section">Bài toán</strong>
+</span>
+<div class="top-actions">
+<span id="local-state" class="local-state">Đang kiểm tra API</span>
+<button id="connection-open" class="button secondary small">Thiết lập kết nối</button>
+</div>
+</header>
+<main id="workspace" tabindex="-1">
+<div id="app-error" class="notice danger" role="alert" hidden>
+</div>
+<section id="view-overview" class="page-view" aria-labelledby="overview-title">
+<div class="page-heading">
+<div>
+<p class="eyebrow">BÀI TOÁN NGHIÊN CỨU</p>
+<h1 id="overview-title" tabindex="-1">Phân loại nội dung<br>đa phương thức</h1>
+<p class="lead">Phân loại bài đăng từ hình ảnh và tiêu đề theo hệ nhãn Fakeddit.</p>
+</div>
+<span class="dataset-label">ẢNH + VĂN BẢN</span>
+</div>
+<article class="panel overview-flow">
+<div class="panel-heading">
+<div>
+<span class="section-label">LUỒNG XỬ LÝ</span>
+<h2>Từ đầu vào đến nhãn dự đoán</h2>
+</div>
+<span class="chip neutral">Bộ mã hóa đóng băng</span>
+</div>
+<div class="flow" aria-label="Ảnh và tiêu đề được mã hóa thành đặc trưng, sau đó phân loại theo cấu hình đã chọn">
+<div class="flow-node">
+<span class="flow-index">ĐẦU VÀO</span>
+<strong>Ảnh &amp; tiêu đề</strong>
+<p>Nội dung bài đăng</p>
+<div class="flow-symbols" aria-hidden="true">
+<span>IMG</span>
+<span>TXT</span>
+</div>
+</div>
+<span class="flow-arrow" aria-hidden="true">→</span>
+<div class="flow-node">
+<span class="flow-index">BIỂU DIỄN</span>
+<strong>Backbone VLM</strong>
+<p>Embedding ảnh và văn bản</p>
+<div class="embedding" aria-hidden="true">
+<i>
+</i>
+<i>
+</i>
+<i>
+</i>
+<i>
+</i>
+<i>
+</i>
+<i>
+</i>
+<i>
+</i>
+</div>
+</div>
+<span class="flow-arrow" aria-hidden="true">→</span>
+<div class="flow-node">
+<span class="flow-index">RA QUYẾT ĐỊNH</span>
+<strong>Phương pháp phân loại</strong>
+<p>Zero-shot, thích nghi hoặc few-shot</p>
+<span class="technical-pill">Một tầng / Hai tầng</span>
+</div>
+<span class="flow-arrow" aria-hidden="true">→</span>
+<div class="flow-node output">
+<span class="flow-index">ĐẦU RA</span>
+<strong>Nhãn dự đoán</strong>
+<p>Nhị phân hoặc sáu lớp</p>
+<span class="technical-pill">Real / Fake / Subtype</span>
+</div>
+</div>
+</article>
+<div class="overview-columns">
+<article class="panel taxonomy-panel">
+<div class="panel-heading">
+<div>
+<span class="section-label">HỆ NHÃN</span>
+<h2>Hai mức phân loại</h2>
+</div>
+</div>
+<div class="taxonomy-level">
+<span class="level-label">NHỊ PHÂN</span>
+<div class="label-list">
+<span class="class-label real">Real</span>
+<span class="class-label fake">Fake</span>
+</div>
+</div>
+<div class="taxonomy-level">
+<span class="level-label">SÁU LỚP</span>
+<div class="label-list">
+<span class="class-label real">True / Real</span>
+<span class="class-label">Satire/Parody</span>
+<span class="class-label">False Connection</span>
+<span class="class-label">Imposter Content</span>
+<span class="class-label">Manipulated Content</span>
+<span class="class-label">Misleading Content</span>
+</div>
+</div>
+<p class="panel-note">Nhãn được diễn giải theo Fakeddit. Dự đoán không thay thế quy trình xác minh thông tin.</p>
+</article>
+<article class="panel protocol-panel">
+<div class="panel-heading">
+<div>
+<span class="section-label">CẤU TRÚC SUY LUẬN</span>
+<h2>Phẳng và phân cấp</h2>
+</div>
+</div>
+<div class="protocol-line">
+<span class="protocol-tag">Một tầng</span>
+<div>
+<strong>Phân loại trực tiếp</strong>
+<p>Chọn nhãn từ tập lớp của bài toán.</p>
+</div>
+</div>
+<div class="protocol-line">
+<span class="protocol-tag">Hai tầng</span>
+<div>
+<strong>Gate Real/Fake → phân loại Fake</strong>
+<p>Nhánh Fake được phân tiếp thành năm lớp con.</p>
+</div>
+</div>
+<p class="panel-note">Bộ mã hóa, phương pháp và nguồn đầu vào được ghi riêng trong từng kết quả.</p>
+</article>
+</div>
+<article class="panel method-overview">
+<div class="panel-heading">
+<div>
+<span class="section-label">CÁC HƯỚNG ĐỐI CHIẾU</span>
+<h2>Cơ chế học và suy luận</h2>
+</div>
+<a href="#view-setup" class="button primary">Cấu hình suy luận</a>
+</div>
+<div class="method-family-grid">
+<div class="family-summary zero">
+<span class="family-line">
+</span>
+<h3>Zero-shot</h3>
+<p>So khớp đặc trưng với mô tả lớp; không học head từ nhãn train.</p>
+<span>CLIP · DCLIP · WaffleCLIP</span>
+</div>
+<div class="family-summary adaptation">
+<span class="family-line">
+</span>
+<h3>Thích nghi không nhãn</h3>
+<p>Khai thác nhóm đặc trưng query. Demo cần nhóm tham chiếu.</p>
+<span>StatA · ảnh</span>
+</div>
+<div class="family-summary fewshot">
+<span class="family-line">
+</span>
+<h3>Few-shot</h3>
+<p>Head tuyến tính đã học từ support có nhãn trên backbone đóng băng.</p>
+<span>Ảnh · Ảnh + tiêu đề</span>
+</div>
+</div>
+</article>
+</section>
+<section id="view-setup" class="page-view" aria-labelledby="setup-title" hidden>
+<div class="page-heading compact">
+<div>
+<p class="eyebrow">THIẾT LẬP THỰC NGHIỆM</p>
+<h1 id="setup-title" tabindex="-1">Cấu hình suy luận</h1>
+<p class="lead">So sánh cấu hình chỉ ảnh và ảnh kết hợp tiêu đề trên cùng bài đăng.</p>
+</div>
+</div>
+<form id="classify-form">
+<div class="configuration-grid">
+<div class="input-column">
+<section class="panel input-panel">
+<div class="panel-heading">
+<h2>Bài đăng đầu vào</h2>
+<span class="chip neutral">Fakeddit</span>
+</div>
+<label for="image" class="upload" id="upload-zone">
+<span id="upload-prompt">
+<svg aria-hidden="true" viewBox="0 0 48 48">
+<rect x="7" y="7" width="34" height="34" rx="6"/>
+<circle cx="18" cy="18" r="4"/>
+<path d="m8 35 10-10 8 8 6-6 9 9"/>
+</svg>
+<strong>Chọn hình ảnh</strong>
+<span>hoặc kéo thả tệp</span>
+<small>JPEG, PNG, WebP · ≤ 8 MB</small>
+</span>
+<img id="preview" alt="Ảnh đầu vào đã chọn" hidden>
+</label>
+<input id="image" name="image" type="file" accept="image/jpeg,image/png,image/webp" required>
+<div class="file-line">
+<span id="file-name">Chưa chọn tệp</span>
+<button type="button" id="image-change" class="text-button">Đổi ảnh</button>
+</div>
+<label for="title">Tiêu đề bài đăng</label>
+<textarea id="title" name="title" rows="3" maxlength="2000" required placeholder="Tiêu đề gốc đi kèm ảnh">
+</textarea>
+<p class="field-note">Ảnh là đầu vào chính. Tiêu đề chỉ được sử dụng ở cấu hình ảnh + tiêu đề.</p>
+</section>
+<section class="panel settings-panel">
+<div class="panel-heading">
+<h2>Bài toán &amp; backbone</h2>
+</div>
+<label for="task">Bài toán</label>
+<select id="task">
+<option value="2way">Nhị phân · Real / Fake</option>
+<option value="6way">Phân loại 6 lớp</option>
+</select>
+<label for="pipeline">Pipeline</label>
+<select id="pipeline">
+<option value="all">Một tầng và hai tầng</option>
+<option value="single">Một tầng</option>
+<option value="cascade">Hai tầng</option>
+</select>
+<fieldset>
+<legend>Backbone</legend>
+<div id="backbones" class="choice-list backbone-list">
+</div>
+</fieldset>
+</section>
+</div>
+<section class="panel methods-panel">
+<div class="panel-heading">
+<div>
+<span class="section-label">THIẾT KẾ ĐỐI CHỨNG</span>
+<h2>Phương pháp <span id="method-count" class="count-label">
+</span>
+</h2>
+</div>
+</div>
+<div class="selection-actions">
+<button type="button" id="select-all" class="text-button">Chọn tất cả phù hợp</button>
+<button type="button" id="select-none" class="text-button">Bỏ chọn</button>
+</div>
+<div id="methods">
+</div>
+<p class="panel-note">StatA/EM/Majority cần nhóm tham chiếu. Few-shot cần head tương ứng backbone. Thiếu tài nguyên được ghi nhận tại kết quả.</p>
+</section>
+</div>
+<div class="run-toolbar">
+<div>
+<strong>Cấu hình đã chọn</strong>
+<span>
+<b id="backbone-count">1</b> backbone <span class="separator">/</span> <b id="selection-count">0</b> phương pháp</span>
+</div>
+<div class="run-actions">
+<a href="#view-results" class="button secondary">Kết quả hiện tại</a>
+<button type="submit" id="run" class="button primary">Chạy phân loại</button>
+</div>
+</div>
+<p id="form-error" class="notice danger" role="alert" hidden>
+</p>
+</form>
+</section>
+<section id="view-results" class="page-view" aria-labelledby="results-title" hidden>
+<div class="page-heading compact">
+<div>
+<p class="eyebrow">ĐỐI CHIẾU PHƯƠNG PHÁP</p>
+<h1 id="results-title" tabindex="-1">Kết quả suy luận</h1>
+<p class="lead">Dự đoán trên một đầu vào. Các nhóm phương pháp được trình bày riêng.</p>
+</div>
+<button class="button secondary" id="download" disabled>Tải JSON</button>
+</div>
+<div id="result-context" class="result-context" hidden>
+<span class="section-label">ĐẦU VÀO ĐANG ĐỐI CHIẾU</span>
+<p id="result-subtitle">
+</p>
+<span id="job-status" class="chip neutral">
+</span>
+</div>
+<div class="stats">
+<div>
+<span>CÓ DỰ ĐOÁN</span>
+<strong id="completed-count">—</strong>
+</div>
+<div>
+<span>KHÔNG THỰC THI / LỖI</span>
+<strong id="unavailable-count">—</strong>
+</div>
+<div>
+<span>THỜI GIAN WORKER</span>
+<strong id="total-time">—</strong>
+</div>
+<div>
+<span>MÃ HÓA ĐẦU VÀO</span>
+<strong id="encoding-time">—</strong>
+</div>
+</div>
+<section class="panel results-panel" aria-label="Bảng dự đoán">
+<div class="panel-heading">
+<h2>Dự đoán theo phương pháp</h2>
+<span id="row-count" class="count-label">0 kết quả</span>
+</div>
+<div class="result-filters" role="group" aria-label="Lọc nhóm phương pháp">
+<button type="button" data-family="all" aria-pressed="true">Tất cả</button>
+<button type="button" data-family="zero" aria-pressed="false">Zero-shot</button>
+<button type="button" data-family="adaptation" aria-pressed="false">Thích nghi không nhãn</button>
+<button type="button" data-family="fewshot" aria-pressed="false">Few-shot</button>
+<button type="button" data-family="control" aria-pressed="false">Đối chứng bổ sung</button>
+</div>
+<div id="job-progress" hidden>
+<div class="progress-copy">
+<span id="job-message" role="status" aria-live="polite">
+</span>
+<button id="cancel" type="button" class="text-button danger-text">Hủy yêu cầu</button>
+</div>
+<progress id="progress" max="100" value="0" aria-label="Tiến độ xử lý">
+</progress>
+</div>
+<div id="empty" class="empty">
+<svg viewBox="0 0 64 64" aria-hidden="true">
+<rect x="10" y="12" width="44" height="40" rx="5"/>
+<path d="M10 24h44M25 24v28m10-19h12m-12 9h12m-31-9h3m-3 9h3"/>
+</svg>
+<h3>Chưa có kết quả suy luận</h3>
+<p>Yêu cầu phân loại được tạo tại phần Cấu hình suy luận.</p>
+<a href="#view-setup" class="button secondary">Cấu hình suy luận</a>
+</div>
+<div id="filtered-empty" class="empty compact-empty" hidden>
+<h3>Không có kết quả thuộc nhóm này</h3>
+<p>Các phương pháp đã thực thi được giữ nguyên khi đổi bộ lọc.</p>
+</div>
+<div class="table-wrap" id="table-wrap" hidden>
+<table>
+<caption class="sr-only">Kết quả phân loại theo nhóm phương pháp trên đầu vào đã chọn</caption>
+<thead>
+<tr>
+<th scope="col">Phương pháp / Backbone</th>
+<th scope="col">Đầu vào</th>
+<th scope="col">Dự đoán</th>
+<th scope="col">Điểm mô hình</th>
+<th scope="col">Chi phí nhánh</th>
+<th scope="col">
+<span class="sr-only">Chi tiết</span>
+</th>
+</tr>
+</thead>
+<tbody id="results">
+</tbody>
+</table>
+</div>
+</section>
+<details class="panel interpretation">
+<summary>Quy ước đọc kết quả</summary>
+<div class="interpretation-grid">
+<div>
+<h3>Điểm và chỉ số đánh giá</h3>
+<p>Điểm mô hình chưa được hiệu chuẩn. Accuracy và Macro-F1 không được tính cho một ảnh không có nhãn đối chiếu.</p>
+</div>
+<div>
+<h3>Thời gian xử lý</h3>
+<p>Thời gian worker không gồm chờ hàng đợi và truyền mạng. Chi phí nhánh có thể dùng lại đặc trưng hoặc kết quả tính chung.</p>
+</div>
+<div>
+<h3>Giới hạn so sánh</h3>
+<p>Thiếu head hoặc nhóm tham chiếu không phải dự đoán sai. Kết quả một ảnh không xác định thứ hạng phương pháp trên tập dữ liệu.</p>
+</div>
+</div>
+</details>
+</section>
+<section id="view-experiments" class="page-view" aria-labelledby="experiments-title" hidden>
+<div class="page-heading compact"><div><p class="eyebrow">KẾT QUẢ ĐÃ LƯU VÀ KIỂM TRA</p><h1 id="experiments-title" tabindex="-1">Kết quả thực nghiệm</h1><p class="lead">Biểu đồ từ artifact đánh giá. Độc lập với yêu cầu suy luận một ảnh và không cần kết nối GPU.</p></div><button type="button" id="exp-download-json" class="button secondary" disabled>Tải dữ liệu run</button></div>
+<div id="exp-status" class="notice" role="status">Đang tải danh mục kết quả.</div>
+<section class="panel experiment-controls" aria-label="Chọn thí nghiệm">
+<div class="experiment-run"><label for="exp-run">Bộ kết quả / phạm vi đối chiếu</label><select id="exp-run" disabled><option>Đang tải danh mục…</option></select></div>
+<div><label for="exp-metric">Chỉ số tổng hợp</label><select id="exp-metric"><option value="macro_f1">Macro-F1</option><option value="accuracy">Accuracy</option><option value="balanced_accuracy">Balanced Accuracy</option><option value="top5">Top-5 Accuracy</option></select></div>
+<div id="exp-method-control" hidden><label for="exp-method">Phương pháp phân tích</label><select id="exp-method"></select></div>
+</section>
+<div id="exp-meta" class="experiment-meta"></div>
+<div id="exp-tabs" class="experiment-tabs" role="group" aria-label="Loại biểu đồ"></div>
+<section class="panel experiment-panel" aria-labelledby="exp-chart-title">
+<div class="panel-heading"><div><span class="section-label" id="exp-chart-kicker">ĐỐI CHIẾU THỰC NGHIỆM</span><h2 id="exp-chart-title">So sánh phương pháp</h2></div><div class="experiment-actions"><button type="button" id="exp-download-csv" class="button secondary small" disabled>Tải bảng CSV</button><button type="button" id="exp-download-svg" class="button secondary small" disabled>Tải SVG chính</button></div></div>
+<p id="exp-chart-note" class="chart-description"></p>
+<div id="exp-extra-controls" class="chart-controls"></div>
+<div id="exp-chart"></div>
+<details id="exp-table-details" class="chart-table"><summary>Bảng số liệu của biểu đồ</summary><div id="exp-data-table" class="table-wrap"></div></details>
+</section>
+<details class="panel experiment-provenance"><summary>Nguồn dữ liệu và quy ước thống kê</summary><div id="exp-source"></div><p>Thanh sai số là độ lệch chuẩn mẫu giữa seed (ddof = 1), không phải khoảng tin cậy. Biến thiên seed trên cùng cohort không thay thế đánh giá trên tập độc lập.</p><p>Không dựng đường train loss khi artifact không lưu lịch sử tối ưu. NLL, nếu có, là giá trị đánh giá đầu ra; không phải loss huấn luyện backbone.</p></details>
+</section>
+<section id="view-history" class="page-view" aria-labelledby="history-title" hidden>
+<div class="page-heading compact">
+<div>
+<p class="eyebrow">THEO DÕI PHIÊN THỰC NGHIỆM</p>
+<h1 id="history-title" tabindex="-1">Lịch sử suy luận</h1>
+<p class="lead">Danh sách yêu cầu trong phiên server hiện tại. Chọn một yêu cầu để xem kết quả.</p>
+</div>
+</div>
+<section class="panel history-panel">
+<div class="panel-heading">
+<h2>Yêu cầu đã tạo</h2>
+<span class="chip neutral">Tối đa 20 lượt</span>
+</div>
+<div id="history" class="history">
+<p class="empty-text">Chưa có yêu cầu.</p>
+</div>
+</section>
+<p class="page-note">Lịch sử lưu trong bộ nhớ phiên; không được giữ khi server khởi động lại.</p>
+</section>
+</main>
+<footer>
+<span>VLM Classifier <span class="separator">/</span> Phân loại nội dung ảnh–tiêu đề</span>
+<span>Fakeddit</span>
+</footer>
+</div>
+<dialog id="connection" aria-labelledby="connection-title">
+<div class="dialog-heading">
+<div>
+<span class="section-label">HẠ TẦNG SUY LUẬN</span>
+<h2 id="connection-title">Kết nối Kaggle worker</h2>
+</div>
+<button id="connection-close" class="button secondary small">Đóng</button>
+</div>
+<div class="runtime">
+<span class="runtime-label">TRẠNG THÁI WORKER</span>
+<strong id="gpu-state">Đang kiểm tra kết nối</strong>
+<span id="gpu-detail">Chưa có thông tin heartbeat</span>
+</div>
+<p class="dialog-copy">Gateway local nhận yêu cầu; worker Kaggle thực hiện suy luận và trả kết quả qua HTTPS.</p>
+<ol class="connection-steps">
+<li>Lấy URL HTTPS từ log tunnel. Gateway mặc định: <code id="gateway-address">http://127.0.0.1:8766</code>.</li>
+<li>Gán URL cho Kaggle Secret <code>DEMO_BROKER_URL</code>.</li>
+<li>Gán mã phiên cho <code>DEMO_WORKER_TOKEN</code>; cấp quyền cả hai Secrets cho notebook.</li>
+<li>Bật GPU và Internet, chạy notebook worker.</li>
+</ol>
+<button id="show-token" class="button secondary">Lấy mã kết nối phiên này</button>
+<div id="token-box" hidden>
+<label for="connection-token">Token phiên</label>
+<div class="token-controls">
+<input id="connection-token" type="password" readonly autocomplete="off">
+<button id="copy-token" class="button secondary">Sao chép mã</button>
+</div>
+</div>
+<p id="connection-message" role="status">
+</p>
+<p class="field-note">Token thay đổi khi server khởi động lại. URL Quick Tunnel có thể thay đổi sau khi tạo lại tunnel.</p>
+</dialog>
+<dialog id="details" aria-labelledby="details-title">
+<div class="dialog-heading">
+<h2 id="details-title">Chi tiết dự đoán</h2>
+<button id="details-close" class="button secondary small">Đóng</button>
+</div>
+<div id="details-body">
+</div>
+</dialog>
+</body>
+</html>
