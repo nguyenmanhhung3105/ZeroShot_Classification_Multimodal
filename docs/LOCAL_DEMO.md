@@ -1,5 +1,36 @@
 # Demo localhost và GPU Kaggle
 
+## Mô phỏng phương pháp
+
+Mục **Mô phỏng phương pháp** (`/#view-simulations`) nằm ngay dưới **Bài toán**.
+Bộ chọn hiển thị 26 phương pháp trong catalog demo, chia Zero-shot, Thích nghi không nhãn,
+Few-shot và Đối chứng bổ sung; tiêu đề ghi rõ phương pháp đang mô phỏng.
+Mỗi mục giữ tiến trình riêng, có nút
+Trước/Tiếp/Xem lại từ đầu, đầu vào minh họa, biểu diễn, bước quyết định và đầu ra.
+Có Chạy/Tạm dừng tự động, timeline chọn bước, sơ đồ nối đường xử lý và phần giải thích
+mở theo nhu cầu. Đổi phương pháp hoặc rời trang sẽ dừng phát để tránh chạy ngầm.
+Few-shot có bốn tình huống giả lập để thấy cả dự đoán đúng, bỏ sót và báo nhầm.
+Tab này chạy ngay trên trình duyệt, không cần worker/GPU và không gửi job.
+Ảnh mẫu là train ID `d89ibd`, được chọn trong tối đa năm dòng đầu TSV train min5;
+asset local `simulations-sample.jpg` là bản sao ảnh gốc, tiêu đề gốc được giữ trong
+tình huống mặc định. Các tình huống khác chỉ thay tiêu đề/điểm giả lập, không sửa ảnh nguồn.
+Không đọc dữ liệu thô, test hoặc chạy encoder để tạo mẫu này.
+Embedding 2D và điểm được dựng để giảng giải, không thay kết quả inference
+hoặc thực nghiệm. Khối phép tính trình bày biểu thức, số thay vào và kết quả mỗi bước.
+StatA giữ cố định vị trí chấm ảnh; điểm và thống kê lớp mới thay đổi.
+R87 minh họa cách chọn ngưỡng từ 100 Fake selection giả lập; ngưỡng 0,36 không phải
+ngưỡng trong artifact thật. Nhãn và điểm giả lập không được dùng làm số liệu báo cáo.
+
+Khi dùng Docker, cập nhật giao diện bằng `docker compose up -d --build` rồi tải lại trang.
+
+Tham khảo cách trình bày tương tác của [TensorFlow Playground](https://github.com/tensorflow/playground),
+[CNN Explainer](https://github.com/poloclub/cnn-explainer) và
+[EM, Step by Step](https://msrepo.github.io/theory_inclined_papers_with_annotations/expectation-maximization/figures/interactive.html).
+Chỉ tham khảo cách thể hiện luồng, màu gán mềm và bước cập nhật thống kê; không sao chép
+code hay đồng nhất StatA với EM thuần túy. Nhãn minh họa vẫn được giữ gọn ở đầu trang.
+
+## Luồng suy luận thật
+
 Web nhận ảnh và tiêu đề, gửi yêu cầu tới hàng đợi trong RAM local. Notebook Kaggle
 chủ động lấy yêu cầu qua HTTPS tunnel, chạy backbone trên CUDA và gửi dần kết quả.
 Local không import Torch, không tải trọng số backbone, không train và không inference.

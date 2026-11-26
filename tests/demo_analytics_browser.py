@@ -53,7 +53,7 @@ def main():
             for metric in ['accuracy', 'macro_f1', 'balanced_accuracy']:
                 page.locator('#exp-metric').select_option(metric)
                 expect(page.locator('#exp-data-table')).to_contain_text('CLIP')
-            for button, extension in [('Tải bảng CSV', '.csv'), ('Tải SVG chính', '.svg'), ('Tải dữ liệu run', '.json')]:
+            for button, extension in [('Tải bảng CSV', '.csv'), ('Tải SVG chính', '.svg'), ('Tải dữ liệu thí nghiệm', '.json')]:
                 with page.expect_download() as download:
                     page.get_by_role('button', name=button, exact=True).click()
                 assert download.value.suggested_filename.endswith(extension)

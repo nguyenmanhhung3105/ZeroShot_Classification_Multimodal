@@ -93,7 +93,7 @@
     const key = metric(), valid = rows.filter(row => row.metrics[key]);
     bars(valid.map(row => ({label: (row.regime === 'Few-shot' ? 'Few-shot · ' : '') + titleOf(row.method), value: row.metrics[key].mean * 100, std: row.metrics[key].std * 100, color: color(row)})), metricNames[key], {percent: true});
     dataTable(['Phương pháp', 'Nhánh', metricNames[key] + ' (%)', 'Std (điểm %)', 'Số seed', 'Mẫu / seed'], valid.map(row => [titleOf(row.method), row.regime || kindNames[state.run.kind] || state.run.kind, row.metrics[key].mean * 100, row.metrics[key].std * 100, row.seeds, row.samples]));
-    note('Mean ± sample std (ddof = 1). Một kết quả tất định có std = 0. Số seed có thể khác giữa các nhánh.');
+    note('Giá trị trung bình và độ lệch chuẩn mẫu (ddof = 1). Cấu hình tất định có độ lệch chuẩn bằng 0. Số seed có thể khác giữa các phương pháp.');
     if (state.run.support_budget) {
       const budgets = grouped(state.run.support_budget, ['policy']);
       note('Support có nhãn: ' + budgets.map(group => `${group.name === 'legacy_6way' ? 'L' : group.name === 'balanced_binary' ? 'B' : group.name} = ${fmt(agg(group.values.map(v => v.counts[0])).mean)} Real + ${fmt(agg(group.values.map(v => v.counts.slice(1).reduce((a, b) => a + b, 0))).mean)} Fake / seed`).join('; ') + '.');
@@ -105,7 +105,7 @@
       const pairs = row.confusions;
       bars(pairs.slice(0, 20).map(item => ({label: `${item.truth} → ${item.predicted}`, value: item.count, color: palette[0]})), 'Các cặp lớp nhầm lẫn phổ biến');
       dataTable(['Nhãn thật', 'Dự đoán', 'Số lỗi trung bình / seed'], pairs.map(p => [p.truth, p.predicted, p.count]));
-      note('Hiển thị các cặp có nhiều lỗi nhất; không dựng ma trận lớn trên một màn hình. Không bao gồm ô dự đoán đúng.');
+      note('Các cặp lớp có nhiều dự đoán nhầm nhất. Không bao gồm các dự đoán đúng.');
       return;
     }
     control('Seed', [['mean', 'Trung bình các seed'], ...row.seed_confusions.map(v => [v.seed, v.seed])], state.matrixSeed, value => { state.matrixSeed = value; render(); });
@@ -148,7 +148,7 @@
     const visible = rows.slice(state.classPage * 20, state.classPage * 20 + 20);
     bars(visible.map(c => ({label: c.label, value: distribution ? c.support : c[key].mean * 100, std: distribution ? 0 : c[key].std * 100, color: palette[0]})), distribution ? 'Phân bố nhãn thật' : key.toUpperCase() + ' theo lớp', {percent: !distribution});
     dataTable(['Lớp', 'Support / seed', 'Precision (%)', 'Recall (%)', 'F1 (%)', 'Std F1 (điểm %)'], visible.map(c => [c.label, c.support, c.precision.mean * 100, c.recall.mean * 100, c.f1.mean * 100, c.f1.std * 100]));
-    note(distribution ? 'Support lấy từ nhãn thật trong artifact prediction; không phải phân bố nhãn mô hình dự đoán.' : 'Lớp được sắp theo điểm tăng dần. Biểu đồ hiển thị tối đa 20 lớp mỗi trang; đổi nhóm lớp để xem toàn bộ.');
+    note(distribution ? 'Số mẫu được đếm theo nhãn thật trong kết quả đánh giá, không phải theo nhãn dự đoán.' : 'Lớp được sắp theo điểm tăng dần. Biểu đồ hiển thị tối đa 20 lớp mỗi trang; đổi nhóm lớp để xem toàn bộ.');
   }
   function seeds() {
     const row = selected(), key = metric(), points = row.seed_metrics.filter(v => Number.isFinite(v[key]));
@@ -198,10 +198,10 @@
     const wrap = html('div', undefined, 'table-wrap'), table = html('table'), head = html('thead'), tr = html('tr'), body = html('tbody');
     ['Policy / gate', 'Accuracy trên mọi Fake thật', 'Accuracy trên Fake qua gate đúng'].forEach(name => tr.append(html('th', name))); head.append(tr);
     routing.forEach(group => { const row = html('tr'); row.append(html('td', group.name), html('td', pct(agg(group.values.map(v => v.child_accuracy_all_true_fake)).mean)), html('td', pct(agg(group.values.map(v => v.child_accuracy_given_correct_fake_gate)).mean))); body.append(row); }); table.append(head, body); wrap.append(table); $('exp-chart').append(wrap);
-    note('Hai cột đo trên tập con khác nhau. Conditional accuracy không thay thế chất lượng head con trên toàn bộ Fake thật.');
+    note('Hai cột đo trên hai tập mẫu khác nhau: toàn bộ mẫu có nhãn Fake và các mẫu Fake được định tuyến đúng. Cần đọc riêng từng cột khi đánh giá bộ phân loại con.');
     const oracle = state.run.diagnostics['oracle_diagnostic.json'];
     if (oracle) {
-      const details = html('details', undefined, 'oracle-diagnostic'); details.append(html('summary', 'Chẩn đoán oracle gate — sử dụng nhãn thật, không phải phương pháp triển khai'));
+      const details = html('details', undefined, 'oracle-diagnostic'); details.append(html('summary', 'Phân tích oracle gate (dùng nhãn thật, chỉ để chẩn đoán)'));
       const entries = Object.entries(oracle.metrics || oracle).filter(([, value]) => value && typeof value === 'object' && Number.isFinite(value.accuracy));
       const items = grouped(entries.map(([name, value]) => ({policy: name.replace(/_s\d+$/, ''), accuracy: value.accuracy})), ['policy']);
       items.forEach(item => details.append(html('p', `${item.name}: Accuracy ${pct(agg(item.values.map(v => v.accuracy)).mean)}`)));
@@ -246,7 +246,7 @@
     const items = groups.map(group => { const s = agg(group.values.map(v => v[key])); return {label: titleOf(group.name), value: s.mean, std: s.std, color: palette[0]}; });
     bars(items, titles[key]);
     dataTable(['Phương pháp', titles[key], 'Sample std', 'Số cấu hình lặp'], items.map((item, i) => [item.label, item.value, item.std, groups[i].values.length]));
-    note('Đây là chẩn đoán xác suất đầu ra trên tập đánh giá, không phải train loss hoặc loss theo epoch. Điểm cực đại lớn không đồng nghĩa Accuracy cao hoặc đã hiệu chuẩn.');
+    note('Các chỉ số được tính từ đầu ra trên tập đánh giá, không phải loss huấn luyện theo epoch. Điểm dự đoán lớn không đồng nghĩa với Accuracy cao hoặc xác suất đã được hiệu chuẩn.');
   }
   function roc() {
     const row = selected(), records = row.roc.curves;
@@ -301,18 +301,18 @@
     note('Sử dụng nhãn nhị phân thật ở gate. Không phải phương pháp triển khai, không nằm trong bảng đối chiếu chính và không phải cận trên cho mọi chỉ số.');
   }
   const panels = {
-    summary: ['So sánh phương pháp', 'Mean và độ lệch chuẩn trên cùng bộ kết quả. Không xếp hạng từ điểm của một ảnh.', () => summary()],
-    modality: ['Đóng góp ảnh–tiêu đề', 'Các modality và policy support được giữ riêng; không cộng gộp thành một phương pháp.', () => summary(state.run.methods.filter(row => /(?:image|title)$/.test(row.method)))],
-    confusion: ['Ma trận và cặp lớp nhầm lẫn', 'Nhãn thật và dự đoán lấy từ artifact prediction, không suy diễn từ Accuracy.', confusion],
+    summary: ['So sánh phương pháp', 'Giá trị trung bình và độ lệch chuẩn của từng phương pháp trên cùng tập đánh giá.', () => summary()],
+    modality: ['Đóng góp ảnh–tiêu đề', 'So sánh ảnh với ảnh kết hợp tiêu đề, tách theo từng cách lấy mẫu hỗ trợ.', () => summary(state.run.methods.filter(row => /(?:image|title)$/.test(row.method)))],
+    confusion: ['Ma trận và cặp lớp nhầm lẫn', 'Đối chiếu nhãn thật với nhãn dự đoán trong kết quả đánh giá đã lưu.', confusion],
     classes: ['Chỉ số theo lớp', 'Precision, Recall và F1 trung bình theo seed. Support là số mẫu của mỗi lớp.', () => classes()],
-    distribution: ['Phân bố lớp đánh giá', 'Đếm nhãn thật của cohort đã dùng trong run, không đọc dataset gốc.', () => classes(true)],
-    seeds: ['Biến thiên giữa các seed', 'Các lần lặp trên cùng cohort; không phải các epoch huấn luyện.', seeds],
-    cascade: ['Gate và head con', 'Tách lỗi định tuyến, lỗi subtype và chất lượng head con.', cascade],
+    distribution: ['Phân bố lớp đánh giá', 'Số mẫu của từng nhãn thật trong tập đánh giá của thí nghiệm.', () => classes(true)],
+    seeds: ['Biến thiên giữa các seed', 'Kết quả các lần chạy với seed khác nhau trên cùng tập đánh giá; không phải các epoch huấn luyện.', seeds],
+    cascade: ['Gate và head con', 'Xem lỗi tại tầng Real/Fake và lỗi phân nhóm Fake của bộ phân loại con.', cascade],
     delta: ['Chênh lệch ghép cặp', 'Đối chiếu các cấu hình trên cùng seed, theo bảng phân tích đã lưu.', delta],
     curves: ['Precision–Recall và ngưỡng', 'Ngưỡng được chọn trên selection dev; bộ audit dev không phải test độc lập.', curves],
-    probability: ['Chẩn đoán xác suất', 'NLL và entropy từ bảng diagnostic đã lưu; không phải train loss.', probability],
+    probability: ['Chẩn đoán xác suất', 'NLL và entropy của đầu ra trên tập đánh giá đã lưu.', probability],
     subtypes: ['Recall theo subtype', 'Phân biệt chất lượng gate nhị phân và recall đầu cuối theo nhãn thật.', subtypes],
-    support: ['Ngân sách support', 'Phân bổ mẫu train có nhãn giữa các policy và seed.', support],
+    support: ['Ngân sách support', 'Số mẫu train có nhãn theo từng cách lấy mẫu hỗ trợ và seed.', support],
     oracle: ['Chẩn đoán oracle gate', 'Dùng nhãn gate thật; tách biệt với các phương pháp suy luận có thể triển khai.', oracle],
     roc: ['ROC / PR đánh giá', 'Tính lại từ p(Fake) đã lưu; chỉ hiển thị ở phương pháp có score, trên đúng tập đánh giá của run.', roc],
   };
@@ -370,7 +370,7 @@
     try {
       const run = await fetchJSON('/api/experiments/' + encodeURIComponent(id)); if (request !== state.request) return;
       // Filter presentation only; source snapshots and research results stay intact.
-      run.methods = run.methods.filter(row => !/(?:^|_)title$/.test(row.method) || row.method.endsWith('image_title'));
+      run.methods = run.methods.filter(row => row.method !== 'clip_stata_image_title' && (!/(?:^|_)title$/.test(row.method) || row.method.endsWith('image_title')));
       for (const records of Object.values(run.artifacts || {})) {
         if (Array.isArray(records)) {
           for (let i = records.length - 1; i >= 0; i--) {
@@ -379,17 +379,20 @@
           }
         }
       }
+      if (Array.isArray(run.diagnostics?.['branch_diagnostics.json'])) {
+        run.diagnostics['branch_diagnostics.json'] = run.diagnostics['branch_diagnostics.json'].filter(row => row.method !== 'clip_stata_image_title');
+      }
       state.run = run; state.classPage = 0; state.classSearch = ''; state.matrixSeed = 'mean'; state.curve = 0;
       const select = $('exp-method'); select.replaceChildren();
       run.methods.forEach(row => { const option = html('option', titleOf(row.method)); option.value = row.key; select.append(option); }); state.method = select.value;
       const metricOptions = [...$('exp-metric').options]; metricOptions.forEach(option => { option.hidden = !run.methods.some(row => row.metrics[option.value]); });
       if (!run.methods.some(row => row.metrics[metric()])) $('exp-metric').value = 'macro_f1';
       provenance(); render(); $('view-experiments').dataset.runId = run.id;
-      $('exp-status').textContent = run.split === 'dev' ? 'Đánh giá phát triển (dev). Không phải test độc lập.' : 'Full cohort của thí nghiệm; phạm vi diễn giải theo metadata nguồn.';
+      $('exp-status').textContent = run.split === 'dev' ? 'Đánh giá phát triển (dev). Không phải test độc lập.' : 'Kết quả trên toàn bộ tập mẫu của thí nghiệm. Phạm vi đánh giá được ghi trong thông tin nguồn.';
       $('exp-status').className = 'notice experiment-scope'; $('exp-download-json').disabled = false;
     } catch (error) {
       if (request !== state.request) return;
-      $('exp-status').textContent = 'Không tải được snapshot thực nghiệm: ' + error.message;
+      $('exp-status').textContent = 'Không tải được bộ kết quả thực nghiệm: ' + error.message;
       $('exp-status').className = 'notice danger';
     }
   }

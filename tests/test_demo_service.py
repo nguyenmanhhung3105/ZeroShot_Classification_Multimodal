@@ -110,7 +110,33 @@ class DemoServiceTests(unittest.TestCase):
             self.assertIn(b'VLM Classifier', call('/'))
             self.assertIn(b'renderMethods', call('/app.js'))
             self.assertIn(b'--blue', call('/style.css'))
+            self.assertIn(b'<svg', call('/favicon.svg'))
+            self.assertIn(b'<svg', call('/favicon.ico'))
+            import gzip
+            for encoding, compressed in [('gzip', True), ('gzip;q=0', False)]:
+                request = Request(f'http://127.0.0.1:{port}/api/experiments',
+                                  headers={'Accept-Encoding': encoding})
+                with urlopen(request) as response:
+                    payload = response.read()
+                    self.assertEqual(response.headers.get('Content-Encoding') == 'gzip', compressed)
+                    self.assertEqual(response.headers['Cache-Control'], 'no-store')
+                    self.assertIn("frame-ancestors 'none'", response.headers['Content-Security-Policy'])
+                    if compressed:
+                        payload = gzip.decompress(payload)
+                    self.assertIn('runs', json.loads(payload))
+            request = Request(f'http://127.0.0.1:{port}/api/connection', data=b'{}',
+                              headers={'Accept-Encoding': 'gzip', 'Content-Type': 'application/json',
+                                       'X-Demo-Client': 'localhost'})
+            with urlopen(request) as response:
+                self.assertIsNone(response.headers.get('Content-Encoding'))
+                self.assertEqual(json.loads(response.read())['token'], token)
+
             self.assertIn(b'ExperimentCharts', call('/analytics.js'))
+            self.assertIn(b'MethodSimulations', call('/simulations.js'))
+            self.assertIn(b'MethodStage', call('/simulations-stage.js'))
+            self.assertIn(b'SimulationRecipes', call('/simulations-recipes.js'))
+            self.assertTrue(call('/simulations-sample.jpg').startswith(b'\xff\xd8'))
+            self.assertIn(b'.simulation-theater', call('/simulations.css'))
             experiments = call('/api/experiments')
             self.assertTrue(experiments['runs'])
             data = call('/api/experiments/' + experiments['default'])

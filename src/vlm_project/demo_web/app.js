@@ -1,13 +1,13 @@
 'use strict';
 const $ = id => document.getElementById(id);
-const pages = {overview: 'Bài toán', setup: 'Cấu hình suy luận', results: 'Kết quả suy luận', experiments: 'Kết quả thực nghiệm', history: 'Lịch sử'};
+const pages = {overview: 'Bài toán', setup: 'Cấu hình suy luận', results: 'Kết quả suy luận', experiments: 'Kết quả thực nghiệm', simulations: 'Mô phỏng phương pháp', history: 'Lịch sử'};
 const statuses = {queued: 'Chờ worker', running: 'Đang xử lý', complete: 'Hoàn tất', failed: 'Lỗi', cancelled: 'Đã hủy'};
 const modalities = {image: 'Ảnh', title: 'Tiêu đề', image_title: 'Ảnh + tiêu đề'};
 const families = {
-  zero: {title: 'Zero-shot', description: 'Phân loại từ mô tả lớp, không học head bằng nhãn train.'},
-  adaptation: {title: 'Thích nghi không nhãn', description: 'Cần nhóm đặc trưng tham chiếu cho suy luận theo nhóm.'},
-  fewshot: {title: 'Few-shot', description: 'Sử dụng head đã học trên support có nhãn, đúng backbone.'},
-  control: {title: 'Đối chứng bổ sung', description: 'Các biến thể và cấu hình đối chứng ngoài danh sách demo chính.'},
+  zero: {title: 'Zero-shot', description: 'Phân loại bằng mô tả lớp, không huấn luyện bộ phân loại bằng nhãn train.'},
+  adaptation: {title: 'Thích nghi không nhãn', description: 'Sử dụng nhóm mẫu không nhãn để điều chỉnh dự đoán; cần có nhóm tham chiếu khi demo.'},
+  fewshot: {title: 'Few-shot', description: 'Sử dụng bộ phân loại đã huấn luyện từ tập hỗ trợ có nhãn, tương ứng với backbone đã chọn.'},
+  control: {title: 'Đối chứng bổ sung', description: 'Các biến thể dùng để đối chiếu thêm với phương pháp chính.'},
 };
 const selectedMethods = new Set(['clip_image', 'clip_image_title', 'dclip', 'waffle', 'fewshot_image', 'fewshot_image_title', 'fewshot_flat', 'fewshot_cascade']);
 let catalog, activeJob = null, file = null, previewURL = null, polling = false, resultFilter = 'all';
@@ -20,7 +20,7 @@ const el = (tag, text, className) => {
 };
 function familyOf(method) {
   if (method.startsWith('fewshot_')) return 'fewshot';
-  if (method.startsWith('legacy_') || ['waffle_unit', 'calip', 'majority', 'em_image', 'flat_majority', 'clip_stata_image', 'clip_stata_image_title', 'hierarchy_em', 'hierarchy_majority'].includes(method)) return 'control';
+  if (method.startsWith('legacy_') || ['waffle_unit', 'calip', 'majority', 'em_image', 'flat_majority', 'clip_stata_image', 'hierarchy_em', 'hierarchy_majority'].includes(method)) return 'control';
   if (['majority', 'em_image', 'flat_stata', 'flat_majority', 'stata_image', 'clip_stata_image', 'clip_stata_image_title', 'hierarchy', 'hierarchy_em', 'hierarchy_majority'].includes(method)) return 'adaptation';
   return 'zero';
 }
@@ -34,6 +34,7 @@ function openView(name, focus = true) {
   $('current-section').textContent = pages[name];
   document.title = `${pages[name]} · VLM Classifier`;
   if (name === 'experiments') window.ExperimentCharts?.load();
+  if (name === 'simulations') window.MethodSimulations?.init();
   if (focus) {
     $('view-' + name).querySelector('h1').focus({preventScroll: true});
     window.scrollTo({top: 0, behavior: 'auto'});
@@ -57,6 +58,7 @@ function error(message, global = false) {
   area.hidden = !message;
 }
 function applicable(method) {
+  if (method.id === 'clip_stata_image_title') return false;
   if (method.modality === 'title') return false;
   if ($('pipeline').value !== 'all' && method.pipeline !== $('pipeline').value) return false;
   if ($('task').value === '2way') return method.pipeline !== 'cascade' && !['fewshot_flat', 'flat_stata', 'flat_majority'].includes(method.id);
@@ -102,6 +104,12 @@ function count() {
 function setFile(next) {
   if (!next) return;
   if (!['image/jpeg', 'image/png', 'image/webp'].includes(next.type) || next.size > 8 * 1024 * 1024) {
+    file = null;
+    $('image').value = '';
+    if (previewURL) URL.revokeObjectURL(previewURL);
+    previewURL = null;
+    $('preview').removeAttribute('src'); $('preview').hidden = true;
+    $('upload-prompt').hidden = false; $('file-name').textContent = 'Chưa chọn tệp';
     error('Định dạng ảnh: JPEG, PNG hoặc WebP; dung lượng tối đa 8 MB.'); return;
   }
   file = next;
@@ -130,7 +138,7 @@ function details(row) {
   if (row.note) area.append(el('p', row.note, 'detail-notice'));
   if (row.predicted) area.append(el('p', `Nhãn dự đoán: ${row.predicted}`));
   if (row.route) area.append(el('p', `Định tuyến: ${row.route}`, 'detail-meta'));
-  if (row.gate) area.append(el('p', `Gate — Real: ${percent(row.gate.Real)} · Fake: ${percent(row.gate.Fake)} · Ngưỡng: ${row.threshold ?? 'argmax; hòa chọn Real'}`, 'detail-meta'));
+  if (row.gate) area.append(el('p', `Tầng Real/Fake: Real: ${percent(row.gate.Real)} · Fake: ${percent(row.gate.Fake)} · Ngưỡng: ${row.threshold ?? 'chọn điểm cao nhất; nếu bằng nhau chọn Real'}`, 'detail-meta'));
   const scores = Object.entries(row.scores || {});
   if (scores.length) area.append(el('h3', 'Phân phối điểm theo lớp', 'detail-label'));
   for (const [name, score] of scores) {
@@ -139,7 +147,7 @@ function details(row) {
     line.append(el('span', name), meter, el('span', percent(score))); area.append(line);
   }
   if (row.variants?.length) {
-    area.append(el('h3', 'Các policy và seed', 'detail-label'));
+    area.append(el('h3', 'Cấu hình lấy mẫu và seed', 'detail-label'));
     const wrap = el('div', undefined, 'variant-table-wrap'), table = el('table'), head = el('thead'), header = el('tr'), body = el('tbody');
     for (const name of ['Policy', 'Seed', 'Dự đoán', 'Điểm', 'Định tuyến']) { const th = el('th', name); th.scope = 'col'; header.append(th); }
     head.append(header);
@@ -230,7 +238,7 @@ function healthState(health) {
   $('local-state').className = 'local-state connected';
   $('gpu-state').textContent = health.online ? ({ready: 'GPU sẵn sàng', loading: 'Đang nạp model', busy: 'GPU đang xử lý'}[health.state] || 'Đã kết nối worker') : 'Chưa kết nối GPU';
   $('gpu-state').closest('.runtime').classList.toggle('online', health.online);
-  $('gpu-detail').textContent = health.online ? (health.message || 'Đã nhận heartbeat từ worker') : 'Chưa nhận heartbeat trong khoảng thời gian theo dõi';
+  $('gpu-detail').textContent = health.online ? (health.message || 'Đã nhận tín hiệu từ worker') : 'Chưa nhận được tín hiệu gần đây từ worker';
 }
 async function tick() {
   if (polling) return;
@@ -260,10 +268,10 @@ function bindInterface() {
     if (location.hash.startsWith('#view-')) openView(location.hash.replace('#view-', ''));
   });
   openView(location.hash.replace('#view-', ''), false);
-  document.querySelectorAll('[data-family]').forEach(button => {
+  document.querySelectorAll('.result-filters [data-family]').forEach(button => {
     button.onclick = () => {
       resultFilter = button.dataset.family;
-      document.querySelectorAll('[data-family]').forEach(item => item.setAttribute('aria-pressed', String(item === button)));
+      document.querySelectorAll('.result-filters [data-family]').forEach(item => item.setAttribute('aria-pressed', String(item === button)));
       renderRows();
     };
   });
@@ -313,7 +321,7 @@ async function init() {
     event.preventDefault(); error('');
     const methods = [...$('methods').querySelectorAll(':checked')].map(input => input.value);
     const backbones = [...$('backbones').querySelectorAll(':checked')].map(input => input.value);
-    if (!file || !methods.length || !backbones.length) { error('Cần ảnh, ít nhất một phương pháp và một backbone.'); return; }
+    if (!file || !methods.length || !backbones.length) { error('Chọn ảnh, ít nhất một phương pháp và một backbone để chạy phân loại.'); return; }
     $('run').disabled = true;
     try {
       const job = await api('/api/jobs', {image: await base64File(file), title: $('title').value, task: $('task').value, pipeline: $('pipeline').value, methods, backbones});

@@ -24,12 +24,22 @@ class Document(HTMLParser):
 
 
 class PresentationTests(unittest.TestCase):
+    def test_simulation_keeps_stage_visible_without_preface_banners(self):
+        html = (WEB / 'index.html').read_text()
+        self.assertNotIn('Theo dõi riêng từng phương pháp, từ bài đăng đầu vào đến nhãn dự đoán.', html)
+        self.assertNotIn('Mọi ảnh vẽ, điểm và phân bố ở đây là dữ liệu giả lập', html)
+        for identity in ('sim-play', 'sim-timeline', 'sim-details'):
+            self.assertIn('id="' + identity + '"', html)
+
     def test_independent_report_views_and_unique_controls(self):
         document = Document((WEB / 'index.html').read_text())
-        for view in ('overview', 'setup', 'results', 'experiments', 'history'):
+        for view in ('overview', 'setup', 'results', 'experiments', 'simulations', 'history'):
             self.assertIn('view-' + view, document.ids)
             self.assertIn('view-' + view, document.navigation)
         self.assertEqual(len(document.ids), len(set(document.ids)))
+        html = (WEB / 'index.html').read_text()
+        navigation = Document(html.split('<nav aria-label="Điều hướng báo cáo">')[1].split('</nav>')[0]).navigation
+        self.assertEqual(navigation[navigation.index('view-overview') + 1], 'view-simulations')
 
     def test_professional_project_identity_and_no_unverified_metrics(self):
         text = ' '.join(Document((WEB / 'index.html').read_text()).content)

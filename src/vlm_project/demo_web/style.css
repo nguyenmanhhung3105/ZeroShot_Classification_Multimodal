@@ -429,7 +429,7 @@ main {
   font-size:9px;
   letter-spacing:1px;
   font-weight:700;
-  color:#667c97;
+  color:#586a80;
   margin-bottom:10px;
 }
 .flow-node strong {
@@ -922,6 +922,8 @@ legend {
   color:#264e9d;
 }
 .table-wrap {
+  position:relative;
+  max-width:100%;
   overflow:auto;
 }
 table {
@@ -1147,7 +1149,7 @@ footer {
   margin:auto;
   padding:17px 38px 26px;
   font-size:10px;
-  color:#61738c;
+  color:#586a80;
 }
 dialog {
   border:1px solid var(--line);
@@ -1767,4 +1769,21 @@ code {
   .panel { box-shadow: none; border: 0; }
   .report-chart { overflow: visible; }
   .report-chart > svg { min-width: 0; }
+}
+
+/* Reserve asynchronous result regions and keep long inputs inside their panels. */
+.experiment-meta { min-height: 85px; }
+.experiment-tabs { min-height: 87px; align-content: flex-start; }
+#exp-status { min-height: 64px; }
+#exp-chart { min-height: 380px; }
+.file-line span, .history-item strong, .result-context p { overflow-wrap: anywhere; min-width: 0; }
+@media (max-width: 1100px) { .experiment-meta { min-height: 182px; } }
+@media (max-width: 720px) {
+  .experiment-meta { min-height: 280px; }
+  .experiment-tabs { min-height: 182px; }
+  .lead, .field-note, .panel-note, .page-note { font-size: 14px; }
+  input, textarea, select { font-size: 16px; }
+  .settings-panel select { font-size: 16px; }
+  .flow-index, .technical-pill { font-size: 10px; }
+  footer { font-size: 11px; }
 }

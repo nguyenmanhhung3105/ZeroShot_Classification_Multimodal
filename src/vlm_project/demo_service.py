@@ -3,6 +3,7 @@ import base64
 import binascii
 import copy
 import hashlib
+import gzip
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 import io
 import json
@@ -34,7 +35,7 @@ METHODS = {
     'flat_majority': ('Majority · phẳng 6 lớp', 'image', 'single'),
     'stata_image': ('StatA · ảnh', 'image', 'single'),
     'clip_stata_image': ('CLIP–StatA · ảnh', 'image', 'single'),
-    'clip_stata_image_title': ('CLIP–StatA · fusion', 'image_title', 'single'),
+    'clip_stata_image_title': ('CLIP–StatA · ảnh + tiêu đề', 'image_title', 'single'),
     'fewshot_image': ('Few-shot · ảnh', 'image', 'single'),
     'fewshot_title': ('Few-shot · tiêu đề', 'title', 'single'),
     'fewshot_image_title': ('Few-shot · ảnh–tiêu đề', 'image_title', 'single'),
@@ -194,7 +195,29 @@ def make_handler(store, token, *, worker_only=False, web_port=8765):
 
         def respond(self, value, status=200, content_type='application/json; charset=utf-8'):
             data = json.dumps(value, ensure_ascii=False, allow_nan=False).encode() if isinstance(value, (dict, list)) else value
+            # Compress public, read-only assets only. Session/token responses stay private
+            # and uncompressed; validation, CSP and no-store semantics remain unchanged.
+            encodings = []
+            for item in self.headers.get('Accept-Encoding', '').split(','):
+                parts = item.strip().split(';')
+                try:
+                    quality = next((float(p.strip()[2:]) for p in parts[1:]
+                                    if p.strip().startswith('q=')), 1.0)
+                except ValueError:
+                    quality = 0.0
+                if parts[0].strip() == 'gzip' and quality > 0:
+                    encodings.append('gzip')
+            compressible = (self.command == 'GET' and status == 200
+                            and isinstance(value, bytes) and len(data) > 1024
+                            and not content_type.startswith('image/'))
+            compressed = compressible and 'gzip' in encodings
+            if compressed:
+                data = gzip.compress(data, compresslevel=5, mtime=0)
             self.send_response(status)
+            if compressible:
+                self.send_header('Vary', 'Accept-Encoding')
+            if compressed:
+                self.send_header('Content-Encoding', 'gzip')
             for k, v in [('Content-Type', content_type), ('Content-Length', str(len(data))),
                          ('Cache-Control', 'no-store'), ('X-Content-Type-Options', 'nosniff'),
                          ('Referrer-Policy', 'no-referrer'),
@@ -248,10 +271,13 @@ def make_handler(store, token, *, worker_only=False, web_port=8765):
                         self.respond(experiment_asset(), content_type='application/json; charset=utf-8')
                     elif path.startswith('/api/experiments/'):
                         self.respond(experiment_asset(path.split('/')[-1]), content_type='application/json; charset=utf-8')
-                    elif path in ('/', '/app.js', '/analytics.js', '/style.css'):
-                        name = 'index.html' if path == '/' else path[1:]
+                    elif path in ('/', '/app.js', '/analytics.js', '/style.css', '/simulations.js', '/simulations-stage.js', '/simulations-recipes.js', '/simulations.css', '/simulations-sample.jpg', '/favicon.svg', '/favicon.ico'):
+                        name = 'index.html' if path == '/' else 'favicon.svg' if path == '/favicon.ico' else path[1:]
                         mime = {'index.html': 'text/html', 'app.js': 'application/javascript',
-                                'analytics.js': 'application/javascript', 'style.css': 'text/css'}[name]
+                                'analytics.js': 'application/javascript', 'style.css': 'text/css',
+                                'simulations.js': 'application/javascript', 'simulations-stage.js': 'application/javascript',
+                                'simulations-recipes.js': 'application/javascript', 'simulations-sample.jpg': 'image/jpeg',
+                                'simulations.css': 'text/css', 'favicon.svg': 'image/svg+xml'}[name]
                         self.respond((assets / name).read_bytes(), content_type=mime + '; charset=utf-8')
                     else: self.respond({'error': 'Not found'}, 404)
                 elif self.command == 'POST' and not worker_only:
